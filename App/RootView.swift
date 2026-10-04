@@ -56,8 +56,11 @@ struct RootView: View {
         TabView(selection: $selectedTab) {
             switch mode {
             case .tryingToConceive:
-                CycleHomeView()
-                    .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
+                CycleTodayView(
+                    onOpenProfile: { selectedTab = .profile },
+                    onOpenCalendar: { selectedTab = .calendar }
+                )
+                .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
                 CycleCalendarView()
                     .lunaTab(L10n.tabCalendar, systemImage: "calendar", tag: .calendar)
             case .pregnant:

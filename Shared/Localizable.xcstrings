@@ -715,6 +715,23 @@
         }
       }
     },
+    "common.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay"
+          }
+        }
+      }
+    },
     "completion.done": {
       "extractionState": "manual",
       "localizations": {
@@ -1000,6 +1017,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tuần %1$ld + %2$ld ngày"
+          }
+        }
+      }
+    },
+    "cycle.comingUp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coming up"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dự đoán sắp tới"
           }
         }
       }
@@ -1293,19 +1327,53 @@
         }
       }
     },
-    "cycle.logToday": {
+    "cycle.log.lh": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Log today"
+            "value": "LH %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ghi hôm nay"
+            "value": "LH %@"
+          }
+        }
+      }
+    },
+    "cycle.log.prompt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log an LH test, temperature or mucus"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi que thử LH, nhiệt độ, dịch nhầy"
+          }
+        }
+      }
+    },
+    "cycle.log.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How are you feeling today?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay bạn thấy thế nào?"
           }
         }
       }
@@ -1374,6 +1442,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Độ tin cậy thấp — chu kỳ chưa đều"
+          }
+        }
+      }
+    },
+    "cycle.maybePregnant.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch to pregnancy mode to follow week by week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển sang chế độ thai kỳ để theo dõi từng tuần"
+          }
+        }
+      }
+    },
+    "cycle.maybePregnant.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Think you might be pregnant?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có thể bạn đang mang thai?"
           }
         }
       }
@@ -1514,6 +1616,23 @@
         }
       }
     },
+    "cycle.ovulation.confirmedNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirmed by temperature"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xác nhận qua nhiệt độ"
+          }
+        }
+      }
+    },
     "cycle.ovulation.lh": {
       "extractionState": "manual",
       "localizations": {
@@ -1527,6 +1646,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Theo que thử rụng trứng (LH) dương tính"
+          }
+        }
+      }
+    },
+    "cycle.ovulation.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovulation"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rụng trứng"
+          }
+        }
+      }
+    },
+    "cycle.phase": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %1$ld · %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày %1$ld · %2$@"
           }
         }
       }
@@ -1633,6 +1786,125 @@
         }
       }
     },
+    "cycle.ring.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày %ld"
+          }
+        }
+      }
+    },
+    "cycle.ring.end": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period ended"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh kết thúc"
+          }
+        }
+      }
+    },
+    "cycle.ring.late": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld days late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trễ %ld ngày"
+          }
+        }
+      }
+    },
+    "cycle.ring.lateOne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 day late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trễ 1 ngày"
+          }
+        }
+      }
+    },
+    "cycle.ring.start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period started"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh bắt đầu"
+          }
+        }
+      }
+    },
+    "cycle.ring.undo": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tác"
+          }
+        }
+      }
+    },
+    "cycle.ring.undo.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo period start"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tác ngày bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
     "cycle.startPeriod": {
       "extractionState": "manual",
       "localizations": {
@@ -1646,6 +1918,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hôm nay bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.stats.irregular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not regular yet"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa đều"
+          }
+        }
+      }
+    },
+    "cycle.stats.pattern": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pattern"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhịp chu kỳ"
+          }
+        }
+      }
+    },
+    "cycle.stats.regular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regular"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đều"
           }
         }
       }
@@ -1735,19 +2058,36 @@
         }
       }
     },
-    "cycle.title": {
+    "cycle.toast.ended": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your cycle"
+            "value": "Period end logged"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ của bạn"
+            "value": "Đã ghi ngày kết thúc kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.toast.started": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period start logged"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã ghi ngày bắt đầu kỳ kinh"
           }
         }
       }
@@ -4281,6 +4621,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Phiên bản"
+          }
+        }
+      }
+    },
+    "strip.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TODAY"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NAY"
           }
         }
       }

@@ -6,7 +6,7 @@ final class CycleScreenshotTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    private static let variants = [("vi", false), ("vi", true), ("en", false)]
+    private static let variants = UITestVariants.all
 
     /// The Cycle tab during a period, in the fertile window, when late, and with irregular cycles.
     @MainActor
@@ -17,13 +17,26 @@ final class CycleScreenshotTests: XCTestCase {
                 let app = XCUIApplication.launchPinned(language: language, dark: dark, seedCycles: scenario)
                 XCTAssertTrue(app.descendants(matching: .any)["cycleStatusCard"].waitForExistence(timeout: 10), name)
                 attachScreenshot(app, name)
-                if language == "vi", !dark {
-                    let logToday = app.buttons["cycleLogTodayButton"]
-                    app.scrollUntilHittable(logToday)
+                if !dark {
+                    let maybePregnant = app.buttons["cycleMaybePregnantCard"]
+                    app.scrollUntilHittable(maybePregnant)
                     attachScreenshot(app, "\(name)-bottom")
                 }
                 app.terminate()
             }
+        }
+    }
+
+    /// Spec §5: Dynamic Type AX5 — no text cut off, the ring keeps its size.
+    @MainActor
+    func testCycleTodayLargestText() {
+        for scenario in ["fertile", "late"] {
+            let app = XCUIApplication.launchPinned(language: "vi", seedCycles: scenario, largestText: true)
+            XCTAssertTrue(app.descendants(matching: .any)["cycleStatusCard"].waitForExistence(timeout: 10))
+            attachScreenshot(app, "cycle-home-\(scenario)-vi-ax5")
+            app.swipeUp()
+            attachScreenshot(app, "cycle-home-\(scenario)-vi-ax5-scrolled")
+            app.terminate()
         }
     }
 

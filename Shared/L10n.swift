@@ -192,7 +192,6 @@ enum L10n {
     static var laCompleted: String { t("la.completed") }
     static var laAdd: String { t("la.add") }
 
-    static var cycleTitle: String { t("cycle.title") }
     static var cycleEmptyTitle: String { t("cycle.empty.title") }
     static var cycleEmptyBody: String { t("cycle.empty.body") }
     static var cycleEmptyAction: String { t("cycle.empty.action") }
@@ -226,7 +225,6 @@ enum L10n {
     static var cycleLongPeriodBody: String { t("cycle.longPeriod.body") }
     static var cycleStartPeriod: String { t("cycle.startPeriod") }
     static var cycleEndPeriod: String { t("cycle.endPeriod") }
-    static var cycleLogToday: String { t("cycle.logToday") }
     static var cycleImPregnant: String { t("cycle.imPregnant") }
     static var cycleStatusLate: String { t("cycle.status.late") }
     static var imPregnantTitle: String { t("imPregnant.title") }
@@ -347,4 +345,33 @@ enum L10n {
             ? String(format: t("pregnancy.weekLabel.oneDay"), week.weeks)
             : String(format: t("pregnancy.weekLabel"), week.weeks, week.days)
     }
+
+    // MARK: - Phase 4: cycle Today
+
+    /// Today in the 7-day strip: "TODAY" / "NAY".
+    static var stripToday: String { t("strip.today") }
+    static var commonToday: String { t("common.today") }
+    static var cycleComingUp: String { t("cycle.comingUp") }
+    static var cycleOvulationTitle: String { t("cycle.ovulation.title") }
+    static var cycleOvulationConfirmedNote: String { t("cycle.ovulation.confirmedNote") }
+    static var cycleStatsPattern: String { t("cycle.stats.pattern") }
+    static var cycleStatsRegular: String { t("cycle.stats.regular") }
+    static var cycleStatsIrregular: String { t("cycle.stats.irregular") }
+    static var cycleLogTitle: String { t("cycle.log.title") }
+    static var cycleLogPrompt: String { t("cycle.log.prompt") }
+    static func cycleLogLH(_ result: String) -> String { String(format: t("cycle.log.lh"), result) }
+    static func cycleRingDay(_ day: Int) -> String { String(format: t("cycle.ring.day"), day) }
+    static func cycleRingLate(_ days: Int) -> String {
+        days == 1 ? t("cycle.ring.lateOne") : String(format: t("cycle.ring.late"), days)
+    }
+    static var cycleRingStart: String { t("cycle.ring.start") }
+    static var cycleRingEnd: String { t("cycle.ring.end") }
+    static var cycleRingUndo: String { t("cycle.ring.undo") }
+    static var cycleRingUndoA11y: String { t("cycle.ring.undo.a11y") }
+    static var cycleToastPeriodStarted: String { t("cycle.toast.started") }
+    static var cycleToastPeriodEnded: String { t("cycle.toast.ended") }
+    /// "Day 12 · High chance of conceiving".
+    static func cyclePhase(_ day: Int, _ status: String) -> String { String(format: t("cycle.phase"), day, status) }
+    static var cycleMaybePregnantTitle: String { t("cycle.maybePregnant.title") }
+    static var cycleMaybePregnantBody: String { t("cycle.maybePregnant.body") }
 }
