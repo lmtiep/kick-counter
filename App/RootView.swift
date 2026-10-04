@@ -87,6 +87,8 @@ struct RootView: View {
         await appointments.updateReminderText(ReminderTexts.appointment)
         let defaults = AppGroup.defaults
         guard defaults.bool(forKey: SettingsKey.reminderEnabled) else { return }
+        // setDailyReminder may prompt; a language change never should.
+        guard await coordinator.notificationsAuthorized() else { return }
         _ = await coordinator.setDailyReminder(
             enabled: true,
             hour: defaults.object(forKey: SettingsKey.reminderHour) as? Int ?? SettingsDefault.reminderHour,

@@ -155,7 +155,7 @@ public final class AppointmentCoordinator {
     /// again with the new text. Never prompts for permission.
     public func updateReminderText(_ text: NotificationText) async {
         reminderText = text
-        await performLoad()
+        await load()
     }
 
     /// Brings one appointment's reminder in line with the store. `generation`

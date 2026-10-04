@@ -6,11 +6,24 @@ import KickCore
 /// shared with the widget through the App Group), so a change applies at once.
 enum L10n {
     private static func t(_ key: String) -> String {
-        AppLanguage.current
-            .localizationBundle(in: .main, preferredLanguages: Locale.preferredLanguages)
-            .localizedString(forKey: key, value: nil, table: nil)
+        bundle().localizedString(forKey: key, value: nil, table: nil)
     }
 
+    private static let lock = NSLock()
+    /// Resolved `.lproj` bundles by language code, so a lookup does not hit the file system.
+    nonisolated(unsafe) private static var bundles: [String: Bundle] = [:]
+
+    private static func bundle() -> Bundle {
+        let choice = AppLanguage.current
+        let preferred = Locale.preferredLanguages
+        let language = choice.resolved(preferredLanguages: preferred).rawValue
+        lock.lock()
+        defer { lock.unlock() }
+        if let cached = bundles[language] { return cached }
+        let bundle = choice.localizationBundle(in: .main, preferredLanguages: preferred)
+        bundles[language] = bundle
+        return bundle
+    }
 
     static var pregnancyTitle: String { t("pregnancy.title") }
     static var pregnancyEmptyTitle: String { t("pregnancy.empty.title") }
@@ -191,7 +204,6 @@ enum L10n {
     static var laOverdue: String { t("la.overdue") }
     static var laCompleted: String { t("la.completed") }
     static var laAdd: String { t("la.add") }
-
 
     static var cycleTitle: String { t("cycle.title") }
     static var cycleEmptyTitle: String { t("cycle.empty.title") }
