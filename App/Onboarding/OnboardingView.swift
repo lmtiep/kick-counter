@@ -178,7 +178,8 @@ struct OnboardingView: View {
                 SegmentedOption(value: ContentLanguage.vi, title: L10n.languageVietnamese, identifier: "onboardingLanguageVi"),
                 SegmentedOption(value: ContentLanguage.en, title: L10n.languageEnglish, identifier: "onboardingLanguageEn"),
             ], selection: languageBinding, capsule: true)
-            .fixedSize()
+            // Hugs its segments but never grows past the screen at large text sizes.
+            .fixedSize(horizontal: false, vertical: true)
             .padding(.top, 4)
         }
     }
