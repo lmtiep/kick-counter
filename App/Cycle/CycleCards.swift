@@ -74,6 +74,9 @@ struct CycleRingView<Center: View>: View {
             .accessibilityHidden(true)
             center
                 .frame(width: diameter - 2 * thickness - 12)
+                // The ring keeps its 264 pt at every text size; past xxxLarge the
+                // label and button would be cut off inside it.
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
         }
         .frame(width: diameter, height: diameter)
     }
@@ -138,6 +141,8 @@ struct CycleWeekStrip: View {
         }
         .padding(.horizontal, 10)
         .padding(.top, 8)
+        // Seven fixed 40 pt days: larger weekday names would overlap.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 }
 

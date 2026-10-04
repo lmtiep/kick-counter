@@ -242,7 +242,7 @@ struct CycleTodayView: View {
                     Text(CycleTexts.logSummary(cycle.log(on: today)) ?? L10n.cycleLogPrompt)
                         .font(.luna(.caption))
                         .foregroundStyle(.luna(.textSecondary))
-                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 Image(systemName: "chevron.right")
