@@ -25,7 +25,7 @@ private struct ToastModifier: ViewModifier {
                         .accessibilityIdentifier("toast")
                         .task(id: message) {
                             AccessibilityNotification.Announcement(message).post()
-                            try? await Task.sleep(for: .seconds(1.9))
+                            try? await Task.sleep(for: toastLifetime)
                             guard !Task.isCancelled else { return }
                             self.message = nil
                         }
@@ -33,6 +33,12 @@ private struct ToastModifier: ViewModifier {
             }
             .animation(.easeOut(duration: 0.2), value: message)
     }
+}
+
+/// 1.9 s on screen; longer under UI tests, which only query the screen
+/// about 2 s after a tap and would otherwise miss the toast.
+private var toastLifetime: Duration {
+    AppClock.launchOptions.isUITesting ? .seconds(6) : .seconds(1.9)
 }
 
 extension View {
