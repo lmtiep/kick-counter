@@ -11,6 +11,8 @@ struct ChipScroller<Value: Hashable>: View {
     var selectedFill: LunaToken = .card
     var selectedText: LunaToken = .textPrimary
     var idleText: LunaToken = .pregOnSoft
+    // Not private: a private stored property would make the memberwise init private.
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     var body: some View {
         ScrollViewReader { proxy in
@@ -41,7 +43,7 @@ struct ChipScroller<Value: Hashable>: View {
             }
             .onAppear { proxy.scrollTo(selection, anchor: .center) }
             .onChange(of: selection) { _, value in
-                withAnimation(.easeOut(duration: 0.25)) { proxy.scrollTo(value, anchor: .center) }
+                withAnimation(reduceMotion || !LunaMotion.isEnabled ? nil : .easeOut(duration: 0.25)) { proxy.scrollTo(value, anchor: .center) }
             }
         }
     }

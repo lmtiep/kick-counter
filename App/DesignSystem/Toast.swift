@@ -21,7 +21,7 @@ private struct ToastModifier: ViewModifier {
                         .shadow(color: .black.opacity(0.2), radius: 10, y: 8)
                         .padding(.top, 10)
                         .padding(.horizontal, 20)
-                        .transition(reduceMotion ? .opacity : .move(edge: .top).combined(with: .opacity))
+                        .transition(reduceMotion || !LunaMotion.isEnabled ? .opacity : .move(edge: .top).combined(with: .opacity))
                         .accessibilityIdentifier("toast")
                         .task(id: message) {
                             AccessibilityNotification.Announcement(message).post()

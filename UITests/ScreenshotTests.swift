@@ -89,6 +89,23 @@ final class ScreenshotTests: XCTestCase {
         snap(app, "counter-2-en")
     }
 
+    /// The largest accessibility text size: tab labels stay 11 pt and the
+    /// navigation title is capped (LunaAppearance), so neither is clipped.
+    @MainActor
+    func testCounterAtAccessibilityTextSize() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-uiTesting", "-skipOnboarding",
+            "-AppleLanguages", "(vi)",
+            "-AppleLocale", "vi_VN",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
+        ]
+        app.launch()
+        app.openTab(.counter)
+        XCTAssertTrue(app.buttons["kickButton"].waitForExistence(timeout: 10))
+        snap(app, "ax5-counter-vi-light")
+    }
+
     @MainActor
     func testOnboardingAndSettingsScreens() {
         let app = XCUIApplication()

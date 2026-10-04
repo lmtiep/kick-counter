@@ -12,7 +12,8 @@ enum LunaAppearance {
             assert(UIFont(name: weight.rawValue, size: 12) != nil, "Missing font \(weight.rawValue)")
         }
         #endif
-        let tabFont = UIFont.luna(size: 11, weight: .semibold, textStyle: .caption2)
+        // Fixed 11 pt: the tab bar has a fixed height, so its labels must not scale.
+        let tabFont = UIFont.lunaFixed(size: 11, weight: .semibold)
         UITabBarItem.appearance().setTitleTextAttributes([.font: tabFont], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([.font: tabFont], for: .selected)
         // #A89890 fails AA on the tab bar (ContrastTests): inactive tabs use textSecondary.
@@ -27,15 +28,15 @@ enum LunaAppearance {
             item.selected.titleTextAttributes = [.font: tabFont]
         }
         UITabBar.appearance().standardAppearance = tabBar
-        UITabBar.appearance().scrollEdgeAppearance = tabBar
+        // scrollEdgeAppearance stays unset so iOS 17/18 keeps the transparent scroll-edge bar.
 
         let navigation = UINavigationBar.appearance()
         navigation.titleTextAttributes = [
-            .font: UIFont.luna(size: 17, weight: .semibold, textStyle: .headline),
+            .font: UIFont.luna(size: 17, weight: .semibold, textStyle: .headline, maximumPointSize: 22),
             .foregroundColor: UIColor.luna(.textPrimary),
         ]
         navigation.largeTitleTextAttributes = [
-            .font: UIFont.luna(size: 28, weight: .bold, textStyle: .largeTitle),
+            .font: UIFont.luna(size: 28, weight: .bold, textStyle: .largeTitle, maximumPointSize: 40),
             .foregroundColor: UIColor.luna(.textPrimary),
         ]
 

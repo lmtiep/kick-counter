@@ -104,11 +104,26 @@ extension Font {
 }
 
 extension UIFont {
-    /// Be Vietnam Pro for UIKit appearances (tab bar, navigation bar), scaled
-    /// with Dynamic Type like `textStyle`.
-    static func luna(size: CGFloat, weight: LunaWeight, textStyle: UIFont.TextStyle) -> UIFont {
-        let base = UIFont(name: weight.rawValue, size: size) ?? .systemFont(ofSize: size)
-        return UIFontMetrics(forTextStyle: textStyle).scaledFont(for: base)
+    /// Be Vietnam Pro for UIKit appearances (navigation bar, segmented control),
+    /// scaled with Dynamic Type like `textStyle`, up to `maximumPointSize` when given.
+    static func luna(
+        size: CGFloat,
+        weight: LunaWeight,
+        textStyle: UIFont.TextStyle,
+        maximumPointSize: CGFloat? = nil
+    ) -> UIFont {
+        let base = lunaFixed(size: size, weight: weight)
+        let metrics = UIFontMetrics(forTextStyle: textStyle)
+        if let maximumPointSize {
+            return metrics.scaledFont(for: base, maximumPointSize: maximumPointSize)
+        }
+        return metrics.scaledFont(for: base)
+    }
+
+    /// Be Vietnam Pro at a fixed size (tab bar labels, which UIKit lays out in a
+    /// fixed-height bar and must not grow with Dynamic Type).
+    static func lunaFixed(size: CGFloat, weight: LunaWeight) -> UIFont {
+        UIFont(name: weight.rawValue, size: size) ?? .systemFont(ofSize: size)
     }
 }
 
