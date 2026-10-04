@@ -45,7 +45,7 @@ if [[ "$XCODE_ACTION" == "test" ]]; then
   echo "==> Exporting screenshots"
   xcrun xcresulttool export attachments --path build/KickCounter.xcresult --output-path build/screenshots || true
   python3 - <<'PY'
-import json, os
+import json, os, re
 d = "build/screenshots"
 manifest = os.path.join(d, "manifest.json")
 if os.path.exists(manifest):
@@ -53,6 +53,8 @@ if os.path.exists(manifest):
         for a in test.get("attachments", []):
             src = os.path.join(d, a["exportedFileName"])
             name = a.get("suggestedHumanReadableName") or a["exportedFileName"]
+            # upload-artifact rejects " : < > | * ? \r \n (e.g. failure debug descriptions).
+            name = re.sub(r'[":<>|*?\r\n]', "_", name)
             if os.path.exists(src):
                 os.rename(src, os.path.join(d, name))
 PY

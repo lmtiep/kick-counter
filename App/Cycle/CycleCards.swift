@@ -52,20 +52,35 @@ enum CycleTexts {
 /// The 264 pt cycle ring (spec §4.2, README §2): coloured stretches from
 /// `CycleRingGeometry`, today's marker, and the centre content on top.
 /// The ring itself is decorative; the centre says the same in words.
+///
+/// Fertile (`fertile`) and ovulation (`teal`) are only 2.3:1 apart in light mode
+/// and 1.2:1 in dark, so colour is not the only cue: segments are separated by
+/// 2 pt gaps and the ovulation days are drawn thicker (20 pt vs 14 pt), matching
+/// the ringed ovulation dot in "Coming up".
 struct CycleRingView<Center: View>: View {
     let forecast: CycleForecast
     @ViewBuilder var center: Center
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     private let diameter: CGFloat = 264
     private let thickness: CGFloat = 14
+    private let ovulationThickness: CGFloat = 20
+    private let gap: CGFloat = 2
 
     var body: some View {
         ZStack {
             ZStack {
-                ForEach(Array(CycleRingGeometry.segments(for: forecast).enumerated()), id: \.offset) { _, segment in
+                let segments = CycleRingGeometry.segments(for: forecast)
+                // Half the gap, as a fraction of the ring's centre line.
+                let inset = segments.count > 1 ? Double(gap / (.pi * (diameter - thickness))) / 2 : 0
+                ForEach(Array(segments.enumerated()), id: \.offset) { _, segment in
                     Circle()
-                        .trim(from: segment.start, to: segment.end)
-                        .stroke(color(segment.kind), style: StrokeStyle(lineWidth: thickness, lineCap: .butt))
+                        .trim(from: segment.start + inset, to: segment.end - inset)
+                        .stroke(
+                            color(segment.kind),
+                            style: StrokeStyle(lineWidth: segment.kind == .ovulation ? ovulationThickness : thickness, lineCap: .butt)
+                        )
                         .rotationEffect(.degrees(-90))
                         .padding(thickness / 2)
                 }
@@ -73,7 +88,9 @@ struct CycleRingView<Center: View>: View {
             }
             .accessibilityHidden(true)
             center
-                .frame(width: diameter - 2 * thickness - 12)
+                // At accessibility sizes a narrower column keeps the label and
+                // the button clear of the arc.
+                .frame(width: dynamicTypeSize.isAccessibilitySize ? diameter * 0.7 : diameter - 2 * thickness - 12)
                 // The ring keeps its 264 pt at every text size; past xxxLarge the
                 // label and button would be cut off inside it.
                 .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
@@ -112,7 +129,7 @@ struct CycleWeekStrip: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(WeekStrip.days(endingAt: today)) { day in
+            ForEach(WeekStrip.days(endingAt: today, calendar: AppLocale.calendar)) { day in
                 let status = forecast?.dayStatus(for: day.date)
                 Button {
                     onSelect(day.date)
@@ -187,7 +204,7 @@ struct ComingUpCard: View {
     private var fertileRows: some View {
         VStack(alignment: .leading, spacing: 10) {
             row(dot: .fertile, title: L10n.cycleFertileTitle, value: CycleTexts.fertileRange(forecast, format: Formatting.shortDay))
-            row(dot: .teal, title: L10n.cycleOvulationTitle, value: Formatting.shortDay(forecast.ovulationDate))
+            row(dot: .teal, ringed: true, title: L10n.cycleOvulationTitle, value: Formatting.shortDay(forecast.ovulationDate))
             if forecast.ovulationConfirmed {
                 note(L10n.cycleOvulationConfirmedNote, color: .tealStrong)
             } else if forecast.ovulationSource == .lhTest {
@@ -213,9 +230,16 @@ struct ComingUpCard: View {
         return parts.joined(separator: ". ")
     }
 
-    private func row(dot: LunaToken, title: String, value: String) -> some View {
+    private func row(dot: LunaToken, ringed: Bool = false, title: String, value: String) -> some View {
         HStack(spacing: 12) {
+            // Ovulation: a dot with a ring around it, like its thicker stretch on
+            // the cycle ring (its colour alone is too close to the fertile one).
             Circle().fill(.luna(dot)).frame(width: 10, height: 10)
+                .padding(ringed ? 3 : 0)
+                .overlay {
+                    if ringed { Circle().strokeBorder(.luna(dot), lineWidth: 1.5) }
+                }
+                .frame(width: 16, height: 16)
             Text(title)
                 .font(.luna(.body))
                 .foregroundStyle(.luna(.textPrimary))
