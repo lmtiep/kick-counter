@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./image-slot.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EAE3DC;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#2B201C;-webkit-font-smoothing:antialiased}
+a{color:#B8572F}a:hover{color:#8E3F1F}
+*::-webkit-scrollbar{display:none}
+button{font-family:inherit}
+@keyframes rip{from{transform:scale(1);opacity:.6}to{transform:scale(1.35);opacity:0}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes mamReveal{from{clip-path:circle(0% at 105% 38%)}to{clip-path:circle(150% at 105% 38%)}}
+@keyframes mamKen{from{transform:scale(1.18) translateX(6%)}to{transform:none}}
+@keyframes mamRise{from{transform:translateY(70px)}to{transform:none}}
+@keyframes mamDrift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mamUp{from{transform:translateY(28px);opacity:0}to{transform:none;opacity:1}}
+@keyframes mamFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;gap:56px;padding:40px 24px;box-sizing:border-box;flex-wrap:wrap">
+
+<div style="width:220px;display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div style="font-size:28px;font-weight:700;letter-spacing:-.02em">Mầm</div>
+    <div style="font-size:13px;line-height:1.5;color:#7A6B64;text-wrap:pretty">Prototype theo dõi chu kỳ → thai kỳ → đếm cử động. Chạm trực tiếp trong điện thoại, hoặc nhảy tới màn hình bên dưới.</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#C2384F">CHU KỲ</div>
+    <sc-for list="{{ jumpsP }}" as="j" hint-placeholder-count="4">
+      <button onClick="{{ j.go }}" style="text-align:left;border:0;background:rgba(255,255,255,.6);padding:8px 12px;border-radius:10px;font-size:13px;color:#2B201C;cursor:pointer" style-hover="background:#fff">{{ j.label }}</button>
+    </sc-for>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#B8572F">THAI KỲ</div>
+    <sc-for list="{{ jumpsG }}" as="j" hint-placeholder-count="6">
+      <button onClick="{{ j.go }}" style="text-align:left;border:0;background:rgba(255,255,255,.6);padding:8px 12px;border-radius:10px;font-size:13px;color:#2B201C;cursor:pointer" style-hover="background:#fff">{{ j.label }}</button>
+    </sc-for>
+  </div>
+</div>
+
+<div style="width:410px;height:864px;flex:none;border-radius:62px;background:#1D1714;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px -20px rgba(60,30,15,.35)">
+<div style="position:relative;width:390px;height:844px;border-radius:52px;overflow:hidden;background:#FBF6F1">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;box-sizing:border-box;font-size:15px;font-weight:600;z-index:80;pointer-events:none">
+    <span>9:41</span>
+    <div style="position:absolute;left:50%;top:11px;transform:translateX(-50%);width:118px;height:34px;border-radius:20px;background:#000"></div>
+    <div style="display:flex;gap:6px;align-items:center"><div style="width:17px;height:11px;border-radius:2px;background:#2B201C"></div><div style="width:24px;height:12px;border-radius:4px;border:1.5px solid #2B201C;box-sizing:border-box;padding:1.5px"><div style="width:70%;height:100%;background:#2B201C;border-radius:1.5px"></div></div></div>
+  </div>
+
+  <div ref="{{ scrollRef }}" style="position:absolute;top:50px;left:0;right:0;bottom:82px;overflow-y:auto">
+
+    <sc-if value="{{ showHeader }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 20px 4px">
+        <div onClick="{{ goMe }}" style="width:38px;height:38px;border-radius:50%;background:#F2C9B5;display:grid;place-items:center;font-weight:700;color:#8A3F1F;cursor:pointer">L</div>
+        <div style="font-weight:600;font-size:16px">{{ todayLabel }}</div>
+        <div onClick="{{ headerRight }}" style="width:38px;height:38px;display:grid;place-items:center;cursor:pointer"><div style="width:20px;height:19px;border:2px solid #2B201C;border-top-width:5px;border-radius:5px;box-sizing:border-box"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);padding:8px 10px 0;text-align:center">
+        <sc-for list="{{ strip }}" as="d" hint-placeholder-count="7">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <div style="font-size:11px;font-weight:600;color:#9A8A82;letter-spacing:.04em">{{ d.wd }}</div>
+            <div style="width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:16px;box-sizing:border-box;font-weight:{{ d.weight }};background:{{ d.bg }};color:{{ d.fg }};border:{{ d.border }};box-shadow:{{ d.shadow }}">{{ d.num }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPeriodHome }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;justify-content:center;padding:22px 0 10px">
+        <div style="position:relative;width:264px;height:264px;border-radius:50%;background:{{ ringBg }}">
+          <div style="position:absolute;inset:14px;border-radius:50%;background:#FBF6F1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px">
+            <div style="font-size:12px;font-weight:600;color:#9A8A82;text-transform:uppercase;letter-spacing:.1em">{{ ringTop }}</div>
+            <div style="font-size:52px;font-weight:700;line-height:1.05;color:#C2384F;letter-spacing:-.03em">{{ ringBig }}</div>
+            <div style="font-size:14px;color:#7A6B64">{{ ringSub }}</div>
+            <button onClick="{{ togglePeriod }}" style="margin-top:12px;border:0;background:#E0566B;color:#fff;font-size:14px;font-weight:600;padding:11px 20px;border-radius:99px;cursor:pointer" style-active="transform:scale(.97)">{{ periodBtn }}</button>
+          </div>
+          <div style="position:absolute;left:{{ markerX }}px;top:{{ markerY }}px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #2B201C;box-sizing:border-box"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center">
+        <div style="padding:8px 14px;border-radius:99px;background:{{ phaseBg }};color:{{ phaseFg }};font-size:13px;font-weight:600">{{ phaseLine }}</div>
+      </div>
+      <div onClick="{{ openLog }}" style="margin:22px 20px 0;padding:16px 18px;background:#fff;border-radius:20px;display:flex;align-items:center;gap:14px;cursor:pointer">
+        <div style="width:44px;height:44px;flex:none;border-radius:50%;background:#FBE3E6;color:#C2384F;display:grid;place-items:center;font-size:26px">+</div>
+        <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:15px">{{ t.logTitle }}</div><div style="font-size:13px;color:#7A6B64;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ logSummary }}</div></div>
+        <div style="color:#B5A69E;font-size:22px">›</div>
+      </div>
+      <div style="margin:12px 20px 0;padding:18px;background:#fff;border-radius:20px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-weight:600;font-size:15px">{{ t.upcoming }}</div>
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:10px;height:10px;border-radius:50%;background:#E0566B"></div><div style="flex:1;font-size:14px">{{ t.nextPeriodL }}</div><div style="font-size:14px;font-weight:600">{{ nextPeriod }}</div></div>
+        <div style="display:flex;align-items:center;gap:12px"><div style="width:10px;height:10px;border-radius:50%;background:#3E9C94"></div><div style="flex:1;font-size:14px">{{ t.nextOvL }}</div><div style="font-size:14px;font-weight:600">{{ nextOv }}</div></div>
+        <div style="height:1px;background:rgba(43,32,28,.07)"></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <div><div style="font-size:19px;font-weight:700">{{ cycleLenTxt }}</div><div style="font-size:12px;color:#7A6B64">{{ t.cycleLen }}</div></div>
+          <div><div style="font-size:19px;font-weight:700">{{ periodLenTxt }}</div><div style="font-size:12px;color:#7A6B64">{{ t.periodLenL }}</div></div>
+          <div><div style="font-size:19px;font-weight:700">{{ t.regular }}</div><div style="font-size:12px;color:#7A6B64">{{ t.last6 }}</div></div>
+        </div>
+      </div>
+      <div onClick="{{ openSwitch }}" style="margin:12px 20px 0;padding:16px 18px;background:#F7E3D7;border-radius:20px;display:flex;align-items:center;gap:14px;cursor:pointer">
+        <div style="width:44px;height:44px;flex:none;border-radius:50%;background:#C9673E;display:grid;place-items:center"><div style="width:16px;height:16px;border-radius:50%;background:#fff"></div></div>
+        <div style="flex:1"><div style="font-weight:600;font-size:15px;color:#7E3618">{{ t.maybePreg }}</div><div style="font-size:13px;color:#8E5a43;margin-top:2px">{{ t.maybePregSub }}</div></div>
+        <div style="color:#B8572F;font-size:22px">›</div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:26px 20px 10px"><div style="font-size:18px;font-weight:700">{{ t.forYou }}</div><div onClick="{{ goLearn }}" style="font-size:13px;font-weight:600;color:#C2384F;cursor:pointer">{{ t.seeAll }}</div></div>
+      <div style="display:flex;gap:12px;overflow-x:auto;padding:0 20px 24px">
+        <sc-for list="{{ homeArticles }}" as="a" hint-placeholder-count="2">
+          <div onClick="{{ a.open }}" style="flex:none;width:200px;background:#fff;border-radius:18px;overflow:hidden;cursor:pointer">
+            <div style="height:110px;background:repeating-linear-gradient(135deg,#F6E3E3 0 8px,#FBEFEF 8px 16px);display:grid;place-items:center;font:500 10px ui-monospace,Menlo,monospace;color:#A88">ảnh minh hoạ</div>
+            <div style="padding:12px 14px 14px"><div style="font-size:14px;font-weight:600;line-height:1.35">{{ a.title }}</div><div style="font-size:12px;color:#7A6B64;margin-top:6px">{{ a.meta }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCal }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:10px 20px 0;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:28px;font-weight:700;letter-spacing:-.02em">{{ t.calTitle }}</div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <button onClick="{{ prevMonth }}" style="width:34px;height:34px;border:0;border-radius:50%;background:#fff;font-size:18px;cursor:pointer">‹</button>
+          <div style="font-size:14px;font-weight:600;min-width:110px;text-align:center">{{ monthLabel }}</div>
+          <button onClick="{{ nextMonth }}" style="width:34px;height:34px;border:0;border-radius:50%;background:#fff;font-size:18px;cursor:pointer">›</button>
+        </div>
+      </div>
+      <div style="margin:18px 14px 0;padding:14px 8px;background:#fff;border-radius:22px">
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:600;color:#9A8A82;padding-bottom:8px">
+          <sc-for list="{{ wdHead }}" as="w" hint-placeholder-count="7"><div>{{ w }}</div></sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:4px">
+          <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35">
+            <div onClick="{{ c.onClick }}" style="height:44px;display:grid;place-items:center;cursor:pointer;visibility:{{ c.vis }}">
+              <div style="width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:15px;box-sizing:border-box;background:{{ c.bg }};color:{{ c.fg }};border:{{ c.border }};box-shadow:{{ c.shadow }};font-weight:{{ c.weight }}">{{ c.num }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 16px;padding:14px 22px 0;font-size:12px;color:#7A6B64">
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:50%;background:#E0566B"></div>{{ t.legPeriod }}</div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:50%;border:1.5px dashed #E0566B;box-sizing:border-box"></div>{{ t.legPred }}</div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:50%;background:#E3F2F0"></div>{{ t.legFertile }}</div>
+        <div style="display:flex;align-items:center;gap:6px"><div style="width:12px;height:12px;border-radius:50%;background:#CBEAE6;border:1.5px solid #2F8C84;box-sizing:border-box"></div>{{ t.legOv }}</div>
+      </div>
+      <div style="margin:16px 20px 24px;padding:16px 18px;background:#fff;border-radius:20px;display:flex;align-items:center;gap:14px">
+        <div style="flex:1"><div style="font-size:13px;color:#7A6B64">{{ selLabel }}</div><div style="font-size:16px;font-weight:600;margin-top:2px">{{ selLine }}</div></div>
+        <button onClick="{{ openLog }}" style="border:0;background:#FBE3E6;color:#C2384F;font-weight:600;font-size:13px;padding:9px 14px;border-radius:99px;cursor:pointer">{{ t.addNote }}</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPregHome }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ openWeekCur }}" style="margin:16px auto 0;width:270px;height:270px;border-radius:50%;background:radial-gradient(circle,#FCEBDD 0%,#F6D7C2 60%,#FBF6F1 71%);display:grid;place-items:center;cursor:pointer">
+        <img src="assets/fetus.png" alt="" style="height:230px;width:auto;display:block;filter:drop-shadow(0 10px 18px rgba(140,60,25,.18));animation:mamFloat 5s ease-in-out infinite">
+      </div>
+      <div style="text-align:center;padding-top:12px">
+        <div style="font-size:32px;font-weight:700;color:#B8572F;letter-spacing:-.02em">{{ pregLabel }}</div>
+        <div style="font-size:14px;color:#7A6B64;margin-top:4px">{{ pregSub }}</div>
+      </div>
+      <div style="margin:16px 28px 0;position:relative;height:8px;border-radius:99px;background:#F1E2D8">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:{{ pregPct }}%;border-radius:99px;background:#C9673E"></div>
+        <div style="position:absolute;left:32.5%;top:-3px;width:3px;height:14px;background:#FBF6F1"></div>
+        <div style="position:absolute;left:67.5%;top:-3px;width:3px;height:14px;background:#FBF6F1"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);padding:22px 10px 0;text-align:center">
+        <div onClick="{{ goKicks }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
+          <div style="width:58px;height:58px;border-radius:50%;background:#C9673E;display:grid;place-items:center"><div style="width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.3)"></div></div>
+          <div style="font-size:12px;font-weight:500">{{ t.qaKicks }}</div>
+        </div>
+        <div onClick="{{ openLog }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
+          <div style="width:58px;height:58px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:28px;font-weight:300">+</div>
+          <div style="font-size:12px;font-weight:500">{{ t.qaSym }}</div>
+        </div>
+        <div onClick="{{ goWeight }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
+          <div style="width:58px;height:58px;border-radius:50%;background:#fff;display:grid;place-items:center"><div style="width:22px;height:20px;border:2px solid #2B201C;border-radius:6px;box-sizing:border-box;display:flex;justify-content:center;padding-top:3px"><div style="width:6px;height:3px;border-radius:2px;background:#2B201C"></div></div></div>
+          <div style="font-size:12px;font-weight:500">{{ t.qaWeight }}</div>
+        </div>
+        <div onClick="{{ openWeekCur }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer">
+          <div style="width:58px;height:58px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:15px;font-weight:700">{{ week }}</div>
+          <div style="font-size:12px;font-weight:500">{{ t.qaWeek }}</div>
+        </div>
+      </div>
+      <div onClick="{{ goKicks }}" style="margin:24px 20px 0;padding:16px 18px;background:#fff;border-radius:20px;display:flex;align-items:center;gap:14px;cursor:pointer">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px;font-weight:600;color:#B8572F;letter-spacing:.06em;text-transform:uppercase">{{ t.kickTodayL }}</div>
+          <div style="font-size:16px;font-weight:600;margin-top:4px">{{ kickToday }}</div>
+          <div style="font-size:13px;color:#7A6B64;margin-top:2px">{{ kickTodaySub }}</div>
+        </div>
+        <div style="padding:9px 14px;border-radius:99px;background:#F7E3D7;color:#9C4823;font-size:13px;font-weight:600;white-space:nowrap">{{ kickCta }}</div>
+      </div>
+      <div onClick="{{ openWeekCur }}" style="margin:12px 20px 0;padding:14px;background:#fff;border-radius:20px;display:flex;gap:14px;align-items:center;cursor:pointer">
+        <div style="width:84px;height:84px;flex:none;border-radius:14px;background:repeating-linear-gradient(135deg,#EEF0DD 0 8px,#F6F7EC 8px 16px);display:grid;place-items:center;text-align:center;font:500 10px/1.4 ui-monospace,Menlo,monospace;color:#8A8F6A;padding:6px;box-sizing:border-box">{{ fruitPh }}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:16px;font-weight:600;line-height:1.3">{{ sizeLine }}</div>
+          <div style="display:flex;gap:18px;margin-top:8px">
+            <div><div style="font-size:12px;color:#7A6B64">{{ t.lenL }}</div><div style="font-weight:600">{{ sizeLen }}</div></div>
+            <div><div style="font-size:12px;color:#7A6B64">{{ t.wL }}</div><div style="font-weight:600">{{ sizeW }}</div></div>
+          </div>
+        </div>
+        <div style="color:#B5A69E;font-size:22px">›</div>
+      </div>
+      <div onClick="{{ goWeight }}" style="margin:12px 20px 24px;padding:16px 18px;background:#fff;border-radius:20px;display:flex;align-items:center;gap:14px;cursor:pointer">
+        <div style="flex:1"><div style="font-size:12px;font-weight:600;color:#7A6B64;letter-spacing:.06em;text-transform:uppercase">{{ t.weightCardL }}</div><div style="font-size:16px;font-weight:600;margin-top:4px">{{ weightLine }}</div></div>
+        <div style="padding:6px 10px;border-radius:99px;background:{{ wStatusBg }};color:{{ wStatusFg }};font-size:12px;font-weight:600">{{ wStatus }}</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isKicks }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:10px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+        <div><div style="font-size:28px;font-weight:700;letter-spacing:-.02em">{{ t.kicksTitle }}</div><div style="font-size:13px;color:#7A6B64;margin-top:2px">{{ kicksSub }}</div></div>
+        <button onClick="{{ openKs }}" style="margin-top:6px;border:0;background:#fff;font-size:13px;font-weight:600;padding:8px 12px;border-radius:99px;cursor:pointer;color:#2B201C">{{ t.settings }}</button>
+      </div>
+      <div style="display:flex;gap:8px;padding:12px 20px 0;flex-wrap:wrap">
+        <div onClick="{{ openKs }}" style="font-size:12px;font-weight:600;padding:6px 10px;border-radius:99px;background:#F1E7DF;color:#7A6B64;cursor:pointer">{{ remPill }}</div>
+        <sc-if value="{{ mergeOn }}" hint-placeholder-val="{{ false }}"><div onClick="{{ openKs }}" style="font-size:12px;font-weight:600;padding:6px 10px;border-radius:99px;background:#F1E7DF;color:#7A6B64;cursor:pointer">{{ t.mergePill }}</div></sc-if>
+      </div>
+      <div style="display:flex;justify-content:center;padding:18px 0 8px">
+        <div onClick="{{ kickTap }}" style="position:relative;width:268px;height:268px;border-radius:50%;cursor:pointer;user-select:none;-webkit-user-select:none;background:#F7E3D7">
+          <sc-for list="{{ dots }}" as="d" hint-placeholder-count="10">
+            <div style="position:absolute;left:{{ d.x }}px;top:{{ d.y }}px;width:14px;height:14px;border-radius:50%;background:{{ d.bg }};transition:background .25s"></div>
+          </sc-for>
+          <div style="position:absolute;inset:30px;border-radius:50%;background:{{ coreBg }};color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transition:transform .12s,background .3s;box-shadow:0 14px 30px -12px rgba(160,70,30,.55)" style-active="transform:scale(.95)">
+            {{ ripple }}
+            <sc-if value="{{ kIdle }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:22px;font-weight:700">{{ t.startL }}</div>
+              <div style="font-size:13px;opacity:.9;margin-top:4px;max-width:150px;line-height:1.4">{{ t.startSub }}</div>
+            </sc-if>
+            <sc-if value="{{ kRun }}" hint-placeholder-val="{{ false }}">
+              {{ countEl }}
+              <div style="font-size:14px;opacity:.9">{{ countSub }}</div>
+              <div style="margin-top:10px;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.18)">{{ timerLabel }}</div>
+            </sc-if>
+            <sc-if value="{{ kDone }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px;font-weight:600;opacity:.9;letter-spacing:.08em;text-transform:uppercase">{{ t.doneL }}</div>
+              <div style="font-size:60px;font-weight:700;line-height:1.05">{{ kCount }}</div>
+              <div style="font-size:14px;opacity:.9">{{ doneDur }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ kRun }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;font-size:13px;color:#7A6B64;padding:0 40px">{{ t.tapHint }}</div>
+        <div style="display:flex;gap:10px;justify-content:center;padding:14px 20px 0">
+          <button onClick="{{ undoKick }}" style="border:0;background:#fff;color:#2B201C;font-weight:600;font-size:14px;padding:12px 22px;border-radius:99px;cursor:pointer">{{ t.undo }}</button>
+          <button onClick="{{ endSess }}" style="border:0;background:#2B201C;color:#fff;font-weight:600;font-size:14px;padding:12px 22px;border-radius:99px;cursor:pointer">{{ t.end }}</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:14px 30px 0">
+          <sc-for list="{{ kickTimes }}" as="k" hint-placeholder-count="0"><div style="font-size:12px;padding:4px 9px;border-radius:99px;background:#F1E7DF;color:#7A6B64;font-variant-numeric:tabular-nums">{{ k }}</div></sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showWarn }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:16px 20px 0;padding:16px;border-radius:18px;background:#FDE8E4;border:1px solid #F3C2B8;display:flex;flex-direction:column;gap:10px">
+          <div style="font-weight:700;font-size:15px;color:#A3301F">{{ t.warnTitle }}</div>
+          <div style="font-size:13px;line-height:1.5;color:#6B3A30">{{ t.warnBody }}</div>
+          <button onClick="{{ callDoc }}" style="align-self:flex-start;border:0;background:#C23A26;color:#fff;font-weight:600;font-size:14px;padding:10px 18px;border-radius:99px;cursor:pointer">{{ t.callDoc }}</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ kDone }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:8px 20px 0;padding:16px 18px;background:#fff;border-radius:20px;display:flex;align-items:center;gap:12px">
+          <div style="flex:1;font-size:14px;line-height:1.45">{{ doneMsg }}</div>
+          <button onClick="{{ newSess }}" style="border:0;background:#C9673E;color:#fff;font-weight:600;font-size:14px;padding:10px 16px;border-radius:99px;cursor:pointer;white-space:nowrap">{{ t.newSess }}</button>
+        </div>
+      </sc-if>
+      <div onClick="{{ goHist }}" style="margin:16px 20px 0;padding:16px 18px;background:#fff;border-radius:20px;cursor:pointer;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-weight:600;font-size:15px">{{ t.last7 }}</div><div style="font-size:13px;font-weight:600;color:#B8572F">{{ t.history }} ›</div></div>
+        <div style="display:flex;align-items:flex-end;gap:8px;height:64px">
+          <sc-for list="{{ miniBars }}" as="b" hint-placeholder-count="7">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:100%;max-width:26px;height:{{ b.h }}px;border-radius:6px;background:{{ b.bg }}"></div><div style="font-size:10px;color:#9A8A82">{{ b.l }}</div></div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="margin:12px 20px 24px;padding:16px 18px;background:#F4ECE5;border-radius:20px">
+        <div style="font-weight:600;font-size:14px">{{ t.aboutTitle }}</div>
+        <div style="font-size:13px;line-height:1.55;color:#6E5F58;margin-top:6px">{{ t.aboutBody }}</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isHist }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:6px 12px 0"><button onClick="{{ goKicks }}" style="border:0;background:transparent;font-size:15px;font-weight:600;color:#B8572F;cursor:pointer;padding:8px">‹ {{ t.kicksTitle }}</button></div>
+      <div style="padding:0 20px"><div style="font-size:28px;font-weight:700;letter-spacing:-.02em">{{ t.histTitle }}</div></div>
+      <div style="margin:16px 20px 0;padding:4px;border-radius:12px;background:#F1E7DF;display:grid;grid-template-columns:1fr 1fr">
+        <div onClick="{{ setH7 }}" style="padding:9px;text-align:center;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;background:{{ h7Bg }}">{{ t.d7 }}</div>
+        <div onClick="{{ setH4 }}" style="padding:9px;text-align:center;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;background:{{ h4Bg }}">{{ t.w4 }}</div>
+      </div>
+      <div style="margin:14px 20px 0;padding:18px;background:#fff;border-radius:20px">
+        <div style="font-size:13px;color:#7A6B64">{{ t.avgL }}</div>
+        <div style="font-size:30px;font-weight:700;margin-top:2px">{{ avgTxt }}</div>
+        <div style="position:relative;margin-top:16px;height:170px;display:flex;align-items:flex-end;gap:10px;border-bottom:1px solid rgba(43,32,28,.1)">
+          <div style="position:absolute;left:0;right:0;bottom:{{ refY }}px;border-top:1.5px dashed #E0A08A"></div>
+          <div style="position:absolute;right:0;bottom:{{ refY2 }}px;font-size:10px;color:#C0704F;background:#fff;padding-left:4px">{{ refLabel }}</div>
+          <sc-for list="{{ bars }}" as="b" hint-placeholder-count="7">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;height:100%">
+              <div style="font-size:11px;font-weight:600;color:#7A6B64">{{ b.v }}</div>
+              <div style="width:100%;max-width:30px;height:{{ b.h }}px;border-radius:7px;background:{{ b.bg }}"></div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:10px;padding-top:6px"><sc-for list="{{ bars }}" as="b" hint-placeholder-count="7"><div style="flex:1;text-align:center;font-size:11px;color:#9A8A82">{{ b.l }}</div></sc-for></div>
+      </div>
+      <div style="padding:22px 20px 8px;font-size:16px;font-weight:700">{{ t.sessionsL }}</div>
+      <div style="margin:0 20px;background:#fff;border-radius:20px;overflow:hidden">
+        <sc-for list="{{ sessList }}" as="s" hint-placeholder-count="5">
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(43,32,28,.06)">
+            <div style="width:38px;height:38px;border-radius:12px;background:{{ s.bg }};color:{{ s.fg }};display:grid;place-items:center;font-weight:700;font-size:14px">{{ s.count }}</div>
+            <div style="flex:1"><div style="font-size:14px;font-weight:600">{{ s.date }}</div><div style="font-size:12px;color:#7A6B64">{{ s.sub }}</div></div>
+            <div style="font-size:14px;font-weight:600">{{ s.dur }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin:16px 20px 24px;padding:16px 18px;background:#FDF0EC;border-radius:20px">
+        <div style="font-weight:600;font-size:14px;color:#A3301F">{{ t.guideTitle }}</div>
+        <div style="font-size:13px;line-height:1.55;color:#6B3A30;margin-top:6px">{{ t.guideBody }}</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isWeight }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:6px 12px 0"><button onClick="{{ goHome }}" style="border:0;background:transparent;font-size:15px;font-weight:600;color:#B8572F;cursor:pointer;padding:8px">‹ {{ t.tabToday }}</button></div>
+      <div style="padding:0 20px"><div style="font-size:28px;font-weight:700;letter-spacing:-.02em">{{ t.weightTitle }}</div></div>
+      <div style="margin:16px 20px 0;padding:18px;background:#fff;border-radius:20px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div><div style="font-size:13px;color:#7A6B64">{{ t.gainL }}</div><div style="font-size:32px;font-weight:700">{{ gainTxt }}</div><div style="font-size:12px;color:#7A6B64">{{ t.sinceL }}</div></div>
+          <div style="text-align:right"><div style="font-size:24px;font-weight:700">{{ curKgTxt }}</div><div style="font-size:12px;color:#7A6B64">{{ curWkTxt }}</div></div>
+        </div>
+        <svg viewBox="0 0 310 170" style="width:100%;height:auto;margin-top:14px;display:block">
+          <polygon points="{{ bandPts }}" fill="#F7E3D7"></polygon>
+          <polyline points="{{ userPts }}" fill="none" stroke="#B8572F" stroke-width="2.5" stroke-linejoin="round"></polyline>
+          <sc-for list="{{ userDots }}" as="p" hint-placeholder-count="0"><circle cx="{{ p.x }}" cy="{{ p.y }}" r="4" fill="#fff" stroke="#B8572F" stroke-width="2"></circle></sc-for>
+          <line x1="0" y1="150" x2="310" y2="150" stroke="rgba(43,32,28,.12)"></line>
+          <text x="0" y="166" font-size="10" fill="#9A8A82">0</text><text x="98" y="166" font-size="10" fill="#9A8A82">13</text><text x="200" y="166" font-size="10" fill="#9A8A82">27</text><text x="296" y="166" font-size="10" fill="#9A8A82">40</text>
+        </svg>
+        <div style="display:flex;gap:16px;font-size:12px;color:#7A6B64;margin-top:6px">
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:10px;border-radius:3px;background:#F7E3D7"></div>{{ t.rangeL }}</div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:14px;height:3px;border-radius:2px;background:#B8572F"></div>{{ t.youL }}</div>
+        </div>
+      </div>
+      <div style="margin:12px 20px 0;padding:18px;background:#fff;border-radius:20px">
+        <div style="font-weight:600;font-size:15px">{{ t.addWeight }}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px">
+          <button onClick="{{ kgDown }}" style="width:48px;height:48px;border:0;border-radius:50%;background:#F4ECE5;font-size:22px;cursor:pointer">−</button>
+          <div style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums">{{ newKgTxt }}</div>
+          <button onClick="{{ kgUp }}" style="width:48px;height:48px;border:0;border-radius:50%;background:#F4ECE5;font-size:22px;cursor:pointer">+</button>
+        </div>
+        <button onClick="{{ saveKg }}" style="width:100%;margin-top:16px;border:0;background:#C9673E;color:#fff;font-weight:600;font-size:15px;padding:14px;border-radius:99px;cursor:pointer">{{ t.save }}</button>
+      </div>
+      <div style="padding:22px 20px 8px;font-size:16px;font-weight:700">{{ t.entriesL }}</div>
+      <div style="margin:0 20px 24px;background:#fff;border-radius:20px;overflow:hidden">
+        <sc-for list="{{ wList }}" as="w" hint-placeholder-count="5">
+          <div style="display:flex;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(43,32,28,.06);font-size:14px"><div>{{ w.wk }}</div><div style="font-weight:600">{{ w.kg }}</div></div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isLearn }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:10px 20px 0"><div style="font-size:28px;font-weight:700;letter-spacing:-.02em">{{ t.learnTitle }}</div></div>
+      <div style="display:flex;gap:8px;padding:14px 20px 0">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+          <div onClick="{{ f.go }}" style="padding:8px 14px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;background:{{ f.bg }};color:{{ f.fg }}">{{ f.label }}</div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;padding:16px 20px 24px">
+        <sc-for list="{{ artList }}" as="a" hint-placeholder-count="4">
+          <div onClick="{{ a.open }}" style="display:flex;gap:14px;align-items:center;background:#fff;border-radius:18px;padding:12px;cursor:pointer">
+            <div style="width:86px;height:86px;flex:none;border-radius:12px;background:{{ a.ph }};display:grid;place-items:center;font:500 9px ui-monospace,Menlo,monospace;color:#9A8A82">ảnh</div>
+            <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:{{ a.catFg }}">{{ a.cat }}</div><div style="font-size:15px;font-weight:600;line-height:1.35;margin-top:3px">{{ a.title }}</div><div style="font-size:12px;color:#7A6B64;margin-top:4px">{{ a.meta }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isPartner }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:10px 20px 0"><div style="font-size:28px;font-weight:700;letter-spacing:-.02em">{{ t.partnerTitle }}</div><div style="font-size:13px;color:#7A6B64;margin-top:4px;line-height:1.5">{{ t.partnerSub }}</div></div>
+      <div style="margin:16px 20px 0;padding:20px;background:#fff;border-radius:20px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="display:flex"><div style="width:42px;height:42px;border-radius:50%;background:#F2C9B5;display:grid;place-items:center;font-weight:700;color:#8A3F1F;border:3px solid #fff">L</div><div style="width:42px;height:42px;border-radius:50%;margin-left:-12px;border:3px solid #fff;display:grid;place-items:center;font-weight:700;background:{{ pAvBg }};color:{{ pAvFg }}">{{ pAv }}</div></div>
+          <div style="flex:1"><div style="font-weight:600;font-size:15px">{{ pName }}</div><div style="font-size:13px;color:{{ pStatusFg }}">{{ pStatus }}</div></div>
+        </div>
+        <sc-if value="{{ pNone }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ invite }}" style="border:0;background:#2B201C;color:#fff;font-weight:600;font-size:15px;padding:14px;border-radius:99px;cursor:pointer">{{ t.invite }}</button>
+        </sc-if>
+        <sc-if value="{{ pInvited }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:#F4ECE5">
+            <div style="flex:1"><div style="font-size:12px;color:#7A6B64">{{ t.codeL }}</div><div style="font-size:20px;font-weight:700;letter-spacing:.12em">MAM-4821</div></div>
+            <button onClick="{{ copyCode }}" style="border:0;background:#fff;font-weight:600;font-size:13px;padding:9px 14px;border-radius:99px;cursor:pointer">{{ t.copy }}</button>
+          </div>
+          <button onClick="{{ simJoin }}" style="border:1px dashed #B5A69E;background:transparent;color:#7A6B64;font-size:13px;padding:10px;border-radius:12px;cursor:pointer">{{ t.simJoin }}</button>
+        </sc-if>
+      </div>
+      <div style="padding:22px 20px 8px;font-size:16px;font-weight:700">{{ t.shareL }}</div>
+      <div style="margin:0 20px;background:#fff;border-radius:20px;overflow:hidden">
+        <sc-for list="{{ shareRows }}" as="r" hint-placeholder-count="3">
+          <div onClick="{{ r.toggle }}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid rgba(43,32,28,.06);cursor:pointer">
+            <div style="flex:1;font-size:14px">{{ r.label }}</div>
+            <div style="width:46px;height:28px;border-radius:99px;padding:3px;box-sizing:border-box;background:{{ r.bg }};transition:background .2s"><div style="width:22px;height:22px;border-radius:50%;background:#fff;transform:translateX({{ r.x }}px);transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)"></div></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding:22px 20px 8px;font-size:16px;font-weight:700">{{ t.partnerSees }}</div>
+      <div style="margin:0 20px 24px;padding:18px;border-radius:20px;background:#2B201C;color:#FBF6F1;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ partnerPreview }}" as="p" hint-placeholder-count="2">
+          <div style="display:flex;gap:10px;align-items:baseline"><div style="width:6px;height:6px;border-radius:50%;background:#F2A98A;flex:none;transform:translateY(-2px)"></div><div style="font-size:14px;line-height:1.45">{{ p }}</div></div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMe }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:6px 12px 0"><button onClick="{{ goHome }}" style="border:0;background:transparent;font-size:15px;font-weight:600;color:#B8572F;cursor:pointer;padding:8px">‹ {{ t.tabToday }}</button></div>
+      <div style="display:flex;align-items:center;gap:14px;padding:4px 20px 0">
+        <div style="width:60px;height:60px;border-radius:50%;background:#F2C9B5;display:grid;place-items:center;font-weight:700;font-size:22px;color:#8A3F1F">L</div>
+        <div><div style="font-size:22px;font-weight:700">Linh</div><div style="font-size:13px;color:#7A6B64">{{ modeName }}</div></div>
+      </div>
+      <div style="margin:20px 20px 0;padding:16px 18px;background:#fff;border-radius:20px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:14px;font-weight:600">{{ t.langLabel }}</div>
+        <div style="display:flex;padding:3px;border-radius:10px;background:#F1E7DF">
+          <div onClick="{{ setVi }}" style="padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:{{ viBg }}">Tiếng Việt</div>
+          <div onClick="{{ setEn }}" style="padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:{{ enBg }}">English</div>
+        </div>
+      </div>
+      <div style="margin:12px 20px 24px;background:#fff;border-radius:20px;overflow:hidden">
+        <div onClick="{{ openSwitch }}" style="display:flex;justify-content:space-between;padding:16px 18px;border-bottom:1px solid rgba(43,32,28,.06);cursor:pointer;font-size:14px"><div>{{ switchRow }}</div><div style="color:#B5A69E">›</div></div>
+        <sc-if value="{{ isPreg }}" hint-placeholder-val="{{ false }}"><div onClick="{{ openKs }}" style="display:flex;justify-content:space-between;padding:16px 18px;border-bottom:1px solid rgba(43,32,28,.06);cursor:pointer;font-size:14px"><div>{{ t.reminderRow }}</div><div style="color:#7A6B64">{{ remTxt }}</div></div></sc-if>
+        <div onClick="{{ replayOnb }}" style="display:flex;justify-content:space-between;padding:16px 18px;cursor:pointer;font-size:14px"><div>{{ t.replayOnb }}</div><div style="color:#B5A69E">›</div></div>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;left:0;right:0;bottom:0;height:82px;background:rgba(251,246,241,.96);border-top:1px solid rgba(43,32,28,.07);display:grid;grid-template-columns:repeat(4,1fr);padding-top:8px;box-sizing:border-box;z-index:20">
+      <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="4">
+        <div onClick="{{ tb.go }}" style="display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer">
+          <div style="height:24px;display:grid;place-items:center"><div style="box-sizing:border-box;width:{{ tb.w }}px;height:{{ tb.h }}px;border-radius:{{ tb.r }};border:2px solid {{ tb.c }};border-top-width:{{ tb.bt }}px"></div></div>
+          <div style="font-size:11px;font-weight:600;color:{{ tb.c }}">{{ tb.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isWeek }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:40;background:linear-gradient(180deg,#EBB394 0%,#F7DCC9 38%,#FBF6F1 60%);overflow-y:auto;animation:up .28s ease">
+      <div style="padding:58px 20px 0;display:flex;justify-content:space-between;align-items:center">
+        <button onClick="{{ closeOverlay }}" style="width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.55);font-size:20px;cursor:pointer">✕</button>
+        <div style="font-size:15px;font-weight:600;color:#5A2A14">{{ weekTitleShort }}</div>
+        <div style="width:40px"></div>
+      </div>
+      <div style="display:grid;place-items:center;padding:14px 0 10px">
+        <div style="width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.7),rgba(255,255,255,0) 70%);display:grid;place-items:center">
+          <div style="width:170px;height:170px;border-radius:50%;background:repeating-linear-gradient(135deg,rgba(140,60,25,.09) 0 8px,transparent 8px 16px);display:grid;place-items:center;text-align:center;font:500 11px/1.5 ui-monospace,Menlo,monospace;color:#8E5A40;white-space:pre-line">{{ heroPhSel }}</div>
+        </div>
+      </div>
+      <div ref="{{ chipRef }}" style="display:flex;gap:8px;overflow-x:auto;padding:4px 20px 16px">
+        <sc-for list="{{ weekChips }}" as="c" hint-placeholder-count="8">
+          <div onClick="{{ c.go }}" style="flex:none;padding:9px 16px;border-radius:99px;font-size:14px;font-weight:600;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</div>
+        </sc-for>
+      </div>
+      <div style="background:#fff;border-radius:28px 28px 0 0;padding:12px 24px 40px;min-height:500px">
+        <div style="width:40px;height:5px;border-radius:3px;background:#E3DAD4;margin:0 auto 18px"></div>
+        <div style="font-size:26px;font-weight:700;line-height:1.25;letter-spacing:-.01em">{{ weekTitle }}</div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:14px">
+          <div style="width:38px;height:38px;border-radius:50%;background:repeating-linear-gradient(135deg,#EDE4DE 0 5px,#F7F1ED 5px 10px)"></div>
+          <div style="font-size:12px;line-height:1.45;color:#7A6B64">{{ t.reviewedBy }}<br><span style="color:#2B201C;font-weight:600">{{ t.reviewer }}</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px">
+          <div style="aspect-ratio:1;border-radius:18px;background:repeating-linear-gradient(135deg,#F7E6DB 0 8px,#FBF2EC 8px 16px);display:grid;place-items:center;text-align:center;font:500 10px/1.4 ui-monospace,Menlo,monospace;color:#9A6A50;padding:8px">{{ babyPhSel }}</div>
+          <div style="aspect-ratio:1;border-radius:18px;background:repeating-linear-gradient(135deg,#EEF0DD 0 8px,#F6F7EC 8px 16px);display:grid;place-items:center;text-align:center;font:500 10px/1.4 ui-monospace,Menlo,monospace;color:#8A8F6A;padding:8px">{{ fruitPhSel }}</div>
+        </div>
+        <div style="font-size:17px;font-weight:600;line-height:1.45;margin-top:18px;text-wrap:pretty">{{ sizeLineSel }}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+          <div style="padding:12px 14px;border-radius:14px;background:#F8F2EE"><div style="font-size:12px;color:#7A6B64">{{ t.lenL }}</div><div style="font-size:18px;font-weight:700">{{ sizeLenSel }}</div></div>
+          <div style="padding:12px 14px;border-radius:14px;background:#F8F2EE"><div style="font-size:12px;color:#7A6B64">{{ t.wL }}</div><div style="font-size:18px;font-weight:700">{{ sizeWSel }}</div></div>
+        </div>
+        <sc-for list="{{ weekSections }}" as="s" hint-placeholder-count="3">
+          <div style="margin-top:22px"><div style="font-size:16px;font-weight:700">{{ s.h }}</div><div style="font-size:15px;line-height:1.65;color:#544640;margin-top:8px;text-wrap:pretty">{{ s.p }}</div></div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:40;background:#fff;overflow-y:auto;animation:up .28s ease">
+      <div style="height:300px;background:{{ artSel.ph }};position:relative;display:grid;place-items:center;font:500 11px ui-monospace,Menlo,monospace;color:#9A8A82">ảnh bài viết
+        <button onClick="{{ closeOverlay }}" style="position:absolute;top:58px;left:20px;width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.8);font-size:20px;cursor:pointer">✕</button>
+      </div>
+      <div style="padding:22px 24px 40px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:{{ artSel.catFg }}">{{ artSel.cat }} · {{ artSel.meta }}</div>
+        <div style="font-size:26px;font-weight:700;line-height:1.25;margin-top:8px">{{ artSel.title }}</div>
+        <div style="font-size:12px;line-height:1.45;color:#7A6B64;margin-top:12px">{{ t.reviewedBy }}: <span style="color:#2B201C;font-weight:600">{{ t.reviewer }}</span></div>
+        <sc-for list="{{ artSel.body }}" as="p" hint-placeholder-count="3"><div style="font-size:15px;line-height:1.7;color:#544640;margin-top:16px;text-wrap:pretty">{{ p }}</div></sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isOnb }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:60;background:#F4F1EC;display:flex;flex-direction:column;padding:0 24px 34px;box-sizing:border-box;overflow:hidden">
+      <sc-if value="{{ onb0 }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;top:0;left:0;right:0;height:78%"><div style="position:absolute;inset:0;overflow:hidden;animation:mamReveal 1.1s cubic-bezier(.65,0,.35,1) both"><div style="position:absolute;inset:0;animation:mamKen 1.8s cubic-bezier(.2,.8,.2,1) both"><img src="assets/onb-baby-beige.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block"></div><div style="position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(244,241,236,0) 0%,rgba(244,241,236,.85) 60%,#F4F1EC 100%);pointer-events:none"></div></div><div style="position:absolute;left:0;right:0;bottom:-1px;height:64px;overflow:hidden;pointer-events:none;animation:mamRise 1s .25s cubic-bezier(.2,.8,.2,1) both"><svg viewBox="0 0 800 64" preserveAspectRatio="none" style="display:block;width:200%;height:100%;animation:mamDrift 9s linear infinite"><path d="M0 34 C100 4 300 4 400 34 C500 64 700 64 800 34 L800 64 L0 64 Z" fill="#F4F1EC"></path></svg></div></div>
+        <div style="flex:1"></div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:12px;padding-bottom:26px;animation:mamUp .8s .45s cubic-bezier(.2,.8,.2,1) both">
+          <div style="font-size:34px;font-weight:400;line-height:1.15;letter-spacing:-.02em;color:#141110;text-wrap:balance">{{ t.onb0Title }}</div>
+          <div style="font-size:14px;line-height:1.55;color:#6B6460;max-width:300px">{{ t.onb0Sub }}</div>
+          <div style="display:flex;padding:3px;border-radius:99px;background:rgba(20,17,16,.06);align-self:flex-start;margin-top:4px">
+            <div onClick="{{ setVi }}" style="padding:7px 14px;border-radius:99px;font-size:13px;font-weight:500;cursor:pointer;background:{{ viBg }}">Tiếng Việt</div>
+            <div onClick="{{ setEn }}" style="padding:7px 14px;border-radius:99px;font-size:13px;font-weight:500;cursor:pointer;background:{{ enBg }}">English</div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ onb1 }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:0;left:0;right:0;height:58%"><div style="position:absolute;inset:0;overflow:hidden;animation:mamReveal 1.1s cubic-bezier(.65,0,.35,1) both"><div style="position:absolute;inset:0;animation:mamKen 1.8s cubic-bezier(.2,.8,.2,1) both"><img src="assets/onb-baby-pink.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 35%;display:block"></div><div style="position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(244,241,236,0) 0%,rgba(244,241,236,.85) 60%,#F4F1EC 100%);pointer-events:none"></div></div><div style="position:absolute;left:0;right:0;bottom:-1px;height:64px;overflow:hidden;pointer-events:none;animation:mamRise 1s .25s cubic-bezier(.2,.8,.2,1) both"><svg viewBox="0 0 800 64" preserveAspectRatio="none" style="display:block;width:200%;height:100%;animation:mamDrift 9s linear infinite"><path d="M0 34 C100 4 300 4 400 34 C500 64 700 64 800 34 L800 64 L0 64 Z" fill="#F4F1EC"></path></svg></div></div>
+        <div style="flex:1"></div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:10px;padding-bottom:22px;animation:mamUp .8s .45s cubic-bezier(.2,.8,.2,1) both">
+          <div style="margin-bottom:6px"><div style="font-size:34px;font-weight:400;line-height:1.15;letter-spacing:-.02em;color:#141110;text-wrap:balance">{{ t.onb1Title }}</div></div>
+          <div onClick="{{ pickCycle }}" style="padding:16px 18px;border-radius:20px;cursor:pointer;display:flex;gap:14px;align-items:center;background:#fff;border:1.5px solid {{ gC }}">
+            <div style="width:12px;height:12px;border-radius:50%;background:#E0566B;flex:none"></div>
+            <div style="flex:1"><div style="font-size:16px;font-weight:500">{{ t.goalCycle }}</div><div style="font-size:13px;color:#6B6460;margin-top:2px">{{ t.goalCycleSub }}</div></div>
+          </div>
+          <div onClick="{{ pickPreg }}" style="padding:16px 18px;border-radius:20px;cursor:pointer;display:flex;gap:14px;align-items:center;background:#fff;border:1.5px solid {{ gP }}">
+            <div style="width:12px;height:12px;border-radius:50%;background:#C9673E;flex:none"></div>
+            <div style="flex:1"><div style="font-size:16px;font-weight:500">{{ t.goalPreg }}</div><div style="font-size:13px;color:#6B6460;margin-top:2px">{{ t.goalPregSub }}</div></div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ onb2c }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:0;left:0;right:0;height:46%"><div style="position:absolute;inset:0;overflow:hidden;animation:mamReveal 1.1s cubic-bezier(.65,0,.35,1) both"><div style="position:absolute;inset:0;animation:mamKen 1.8s cubic-bezier(.2,.8,.2,1) both"><image-slot id="onb-hero-3c" shape="rect" placeholder="Ảnh phụ nữ thư giãn"></image-slot></div><div style="position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(244,241,236,0) 0%,rgba(244,241,236,.85) 60%,#F4F1EC 100%);pointer-events:none"></div></div><div style="position:absolute;left:0;right:0;bottom:-1px;height:64px;overflow:hidden;pointer-events:none;animation:mamRise 1s .25s cubic-bezier(.2,.8,.2,1) both"><svg viewBox="0 0 800 64" preserveAspectRatio="none" style="display:block;width:200%;height:100%;animation:mamDrift 9s linear infinite"><path d="M0 34 C100 4 300 4 400 34 C500 64 700 64 800 34 L800 64 L0 64 Z" fill="#F4F1EC"></path></svg></div></div>
+        <div style="flex:1"></div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:12px;padding-bottom:22px;animation:mamUp .8s .45s cubic-bezier(.2,.8,.2,1) both">
+          <div style="font-size:34px;font-weight:400;line-height:1.15;letter-spacing:-.02em;color:#141110;text-wrap:balance">{{ t.onb2TitleC }}</div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:#fff;padding:10px;border-radius:20px">
+            <sc-for list="{{ lmpChips }}" as="c" hint-placeholder-count="14">
+              <div onClick="{{ c.go }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:12px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}"><div style="font-size:10px;opacity:.75">{{ c.wd }}</div><div style="font-size:15px;font-weight:500">{{ c.num }}</div></div>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;background:#fff;padding:12px 14px 12px 18px;border-radius:20px">
+            <div style="font-size:14px;font-weight:500">{{ t.cycleLen }}</div>
+            <div style="display:flex;align-items:center;gap:10px"><button onClick="{{ lenDown }}" style="width:36px;height:36px;border:0;border-radius:50%;background:#F4F1EC;font-size:18px;cursor:pointer">−</button><div style="font-size:15px;font-weight:600;min-width:70px;text-align:center">{{ cycleLenTxt }}</div><button onClick="{{ lenUp }}" style="width:36px;height:36px;border:0;border-radius:50%;background:#F4F1EC;font-size:18px;cursor:pointer">+</button></div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ onb2p }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:0;left:0;right:0;height:62%"><div style="position:absolute;inset:0;overflow:hidden;animation:mamReveal 1.1s cubic-bezier(.65,0,.35,1) both"><div style="position:absolute;inset:0;animation:mamKen 1.8s cubic-bezier(.2,.8,.2,1) both"><img src="assets/onb-baby-basket.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block"></div><div style="position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(180deg,rgba(244,241,236,0) 0%,rgba(244,241,236,.85) 60%,#F4F1EC 100%);pointer-events:none"></div></div><div style="position:absolute;left:0;right:0;bottom:-1px;height:64px;overflow:hidden;pointer-events:none;animation:mamRise 1s .25s cubic-bezier(.2,.8,.2,1) both"><svg viewBox="0 0 800 64" preserveAspectRatio="none" style="display:block;width:200%;height:100%;animation:mamDrift 9s linear infinite"><path d="M0 34 C100 4 300 4 400 34 C500 64 700 64 800 34 L800 64 L0 64 Z" fill="#F4F1EC"></path></svg></div></div>
+        <div style="flex:1"></div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:12px;padding-bottom:22px;animation:mamUp .8s .45s cubic-bezier(.2,.8,.2,1) both">
+          <div style="font-size:34px;font-weight:400;line-height:1.15;letter-spacing:-.02em;color:#141110;text-wrap:balance">{{ t.onb2TitleP }}</div>
+          <div style="background:#fff;border-radius:20px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div style="display:flex;align-items:center;gap:12px"><button onClick="{{ dueDown }}" style="width:42px;height:42px;border:0;border-radius:50%;background:#F4F1EC;font-size:20px;cursor:pointer">−</button><div style="font-size:22px;font-weight:500;min-width:170px;text-align:center">{{ dueTxt }}</div><button onClick="{{ dueUp }}" style="width:42px;height:42px;border:0;border-radius:50%;background:#F4F1EC;font-size:20px;cursor:pointer">+</button></div>
+            <div style="padding:6px 12px;border-radius:99px;background:#F7E3D7;color:#9C4823;font-size:13px;font-weight:600">{{ pregLabel }}</div>
+          </div>
+        </div>
+      </sc-if>
+      <div style="position:absolute;top:58px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:center;z-index:2;pointer-events:none">
+        <div style="display:flex;gap:6px;padding:8px 10px;border-radius:99px;background:rgba(255,255,255,.7)"><sc-for list="{{ onbDots }}" as="d" hint-placeholder-count="3"><div style="height:6px;border-radius:3px;width:{{ d.w }}px;background:{{ d.bg }};transition:all .5s cubic-bezier(.65,0,.35,1)"></div></sc-for></div>
+        <div onClick="{{ skipOnb }}" style="pointer-events:auto;font-size:13px;font-weight:500;color:#141110;cursor:pointer;padding:7px 14px;border-radius:99px;background:rgba(255,255,255,.7)">{{ t.skip }}</div>
+      </div>
+      <button onClick="{{ onbNext }}" style="position:relative;flex:none;border:0;background:#0F0D0C;color:#fff;font-weight:400;font-size:16px;height:60px;border-radius:99px;cursor:pointer;opacity:{{ onbBtnOp }}" style-active="transform:scale(.98)">{{ onbBtn }}</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasSheet }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:50;background:rgba(43,32,28,.38)"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:51;background:#FBF6F1;border-radius:28px 28px 0 0;padding:12px 22px 34px;max-height:82%;overflow-y:auto;animation:up .25s ease">
+      <div style="width:40px;height:5px;border-radius:3px;background:#DDD2CB;margin:0 auto 16px"></div>
+
+      <sc-if value="{{ sLog }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:22px;font-weight:700">{{ logSheetTitle }}</div>
+        <sc-if value="{{ isPeriodMode }}" hint-placeholder-val="{{ true }}">
+          <div style="font-size:13px;font-weight:600;color:#7A6B64;margin:18px 0 8px">{{ t.flowL }}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ flowChips }}" as="c" hint-placeholder-count="4"><div onClick="{{ c.go }}" style="padding:9px 14px;border-radius:99px;font-size:14px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</div></sc-for></div>
+        </sc-if>
+        <div style="font-size:13px;font-weight:600;color:#7A6B64;margin:18px 0 8px">{{ t.moodL }}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ moodChips }}" as="c" hint-placeholder-count="5"><div onClick="{{ c.go }}" style="padding:9px 14px;border-radius:99px;font-size:14px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</div></sc-for></div>
+        <div style="font-size:13px;font-weight:600;color:#7A6B64;margin:18px 0 8px">{{ t.symL }}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ symChips }}" as="c" hint-placeholder-count="6"><div onClick="{{ c.go }}" style="padding:9px 14px;border-radius:99px;font-size:14px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</div></sc-for></div>
+        <button onClick="{{ saveLog }}" style="width:100%;margin-top:24px;border:0;background:#2B201C;color:#fff;font-weight:600;font-size:15px;padding:15px;border-radius:99px;cursor:pointer">{{ t.save }}</button>
+      </sc-if>
+
+      <sc-if value="{{ sSwitchOn }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:24px;font-weight:700">{{ t.swTitle }}</div>
+        <div style="font-size:14px;line-height:1.55;color:#6E5F58;margin-top:6px">{{ t.swBody }}</div>
+        <div style="margin-top:16px;padding:4px;border-radius:12px;background:#F1E7DF;display:grid;grid-template-columns:1fr 1fr">
+          <div onClick="{{ swDue }}" style="padding:9px;text-align:center;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;background:{{ swDueBg }}">{{ t.swByDue }}</div>
+          <div onClick="{{ swLmp }}" style="padding:9px;text-align:center;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;background:{{ swLmpBg }}">{{ t.swByLmp }}</div>
+        </div>
+        <div style="margin-top:14px;background:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px"><button onClick="{{ swMinus }}" style="width:40px;height:40px;border:0;border-radius:50%;background:#F4ECE5;font-size:18px;cursor:pointer">−</button><div style="text-align:center;min-width:170px"><div style="font-size:12px;color:#7A6B64">{{ swLabel }}</div><div style="font-size:21px;font-weight:700">{{ swDateTxt }}</div></div><button onClick="{{ swPlus }}" style="width:40px;height:40px;border:0;border-radius:50%;background:#F4ECE5;font-size:18px;cursor:pointer">+</button></div>
+          <div style="padding:7px 12px;border-radius:99px;background:#F7E3D7;color:#9C4823;font-size:13px;font-weight:600">{{ swResult }}</div>
+        </div>
+        <button onClick="{{ confirmPreg }}" style="width:100%;margin-top:18px;border:0;background:#C9673E;color:#fff;font-weight:600;font-size:15px;padding:15px;border-radius:99px;cursor:pointer">{{ t.swConfirm }}</button>
+        <button onClick="{{ closeSheet }}" style="width:100%;margin-top:8px;border:0;background:transparent;color:#7A6B64;font-weight:600;font-size:15px;padding:12px;cursor:pointer">{{ t.cancel }}</button>
+      </sc-if>
+
+      <sc-if value="{{ sSwitchOff }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:22px;font-weight:700">{{ t.endTitle }}</div>
+        <div style="font-size:14px;line-height:1.55;color:#6E5F58;margin-top:6px">{{ t.endBody }}</div>
+        <button onClick="{{ endPreg }}" style="width:100%;margin-top:20px;border:0;background:#2B201C;color:#fff;font-weight:600;font-size:15px;padding:15px;border-radius:99px;cursor:pointer">{{ t.endConfirm }}</button>
+        <button onClick="{{ closeSheet }}" style="width:100%;margin-top:8px;border:0;background:transparent;color:#7A6B64;font-weight:600;font-size:15px;padding:12px;cursor:pointer">{{ t.cancel }}</button>
+      </sc-if>
+
+      <sc-if value="{{ sKs }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:22px;font-weight:700">{{ t.ksTitle }}</div>
+        <div style="margin-top:16px;background:#fff;border-radius:20px;overflow:hidden">
+          <div onClick="{{ tRem }}" style="display:flex;gap:12px;align-items:center;padding:16px;cursor:pointer;border-bottom:1px solid rgba(43,32,28,.06)">
+            <div style="flex:1"><div style="font-size:15px;font-weight:600">{{ t.remL }}</div><div style="font-size:12px;color:#7A6B64;margin-top:2px;line-height:1.4">{{ t.remSub }}</div></div>
+            <div style="width:46px;height:28px;flex:none;border-radius:99px;padding:3px;box-sizing:border-box;background:{{ remTg.bg }}"><div style="width:22px;height:22px;border-radius:50%;background:#fff;transform:translateX({{ remTg.x }}px);transition:transform .2s"></div></div>
+          </div>
+          <sc-if value="{{ remOn }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:8px;padding:12px 16px 16px;border-bottom:1px solid rgba(43,32,28,.06)"><sc-for list="{{ remTimes }}" as="c" hint-placeholder-count="4"><div onClick="{{ c.go }}" style="flex:1;text-align:center;padding:9px 0;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}">{{ c.label }}</div></sc-for></div>
+          </sc-if>
+          <div onClick="{{ tMerge }}" style="display:flex;gap:12px;align-items:center;padding:16px;cursor:pointer;border-bottom:1px solid rgba(43,32,28,.06)">
+            <div style="flex:1"><div style="font-size:15px;font-weight:600">{{ t.mergeL }}</div><div style="font-size:12px;color:#7A6B64;margin-top:2px;line-height:1.4">{{ t.mergeSub }}</div></div>
+            <div style="width:46px;height:28px;flex:none;border-radius:99px;padding:3px;box-sizing:border-box;background:{{ mergeTg.bg }}"><div style="width:22px;height:22px;border-radius:50%;background:#fff;transform:translateX({{ mergeTg.x }}px);transition:transform .2s"></div></div>
+          </div>
+          <div onClick="{{ tHaptic }}" style="display:flex;gap:12px;align-items:center;padding:16px;cursor:pointer;border-bottom:1px solid rgba(43,32,28,.06)">
+            <div style="flex:1"><div style="font-size:15px;font-weight:600">{{ t.hapticL }}</div><div style="font-size:12px;color:#7A6B64;margin-top:2px;line-height:1.4">{{ t.hapticSub }}</div></div>
+            <div style="width:46px;height:28px;flex:none;border-radius:99px;padding:3px;box-sizing:border-box;background:{{ hapticTg.bg }}"><div style="width:22px;height:22px;border-radius:50%;background:#fff;transform:translateX({{ hapticTg.x }}px);transition:transform .2s"></div></div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;padding:16px">
+            <div style="flex:1"><div style="font-size:15px;font-weight:600">{{ t.goalL }}</div><div style="font-size:12px;color:#7A6B64;margin-top:2px">{{ t.goalSub }}</div></div>
+            <div style="font-size:18px;font-weight:700">{{ goal }}</div>
+          </div>
+        </div>
+        <button onClick="{{ closeSheet }}" style="width:100%;margin-top:18px;border:0;background:#2B201C;color:#fff;font-weight:600;font-size:15px;padding:15px;border-radius:99px;cursor:pointer">{{ t.done2 }}</button>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;top:60px;transform:translateX(-50%);z-index:90;background:#2B201C;color:#fff;font-size:13px;font-weight:500;padding:10px 16px;border-radius:99px;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.2)">{{ toast }}</div>
+  </sc-if>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;vi&quot;,&quot;en&quot;],&quot;default&quot;:&quot;vi&quot;,&quot;tsType&quot;:&quot;'vi'|'en'&quot;,&quot;section&quot;:&quot;App&quot;},&quot;kickGoal&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:10,&quot;min&quot;:5,&quot;max&quot;:20,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Kick counter&quot;}}">
+const TODAY = new Date(2026, 9, 4);
+const DAY = 86400000;
+const addD = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const diffD = (a, b) => Math.round((new Date(a.getFullYear(), a.getMonth(), a.getDate()) - new Date(b.getFullYear(), b.getMonth(), b.getDate())) / DAY);
+const same = (a, b) => diffD(a, b) === 0;
+const MEN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WD = { vi: ['CN','T2','T3','T4','T5','T6','T7'], en: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] };
+const fmt = (d, l) => l === 'vi' ? `${d.getDate()} tháng ${d.getMonth() + 1}` : `${MEN[d.getMonth()]} ${d.getDate()}`;
+const fmtY = (d, l) => l === 'vi' ? `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}` : `${MEN[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+const pad = n => String(n).padStart(2, '0');
+const hm = ms => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const num = (x, l, dp = 1) => { const s = x.toFixed(dp); return l === 'vi' ? s.replace('.', ',') : s; };
+
+const FR = {4:['hạt anh túc','poppy seed',0.1,0.5],5:['hạt vừng','sesame seed',0.2,0.5],6:['hạt đậu lăng','lentil',0.6,0.5],7:['quả việt quất','blueberry',1.3,0.8],8:['quả mâm xôi','raspberry',1.6,1],9:['quả nho','grape',2.3,2],10:['quả quất','kumquat',3.1,4],11:['quả sung','fig',4.1,7],12:['quả chanh','lime',5.4,14],13:['quả chanh vàng','lemon',7.4,23],14:['quả đào','peach',8.7,43],15:['quả táo','apple',10.1,70],16:['quả bơ','avocado',11.6,100],17:['củ hành tây','onion',13,140],18:['quả ớt chuông','bell pepper',14.2,190],19:['quả xoài','mango',15.3,240],20:['quả chuối','banana',25.6,300],21:['củ cà rốt','carrot',26.7,360],22:['quả đu đủ nhỏ','small papaya',27.8,430],23:['quả bưởi chùm','grapefruit',28.9,501],24:['bắp ngô','ear of corn',30,600],25:['cây súp lơ','cauliflower',34.6,660],26:['cây xà lách','head of lettuce',35.6,760],27:['bắp cải','cabbage',36.6,875],28:['quả cà tím','eggplant',37.6,1005],29:['quả bí hồ lô','butternut squash',38.6,1153],30:['bắp cải lớn','large cabbage',39.9,1319],31:['quả bí ngòi','zucchini',41.1,1502],32:['củ đậu','jicama',42.4,1702],33:['quả dứa','pineapple',43.7,1918],34:['quả dưa lưới','cantaloupe',45,2146],35:['quả dừa','coconut',46.2,2383],36:['quả đu đủ','papaya',47.4,2622],37:['bó cải cầu vồng','bunch of chard',48.6,2859],38:['quả bí ngô nhỏ','small pumpkin',49.8,3083],39:['quả dưa hấu nhỏ','mini watermelon',50.7,3288],40:['quả mít nhỏ','small jackfruit',51.2,3462]};
+
+const WK = {
+  vi: [
+    ['Các cơ quan chính của bé đang hình thành: tim bắt đầu đập, ống thần kinh khép lại và các chồi tay chân xuất hiện.', 'Buồn nôn, mệt mỏi và căng tức ngực là thường gặp. Nội tiết tố thay đổi nhanh nên tâm trạng có thể lên xuống.', 'Uống axit folic mỗi ngày và chia nhỏ bữa ăn để giảm buồn nôn.'],
+    ['Bé bắt đầu nghe được âm thanh, cử động nhiều hơn và bạn có thể cảm nhận những cú đạp đầu tiên quanh tuần 18–22.', 'Nhiều người thấy khỏe hơn ở giai đoạn này. Bụng lớn rõ, có thể đau lưng nhẹ hoặc chuột rút về đêm.', 'Đây là thời điểm tốt để siêu âm hình thái và bắt đầu vận động nhẹ nhàng đều đặn.'],
+    ['Bé tăng cân nhanh, tích tụ mỡ dưới da và não phát triển mạnh. Không gian chật hơn nên cử động có thể đổi kiểu, nhưng không giảm đi.', 'Ợ nóng, khó ngủ, phù chân và đi tiểu nhiều là thường gặp. Các cơn gò Braxton Hicks có thể xuất hiện.', 'Đếm cử động thai mỗi ngày vào cùng một khung giờ để quen với nhịp hoạt động của bé.']
+  ],
+  en: [
+    ["Your baby's major organs are forming: the heart starts beating, the neural tube closes and limb buds appear.", 'Nausea, tiredness and tender breasts are common. Hormones shift quickly, so moods can swing.', 'Take folic acid daily and eat small, frequent meals to ease nausea.'],
+    ['Baby can start to hear sounds and moves more. You may feel the first kicks around weeks 18–22.', 'Many people feel more energetic now. Your bump shows, and mild back pain or night cramps can happen.', 'A good time for the anatomy scan and gentle, regular exercise.'],
+    ["Baby gains weight fast, builds fat under the skin and the brain grows quickly. Space is tighter, so movements change in style but shouldn't decrease.", 'Heartburn, poor sleep, swollen feet and frequent urination are common. Braxton Hicks contractions may appear.', "Count kicks daily at the same time to learn your baby's usual pattern."]
+  ]
+};
+
+const ART = [
+  { id: 'a1', cat: 'cycle', min: 4, ph: 'repeating-linear-gradient(135deg,#F6E3E3 0 8px,#FBEFEF 8px 16px)',
+    vi: ['Bốn pha của chu kỳ kinh nguyệt', ['Một chu kỳ gồm bốn pha: hành kinh, nang trứng, rụng trứng và hoàng thể. Độ dài mỗi pha khác nhau giữa từng người.', 'Pha nang trứng thường mang lại nhiều năng lượng hơn, trong khi pha hoàng thể có thể đi kèm đầy bụng, thèm ăn hoặc thay đổi tâm trạng.', 'Ghi lại triệu chứng mỗi ngày giúp dự đoán chính xác hơn theo thời gian.']],
+    en: ['The four phases of your cycle', ['A cycle has four phases: menstrual, follicular, ovulation and luteal. How long each lasts varies from person to person.', 'The follicular phase often brings more energy, while the luteal phase can come with bloating, cravings or mood changes.', 'Logging symptoms daily makes predictions more accurate over time.']] },
+  { id: 'a2', cat: 'cycle', min: 3, ph: 'repeating-linear-gradient(135deg,#E3F2F0 0 8px,#F1F9F8 8px 16px)',
+    vi: ['Dấu hiệu nhận biết rụng trứng', ['Dịch nhầy cổ tử cung trong và dai như lòng trắng trứng là dấu hiệu phổ biến nhất.', 'Một số người thấy đau nhẹ một bên bụng dưới hoặc nhiệt độ cơ thể buổi sáng tăng nhẹ sau khi rụng trứng.']],
+    en: ['Signs of ovulation', ['Clear, stretchy cervical mucus, similar to egg white, is the most common sign.', 'Some people notice mild one-sided pelvic pain, or a small rise in morning body temperature after ovulation.']] },
+  { id: 'a3', cat: 'preg', min: 5, ph: 'repeating-linear-gradient(135deg,#F7E3D7 0 8px,#FBF0E9 8px 16px)',
+    vi: ['Đếm cử động thai: khi nào và như thế nào', ['Từ khoảng tuần 28, hãy đếm cử động mỗi ngày vào lúc bé thường hoạt động, ví dụ sau bữa tối.', 'Nằm nghiêng trái hoặc ngồi thoải mái, tập trung và chạm mỗi khi cảm nhận bé đạp, xoay hay trườn. Phần lớn bé đạt 10 cử động trong vòng 2 giờ, thường nhanh hơn nhiều.', 'Điều quan trọng nhất là nhận ra thay đổi so với nhịp bình thường của bé. Nếu thấy bé cử động ít hơn, hãy liên hệ bác sĩ ngay.']],
+    en: ['Kick counting: when and how', ['From around week 28, count movements daily when your baby is usually active, for example after dinner.', 'Lie on your left side or sit comfortably, focus, and tap each time you feel a kick, roll or flutter. Most babies reach 10 movements within 2 hours, often much sooner.', "What matters most is noticing a change from your baby's usual pattern. If movements decrease, contact your doctor right away."]] },
+  { id: 'a4', cat: 'preg', min: 4, ph: 'repeating-linear-gradient(135deg,#ECE6F2 0 8px,#F6F2F9 8px 16px)',
+    vi: ['Ngủ ngon hơn ở tam cá nguyệt thứ ba', ['Ngủ nghiêng, kê gối giữa hai đầu gối và dưới bụng giúp giảm áp lực lên lưng.', 'Hạn chế uống nhiều nước sát giờ ngủ và ăn tối sớm hơn để giảm ợ nóng.']],
+    en: ['Sleeping better in the third trimester', ['Sleep on your side with a pillow between your knees and under your bump to ease back pressure.', 'Drink less right before bed and eat dinner earlier to reduce heartburn.']] },
+  { id: 'a5', cat: 'preg', min: 3, ph: 'repeating-linear-gradient(135deg,#EEF0DD 0 8px,#F6F7EC 8px 16px)',
+    vi: ['Tăng cân bao nhiêu là hợp lý?', ['Mức tăng khuyến nghị phụ thuộc vào chỉ số BMI trước khi mang thai. Với BMI bình thường, tổng mức tăng thường khoảng 11,5–16 kg.', 'Ở tam cá nguyệt đầu, mức tăng thường ít. Từ tam cá nguyệt thứ hai, trung bình khoảng 0,4–0,5 kg mỗi tuần.']],
+    en: ['How much weight gain is healthy?', ['Recommended gain depends on your pre-pregnancy BMI. For a normal BMI, total gain is usually about 11.5–16 kg.', 'Gain is usually small in the first trimester. From the second trimester, about 0.4–0.5 kg per week is typical.']] }
+];
+
+const T = {
+  vi: { skip:'Bỏ qua', next:'Tiếp tục', finish:'Bắt đầu', onb0Title:'Chào mừng đến với Mầm', onb0Sub:'Theo dõi chu kỳ mỗi tháng, và đồng hành cùng bạn qua từng tuần khi có em bé.', langLabel:'Ngôn ngữ', onb1Title:'Bạn muốn theo dõi điều gì?', goalCycle:'Chu kỳ kinh nguyệt', goalCycleSub:'Dự đoán kỳ kinh và ngày rụng trứng', goalPreg:'Tôi đang mang thai', goalPregSub:'Theo dõi từng tuần và cử động của bé', onb2TitleC:'Kỳ kinh gần nhất bắt đầu khi nào?', onb2TitleP:'Ngày dự sinh của bạn', cycleLen:'Độ dài chu kỳ',
+    logTitle:'Hôm nay bạn thấy thế nào?', upcoming:'Dự đoán sắp tới', nextPeriodL:'Kỳ kinh tiếp theo', nextOvL:'Rụng trứng', periodLenL:'Kỳ kinh', regular:'Đều', last6:'6 chu kỳ gần nhất', maybePreg:'Có thể bạn đang mang thai?', maybePregSub:'Chuyển sang chế độ thai kỳ để theo dõi từng tuần', forYou:'Dành cho bạn', seeAll:'Xem tất cả',
+    calTitle:'Lịch', legPeriod:'Kỳ kinh', legPred:'Dự đoán', legFertile:'Dễ thụ thai', legOv:'Rụng trứng', addNote:'Ghi chú',
+    qaKicks:'Đếm cử động', qaSym:'Triệu chứng', qaWeight:'Cân nặng', qaWeek:'Tuần thai', kickTodayL:'Cử động hôm nay', lenL:'Chiều dài', wL:'Cân nặng', weightCardL:'Cân nặng của mẹ',
+    kicksTitle:'Đếm cử động', settings:'Cài đặt', mergePill:'Gộp trong 5 phút', startL:'Bắt đầu', startSub:'Chạm để bắt đầu một lượt đếm', tapHint:'Chạm vào vòng tròn mỗi khi cảm nhận bé đạp, xoay hoặc trườn', undo:'Hoàn tác', end:'Kết thúc', doneL:'Hoàn thành', newSess:'Lượt mới', last7:'7 ngày qua', history:'Lịch sử', warnTitle:'Bé cử động ít hơn bình thường', warnBody:'Đã hơn 2 giờ nhưng bé chưa đạt 10 cử động. Hãy liên hệ bác sĩ hoặc đến cơ sở y tế gần nhất ngay, đừng chờ đến ngày mai.', callDoc:'Gọi bác sĩ', aboutTitle:'Phương pháp Cardiff', aboutBody:'Đếm đến khi đủ 10 cử động và xem mất bao lâu. Mỗi ngày đếm vào cùng khung giờ để biết nhịp bình thường của bé. Nếu quá 2 giờ chưa đủ 10, hoặc bé cử động ít hơn mọi ngày, hãy gọi bác sĩ.',
+    histTitle:'Lịch sử cử động', d7:'7 ngày', w4:'4 tuần', avgL:'Thời gian trung bình để đủ 10 cử động', sessionsL:'Các lượt đếm', guideTitle:'Khi nào cần gặp bác sĩ', guideBody:'Liên hệ ngay nếu sau 2 giờ chưa đủ 10 cử động, nếu bé cử động yếu hơn hoặc khác hẳn thường ngày, hoặc nếu bạn thấy lo lắng. Đừng chờ đến lượt đếm hôm sau.',
+    weightTitle:'Cân nặng', gainL:'Đã tăng', sinceL:'so với trước khi mang thai', rangeL:'Khoảng khuyến nghị', youL:'Bạn', addWeight:'Ghi cân nặng tuần này', save:'Lưu', entriesL:'Lịch sử',
+    learnTitle:'Kiến thức', reviewedBy:'Người xem xét', reviewer:'BS. Nguyễn Thu Hà, Sản phụ khoa',
+    partnerTitle:'Bạn đời', partnerSub:'Mời bạn đời cùng theo dõi để không ai bỏ lỡ điều gì. Bạn chọn những gì được chia sẻ.', invite:'Mời bạn đời', codeL:'Mã mời', copy:'Sao chép', simJoin:'Mô phỏng: bạn đời tham gia', shareL:'Chia sẻ với bạn đời', partnerSees:'Bạn đời sẽ thấy',
+    reminderRow:'Nhắc đếm cử động', replayOnb:'Xem lại phần giới thiệu',
+    flowL:'Lượng kinh', moodL:'Tâm trạng', symL:'Triệu chứng',
+    swTitle:'Chúc mừng bạn!', swBody:'Mầm sẽ chuyển sang theo dõi thai kỳ: tuần thai, kích thước của bé, cân nặng và đếm cử động.', swByDue:'Theo ngày dự sinh', swByLmp:'Theo kỳ kinh cuối', swConfirm:'Bật chế độ mang thai', cancel:'Để sau', endTitle:'Kết thúc theo dõi thai kỳ?', endBody:'Dữ liệu thai kỳ vẫn được lưu lại. Mầm sẽ quay về theo dõi chu kỳ kinh nguyệt.', endConfirm:'Quay về theo dõi chu kỳ',
+    ksTitle:'Cài đặt đếm cử động', remL:'Nhắc hằng ngày', remSub:'Đếm cùng một khung giờ mỗi ngày, khi bé thường hoạt động', mergeL:'Gộp cử động sát nhau', mergeSub:'Các lần chạm trong vòng 5 phút được tính là 1 cử động', hapticL:'Rung khi chạm', hapticSub:'Phản hồi rung nhẹ để bạn không cần nhìn màn hình', goalL:'Mục tiêu', goalSub:'Phương pháp Cardiff', done2:'Xong',
+    tabToday:'Hôm nay', tabCal:'Lịch', tabKicks:'Cử động', tabLearn:'Kiến thức', tabPartner:'Bạn đời' },
+  en: { skip:'Skip', next:'Continue', finish:'Get started', onb0Title:'Welcome to Mầm', onb0Sub:'Track your cycle every month, and follow along week by week when a baby is on the way.', langLabel:'Language', onb1Title:'What would you like to track?', goalCycle:'My cycle', goalCycleSub:'Predict periods and ovulation', goalPreg:"I'm pregnant", goalPregSub:"Follow each week and baby's movements", onb2TitleC:'When did your last period start?', onb2TitleP:'Your due date', cycleLen:'Cycle length',
+    logTitle:'How are you feeling today?', upcoming:'Coming up', nextPeriodL:'Next period', nextOvL:'Ovulation', periodLenL:'Period', regular:'Regular', last6:'Last 6 cycles', maybePreg:'Think you might be pregnant?', maybePregSub:'Switch to pregnancy mode to follow week by week', forYou:'For you', seeAll:'See all',
+    calTitle:'Calendar', legPeriod:'Period', legPred:'Predicted', legFertile:'Fertile', legOv:'Ovulation', addNote:'Log',
+    qaKicks:'Kick counter', qaSym:'Symptoms', qaWeight:'Weight', qaWeek:'This week', kickTodayL:'Movements today', lenL:'Length', wL:'Weight', weightCardL:'Your weight',
+    kicksTitle:'Kick counter', settings:'Settings', mergePill:'Group within 5 min', startL:'Start', startSub:'Tap to start a session', tapHint:'Tap the circle each time you feel a kick, roll or flutter', undo:'Undo', end:'End', doneL:'Done', newSess:'New session', last7:'Last 7 days', history:'History', warnTitle:'Fewer movements than usual', warnBody:"It's been over 2 hours without 10 movements. Contact your doctor or go to the nearest clinic now. Don't wait until tomorrow.", callDoc:'Call my doctor', aboutTitle:'The Cardiff method', aboutBody:"Count until you reach 10 movements and note how long it takes. Count at the same time each day to learn your baby's normal pattern. If 10 takes over 2 hours, or movements drop, call your doctor.",
+    histTitle:'Movement history', d7:'7 days', w4:'4 weeks', avgL:'Average time to 10 movements', sessionsL:'Sessions', guideTitle:'When to call your doctor', guideBody:"Call right away if 10 movements take longer than 2 hours, if movements feel weaker or different from usual, or if you're worried. Don't wait for tomorrow's session.",
+    weightTitle:'Weight', gainL:'Gained', sinceL:'since pre-pregnancy', rangeL:'Recommended range', youL:'You', addWeight:"Log this week's weight", save:'Save', entriesL:'History',
+    learnTitle:'Learn', reviewedBy:'Reviewed by', reviewer:'Dr. Nguyen Thu Ha, OB-GYN',
+    partnerTitle:'Partner', partnerSub:'Invite your partner to follow along so nobody misses a thing. You choose what gets shared.', invite:'Invite partner', codeL:'Invite code', copy:'Copy', simJoin:'Simulate: partner joins', shareL:'Share with partner', partnerSees:'Your partner sees',
+    reminderRow:'Kick reminder', replayOnb:'Replay onboarding',
+    flowL:'Flow', moodL:'Mood', symL:'Symptoms',
+    swTitle:'Congratulations!', swBody:"Mầm will switch to pregnancy tracking: weeks, baby's size, weight and kick counting.", swByDue:'By due date', swByLmp:'By last period', swConfirm:'Turn on pregnancy mode', cancel:'Not now', endTitle:'End pregnancy tracking?', endBody:'Your pregnancy data stays saved. Mầm will go back to cycle tracking.', endConfirm:'Return to cycle tracking',
+    ksTitle:'Kick counter settings', remL:'Daily reminder', remSub:'Count at the same time each day, when baby is usually active', mergeL:'Group close movements', mergeSub:'Taps within 5 minutes count as one movement', hapticL:'Vibrate on tap', hapticSub:'A light buzz so you don’t need to look at the screen', goalL:'Goal', goalSub:'Cardiff method', done2:'Done',
+    tabToday:'Today', tabCal:'Calendar', tabKicks:'Kicks', tabLearn:'Learn', tabPartner:'Partner' }
+};
+
+const OPTS = {
+  flow: { vi: ['Không','Ít','Vừa','Nhiều'], en: ['None','Light','Medium','Heavy'] },
+  mood: { vi: ['Vui vẻ','Bình thường','Nhạy cảm','Lo âu','Mệt mỏi'], en: ['Happy','Calm','Sensitive','Anxious','Tired'] },
+  symC: { vi: ['Đau bụng','Đau đầu','Căng ngực','Nổi mụn','Đầy hơi','Thèm ăn'], en: ['Cramps','Headache','Tender breasts','Acne','Bloating','Cravings'] },
+  symP: { vi: ['Buồn nôn','Ợ nóng','Phù chân','Đau lưng','Chuột rút','Khó ngủ','Cơn gò'], en: ['Nausea','Heartburn','Swollen feet','Back pain','Leg cramps','Insomnia','Contractions'] }
+};
+
+const SEED_SESS = [24,19,31,16,27,21,18].map((m, i) => {
+  const d = addD(TODAY, i - 7); const st = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 20, [5,40,10,30,15,55,20][i]).getTime();
+  return { start: st, end: st + m * 60000, count: 10 };
+});
+const SEED_W = [{w:12,kg:53.1},{w:16,kg:54.6},{w:20,kg:56.2},{w:24,kg:58.0},{w:27,kg:59.4},{w:30,kg:60.9}];
+const PRE_KG = 52.0;
+const KEY = 'mam-app-v1';
+const band = w => [w <= 13 ? 0.5 * w / 13 : 0.5 + (w - 13) * 0.42, w <= 13 ? 2 * w / 13 : 2 + (w - 13) * 0.52];
+
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    let s = {};
+    try { s = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+    this.state = {
+      lang: s.lang || this.props.lang || 'vi', mode: s.mode || 'period', onbDone: !!s.onbDone, onbStep: 0, goalPick: s.mode || null,
+      periodStart: s.periodStart ? new Date(s.periodStart) : new Date(2026, 8, 23), prevStart: null, cycleLen: s.cycleLen || 28,
+      due: s.due ? new Date(s.due) : new Date(2026, 11, 5),
+      screen: 'home', prev: 'home', sheet: null, overlay: null, selWeek: null, artId: null, learnF: 'all',
+      calM: 0, sel: TODAY, logs: s.logs || {}, draft: { flow: null, mood: [], sym: [] },
+      sessions: s.sessions || SEED_SESS, k: { status: 'idle', start: 0, taps: [], end: 0, tapN: 0 }, now: Date.now(), histMode: '7',
+      remOn: s.remOn ?? true, remTime: s.remTime || '20:00', mergeOn: !!s.mergeOn, hapticOn: s.hapticOn ?? true,
+      weights: s.weights || SEED_W, newKg: null, partner: s.partner || 'none', share: s.share || { cycle: true, preg: true, kicks: true, sym: false },
+      swMode: 'due', swDate: new Date(2026, 11, 5), toast: null
+    };
+    this.scrollRef = React.createRef(); this.chipRef = React.createRef();
+  }
+  componentDidMount() { this.iv = setInterval(() => { if (this.state.k.status === 'run') this.setState({ now: Date.now() }); }, 1000); }
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.tt); }
+  componentDidUpdate(pp, ps) {
+    if (pp.lang !== this.props.lang && this.props.lang) this.setState({ lang: this.props.lang });
+    if (ps.screen !== this.state.screen && this.scrollRef.current) this.scrollRef.current.scrollTop = 0;
+    if (ps.overlay !== 'week' && this.state.overlay === 'week' && this.chipRef.current) this.chipRef.current.scrollLeft = Math.max(0, (this.state.selWeek - 6) * 88);
+    const s = this.state;
+    try { localStorage.setItem(KEY, JSON.stringify({ lang: s.lang, mode: s.mode, onbDone: s.onbDone, periodStart: s.periodStart, cycleLen: s.cycleLen, due: s.due, logs: s.logs, sessions: s.sessions, remOn: s.remOn, remTime: s.remTime, mergeOn: s.mergeOn, hapticOn: s.hapticOn, weights: s.weights, partner: s.partner, share: s.share })); } catch (e) {}
+  }
+  flash(msg) { clearTimeout(this.tt); this.setState({ toast: msg }); this.tt = setTimeout(() => this.setState({ toast: null }), 1900); }
+  go(screen) { this.setState(s => ({ screen, prev: s.screen, overlay: null, sheet: null })); }
+  cyc(d) {
+    const L = this.state.cycleLen, n = diffD(d, this.state.periodStart), cd = ((n % L) + L) % L + 1, ov = L - 14;
+    return { cd, period: cd <= 5, ov: cd === ov, fertile: cd >= ov - 5 && cd <= ov, ovDay: ov };
+  }
+  preg(due) {
+    const lmp = addD(due, -280), days = diffD(TODAY, lmp);
+    const w = Math.max(0, Math.floor(days / 7)), d = Math.max(0, days % 7);
+    return { w, d, days, left: diffD(due, TODAY), tri: w < 14 ? 1 : w < 28 ? 2 : 3 };
+  }
+  fruit(w, l) { const f = FR[Math.min(40, Math.max(4, w))]; const g = f[3]; return { name: l === 'vi' ? f[0] : f[1], len: `${num(f[2], l)} cm`, w: g < 1000 ? `${g < 1 ? '<1' : g} g` : `${num(g / 1000, l, 2)} kg` }; }
+  wkLabel(p, l) { return l === 'vi' ? `${p.w} tuần, ${p.d} ngày` : `${p.w} weeks, ${p.d} day${p.d === 1 ? '' : 's'}`; }
+  dur(ms, l) { const m = Math.max(1, Math.round(ms / 60000)); return l === 'vi' ? `${m} phút` : `${m} min`; }
+
+  tap() {
+    const s = this.state, now = Date.now(), goal = this.props.kickGoal ?? 10;
+    if (s.k.status === 'done') return;
+    if (s.hapticOn && navigator.vibrate) navigator.vibrate(30);
+    if (s.k.status === 'idle') { this.setState({ k: { status: 'run', start: now, taps: [], end: 0, tapN: 1 }, now }); return; }
+    const last = s.k.taps[s.k.taps.length - 1];
+    if (s.mergeOn && last && now - last < 5 * 60000) { this.setState({ k: { ...s.k, tapN: s.k.tapN + 1 } }); this.flash(s.lang === 'vi' ? 'Đã gộp vào cử động trước' : 'Grouped with previous movement'); return; }
+    const taps = [...s.k.taps, now];
+    if (taps.length >= goal) {
+      this.setState({ k: { ...s.k, taps, status: 'done', end: now, tapN: s.k.tapN + 1 }, sessions: [...s.sessions, { start: s.k.start, end: now, count: taps.length }] });
+    } else this.setState({ k: { ...s.k, taps, tapN: s.k.tapN + 1 }, now });
+  }
+
+  renderVals() {
+    const s = this.state, l = s.lang, t = T[l], goal = this.props.kickGoal ?? 10;
+    const isPreg = s.mode === 'preg', scr = s.screen;
+    const tog = on => ({ bg: on ? '#C9673E' : '#DDD2CB', x: on ? 18 : 0 });
+    const chip = (on, accent) => ({ bg: on ? (accent || '#2B201C') : '#fff', fg: on ? '#fff' : '#2B201C' });
+
+    // cycle
+    const c = this.cyc(TODAY), L = s.cycleLen;
+    const nextP = addD(s.periodStart, Math.ceil((diffD(TODAY, s.periodStart) + 1) / L) * L);
+    const ovThis = addD(nextP, -L + c.ovDay - 1), nextOvD = diffD(ovThis, TODAY) >= 0 ? ovThis : addD(ovThis, L);
+    const toNext = diffD(nextP, TODAY);
+    const ang = (c.cd - 0.5) / L * 2 * Math.PI;
+    const pE = 5 / L * 100, fS = (c.ovDay - 6) / L * 100, fE = c.ovDay / L * 100;
+    const ringBg = `conic-gradient(#E0566B 0 ${pE}%, #F3E6E0 ${pE}% ${fS}%, #8CCFC7 ${fS}% ${fE}%, #F3E6E0 ${fE}% 100%)`;
+    const phase = c.period ? (l === 'vi' ? 'Hành kinh' : 'Period') : c.ov ? (l === 'vi' ? 'Ngày rụng trứng' : 'Ovulation day') : c.fertile ? (l === 'vi' ? 'Khả năng thụ thai cao' : 'High chance of pregnancy') : c.cd > c.ovDay ? (l === 'vi' ? 'Pha hoàng thể' : 'Luteal phase') : (l === 'vi' ? 'Pha nang trứng' : 'Follicular phase');
+    const todayKey = TODAY.toDateString(), todayLog = s.logs[todayKey];
+    const optL = (k, i) => OPTS[k][l][i];
+    const logSummary = todayLog ? [todayLog.flow != null ? optL('flow', todayLog.flow) : null, ...todayLog.mood.map(i => optL('mood', i)), ...todayLog.sym.map(i => optL(todayLog.m === 'preg' ? 'symP' : 'symC', i))].filter(Boolean).join(' · ') || (l === 'vi' ? 'Đã ghi' : 'Logged') : (l === 'vi' ? 'Ghi tâm trạng, triệu chứng, lượng kinh' : 'Log mood, symptoms and flow');
+
+    // strip
+    const strip = [...Array(7)].map((_, i) => {
+      const d = addD(TODAY, i - 6), isT = i === 6, cc = this.cyc(d);
+      let bg = 'transparent', fg = '#2B201C', border = '0';
+      if (!isPreg) { if (cc.period) { bg = '#FBE3E6'; fg = '#C2384F'; } else if (cc.ov) { bg = '#CBEAE6'; fg = '#1F6E67'; } else if (cc.fertile) { fg = '#2F8C84'; } }
+      else fg = '#B8572F';
+      if (isT) { bg = '#fff'; }
+      return { wd: isT ? (l === 'vi' ? 'NAY' : 'TODAY') : WD[l][d.getDay()], num: d.getDate(), bg, fg, border, weight: isT ? 700 : 500, shadow: isT ? '0 4px 14px rgba(150,80,50,.18)' : 'none' };
+    });
+
+    // calendar
+    const mStart = new Date(2026, 9 + s.calM, 1), off = (mStart.getDay() + 6) % 7, dim = new Date(mStart.getFullYear(), mStart.getMonth() + 1, 0).getDate();
+    const cells = [...Array(Math.ceil((off + dim) / 7) * 7)].map((_, i) => {
+      const dn = i - off + 1, valid = dn >= 1 && dn <= dim, d = new Date(mStart.getFullYear(), mStart.getMonth(), dn), cc = this.cyc(d), fut = diffD(d, TODAY) > 0, isT = same(d, TODAY), isS = same(d, s.sel);
+      let bg = 'transparent', fg = '#2B201C', border = '0', weight = 500;
+      if (cc.period) { if (fut) { border = '1.5px dashed #E0566B'; fg = '#C2384F'; } else { bg = '#E0566B'; fg = '#fff'; } }
+      else if (cc.ov) { bg = '#CBEAE6'; border = '1.5px solid #2F8C84'; fg = '#1F6E67'; weight = 700; }
+      else if (cc.fertile) { bg = '#E3F2F0'; fg = '#1F6E67'; }
+      if (isT) weight = 800;
+      return { num: dn, vis: valid ? 'visible' : 'hidden', bg, fg, border, weight, shadow: isS ? '0 0 0 2px #2B201C' : isT ? '0 0 0 2px #E8CFC4' : 'none', onClick: () => valid && this.setState({ sel: d }) };
+    });
+    const sc = this.cyc(s.sel);
+    const selPhase = sc.period ? t.legPeriod : sc.ov ? t.legOv : sc.fertile ? t.legFertile : (l === 'vi' ? 'Khả năng thụ thai thấp' : 'Low chance of pregnancy');
+
+    // pregnancy
+    const p = this.preg(s.due), fr = this.fruit(p.w, l);
+    const selW = s.selWeek || p.w, frS = this.fruit(selW, l), triS = selW < 14 ? 0 : selW < 28 ? 1 : 2;
+    const todaySess = s.sessions.filter(x => same(new Date(x.start), TODAY));
+    const lastT = todaySess[todaySess.length - 1];
+
+    // kicks
+    const k = s.k, kc = k.taps.length, elapsed = k.status === 'run' ? s.now - k.start : k.end - k.start;
+    const R = 120, dots = [...Array(goal)].map((_, i) => { const a = i / goal * 2 * Math.PI; return { x: 134 + R * Math.sin(a) - 7, y: 134 - R * Math.cos(a) - 7, bg: i < kc ? '#B8572F' : 'rgba(184,87,47,.18)' }; });
+    const mm = Math.floor(elapsed / 60000), ss = Math.floor(elapsed / 1000) % 60;
+    const timerLabel = mm >= 60 ? `${Math.floor(mm / 60)}:${pad(mm % 60)}:${pad(ss)}` : `${pad(mm)}:${pad(ss)}`;
+    const ripple = k.tapN ? React.createElement('div', { key: 'r' + k.tapN, style: { position: 'absolute', inset: 0, borderRadius: '50%', border: '3px solid #fff', animation: 'rip .6s ease-out forwards', pointerEvents: 'none' } }) : null;
+    const countEl = React.createElement('div', { key: 'c' + kc, style: { fontSize: 72, fontWeight: 700, lineHeight: 1, animation: 'pop .3s ease' } }, kc);
+
+    // history
+    const days7 = [...Array(7)].map((_, i) => { const d = addD(TODAY, i - 6); const ses = s.sessions.filter(x => same(new Date(x.start), d) && x.count >= goal); const m = ses.length ? Math.round((ses[ses.length - 1].end - ses[ses.length - 1].start) / 60000) : null; return { d, m }; });
+    const vals7 = days7.filter(x => x.m != null).map(x => x.m);
+    const avg7 = vals7.length ? Math.round(vals7.reduce((a, b) => a + b, 0) / vals7.length) : 0;
+    const wk4 = [{ l: l === 'vi' ? '3 tuần trước' : '3 wks ago', m: 28 }, { l: l === 'vi' ? '2 tuần trước' : '2 wks ago', m: 25 }, { l: l === 'vi' ? 'Tuần trước' : 'Last wk', m: 23 }, { l: l === 'vi' ? 'Tuần này' : 'This wk', m: avg7 }];
+    const maxV = 60, H = 130;
+    const bars = s.histMode === '7'
+      ? days7.map((x, i) => ({ l: i === 6 ? (l === 'vi' ? 'Nay' : 'Today') : WD[l][x.d.getDay()], v: x.m != null ? `${x.m}′` : '–', h: x.m != null ? Math.max(6, Math.min(x.m, maxV) / maxV * H) : 4, bg: x.m == null ? '#EFE6DF' : i === 6 ? '#B8572F' : '#E3A584' }))
+      : wk4.map((x, i) => ({ l: x.l, v: `${x.m}′`, h: Math.max(6, x.m / maxV * H), bg: i === 3 ? '#B8572F' : '#E3A584' }));
+    const miniBars = days7.map((x, i) => ({ l: WD[l][x.d.getDay()], h: x.m != null ? Math.max(6, x.m / maxV * 44) : 4, bg: x.m == null ? '#EFE6DF' : i === 6 ? '#B8572F' : '#E3A584' }));
+    const sessList = [...s.sessions].reverse().slice(0, 8).map(x => { const d = new Date(x.start), ok = x.count >= goal; return { count: x.count, date: same(d, TODAY) ? (l === 'vi' ? 'Hôm nay' : 'Today') : `${WD[l][d.getDay()]}, ${fmt(d, l)}`, sub: `${hm(x.start)} – ${hm(x.end)}`, dur: this.dur(x.end - x.start, l), bg: ok ? '#F7E3D7' : '#FDE8E4', fg: ok ? '#9C4823' : '#A3301F' }; });
+
+    // weight
+    const W = s.weights, lastW = W[W.length - 1], newKg = s.newKg ?? lastW.kg;
+    const X = w => w / 40 * 310, Y = g => 150 - (g + 1) / 19 * 150;
+    const hi = [], lo = []; for (let w = 0; w <= 40; w++) { const [a, b] = band(w); hi.push(`${X(w).toFixed(1)},${Y(b).toFixed(1)}`); lo.unshift(`${X(w).toFixed(1)},${Y(a).toFixed(1)}`); }
+    const pts = W.map(e => ({ x: X(e.w), y: Y(e.kg - PRE_KG) }));
+    const gain = lastW.kg - PRE_KG, [bl, bh] = band(lastW.w);
+    const wSt = gain < bl ? 'low' : gain > bh ? 'high' : 'ok';
+    const sign = gain >= 0 ? '+' : '';
+
+    // articles
+    const artV = a => ({ ...a, title: a[l][0], body: a[l][1], cat: a.cat === 'cycle' ? (l === 'vi' ? 'Chu kỳ' : 'Cycle') : (l === 'vi' ? 'Thai kỳ' : 'Pregnancy'), catFg: a.cat === 'cycle' ? '#C2384F' : '#B8572F', meta: `${a.min} ${l === 'vi' ? 'phút đọc' : 'min read'}`, open: () => this.setState({ overlay: 'article', artId: a.id }) });
+    const artList = ART.filter(a => s.learnF === 'all' || a.cat === s.learnF).map(artV);
+    const artSel = artV(ART.find(a => a.id === s.artId) || ART[0]);
+
+    // switch sheet
+    const swDue = s.swMode === 'due' ? s.swDate : addD(s.swDate, 280), swP = this.preg(swDue);
+
+    // tabs
+    const tabDefs = isPreg
+      ? [['home', t.tabToday, 20, 19, '5px', 2], ['kicks', t.tabKicks, 20, 20, '50%', 2], ['learn', t.tabLearn, 18, 20, '4px', 6], ['partner', t.tabPartner, 22, 16, '10px', 2]]
+      : [['home', t.tabToday, 20, 19, '5px', 2], ['cal', t.tabCal, 20, 19, '5px', 6], ['learn', t.tabLearn, 18, 20, '4px', 6], ['partner', t.tabPartner, 22, 16, '10px', 2]];
+    const activeTab = scr === 'hist' ? 'kicks' : scr === 'weight' || scr === 'me' ? 'home' : scr;
+    const tabs = tabDefs.map(([id, label, w, h, r, bt]) => ({ label, w, h, r, bt, c: activeTab === id ? (isPreg ? '#B8572F' : '#C2384F') : '#A89890', go: () => this.go(id) }));
+
+    // onboarding
+    const os = s.onbStep, onbCanNext = os !== 1 || s.goalPick;
+    const lmpChips = [...Array(14)].map((_, i) => { const d = addD(TODAY, i - 13), on = same(d, s.periodStart); return { wd: WD[l][d.getDay()], num: d.getDate(), ...chip(on, '#E0566B'), go: () => this.setState({ periodStart: d }) }; });
+
+    const jump = (label, fn) => ({ label, go: fn });
+    const setMode = (mode, extra = {}) => this.setState({ mode, onbDone: true, sheet: null, overlay: null, ...extra });
+
+    const togArr = (key, i) => this.setState(st => { const a = st.draft[key]; return { draft: { ...st.draft, [key]: a.includes(i) ? a.filter(x => x !== i) : [...a, i] } }; });
+    const symKey = isPreg ? 'symP' : 'symC';
+
+    return {
+      t, week: p.w, goal, isPreg, isPeriodMode: !isPreg,
+      scrollRef: this.scrollRef, chipRef: this.chipRef,
+      jumpsP: [
+        jump('Onboarding', () => this.setState({ onbDone: false, onbStep: 0, overlay: null, sheet: null })),
+        jump('Trang chủ chu kỳ', () => setMode('period', { screen: 'home' })),
+        jump('Lịch & dự đoán', () => setMode('period', { screen: 'cal' })),
+        jump('Ghi triệu chứng', () => setMode('period', { screen: 'home', sheet: 'log', draft: { flow: null, mood: [], sym: [] } })),
+        jump('Chuyển sang mang thai', () => setMode('period', { screen: 'home', sheet: 'switchOn' }))
+      ],
+      jumpsG: [
+        jump('Trang chủ thai kỳ', () => setMode('preg', { screen: 'home' })),
+        jump('Chi tiết tuần thai', () => setMode('preg', { screen: 'home', overlay: 'week', selWeek: p.w })),
+        jump('Đếm cử động', () => setMode('preg', { screen: 'kicks' })),
+        jump('Cảnh báo ít cử động', () => { const n = Date.now(); setMode('preg', { screen: 'kicks', k: { status: 'run', start: n - 125 * 60000, taps: [n - 110 * 60000, n - 80 * 60000, n - 52 * 60000, n - 20 * 60000], end: 0, tapN: 0 }, now: n }); }),
+        jump('Lịch sử cử động', () => setMode('preg', { screen: 'hist' })),
+        jump('Cân nặng mẹ', () => setMode('preg', { screen: 'weight' })),
+        jump('Bài viết', () => setMode('preg', { screen: 'learn' })),
+        jump('Bạn đời', () => setMode('preg', { screen: 'partner' }))
+      ],
+      showHeader: scr === 'home', showTabs: true,
+      todayLabel: fmt(TODAY, l), strip,
+      goMe: () => this.go('me'), headerRight: () => isPreg ? this.setState({ overlay: 'week', selWeek: p.w }) : this.go('cal'),
+      goHome: () => this.go('home'), goLearn: () => this.go('learn'), goKicks: () => this.go('kicks'), goHist: () => this.go('hist'), goWeight: () => this.go('weight'),
+
+      isPeriodHome: scr === 'home' && !isPreg, ringBg,
+      markerX: 132 + 125 * Math.sin(ang) - 11, markerY: 132 - 125 * Math.cos(ang) - 11,
+      ringTop: c.period ? t.legPeriod : t.nextPeriodL,
+      ringBig: c.period ? (l === 'vi' ? `Ngày ${c.cd}` : `Day ${c.cd}`) : (l === 'vi' ? `${toNext} ngày` : `${toNext} days`),
+      ringSub: c.period ? fmt(TODAY, l) : fmt(nextP, l),
+      periodBtn: s.prevStart ? (l === 'vi' ? 'Hoàn tác' : 'Undo') : (l === 'vi' ? 'Kỳ kinh bắt đầu' : 'Period started'),
+      togglePeriod: () => s.prevStart ? this.setState({ periodStart: s.prevStart, prevStart: null }) : (this.setState({ prevStart: s.periodStart, periodStart: TODAY }), this.flash(l === 'vi' ? 'Đã ghi ngày bắt đầu kỳ kinh' : 'Period start logged')),
+      phaseLine: `${l === 'vi' ? 'Ngày' : 'Day'} ${c.cd} · ${phase}`,
+      phaseBg: c.period ? '#FBE3E6' : c.fertile ? '#E3F2F0' : '#F1E7DF', phaseFg: c.period ? '#C2384F' : c.fertile ? '#1F6E67' : '#6E5F58',
+      logSummary, nextPeriod: fmt(nextP, l), nextOv: fmt(nextOvD, l),
+      cycleLenTxt: `${L} ${l === 'vi' ? 'ngày' : 'days'}`, periodLenTxt: `5 ${l === 'vi' ? 'ngày' : 'days'}`,
+      homeArticles: ART.filter(a => a.cat === 'cycle').map(artV),
+      openLog: () => this.setState({ sheet: 'log', draft: todayLog ? { flow: todayLog.flow, mood: [...todayLog.mood], sym: [...todayLog.sym] } : { flow: null, mood: [], sym: [] } }),
+      openSwitch: () => this.setState({ sheet: isPreg ? 'switchOff' : 'switchOn', swMode: 'due', swDate: new Date(2026, 11, 5) }),
+
+      isCal: scr === 'cal', wdHead: l === 'vi' ? ['T2','T3','T4','T5','T6','T7','CN'] : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      monthLabel: l === 'vi' ? `Tháng ${mStart.getMonth() + 1}, ${mStart.getFullYear()}` : `${MEN[mStart.getMonth()]} ${mStart.getFullYear()}`,
+      prevMonth: () => this.setState({ calM: s.calM - 1 }), nextMonth: () => this.setState({ calM: s.calM + 1 }), cells,
+      selLabel: same(s.sel, TODAY) ? (l === 'vi' ? 'Hôm nay' : 'Today') : `${WD[l][s.sel.getDay()]}, ${fmt(s.sel, l)}`,
+      selLine: `${l === 'vi' ? 'Ngày' : 'Day'} ${sc.cd} · ${selPhase}`,
+
+      isPregHome: scr === 'home' && isPreg,
+      heroPh: l === 'vi' ? `ảnh thai nhi\ntuần ${p.w}` : `fetus image\nweek ${p.w}`,
+      pregLabel: this.wkLabel(this.preg(s.due), l),
+      pregSub: l === 'vi' ? `Tam cá nguyệt ${p.tri} · còn ${p.left} ngày` : `Trimester ${p.tri} · ${p.left} days to go`,
+      pregPct: Math.min(100, p.days / 280 * 100),
+      kickToday: lastT ? (l === 'vi' ? `${lastT.count} cử động trong ${this.dur(lastT.end - lastT.start, l)}` : `${lastT.count} movements in ${this.dur(lastT.end - lastT.start, l)}`) : (l === 'vi' ? 'Chưa đếm hôm nay' : 'Not counted yet today'),
+      kickTodaySub: lastT ? (l === 'vi' ? `Lúc ${hm(lastT.start)} · trung bình 7 ngày ${avg7} phút` : `At ${hm(lastT.start)} · 7-day avg ${avg7} min`) : (s.remOn ? (l === 'vi' ? `Nhắc lúc ${s.remTime}` : `Reminder at ${s.remTime}`) : (l === 'vi' ? `Trung bình 7 ngày: ${avg7} phút` : `7-day average: ${avg7} min`)),
+      kickCta: lastT ? (l === 'vi' ? 'Xem' : 'View') : (l === 'vi' ? 'Đếm ngay' : 'Count now'),
+      fruitPh: fr.name, sizeLine: l === 'vi' ? `Bé to bằng ${fr.name}` : `Baby is the size of a ${fr.name}`, sizeLen: fr.len, sizeW: fr.w,
+      weightLine: `${num(lastW.kg, l)} kg · ${sign}${num(gain, l)} kg`,
+      wStatus: wSt === 'ok' ? (l === 'vi' ? 'Trong khoảng' : 'On track') : wSt === 'low' ? (l === 'vi' ? 'Dưới khoảng' : 'Below range') : (l === 'vi' ? 'Trên khoảng' : 'Above range'),
+      wStatusBg: wSt === 'ok' ? '#E3F2F0' : '#FDE8E4', wStatusFg: wSt === 'ok' ? '#1F6E67' : '#A3301F',
+      openWeekCur: () => this.setState({ overlay: 'week', selWeek: p.w }),
+
+      isKicks: scr === 'kicks',
+      kicksSub: l === 'vi' ? `Tuần ${p.w} · đếm đến ${goal} cử động` : `Week ${p.w} · count to ${goal} movements`,
+      remPill: s.remOn ? (l === 'vi' ? `Nhắc lúc ${s.remTime} hằng ngày` : `Daily at ${s.remTime}`) : (l === 'vi' ? 'Nhắc nhở: tắt' : 'Reminder: off'),
+      mergeOn: s.mergeOn, openKs: () => this.setState({ sheet: 'ks' }),
+      dots, kIdle: k.status === 'idle', kRun: k.status === 'run', kDone: k.status === 'done', kCount: kc,
+      coreBg: k.status === 'done' ? '#2F8C84' : k.status === 'run' ? '#B8572F' : '#C9673E',
+      ripple, countEl, countSub: l === 'vi' ? `/ ${goal} cử động` : `/ ${goal} movements`, timerLabel,
+      doneDur: l === 'vi' ? `cử động · ${this.dur(elapsed, l)}` : `movements · ${this.dur(elapsed, l)}`,
+      doneMsg: l === 'vi' ? `Bé đạt ${kc} cử động trong ${this.dur(elapsed, l)}. Đã lưu vào lịch sử.` : `Baby reached ${kc} movements in ${this.dur(elapsed, l)}. Saved to history.`,
+      kickTap: () => this.tap(),
+      undoKick: () => this.setState({ k: { ...k, taps: k.taps.slice(0, -1) } }),
+      endSess: () => { if (kc) this.setState({ sessions: [...s.sessions, { start: k.start, end: Date.now(), count: kc }] }); this.setState({ k: { status: 'idle', start: 0, taps: [], end: 0, tapN: 0 } }); if (kc) this.flash(l === 'vi' ? 'Đã lưu lượt đếm' : 'Session saved'); },
+      newSess: () => this.setState({ k: { status: 'idle', start: 0, taps: [], end: 0, tapN: 0 } }),
+      kickTimes: k.taps.map(hm), showWarn: k.status === 'run' && elapsed > 2 * 3600000 && kc < goal,
+      callDoc: () => this.flash(l === 'vi' ? 'Đang gọi bác sĩ…' : 'Calling your doctor…'), miniBars,
+
+      isHist: scr === 'hist', h7Bg: s.histMode === '7' ? '#fff' : 'transparent', h4Bg: s.histMode === '4' ? '#fff' : 'transparent',
+      setH7: () => this.setState({ histMode: '7' }), setH4: () => this.setState({ histMode: '4' }),
+      avgTxt: this.dur(avg7 * 60000, l), bars, refY: 30 / maxV * H, refY2: 30 / maxV * H + 2, refLabel: '30′', sessList,
+
+      isWeight: scr === 'weight', gainTxt: `${sign}${num(gain, l)} kg`, curKgTxt: `${num(lastW.kg, l)} kg`, curWkTxt: l === 'vi' ? `Tuần ${lastW.w}` : `Week ${lastW.w}`,
+      bandPts: [...hi, ...lo].join(' '), userPts: pts.map(q => `${q.x.toFixed(1)},${q.y.toFixed(1)}`).join(' '), userDots: pts,
+      newKgTxt: `${num(newKg, l)} kg`, kgDown: () => this.setState({ newKg: Math.round((newKg - 0.1) * 10) / 10 }), kgUp: () => this.setState({ newKg: Math.round((newKg + 0.1) * 10) / 10 }),
+      saveKg: () => { this.setState({ weights: [...W.filter(e => e.w !== p.w), { w: p.w, kg: newKg }].sort((a, b) => a.w - b.w), newKg: null }); this.flash(l === 'vi' ? 'Đã lưu cân nặng' : 'Weight saved'); },
+      wList: [...W].reverse().map(e => ({ wk: l === 'vi' ? `Tuần ${e.w}` : `Week ${e.w}`, kg: `${num(e.kg, l)} kg` })),
+
+      isLearn: scr === 'learn', artList, artSel,
+      filters: [['all', l === 'vi' ? 'Tất cả' : 'All'], ['cycle', l === 'vi' ? 'Chu kỳ' : 'Cycle'], ['preg', l === 'vi' ? 'Thai kỳ' : 'Pregnancy']].map(([id, label]) => ({ label, ...chip(s.learnF === id), go: () => this.setState({ learnF: id }) })),
+
+      isPartner: scr === 'partner', pNone: s.partner === 'none', pInvited: s.partner === 'invited',
+      pAv: s.partner === 'connected' ? 'M' : '+', pAvBg: s.partner === 'connected' ? '#CFE3F0' : '#F1E7DF', pAvFg: s.partner === 'connected' ? '#2D5A78' : '#9A8A82',
+      pName: s.partner === 'connected' ? 'Minh' : (l === 'vi' ? 'Chưa có bạn đời' : 'No partner yet'),
+      pStatus: s.partner === 'connected' ? (l === 'vi' ? 'Đã kết nối' : 'Connected') : s.partner === 'invited' ? (l === 'vi' ? 'Đang chờ tham gia' : 'Waiting to join') : (l === 'vi' ? 'Gửi lời mời để bắt đầu' : 'Send an invite to start'),
+      pStatusFg: s.partner === 'connected' ? '#2F8C84' : '#7A6B64',
+      invite: () => this.setState({ partner: 'invited' }), copyCode: () => this.flash(l === 'vi' ? 'Đã sao chép mã mời' : 'Invite code copied'), simJoin: () => this.setState({ partner: 'connected' }),
+      shareRows: (isPreg ? [['preg', l === 'vi' ? 'Tuần thai & mốc phát triển' : 'Pregnancy week & milestones'], ['kicks', l === 'vi' ? 'Kết quả đếm cử động' : 'Kick counts'], ['sym', l === 'vi' ? 'Triệu chứng & tâm trạng' : 'Symptoms & mood']] : [['cycle', l === 'vi' ? 'Chu kỳ & dự đoán' : 'Cycle & predictions'], ['sym', l === 'vi' ? 'Triệu chứng & tâm trạng' : 'Symptoms & mood']])
+        .map(([id, label]) => ({ label, ...tog(s.share[id]), toggle: () => this.setState({ share: { ...s.share, [id]: !s.share[id] } }) })),
+      partnerPreview: (() => { const arr = (isPreg ? [s.share.preg && (l === 'vi' ? `Linh đang ở tuần ${p.w}. Bé to bằng ${fr.name}.` : `Linh is ${p.w} weeks. Baby is the size of a ${fr.name}.`), s.share.kicks && (lastT ? (l === 'vi' ? `Hôm nay bé đạt ${lastT.count} cử động trong ${this.dur(lastT.end - lastT.start, l)}.` : `Baby reached ${lastT.count} movements in ${this.dur(lastT.end - lastT.start, l)} today.`) : (l === 'vi' ? 'Hôm nay chưa đếm cử động.' : 'No kick count yet today.')), s.share.sym && (todayLog ? (l === 'vi' ? `Hôm nay: ${logSummary}` : `Today: ${logSummary}`) : (l === 'vi' ? 'Chưa ghi triệu chứng hôm nay.' : 'No symptoms logged today.'))] : [s.share.cycle && (l === 'vi' ? `Kỳ kinh tiếp theo khoảng ${fmt(nextP, l)}.` : `Next period around ${fmt(nextP, l)}.`), s.share.cycle && (l === 'vi' ? `Hôm nay: ${phase.toLowerCase()}.` : `Today: ${phase.toLowerCase()}.`), s.share.sym && (todayLog ? (l === 'vi' ? `Hôm nay: ${logSummary}` : `Today: ${logSummary}`) : (l === 'vi' ? 'Chưa ghi triệu chứng hôm nay.' : 'No symptoms logged today.'))]).filter(Boolean); return arr.length ? arr : [l === 'vi' ? 'Chưa chia sẻ gì.' : 'Nothing shared yet.']; })(),
+
+      isMe: scr === 'me', modeName: isPreg ? (l === 'vi' ? 'Chế độ mang thai' : 'Pregnancy mode') : (l === 'vi' ? 'Theo dõi chu kỳ' : 'Cycle tracking'),
+      viBg: l === 'vi' ? '#fff' : 'transparent', enBg: l === 'en' ? '#fff' : 'transparent',
+      setVi: () => this.setState({ lang: 'vi' }), setEn: () => this.setState({ lang: 'en' }),
+      switchRow: isPreg ? (l === 'vi' ? 'Kết thúc theo dõi thai kỳ' : 'End pregnancy tracking') : (l === 'vi' ? 'Chuyển sang chế độ mang thai' : 'Switch to pregnancy mode'),
+      remTxt: s.remOn ? s.remTime : (l === 'vi' ? 'Tắt' : 'Off'),
+      replayOnb: () => this.setState({ onbDone: false, onbStep: 0 }),
+
+      tabs,
+
+      isWeek: s.overlay === 'week', closeOverlay: () => this.setState({ overlay: null }),
+      weekTitleShort: l === 'vi' ? `Tuần ${selW}` : `Week ${selW}`,
+      weekTitle: l === 'vi' ? `Những điều diễn ra ở tuần ${selW}` : `What happens at ${selW} weeks`,
+      heroPhSel: l === 'vi' ? `ảnh 3D thai nhi\ntuần ${selW}` : `3D fetus image\nweek ${selW}`,
+      babyPhSel: l === 'vi' ? `minh hoạ thai nhi tuần ${selW}` : `baby at week ${selW}`, fruitPhSel: frS.name,
+      sizeLineSel: l === 'vi' ? `Ở tuần này, bé có kích thước bằng ${frS.name}.` : `This week, your baby is about the size of a ${frS.name}.`,
+      sizeLenSel: frS.len, sizeWSel: frS.w,
+      weekChips: [...Array(37)].map((_, i) => { const w = i + 4, on = w === selW; return { label: l === 'vi' ? `${w} tuần` : `${w} wks`, bg: on ? '#fff' : 'rgba(255,255,255,.35)', fg: on ? '#2B201C' : '#6B3A22', go: () => this.setState({ selWeek: w }) }; }),
+      weekSections: [[l === 'vi' ? 'Sự phát triển của bé' : "Baby's development", 0], [l === 'vi' ? 'Cơ thể mẹ' : 'Your body', 1], [l === 'vi' ? 'Gợi ý tuần này' : 'Tip for this week', 2]].map(([h, i]) => ({ h, p: WK[l][triS][i] })),
+
+      isArticle: s.overlay === 'article',
+
+      isOnb: !s.onbDone, onb0: os === 0, onb1: os === 1, onb2c: os === 2 && s.goalPick !== 'preg', onb2p: os === 2 && s.goalPick === 'preg',
+      onbDots: [0, 1, 2].map(i => ({ w: i === os ? 22 : 6, bg: i <= os ? '#141110' : 'rgba(20,17,16,.2)' })),
+      skipOnb: () => this.setState({ onbDone: true }),
+      gC: s.goalPick === 'period' ? '#141110' : 'transparent', gP: s.goalPick === 'preg' ? '#141110' : 'transparent',
+      pickCycle: () => this.setState({ goalPick: 'period' }), pickPreg: () => this.setState({ goalPick: 'preg' }),
+      lmpChips, lenDown: () => this.setState({ cycleLen: Math.max(21, L - 1) }), lenUp: () => this.setState({ cycleLen: Math.min(40, L + 1) }),
+      dueTxt: fmtY(s.due, l), dueDown: () => this.setState({ due: addD(s.due, -7) }), dueUp: () => this.setState({ due: addD(s.due, 7) }),
+      onbBtn: os === 2 ? t.finish : t.next, onbBtnOp: onbCanNext ? 1 : 0.35,
+      onbNext: () => { if (!onbCanNext) return; if (os < 2) this.setState({ onbStep: os + 1 }); else this.setState({ onbDone: true, mode: s.goalPick || 'period', screen: 'home' }); },
+
+      hasSheet: !!s.sheet, closeSheet: () => this.setState({ sheet: null }),
+      sLog: s.sheet === 'log', logSheetTitle: same(s.sel, TODAY) || scr !== 'cal' ? (l === 'vi' ? `Hôm nay, ${fmt(TODAY, l)}` : `Today, ${fmt(TODAY, l)}`) : fmt(s.sel, l),
+      flowChips: OPTS.flow[l].map((label, i) => ({ label, ...chip(s.draft.flow === i, '#E0566B'), go: () => this.setState({ draft: { ...s.draft, flow: s.draft.flow === i ? null : i } }) })),
+      moodChips: OPTS.mood[l].map((label, i) => ({ label, ...chip(s.draft.mood.includes(i)), go: () => togArr('mood', i) })),
+      symChips: OPTS[symKey][l].map((label, i) => ({ label, ...chip(s.draft.sym.includes(i), isPreg ? '#C9673E' : '#E0566B'), go: () => togArr('sym', i) })),
+      saveLog: () => { this.setState({ logs: { ...s.logs, [todayKey]: { ...s.draft, m: s.mode } }, sheet: null }); this.flash(l === 'vi' ? 'Đã lưu ghi chú' : 'Log saved'); },
+
+      sSwitchOn: s.sheet === 'switchOn', sSwitchOff: s.sheet === 'switchOff',
+      swDueBg: s.swMode === 'due' ? '#fff' : 'transparent', swLmpBg: s.swMode === 'lmp' ? '#fff' : 'transparent',
+      swDue: () => this.setState({ swMode: 'due', swDate: new Date(2026, 11, 5) }), swLmp: () => this.setState({ swMode: 'lmp', swDate: addD(new Date(2026, 11, 5), -280) }),
+      swLabel: s.swMode === 'due' ? (l === 'vi' ? 'Ngày dự sinh' : 'Due date') : (l === 'vi' ? 'Ngày đầu kỳ kinh cuối' : 'First day of last period'),
+      swDateTxt: fmtY(s.swDate, l), swMinus: () => this.setState({ swDate: addD(s.swDate, -1) }), swPlus: () => this.setState({ swDate: addD(s.swDate, 1) }),
+      swResult: (l === 'vi' ? 'Hôm nay: ' : 'Today: ') + this.wkLabel(swP, l) + (s.swMode === 'lmp' ? ` · ${l === 'vi' ? 'dự sinh' : 'due'} ${fmt(swDue, l)}` : ''),
+      confirmPreg: () => { setMode('preg', { due: swDue, screen: 'home' }); this.flash(l === 'vi' ? 'Đã bật chế độ mang thai' : 'Pregnancy mode on'); },
+      endPreg: () => setMode('period', { screen: 'home' }),
+
+      sKs: s.sheet === 'ks', remOn: s.remOn, remTg: tog(s.remOn), mergeTg: tog(s.mergeOn), hapticTg: tog(s.hapticOn),
+      tRem: () => this.setState({ remOn: !s.remOn }), tMerge: () => this.setState({ mergeOn: !s.mergeOn }), tHaptic: () => { if (!s.hapticOn && navigator.vibrate) navigator.vibrate(30); this.setState({ hapticOn: !s.hapticOn }); },
+      remTimes: ['09:00', '14:00', '20:00', '21:30'].map(x => ({ label: x, ...chip(s.remTime === x, '#C9673E'), go: () => this.setState({ remTime: x }) })),
+
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
