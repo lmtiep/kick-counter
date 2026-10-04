@@ -131,7 +131,10 @@ final class ScreenshotTests: XCTestCase {
         XCTAssertTrue(app.buttons["settingsPregnancyClear"].waitForExistence(timeout: 5))
         snap(app, "settings-pregnancy-set")
 
-        app.buttons["settingsMedicalInfo"].tap()
+        // Below the viewport now that "Mode" sits on top; Form creates it only once scrolled to.
+        let medical = app.buttons["settingsMedicalInfo"]
+        app.scrollUntilHittable(medical)
+        medical.tap()
         let sources = app.descendants(matching: .any)["medicalSources"]
         XCTAssertTrue(sources.waitForExistence(timeout: 5))
         app.swipeUp()
