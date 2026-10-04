@@ -47,7 +47,7 @@ struct DayCircleStyle: Equatable {
 
 /// A 40 pt day circle. `raisedToday` draws today as a white disc with a soft
 /// shadow (strip); otherwise today gets a 2 pt `todayRing` (calendar).
-/// The selected day gets a 2 pt `textPrimary` ring.
+/// The selected day gets a 2 pt `textPrimary` ring (outside the today ring when both).
 struct DayCircle: View {
     let number: String
     var style: DayCircleStyle = .plain
@@ -79,10 +79,13 @@ struct DayCircle: View {
                 }
             }
             .overlay {
-                if isSelected {
-                    Circle().strokeBorder(.luna(.textPrimary), lineWidth: 2).padding(-2)
-                } else if isToday && !raisedToday {
+                // Today selected shows both rings: todayRing, then the selected ring outside it.
+                let todayRing = isToday && !raisedToday
+                if todayRing {
                     Circle().strokeBorder(.luna(.todayRing), lineWidth: 2).padding(-2)
+                }
+                if isSelected {
+                    Circle().strokeBorder(.luna(.textPrimary), lineWidth: 2).padding(todayRing ? -4 : -2)
                 }
             }
     }

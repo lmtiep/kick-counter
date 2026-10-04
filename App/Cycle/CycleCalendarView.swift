@@ -213,7 +213,7 @@ struct CalendarDayCell: View {
                     Circle()
                         .fill(.luna(.textPrimary))
                         .frame(width: 4, height: 4)
-                        .offset(y: 6)
+                        .offset(y: 8)
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 44)
