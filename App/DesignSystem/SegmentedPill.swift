@@ -9,7 +9,7 @@ struct SegmentedOption<Value: Hashable>: Identifiable {
     var id: Value { value }
 }
 
-/// Two or three segments on a tinted track; the chosen one is a white pill
+/// Two or three segments on a tinted track; the chosen one is a light pill (`segmentSelected`)
 /// (History 7 days / 4 weeks, onboarding language, "I'm pregnant" date type).
 /// Each segment is a button with the `.isSelected` trait for VoiceOver.
 struct SegmentedPill<Value: Hashable>: View {
@@ -43,7 +43,7 @@ struct SegmentedPill<Value: Hashable>: View {
                         .frame(maxWidth: capsule ? nil : .infinity, minHeight: 36)
                         .background {
                             if isSelected {
-                                segmentShape.fill(.luna(.card))
+                                segmentShape.fill(.luna(.segmentSelected))
                             }
                         }
                         .contentShape(Rectangle())

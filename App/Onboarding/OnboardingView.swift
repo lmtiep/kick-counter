@@ -32,7 +32,7 @@ struct OnboardingView: View {
         self.onFinish = onFinish
         let now = AppClock.now()
         self.now = now
-        _lastPeriod = State(initialValue: Calendar.current.startOfDay(for: now))
+        _lastPeriod = State(initialValue: AppLocale.calendar.startOfDay(for: now))
         _dateSelection = State(initialValue: PregnancyDateInput.initialSelection(
             for: PregnancyProfile.load(from: AppGroup.defaults), now: now
         ))
@@ -70,6 +70,11 @@ struct OnboardingView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             stepContent
                         }
+                        .padding(.horizontal, 24)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        // Tied to the content's top edge, so text never sits on the photo
+                        // at any Dynamic Type size or screen height.
+                        .background(alignment: .top) { ContentScrim() }
                         .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .bottomLeading)
                         .lunaEntrance(.contentUp)
                         .id(step)
@@ -78,8 +83,8 @@ struct OnboardingView: View {
                     .defaultScrollAnchor(.bottom)
                 }
                 buttons
+                    .padding(.horizontal, 24)
             }
-            .padding(.horizontal, 24)
             .padding(.bottom, 12)
         }
         .environment(\.locale, AppLocale.locale)
@@ -107,6 +112,7 @@ struct OnboardingView: View {
             }
         }
         .padding(.top, 8)
+        .padding(.horizontal, 24)
     }
 
     private var progressDots: some View {
@@ -159,13 +165,13 @@ struct OnboardingView: View {
             Text(L10n.onboardingWelcomeBody)
                 .font(.luna(.body))
                 .lineSpacing(4)
-                .foregroundStyle(.luna(.textSecondary))
+                .foregroundStyle(.luna(.articleText))
                 .frame(maxWidth: 300, alignment: .leading)
             // The medical note of the old onboarding: always on the first step, never skipped.
             (Text(L10n.onboarding3Title).font(.luna(.captionStrong))
-                + Text(verbatim: " ")
+                + Text(verbatim: "\n")
                 + Text(L10n.onboarding3Body).font(.luna(.caption)))
-                .foregroundStyle(.luna(.textSecondary))
+                .foregroundStyle(.luna(.articleText))
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityIdentifier("onboardingMedicalNote")
             SegmentedPill(options: [
@@ -238,14 +244,15 @@ struct OnboardingView: View {
     }
 
     private var lastPeriodStep: some View {
-        let days = RecentDaysGrid.days(endingAt: now)
-        let isOtherDay = !days.contains { Calendar.current.isDate($0.date, inSameDayAs: lastPeriod) }
+        let calendar = AppLocale.calendar
+        let days = RecentDaysGrid.days(endingAt: now, calendar: calendar)
+        let isOtherDay = !days.contains { calendar.isDate($0.date, inSameDayAs: lastPeriod) }
         return VStack(alignment: .leading, spacing: 12) {
             title(L10n.cycleEmptyTitle)
             VStack(spacing: 8) {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: RecentDaysGrid.columns), spacing: 4) {
                     ForEach(days) { day in
-                        dayChip(day)
+                        dayChip(day, calendar: calendar)
                     }
                 }
                 Button {
@@ -281,13 +288,13 @@ struct OnboardingView: View {
         }
     }
 
-    private func dayChip(_ day: RecentDay) -> some View {
-        let isSelected = Calendar.current.isDate(day.date, inSameDayAs: lastPeriod)
+    private func dayChip(_ day: RecentDay, calendar: Calendar) -> some View {
+        let isSelected = calendar.isDate(day.date, inSameDayAs: lastPeriod)
         return Button {
             lastPeriod = day.date
         } label: {
             VStack(spacing: 2) {
-                Text(WeekdayLabel.short(for: day.date, calendar: AppLocale.calendar))
+                Text(WeekdayLabel.short(for: day.date, calendar: calendar))
                     .font(.luna(size: 10, weight: .medium, relativeTo: .caption2))
                 Text(Formatting.dayNumber(day.date))
                     .font(.luna(size: 15, weight: .medium))
@@ -314,6 +321,7 @@ struct OnboardingView: View {
             VStack(spacing: 12) {
                 HStack(spacing: 12) {
                     roundButton("minus", label: L10n.onboardingDueEarlier, identifier: "onboardingDueEarlier") { shiftDueDate(by: -7) }
+                        .disabled(shiftedDueDate(by: -7) == nil)
                     Button {
                         showingDuePicker = true
                     } label: {
@@ -329,6 +337,7 @@ struct OnboardingView: View {
                     .accessibilityValue(Formatting.longDate(dueDate))
                     .accessibilityIdentifier("onboardingDueDate")
                     roundButton("plus", label: L10n.onboardingDueLater, identifier: "onboardingDueLater") { shiftDueDate(by: 7) }
+                        .disabled(shiftedDueDate(by: 7) == nil)
                 }
                 Text(PregnancyTimeline(dueDate: dueDate, now: now).map { L10n.pregnancyWeekLabel($0.week) } ?? "")
                     .font(.luna(.captionStrong))
@@ -480,9 +489,18 @@ struct OnboardingView: View {
         go(to: .details)
     }
 
+    /// The due date moved by `days`, or nil when that leaves the allowed range
+    /// (the button is then disabled rather than moving by less than a week).
+    private func shiftedDueDate(by days: Int) -> Date? {
+        guard let shifted = Calendar.current.date(byAdding: .day, value: days, to: dueDate),
+              PregnancyDateInput.clamp(shifted, for: .dueDate, now: now) == shifted
+        else { return nil }
+        return shifted
+    }
+
     private func shiftDueDate(by days: Int) {
-        let shifted = Calendar.current.date(byAdding: .day, value: days, to: dueDate) ?? dueDate
-        dateSelection = PregnancyDateSelection(source: .dueDate, date: PregnancyDateInput.clamp(shifted, for: .dueDate, now: now))
+        guard let shifted = shiftedDueDate(by: days) else { return }
+        dateSelection = PregnancyDateSelection(source: .dueDate, date: shifted)
     }
 
     private func finishPregnancy(savingDates: Bool) {
@@ -509,6 +527,27 @@ struct OnboardingView: View {
             await cycle.logLastPeriod(startingOn: lastPeriod)
         }
         onFinish()
+    }
+}
+
+/// The background behind the step's text: clear 56 pt above the content's top
+/// edge, opaque 16 pt below it (inside the title's first line), then solid to
+/// the bottom, so the title, body and medical note never sit on the photo.
+private struct ContentScrim: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            LinearGradient(
+                colors: [Color.luna(.onboardingBackground).opacity(0), Color.luna(.onboardingBackground)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(height: 72)
+            Color.luna(.onboardingBackground)
+        }
+        .padding(.top, -56)
+        .padding(.bottom, -200)
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
     }
 }
 

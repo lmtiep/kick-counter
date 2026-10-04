@@ -37,7 +37,7 @@ public struct LunaColorPair: Equatable, Sendable {
 /// Colour roles of the redesign. Views never use raw hex values: the app wraps
 /// these as adaptive `Color`s (`App/DesignSystem/LunaColor.swift`).
 public enum LunaToken: String, Sendable, CaseIterable {
-    case background, onboardingBackground, card, surface, surfaceAlt
+    case background, onboardingBackground, card, surface, surfaceAlt, segmentSelected
     case textPrimary, textOnboarding, textSecondary, textMuted, chevron, articleText
     case cycle, cycleStrong, cycleSoft, cycleOnSoft
     case fertile, fertileSoft, ovulation, teal, tealStrong
@@ -57,6 +57,9 @@ public enum LunaPalette {
         case .card: pair(0xFFFFFF, 0x262019)
         case .surface: pair(0xF4ECE5, 0x2F2722)
         case .surfaceAlt: pair(0xF1E7DF, 0x342B26)
+        // The chosen segment of a segmented pill: white like a card in light mode,
+        // lighter than the surfaceAlt track in dark mode (a dark card vanished there).
+        case .segmentSelected: pair(0xFFFFFF, 0x5A4A42)
         case .textPrimary: pair(0x2B201C, 0xF4ECE5)
         case .textOnboarding: pair(0x141110, 0xF4ECE5)
         case .textSecondary: pair(0x7A6B64, 0xB5A69E)
@@ -150,6 +153,9 @@ public enum LunaContrast {
         Usage(.textOnboarding, on: .onboardingBackground), Usage(.textOnboarding, on: .card),
         // Onboarding last-period step: the title can sit on the pink hero gradient.
         Usage(.textOnboarding, on: .cycleSoft),
+        Usage(.textPrimary, on: .segmentSelected),
+        // Onboarding body and medical note, on the scrim behind the content.
+        Usage(.articleText, on: .onboardingBackground),
         Usage(.cycleStrong, on: .background), Usage(.cycleStrong, on: .card), Usage(.cycleStrong, on: .tabBar),
         Usage(.cycleOnSoft, on: .cycleSoft), Usage(.cycleOnSoft, on: .card),
         Usage(.tealStrong, on: .background), Usage(.tealStrong, on: .card),

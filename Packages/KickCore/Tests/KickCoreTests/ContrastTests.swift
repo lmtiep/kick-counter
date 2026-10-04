@@ -57,6 +57,14 @@ struct ContrastTests {
         #expect(LunaPalette.pair(.onAccent).dark == LunaHex(0x1A1412))
     }
 
+    /// The chosen segment of a segmented pill stands out from its track in both
+    /// modes (dark `card` on the dark `surfaceAlt` track was nearly invisible).
+    @Test(arguments: [false, true])
+    func selectedSegmentStandsOutFromItsTrack(dark: Bool) {
+        #expect(ratio(.segmentSelected, .surfaceAlt, dark: dark) >= 1.15)
+        #expect(ratio(.segmentSelected, .onboardingBackground, dark: dark) >= 1.1)
+    }
+
     @Test func everyTokenHasAValue() {
         for token in LunaToken.allCases {
             let pair = LunaPalette.pair(token)

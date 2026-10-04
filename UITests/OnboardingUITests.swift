@@ -93,6 +93,17 @@ final class OnboardingUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["What would you like to track?"].waitForExistence(timeout: 5))
     }
 
+    /// The welcome text stays on the plain background at the largest text size.
+    @MainActor
+    func testWelcomeScreenAtLargestText() {
+        for dark in [false, true] {
+            let app = XCUIApplication.launchPinned(language: "vi", dark: dark, skipOnboarding: false, largestText: true)
+            XCTAssertTrue(app.buttons["onboardingNext"].waitForExistence(timeout: 10))
+            attachScreenshot(app, "ax5-onboarding-welcome-vi-\(dark ? "dark" : "light")")
+            app.terminate()
+        }
+    }
+
     @MainActor
     func testOnboardingScreens() {
         for (language, dark) in UITestVariants.all {
