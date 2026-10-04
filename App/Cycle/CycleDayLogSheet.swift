@@ -126,6 +126,7 @@ struct CycleDayLogSheet: View {
                     endButton(for: period)
                 }
                 Button(L10n.dayLogPeriodDelete, role: .destructive) { confirmingDeletePeriod = true }
+                    .disabled(saving)
                     .accessibilityIdentifier("dayLogDeletePeriod")
             } else {
                 if let open = openPeriodBefore {

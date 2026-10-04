@@ -209,6 +209,7 @@ enum L10n {
     /// "04/10 (còn 2 ngày)" / "10/04 · days to go: 2".
     static func cycleNextPeriodIn(_ date: String, _ days: Int) -> String { String(format: t("cycle.nextPeriod.in"), date, days) }
     static func cycleNextPeriodToday(_ date: String) -> String { String(format: t("cycle.nextPeriod.today"), date) }
+    static func cycleNextPeriodTomorrow(_ date: String) -> String { String(format: t("cycle.nextPeriod.tomorrow"), date) }
     static func cycleNextPeriodLate(_ days: Int) -> String { String(format: t("cycle.nextPeriod.late"), days) }
     static var cycleFertileTitle: String { t("cycle.fertile.title") }
     static func cycleFertileRange(_ start: String, _ end: String) -> String { String(format: t("cycle.fertile.range"), start, end) }

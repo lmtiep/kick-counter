@@ -86,13 +86,17 @@ final class KickCounterUITests: XCTestCase {
     func testCancelResetsCounter() {
         tapKick(times: 2)
         app.buttons["cancelSessionButton"].tap()
-        let confirm = app.sheets.buttons["Cancel session"]
-        if confirm.waitForExistence(timeout: 2) {
-            confirm.tap()
-        } else {
-            // Newer iOS versions may render the dialog as a popover rather than a sheet.
-            app.buttons.matching(identifier: "Cancel session").element(boundBy: 1).tap()
+        // Wait for the dialog itself (a sheet, or a popover on newer iOS) instead of
+        // guessing after 2 s: on a slow runner it appeared late and the fallback tapped
+        // a button that wasn't there yet.
+        let sheetButton = app.sheets.buttons["Cancel session"]
+        let named = app.buttons.matching(identifier: "Cancel session")
+        let deadline = Date().addingTimeInterval(10)
+        while !(sheetButton.exists || named.count > 1), Date() < deadline {
+            _ = sheetButton.waitForExistence(timeout: 0.5)
         }
+        XCTAssertTrue(sheetButton.exists || named.count > 1, "cancel confirmation never appeared")
+        (sheetButton.exists ? sheetButton : named.element(boundBy: 1)).tap()
         waitForKickValue("0 of 10 movements")
     }
 

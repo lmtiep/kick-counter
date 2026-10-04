@@ -98,7 +98,11 @@ struct NextPeriodCard: View {
         if forecast.daysLate > 0 { return L10n.cycleNextPeriodLate(forecast.daysLate) }
         let date = format(forecast.nextPeriodStart)
         let days = forecast.daysUntilNextPeriod
-        return days == 0 ? L10n.cycleNextPeriodToday(date) : L10n.cycleNextPeriodIn(date, days)
+        switch days {
+        case 0: return L10n.cycleNextPeriodToday(date)
+        case 1: return L10n.cycleNextPeriodTomorrow(date)
+        default: return L10n.cycleNextPeriodIn(date, days)
+        }
     }
 
     var body: some View {
