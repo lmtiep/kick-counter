@@ -67,7 +67,7 @@ private struct EntranceModifier: ViewModifier {
 }
 
 /// The growing circle of `reveal`, centred at 105 % × 38 % of the view.
-private struct RevealMask: View, Animatable {
+private struct RevealMask: Shape {
     var progress: CGFloat
 
     var animatableData: CGFloat {
@@ -75,14 +75,12 @@ private struct RevealMask: View, Animatable {
         set { progress = newValue }
     }
 
-    var body: some View {
-        GeometryReader { proxy in
-            let size = proxy.size
-            let radius = progress * 1.5 * sqrt((size.width * size.width + size.height * size.height) / 2)
-            Circle()
-                .frame(width: radius * 2, height: radius * 2)
-                .position(x: size.width * 1.05, y: size.height * 0.38)
-        }
+    // A Shape (nonisolated `path(in:)`) rather than a View: a View's Animatable
+    // conformance crosses into main-actor-isolated code under Swift 6.
+    func path(in rect: CGRect) -> Path {
+        let radius = progress * 1.5 * sqrt((rect.width * rect.width + rect.height * rect.height) / 2)
+        let center = CGPoint(x: rect.minX + rect.width * 1.05, y: rect.minY + rect.height * 0.38)
+        return Path(ellipseIn: CGRect(x: center.x - radius, y: center.y - radius, width: radius * 2, height: radius * 2))
     }
 }
 
