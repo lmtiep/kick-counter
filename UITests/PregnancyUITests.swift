@@ -83,8 +83,10 @@ final class PregnancyUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Week 24 + 3 days"].waitForExistence(timeout: 10))
 
         app.openTab(.settings)
+        XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: 10))
         let clearButton = app.buttons["settingsPregnancyClear"]
-        XCTAssertTrue(clearButton.waitForExistence(timeout: 10))
+        app.scrollUntilHittable(clearButton)
+        XCTAssertTrue(clearButton.waitForExistence(timeout: 5))
         clearButton.tap()
 
         // Confirm the destructive action in the confirmation dialog (its button comes first).

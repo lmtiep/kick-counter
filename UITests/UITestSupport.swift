@@ -16,21 +16,39 @@ enum UITestDates {
 
 extension XCUIApplication {
     /// Launches with onboarding skipped and the clock pinned to `UITestDates.fixedNow`,
-    /// optionally with a stored due date. Only the pregnancy and appointment screens
-    /// (and the Count tab's week line) use the pinned clock; counting kicks uses real time.
+    /// optionally with a stored due date, or — with `seedCycles` (a `CycleSeedScenario`
+    /// name: empty, period, fertile, late, irregular) — in trying-to-conceive mode with
+    /// sample cycles. Only the pregnancy, appointment and cycle screens (and the Count
+    /// tab's week line) use the pinned clock; counting kicks uses real time.
     @MainActor
-    static func launchPinned(language: String = "en", dark: Bool = false, dueDate: String? = nil) -> XCUIApplication {
+    static func launchPinned(
+        language: String = "en",
+        dark: Bool = false,
+        dueDate: String? = nil,
+        seedCycles: String? = nil,
+        skipOnboarding: Bool = true
+    ) -> XCUIApplication {
         let app = XCUIApplication()
-        app.launchArguments = [
-            "-uiTesting", "-skipOnboarding",
+        app.launchArguments = ["-uiTesting"] + (skipOnboarding ? ["-skipOnboarding"] : []) + [
             "-AppleLanguages", "(\(language))",
             "-AppleLocale", language == "vi" ? "vi_VN" : "en_US",
             "-fixedNow", UITestDates.fixedNow,
         ]
         if let dueDate { app.launchArguments += ["-seedDueDate", dueDate] }
+        if let seedCycles { app.launchArguments += ["-seedCycles", seedCycles] }
         if dark { app.launchArguments.append("-forceDarkMode") }
         app.launch()
         return app
+    }
+
+    /// Swipes up, at most `maxSwipes` times, until `element` exists and is
+    /// hittable — lazy containers (List, Form) only create cells near the viewport.
+    func scrollUntilHittable(_ element: XCUIElement, maxSwipes: Int = 6) {
+        var remaining = maxSwipes
+        while !(element.exists && element.isHittable), remaining > 0 {
+            swipeUp()
+            remaining -= 1
+        }
     }
 }
 
@@ -43,9 +61,23 @@ extension XCTestCase {
         attachment.lifetime = .keepAlways
         add(attachment)
     }
+
+    /// Waits until `element`'s accessibility label contains `text`.
+    @MainActor
+    func waitForLabel(
+        _ element: XCUIElement,
+        containing text: String,
+        timeout: TimeInterval = 5,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let predicate = NSPredicate(format: "label CONTAINS %@", text)
+        let result = XCTWaiter().wait(for: [XCTNSPredicateExpectation(predicate: predicate, object: element)], timeout: timeout)
+        XCTAssertEqual(result, .completed, "\(element.label) does not contain \(text)", file: file, line: line)
+    }
 }
 
-/// Tab order in RootView.
+/// Tab order in RootView in pregnancy mode.
 enum AppTab: Int {
     case pregnancy = 0
     case counter
@@ -53,9 +85,25 @@ enum AppTab: Int {
     case settings
 }
 
+/// Tab order in RootView in trying-to-conceive mode.
+enum CycleModeTab: Int {
+    case cycle = 0
+    case calendar
+    case settings
+}
+
 extension XCUIApplication {
     func openTab(_ tab: AppTab) {
-        let button = tabBars.buttons.element(boundBy: tab.rawValue)
+        openTab(at: tab.rawValue)
+    }
+
+    /// Named differently from `openTab(_:)`: both enums have a `.settings` case.
+    func openCycleTab(_ tab: CycleModeTab) {
+        openTab(at: tab.rawValue)
+    }
+
+    private func openTab(at index: Int) {
+        let button = tabBars.buttons.element(boundBy: index)
         XCTAssertTrue(button.waitForExistence(timeout: 10))
         button.tap()
     }

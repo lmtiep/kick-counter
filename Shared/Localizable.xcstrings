@@ -290,6 +290,312 @@
         }
       }
     },
+    "calendar.a11y.fertile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "fertile window"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cửa sổ thụ thai"
+          }
+        }
+      }
+    },
+    "calendar.a11y.lhNegative": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "negative LH test logged"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đã ghi que thử âm tính"
+          }
+        }
+      }
+    },
+    "calendar.a11y.lhPositive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "positive LH test logged"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đã ghi que thử dương tính"
+          }
+        }
+      }
+    },
+    "calendar.a11y.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "note logged"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "có ghi chú"
+          }
+        }
+      }
+    },
+    "calendar.a11y.peak": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "most fertile day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ngày dễ thụ thai nhất"
+          }
+        }
+      }
+    },
+    "calendar.a11y.period": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kỳ kinh"
+          }
+        }
+      }
+    },
+    "calendar.a11y.predicted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "predicted period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kỳ kinh dự đoán"
+          }
+        }
+      }
+    },
+    "calendar.a11y.temperature": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "temperature %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nhiệt độ %@"
+          }
+        }
+      }
+    },
+    "calendar.a11y.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hôm nay"
+          }
+        }
+      }
+    },
+    "calendar.emptyHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add your last period on the Cycle tab to see predictions here."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập kỳ kinh gần nhất ở tab Chu kỳ để xem dự đoán tại đây."
+          }
+        }
+      }
+    },
+    "calendar.legend.fertile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertile window"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cửa sổ thụ thai"
+          }
+        }
+      }
+    },
+    "calendar.legend.logged": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signals logged"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có ghi dấu hiệu"
+          }
+        }
+      }
+    },
+    "calendar.legend.peak": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovulation and the day before"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày rụng trứng và ngày trước đó"
+          }
+        }
+      }
+    },
+    "calendar.legend.period": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh"
+          }
+        }
+      }
+    },
+    "calendar.legend.predicted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Predicted period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh dự đoán"
+          }
+        }
+      }
+    },
+    "calendar.next": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next month"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng sau"
+          }
+        }
+      }
+    },
+    "calendar.previous": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous month"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tháng trước"
+          }
+        }
+      }
+    },
+    "calendar.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch chu kỳ"
+          }
+        }
+      }
+    },
     "common.cancel": {
       "extractionState": "manual",
       "localizations": {
@@ -647,6 +953,1145 @@
         }
       }
     },
+    "cycle.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %d of your cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày %d của chu kỳ"
+          }
+        }
+      }
+    },
+    "cycle.disclaimer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Predictions are estimates. Do not use this app as contraception."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dự đoán chỉ là ước tính. Không dùng ứng dụng để tránh thai."
+          }
+        }
+      }
+    },
+    "cycle.empty.action": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add last period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.empty.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter the first day of your last period to see your next period and your fertile window."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập ngày đầu tiên của kỳ kinh gần nhất để xem kỳ kinh tiếp theo và cửa sổ thụ thai."
+          }
+        }
+      }
+    },
+    "cycle.empty.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When did your last period start?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh gần nhất bắt đầu ngày nào?"
+          }
+        }
+      }
+    },
+    "cycle.endPeriod": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period ended today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay hết kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.error.endBeforeStart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A period can't end before it starts."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày kết thúc không thể trước ngày bắt đầu."
+          }
+        }
+      }
+    },
+    "cycle.error.future": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can't log a day in the future."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không thể ghi một ngày trong tương lai."
+          }
+        }
+      }
+    },
+    "cycle.error.overlap": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This overlaps a period you have already logged."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trùng với một kỳ kinh đã ghi."
+          }
+        }
+      }
+    },
+    "cycle.error.temperature": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a temperature between 35.0 and 38.5 °C."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập nhiệt độ trong khoảng 35,0–38,5 °C."
+          }
+        }
+      }
+    },
+    "cycle.fertile.range": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ – %2$@"
+          }
+        }
+      }
+    },
+    "cycle.fertile.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertile window"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cửa sổ thụ thai"
+          }
+        }
+      }
+    },
+    "cycle.imPregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm pregnant"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tôi đã có thai"
+          }
+        }
+      }
+    },
+    "cycle.irregular.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycles shorter than 21 days, longer than 45 days, or that vary a lot are worth talking over with a doctor."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc thay đổi nhiều — bạn nên trao đổi với bác sĩ."
+          }
+        }
+      }
+    },
+    "cycle.irregular.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your cycle looks irregular"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ có vẻ không đều"
+          }
+        }
+      }
+    },
+    "cycle.late.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You could take a pregnancy test. If it is positive, tap “I'm pregnant”."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn có thể thử thai. Nếu que thử dương tính, hãy bấm “Tôi đã có thai”."
+          }
+        }
+      }
+    },
+    "cycle.late.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your period is %d days late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh đã trễ %d ngày"
+          }
+        }
+      }
+    },
+    "cycle.logToday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi hôm nay"
+          }
+        }
+      }
+    },
+    "cycle.longPeriod.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If it has ended, log the day it ended. If you are still bleeding, see a doctor."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nếu đã hết, hãy ghi ngày kết thúc. Nếu vẫn còn ra máu, bạn nên đi khám."
+          }
+        }
+      }
+    },
+    "cycle.longPeriod.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period logged for %d days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh đã kéo dài %d ngày"
+          }
+        }
+      }
+    },
+    "cycle.lowConfidence.fewCycles": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low confidence: log a few more periods"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ tin cậy thấp — cần ghi thêm vài kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.lowConfidence.irregular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low confidence: your cycles vary"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ tin cậy thấp — chu kỳ chưa đều"
+          }
+        }
+      }
+    },
+    "cycle.nextPeriod.in": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · days to go: %2$d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ (còn %2$d ngày)"
+          }
+        }
+      }
+    },
+    "cycle.nextPeriod.late": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days late: %d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trễ %d ngày"
+          }
+        }
+      }
+    },
+    "cycle.nextPeriod.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh tiếp theo"
+          }
+        }
+      }
+    },
+    "cycle.nextPeriod.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (today)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (hôm nay)"
+          }
+        }
+      }
+    },
+    "cycle.notificationsOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are off, so the app can't send cycle reminders. You can turn them on in Settings."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thông báo đang tắt nên ứng dụng không thể nhắc chu kỳ. Bạn có thể bật trong Cài đặt."
+          }
+        }
+      }
+    },
+    "cycle.ovulation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estimated ovulation: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày rụng trứng ước tính: %@"
+          }
+        }
+      }
+    },
+    "cycle.ovulation.confirmed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovulation confirmed by temperature: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xác nhận rụng trứng qua nhiệt độ: %@"
+          }
+        }
+      }
+    },
+    "cycle.ovulation.lh": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Based on your positive LH test"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo que thử rụng trứng (LH) dương tính"
+          }
+        }
+      }
+    },
+    "cycle.reminder.fertile.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your most fertile days are coming up."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những ngày dễ thụ thai nhất sắp đến."
+          }
+        }
+      }
+    },
+    "cycle.reminder.fertile.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertile window in 2 days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2 ngày nữa vào cửa sổ thụ thai"
+          }
+        }
+      }
+    },
+    "cycle.reminder.late.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You could take a pregnancy test."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn có thể thử thai."
+          }
+        }
+      }
+    },
+    "cycle.reminder.late.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your period is 3 days late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh đã trễ 3 ngày"
+          }
+        }
+      }
+    },
+    "cycle.reminder.period.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log it when it starts to keep predictions accurate."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy ghi lại khi kỳ kinh bắt đầu để dự đoán chính xác hơn."
+          }
+        }
+      }
+    },
+    "cycle.reminder.period.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period due tomorrow"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày mai có thể đến kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.startPeriod": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period started today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.status.fertile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High chance of conceiving"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khả năng thụ thai cao"
+          }
+        }
+      }
+    },
+    "cycle.status.late": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your period is late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh đang đến trễ"
+          }
+        }
+      }
+    },
+    "cycle.status.low": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low chance of conceiving"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khả năng thụ thai thấp"
+          }
+        }
+      }
+    },
+    "cycle.status.peak": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Highest chance of conceiving"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khả năng thụ thai cao nhất"
+          }
+        }
+      }
+    },
+    "cycle.status.period": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang hành kinh"
+          }
+        }
+      }
+    },
+    "cycle.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ của bạn"
+          }
+        }
+      }
+    },
+    "cycleSettings.cycleLength": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle length: %d days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ dài chu kỳ: %d ngày"
+          }
+        }
+      }
+    },
+    "cycleSettings.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used for predictions until you have logged a few cycles."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dùng để dự đoán cho tới khi bạn đã ghi vài chu kỳ."
+          }
+        }
+      }
+    },
+    "cycleSettings.periodLength": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period length: %d days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Số ngày hành kinh: %d ngày"
+          }
+        }
+      }
+    },
+    "dayLog.bbt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Basal body temperature"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhiệt độ cơ thể cơ bản (BBT)"
+          }
+        }
+      }
+    },
+    "dayLog.bbt.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "°C, taken right after waking, before getting up."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "°C, đo ngay khi vừa thức dậy, trước khi ra khỏi giường."
+          }
+        }
+      }
+    },
+    "dayLog.bbt.placeholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e.g. 36.5"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VD: 36,5"
+          }
+        }
+      }
+    },
+    "dayLog.lh": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovulation (LH) test"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que thử rụng trứng (LH)"
+          }
+        }
+      }
+    },
+    "dayLog.lh.negative": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Negative"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Âm tính"
+          }
+        }
+      }
+    },
+    "dayLog.lh.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not taken"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa thử"
+          }
+        }
+      }
+    },
+    "dayLog.lh.positive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Positive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dương tính"
+          }
+        }
+      }
+    },
+    "dayLog.mucus": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cervical mucus"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dịch nhầy cổ tử cung"
+          }
+        }
+      }
+    },
+    "dayLog.mucus.creamy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creamy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Như kem"
+          }
+        }
+      }
+    },
+    "dayLog.mucus.dry": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dry"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khô"
+          }
+        }
+      }
+    },
+    "dayLog.mucus.eggWhite": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Egg white"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Như lòng trắng trứng"
+          }
+        }
+      }
+    },
+    "dayLog.mucus.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not noted"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa ghi"
+          }
+        }
+      }
+    },
+    "dayLog.mucus.sticky": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sticky"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dính"
+          }
+        }
+      }
+    },
+    "dayLog.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Note"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chú"
+          }
+        }
+      }
+    },
+    "dayLog.period": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh"
+          }
+        }
+      }
+    },
+    "dayLog.period.delete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa kỳ kinh này"
+          }
+        }
+      }
+    },
+    "dayLog.period.delete.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this period?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa kỳ kinh này?"
+          }
+        }
+      }
+    },
+    "dayLog.period.end": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period ended this day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hết kỳ kinh ngày này"
+          }
+        }
+      }
+    },
+    "dayLog.period.range": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period %1$@ – %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh %1$@ – %2$@"
+          }
+        }
+      }
+    },
+    "dayLog.period.since": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period since %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh từ %@"
+          }
+        }
+      }
+    },
+    "dayLog.period.start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period started this day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu kỳ kinh ngày này"
+          }
+        }
+      }
+    },
     "error.load": {
       "extractionState": "manual",
       "localizations": {
@@ -902,6 +2347,57 @@
         }
       }
     },
+    "imPregnant.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your due date is worked out from the first day of your last period. Check the date, then tap Save."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày dự sinh được tính từ ngày đầu tiên của kỳ kinh cuối. Hãy kiểm tra lại ngày rồi bấm Lưu."
+          }
+        }
+      }
+    },
+    "imPregnant.keepsData": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your cycle history is kept. You can switch back in Settings."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu chu kỳ vẫn được giữ lại. Bạn có thể đổi lại trong Cài đặt."
+          }
+        }
+      }
+    },
+    "imPregnant.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Congratulations!"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chúc mừng bạn!"
+          }
+        }
+      }
+    },
     "intent.addKick.title": {
       "extractionState": "manual",
       "localizations": {
@@ -966,6 +2462,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quá 2 giờ — hãy liên hệ bác sĩ"
+          }
+        }
+      }
+    },
+    "lastPeriod.date": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First day of your last period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày đầu tiên của kỳ kinh gần nhất"
+          }
+        }
+      }
+    },
+    "lastPeriod.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The first day of bleeding, not spotting."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày đầu tiên ra máu kinh (không tính ra máu lấm tấm)."
+          }
+        }
+      }
+    },
+    "lastPeriod.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh gần nhất"
           }
         }
       }
@@ -1038,6 +2585,40 @@
         }
       }
     },
+    "medical.ttc.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trying-to-conceive mode only helps you track your cycle. It is not a method of contraception and must not be used to avoid pregnancy. Ovulation, the fertile window and the next period are estimates based on what you log.\n\nSee a doctor if:\n• you have been trying for 12 months without getting pregnant (6 months if you are 35 or older);\n• your cycles are shorter than 21 days, longer than 45 days, or very irregular;\n• you have unusual bleeding between periods."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chế độ Mong con chỉ giúp bạn theo dõi chu kỳ. Đây không phải là biện pháp tránh thai và không được dùng để tránh thai. Ngày rụng trứng, cửa sổ thụ thai và kỳ kinh tiếp theo chỉ là ước tính dựa trên những gì bạn ghi.\n\nHãy đi khám bác sĩ nếu:\n• đã cố gắng có thai 12 tháng mà chưa có (6 tháng nếu từ 35 tuổi trở lên);\n• chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc rất không đều;\n• ra máu bất thường giữa hai kỳ kinh."
+          }
+        }
+      }
+    },
+    "medical.ttc.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trying to conceive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi đang mong con"
+          }
+        }
+      }
+    },
     "milestone.weeks": {
       "extractionState": "manual",
       "localizations": {
@@ -1051,6 +2632,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tuần %1$ld–%2$ld"
+          }
+        }
+      }
+    },
+    "mode.pregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnant"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang mang thai"
+          }
+        }
+      }
+    },
+    "mode.tryingToConceive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trying to conceive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mong con"
           }
         }
       }
@@ -1208,6 +2823,40 @@
         }
       }
     },
+    "onboarding.cycle.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter the first day of your last period, or skip this and add it later."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập ngày đầu tiên của kỳ kinh gần nhất, hoặc bỏ qua để nhập sau."
+          }
+        }
+      }
+    },
+    "onboarding.cycle.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ của bạn"
+          }
+        }
+      }
+    },
     "onboarding.later": {
       "extractionState": "manual",
       "localizations": {
@@ -1221,6 +2870,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Để sau"
+          }
+        }
+      }
+    },
+    "onboarding.mode.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can change this any time in Settings."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn có thể đổi bất cứ lúc nào trong Cài đặt."
+          }
+        }
+      }
+    },
+    "onboarding.mode.pregnant.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Follow your pregnancy week by week and count your baby's kicks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi thai kỳ từng tuần và đếm cử động thai"
+          }
+        }
+      }
+    },
+    "onboarding.mode.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What would you like to track?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn muốn theo dõi điều gì?"
+          }
+        }
+      }
+    },
+    "onboarding.mode.ttc.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Track your periods and your most fertile days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi kỳ kinh và những ngày dễ thụ thai"
           }
         }
       }
@@ -1922,6 +3639,57 @@
         }
       }
     },
+    "settings.cycle.reminders": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle reminders"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc chu kỳ"
+          }
+        }
+      }
+    },
+    "settings.cycle.remindersHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders come at 9:00: 2 days before your fertile window, the day before your period is due, and once if it is 3 days late."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc lúc 9:00: 2 ngày trước cửa sổ thụ thai, 1 ngày trước kỳ kinh dự kiến và một lần khi trễ kinh 3 ngày."
+          }
+        }
+      }
+    },
+    "settings.cycle.section": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ"
+          }
+        }
+      }
+    },
     "settings.dueDate": {
       "extractionState": "manual",
       "localizations": {
@@ -1969,6 +3737,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Thông tin y tế"
+          }
+        }
+      }
+    },
+    "settings.mode.section": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chế độ"
           }
         }
       }
@@ -2211,6 +3996,23 @@
         }
       }
     },
+    "tab.calendar": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendar"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch"
+          }
+        }
+      }
+    },
     "tab.counter": {
       "extractionState": "manual",
       "localizations": {
@@ -2224,6 +4026,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đếm"
+          }
+        }
+      }
+    },
+    "tab.cycle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ"
           }
         }
       }

@@ -7,6 +7,23 @@ enum Formatting {
             .formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated, maximumUnitCount: 2))
     }
 
+    /// Day and month in the locale's order: "04/10" (vi) / "10/04" (en).
+    static func cycleDate(_ date: Date) -> String {
+        date.formatted(.dateTime.day(.twoDigits).month(.twoDigits))
+    }
+
+    /// For VoiceOver: "October 4" / "4 tháng 10".
+    static func spokenDay(_ date: Date) -> String {
+        date.formatted(.dateTime.day().month(.wide))
+    }
+
+    /// "36.5 °C" / "36,5 °C".
+    static func temperature(_ celsius: Double) -> String {
+        Measurement(value: celsius, unit: UnitTemperature.celsius).formatted(
+            .measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(1...2)))
+        )
+    }
+
     /// Crown–rump length, e.g. "53.5 mm" / "53,5 mm"; `spoken` spells the unit out for VoiceOver.
     static func crownRumpLength(mm: Double, spoken: Bool = false) -> String {
         Measurement(value: mm, unit: UnitLength.millimeters).formatted(

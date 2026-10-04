@@ -9,6 +9,15 @@ struct MedicalInfoView: View {
                 Text(L10n.medicalBody)
                     .font(.body)
 
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(L10n.medicalTTCTitle)
+                        .font(.headline)
+                    Text(L10n.medicalTTCBody)
+                        .font(.body)
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityIdentifier("medicalTTC")
+
                 if let sources = library?.sources, !sources.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(L10n.medicalSourcesTitle)

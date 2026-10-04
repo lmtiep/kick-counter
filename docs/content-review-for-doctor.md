@@ -128,3 +128,29 @@ Xin bác sĩ xác nhận từng mốc còn đúng với phác đồ/khuyến cá
 - [ ] Lệnh kiểm tra sau in ra `[] []` (không còn mục nào chưa duyệt):
       `python3 -c "import json;d=json.load(open('Packages/KickCore/Sources/KickCore/Resources/pregnancy-content.json'));print([w['week'] for w in d['weeks'] if not w['reviewed']],[m['id'] for m in d['milestones'] if not m['reviewed']])"`
 - [ ] `scripts/test-core.sh` chạy xanh sau khi đổi `reviewed`.
+
+## 6. Chế độ "Mong con" (giai đoạn 3) — chuỗi y tế và quy tắc dự đoán
+
+Các chuỗi dưới đây nằm trong `Shared/Localizable.xcstrings` (không có cờ `reviewed` như nội dung
+thai kỳ, nên **phải được duyệt trước khi gửi App Store**). Xem câu chữ thật trên ảnh chụp
+`medical-ttc-vi`, `cycle-home-*`, `day-log-*` trong `ci-artifacts/screenshots/` của lần CI gần nhất.
+
+| Khóa | Nội dung (vi) cần duyệt |
+|---|---|
+| `medical.ttc.body` | Không dùng để tránh thai; dự đoán chỉ là ước tính; khi nào nên gặp bác sĩ (12 tháng, 6 tháng nếu ≥ 35 tuổi; chu kỳ < 21 hoặc > 45 ngày hay rất không đều; ra máu bất thường giữa kỳ) |
+| `cycle.irregular.title`, `cycle.irregular.body` | Cảnh báo chu kỳ bất thường → gợi ý gặp bác sĩ |
+| `cycle.late.title`, `cycle.late.body`, `cycle.reminder.late.*` | Gợi ý thử thai khi trễ kinh từ ngày thứ 3 |
+| `cycle.longPeriod.title`, `cycle.longPeriod.body` | Kỳ kinh chưa kết thúc > 10 ngày → ghi ngày kết thúc / đi khám nếu ra máu kéo dài |
+| `cycle.disclaimer`, `cycle.lowConfidence.*` | Dự đoán chỉ là ước tính; độ tin cậy thấp khi chu kỳ chưa đều hoặc chưa đủ dữ liệu |
+| `cycle.status.*`, `cycle.reminder.fertile.*`, `cycle.reminder.period.*` | Cách gọi "khả năng thụ thai cao/cao nhất/thấp", nhắc trước cửa sổ thụ thai và kỳ kinh |
+| `lastPeriod.hint`, `dayLog.bbt.hint`, `dayLog.lh.*`, `dayLog.mucus.*` | Hướng dẫn: ngày đầu ra máu (không tính lấm tấm); đo BBT ngay khi thức dậy; tên các loại dịch nhầy (khô, dính, như kem, như lòng trắng trứng) |
+
+22. [ ] Bác sĩ đã duyệt (hoặc sửa) toàn bộ các khóa trong bảng trên, cả bản vi lẫn en.
+23. [ ] **Quy tắc dự đoán** (theo spec §4.1, `Packages/KickCore/Sources/KickCore/CyclePredictor.swift`):
+        pha hoàng thể cố định 14 ngày (rụng trứng = kỳ kinh dự kiến − 14); cửa sổ thụ thai = 5 ngày trước
+        đến 1 ngày sau rụng trứng; LH dương tính → rụng trứng ngày hôm sau; BBT: 3 ngày liền cao hơn mức
+        cao nhất của 6 lần đo trước ≥ 0,2 °C; chỉ tính chu kỳ 21–45 ngày, trung bình 6 chu kỳ gần nhất;
+        độ tin cậy thấp khi độ lệch chuẩn > 4 ngày hoặc chênh > 7 ngày (nới cửa sổ tối đa 3 ngày mỗi bên).
+        Xác nhận các ngưỡng này phù hợp để hiển thị cho người dùng (không dùng cho tránh thai).
+24. [ ] **Khoảng nhiệt độ BBT hợp lệ 35,0–38,5 °C** và ngưỡng "kỳ kinh kéo dài" 10 ngày: xác nhận.
+25. [ ] **Thời điểm gợi ý thử thai**: từ ngày trễ thứ 3 (thẻ + một thông báo). Xác nhận hay đổi.

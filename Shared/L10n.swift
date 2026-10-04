@@ -163,6 +163,23 @@ enum L10n {
     static var onboarding4Title: String { t("onboarding.4.title") }
     static var onboarding4Body: String { t("onboarding.4.body") }
     static var onboardingLater: String { t("onboarding.later") }
+    static var onboardingModeTitle: String { t("onboarding.mode.title") }
+    static var onboardingModeBody: String { t("onboarding.mode.body") }
+    static var onboardingModeTTCDetail: String { t("onboarding.mode.ttc.detail") }
+    static var onboardingModePregnantDetail: String { t("onboarding.mode.pregnant.detail") }
+    static var onboardingCycleTitle: String { t("onboarding.cycle.title") }
+    static var onboardingCycleBody: String { t("onboarding.cycle.body") }
+    static var modeTryingToConceive: String { t("mode.tryingToConceive") }
+    static var modePregnant: String { t("mode.pregnant") }
+    static func cycleSettingsCycleLength(_ days: Int) -> String { String(format: t("cycleSettings.cycleLength"), days) }
+    static func cycleSettingsPeriodLength(_ days: Int) -> String { String(format: t("cycleSettings.periodLength"), days) }
+    static var cycleSettingsHint: String { t("cycleSettings.hint") }
+    static var settingsModeSection: String { t("settings.mode.section") }
+    static var settingsCycleSection: String { t("settings.cycle.section") }
+    static var settingsCycleReminders: String { t("settings.cycle.reminders") }
+    static var settingsCycleRemindersHint: String { t("settings.cycle.remindersHint") }
+    static var medicalTTCTitle: String { t("medical.ttc.title") }
+    static var medicalTTCBody: String { t("medical.ttc.body") }
 
     static var errorSave: String { t("error.save") }
     static var errorLoad: String { t("error.load") }
@@ -172,4 +189,115 @@ enum L10n {
     static var laOverdue: String { t("la.overdue") }
     static var laCompleted: String { t("la.completed") }
     static var laAdd: String { t("la.add") }
+
+    static var tabCycle: String { t("tab.cycle") }
+
+    static var cycleTitle: String { t("cycle.title") }
+    static var cycleEmptyTitle: String { t("cycle.empty.title") }
+    static var cycleEmptyBody: String { t("cycle.empty.body") }
+    static var cycleEmptyAction: String { t("cycle.empty.action") }
+    static func cycleDay(_ day: Int) -> String { String(format: t("cycle.day"), day) }
+    static func cycleStatus(_ status: CycleDayStatus) -> String {
+        switch status {
+        case .period: t("cycle.status.period")
+        case .fertile: t("cycle.status.fertile")
+        case .peak: t("cycle.status.peak")
+        case .low: t("cycle.status.low")
+        }
+    }
+    static var cycleNextPeriodTitle: String { t("cycle.nextPeriod.title") }
+    /// "04/10 (còn 2 ngày)" / "10/04 · days to go: 2".
+    static func cycleNextPeriodIn(_ date: String, _ days: Int) -> String { String(format: t("cycle.nextPeriod.in"), date, days) }
+    static func cycleNextPeriodToday(_ date: String) -> String { String(format: t("cycle.nextPeriod.today"), date) }
+    static func cycleNextPeriodLate(_ days: Int) -> String { String(format: t("cycle.nextPeriod.late"), days) }
+    static var cycleFertileTitle: String { t("cycle.fertile.title") }
+    static func cycleFertileRange(_ start: String, _ end: String) -> String { String(format: t("cycle.fertile.range"), start, end) }
+    static func cycleOvulation(_ date: String) -> String { String(format: t("cycle.ovulation"), date) }
+    static func cycleOvulationConfirmed(_ date: String) -> String { String(format: t("cycle.ovulation.confirmed"), date) }
+    static var cycleOvulationLH: String { t("cycle.ovulation.lh") }
+    static var cycleLowConfidenceIrregular: String { t("cycle.lowConfidence.irregular") }
+    static var cycleLowConfidenceFewCycles: String { t("cycle.lowConfidence.fewCycles") }
+    static func cycleLateTitle(_ days: Int) -> String { String(format: t("cycle.late.title"), days) }
+    static var cycleLateBody: String { t("cycle.late.body") }
+    static var cycleIrregularTitle: String { t("cycle.irregular.title") }
+    static var cycleIrregularBody: String { t("cycle.irregular.body") }
+    static func cycleLongPeriodTitle(_ days: Int) -> String { String(format: t("cycle.longPeriod.title"), days) }
+    static var cycleLongPeriodBody: String { t("cycle.longPeriod.body") }
+    static var cycleStartPeriod: String { t("cycle.startPeriod") }
+    static var cycleEndPeriod: String { t("cycle.endPeriod") }
+    static var cycleLogToday: String { t("cycle.logToday") }
+    static var cycleImPregnant: String { t("cycle.imPregnant") }
+    static var cycleStatusLate: String { t("cycle.status.late") }
+    static var imPregnantTitle: String { t("imPregnant.title") }
+    static var imPregnantBody: String { t("imPregnant.body") }
+    static var imPregnantKeepsData: String { t("imPregnant.keepsData") }
+    static var cycleDisclaimer: String { t("cycle.disclaimer") }
+    static var cycleNotificationsOff: String { t("cycle.notificationsOff") }
+    static var cycleReminderFertileTitle: String { t("cycle.reminder.fertile.title") }
+    static var cycleReminderFertileBody: String { t("cycle.reminder.fertile.body") }
+    static var cycleReminderPeriodTitle: String { t("cycle.reminder.period.title") }
+    static var cycleReminderPeriodBody: String { t("cycle.reminder.period.body") }
+    static var cycleReminderLateTitle: String { t("cycle.reminder.late.title") }
+    static var cycleReminderLateBody: String { t("cycle.reminder.late.body") }
+    static func cycleFailure(_ failure: CycleFailure) -> String {
+        switch failure {
+        case .loadFailed: errorLoad
+        case .saveFailed: errorSave
+        case .futureDate: t("cycle.error.future")
+        case .endBeforeStart: t("cycle.error.endBeforeStart")
+        case .overlapsExistingPeriod: t("cycle.error.overlap")
+        case .invalidTemperature: t("cycle.error.temperature")
+        }
+    }
+
+    static var lastPeriodTitle: String { t("lastPeriod.title") }
+    static var lastPeriodDate: String { t("lastPeriod.date") }
+    static var lastPeriodHint: String { t("lastPeriod.hint") }
+
+    static var dayLogPeriodSection: String { t("dayLog.period") }
+    static var dayLogPeriodStart: String { t("dayLog.period.start") }
+    static var dayLogPeriodEnd: String { t("dayLog.period.end") }
+    static var dayLogPeriodDelete: String { t("dayLog.period.delete") }
+    static var dayLogPeriodDeleteConfirm: String { t("dayLog.period.delete.confirm") }
+    static func dayLogPeriodSince(_ date: String) -> String { String(format: t("dayLog.period.since"), date) }
+    static func dayLogPeriodRange(_ start: String, _ end: String) -> String { String(format: t("dayLog.period.range"), start, end) }
+    static var dayLogLH: String { t("dayLog.lh") }
+    static var dayLogLHNone: String { t("dayLog.lh.none") }
+    static var dayLogLHNegative: String { t("dayLog.lh.negative") }
+    static var dayLogLHPositive: String { t("dayLog.lh.positive") }
+    static var dayLogBBT: String { t("dayLog.bbt") }
+    static var dayLogBBTPlaceholder: String { t("dayLog.bbt.placeholder") }
+    static var dayLogBBTHint: String { t("dayLog.bbt.hint") }
+    static var dayLogMucus: String { t("dayLog.mucus") }
+    static var dayLogMucusNone: String { t("dayLog.mucus.none") }
+    static func mucus(_ value: CervicalMucus) -> String {
+        switch value {
+        case .dry: t("dayLog.mucus.dry")
+        case .sticky: t("dayLog.mucus.sticky")
+        case .creamy: t("dayLog.mucus.creamy")
+        case .eggWhite: t("dayLog.mucus.eggWhite")
+        }
+    }
+    static var dayLogNote: String { t("dayLog.note") }
+
+    static var tabCalendar: String { t("tab.calendar") }
+
+    static var calendarTitle: String { t("calendar.title") }
+    static var calendarPrevious: String { t("calendar.previous") }
+    static var calendarNext: String { t("calendar.next") }
+    static var calendarEmptyHint: String { t("calendar.emptyHint") }
+    static var calendarLegendPeriod: String { t("calendar.legend.period") }
+    static var calendarLegendPredicted: String { t("calendar.legend.predicted") }
+    static var calendarLegendFertile: String { t("calendar.legend.fertile") }
+    static var calendarLegendPeak: String { t("calendar.legend.peak") }
+    static var calendarLegendLogged: String { t("calendar.legend.logged") }
+    static var calendarA11yToday: String { t("calendar.a11y.today") }
+    static var calendarA11yPeriod: String { t("calendar.a11y.period") }
+    static var calendarA11yPredicted: String { t("calendar.a11y.predicted") }
+    static var calendarA11yFertile: String { t("calendar.a11y.fertile") }
+    static var calendarA11yPeak: String { t("calendar.a11y.peak") }
+    static var calendarA11yLHPositive: String { t("calendar.a11y.lhPositive") }
+    static var calendarA11yLHNegative: String { t("calendar.a11y.lhNegative") }
+    static func calendarA11yTemperature(_ value: String) -> String { String(format: t("calendar.a11y.temperature"), value) }
+    static var calendarA11yNote: String { t("calendar.a11y.note") }
 }

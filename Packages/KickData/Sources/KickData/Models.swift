@@ -83,3 +83,78 @@ public final class Appointment {
         milestoneID = record.milestoneID
     }
 }
+
+/// A logged period. Synced through iCloud; `CycleStore` merges overlapping
+/// duplicates that sync can create.
+@Model
+public final class PeriodEntry {
+    public var id: UUID = UUID()
+    /// Start of the first day.
+    public var startDate: Date = Date()
+    /// Start of the last day; nil while the period is still going on.
+    public var endDate: Date?
+
+    public init(record: PeriodRecord) {
+        id = record.id
+        startDate = record.startDate
+        endDate = record.endDate
+    }
+
+    public var record: PeriodRecord {
+        PeriodRecord(id: id, startDate: startDate, endDate: endDate)
+    }
+
+    func apply(_ record: PeriodRecord) {
+        startDate = record.startDate
+        endDate = record.endDate
+    }
+}
+
+/// Body signals for one day. At most one per day (kept so by `CycleStore`).
+@Model
+public final class CycleLog {
+    public var id: UUID = UUID()
+    /// Start of the day.
+    public var day: Date = Date()
+    /// `LHResult.rawValue`: "positive" | "negative".
+    public var lhRaw: String?
+    /// 35.0–38.5 °C.
+    public var bbtCelsius: Double?
+    /// `CervicalMucus.rawValue`: "dry" | "sticky" | "creamy" | "eggWhite".
+    public var mucusRaw: String?
+    public var note: String = ""
+
+    public init(record: CycleLogRecord) {
+        id = record.id
+        day = record.day
+        lhRaw = record.lh?.rawValue
+        bbtCelsius = record.bbtCelsius
+        mucusRaw = record.mucus?.rawValue
+        note = record.note
+    }
+
+    public var record: CycleLogRecord {
+        CycleLogRecord(
+            id: id,
+            day: day,
+            lh: lhRaw.flatMap(LHResult.init(rawValue:)),
+            bbtCelsius: bbtCelsius,
+            mucus: mucusRaw.flatMap(CervicalMucus.init(rawValue:)),
+            note: note
+        )
+    }
+
+    /// Raw values this build cannot decode (e.g. synced from a newer app version)
+    /// are kept unless the record actually changes that field.
+    func apply(_ record: CycleLogRecord) {
+        day = record.day
+        if lhRaw.flatMap(LHResult.init(rawValue:)) != record.lh {
+            lhRaw = record.lh?.rawValue
+        }
+        bbtCelsius = record.bbtCelsius
+        if mucusRaw.flatMap(CervicalMucus.init(rawValue:)) != record.mucus {
+            mucusRaw = record.mucus?.rawValue
+        }
+        note = record.note
+    }
+}

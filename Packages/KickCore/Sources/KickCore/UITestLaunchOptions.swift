@@ -4,19 +4,27 @@ import Foundation
 /// take effect together with `-uiTesting`:
 /// - `-fixedNow <ISO8601>` pins the app's clock for the pregnancy and appointment screens.
 /// - `-seedDueDate <ISO8601>` stores that due date at launch.
+/// - `-seedCycles <scenario>` switches to trying-to-conceive mode and stores
+///   that `CycleSeedScenario`'s periods and logs, relative to the pinned clock.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
     public let seedDueDate: Date?
+    public let seedCycles: CycleSeedScenario?
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
         fixedNow = isUITesting ? Self.date(after: "-fixedNow", in: arguments) : nil
         seedDueDate = isUITesting ? Self.date(after: "-seedDueDate", in: arguments) : nil
+        seedCycles = isUITesting ? Self.value(after: "-seedCycles", in: arguments).flatMap(CycleSeedScenario.init(rawValue:)) : nil
+    }
+
+    private static func value(after flag: String, in arguments: [String]) -> String? {
+        guard let index = arguments.firstIndex(of: flag), arguments.indices.contains(index + 1) else { return nil }
+        return arguments[index + 1]
     }
 
     private static func date(after flag: String, in arguments: [String]) -> Date? {
-        guard let index = arguments.firstIndex(of: flag), arguments.indices.contains(index + 1) else { return nil }
-        return try? Date(arguments[index + 1], strategy: .iso8601)
+        value(after: flag, in: arguments).flatMap { try? Date($0, strategy: .iso8601) }
     }
 }

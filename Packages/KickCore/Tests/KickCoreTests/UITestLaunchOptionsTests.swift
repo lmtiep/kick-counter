@@ -24,3 +24,16 @@ struct UITestLaunchOptionsTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedDueDate"]).seedDueDate == nil)
     }
 }
+
+struct UITestCycleSeedOptionTests {
+    @Test func parsesTheCycleScenarioWhenUITesting() {
+        let options = UITestLaunchOptions(arguments: ["-uiTesting", "-seedCycles", "fertile"])
+        #expect(options.seedCycles == .fertile)
+    }
+
+    @Test func ignoresTheCycleScenarioWithoutUITestingOrWhenUnknown() {
+        #expect(UITestLaunchOptions(arguments: ["-seedCycles", "fertile"]).seedCycles == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedCycles", "twins"]).seedCycles == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedCycles"]).seedCycles == nil)
+    }
+}

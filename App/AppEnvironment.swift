@@ -8,6 +8,7 @@ struct AppEnvironment {
     let container: ModelContainer
     let coordinator: KickCoordinator
     let appointments: AppointmentCoordinator
+    let cycle: CycleCoordinator
     let content: WeeklyContentLibrary?
 
     private static let arguments = ProcessInfo.processInfo.arguments
@@ -29,6 +30,9 @@ struct AppEnvironment {
             if let seededDueDate = AppClock.launchOptions.seedDueDate {
                 PregnancyProfile.saveDueDate(seededDueDate, to: AppGroup.defaults)
             }
+            if AppClock.launchOptions.seedCycles != nil {
+                AppMode.save(.tryingToConceive, to: AppGroup.defaults)
+            }
         }
         #endif
         let container = try KickPersistence.makeContainer(inMemory: isUITesting)
@@ -47,11 +51,43 @@ struct AppEnvironment {
             reminderText: NotificationText(title: L10n.appointmentsReminderTitle, body: L10n.appointmentsReminderBody),
             now: { AppClock.now() }
         )
+        let cycleStore = CycleStore(context: container.mainContext)
+        #if DEBUG
+        if isUITesting, let scenario = AppClock.launchOptions.seedCycles {
+            try seedCycles(scenario, into: cycleStore)
+        }
+        #endif
+        let cycle = CycleCoordinator(
+            store: cycleStore,
+            notifications: notifications,
+            reminderTexts: CycleReminderTexts(
+                fertile: NotificationText(title: L10n.cycleReminderFertileTitle, body: L10n.cycleReminderFertileBody),
+                period: NotificationText(title: L10n.cycleReminderPeriodTitle, body: L10n.cycleReminderPeriodBody),
+                late: NotificationText(title: L10n.cycleReminderLateTitle, body: L10n.cycleReminderLateBody)
+            ),
+            defaults: AppGroup.defaults,
+            now: { AppClock.now() }
+        )
         return AppEnvironment(
             container: container,
             coordinator: coordinator,
             appointments: appointments,
+            cycle: cycle,
             content: WeeklyContentLibrary.loadBundled()
         )
     }
+
+    #if DEBUG
+    /// `-uiTesting -seedCycles <scenario>`: sample periods and logs relative to the pinned clock.
+    private static func seedCycles(_ scenario: CycleSeedScenario, into store: CycleStore) throws {
+        let now = AppClock.now()
+        let records = scenario.records(today: now)
+        for period in records.periods {
+            try store.addPeriod(period, today: now)
+        }
+        for log in records.logs {
+            try store.saveLog(log, today: now)
+        }
+    }
+    #endif
 }

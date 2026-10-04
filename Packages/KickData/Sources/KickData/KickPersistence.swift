@@ -3,7 +3,7 @@ import KickCore
 import SwiftData
 
 public enum KickPersistence {
-    public static let schema = Schema([KickSession.self, Kick.self, Appointment.self])
+    public static let schema = Schema([KickSession.self, Kick.self, Appointment.self, PeriodEntry.self, CycleLog.self])
 
     /// On-device store in the App Group, mirrored to the user's private iCloud
     /// database when the CloudKit entitlement is present and the user is signed in.
