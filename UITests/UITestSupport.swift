@@ -14,19 +14,32 @@ enum UITestDates {
     static let dueSevenDaysAgo = "2026-09-25T12:00:00Z"
 }
 
+/// Screenshot variants of the redesign (spec §6): vi/en × light/dark.
+enum UITestVariants {
+    static let all = [("vi", false), ("vi", true), ("en", false), ("en", true)]
+
+    static func suffix(_ language: String, _ dark: Bool) -> String {
+        "\(language)-\(dark ? "dark" : "light")"
+    }
+}
+
 extension XCUIApplication {
     /// Launches with onboarding skipped and the clock pinned to `UITestDates.fixedNow`,
     /// optionally with a stored due date, or — with `seedCycles` (a `CycleSeedScenario`
     /// name: empty, period, fertile, late, irregular) — in trying-to-conceive mode with
-    /// sample cycles. Only the pregnancy, appointment and cycle screens (and the Count
-    /// tab's week line) use the pinned clock; counting kicks uses real time.
+    /// sample cycles. `largestText` uses Dynamic Type AX5; `extraArguments` adds
+    /// more test-only flags (`-seedSessions`, `-seedOverdueSession`). Only the
+    /// pregnancy, appointment, cycle and history screens use the pinned clock;
+    /// counting kicks uses real time.
     @MainActor
     static func launchPinned(
         language: String = "en",
         dark: Bool = false,
         dueDate: String? = nil,
         seedCycles: String? = nil,
-        skipOnboarding: Bool = true
+        skipOnboarding: Bool = true,
+        largestText: Bool = false,
+        extraArguments: [String] = []
     ) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting"] + (skipOnboarding ? ["-skipOnboarding"] : []) + [
@@ -37,6 +50,10 @@ extension XCUIApplication {
         if let dueDate { app.launchArguments += ["-seedDueDate", dueDate] }
         if let seedCycles { app.launchArguments += ["-seedCycles", seedCycles] }
         if dark { app.launchArguments.append("-forceDarkMode") }
+        if largestText {
+            app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        }
+        app.launchArguments += extraArguments
         app.launch()
         return app
     }
@@ -77,19 +94,18 @@ extension XCTestCase {
     }
 }
 
-/// Tab order in RootView in pregnancy mode.
+/// Tab order in RootView in pregnancy mode (spec §2.3).
 enum AppTab: Int {
-    case pregnancy = 0
-    case counter
-    case history
-    case settings
+    case today = 0
+    case kicks
+    case profile
 }
 
 /// Tab order in RootView in trying-to-conceive mode.
 enum CycleModeTab: Int {
-    case cycle = 0
+    case today = 0
     case calendar
-    case settings
+    case profile
 }
 
 extension XCUIApplication {
@@ -97,9 +113,18 @@ extension XCUIApplication {
         openTab(at: tab.rawValue)
     }
 
-    /// Named differently from `openTab(_:)`: both enums have a `.settings` case.
+    /// Named differently from `openTab(_:)`: both enums have `.today` and `.profile`.
     func openCycleTab(_ tab: CycleModeTab) {
         openTab(at: tab.rawValue)
+    }
+
+    /// History lives inside the Kicks tab (spec §2.3).
+    func openHistory() {
+        openTab(.kicks)
+        let history = buttons["kicksHistoryButton"]
+        XCTAssertTrue(history.waitForExistence(timeout: 10))
+        scrollUntilHittable(history)
+        history.tap()
     }
 
     private func openTab(at index: Int) {

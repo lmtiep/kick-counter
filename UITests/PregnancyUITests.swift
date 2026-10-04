@@ -9,7 +9,7 @@ final class PregnancyUITests: XCTestCase {
     @MainActor
     func testCounterWeekLineUsesPinnedClockAndSeededDueDate() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
-        app.openTab(.counter)
+        app.openTab(.kicks)
         XCTAssertTrue(app.staticTexts["Week 24 + 3 days"].waitForExistence(timeout: 10))
         attachScreenshot(app, "counter-week-24-en")
     }
@@ -79,10 +79,10 @@ final class PregnancyUITests: XCTestCase {
     @MainActor
     func testClearingPregnancyDatesEmptiesPregnancyAndCounterTabs() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
-        app.openTab(.counter)
+        app.openTab(.kicks)
         XCTAssertTrue(app.staticTexts["Week 24 + 3 days"].waitForExistence(timeout: 10))
 
-        app.openTab(.settings)
+        app.openTab(.profile)
         XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: 10))
         let clearButton = app.buttons["settingsPregnancyClear"]
         app.scrollUntilHittable(clearButton)
@@ -98,11 +98,11 @@ final class PregnancyUITests: XCTestCase {
             app.buttons.matching(NSPredicate(format: "label == %@", clearButton.label)).element(boundBy: 1).tap()
         }
 
-        app.openTab(.pregnancy)
+        app.openTab(.today)
         XCTAssertTrue(app.buttons["pregnancyAddDateButton"].waitForExistence(timeout: 10))
         XCTAssertFalse(app.descendants(matching: .any)["weekProgressCard"].exists)
 
-        app.openTab(.counter)
+        app.openTab(.kicks)
         XCTAssertFalse(app.staticTexts["Week 24 + 3 days"].exists)
     }
 }

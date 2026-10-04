@@ -43,12 +43,12 @@ struct AppEnvironment {
             store: KickStore(context: container.mainContext),
             notifications: notifications,
             liveActivities: liveActivities,
-            overdueText: NotificationText(title: L10n.overdueTitle, body: L10n.overdueBody)
+            overdueText: ReminderTexts.overdue
         )
         let appointments = AppointmentCoordinator(
             store: AppointmentStore(context: container.mainContext),
             notifications: notifications,
-            reminderText: NotificationText(title: L10n.appointmentsReminderTitle, body: L10n.appointmentsReminderBody),
+            reminderText: ReminderTexts.appointment,
             now: { AppClock.now() }
         )
         let cycleStore = CycleStore(context: container.mainContext)
@@ -60,11 +60,7 @@ struct AppEnvironment {
         let cycle = CycleCoordinator(
             store: cycleStore,
             notifications: notifications,
-            reminderTexts: CycleReminderTexts(
-                fertile: NotificationText(title: L10n.cycleReminderFertileTitle, body: L10n.cycleReminderFertileBody),
-                period: NotificationText(title: L10n.cycleReminderPeriodTitle, body: L10n.cycleReminderPeriodBody),
-                late: NotificationText(title: L10n.cycleReminderLateTitle, body: L10n.cycleReminderLateBody)
-            ),
+            reminderTexts: ReminderTexts.cycle,
             defaults: AppGroup.defaults,
             now: { AppClock.now() }
         )

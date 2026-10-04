@@ -17,7 +17,7 @@ final class ScreenshotTests: XCTestCase {
         ]
         if dark { app.launchArguments.append("-forceDarkMode") }
         app.launch()
-        app.openTab(.counter)
+        app.openTab(.kicks)
         return app
     }
 
@@ -63,7 +63,7 @@ final class ScreenshotTests: XCTestCase {
             tapKick(app, times: 2)
             app.buttons["cancelSessionButton"].tap()
             confirmCancel(app)
-            app.openTab(.history)
+            app.openHistory()
             XCTAssertTrue(app.descendants(matching: .any)["sessionRow"].firstMatch.waitForExistence(timeout: 5))
             snap(app, "history-\(suffix)")
             app.terminate()
@@ -101,7 +101,7 @@ final class ScreenshotTests: XCTestCase {
             "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
         ]
         app.launch()
-        app.openTab(.counter)
+        app.openTab(.kicks)
         XCTAssertTrue(app.buttons["kickButton"].waitForExistence(timeout: 10))
         snap(app, "ax5-counter-vi-light")
     }
@@ -129,7 +129,7 @@ final class ScreenshotTests: XCTestCase {
         snap(app, "onboarding-4")
         later.tap()
 
-        app.openTab(.settings)
+        app.openTab(.profile)
         // The new "Mode" section sits on top; Form only creates rows near the viewport.
         XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: 5))
         let datesRow = app.buttons["settingsPregnancyDates"]
@@ -141,7 +141,7 @@ final class ScreenshotTests: XCTestCase {
         let save = app.buttons["pregnancyDateSave"]
         XCTAssertTrue(save.waitForExistence(timeout: 5))
         snap(app, "pregnancy-date-sheet")
-        app.segmentedControls.buttons.element(boundBy: 1).tap() // "Kỳ kinh cuối"
+        app.segmentedControls["pregnancyDateSourcePicker"].buttons.element(boundBy: 1).tap() // "Kỳ kinh cuối"
         XCTAssertTrue(app.staticTexts["pregnancyEstimatedDue"].waitForExistence(timeout: 5))
         snap(app, "pregnancy-date-sheet-lmp")
         save.tap()
@@ -158,7 +158,7 @@ final class ScreenshotTests: XCTestCase {
         snap(app, "medical-sources")
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        app.openTab(.counter)
+        app.openTab(.kicks)
         snap(app, "counter-with-week")
     }
 }

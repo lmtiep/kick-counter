@@ -140,7 +140,7 @@ final class CycleScreenshotTests: XCTestCase {
         for (language, dark) in Self.variants {
             let suffix = "\(language)-\(dark ? "dark" : "light")"
             let app = XCUIApplication.launchPinned(language: language, dark: dark, seedCycles: "fertile")
-            app.openCycleTab(.settings)
+            app.openCycleTab(.profile)
             XCTAssertTrue(app.descendants(matching: .any)["settingsCycleLength"].waitForExistence(timeout: 10))
             attachScreenshot(app, "settings-ttc-\(suffix)")
             if language == "vi", !dark {

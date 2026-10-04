@@ -1,26 +1,96 @@
 import Foundation
+import KickCore
 
+/// Every date, number and unit on screen, in the language chosen in the app
+/// (`AppLocale`), not the device's: vi "4 tháng 10", "36,5 °C"; en "Oct 4", "36.5 °C".
 enum Formatting {
-    /// e.g. "23 min", "1 hr, 5 min", "45 sec" — localized by the system.
+    static var locale: Locale { AppLocale.locale }
+
+    /// e.g. "23 min", "1 hr, 5 min", "45 sec".
     static func duration(_ seconds: TimeInterval) -> String {
         Duration.seconds(seconds.rounded())
-            .formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated, maximumUnitCount: 2))
+            .formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated, maximumUnitCount: 2).locale(locale))
+    }
+
+    /// Whole minutes: "22 min" / "22 phút".
+    static func minutes(_ minutes: Double) -> String {
+        L10n.minutes(Int(minutes.rounded()))
     }
 
     /// Day and month in the locale's order: "04/10" (vi) / "10/04" (en).
     static func cycleDate(_ date: Date) -> String {
-        date.formatted(.dateTime.day(.twoDigits).month(.twoDigits))
+        date.formatted(.dateTime.day(.twoDigits).month(.twoDigits).locale(locale))
     }
 
     /// For VoiceOver: "October 4" / "4 tháng 10".
     static func spokenDay(_ date: Date) -> String {
-        date.formatted(.dateTime.day().month(.wide))
+        date.formatted(.dateTime.day().month(.wide).locale(locale))
+    }
+
+    /// Headers and cards (README): "4 tháng 10" / "Oct 4".
+    static func shortDay(_ date: Date) -> String {
+        AppLocale.language == .vi
+            ? spokenDay(date)
+            : date.formatted(.dateTime.month(.abbreviated).day().locale(locale))
+    }
+
+    /// "T5, 1 tháng 10" / "Thu, Oct 1".
+    static func weekdayDay(_ date: Date) -> String {
+        "\(shortWeekday(date)), \(shortDay(date))"
+    }
+
+    /// "T2"…"T7", "CN" / "Mon"…"Sun". Stand-in until Task 3 adds `WeekdayLabel.short(for:calendar:)`.
+    private static func shortWeekday(_ date: Date) -> String {
+        guard AppLocale.language == .vi else {
+            return date.formatted(.dateTime.weekday(.abbreviated).locale(locale))
+        }
+        let weekday = AppLocale.calendar.component(.weekday, from: date)
+        return weekday == 1 ? "CN" : "T\(weekday)"
+    }
+
+    /// The day of the month alone: "4".
+    static func dayNumber(_ date: Date) -> String {
+        date.formatted(.dateTime.day().locale(locale))
+    }
+
+    /// "4/10/2026" / "Oct 4, 2026".
+    static func dayMonthYear(_ date: Date) -> String {
+        AppLocale.language == .vi
+            ? date.formatted(.dateTime.day().month(.defaultDigits).year().locale(locale))
+            : date.formatted(.dateTime.month(.abbreviated).day().year().locale(locale))
+    }
+
+    /// "Tháng 10 năm 2026" / "October 2026".
+    static func monthYear(_ date: Date) -> String {
+        let text = date.formatted(.dateTime.month(.wide).year().locale(locale))
+        return text.prefix(1).uppercased() + text.dropFirst()
+    }
+
+    /// "20:05" / "8:05 PM".
+    static func time(_ date: Date) -> String {
+        date.formatted(.dateTime.hour().minute().locale(locale))
+    }
+
+    /// A reminder time from its stored hour and minute.
+    static func clockTime(hour: Int, minute: Int) -> String {
+        time(Calendar.current.date(from: DateComponents(hour: hour, minute: minute)) ?? .now)
+    }
+
+    /// "June 7, 2027" / "ngày 7 tháng 6, 2027".
+    static func longDate(_ date: Date) -> String {
+        date.formatted(Date.FormatStyle(date: .long, time: .omitted).locale(locale))
+    }
+
+    /// Appointments: "Oct 20, 2026 at 2:30 PM".
+    static func dateTime(_ date: Date) -> String {
+        date.formatted(Date.FormatStyle(date: .abbreviated, time: .shortened).locale(locale))
     }
 
     /// "36.5 °C" / "36,5 °C".
     static func temperature(_ celsius: Double) -> String {
         Measurement(value: celsius, unit: UnitTemperature.celsius).formatted(
             .measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(1...2)))
+                .locale(locale)
         )
     }
 
@@ -28,6 +98,7 @@ enum Formatting {
     static func crownRumpLength(mm: Double, spoken: Bool = false) -> String {
         Measurement(value: mm, unit: UnitLength.millimeters).formatted(
             .measurement(width: spoken ? .wide : .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0...1)))
+                .locale(locale)
         )
     }
 
@@ -48,7 +119,7 @@ enum Formatting {
     static func weightRangeStart(_ grams: Int, unitOf reference: Int) -> String {
         reference >= 1000
             ? (Double(grams) / 1000).formatted(kilogramDigits)
-            : grams.formatted(.number)
+            : grams.formatted(.number.locale(locale))
     }
 
     /// `grams` with a unit, in the unit `weight(grams: reference)` uses.
@@ -56,15 +127,16 @@ enum Formatting {
         let width: Measurement<UnitMass>.FormatStyle.UnitWidth = spoken ? .wide : .abbreviated
         if reference >= 1000 {
             return Measurement(value: Double(grams) / 1000, unit: UnitMass.kilograms).formatted(
-                .measurement(width: width, usage: .asProvided, numberFormatStyle: kilogramDigits)
+                .measurement(width: width, usage: .asProvided, numberFormatStyle: kilogramDigits).locale(locale)
             )
         }
         return Measurement(value: Double(grams), unit: UnitMass.grams).formatted(
             .measurement(width: width, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0)))
+                .locale(locale)
         )
     }
 
     private static var kilogramDigits: FloatingPointFormatStyle<Double> {
-        .number.precision(.fractionLength(1))
+        .number.precision(.fractionLength(1)).locale(locale)
     }
 }

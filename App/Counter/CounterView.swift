@@ -74,6 +74,17 @@ struct CounterView: View {
                 .padding()
             }
             .navigationTitle(L10n.counterTitle)
+            .toolbar {
+                // History lives inside the Kicks tab (spec §2.3).
+                ToolbarItem(placement: .primaryAction) {
+                    NavigationLink {
+                        HistoryView()
+                    } label: {
+                        Label(L10n.historyTitle, systemImage: "chart.bar.fill")
+                    }
+                    .accessibilityIdentifier("kicksHistoryButton")
+                }
+            }
             .sensoryFeedback(.impact(weight: .medium), trigger: count)
             .confirmationDialog(L10n.counterCancelConfirmTitle, isPresented: $confirmingCancel, titleVisibility: .visible) {
                 Button(L10n.counterCancel, role: .destructive) {

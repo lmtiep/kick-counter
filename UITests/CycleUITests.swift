@@ -155,11 +155,11 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(estimate.label.contains("June 7, 2027"), estimate.label)
         app.buttons["imPregnantSave"].tap()
 
-        // 32 days since the last period: 4 weeks 4 days, on the four pregnancy tabs.
+        // 32 days since the last period: 4 weeks 4 days, on the pregnancy tabs.
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 10))
         XCTAssertTrue(progress.label.contains("Week 4 + 4 days"), progress.label)
-        XCTAssertEqual(app.tabBars.buttons.count, 4)
+        XCTAssertTrue(app.tabBars.buttons["Kicks"].waitForExistence(timeout: 5))
     }
 
     /// Spec §8: onboarding → "Trying to conceive" → last period → the Cycle tab shows the right cycle day.
@@ -181,31 +181,31 @@ final class CycleUITests: XCTestCase {
         wheels.element(boundBy: 1).adjust(toPickerWheelValue: "20")
         app.buttons["onboardingSaveCycle"].tap()
 
-        // 2026-09-20 → 2026-10-02 is cycle day 13, on the three trying-to-conceive tabs.
+        // 2026-09-20 → 2026-10-02 is cycle day 13, on the trying-to-conceive tabs.
         let status = app.descendants(matching: .any)["cycleStatusCard"]
         XCTAssertTrue(status.waitForExistence(timeout: 10))
         XCTAssertTrue(status.label.contains("Day 13 of your cycle"), status.label)
-        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
     }
 
     /// Spec §4.3: switching mode in Settings keeps the pregnancy dates.
     @MainActor
     func testSwitchingModeInSettingsKeepsThePregnancyDates() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
-        app.openTab(.settings)
+        app.openTab(.profile)
         let tryingToConceive = app.segmentedControls.buttons["Trying to conceive"]
         XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 10))
         tryingToConceive.tap()
 
         // Settings stays open, now with the cycle section and three tabs.
         XCTAssertTrue(app.descendants(matching: .any)["settingsCycleLength"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["settingsPregnancyDates"].exists)
-        app.openCycleTab(.cycle)
+        app.openCycleTab(.today)
         XCTAssertTrue(app.buttons["cycleAddPeriodButton"].waitForExistence(timeout: 5))
 
         // Back to pregnant: no period logged, so the sheet starts from the stored due date.
-        app.openCycleTab(.settings)
+        app.openCycleTab(.profile)
         let pregnant = app.segmentedControls.buttons["Pregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
         pregnant.tap()
@@ -214,8 +214,8 @@ final class CycleUITests: XCTestCase {
         save.tap()
 
         XCTAssertTrue(app.buttons["settingsPregnancyDates"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.tabBars.buttons.count, 4)
-        app.openTab(.pregnancy)
+        XCTAssertTrue(app.tabBars.buttons["Kicks"].waitForExistence(timeout: 5))
+        app.openTab(.today)
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 5))
         XCTAssertTrue(progress.label.contains("Week 24 + 3 days"), progress.label)
@@ -225,7 +225,7 @@ final class CycleUITests: XCTestCase {
     @MainActor
     func testCancellingImPregnantFromSettingsKeepsTheMode() {
         let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile")
-        app.openCycleTab(.settings)
+        app.openCycleTab(.profile)
         let pregnant = app.segmentedControls.buttons["Pregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 10))
         pregnant.tap()
@@ -237,7 +237,7 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 5))
         waitForSelected(tryingToConceive)
         XCTAssertFalse(pregnant.isSelected)
-        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.descendants(matching: .any)["settingsCycleLength"].exists)
     }
 

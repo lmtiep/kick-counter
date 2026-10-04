@@ -45,7 +45,7 @@ public final class CycleCoordinator {
 
     private let store: CycleRepository
     private let notifications: NotificationScheduler
-    private let reminderTexts: CycleReminderTexts
+    @ObservationIgnored private var reminderTexts: CycleReminderTexts
     private let defaults: UserDefaults
     private let calendar: Calendar
     private let now: @MainActor () -> Date
@@ -194,6 +194,13 @@ public final class CycleCoordinator {
         AppMode.save(.pregnant, to: defaults)
         bump()
         notifications.cancelCycleReminders()
+    }
+
+    /// The app language changed: the cycle reminders are scheduled again with
+    /// the new texts. Never prompts for permission.
+    public func updateReminderTexts(_ texts: CycleReminderTexts) async {
+        reminderTexts = texts
+        await syncReminders(generation: bump(), mayPrompt: false)
     }
 
     public func clearFailure() {

@@ -1,8 +1,8 @@
 import Foundation
 
-/// Language of the bundled medical content: the first of the user's preferred
-/// languages that the content supports (the same rule the app's own
-/// localization follows), falling back to English.
+/// Language of the bundled medical content and of the whole app: the first of
+/// the user's preferred languages that the app supports, falling back to
+/// English — unless a language was chosen in the app (`AppLanguage`).
 public enum ContentLanguage: String, Codable, Sendable, CaseIterable {
     case en
     case vi
@@ -24,7 +24,7 @@ public enum ContentLanguage: String, Codable, Sendable, CaseIterable {
     }
 
     public static var current: ContentLanguage {
-        ContentLanguage(preferredLanguages: Locale.preferredLanguages)
+        AppLanguage.current.resolved(preferredLanguages: Locale.preferredLanguages)
     }
 }
 

@@ -28,6 +28,8 @@ public enum SettingsKey {
     public static let typicalPeriodLength = "typicalPeriodLength"
     /// Fertile-window, period and late-period reminders. Missing means on.
     public static let cycleRemindersEnabled = "cycleRemindersEnabled"
+    /// `AppLanguage` raw value (`"system"`, `"vi"`, `"en"`). Missing means `system`.
+    public static let appLanguage = "appLanguage"
 }
 
 public enum SettingsDefault {

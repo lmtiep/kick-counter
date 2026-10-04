@@ -23,7 +23,7 @@ struct HistoryView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
             Group {
                 if sessions.isEmpty {
                     ContentUnavailableView(

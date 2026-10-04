@@ -8,6 +8,7 @@ struct SettingsView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @AppStorage(SettingsKey.appMode, store: AppGroup.defaults) private var appMode = AppMode.pregnant.rawValue
+    @AppStorage(SettingsKey.appLanguage, store: AppGroup.defaults) private var appLanguage = AppLanguage.system.rawValue
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
     @AppStorage(SettingsKey.reminderHour, store: AppGroup.defaults) private var reminderHour = SettingsDefault.reminderHour
     @AppStorage(SettingsKey.reminderMinute, store: AppGroup.defaults) private var reminderMinute = SettingsDefault.reminderMinute
@@ -26,6 +27,16 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                Section(L10n.languageTitle) {
+                    Picker(L10n.languageTitle, selection: $appLanguage) {
+                        Text(L10n.languageSystem).tag(AppLanguage.system.rawValue)
+                        Text(L10n.languageVietnamese).tag(AppLanguage.vi.rawValue)
+                        Text(L10n.languageEnglish).tag(AppLanguage.en.rawValue)
+                    }
+                    .pickerStyle(.segmented)
+                    .accessibilityIdentifier("profileLanguagePicker")
+                }
+
                 Section(L10n.settingsModeSection) {
                     Picker(L10n.settingsModeSection, selection: modeBinding) {
                         Text(L10n.modeTryingToConceive).tag(AppMode.tryingToConceive)
@@ -121,7 +132,7 @@ struct SettingsView: View {
                     LabeledContent(L10n.settingsVersion, value: appVersion)
                 }
             }
-            .navigationTitle(L10n.settingsTitle)
+            .navigationTitle(L10n.profileTitle)
             .sheet(isPresented: $showingPregnancyDates) { PregnancyDateSheet() }
             .sheet(isPresented: $showingImPregnant) {
                 ImPregnantSheet(lastPeriodStart: cycle.forecast?.currentPeriodStart)
@@ -244,7 +255,7 @@ struct SettingsView: View {
             enabled: reminderEnabled,
             hour: reminderHour,
             minute: reminderMinute,
-            text: NotificationText(title: L10n.reminderTitle, body: L10n.reminderBody)
+            text: ReminderTexts.daily
         )
         if !scheduled {
             reminderEnabled = false

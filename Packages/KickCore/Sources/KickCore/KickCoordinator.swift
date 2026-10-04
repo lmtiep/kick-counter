@@ -31,7 +31,7 @@ public final class KickCoordinator {
     private let store: SessionRepository
     private let notifications: NotificationScheduler
     private let liveActivities: LiveActivityManaging
-    private let overdueText: NotificationText
+    @ObservationIgnored private var overdueText: NotificationText
     private let now: @MainActor () -> Date
 
     /// The session whose Live Activity `start` call is currently in flight, so
@@ -256,6 +256,22 @@ public final class KickCoordinator {
         } catch {
             logger.error("Scheduling daily reminder failed: \(error.localizedDescription)")
             return false
+        }
+    }
+
+    /// The app language changed: the active session's 2-hour alert is scheduled
+    /// again with the new text. Never prompts; does nothing without permission.
+    public func updateOverdueText(_ text: NotificationText) async {
+        overdueText = text
+        guard let sessionID = activeSessionID, let startedAt = activeSession?.startedAt else { return }
+        guard await notifications.isAuthorized(), activeSessionID == sessionID else { return }
+        do {
+            try await notifications.scheduleOverdueAlert(sessionID: sessionID, startedAt: startedAt, now: now(), text: text)
+            if activeSessionID != sessionID {
+                notifications.cancelOverdueAlert(sessionID: sessionID)
+            }
+        } catch {
+            logger.error("Rescheduling the overdue alert failed: \(error.localizedDescription)")
         }
     }
 

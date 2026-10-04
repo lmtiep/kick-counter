@@ -2,13 +2,15 @@ import Foundation
 import KickCore
 
 /// Typed access to Localizable.xcstrings. Every user-facing string goes through here.
+/// Strings come from the `.lproj` of the language chosen in the app (`AppLanguage`,
+/// shared with the widget through the App Group), so a change applies at once.
 enum L10n {
-    private static func t(_ key: String.LocalizationValue) -> String { String(localized: key) }
+    private static func t(_ key: String) -> String {
+        AppLanguage.current
+            .localizationBundle(in: .main, preferredLanguages: Locale.preferredLanguages)
+            .localizedString(forKey: key, value: nil, table: nil)
+    }
 
-    static var tabCounter: String { t("tab.counter") }
-    static var tabHistory: String { t("tab.history") }
-    static var tabSettings: String { t("tab.settings") }
-    static var tabPregnancy: String { t("tab.pregnancy") }
 
     static var pregnancyTitle: String { t("pregnancy.title") }
     static var pregnancyEmptyTitle: String { t("pregnancy.empty.title") }
@@ -190,7 +192,6 @@ enum L10n {
     static var laCompleted: String { t("la.completed") }
     static var laAdd: String { t("la.add") }
 
-    static var tabCycle: String { t("tab.cycle") }
 
     static var cycleTitle: String { t("cycle.title") }
     static var cycleEmptyTitle: String { t("cycle.empty.title") }
@@ -301,4 +302,21 @@ enum L10n {
     static var calendarA11yLHNegative: String { t("calendar.a11y.lhNegative") }
     static func calendarA11yTemperature(_ value: String) -> String { String(format: t("calendar.a11y.temperature"), value) }
     static var calendarA11yNote: String { t("calendar.a11y.note") }
+
+    // MARK: - Phase 4: navigation and language
+
+    static var tabToday: String { t("tab.today") }
+    static var tabKicks: String { t("tab.kicks") }
+    static var tabProfile: String { t("tab.profile") }
+    static var profileTitle: String { t("profile.title") }
+    static var languageTitle: String { t("language.title") }
+    static var languageSystem: String { t("language.system") }
+    static var languageVietnamese: String { t("language.vi") }
+    static var languageEnglish: String { t("language.en") }
+    /// "22 min" / "22 phút".
+    static func minutes(_ value: Int) -> String { String(format: t("common.minutes"), value) }
+    /// "28 days" / "28 ngày" ("1 day").
+    static func days(_ value: Int) -> String {
+        value == 1 ? t("common.oneDay") : String(format: t("common.days"), value)
+    }
 }
