@@ -109,7 +109,28 @@ public final class CycleCoordinator {
     @discardableResult
     public func startPeriod(on day: Date) async -> CycleFailure? {
         let record = PeriodRecord(startDate: calendar.startOfDay(for: day))
-        return await write { try store.addPeriod(record, today: now()) }
+        let stale = staleOpenPeriod(before: record.startDate)
+        return await write {
+            // A period left open for weeks was never ended: close it at the typical
+            // length so it doesn't run into the new one.
+            if let stale { try store.updatePeriod(stale, today: now()) }
+            try store.addPeriod(record, today: now())
+        }
+    }
+
+    /// The open period that has run past `CycleRules.longPeriodDays` by `day`,
+    /// closed at the typical period length; nil when there is none.
+    private func staleOpenPeriod(before day: Date) -> PeriodRecord? {
+        guard let open = periods.first(where: { $0.isOpen && $0.startDate < day }),
+              let length = calendar.dateComponents([.day], from: open.startDate, to: day).day,
+              length >= CycleRules.longPeriodDays
+        else { return nil }
+        let assumed = CycleRules.assumedPeriod(
+            startingOn: open.startDate, typicalLength: settings.typicalPeriodLength, today: day, calendar: calendar
+        )
+        var closed = open
+        closed.endDate = assumed.endDate
+        return closed.endDate == nil ? nil : closed
     }
 
     /// Stores the last period from its first day alone (onboarding, empty Cycle

@@ -143,6 +143,32 @@ struct CycleCoordinatorTests {
         #expect(reminderDay(.period) == 2)
     }
 
+    /// A period left open for weeks (never ended) must not block the next one:
+    /// it is closed at the typical length and the new period starts today.
+    @Test func startingAPeriodClosesAStaleOpenPeriod() async throws {
+        let stale = PeriodRecord(startDate: day("2026-08-01"))
+        repository.seed(periods: [stale], logs: [])
+        await coordinator.load()
+        #expect(coordinator.forecast?.isLongOpenPeriod == true)
+
+        #expect(await coordinator.startPeriod(on: day("2026-09-05")) == nil)
+        let stored = repository.storedPeriods.sorted { $0.startDate < $1.startDate }
+        #expect(stored.count == 2)
+        #expect(stored.first?.id == stale.id)
+        #expect(stored.first?.endDate == day("2026-08-05")) // typical length 5
+        #expect(stored.last?.startDate == day("2026-09-05"))
+        #expect(stored.last?.isOpen == true)
+        #expect(coordinator.forecast?.cycleDay == 1)
+    }
+
+    /// An open period that is still plausible is left alone; the overlap rule applies.
+    @Test func startingAPeriodKeepsARecentOpenPeriod() async {
+        repository.seed(periods: [PeriodRecord(startDate: day("2026-09-02"))], logs: [])
+        await coordinator.load()
+        #expect(await coordinator.startPeriod(on: day("2026-09-05")) == .overlapsExistingPeriod)
+        #expect(repository.storedPeriods.first?.endDate == nil)
+    }
+
     @Test func lastPeriodFromItsFirstDayUsesTheTypicalLength() async {
         await coordinator.updateSettings(CycleSettings(typicalPeriodLength: 4))
         #expect(await coordinator.logLastPeriod(startingOn: day("2026-08-20")) == nil)

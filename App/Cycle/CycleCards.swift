@@ -64,13 +64,20 @@ struct CycleStatusCard: View {
             VStack(spacing: 6) {
                 Text(L10n.cycleDay(forecast.cycleDay))
                     .font(.title3.bold())
-                Label {
-                    Text(L10n.cycleStatus(todayStatus))
-                } icon: {
-                    Image(systemName: CyclePalette.symbol(for: todayStatus) ?? "circle")
-                        .foregroundStyle(CyclePalette.ringColor(for: todayStatus))
+                // While late a "low chance" status would mislead (she may be pregnant).
+                if forecast.daysLate > 0 {
+                    Label(L10n.cycleStatusLate, systemImage: "calendar.badge.exclamationmark")
+                        .foregroundStyle(.primary)
+                        .font(.headline)
+                } else {
+                    Label {
+                        Text(L10n.cycleStatus(todayStatus))
+                    } icon: {
+                        Image(systemName: CyclePalette.symbol(for: todayStatus) ?? "circle")
+                            .foregroundStyle(CyclePalette.ringColor(for: todayStatus))
+                    }
+                    .font(.headline)
                 }
-                .font(.headline)
             }
             .multilineTextAlignment(.center)
         }

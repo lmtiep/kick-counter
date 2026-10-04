@@ -10,18 +10,31 @@ struct ImPregnantSheet: View {
     @State private var date: Date
     private let now: Date
 
-    /// Starts from the latest logged period; without one, from the stored
-    /// pregnancy dates (or the usual default).
+    /// Starts from the latest logged period, unless stored pregnancy dates already
+    /// belong to this pregnancy (e.g. a due date corrected by ultrasound, then a
+    /// round trip through "Trying to conceive"); otherwise from the stored dates
+    /// (or the usual default).
     init(lastPeriodStart: Date?, now: Date = AppClock.now()) {
         self.now = now
-        if let lastPeriodStart {
+        let stored = PregnancyProfile.load(from: AppGroup.defaults)
+        if let lastPeriodStart, !Self.belongsToCurrentPregnancy(stored, lastPeriodStart: lastPeriodStart) {
             _source = State(initialValue: .lmp)
             _date = State(initialValue: PregnancyDateInput.clamp(lastPeriodStart, for: .lmp, now: now))
         } else {
-            let selection = PregnancyDateInput.initialSelection(for: PregnancyProfile.load(from: AppGroup.defaults), now: now)
+            let selection = PregnancyDateInput.initialSelection(for: stored, now: now)
             _source = State(initialValue: selection.source)
             _date = State(initialValue: selection.date)
         }
+    }
+
+    /// A stored due date whose implied LMP (due − 280 days) is no more than four
+    /// weeks before the logged period is the current pregnancy, not an old one.
+    private static func belongsToCurrentPregnancy(_ profile: PregnancyProfile, lastPeriodStart: Date) -> Bool {
+        guard let due = profile.dueDate,
+              let impliedLMP = Calendar.current.date(byAdding: .day, value: -280, to: due),
+              let earliest = Calendar.current.date(byAdding: .day, value: -28, to: lastPeriodStart)
+        else { return false }
+        return impliedLMP >= earliest
     }
 
     var body: some View {

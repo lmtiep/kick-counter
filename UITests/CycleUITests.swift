@@ -57,6 +57,9 @@ final class CycleUITests: XCTestCase {
         let late = app.descendants(matching: .any)["cycleLateCard"]
         XCTAssertTrue(late.waitForExistence(timeout: 10))
         XCTAssertTrue(late.label.contains("Your period is 4 days late"), late.label)
+        // While late the status is neutral, never "Low chance of conceiving".
+        let lateStatus = app.descendants(matching: .any)["cycleStatusCard"]
+        XCTAssertTrue(lateStatus.label.contains("Your period is late"), lateStatus.label)
         // While late, the past fertile window is not shown.
         let fertileCard = app.descendants(matching: .any)["cycleFertileCard"]
         XCTAssertTrue(app.descendants(matching: .any)["cycleNextPeriodCard"].exists)
@@ -216,5 +219,30 @@ final class CycleUITests: XCTestCase {
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 5))
         XCTAssertTrue(progress.label.contains("Week 24 + 3 days"), progress.label)
+    }
+
+    /// Cancelling "I'm pregnant" from Settings keeps trying-to-conceive mode.
+    @MainActor
+    func testCancellingImPregnantFromSettingsKeepsTheMode() {
+        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile")
+        app.openCycleTab(.settings)
+        let pregnant = app.segmentedControls.buttons["Pregnant"]
+        XCTAssertTrue(pregnant.waitForExistence(timeout: 10))
+        pregnant.tap()
+        let cancel = app.navigationBars.buttons["Cancel"]
+        XCTAssertTrue(cancel.waitForExistence(timeout: 5))
+        cancel.tap()
+
+        let tryingToConceive = app.segmentedControls.buttons["Trying to conceive"]
+        XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 5))
+        waitForSelected(tryingToConceive)
+        XCTAssertFalse(pregnant.isSelected)
+        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        XCTAssertTrue(app.descendants(matching: .any)["settingsCycleLength"].exists)
+    }
+
+    private func waitForSelected(_ element: XCUIElement, timeout: TimeInterval = 5) {
+        let selected = expectation(for: NSPredicate(format: "isSelected == true"), evaluatedWith: element)
+        wait(for: [selected], timeout: timeout)
     }
 }

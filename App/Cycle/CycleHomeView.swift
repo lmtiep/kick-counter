@@ -113,13 +113,16 @@ struct CycleHomeView: View {
     }
 
     private func quickActions(for forecast: CycleForecast) -> some View {
-        VStack(spacing: 12) {
+        // A period open for weeks was never ended: offer to start the new one
+        // (the coordinator closes the old one); its real end goes in the day log.
+        let open = forecast.isLongOpenPeriod ? nil : forecast.openPeriod
+        return VStack(spacing: 12) {
             Button {
-                Task { await togglePeriod(open: forecast.openPeriod) }
+                Task { await togglePeriod(open: open) }
             } label: {
                 Label(
-                    forecast.openPeriod == nil ? L10n.cycleStartPeriod : L10n.cycleEndPeriod,
-                    systemImage: forecast.openPeriod == nil ? "drop.fill" : "drop"
+                    open == nil ? L10n.cycleStartPeriod : L10n.cycleEndPeriod,
+                    systemImage: open == nil ? "drop.fill" : "drop"
                 )
                 .frame(maxWidth: .infinity)
             }

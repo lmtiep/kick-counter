@@ -103,7 +103,8 @@ struct SettingsView: View {
                 if !notificationsAuthorized || showsLiveActivityHint {
                     Section(L10n.settingsPermissionsSection) {
                         if !notificationsAuthorized {
-                            Text(L10n.settingsNotificationsDenied).font(.footnote)
+                            Text(mode == .tryingToConceive ? L10n.cycleNotificationsOff : L10n.settingsNotificationsDenied)
+                                .font(.footnote)
                         }
                         if showsLiveActivityHint {
                             Text(L10n.settingsLiveActivitiesOff).font(.footnote)

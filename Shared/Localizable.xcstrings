@@ -1599,6 +1599,23 @@
         }
       }
     },
+    "cycle.status.late": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your period is late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh đang đến trễ"
+          }
+        }
+      }
+    },
     "cycle.status.low": {
       "extractionState": "manual",
       "localizations": {
