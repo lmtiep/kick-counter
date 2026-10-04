@@ -61,6 +61,18 @@ struct CycleRingTests {
         #expect(CycleRingHeadline(forecast: try forecast(on: "2026-10-05")) == .late(days: 4))
     }
 
+    @Test func cycleDayOfAnyDate() throws {
+        let forecast = try forecast(on: "2026-09-20")
+        #expect(forecast.cycleDay(on: day("2026-09-20")) == 18)
+        #expect(forecast.cycleDay(on: day("2026-08-10")) == 5) // previous cycle (from 08-06)
+        #expect(forecast.cycleDay(on: day("2026-07-01")) == nil) // before the first period
+        #expect(forecast.cycleDay(on: day("2026-10-01")) == 1) // predicted next cycle
+        #expect(forecast.cycleDay(on: day("2026-10-05")) == 5)
+    }
+
+    @Test func cycleDayKeepsCountingWhenLate() throws {
+        #expect(try forecast(on: "2026-10-05").cycleDay(on: day("2026-10-07")) == 35)
+    }
     @Test func regularNeedsTwoSimilarCycles() throws {
         #expect(try forecast(on: "2026-09-20").isRegular)
         #expect(try forecast(on: "2026-09-20", periods: ["2026-09-03"]).isRegular == false)

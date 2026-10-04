@@ -96,6 +96,11 @@ final class CycleScreenshotTests: XCTestCase {
                 let legend = app.descendants(matching: .any)["calendarLegend"]
                 app.scrollUntilHittable(legend)
                 attachScreenshot(app, "calendar-legend-vi-light")
+                let future = app.buttons.matching(
+                    NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH '20 tháng 10'")
+                ).firstMatch
+                future.tap()
+                attachScreenshot(app, "calendar-future-day-vi-light")
             }
             app.terminate()
         }

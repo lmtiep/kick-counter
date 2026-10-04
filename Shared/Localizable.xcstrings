@@ -545,6 +545,23 @@
         }
       }
     },
+    "calendar.log": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chú"
+          }
+        }
+      }
+    },
     "calendar.next": {
       "extractionState": "manual",
       "localizations": {

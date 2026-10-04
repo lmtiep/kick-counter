@@ -31,12 +31,15 @@ struct RootView: View {
             // The selected tab lives here, outside the rebuilt part, so Profile stays open.
             .id(appLanguage)
             .environment(\.locale, AppLocale.locale)
+            // DatePickers and other system calendars follow the app language too.
+            .environment(\.calendar, AppLocale.calendar)
             .fullScreenCover(isPresented: Binding(
                 get: { !hasCompletedOnboarding },
                 set: { hasCompletedOnboarding = !$0 }
             )) {
                 OnboardingView { hasCompletedOnboarding = true }
                     .environment(\.locale, AppLocale.locale)
+                    .environment(\.calendar, AppLocale.calendar)
             }
             .task { await reload() }
             .onChange(of: scenePhase) { _, phase in

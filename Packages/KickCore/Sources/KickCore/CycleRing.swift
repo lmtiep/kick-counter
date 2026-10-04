@@ -103,4 +103,19 @@ extension CycleForecast {
         confidence == .normal && !irregularWarning
     }
 
+    /// Cycle day of `date` for the calendar's selected-day card: counted from the
+    /// latest logged period starting on or before it. After today, predicted
+    /// cycles repeat every `averageCycleLength` days (unless the period is late).
+    /// Nil before the first logged period.
+    public func cycleDay(on date: Date) -> Int? {
+        let day = calendar.startOfDay(for: date)
+        guard let start = periods.last(where: { $0.startDate <= day })?.startDate,
+              let elapsed = calendar.dateComponents([.day], from: start, to: day).day
+        else { return nil }
+        if start == currentPeriodStart, day > today, daysLate == 0 {
+            return elapsed % averageCycleLength + 1
+        }
+        return elapsed + 1
+    }
+
 }

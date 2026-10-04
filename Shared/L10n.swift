@@ -375,4 +375,8 @@ enum L10n {
     static func cyclePhase(_ day: Int, _ status: String) -> String { String(format: t("cycle.phase"), day, status) }
     static var cycleMaybePregnantTitle: String { t("cycle.maybePregnant.title") }
     static var cycleMaybePregnantBody: String { t("cycle.maybePregnant.body") }
+
+    // MARK: - Phase 4: calendar
+
+    static var calendarLog: String { t("calendar.log") }
 }

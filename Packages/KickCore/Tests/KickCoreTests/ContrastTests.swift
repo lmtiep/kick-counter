@@ -65,6 +65,18 @@ struct ContrastTests {
         #expect(ratio(.segmentSelected, .onboardingBackground, dark: dark) >= 1.1)
     }
 
+    /// Calendar ovulation days are told apart from the fertile window without
+    /// colour alone: their fills are nearly the same, so ovulation days (and the
+    /// legend swatch) carry a `teal` ring that meets the 3:1 non-text contrast
+    /// (WCAG 1.4.11) on the fill and on the card and background around it.
+    @Test(arguments: [false, true])
+    func ovulationRingStandsOutWhereTheFillDoesNot(dark: Bool) {
+        #expect(ratio(.ovulation, .fertileSoft, dark: dark) < 1.5)
+        #expect(ratio(.teal, .ovulation, dark: dark) >= 3)
+        #expect(ratio(.teal, .card, dark: dark) >= 3)
+        #expect(ratio(.teal, .background, dark: dark) >= 3)
+    }
+
     @Test func everyTokenHasAValue() {
         for token in LunaToken.allCases {
             let pair = LunaPalette.pair(token)

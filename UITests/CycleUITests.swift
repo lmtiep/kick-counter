@@ -89,7 +89,13 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(day("October 2,").label.contains("today, fertile window"), day("October 2,").label)
         XCTAssertTrue(day("October 4,").label.contains("most fertile day"), day("October 4,").label)
         XCTAssertTrue(day("October 18,").label.contains("predicted period"), day("October 18,").label)
-        XCTAssertFalse(day("October 20,").isEnabled) // future days can't be logged
+        // Future days can be selected to look at, but not logged (spec §4.3).
+        day("October 20,").tap()
+        let selectedDay = app.descendants(matching: .any)["calendarSelectedDay"]
+        waitForLabel(selectedDay, containing: "Oct 20")
+        XCTAssertTrue(selectedDay.label.contains("Day 3 · Predicted period"), selectedDay.label)
+        XCTAssertTrue(day("October 20,").isSelected)
+        XCTAssertFalse(app.buttons["calendarLogButton"].isEnabled)
 
         app.buttons["calendarNext"].tap()
         waitForLabel(title, containing: "November 2026")
@@ -97,6 +103,10 @@ final class CycleUITests: XCTestCase {
         waitForLabel(title, containing: "October 2026")
 
         day("October 2,").tap()
+        let logButton = app.buttons["calendarLogButton"]
+        app.scrollUntilHittable(logButton)
+        XCTAssertTrue(logButton.isEnabled)
+        logButton.tap()
         let positive = app.segmentedControls.buttons["Positive"]
         XCTAssertTrue(positive.waitForExistence(timeout: 5))
         positive.tap()
@@ -105,6 +115,49 @@ final class CycleUITests: XCTestCase {
         // fertile day and 10-04 drops back to the end of the fertile window.
         waitForLabel(day("October 2,"), containing: "today, most fertile day, positive LH test logged")
         XCTAssertTrue(day("October 4,").label.contains("fertile window"), day("October 4,").label)
+    }
+
+    /// Spec §4.3: weeks start on Monday in Vietnamese, Sunday in US English.
+    @MainActor
+    func testCalendarWeekStartsFollowTheLanguage() {
+        for (language, mondayFirst) in [("vi", true), ("en", false)] {
+            let app = XCUIApplication.launchPinned(language: language, seedCycles: "fertile")
+            app.openCycleTab(.calendar)
+            let title = app.staticTexts["calendarMonthTitle"]
+            XCTAssertTrue(title.waitForExistence(timeout: 10))
+            XCTAssertEqual(title.label, mondayFirst ? "Tháng 10 năm 2026" : "October 2026")
+            // October 2026: the 4th is a Sunday, the 5th a Monday.
+            let days = app.buttons.matching(identifier: "calendarDay")
+            let sunday = days.element(boundBy: 3)
+            let monday = days.element(boundBy: 4)
+            if mondayFirst {
+                XCTAssertGreaterThan(sunday.frame.midX, monday.frame.midX, "Sunday ends the week")
+            } else {
+                XCTAssertLessThan(sunday.frame.midX, monday.frame.midX, "Sunday starts the week")
+            }
+            app.terminate()
+        }
+    }
+
+    /// Spec §2.2: the grid follows the language chosen in the app, not the
+    /// device's — Vietnamese chosen in Profile on a US English device starts
+    /// the week on Monday and titles the month in Vietnamese.
+    @MainActor
+    func testCalendarFollowsTheAppLanguageNotTheDevice() {
+        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile")
+        app.openCycleTab(.profile)
+        let vietnamese = app.segmentedControls.buttons["Tiếng Việt"]
+        XCTAssertTrue(vietnamese.waitForExistence(timeout: 10))
+        vietnamese.tap()
+        XCTAssertTrue(app.tabBars.buttons["Lịch"].waitForExistence(timeout: 5))
+
+        app.openCycleTab(.calendar)
+        let title = app.staticTexts["calendarMonthTitle"]
+        XCTAssertTrue(title.waitForExistence(timeout: 10))
+        XCTAssertEqual(title.label, "Tháng 10 năm 2026")
+        let days = app.buttons.matching(identifier: "calendarDay")
+        XCTAssertGreaterThan(days.element(boundBy: 3).frame.midX, days.element(boundBy: 4).frame.midX, "Sunday ends the week")
+        XCTAssertTrue(days.element(boundBy: 0).label.hasPrefix("1 tháng 10"), days.element(boundBy: 0).label)
     }
 
     /// Spec §8: "I'm pregnant" switches to the Pregnancy tab at the right week.
