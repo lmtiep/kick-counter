@@ -1333,7 +1333,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@ · days to go: %2$d"
+            "value": "%1$@ (in %2$d days)"
           }
         },
         "vi": {
@@ -1391,6 +1391,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ (hôm nay)"
+          }
+        }
+      }
+    },
+    "cycle.nextPeriod.tomorrow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (tomorrow)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (ngày mai)"
           }
         }
       }
@@ -2523,13 +2540,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kick Counter helps you keep track of your baby's movements. It is not a medical device and does not replace advice from your doctor or midwife.\n\nFrom around week 28, get to know your baby's usual pattern of movements. Most babies make 10 movements within 2 hours, often much sooner.\n\nIf you notice your baby is moving less than usual, or you have not felt 10 movements within 2 hours, contact your doctor or maternity unit straight away — day or night. Do not wait until the next day, and do not rely on this app or a home heartbeat monitor to reassure you.\n\nIn an emergency, call your local emergency number."
+            "value": "Luna Mom helps you keep track of your baby's movements. It is not a medical device and does not replace advice from your doctor or midwife.\n\nFrom around week 28, get to know your baby's usual pattern of movements. Most babies make 10 movements within 2 hours, often much sooner.\n\nIf you notice your baby is moving less than usual, or you have not felt 10 movements within 2 hours, contact your doctor or maternity unit straight away — day or night. Do not wait until the next day, and do not rely on this app or a home heartbeat monitor to reassure you.\n\nIn an emergency, call your local emergency number."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kick Counter giúp mẹ theo dõi cử động của bé. App không phải thiết bị y tế và không thay thế lời khuyên của bác sĩ hay nữ hộ sinh.\n\nTừ khoảng tuần 28, mẹ hãy làm quen với nhịp cử động thường ngày của bé. Phần lớn các bé có 10 cử động trong vòng 2 giờ, thường nhanh hơn nhiều.\n\nNếu thấy bé cử động ít hơn bình thường, hoặc chưa cảm nhận đủ 10 cử động trong 2 giờ, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế, dù ngày hay đêm. Đừng chờ đến hôm sau, và đừng dựa vào app này hay máy nghe tim thai tại nhà để yên tâm.\n\nTrong trường hợp khẩn cấp, hãy gọi 115."
+            "value": "Luna Mom giúp mẹ theo dõi cử động của bé. App không phải thiết bị y tế và không thay thế lời khuyên của bác sĩ hay nữ hộ sinh.\n\nTừ khoảng tuần 28, mẹ hãy làm quen với nhịp cử động thường ngày của bé. Phần lớn các bé có 10 cử động trong vòng 2 giờ, thường nhanh hơn nhiều.\n\nNếu thấy bé cử động ít hơn bình thường, hoặc chưa cảm nhận đủ 10 cử động trong 2 giờ, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế, dù ngày hay đêm. Đừng chờ đến hôm sau, và đừng dựa vào app này hay máy nghe tim thai tại nhà để yên tâm.\n\nTrong trường hợp khẩn cấp, hãy gọi 115."
           }
         }
       }
