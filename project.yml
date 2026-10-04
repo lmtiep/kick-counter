@@ -42,6 +42,12 @@ targets:
         NSSupportsLiveActivities: true
         UIBackgroundModes: [remote-notification]
         LunaContentPreview: $(LUNA_CONTENT_PREVIEW)
+        UIAppFonts:
+          - BeVietnamPro-Light.ttf
+          - BeVietnamPro-Regular.ttf
+          - BeVietnamPro-Medium.ttf
+          - BeVietnamPro-SemiBold.ttf
+          - BeVietnamPro-Bold.ttf
     entitlements:
       path: App/KickCounter.entitlements
       properties:

@@ -9,6 +9,7 @@ struct KickCounterApp: App {
     private let environment: Result<AppEnvironment, Error>
 
     init() {
+        LunaAppearance.configure()
         environment = Result { try AppEnvironment.make() }
         switch environment {
         case .success(let env):
