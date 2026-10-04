@@ -370,6 +370,7 @@ enum L10n {
     static var cycleRingUndoA11y: String { t("cycle.ring.undo.a11y") }
     static var cycleToastPeriodStarted: String { t("cycle.toast.started") }
     static var cycleToastPeriodEnded: String { t("cycle.toast.ended") }
+    static var cycleToastPeriodUndone: String { t("cycle.toast.undone") }
     /// "Day 12 · High chance of conceiving".
     static func cyclePhase(_ day: Int, _ status: String) -> String { String(format: t("cycle.phase"), day, status) }
     static var cycleMaybePregnantTitle: String { t("cycle.maybePregnant.title") }

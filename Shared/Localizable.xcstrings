@@ -2092,6 +2092,23 @@
         }
       }
     },
+    "cycle.toast.undone": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period start removed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xóa ngày bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
     "cycleSettings.cycleLength": {
       "extractionState": "manual",
       "localizations": {

@@ -26,12 +26,38 @@ final class CycleTodayUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["toast"].waitForExistence(timeout: 2))
         waitForLabel(status, containing: "Day 1 of your cycle")
         XCTAssertFalse(late.exists)
+        // A new cycle: the fertile window is back.
+        XCTAssertTrue(app.descendants(matching: .any)["cycleFertileCard"].exists)
         XCTAssertEqual(periodButton.label, "Undo period start")
 
         periodButton.tap()
         waitForLabel(status, containing: "Day 33 of your cycle")
         XCTAssertTrue(late.waitForExistence(timeout: 5))
         XCTAssertEqual(periodButton.label, "Period started today")
+    }
+
+    /// Undo is only offered right after the start: leaving the screen ends it,
+    /// and the started period shows in today's log.
+    @MainActor
+    func testUndoIsNotOfferedAfterLeavingTheScreen() {
+        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "late")
+        let periodButton = app.buttons["cyclePeriodButton"]
+        XCTAssertTrue(periodButton.waitForExistence(timeout: 10))
+        periodButton.tap()
+        waitForLabel(periodButton, containing: "Undo period start")
+
+        app.openCycleTab(.calendar)
+        XCTAssertTrue(app.staticTexts["calendarMonthTitle"].waitForExistence(timeout: 5))
+        app.openCycleTab(.today)
+        XCTAssertTrue(periodButton.waitForExistence(timeout: 5))
+        waitForLabel(periodButton, containing: "Period ended today")
+
+        let logToday = app.buttons["cycleLogTodayButton"]
+        app.scrollUntilHittable(logToday)
+        logToday.tap()
+        let periodInfo = app.descendants(matching: .any)["dayLogPeriodInfo"]
+        XCTAssertTrue(periodInfo.waitForExistence(timeout: 5))
+        XCTAssertEqual(periodInfo.label, "Period since October 2")
     }
 
     /// An ongoing period (started yesterday) is ended from the ring.

@@ -4,7 +4,7 @@ import OSLog
 
 private let logger = Logger(subsystem: "com.lmtiep.kickcounter", category: "cycle")
 
-public enum CycleFailure: Equatable, Sendable {
+public enum CycleFailure: Error, Equatable, Sendable {
     case loadFailed
     case saveFailed
     case futureDate
@@ -108,14 +108,22 @@ public final class CycleCoordinator {
 
     @discardableResult
     public func startPeriod(on day: Date) async -> CycleFailure? {
+        if case .failure(let failure) = await startPeriodReturningID(on: day) { return failure }
+        return nil
+    }
+
+    /// Starts a period on `day` and returns the new record's id, so the caller
+    /// can undo exactly that record (Today's "Undo").
+    public func startPeriodReturningID(on day: Date) async -> Result<UUID, CycleFailure> {
         let record = PeriodRecord(startDate: calendar.startOfDay(for: day))
         let stale = staleOpenPeriod(before: record.startDate)
-        return await write {
+        let failure = await write {
             // A period left open for weeks was never ended: close it at the typical
             // length so it doesn't run into the new one.
             if let stale { try store.updatePeriod(stale, today: now()) }
             try store.addPeriod(record, today: now())
         }
+        return failure.map { .failure($0) } ?? .success(record.id)
     }
 
     /// The open period that has run past `CycleRules.longPeriodDays` by `day`,

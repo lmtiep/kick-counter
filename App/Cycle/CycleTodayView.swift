@@ -1,6 +1,18 @@
 import KickCore
 import SwiftUI
 
+/// The period just started from the ring, which "Undo" may delete.
+private struct UndoOffer: Equatable {
+    let id: UUID
+    let day: Date
+
+    /// About as long as the start toast is on screen; longer under UI tests,
+    /// which need a few seconds to read the screen before tapping Undo.
+    static var lifetime: Duration {
+        AppClock.launchOptions.isUITesting ? .seconds(20) : .seconds(6)
+    }
+}
+
 /// A calendar day picked for the day log sheet.
 struct CycleDaySelection: Identifiable {
     let date: Date
@@ -20,10 +32,11 @@ struct CycleTodayView: View {
     @State private var actionFailure: CycleFailure?
     @State private var working = false
     @State private var showingImPregnant = false
-    /// The period started with the ring button on this screen: until it is gone
-    /// (or the screen is rebuilt) the button offers to undo it.
-    @State private var startedPeriodID: UUID?
+    /// The period just started with the ring button: for a short while the
+    /// button offers to undo it (see `UndoOffer`).
+    @State private var undoOffer: UndoOffer?
     @State private var toast: String?
+    @Environment(\.scenePhase) private var scenePhase
 
     private var today: Date { Calendar.current.startOfDay(for: AppClock.now()) }
 
@@ -64,6 +77,18 @@ struct CycleTodayView: View {
             .alert(failureMessage ?? "", isPresented: failureBinding) {
                 Button(L10n.commonOK) {}
             }
+            // Undo is only offered right after the start: it expires, and goes
+            // when she leaves the screen or the app.
+            .task(id: undoOffer) {
+                guard undoOffer != nil else { return }
+                try? await Task.sleep(for: UndoOffer.lifetime)
+                guard !Task.isCancelled else { return }
+                undoOffer = nil
+            }
+            .onDisappear { undoOffer = nil }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .background { undoOffer = nil }
+            }
         }
     }
 
@@ -99,11 +124,14 @@ struct CycleTodayView: View {
                     .foregroundStyle(.luna(.cycleStrong))
                     .lineLimit(1)
                     .minimumScaleFactor(0.4)
-                Text(Formatting.shortDay(ringDate(headline, forecast)))
-                    .font(.luna(.body))
-                    .foregroundStyle(.luna(.textSecondary))
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
+                // While late the expected date has passed: "N days late" says it all.
+                if let date = ringDate(headline, forecast) {
+                    Text(Formatting.shortDay(date))
+                        .font(.luna(.body))
+                        .foregroundStyle(.luna(.textSecondary))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                }
             }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(statusLabel(forecast))
@@ -127,9 +155,12 @@ struct CycleTodayView: View {
         }
     }
 
-    private func ringDate(_ headline: CycleRingHeadline, _ forecast: CycleForecast) -> Date {
-        if case .periodDay = headline { return forecast.today }
-        return forecast.nextPeriodStart
+    private func ringDate(_ headline: CycleRingHeadline, _ forecast: CycleForecast) -> Date? {
+        switch headline {
+        case .periodDay: forecast.today
+        case .late: nil
+        case .daysUntilNextPeriod, .nextPeriodToday: forecast.nextPeriodStart
+        }
     }
 
     /// "Day 13 of your cycle, High chance of conceiving, Next period: October 18 (in 16 days)".
@@ -146,7 +177,10 @@ struct CycleTodayView: View {
         // A period open for weeks was never ended: offer to start the new one
         // (the coordinator closes the old one); its real end goes in the day log.
         let open = forecast.isLongOpenPeriod ? nil : forecast.openPeriod
-        let undoable = startedPeriodID.flatMap { id in cycle.periods.first { $0.id == id } }
+        // Only the record created by this button, only on the day it was started.
+        let undoable = undoOffer.flatMap { offer in
+            offer.day == today ? cycle.periods.first { $0.id == offer.id } : nil
+        }
         let title: String
         let spoken: String
         if undoable != nil {
@@ -174,15 +208,22 @@ struct CycleTodayView: View {
         let failure: CycleFailure?
         if let undo {
             failure = await cycle.deletePeriod(id: undo.id)
-            if failure == nil { startedPeriodID = nil }
+            if failure == nil {
+                undoOffer = nil
+                // The toast is read out by VoiceOver.
+                toast = L10n.cycleToastPeriodUndone
+            }
         } else if let open {
             failure = await cycle.endPeriod(id: open.id, on: AppClock.now())
             if failure == nil { toast = L10n.cycleToastPeriodEnded }
         } else {
-            failure = await cycle.startPeriod(on: AppClock.now())
-            if failure == nil {
-                startedPeriodID = cycle.period(on: AppClock.now())?.id
+            switch await cycle.startPeriodReturningID(on: AppClock.now()) {
+            case .success(let id):
+                failure = nil
+                undoOffer = UndoOffer(id: id, day: today)
                 toast = L10n.cycleToastPeriodStarted
+            case .failure(let error):
+                failure = error
             }
         }
         if let failure {
