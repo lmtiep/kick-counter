@@ -17,11 +17,10 @@ final class KickCounterUITests: XCTestCase {
         let next = app.buttons["onboardingNext"]
         XCTAssertTrue(next.waitForExistence(timeout: 10))
         next.tap()
-        next.tap()
-        app.buttons["onboardingAgree"].tap()
         let pregnant = app.buttons["onboardingModePregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
         pregnant.tap()
+        next.tap()
         let later = app.buttons["onboardingSkipDate"]
         XCTAssertTrue(later.waitForExistence(timeout: 5))
         later.tap()

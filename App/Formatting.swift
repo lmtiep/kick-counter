@@ -36,16 +36,7 @@ enum Formatting {
 
     /// "T5, 1 tháng 10" / "Thu, Oct 1".
     static func weekdayDay(_ date: Date) -> String {
-        "\(shortWeekday(date)), \(shortDay(date))"
-    }
-
-    /// "T2"…"T7", "CN" / "Mon"…"Sun". Stand-in until Task 3 adds `WeekdayLabel.short(for:calendar:)`.
-    private static func shortWeekday(_ date: Date) -> String {
-        guard AppLocale.language == .vi else {
-            return date.formatted(.dateTime.weekday(.abbreviated).locale(locale))
-        }
-        let weekday = AppLocale.calendar.component(.weekday, from: date)
-        return weekday == 1 ? "CN" : "T\(weekday)"
+        "\(WeekdayLabel.short(for: date, calendar: AppLocale.calendar)), \(shortDay(date))"
     }
 
     /// The day of the month alone: "4".

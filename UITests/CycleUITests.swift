@@ -162,32 +162,6 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(app.tabBars.buttons["Kicks"].waitForExistence(timeout: 5))
     }
 
-    /// Spec §8: onboarding → "Trying to conceive" → last period → the Cycle tab shows the right cycle day.
-    @MainActor
-    func testOnboardingTryingToConceiveShowsTheCycleDay() {
-        let app = XCUIApplication.launchPinned(language: "en", skipOnboarding: false)
-        let next = app.buttons["onboardingNext"]
-        XCTAssertTrue(next.waitForExistence(timeout: 10))
-        next.tap()
-        next.tap()
-        app.buttons["onboardingAgree"].tap()
-        let tryingToConceive = app.buttons["onboardingModeTTC"]
-        XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 5))
-        tryingToConceive.tap()
-
-        let wheels = app.pickerWheels
-        XCTAssertTrue(wheels.element(boundBy: 2).waitForExistence(timeout: 5))
-        wheels.element(boundBy: 0).adjust(toPickerWheelValue: "September") // en_US order: month, day, year
-        wheels.element(boundBy: 1).adjust(toPickerWheelValue: "20")
-        app.buttons["onboardingSaveCycle"].tap()
-
-        // 2026-09-20 → 2026-10-02 is cycle day 13, on the trying-to-conceive tabs.
-        let status = app.descendants(matching: .any)["cycleStatusCard"]
-        XCTAssertTrue(status.waitForExistence(timeout: 10))
-        XCTAssertTrue(status.label.contains("Day 13 of your cycle"), status.label)
-        XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
-    }
-
     /// Spec §4.3: switching mode in Settings keeps the pregnancy dates.
     @MainActor
     func testSwitchingModeInSettingsKeepsThePregnancyDates() {

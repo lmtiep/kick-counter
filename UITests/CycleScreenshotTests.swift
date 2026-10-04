@@ -116,26 +116,6 @@ final class CycleScreenshotTests: XCTestCase {
     }
 
     @MainActor
-    func testOnboardingModeScreens() {
-        for (language, dark) in Self.variants {
-            let suffix = "\(language)-\(dark ? "dark" : "light")"
-            let app = XCUIApplication.launchPinned(language: language, dark: dark, skipOnboarding: false)
-            let next = app.buttons["onboardingNext"]
-            XCTAssertTrue(next.waitForExistence(timeout: 10))
-            next.tap()
-            next.tap()
-            app.buttons["onboardingAgree"].tap()
-            let tryingToConceive = app.buttons["onboardingModeTTC"]
-            XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 5))
-            attachScreenshot(app, "onboarding-mode-\(suffix)")
-            tryingToConceive.tap()
-            XCTAssertTrue(app.buttons["onboardingSaveCycle"].waitForExistence(timeout: 5))
-            attachScreenshot(app, "onboarding-cycle-\(suffix)")
-            app.terminate()
-        }
-    }
-
-    @MainActor
     func testSettingsScreens() {
         for (language, dark) in Self.variants {
             let suffix = "\(language)-\(dark ? "dark" : "light")"

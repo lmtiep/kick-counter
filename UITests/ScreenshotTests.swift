@@ -112,21 +112,16 @@ final class ScreenshotTests: XCTestCase {
         app.launchArguments = ["-uiTesting", "-AppleLanguages", "(vi)", "-AppleLocale", "vi_VN"]
         app.launch()
 
+        // Onboarding screenshots: OnboardingUITests.testOnboardingScreens.
         let next = app.buttons["onboardingNext"]
         XCTAssertTrue(next.waitForExistence(timeout: 10))
-        snap(app, "onboarding-1")
         next.tap()
-        snap(app, "onboarding-2")
-        next.tap()
-        snap(app, "onboarding-3")
-        app.buttons["onboardingAgree"].tap()
         let pregnant = app.buttons["onboardingModePregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
-        snap(app, "onboarding-mode")
         pregnant.tap()
+        next.tap()
         let later = app.buttons["onboardingSkipDate"]
         XCTAssertTrue(later.waitForExistence(timeout: 5))
-        snap(app, "onboarding-4")
         later.tap()
 
         app.openTab(.profile)

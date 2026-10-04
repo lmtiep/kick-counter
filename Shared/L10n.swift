@@ -167,23 +167,10 @@ enum L10n {
     static var medicalSourcesTitle: String { t("medical.sources.title") }
     static var medicalSourcesNote: String { t("medical.sources.note") }
 
-    static var onboarding1Title: String { t("onboarding.1.title") }
-    static var onboarding1Body: String { t("onboarding.1.body") }
-    static var onboarding2Title: String { t("onboarding.2.title") }
-    static var onboarding2Body: String { t("onboarding.2.body") }
     static var onboarding3Title: String { t("onboarding.3.title") }
     static var onboarding3Body: String { t("onboarding.3.body") }
-    static var onboardingNext: String { t("onboarding.next") }
-    static var onboardingAgree: String { t("onboarding.agree") }
-    static var onboarding4Title: String { t("onboarding.4.title") }
-    static var onboarding4Body: String { t("onboarding.4.body") }
     static var onboardingLater: String { t("onboarding.later") }
     static var onboardingModeTitle: String { t("onboarding.mode.title") }
-    static var onboardingModeBody: String { t("onboarding.mode.body") }
-    static var onboardingModeTTCDetail: String { t("onboarding.mode.ttc.detail") }
-    static var onboardingModePregnantDetail: String { t("onboarding.mode.pregnant.detail") }
-    static var onboardingCycleTitle: String { t("onboarding.cycle.title") }
-    static var onboardingCycleBody: String { t("onboarding.cycle.body") }
     static var modeTryingToConceive: String { t("mode.tryingToConceive") }
     static var modePregnant: String { t("mode.pregnant") }
     static func cycleSettingsCycleLength(_ days: Int) -> String { String(format: t("cycleSettings.cycleLength"), days) }
@@ -330,5 +317,34 @@ enum L10n {
     /// "28 days" / "28 ngày" ("1 day").
     static func days(_ value: Int) -> String {
         value == 1 ? t("common.oneDay") : String(format: t("common.days"), value)
+    }
+
+    // MARK: - Phase 4: onboarding
+
+    static var onboardingSkip: String { t("onboarding.skip") }
+    static var onboardingContinue: String { t("onboarding.continue") }
+    static var onboardingStart: String { t("onboarding.start") }
+    /// VoiceOver for the progress dots: "Step 2 of 3".
+    static func onboardingStep(_ step: Int, _ count: Int) -> String { String(format: t("onboarding.step"), step, count) }
+    static var onboardingWelcomeTitle: String { t("onboarding.welcome.title") }
+    static var onboardingWelcomeBody: String { t("onboarding.welcome.body") }
+    static var onboardingGoalCycle: String { t("onboarding.goal.cycle") }
+    static var onboardingGoalCycleDetail: String { t("onboarding.goal.cycle.detail") }
+    static var onboardingGoalPregnant: String { t("onboarding.goal.pregnant") }
+    static var onboardingGoalPregnantDetail: String { t("onboarding.goal.pregnant.detail") }
+    static var onboardingOtherDay: String { t("onboarding.otherDay") }
+    static func onboardingOtherDayValue(_ date: String) -> String { String(format: t("onboarding.otherDay.value"), date) }
+    static var onboardingCycleShorter: String { t("onboarding.cycle.shorter") }
+    static var onboardingCycleLonger: String { t("onboarding.cycle.longer") }
+    static var onboardingDueTitle: String { t("onboarding.due.title") }
+    static var onboardingDueEarlier: String { t("onboarding.due.earlier") }
+    static var onboardingDueLater: String { t("onboarding.due.later") }
+    static var onboardingDueFromLMP: String { t("onboarding.due.fromLMP") }
+    static var cycleLengthTitle: String { t("cycleSettings.cycleLength.title") }
+    /// "24 weeks, 3 days" / "24 tuần, 3 ngày".
+    static func pregnancyWeekLabel(_ week: GestationalWeek) -> String {
+        week.days == 1
+            ? String(format: t("pregnancy.weekLabel.oneDay"), week.weeks)
+            : String(format: t("pregnancy.weekLabel"), week.weeks, week.days)
     }
 }

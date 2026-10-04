@@ -148,6 +148,8 @@ public enum LunaContrast {
         Usage(.articleText, on: .surface), Usage(.articleText, on: .surfaceAlt),
         Usage(.articleText, on: .warningBackground),
         Usage(.textOnboarding, on: .onboardingBackground), Usage(.textOnboarding, on: .card),
+        // Onboarding last-period step: the title can sit on the pink hero gradient.
+        Usage(.textOnboarding, on: .cycleSoft),
         Usage(.cycleStrong, on: .background), Usage(.cycleStrong, on: .card), Usage(.cycleStrong, on: .tabBar),
         Usage(.cycleOnSoft, on: .cycleSoft), Usage(.cycleOnSoft, on: .card),
         Usage(.tealStrong, on: .background), Usage(.tealStrong, on: .card),
