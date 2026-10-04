@@ -17,6 +17,17 @@ enum LunaAppearance {
         UITabBarItem.appearance().setTitleTextAttributes([.font: tabFont], for: .selected)
         // #A89890 fails AA on the tab bar (ContrastTests): inactive tabs use textSecondary.
         UITabBar.appearance().unselectedItemTintColor = .luna(.textSecondary)
+        // The iOS 26 tab bar ignores UITabBarItem appearance; it reads the item
+        // appearances of UITabBarAppearance instead.
+        let tabBar = UITabBarAppearance()
+        tabBar.configureWithDefaultBackground()
+        for item in [tabBar.stackedLayoutAppearance, tabBar.inlineLayoutAppearance, tabBar.compactInlineLayoutAppearance] {
+            item.normal.titleTextAttributes = [.font: tabFont, .foregroundColor: UIColor.luna(.textSecondary)]
+            item.normal.iconColor = .luna(.textSecondary)
+            item.selected.titleTextAttributes = [.font: tabFont]
+        }
+        UITabBar.appearance().standardAppearance = tabBar
+        UITabBar.appearance().scrollEdgeAppearance = tabBar
 
         let navigation = UINavigationBar.appearance()
         navigation.titleTextAttributes = [
