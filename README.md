@@ -1,6 +1,8 @@
-# Kick Counter (Đếm thai máy)
+# Luna Mom
 
-App iPhone đếm cử động thai theo phương pháp đếm đến 10.
+App iPhone cho mẹ: theo dõi chu kỳ khi mong con (kỳ kinh, rụng trứng, cửa sổ thụ thai),
+theo dõi thai kỳ từng tuần và đếm cử động thai theo phương pháp đếm đến 10.
+(Tên dự án và bundle ID vẫn là `KickCounter` / `kick-counter`.)
 
 ## Phát triển không cần Xcode
 - Logic (`Packages/KickCore`) test local: `scripts/test-core.sh`
