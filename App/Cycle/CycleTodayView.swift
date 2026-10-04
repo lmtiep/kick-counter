@@ -5,11 +5,15 @@ import SwiftUI
 private struct UndoOffer: Equatable {
     let id: UUID
     let day: Date
+    /// About as long as the start toast is on screen; 30 s with VoiceOver,
+    /// which needs time to reach the button; 20 s under UI tests, which need
+    /// a few seconds to read the screen before tapping Undo.
+    let lifetime: Duration
 
-    /// About as long as the start toast is on screen; longer under UI tests,
-    /// which need a few seconds to read the screen before tapping Undo.
-    static var lifetime: Duration {
-        AppClock.launchOptions.isUITesting ? .seconds(20) : .seconds(6)
+    init(id: UUID, day: Date, voiceOver: Bool) {
+        self.id = id
+        self.day = day
+        lifetime = voiceOver ? .seconds(30) : AppClock.launchOptions.isUITesting ? .seconds(20) : .seconds(6)
     }
 }
 
@@ -37,6 +41,8 @@ struct CycleTodayView: View {
     @State private var undoOffer: UndoOffer?
     @State private var toast: String?
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var today: Date { Calendar.current.startOfDay(for: AppClock.now()) }
 
@@ -81,7 +87,8 @@ struct CycleTodayView: View {
             // when she leaves the screen or the app.
             .task(id: undoOffer) {
                 guard undoOffer != nil else { return }
-                try? await Task.sleep(for: UndoOffer.lifetime)
+                guard let lifetime = undoOffer?.lifetime else { return }
+                try? await Task.sleep(for: lifetime)
                 guard !Task.isCancelled else { return }
                 undoOffer = nil
             }
@@ -118,6 +125,11 @@ struct CycleTodayView: View {
                 Text(ringTitle(headline))
                     .lunaLabelStyle()
                     .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.7)
+                    // At accessibility sizes the label sits where the circle's
+                    // inner chord is about 157 pt: wrap within it.
+                    .frame(maxWidth: dynamicTypeSize.isAccessibilitySize ? 150 : nil)
                 Text(ringFigure(headline))
                     .font(.luna(.ringNumber))
                     .tracking(-1.5)
@@ -220,7 +232,7 @@ struct CycleTodayView: View {
             switch await cycle.startPeriodReturningID(on: AppClock.now()) {
             case .success(let id):
                 failure = nil
-                undoOffer = UndoOffer(id: id, day: today)
+                undoOffer = UndoOffer(id: id, day: today, voiceOver: voiceOverEnabled)
                 toast = L10n.cycleToastPeriodStarted
             case .failure(let error):
                 failure = error

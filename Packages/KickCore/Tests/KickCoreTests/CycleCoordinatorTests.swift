@@ -158,6 +158,10 @@ struct CycleCoordinatorTests {
         #expect(repository.storedPeriods.map(\.id) == [stale.id])
     }
 
+    @Test func aCycleFailureErrorIsKept() {
+        #expect(CycleFailure(CycleFailure.overlapsExistingPeriod as Error) == .overlapsExistingPeriod)
+    }
+
     @Test func startingAPeriodReturnsTheFailure() async {
         let result = await coordinator.startPeriodReturningID(on: day("2026-09-06"))
         #expect(throws: CycleFailure.futureDate) { try result.get() }

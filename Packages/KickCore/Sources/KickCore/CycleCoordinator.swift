@@ -13,6 +13,7 @@ public enum CycleFailure: Error, Equatable, Sendable {
     case invalidTemperature
 
     init(_ error: Error) {
+        if let failure = error as? CycleFailure { self = failure; return }
         switch error as? CycleRepositoryError {
         case .futureDate?: self = .futureDate
         case .endBeforeStart?: self = .endBeforeStart
