@@ -178,7 +178,7 @@ final class CycleUITests: XCTestCase {
         // 32 days since the last period: 4 weeks 4 days, on the pregnancy tabs.
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 10))
-        XCTAssertTrue(progress.label.contains("Week 4 + 4 days"), progress.label)
+        XCTAssertTrue(progress.label.contains("4 weeks, 4 days"), progress.label)
         XCTAssertTrue(app.tabBars.buttons["Kicks"].waitForExistence(timeout: 5))
     }
 
@@ -212,7 +212,7 @@ final class CycleUITests: XCTestCase {
         app.openTab(.today)
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 5))
-        XCTAssertTrue(progress.label.contains("Week 24 + 3 days"), progress.label)
+        XCTAssertTrue(progress.label.contains("24 weeks, 3 days"), progress.label)
     }
 
     /// Cancelling "I'm pregnant" from Settings keeps trying-to-conceive mode.

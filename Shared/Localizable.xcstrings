@@ -3792,23 +3792,6 @@
         }
       }
     },
-    "pregnancy.daysLeft": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Days to go: %ld"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Còn %ld ngày"
-          }
-        }
-      }
-    },
     "pregnancy.dueToday": {
       "extractionState": "manual",
       "localizations": {
@@ -3894,6 +3877,23 @@
         }
       }
     },
+    "pregnancy.hero.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See week %ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem tuần %ld"
+          }
+        }
+      }
+    },
     "pregnancy.invalid.body": {
       "extractionState": "manual",
       "localizations": {
@@ -3945,19 +3945,138 @@
         }
       }
     },
-    "pregnancy.kickCard.title": {
+    "pregnancy.kicksToday.average": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Count kicks today"
+            "value": "7-day average: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đếm cử động thai hôm nay"
+            "value": "Trung bình 7 ngày: %@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count now"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm ngay"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld movements in %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld cử động trong %2$@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.doneDetail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At %1$@ · 7-day average %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lúc %1$@ · trung bình 7 ngày %2$@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not counted yet today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa đếm hôm nay"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.reminder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminder at %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc lúc %@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movements today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cử động hôm nay"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.view": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem"
           }
         }
       }
@@ -4013,6 +4132,57 @@
         }
       }
     },
+    "pregnancy.shortcut.kicks": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kick counter"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm cử động"
+          }
+        }
+      }
+    },
+    "pregnancy.shortcut.week": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần thai"
+          }
+        }
+      }
+    },
+    "pregnancy.subline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trimester %1$ld · %2$ld days to go"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam cá nguyệt %1$ld · còn %2$ld ngày"
+          }
+        }
+      }
+    },
     "pregnancy.tips.title": {
       "extractionState": "manual",
       "localizations": {
@@ -4026,23 +4196,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tuần này mẹ nên"
-          }
-        }
-      }
-    },
-    "pregnancy.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My pregnancy"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thai kỳ của mẹ"
           }
         }
       }

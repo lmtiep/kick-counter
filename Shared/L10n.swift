@@ -25,7 +25,6 @@ enum L10n {
         return bundle
     }
 
-    static var pregnancyTitle: String { t("pregnancy.title") }
     static var pregnancyEmptyTitle: String { t("pregnancy.empty.title") }
     static var pregnancyEmptyBody: String { t("pregnancy.empty.body") }
     static var pregnancyEmptyAction: String { t("pregnancy.empty.action") }
@@ -33,7 +32,6 @@ enum L10n {
     static var pregnancyInvalidBody: String { t("pregnancy.invalid.body") }
     static var pregnancyEditDate: String { t("pregnancy.editDate") }
     static func pregnancyTrimester(_ number: Int) -> String { String(format: t("pregnancy.trimester"), number) }
-    static func pregnancyDaysLeft(_ days: Int) -> String { String(format: t("pregnancy.daysLeft"), days) }
     static var pregnancyDueToday: String { t("pregnancy.dueToday") }
     static func pregnancyPastDueTitle(_ days: Int) -> String { String(format: t("pregnancy.pastDue.title"), days) }
     static var pregnancyPastDueBody: String { t("pregnancy.pastDue.body") }
@@ -61,7 +59,6 @@ enum L10n {
     static func pregnancyAppointmentSuggested(_ from: Int, _ to: Int) -> String {
         String(format: t("pregnancy.appointment.suggested"), from, to)
     }
-    static var pregnancyKickCardTitle: String { t("pregnancy.kickCard.title") }
     static var pregnancyKickCardBody: String { t("pregnancy.kickCard.body") }
 
     static func weekTitle(_ week: Int) -> String { String(format: t("week.title"), week) }
@@ -379,4 +376,28 @@ enum L10n {
     // MARK: - Phase 4: calendar
 
     static var calendarLog: String { t("calendar.log") }
+
+    // MARK: - Phase 4: pregnancy Today
+
+    /// "Trimester 2 · 109 days to go".
+    static func pregnancySubline(_ trimester: Int, _ daysLeft: Int) -> String {
+        String(format: t("pregnancy.subline"), trimester, daysLeft)
+    }
+    static func pregnancyHeroA11y(_ week: Int) -> String { String(format: t("pregnancy.hero.a11y"), week) }
+    static var pregnancyShortcutKicks: String { t("pregnancy.shortcut.kicks") }
+    static var pregnancyShortcutWeek: String { t("pregnancy.shortcut.week") }
+    static var pregnancyKicksTodayTitle: String { t("pregnancy.kicksToday.title") }
+    static var pregnancyKicksTodayNone: String { t("pregnancy.kicksToday.none") }
+    /// "10 movements in 18 min".
+    static func pregnancyKicksTodayDone(_ count: Int, _ duration: String) -> String {
+        String(format: t("pregnancy.kicksToday.done"), count, duration)
+    }
+    /// "At 20:05 · 7-day average 22 min".
+    static func pregnancyKicksTodayDoneDetail(_ time: String, _ average: String) -> String {
+        String(format: t("pregnancy.kicksToday.doneDetail"), time, average)
+    }
+    static func pregnancyKicksTodayReminder(_ time: String) -> String { String(format: t("pregnancy.kicksToday.reminder"), time) }
+    static func pregnancyKicksTodayAverage(_ average: String) -> String { String(format: t("pregnancy.kicksToday.average"), average) }
+    static var pregnancyKicksTodayCount: String { t("pregnancy.kicksToday.count") }
+    static var pregnancyKicksTodayView: String { t("pregnancy.kicksToday.view") }
 }

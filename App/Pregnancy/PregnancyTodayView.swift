@@ -1,0 +1,262 @@
+import KickCore
+import KickData
+import SwiftData
+import SwiftUI
+
+/// Pregnancy mode, Today tab (spec §4.4): header, 7-day strip, the fetus
+/// (→ week detail), weeks and days with the trimester bar, shortcuts, today's
+/// movements, the baby this week, tips and the next check-up.
+struct PregnancyTodayView: View {
+    let onOpenKicks: () -> Void
+    let onOpenProfile: () -> Void
+
+    @Environment(AppointmentCoordinator.self) private var appointments
+    @Environment(\.contentLibrary) private var library
+    @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
+    @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
+    @AppStorage(SettingsKey.reminderHour, store: AppGroup.defaults) private var reminderHour = SettingsDefault.reminderHour
+    @AppStorage(SettingsKey.reminderMinute, store: AppGroup.defaults) private var reminderMinute = SettingsDefault.reminderMinute
+    @Query(
+        filter: #Predicate<KickSession> { $0.statusRaw != "active" },
+        sort: \KickSession.startedAt,
+        order: .reverse
+    )
+    private var sessions: [KickSession]
+    @State private var showingDateSheet = false
+    @State private var detailWeek: Int?
+
+    private let language = ContentLanguage.current
+    private let visibility = BuildFlags.contentVisibility
+
+    private var now: Date { AppClock.now() }
+
+    private var timeline: PregnancyTimeline? {
+        dueDate > 0 ? PregnancyTimeline(dueDate: Date(timeIntervalSince1970: dueDate), now: now) : nil
+    }
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 0) {
+                    ScreenHeader(
+                        title: Formatting.shortDay(now),
+                        avatarLabel: L10n.profileTitle,
+                        trailingSymbol: "calendar",
+                        trailingLabel: L10n.pregnancySeeWeek,
+                        trailingIdentifier: "headerWeek",
+                        onAvatar: onOpenProfile,
+                        onTrailing: openCurrentWeek
+                    )
+                    PregnancyWeekStrip(today: now)
+                    content
+                }
+                .padding(.bottom, 24)
+            }
+            .background(.luna(.background))
+            .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(item: $detailWeek) { week in
+                WeekDetailView(currentWeek: week)
+            }
+            .sheet(isPresented: $showingDateSheet) {
+                PregnancyDateSheet()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        if dueDate <= 0 {
+            datesCard(
+                title: L10n.pregnancyEmptyTitle,
+                message: L10n.pregnancyEmptyBody,
+                action: L10n.pregnancyEmptyAction,
+                identifier: "pregnancyAddDateButton",
+                prominent: true
+            )
+        } else if let timeline {
+            cards(for: timeline)
+        } else {
+            datesCard(
+                title: L10n.pregnancyInvalidTitle,
+                message: L10n.pregnancyInvalidBody,
+                action: L10n.pregnancyEditDate,
+                identifier: "pregnancyFixDateButton",
+                prominent: false
+            )
+        }
+    }
+
+    private func cards(for timeline: PregnancyTimeline) -> some View {
+        let contentWeek = WeeklyContentLibrary.clampedWeek(timeline.week.weeks)
+        let display = library?.display(forWeek: contentWeek, visibility: visibility)
+        return VStack(spacing: 12) {
+            FetusHero(week: contentWeek) { detailWeek = contentWeek }
+                .padding(.top, 16)
+            WeekProgressCard(progress: PregnancyProgress(timeline: timeline))
+            shortcuts(week: timeline.week.weeks, contentWeek: contentWeek)
+            if timeline.isKickCountingWeek {
+                kicksTodayCard
+                    .padding(.top, 12)
+            }
+            switch display {
+            case .content(let week, let pendingReview)?:
+                Button { detailWeek = contentWeek } label: {
+                    BabySizeCard(week: week, language: language, pendingReview: pendingReview)
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("babySizeCard")
+
+                Button { detailWeek = contentWeek } label: {
+                    WeekTipsCard(tips: Array(week.tips.items(language).prefix(2)))
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("weekTipsCard")
+            case .underReview?:
+                Button { detailWeek = contentWeek } label: { UnderReviewCard() }
+                    .buttonStyle(.plain)
+            case nil:
+                EmptyView()
+            }
+            NavigationLink {
+                AppointmentsView()
+            } label: {
+                NextAppointmentCard(
+                    appointment: appointments.nextAppointment,
+                    milestone: library?.suggestedMilestones(
+                        atWeek: timeline.week.weeks,
+                        visibility: visibility,
+                        excluding: Set((appointments.upcoming + appointments.past).compactMap(\.milestoneID))
+                    ).first,
+                    language: language
+                )
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("nextAppointmentCard")
+        }
+        .padding(.horizontal, 20)
+    }
+
+    private func shortcuts(week: Int, contentWeek: Int) -> some View {
+        HStack(alignment: .top, spacing: 28) {
+            shortcut(L10n.pregnancyShortcutKicks, identifier: "shortcutKicks", action: onOpenKicks) {
+                Circle()
+                    .fill(.luna(.preg))
+                    .overlay(
+                        Circle()
+                            .fill(.luna(.card))
+                            .frame(width: 16, height: 16)
+                            .padding(6)
+                            .background(Circle().fill(Color.luna(.card).opacity(0.3)))
+                    )
+            }
+            shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = contentWeek }) {
+                Circle()
+                    .fill(.luna(.card))
+                    .overlay(
+                        Text(week, format: .number)
+                            .font(.luna(size: 15, weight: .bold))
+                            .foregroundStyle(.luna(.textPrimary))
+                    )
+            }
+        }
+        .padding(.top, 22)
+    }
+
+    private func shortcut<Icon: View>(
+        _ title: String,
+        identifier: String,
+        action: @escaping () -> Void,
+        @ViewBuilder icon: () -> Icon
+    ) -> some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                icon().frame(width: 58, height: 58)
+                Text(title)
+                    .font(.luna(size: 12, weight: .medium, relativeTo: .caption))
+                    .foregroundStyle(.luna(.textPrimary))
+                    .multilineTextAlignment(.center)
+            }
+            .frame(width: 96)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier(identifier)
+    }
+
+    /// "Movements today" (spec §4.4): today's latest finished count, or a nudge.
+    private var kicksTodayCard: some View {
+        let states = sessions.map(\.state)
+        let latest = HistoryStats.latestCompleted(states, on: now)
+        let average = HistoryStats.averageMinutes(states, endingAt: now, days: 7)
+        return Button(action: onOpenKicks) {
+            HStack(spacing: 14) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(L10n.pregnancyKicksTodayTitle)
+                        .lunaLabelStyle(.pregStrong)
+                    Text(latest.map { L10n.pregnancyKicksTodayDone($0.count, Formatting.minutes(($0.duration ?? 0) / 60)) }
+                        ?? L10n.pregnancyKicksTodayNone)
+                        .font(.luna(.cardTitle))
+                        .foregroundStyle(.luna(.textPrimary))
+                    Text(kicksDetail(latest: latest, average: average))
+                        .font(.luna(.caption))
+                        .foregroundStyle(.luna(.textSecondary))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Text(latest == nil ? L10n.pregnancyKicksTodayCount : L10n.pregnancyKicksTodayView)
+                    .font(.luna(.captionStrong))
+                    .foregroundStyle(.luna(.pregOnSoft))
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 9)
+                    .background(Capsule().fill(.luna(.pregSoft)))
+            }
+            .lunaCard(padding: 16)
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("kickCountCard")
+    }
+
+    private func kicksDetail(latest: SessionState?, average: Double?) -> String {
+        if let latest {
+            return L10n.pregnancyKicksTodayDoneDetail(
+                Formatting.time(latest.startedAt),
+                Formatting.minutes(average ?? (latest.duration ?? 0) / 60)
+            )
+        }
+        if reminderEnabled {
+            return L10n.pregnancyKicksTodayReminder(Formatting.clockTime(hour: reminderHour, minute: reminderMinute))
+        }
+        if let average {
+            return L10n.pregnancyKicksTodayAverage(Formatting.minutes(average))
+        }
+        return L10n.pregnancyKickCardBody
+    }
+
+    private func datesCard(title: String, message: String, action: String, identifier: String, prominent: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Image(systemName: "calendar.badge.plus")
+                .font(.system(size: 30))
+                .foregroundStyle(.luna(.pregStrong))
+                .accessibilityHidden(true)
+            Text(title)
+                .font(.luna(.sheetTitle))
+                .foregroundStyle(.luna(.textPrimary))
+            Text(message)
+                .font(.luna(.body))
+                .foregroundStyle(.luna(.textSecondary))
+            Button(action) { showingDateSheet = true }
+                .buttonStyle(.pill(prominent ? .filled(.pregStrong) : .dark))
+                .accessibilityIdentifier(identifier)
+        }
+        .lunaCard()
+        .padding(.horizontal, 20)
+        .padding(.top, 22)
+    }
+
+    private func openCurrentWeek() {
+        if let timeline {
+            detailWeek = WeeklyContentLibrary.clampedWeek(timeline.week.weeks)
+        } else {
+            showingDateSheet = true
+        }
+    }
+}

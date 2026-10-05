@@ -59,7 +59,7 @@ final class OnboardingUITests: XCTestCase {
 
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 10))
-        XCTAssertTrue(progress.label.contains("Week 21 + 0 days"), progress.label)
+        XCTAssertTrue(progress.label.contains("21 weeks, 0 days"), progress.label)
         XCTAssertTrue(app.tabBars.buttons["Kicks"].exists)
     }
 

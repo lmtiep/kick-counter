@@ -38,9 +38,9 @@ final class PregnancyUITests: XCTestCase {
         // LMP 2026-07-01 → due 2027-04-07. On 2026-10-02 that is day 93 = 13w2d, 187 days to go.
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 5))
-        XCTAssertTrue(progress.label.contains("Week 13 + 2 days"), progress.label)
+        XCTAssertTrue(progress.label.contains("13 weeks, 2 days"), progress.label)
         XCTAssertTrue(progress.label.contains("Trimester 1"), progress.label)
-        XCTAssertTrue(progress.label.contains("Days to go: 187"), progress.label)
+        XCTAssertTrue(progress.label.contains("187 days to go"), progress.label)
     }
 
     @MainActor
@@ -48,6 +48,7 @@ final class PregnancyUITests: XCTestCase {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
         let card = app.buttons["nextAppointmentCard"]
         XCTAssertTrue(card.waitForExistence(timeout: 10))
+        app.scrollUntilHittable(card)
         card.tap()
 
         let add = app.buttons["addAppointmentButton"]

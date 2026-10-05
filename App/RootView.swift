@@ -67,8 +67,11 @@ struct RootView: View {
                 CycleCalendarView()
                     .lunaTab(L10n.tabCalendar, systemImage: "calendar", tag: .calendar)
             case .pregnant:
-                PregnancyHomeView { selectedTab = .kicks }
-                    .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
+                PregnancyTodayView(
+                    onOpenKicks: { selectedTab = .kicks },
+                    onOpenProfile: { selectedTab = .profile }
+                )
+                .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
                 CounterView()
                     .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks)
             }
