@@ -1,10 +1,14 @@
 import KickCore
+import OSLog
 import SwiftUI
 
 /// The Profile tab (spec §4.8), replacing Settings: language, mode (and ending
 /// the pregnancy), pregnancy dates or cycle numbers, kick reminder, check-ups,
 /// permissions, medical information, replaying the introduction, version.
 struct ProfileView: View {
+    /// Shows onboarding in replay mode (RootView): nothing is saved from it.
+    let onReplayOnboarding: () -> Void
+
     @Environment(KickCoordinator.self) private var coordinator
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(\.openURL) private var openURL
@@ -12,7 +16,6 @@ struct ProfileView: View {
 
     @AppStorage(SettingsKey.appMode, store: AppGroup.defaults) private var appMode = AppMode.pregnant.rawValue
     @AppStorage(SettingsKey.appLanguage, store: AppGroup.defaults) private var appLanguage = AppLanguage.system.rawValue
-    @AppStorage(SettingsKey.hasCompletedOnboarding, store: AppGroup.defaults) private var hasCompletedOnboarding = false
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
     @AppStorage(SettingsKey.reminderHour, store: AppGroup.defaults) private var reminderHour = SettingsDefault.reminderHour
     @AppStorage(SettingsKey.reminderMinute, store: AppGroup.defaults) private var reminderMinute = SettingsDefault.reminderMinute
@@ -72,6 +75,13 @@ struct ProfileView: View {
                 .padding(.top, 10)
                 .padding(.bottom, 24)
             }
+            // Content scrolled up stays out from under the status bar (as on Kicks).
+            .safeAreaInset(edge: .top, spacing: 0) {
+                Color.clear
+                    .frame(height: 0)
+                    .background(Color.luna(.background).ignoresSafeArea(edges: .top))
+                    .accessibilityHidden(true)
+            }
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showingPregnancyDates) { PregnancyDateSheet() }
@@ -82,7 +92,8 @@ struct ProfileView: View {
                 EndPregnancySheet()
                     .lunaSheetPresentation(detents: [.medium])
             }
-            .sheet(isPresented: $showingKickSettings) {
+            // Turning the reminder on may have just asked for notifications.
+            .sheet(isPresented: $showingKickSettings, onDismiss: { Task { await refreshPermissions() } }) {
                 KickSettingsSheet()
                     .lunaSheetPresentation(detents: [.medium, .large])
             }
@@ -260,7 +271,7 @@ struct ProfileView: View {
                 Button(L10n.settingsOpenSettings) {
                     if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
                 }
-                .buttonStyle(.pill(.light, fullWidth: false, height: 40))
+                .buttonStyle(.pill(.soft(.surfaceAlt, .textPrimary), fullWidth: false, height: 40))
             }
             .font(.luna(.caption))
             .foregroundStyle(.luna(.textSecondary))
@@ -276,7 +287,7 @@ struct ProfileView: View {
             .buttonStyle(.plain)
             .accessibilityIdentifier("settingsMedicalInfo")
             LunaDivider()
-            Button { hasCompletedOnboarding = false } label: {
+            Button(action: onReplayOnboarding) {
                 LunaRow(title: L10n.profileReplayOnboarding)
             }
             .buttonStyle(.plain)
@@ -416,13 +427,21 @@ struct EndPregnancySheet: View {
     }
 }
 
+private let licenseLogger = Logger(subsystem: "com.lmtiep.kickcounter", category: "font-license")
+
 /// The SIL Open Font License of Be Vietnam Pro (`App/Fonts/OFL.txt`), spec §7.
 struct FontLicenseView: View {
     private var license: String {
-        guard let url = Bundle.main.url(forResource: "OFL", withExtension: "txt"),
-              let text = try? String(contentsOf: url, encoding: .utf8)
-        else { return "" }
-        return text
+        guard let url = Bundle.main.url(forResource: "OFL", withExtension: "txt") else {
+            licenseLogger.error("OFL.txt is missing from the app bundle")
+            return ""
+        }
+        do {
+            return try String(contentsOf: url, encoding: .utf8)
+        } catch {
+            licenseLogger.error("Reading OFL.txt failed: \(error.localizedDescription)")
+            return ""
+        }
     }
 
     var body: some View {

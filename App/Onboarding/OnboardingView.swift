@@ -4,7 +4,13 @@ import SwiftUI
 /// Three steps (spec §4.1): welcome with the language and the medical note →
 /// what to track → the last period (trying to conceive) or the due date
 /// (pregnant). "Skip" on the first two steps jumps to the last one.
+///
+/// `replay` (Profile → "Replay the introduction") starts from the current mode,
+/// cycle length, period and due date, and finishing or skipping only closes it:
+/// no mode, settings, period or pregnancy dates are saved. The language
+/// choice still applies, as a view preference.
 struct OnboardingView: View {
+    let replay: Bool
     let onFinish: () -> Void
 
     @Environment(CycleCoordinator.self) private var cycle
@@ -28,10 +34,12 @@ struct OnboardingView: View {
         case details
     }
 
-    init(onFinish: @escaping () -> Void) {
+    init(replay: Bool = false, onFinish: @escaping () -> Void) {
+        self.replay = replay
         self.onFinish = onFinish
         let now = AppClock.now()
         self.now = now
+        _goal = State(initialValue: replay ? AppMode.load(from: AppGroup.defaults) : nil)
         _lastPeriod = State(initialValue: AppLocale.calendar.startOfDay(for: now))
         _dateSelection = State(initialValue: PregnancyDateInput.initialSelection(
             for: PregnancyProfile.load(from: AppGroup.defaults), now: now
@@ -89,6 +97,7 @@ struct OnboardingView: View {
         }
         .environment(\.locale, AppLocale.locale)
         .interactiveDismissDisabled()
+        .onAppear(perform: startFromCurrentValues)
         .sheet(isPresented: $showingOtherDay) { otherDaySheet }
         .sheet(isPresented: $showingDuePicker) { duePickerSheet }
         .sheet(isPresented: $showingLMPForm) { lmpFormSheet }
@@ -504,7 +513,20 @@ struct OnboardingView: View {
         dateSelection = PregnancyDateSelection(source: .dueDate, date: shifted)
     }
 
+    /// Replay: the cycle step shows the stored cycle length and the current
+    /// period instead of the first-run defaults (the due date already starts
+    /// from the stored one, see `init`).
+    private func startFromCurrentValues() {
+        guard replay else { return }
+        cycleLength = cycle.settings.typicalCycleLength
+        if let start = cycle.forecast?.currentPeriodStart {
+            lastPeriod = AppLocale.calendar.startOfDay(for: start)
+        }
+    }
+
     private func finishPregnancy(savingDates: Bool) {
+        // Replaying never changes the mode or the pregnancy dates.
+        guard !replay else { return onFinish() }
         AppMode.save(.pregnant, to: AppGroup.defaults)
         if savingDates {
             PregnancyProfile.save(source: dateSelection.source, date: dateSelection.date, to: AppGroup.defaults)
@@ -515,6 +537,8 @@ struct OnboardingView: View {
     /// Saves the cycle length, switches to trying-to-conceive mode and — unless
     /// skipped — the last period. A failed save shows on Today.
     private func finishCycle(savingLastPeriod: Bool) async {
+        // Replaying never changes the mode, the cycle settings or the periods.
+        guard !replay else { return onFinish() }
         saving = true
         defer { saving = false }
         // CycleSettings lengths are set only through its clamping init.

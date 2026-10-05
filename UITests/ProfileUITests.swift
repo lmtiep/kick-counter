@@ -68,6 +68,34 @@ final class ProfileUITests: XCTestCase {
         XCTAssertTrue(progress.label.contains("24 weeks, 3 days"), progress.label)
     }
 
+    /// Replaying from trying-to-conceive mode and skipping changes nothing:
+    /// same mode (three cycle tabs), same cycle day, no period logged.
+    @MainActor
+    func testReplayingTheIntroductionInCycleModeKeepsModeAndCycle() {
+        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile")
+        let status = app.descendants(matching: .any)["cycleStatusCard"]
+        XCTAssertTrue(status.waitForExistence(timeout: 10))
+        let statusBefore = status.label
+
+        app.openCycleTab(.profile)
+        let replay = app.buttons["profileReplayOnboarding"]
+        XCTAssertTrue(replay.waitForExistence(timeout: 10))
+        app.scrollUntilHittable(replay)
+        replay.tap()
+        let skip = app.buttons["onboardingSkip"]
+        XCTAssertTrue(skip.waitForExistence(timeout: 5))
+        skip.tap()
+        let later = app.buttons["onboardingSkipCycle"]
+        XCTAssertTrue(later.waitForExistence(timeout: 5))
+        later.tap()
+
+        XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.tabBars.buttons["Kicks"].exists)
+        app.openCycleTab(.today)
+        XCTAssertTrue(status.waitForExistence(timeout: 5))
+        XCTAssertEqual(status.label, statusBefore)
+    }
+
     @MainActor
     func testKickReminderRowOpensKickSettings() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
@@ -108,6 +136,15 @@ final class ProfileUITests: XCTestCase {
                 pregnant.buttons["profileEndPregnancy"].tap()
                 XCTAssertTrue(pregnant.buttons["endPregnancyConfirm"].waitForExistence(timeout: 5))
                 attachScreenshot(pregnant, "end-pregnancy-\(suffix)")
+            }
+            if language == "vi" {
+                if !dark { pregnant.buttons["endPregnancyCancel"].tap() }
+                let fontLicense = pregnant.buttons["profileFontLicense"]
+                XCTAssertTrue(fontLicense.waitForExistence(timeout: 5))
+                pregnant.scrollUntilHittable(fontLicense)
+                fontLicense.tap()
+                XCTAssertTrue(pregnant.staticTexts["fontLicenseText"].waitForExistence(timeout: 5))
+                attachScreenshot(pregnant, "font-license-\(suffix)")
             }
             pregnant.terminate()
 

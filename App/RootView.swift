@@ -22,6 +22,8 @@ struct RootView: View {
     @AppStorage(SettingsKey.appLanguage, store: AppGroup.defaults)
     private var appLanguage = AppLanguage.system.rawValue
     @State private var selectedTab = AppTab.today
+    /// Profile → "Replay the introduction": onboarding without saving anything.
+    @State private var replayingOnboarding = false
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
 
@@ -33,11 +35,19 @@ struct RootView: View {
             .environment(\.locale, AppLocale.locale)
             // DatePickers and other system calendars follow the app language too.
             .environment(\.calendar, AppLocale.calendar)
+            // Outside the language-rebuilt part, so a replay survives a language change.
             .fullScreenCover(isPresented: Binding(
-                get: { !hasCompletedOnboarding },
-                set: { hasCompletedOnboarding = !$0 }
+                get: { !hasCompletedOnboarding || replayingOnboarding },
+                set: { shown in
+                    guard !shown else { return }
+                    hasCompletedOnboarding = true
+                    replayingOnboarding = false
+                }
             )) {
-                OnboardingView { hasCompletedOnboarding = true }
+                OnboardingView(replay: replayingOnboarding && hasCompletedOnboarding) {
+                    hasCompletedOnboarding = true
+                    replayingOnboarding = false
+                }
                     .environment(\.locale, AppLocale.locale)
                     .environment(\.calendar, AppLocale.calendar)
             }
@@ -75,7 +85,7 @@ struct RootView: View {
                 KicksView()
                     .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks)
             }
-            ProfileView()
+            ProfileView(onReplayOnboarding: { replayingOnboarding = true })
                 .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
         }
         // Active tab: cycleStrong / pregnancy (pregOnSoft: pregStrong fails AA at 11 pt).
