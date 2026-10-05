@@ -43,9 +43,9 @@ struct HistoryChart: View {
                 }
                 .accessibilityHidden(true)
         }
-        .chartYScale(domain: 0...HistoryStats.chartMaxMinutes)
-        // Room above a bar cut at 60′ for its real value.
-        .chartPlotStyle { plot in plot.padding(.top, 18) }
+        // Bars stop at 60′; the extra 8′ above leaves room for a cut bar's real
+        // value inside the plot (plot padding pushed the bars over the x labels).
+        .chartYScale(domain: 0...(HistoryStats.chartMaxMinutes + 8))
         .chartYAxis(.hidden)
         .chartXAxis {
             AxisMarks { _ in
