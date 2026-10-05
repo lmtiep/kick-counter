@@ -17,6 +17,16 @@ struct HistoryChart: View {
 
     var body: some View {
         Chart {
+            // Drawn first, so bars and their values sit above the dashed line.
+            RuleMark(y: .value(L10n.historyChartMinutes, HistoryStats.referenceMinutes))
+                .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+                .foregroundStyle(.luna(.pregBar))
+                .annotation(position: .top, alignment: .trailing) {
+                    Text(L10n.historyBarMinutes(Int(HistoryStats.referenceMinutes)))
+                        .font(.luna(size: 10, weight: .regular, relativeTo: .caption2))
+                        .foregroundStyle(.luna(.textSecondary))
+                }
+                .accessibilityHidden(true)
             ForEach(items) { item in
                 BarMark(
                     x: .value(L10n.historyChartPeriod, item.label),
@@ -29,19 +39,12 @@ struct HistoryChart: View {
                     Text(item.minutes.map { L10n.historyBarMinutes(Int($0.rounded())) } ?? "–")
                         .font(.luna(size: 11, weight: .semibold, relativeTo: .caption2))
                         .foregroundStyle(.luna(.textSecondary))
+                        .padding(.horizontal, 3)
+                        .background(.luna(.card)) // hides the 30′ line behind a value near it
                 }
                 .accessibilityLabel(item.label)
                 .accessibilityValue(item.minutes.map(Formatting.minutes) ?? L10n.historyNoSession)
             }
-            RuleMark(y: .value(L10n.historyChartMinutes, HistoryStats.referenceMinutes))
-                .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
-                .foregroundStyle(.luna(.pregBar))
-                .annotation(position: .top, alignment: .trailing) {
-                    Text(L10n.historyBarMinutes(Int(HistoryStats.referenceMinutes)))
-                        .font(.luna(size: 10, weight: .regular, relativeTo: .caption2))
-                        .foregroundStyle(.luna(.textSecondary))
-                }
-                .accessibilityHidden(true)
         }
         // Bars stop at 60′; the extra 8′ above leaves room for a cut bar's real
         // value inside the plot (plot padding pushed the bars over the x labels).

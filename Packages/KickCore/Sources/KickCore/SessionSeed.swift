@@ -2,16 +2,13 @@ import Foundation
 
 /// Sample kick history for UI tests and screenshots (`-uiTesting -seedSessions`):
 /// one evening session a day for the 27 days before today (none today yet),
-/// slowly getting quicker, plus one cancelled session two days ago and a later
-/// 75-minute session four days ago (its bar is cut at the chart's 60′ top).
+/// slowly getting quicker, plus one cancelled session two days ago.
 public enum SessionSeed {
     /// Minutes to 10 movements, by `(dayOffset + 7) mod 7` (the design's last week).
     static let minutes = [24, 19, 31, 16, 27, 21, 18]
     /// Start times after 20:00, same indexing.
     static let startMinutes = [5, 40, 10, 30, 15, 55, 20]
     public static let days = 27
-    /// The long session four days ago, at 21:10 after that evening's 16′ one.
-    public static let longMinutes = 75
 
     public static func sessions(today now: Date, calendar: Calendar = .current) -> [SessionState] {
         let today = calendar.startOfDay(for: now)
@@ -27,18 +24,6 @@ public enum SessionSeed {
             }
             sessions.append(SessionState(
                 startedAt: start, kicks: kicks, status: .completed, endedAt: start.addingTimeInterval(length)
-            ))
-        }
-        if let fourDaysAgo = calendar.date(byAdding: .day, value: -4, to: today),
-           let start = calendar.date(bySettingHour: 21, minute: 10, second: 0, of: fourDaysAgo) {
-            let length = TimeInterval(longMinutes * 60)
-            sessions.append(SessionState(
-                startedAt: start,
-                kicks: (1...SessionRules.targetCount).map {
-                    start.addingTimeInterval(length * Double($0) / Double(SessionRules.targetCount))
-                },
-                status: .completed,
-                endedAt: start.addingTimeInterval(length)
             ))
         }
         if let twoDaysAgo = calendar.date(byAdding: .day, value: -2, to: today),
