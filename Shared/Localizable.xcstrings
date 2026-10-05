@@ -4914,6 +4914,23 @@
         }
       }
     },
+    "week.about": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoảng %@"
+          }
+        }
+      }
+    },
     "week.baby": {
       "extractionState": "manual",
       "localizations": {

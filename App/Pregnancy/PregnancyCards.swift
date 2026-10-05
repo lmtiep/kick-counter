@@ -140,7 +140,6 @@ struct BabySizeCard: View {
     let week: WeekContent
     let language: ContentLanguage
     let pendingReview: Bool
-    var showsDisclosure = true
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
@@ -160,11 +159,9 @@ struct BabySizeCard: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            if showsDisclosure {
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.luna(.chevron))
-                    .accessibilityHidden(true)
-            }
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.luna(.chevron))
+                .accessibilityHidden(true)
         }
         .lunaCard(padding: 14)
         .accessibilityElement(children: .combine)

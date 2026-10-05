@@ -47,7 +47,8 @@ struct WeekDetailView: View {
                         values: Array(WeeklyContentLibrary.weekRange),
                         selection: $selection,
                         title: { L10n.weekChip($0) },
-                        identifier: { "weekChip-\($0)" }
+                        identifier: { "weekChip-\($0)" },
+                        accessibilityTitle: { L10n.weekTitle($0) }
                     )
                     .padding(.bottom, 16)
                     panel(minHeight: proxy.size.height * 0.6)
@@ -60,6 +61,8 @@ struct WeekDetailView: View {
                 }
             }
             .scrollBounceBehavior(.basedOnSize)
+            // VoiceOver two-finger scrub closes the cover, like the ✕ button.
+            .accessibilityAction(.escape) { dismiss() }
             .background {
                 // linear-gradient(heroTop 0 %, heroMiddle 38 %, background 60 %), then the panel colour.
                 VStack(spacing: 0) {
@@ -194,10 +197,20 @@ struct WeekDetailView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(alignment: .top, spacing: 10) {
                     if let crl = content.crlMm {
-                        figure(title: L10n.pregnancyBabyCRL, value: Formatting.crownRumpLength(mm: crl), detail: nil)
+                        figure(
+                            title: L10n.pregnancyBabyCRL,
+                            value: L10n.pregnancyBabyCRLValue(Formatting.crownRumpLength(mm: crl)),
+                            spokenValue: L10n.pregnancyBabyCRLValue(Formatting.crownRumpLength(mm: crl, spoken: true)),
+                            detail: nil
+                        )
                     }
                     if let grams = content.weightG {
-                        figure(title: L10n.pregnancyBabyWeight, value: Formatting.weight(grams: grams), detail: weightRange(content))
+                        figure(
+                            title: L10n.pregnancyBabyWeight,
+                            value: L10n.weekAbout(Formatting.weight(grams: grams)),
+                            spokenValue: spokenWeight(content, grams: grams),
+                            detail: weightRange(content)
+                        )
                     }
                 }
                 if content.weightG != nil {
@@ -222,7 +235,21 @@ struct WeekDetailView: View {
         return L10n.weekTypicalRange(Formatting.weightRange(low, high, unitOf: grams))
     }
 
-    private func figure(title: String, value: String, detail: String?) -> some View {
+    /// VoiceOver: "About 600 grams, typically 275 to 387 grams" (units spelled out).
+    private func spokenWeight(_ content: WeekContent, grams: Int) -> String {
+        guard let low = content.weightP10G, let high = content.weightP90G else {
+            return L10n.weekAbout(Formatting.weight(grams: grams, spoken: true))
+        }
+        return L10n.pregnancyBabyWeightValueA11y(
+            Formatting.weight(grams: grams, spoken: true),
+            Formatting.weightRangeStart(low, unitOf: grams),
+            Formatting.weightInUnit(high, unitOf: grams, spoken: true)
+        )
+    }
+
+    /// `spokenValue` is what VoiceOver reads for the value and the detail line
+    /// (the spoken weight already includes the typical range).
+    private func figure(title: String, value: String, spokenValue: String, detail: String?) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             // Secondary text on `surface` uses articleText (textSecondary fails AA there).
             Text(title)
@@ -231,11 +258,14 @@ struct WeekDetailView: View {
             Text(value)
                 .font(.luna(.figure))
                 .foregroundStyle(.luna(.textPrimary))
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityLabel(spokenValue)
             if let detail {
                 Text(detail)
                     .font(.luna(.small))
                     .foregroundStyle(.luna(.articleText))
                     .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityHidden(true)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

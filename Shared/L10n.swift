@@ -409,4 +409,6 @@ enum L10n {
     static func weekSizeLine(_ fruit: String) -> String { String(format: t("week.sizeLine"), fruit) }
     static func weekTypicalRange(_ range: String) -> String { String(format: t("week.typicalRange"), range) }
     static var commonClose: String { t("common.close") }
+    /// "About 600 g": the Hadlock 50th percentile is an estimate, not a measurement.
+    static func weekAbout(_ value: String) -> String { String(format: t("week.about"), value) }
 }

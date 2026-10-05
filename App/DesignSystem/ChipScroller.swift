@@ -8,6 +8,9 @@ struct ChipScroller<Value: Hashable>: View {
     @Binding var selection: Value
     let title: (Value) -> String
     let identifier: (Value) -> String
+    /// What VoiceOver reads for a chip when the short title is not enough
+    /// ("Week 24" rather than "24 wks"); `nil` reads the title.
+    var accessibilityTitle: ((Value) -> String)? = nil
     var selectedFill: LunaToken = .card
     var selectedText: LunaToken = .textPrimary
     var idleText: LunaToken = .pregOnSoft
@@ -33,6 +36,7 @@ struct ChipScroller<Value: Hashable>: View {
                                 )
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel(accessibilityTitle?(value) ?? title(value))
                         .accessibilityAddTraits(isSelected ? .isSelected : [])
                         .accessibilityIdentifier(identifier(value))
                         .id(value)
