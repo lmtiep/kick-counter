@@ -1,15 +1,6 @@
 import KickCore
 import SwiftUI
 
-extension View {
-    /// Phase 1–3 card, still used by the week pages until they are redesigned.
-    func card(tint: Color = Color(.secondarySystemBackground)) -> some View {
-        padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(tint, in: RoundedRectangle(cornerRadius: 16))
-    }
-}
-
 /// The 7 days under the header in pregnancy mode (spec §4.4): day numbers only,
 /// today raised. In dark mode the raised white disc (`card`) barely stands out
 /// from the background, so today also gets a `preg` ring there.

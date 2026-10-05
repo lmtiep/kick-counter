@@ -630,6 +630,23 @@
         }
       }
     },
+    "common.close": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đóng"
+          }
+        }
+      }
+    },
     "common.days": {
       "extractionState": "manual",
       "localizations": {
@@ -4914,19 +4931,36 @@
         }
       }
     },
-    "week.current": {
+    "week.chip": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "This week"
+            "value": "%ld wks"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tuần hiện tại"
+            "value": "%ld tuần"
+          }
+        }
+      }
+    },
+    "week.headline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What happens at %ld weeks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những điều diễn ra ở tuần %ld"
           }
         }
       }
@@ -4965,6 +4999,57 @@
         }
       }
     },
+    "week.reviewed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An obstetrician has reviewed this week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bác sĩ sản khoa đã duyệt nội dung tuần này"
+          }
+        }
+      }
+    },
+    "week.reviewer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reviewed by"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Người xem xét"
+          }
+        }
+      }
+    },
+    "week.sizeLine": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This week, your baby is about the size of %@."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ở tuần này, bé có kích thước bằng %@."
+          }
+        }
+      }
+    },
     "week.tips": {
       "extractionState": "manual",
       "localizations": {
@@ -4995,6 +5080,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tuần %ld"
+          }
+        }
+      }
+    },
+    "week.typicalRange": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Typically %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thường %@"
           }
         }
       }

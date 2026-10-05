@@ -80,8 +80,8 @@ final class PregnancyScreenshotTests: XCTestCase {
 
     @MainActor
     func testWeekDetailScreens() {
-        for (language, dark) in [("vi", false), ("vi", true), ("en", false)] {
-            let suffix = "\(language)-\(dark ? "dark" : "light")"
+        for (language, dark) in UITestVariants.all {
+            let suffix = UITestVariants.suffix(language, dark)
             let app = XCUIApplication.launchPinned(language: language, dark: dark, dueDate: UITestDates.dueAtWeek24)
             let babyCard = app.buttons["babySizeCard"]
             XCTAssertTrue(babyCard.waitForExistence(timeout: 10))
@@ -92,8 +92,10 @@ final class PregnancyScreenshotTests: XCTestCase {
             app.swipeUp()
             attachScreenshot(app, "week-24-warnings-\(suffix)")
             if language == "vi", !dark {
-                app.swipeLeft()
-                XCTAssertTrue(app.navigationBars.staticTexts["Tuần 25"].waitForExistence(timeout: 5))
+                app.swipeDown()
+                app.swipeDown()
+                app.buttons["weekChip-25"].tap()
+                waitForLabel(app.staticTexts["weekDetailTitle"], containing: "Tuần 25")
                 attachScreenshot(app, "week-25-vi-light")
             }
             app.terminate()

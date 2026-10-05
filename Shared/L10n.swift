@@ -62,7 +62,6 @@ enum L10n {
     static var pregnancyKickCardBody: String { t("pregnancy.kickCard.body") }
 
     static func weekTitle(_ week: Int) -> String { String(format: t("week.title"), week) }
-    static var weekCurrent: String { t("week.current") }
     static var weekBaby: String { t("week.baby") }
     static var weekMom: String { t("week.mom") }
     static var weekTips: String { t("week.tips") }
@@ -400,4 +399,14 @@ enum L10n {
     static func pregnancyKicksTodayAverage(_ average: String) -> String { String(format: t("pregnancy.kicksToday.average"), average) }
     static var pregnancyKicksTodayCount: String { t("pregnancy.kicksToday.count") }
     static var pregnancyKicksTodayView: String { t("pregnancy.kicksToday.view") }
+
+    // MARK: - Phase 4: week detail
+
+    static func weekChip(_ week: Int) -> String { String(format: t("week.chip"), week) }
+    static func weekHeadline(_ week: Int) -> String { String(format: t("week.headline"), week) }
+    static var weekReviewer: String { t("week.reviewer") }
+    static var weekReviewed: String { t("week.reviewed") }
+    static func weekSizeLine(_ fruit: String) -> String { String(format: t("week.sizeLine"), fruit) }
+    static func weekTypicalRange(_ range: String) -> String { String(format: t("week.typicalRange"), range) }
+    static var commonClose: String { t("common.close") }
 }

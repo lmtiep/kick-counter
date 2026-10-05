@@ -23,7 +23,7 @@ struct PregnancyTodayView: View {
     )
     private var sessions: [KickSession]
     @State private var showingDateSheet = false
-    @State private var detailWeek: Int?
+    @State private var detailWeek: WeekSelection?
 
     private let language = ContentLanguage.current
     private let visibility = BuildFlags.contentVisibility
@@ -54,8 +54,9 @@ struct PregnancyTodayView: View {
             }
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(item: $detailWeek) { week in
-                WeekDetailView(currentWeek: week)
+            // Slides up over everything (spec §4.5).
+            .fullScreenCover(item: $detailWeek) { selection in
+                WeekDetailView(currentWeek: selection.week)
             }
             .sheet(isPresented: $showingDateSheet) {
                 PregnancyDateSheet()
@@ -90,7 +91,7 @@ struct PregnancyTodayView: View {
         let contentWeek = WeeklyContentLibrary.clampedWeek(timeline.week.weeks)
         let display = library?.display(forWeek: contentWeek, visibility: visibility)
         return VStack(spacing: 12) {
-            FetusHero(week: contentWeek) { detailWeek = contentWeek }
+            FetusHero(week: contentWeek) { detailWeek = WeekSelection(week: contentWeek) }
                 .padding(.top, 16)
             WeekProgressCard(progress: PregnancyProgress(timeline: timeline))
             shortcuts(week: timeline.week.weeks, contentWeek: contentWeek)
@@ -100,19 +101,19 @@ struct PregnancyTodayView: View {
             }
             switch display {
             case .content(let week, let pendingReview)?:
-                Button { detailWeek = contentWeek } label: {
+                Button { detailWeek = WeekSelection(week: contentWeek) } label: {
                     BabySizeCard(week: week, language: language, pendingReview: pendingReview)
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("babySizeCard")
 
-                Button { detailWeek = contentWeek } label: {
+                Button { detailWeek = WeekSelection(week: contentWeek) } label: {
                     WeekTipsCard(tips: Array(week.tips.items(language).prefix(2)))
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("weekTipsCard")
             case .underReview?:
-                Button { detailWeek = contentWeek } label: { UnderReviewCard() }
+                Button { detailWeek = WeekSelection(week: contentWeek) } label: { UnderReviewCard() }
                     .buttonStyle(.plain)
             case nil:
                 EmptyView()
@@ -149,7 +150,7 @@ struct PregnancyTodayView: View {
                             .background(Circle().fill(Color.luna(.card).opacity(0.3)))
                     )
             }
-            shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = contentWeek }) {
+            shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = WeekSelection(week: contentWeek) }) {
                 Circle()
                     .fill(.luna(.card))
                     .overlay(
@@ -255,7 +256,7 @@ struct PregnancyTodayView: View {
 
     private func openCurrentWeek() {
         if let timeline {
-            detailWeek = WeeklyContentLibrary.clampedWeek(timeline.week.weeks)
+            detailWeek = WeekSelection(week: WeeklyContentLibrary.clampedWeek(timeline.week.weeks))
         } else {
             showingDateSheet = true
         }

@@ -24,7 +24,8 @@ final class PregnancyTodayUITests: XCTestCase {
         XCTAssertTrue(fetus.waitForExistence(timeout: 10))
         XCTAssertEqual(fetus.label, "See week 24")
         fetus.tap()
-        XCTAssertTrue(app.navigationBars.staticTexts["Week 24"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["weekHeadline"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["weekDetailTitle"].label, "Week 24")
     }
 
     @MainActor
@@ -41,7 +42,31 @@ final class PregnancyTodayUITests: XCTestCase {
         let week = app.buttons["shortcutWeek"]
         app.scrollUntilHittable(week)
         week.tap()
-        XCTAssertTrue(app.navigationBars.staticTexts["Week 24"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["weekHeadline"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["weekDetailTitle"].label, "Week 24")
+    }
+
+    /// Spec §4.5: chips change the week (scrolled into view), ✕ goes back to Today.
+    @MainActor
+    func testWeekChipsChangeTheWeekAndCloseReturns() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
+        let fetus = app.buttons["fetusHeroButton"]
+        XCTAssertTrue(fetus.waitForExistence(timeout: 10))
+        fetus.tap()
+        let title = app.staticTexts["weekDetailTitle"]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["weekChip-24"].isSelected)
+        XCTAssertTrue(app.buttons["weekChip-24"].isHittable) // scrolled to the current week
+        let reviewer = app.descendants(matching: .any)["weekReviewer"]
+        XCTAssertTrue(reviewer.label.contains("Content pending doctor review"), reviewer.label)
+
+        app.buttons["weekChip-25"].tap()
+        waitForLabel(title, containing: "Week 25")
+        XCTAssertEqual(app.staticTexts["weekHeadline"].label, "What happens at 25 weeks")
+
+        app.buttons["weekDetailClose"].tap()
+        XCTAssertTrue(fetus.waitForExistence(timeout: 5))
+        XCTAssertFalse(title.exists)
     }
 
     @MainActor
