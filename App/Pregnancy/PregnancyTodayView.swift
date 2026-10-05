@@ -176,7 +176,8 @@ struct PregnancyTodayView: View {
                     .foregroundStyle(.luna(.textPrimary))
                     .multilineTextAlignment(.center)
             }
-            .frame(width: 96)
+            // 96 pt in the design; wider at large text so words are not broken mid-word.
+            .frame(minWidth: 96, maxWidth: 160)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
