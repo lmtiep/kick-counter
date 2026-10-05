@@ -154,3 +154,26 @@ thai kỳ, nên **phải được duyệt trước khi gửi App Store**). Xem c
         Xác nhận các ngưỡng này phù hợp để hiển thị cho người dùng (không dùng cho tránh thai).
 24. [ ] **Khoảng nhiệt độ BBT hợp lệ 35,0–38,5 °C** và ngưỡng "kỳ kinh kéo dài" 10 ngày: xác nhận.
 25. [ ] **Thời điểm gợi ý thử thai**: từ ngày trễ thứ 3 (thẻ + một thông báo). Xác nhận hay đổi.
+
+## 7. Giao diện mới (giai đoạn 4) — chuỗi y tế mới
+
+Chuỗi trong `Shared/Localizable.xcstrings`, lấy từ bản thiết kế "Mầm" (nội dung mẫu, README thiết kế ghi rõ
+cần chuyên gia duyệt). Xem câu chữ thật trên ảnh `kicks-bottom-*`, `history-bottom-*`, `kicks-overdue-*`
+trong `ci-artifacts/screenshots/`.
+
+| Khóa | Nội dung (vi) cần duyệt |
+|---|---|
+| `kicks.cardiff.title`, `kicks.cardiff.body` | Phương pháp Cardiff: đếm tới 10, cùng khung giờ mỗi ngày, quá 2 giờ hoặc ít hơn mọi ngày → gọi bác sĩ |
+| `history.guide.title`, `history.guide.body` | Khi nào cần gặp bác sĩ: quá 2 giờ chưa đủ 10, cử động yếu hơn/khác thường, hoặc lo lắng — không chờ hôm sau |
+| `counter.call115` | Nút "Gọi cấp cứu 115" trên thẻ cảnh báo 2 giờ (chỉ tiếng Việt; tiếng Anh không có số chung nên chỉ có chữ) |
+| `kickSettings.reminder.detail` | "Đếm cùng một khung giờ mỗi ngày, khi bé thường hoạt động" |
+| `common.underOneMinute` | "<1 phút" — chữ hiển thị khi một lượt đếm hoàn thành dưới một phút (biểu đồ lịch sử, thẻ lượt đếm) |
+| `week.sizeLine`, `week.about`, `week.typicalRange` | "Ở tuần này, bé có kích thước bằng %@." / "Khoảng %@" / "Thường %@" — câu diễn giải kích thước bé ở Chi tiết tuần (cùng số liệu Hadlock đã duyệt ở mục 1–2, chỉ đổi câu chữ) |
+| `week.reviewed`, `week.reviewer` | "Bác sĩ sản khoa đã duyệt nội dung tuần này" / "Người xem xét" — dòng trạng thái duyệt hiển thị cho người dùng, không nêu tên bác sĩ |
+| `cycle.maybePregnant.title`, `cycle.maybePregnant.body` | "Có thể bạn đang mang thai?" / "Chuyển sang chế độ thai kỳ để theo dõi từng tuần" — thẻ gợi ý khi trễ kinh (nội dung y tế đầy đủ vẫn ở `cycle.late.*` đã duyệt giai đoạn 3) |
+
+26. [ ] Bác sĩ đã duyệt (hoặc sửa) các khóa trên, cả vi lẫn en.
+27. [ ] Xác nhận hiển thị nút gọi 115 ở thẻ cảnh báo 2 giờ (tiếng Việt) là phù hợp, hay nên gọi số của
+        cơ sở sản khoa của mẹ.
+28. [ ] Thẻ cảnh báo 2 giờ, thông báo đẩy 2 giờ và "Thông tin y tế" giữ nội dung đã duyệt ở giai đoạn 1
+        (`overdue.*`, `medical.body`) — chỉ đổi giao diện.

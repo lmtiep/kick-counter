@@ -123,3 +123,49 @@
 - [ ] Tab Lịch: vuốt trái/phải đổi tháng; thứ đầu tuần theo ngôn ngữ (vi: thứ Hai, en: Chủ nhật);
       VoiceOver đọc từng ô ("12 tháng 10, cửa sổ thụ thai, đã ghi que thử dương tính").
 - [ ] Chế độ tối, Dynamic Type lớn nhất: thẻ chu kỳ và ô lịch không bị cắt chữ.
+
+## Giai đoạn 4 — Giao diện "Mầm" (Luna Mom)
+
+### Lệch chuẩn nền tảng iOS 26 (so với bản thiết kế)
+- [ ] Thanh tab là khối kính nổi (floating glass capsule) của hệ thống, không phải thanh nền kem đặc
+      như bản thiết kế — `TabView` hệ thống trên iOS 26 không cho vẽ nền đặc tùy biến.
+- [ ] Nhãn tab không chọn dùng màu nhãn hệ thống (system label color), không phải token màu riêng —
+      Apple không cho tùy biến màu nhãn tab không chọn trên iOS 26.
+- [ ] Tab đang chọn dùng màu theo chế độ (Mong con / Mang thai) như thiết kế.
+
+### Trước khi gửi App Store
+- [ ] Quyền dùng ảnh: `onb-baby-beige`, `onb-baby-pink`, `onb-baby-basket`, `fetus.png` (ảnh tạo bằng AI do
+      người dùng cung cấp) — xác nhận được phép dùng thương mại trước khi phát hành.
+- [ ] Giấy phép font: `App/Fonts/OFL.txt` có trong app (Cá nhân → "Phông chữ: Be Vietnam Pro").
+- [ ] Bác sĩ đã duyệt các chuỗi y tế mới — mục 7 của
+      [`docs/content-review-for-doctor.md`](content-review-for-doctor.md).
+- [ ] Ảnh chụp App Store mới (vi + en, sáng): `onboarding-welcome-*`, `cycle-home-fertile-*`,
+      `pregnancy-home-24-*`, `kicks-running-*`, `history-week-*`.
+- [ ] Ghi chú phát hành: giao diện mới, đổi ngôn ngữ ngay trong app, rung khi đếm cử động, 3 tab mỗi chế độ
+      (Lịch sử nằm trong Cử động, Cài đặt thành Cá nhân).
+
+### Ảnh còn thiếu (giai đoạn sau)
+- [ ] Ảnh onboarding "Kỳ kinh gần nhất" (hiện là gradient hồng).
+- [ ] Ảnh thai nhi theo giai đoạn (hiện một ảnh cho mọi tuần).
+- [ ] Ảnh / icon trái cây theo tuần (hiện emoji).
+- [ ] App icon mới (nếu đổi).
+- [ ] Ảnh bài viết, ảnh bác sĩ (khi có Kiến thức / người duyệt có tên).
+
+### Kiểm thử thủ công trên iPhone qua TestFlight (vi và en; CI chỉ có ảnh tĩnh)
+- [ ] Onboarding: ảnh lộ ra theo vòng tròn từ phải, Ken Burns, dải sóng dâng lên rồi trôi chậm, chữ trượt lên;
+      chấm tiến trình đổi độ dài mượt. Bật Reduce Motion → chỉ còn mờ dần.
+- [ ] Đổi Tiếng Việt / English ở bước 1 → chữ đổi ngay; chọn mục tiêu → "Tiếp tục" sáng lên; "Bỏ qua" → bước cuối.
+- [ ] Thai nhi ở Hôm nay lơ lửng nhẹ; tắt khi Reduce Motion.
+- [ ] Đếm cử động: mỗi lần chạm có số nảy, vòng gợn và rung nhẹ; tắt "Rung khi chạm" → hết rung.
+- [ ] Đổi ngôn ngữ trong Cá nhân → mọi tab, ngày ("4 tháng 10" / "Oct 4"), số ("36,5" / "36.5"), lịch
+      (thứ Hai / Chủ nhật đầu tuần) đổi ngay; Live Activity và widget đổi theo; nhắc đã hẹn (đếm hằng ngày,
+      chu kỳ, lịch khám, cảnh báo 2 giờ của lượt đang đếm) đến bằng ngôn ngữ mới.
+- [ ] Hộp quyền hệ thống vẫn theo ngôn ngữ máy (chấp nhận, spec §8).
+- [ ] VoiceOver: thanh tab đọc tên tab và trạng thái chọn; dải 7 ngày đọc từng ngày; vòng chu kỳ đọc thành chữ;
+      vùng chạm đếm là một nút "Ghi nhận cử động, đã có N trên 10"; chấm onboarding đọc "Bước 2 trên 3".
+- [ ] Dynamic Type lớn nhất: Hôm nay (2 chế độ) và Cử động không cắt chữ.
+- [ ] Chế độ tối: mọi màn đọc rõ (bảng màu tối suy ra, spec §3).
+- [ ] Cảnh báo 2 giờ (đặt giờ máy hoặc để lượt đếm chạy): ở tiếng Việt nút "Gọi cấp cứu 115" mở cuộc gọi 115;
+      ở tiếng Anh không có nút; thông báo đẩy 2 giờ vẫn đến.
+- [ ] Cá nhân → "Kết thúc theo dõi thai kỳ" → về Mong con, dữ liệu thai kỳ và lịch khám còn; "Xem lại phần giới
+      thiệu" không xóa gì.

@@ -24,4 +24,14 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - UI test: `-uiTesting -fixedNow <ISO8601>` cố định đồng hồ màn thai kỳ/lịch khám/chu kỳ,
   `-seedDueDate <ISO8601>` ghi sẵn ngày dự sinh,
   `-seedCycles <empty|period|fertile|late|irregular>` bật chế độ Mong con với dữ liệu mẫu
-  (`CycleSeedScenario`). Chỉ có hiệu lực trong bản Debug và cùng `-uiTesting`.
+  (`CycleSeedScenario`), `-seedSessions` thêm 4 tuần lượt đếm mẫu (`SessionSeed`),
+  `-seedOverdueSession` mở một lượt đếm đã quá 2 giờ. Chỉ có hiệu lực trong bản Debug và cùng `-uiTesting`
+  (khi đó animation cũng tắt để ảnh chụp ổn định).
+
+## Giao diện (giai đoạn 4)
+- Thiết kế tham chiếu: `docs/design/mam-handoff/` (README + `prototype.html`; "Mầm" = Luna Mom).
+- Màu: token trong `Packages/KickCore/Sources/KickCore/LunaPalette.swift` (sáng + tối, test tương phản
+  WCAG trong `ContrastTests`); view dùng `.luna(.<token>)`, không viết hex.
+- Font: Be Vietnam Pro (SIL OFL, `App/Fonts/OFL.txt`), dùng `Font.luna(_:)`.
+- Thành phần dùng chung: `App/DesignSystem/`.
+- Ngôn ngữ trong app (Cá nhân → Ngôn ngữ): `L10n` đọc `.lproj` của ngôn ngữ đã chọn (`AppLanguage`).
