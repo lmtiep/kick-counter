@@ -54,18 +54,21 @@ final class ScreenshotTests: XCTestCase {
 
     @MainActor
     func testHistoryScreens() {
-        for dark in [false, true] {
-            let suffix = dark ? "dark" : "light"
-            let app = launch(dark: dark)
-            tapKick(app, times: 10)
-            XCTAssertTrue(app.buttons["completionDone"].waitForExistence(timeout: 5))
-            app.buttons["completionDone"].tap()
-            tapKick(app, times: 2)
-            app.buttons["cancelSessionButton"].tap()
-            confirmCancel(app)
+        for (language, dark) in UITestVariants.all {
+            let suffix = UITestVariants.suffix(language, dark)
+            let app = XCUIApplication.launchPinned(
+                language: language, dark: dark, dueDate: UITestDates.dueAtWeek38, extraArguments: ["-seedSessions"]
+            )
             app.openHistory()
-            XCTAssertTrue(app.descendants(matching: .any)["sessionRow"].firstMatch.waitForExistence(timeout: 5))
-            snap(app, "history-\(suffix)")
+            XCTAssertTrue(app.descendants(matching: .any)["historyAverage"].waitForExistence(timeout: 10))
+            snap(app, "history-week-\(suffix)")
+            app.buttons["historyRange28"].tap()
+            snap(app, "history-month-\(suffix)")
+            if !dark {
+                let guide = app.descendants(matching: .any)["historyGuide"]
+                app.scrollUntilHittable(guide, maxSwipes: 12)
+                snap(app, "history-bottom-\(suffix)")
+            }
             app.terminate()
         }
     }

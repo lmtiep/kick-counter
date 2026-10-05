@@ -88,13 +88,9 @@ enum L10n {
     static var completionDone: String { t("completion.done") }
 
     static var historyTitle: String { t("history.title") }
-    static var historyChartTitle: String { t("history.chart.title") }
-    static var historyChartDay: String { t("history.chart.day") }
     static var historyChartMinutes: String { t("history.chart.minutes") }
-    static var historyChartThreshold: String { t("history.chart.threshold") }
     static var historyEmptyTitle: String { t("history.empty.title") }
     static var historyEmptyBody: String { t("history.empty.body") }
-    static var historyStatusCompleted: String { t("history.status.completed") }
     static var historyStatusCancelled: String { t("history.status.cancelled") }
     static func historyRowCount(_ count: Int) -> String { String(format: t("history.row.count"), count) }
     static var historyDeleteConfirmTitle: String { t("history.delete.confirm.title") }
@@ -435,4 +431,22 @@ enum L10n {
     static var historyToday: String { t("history.today") }
     /// Under a minute on the done dial, instead of "0 min".
     static var underOneMinute: String { t("common.underOneMinute") }
+
+    // MARK: - Phase 4: history
+
+    static var historyHeading: String { t("history.heading") }
+    static var historyRangeWeek: String { t("history.range.week") }
+    static var historyRangeMonth: String { t("history.range.month") }
+    static var historyAverage: String { t("history.average") }
+    static var historySessions: String { t("history.sessions") }
+    static var historyThisWeek: String { t("history.week.this") }
+    static var historyLastWeek: String { t("history.week.last") }
+    static func historyWeeksAgo(_ weeks: Int) -> String { String(format: t("history.week.ago"), weeks) }
+    /// The chart's x axis, for VoiceOver.
+    static var historyChartPeriod: String { t("history.chart.period") }
+    /// A bar's value: "19′".
+    static func historyBarMinutes(_ minutes: Int) -> String { String(format: t("history.bar.minutes"), minutes) }
+    static var historyNoSession: String { t("history.noSession") }
+    static var historyGuideTitle: String { t("history.guide.title") }
+    static var historyGuideBody: String { t("history.guide.body") }
 }

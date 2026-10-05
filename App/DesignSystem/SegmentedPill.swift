@@ -17,6 +17,8 @@ struct SegmentedPill<Value: Hashable>: View {
     @Binding var selection: Value
     /// Capsule segments (onboarding) instead of rounded rectangles.
     var capsule = false
+    // Not private: keeps the memberwise init usable from other files.
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     private var segmentShape: AnyShape {
         capsule ? AnyShape(Capsule()) : AnyShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
@@ -31,7 +33,7 @@ struct SegmentedPill<Value: Hashable>: View {
             ForEach(options) { option in
                 let isSelected = option.value == selection
                 Button {
-                    withAnimation(.easeOut(duration: 0.2)) { selection = option.value }
+                    withAnimation(reduceMotion || !LunaMotion.isEnabled ? nil : .easeOut(duration: 0.2)) { selection = option.value }
                 } label: {
                     Text(option.title)
                         .font(.luna(.captionStrong))

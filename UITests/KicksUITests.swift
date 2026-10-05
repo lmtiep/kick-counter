@@ -94,7 +94,9 @@ final class KicksUITests: XCTestCase {
     func testKicksScreens() {
         for (language, dark) in UITestVariants.all {
             let suffix = UITestVariants.suffix(language, dark)
-            let app = XCUIApplication.launchPinned(language: language, dark: dark, dueDate: UITestDates.dueAtWeek38)
+            let app = XCUIApplication.launchPinned(
+                language: language, dark: dark, dueDate: UITestDates.dueAtWeek38, extraArguments: ["-seedSessions"]
+            )
             app.openTab(.kicks)
             XCTAssertTrue(app.buttons["kickButton"].waitForExistence(timeout: 10))
             attachScreenshot(app, "kicks-idle-\(suffix)")

@@ -54,4 +54,18 @@ struct HistoryStatsTests {
         #expect(HistoryStats.barFraction(minutes: -1) == 0)
         #expect(HistoryStats.referenceMinutes == 30)
     }
+
+    @Test func weeklyAveragesFourSevenDayBlocksEndingToday() {
+        let bars = HistoryStats.weekly([
+            session("2026-10-02T08:00:00Z", minutes: 20),
+            session("2026-09-26T08:00:00Z", minutes: 10), // first day of this week's block
+            session("2026-09-25T08:00:00Z", minutes: 30), // last day of the previous block
+            session("2026-09-19T08:00:00Z", minutes: 40),
+            session("2026-09-05T08:00:00Z", minutes: 50), // first day of the oldest block
+            session("2026-09-04T08:00:00Z", minutes: 99), // too old
+        ], endingAt: now, calendar: utcCalendar)
+        #expect(bars.map(\.start) == ["2026-09-05", "2026-09-12", "2026-09-19", "2026-09-26"].map { date("\($0)T00:00:00Z") })
+        #expect(bars.map(\.minutes) == [50, nil, 35, 15])
+        #expect(bars.map(\.isCurrent) == [false, false, false, true])
+    }
 }

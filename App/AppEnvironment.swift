@@ -36,6 +36,11 @@ struct AppEnvironment {
         }
         #endif
         let container = try KickPersistence.makeContainer(inMemory: isUITesting)
+        #if DEBUG
+        if isUITesting, AppClock.launchOptions.seedSessions {
+            try seedSessions(into: container.mainContext)
+        }
+        #endif
         let notificationCenter: NotificationCenterClient = isUITesting ? DisabledNotificationCenter() : SystemNotificationCenter()
         let liveActivities: LiveActivityManaging = isUITesting ? NoopLiveActivityManager() : SystemLiveActivityManager()
         let notifications = NotificationScheduler(center: notificationCenter)
@@ -100,6 +105,26 @@ struct AppEnvironment {
         for minutes in [0.0, 15, 45, 80] {
             _ = try store.addKick(at: start.addingTimeInterval(minutes * 60))
         }
+    }
+
+    /// `-uiTesting -seedSessions`: `SessionSeed`'s four weeks of sessions,
+    /// relative to the pinned clock (spec §6).
+    private static func seedSessions(into context: ModelContext) throws {
+        for state in SessionSeed.sessions(today: AppClock.now()) {
+            let session = KickSession(startedAt: state.startedAt)
+            session.endedAt = state.endedAt
+            session.status = state.status
+            session.exceededThreshold = state.exceededThreshold
+            context.insert(session)
+            // Insert before linking, like KickStore: a relationship to a model
+            // outside the context traps.
+            for timestamp in state.kicks {
+                let kick = Kick(timestamp: timestamp)
+                context.insert(kick)
+                kick.session = session
+            }
+        }
+        try context.save()
     }
     #endif
 }

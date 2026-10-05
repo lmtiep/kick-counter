@@ -2772,19 +2772,36 @@
         }
       }
     },
-    "history.chart.day": {
+    "history.average": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Day"
+            "value": "Average time to 10 movements"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ngày"
+            "value": "Thời gian trung bình để đủ 10 cử động"
+          }
+        }
+      }
+    },
+    "history.bar.minutes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld′"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld′"
           }
         }
       }
@@ -2806,36 +2823,19 @@
         }
       }
     },
-    "history.chart.threshold": {
+    "history.chart.period": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "2 hours"
+            "value": "When"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "2 giờ"
-          }
-        }
-      }
-    },
-    "history.chart.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time to 10 movements · last 14 days"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thời gian đạt 10 cử động · 14 ngày qua"
+            "value": "Thời gian"
           }
         }
       }
@@ -2891,6 +2891,108 @@
         }
       }
     },
+    "history.guide.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call right away if 10 movements take longer than 2 hours, if movements feel weaker or different from usual, or if you're worried. Don't wait for tomorrow's session."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liên hệ ngay nếu sau 2 giờ chưa đủ 10 cử động, nếu bé cử động yếu hơn hoặc khác hẳn thường ngày, hoặc nếu bạn thấy lo lắng. Đừng chờ đến lượt đếm hôm sau."
+          }
+        }
+      }
+    },
+    "history.guide.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When to call your doctor"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi nào cần gặp bác sĩ"
+          }
+        }
+      }
+    },
+    "history.heading": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movement history"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch sử cử động"
+          }
+        }
+      }
+    },
+    "history.noSession": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No session"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa đếm"
+          }
+        }
+      }
+    },
+    "history.range.month": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4 weeks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4 tuần"
+          }
+        }
+      }
+    },
+    "history.range.week": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 ngày"
+          }
+        }
+      }
+    },
     "history.row.count": {
       "extractionState": "manual",
       "localizations": {
@@ -2908,6 +3010,23 @@
         }
       }
     },
+    "history.sessions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessions"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các lượt đếm"
+          }
+        }
+      }
+    },
     "history.status.cancelled": {
       "extractionState": "manual",
       "localizations": {
@@ -2921,23 +3040,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đã hủy"
-          }
-        }
-      }
-    },
-    "history.status.completed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Completed"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hoàn thành"
           }
         }
       }
@@ -2972,6 +3074,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nay"
+          }
+        }
+      }
+    },
+    "history.week.ago": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld wks ago"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld tuần trước"
+          }
+        }
+      }
+    },
+    "history.week.last": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last wk"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần trước"
+          }
+        }
+      }
+    },
+    "history.week.this": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This wk"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần này"
           }
         }
       }

@@ -45,3 +45,11 @@ struct UITestOverdueSessionOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).seedOverdueSession == false)
     }
 }
+
+struct UITestSessionSeedOptionTests {
+    @Test func seedSessionsNeedsUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedSessions"]).seedSessions)
+        #expect(UITestLaunchOptions(arguments: ["-seedSessions"]).seedSessions == false)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).seedSessions == false)
+    }
+}

@@ -78,3 +78,27 @@ public enum HistoryStats {
         }
     }
 }
+
+extension HistoryStats {
+    /// The last `weeks` 7-day blocks ending today, this one last: the mean of
+    /// each block's completed sessions.
+    public static func weekly(
+        _ sessions: [SessionState],
+        endingAt now: Date,
+        weeks: Int = 4,
+        calendar: Calendar = .current
+    ) -> [HistoryBar] {
+        let today = calendar.startOfDay(for: now)
+        return (0..<weeks).reversed().compactMap { back in
+            guard let end = calendar.date(byAdding: .day, value: 1 - 7 * back, to: today),
+                  let start = calendar.date(byAdding: .day, value: -7, to: end)
+            else { return nil }
+            let minutes = completedMinutes(sessions) { $0 >= start && $0 < end }
+            return HistoryBar(
+                start: start,
+                minutes: minutes.isEmpty ? nil : minutes.reduce(0, +) / Double(minutes.count),
+                isCurrent: back == 0
+            )
+        }
+    }
+}
