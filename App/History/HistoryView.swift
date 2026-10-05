@@ -98,8 +98,11 @@ struct HistoryView: View {
     }
 
     private func averageCard(_ states: [SessionState]) -> some View {
-        let average = HistoryStats.averageMinutes(states, endingAt: now, days: range == .week ? 7 : 28)
-        let bars = range == .week ? HistoryStats.daily(states, endingAt: now) : HistoryStats.weekly(states, endingAt: now)
+        let calendar = AppLocale.calendar
+        let average = HistoryStats.averageMinutes(states, endingAt: now, days: range == .week ? 7 : 28, calendar: calendar)
+        let bars = range == .week
+            ? HistoryStats.daily(states, endingAt: now, calendar: calendar)
+            : HistoryStats.weekly(states, endingAt: now, calendar: calendar)
         return VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 2) {
                 Text(L10n.historyAverage)

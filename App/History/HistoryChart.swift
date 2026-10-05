@@ -44,6 +44,8 @@ struct HistoryChart: View {
                 .accessibilityHidden(true)
         }
         .chartYScale(domain: 0...HistoryStats.chartMaxMinutes)
+        // Room above a bar cut at 60′ for its real value.
+        .chartPlotStyle { plot in plot.padding(.top, 18) }
         .chartYAxis(.hidden)
         .chartXAxis {
             AxisMarks { _ in

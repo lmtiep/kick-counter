@@ -6,6 +6,7 @@ final class HistoryUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    @MainActor
     private func launchSeeded(language: String = "en", dark: Bool = false) -> XCUIApplication {
         XCUIApplication.launchPinned(
             language: language, dark: dark, dueDate: UITestDates.dueAtWeek38, extraArguments: ["-seedSessions"]
@@ -18,15 +19,15 @@ final class HistoryUITests: XCTestCase {
         app.openHistory()
         let average = app.descendants(matching: .any)["historyAverage"]
         XCTAssertTrue(average.waitForExistence(timeout: 10))
-        // 19, 31, 16, 27, 21 and 18 minutes over the last 7 days.
-        XCTAssertTrue(average.label.contains("22 min"), average.label)
+        // 19, 31, 16 (and a later 75), 27, 21 and 18 minutes over the last 7 days.
+        XCTAssertTrue(average.label.contains("30 min"), average.label)
         XCTAssertTrue(app.buttons["historyRange7"].isSelected)
 
         app.buttons["historyRange28"].tap()
-        waitForLabel(average, containing: "25 min")
+        waitForLabel(average, containing: "26 min")
         XCTAssertTrue(app.buttons["historyRange28"].isSelected)
         app.buttons["historyRange7"].tap()
-        waitForLabel(average, containing: "22 min")
+        waitForLabel(average, containing: "30 min")
     }
 
     @MainActor

@@ -38,12 +38,21 @@ struct SessionRow: View {
         }
         .padding(.vertical, 2)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel([L10n.historyRowCount(state.count), day(state.startedAt), times(state), trailing(state)].joined(separator: ", "))
+        .accessibilityLabel(spokenLabel(state))
         .accessibilityIdentifier("sessionRow")
     }
 
+    /// Over 2 hours is also said aloud, not only shown by the tile's colour.
+    private func spokenLabel(_ state: SessionState) -> String {
+        var parts = [L10n.historyRowCount(state.count), day(state.startedAt), times(state), trailing(state)]
+        if state.status == .completed && state.exceededThreshold {
+            parts.append(L10n.completionExceeded)
+        }
+        return parts.joined(separator: ", ")
+    }
+
     private func day(_ date: Date) -> String {
-        Calendar.current.isDate(date, inSameDayAs: now) ? L10n.commonToday : Formatting.weekdayDay(date)
+        AppLocale.calendar.isDate(date, inSameDayAs: now) ? L10n.commonToday : Formatting.weekdayDay(date)
     }
 
     private func times(_ state: SessionState) -> String {
