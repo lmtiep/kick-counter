@@ -23,15 +23,12 @@ struct KicksView: View {
     @State private var confirmingCancel = false
     @State private var showingSettings = false
     /// Kick time chips grow with Dynamic Type so "20:05" never squeezes.
-    @ScaledMetric(relativeTo: .caption) private var chipMinWidth: CGFloat = 58
+    @ScaledMetric(relativeTo: .caption) private var chipMinWidth: CGFloat = 76
+    /// Bumped only when a tap on this screen added a movement: restoring a session
+    /// or a count changed elsewhere (Live Activity, widget) never vibrates.
+    @State private var tapFeedback = 0
 
     private var count: Int { coordinator.activeSession?.count ?? 0 }
-
-    /// Movements shown on the dial, including the 10th once the session is done:
-    /// drives the tap vibration (only when it grows, so not on undo or reset).
-    private var countedMovements: Int {
-        coordinator.activeSession?.count ?? coordinator.completedSession?.count ?? 0
-    }
 
     private var dialState: KickDialState {
         if coordinator.activeSession != nil { return .running }
@@ -61,7 +58,14 @@ struct KicksView: View {
                         target: SessionRules.targetCount,
                         startedAt: coordinator.activeSession?.startedAt
                     ) {
-                        Task { await coordinator.recordKick() }
+                        Task {
+                            switch await coordinator.recordKick() {
+                            case .added, .completed:
+                                if hapticsEnabled { tapFeedback += 1 }
+                            case .ignoredDebounce, .ignoredInactive:
+                                break
+                            }
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.top, 18)
@@ -95,9 +99,7 @@ struct KicksView: View {
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
             // A light tap for every counted movement, when turned on (spec §4.6).
-            .sensoryFeedback(trigger: countedMovements) { old, new in
-                hapticsEnabled && new > old ? .impact(weight: .light) : nil
-            }
+            .sensoryFeedback(.impact(weight: .light), trigger: tapFeedback)
             .confirmationDialog(L10n.counterCancelConfirmTitle, isPresented: $confirmingCancel, titleVisibility: .visible) {
                 Button(L10n.counterCancel, role: .destructive) {
                     Task { await coordinator.cancelSession() }
@@ -157,6 +159,7 @@ struct KicksView: View {
                 .padding(.vertical, 6)
                 .background(Capsule().fill(.luna(.surfaceAlt)))
                 .frame(minHeight: 44, alignment: .leading)
+                .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("kickReminderPill")
@@ -179,6 +182,8 @@ struct KicksView: View {
                     ForEach(Array(session.kicks.enumerated()), id: \.offset) { _, time in
                         Text(Formatting.time(time))
                             .font(.luna(.small))
+                            .lineLimit(1)
+                            .fixedSize()
                             .monospacedDigit()
                             .foregroundStyle(.luna(.articleText))
                             .padding(.horizontal, 9)
@@ -196,11 +201,15 @@ struct KicksView: View {
 
     @ViewBuilder
     private func sessionButtons(_ session: SessionState) -> some View {
-        Button(L10n.counterUndo) { Task { await coordinator.undo() } }
+        Button { Task { await coordinator.undo() } } label: {
+            Text(L10n.counterUndo).lineLimit(1).fixedSize(horizontal: true, vertical: false)
+        }
             .buttonStyle(.pill(.light, fullWidth: false, height: 44))
             .disabled(session.count == 0)
             .accessibilityIdentifier("undoButton")
-        Button(L10n.counterCancel) { confirmingCancel = true }
+        Button { confirmingCancel = true } label: {
+            Text(L10n.counterCancel).lineLimit(1).fixedSize(horizontal: true, vertical: false)
+        }
             .buttonStyle(.pill(.dark, fullWidth: false, height: 44))
             .accessibilityIdentifier("cancelSessionButton")
     }

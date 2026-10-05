@@ -6,6 +6,7 @@ final class KicksUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    @MainActor
     private func tapKick(_ app: XCUIApplication, times: Int) {
         let kick = app.buttons["kickButton"]
         XCTAssertTrue(kick.waitForExistence(timeout: 10))
@@ -102,6 +103,8 @@ final class KicksUITests: XCTestCase {
             if !dark {
                 let cardiff = app.descendants(matching: .any)["kicksCardiffCard"]
                 app.scrollUntilHittable(cardiff)
+                // The card can count as hittable under the floating tab bar.
+                app.swipeUp()
                 attachScreenshot(app, "kicks-bottom-\(suffix)")
             }
             app.terminate()

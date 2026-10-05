@@ -766,6 +766,23 @@
         }
       }
     },
+    "common.underOneMinute": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "<1 min"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "<1 phút"
+          }
+        }
+      }
+    },
     "completion.done": {
       "extractionState": "manual",
       "localizations": {

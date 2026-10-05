@@ -433,4 +433,6 @@ enum L10n {
     static var kickSettingsGoal: String { t("kickSettings.goal") }
     /// Today's bar in the charts: "Today" / "Nay".
     static var historyToday: String { t("history.today") }
+    /// Under a minute on the done dial, instead of "0 min".
+    static var underOneMinute: String { t("common.underOneMinute") }
 }

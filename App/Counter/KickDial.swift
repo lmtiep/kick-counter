@@ -21,6 +21,7 @@ struct KickDial: View {
     let action: () -> Void
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.colorScheme) private var colorScheme
     /// Bumped only when a movement is added (not on undo or reset), so the ripple
     /// marks counted taps only.
     @State private var tapPulse = 0
@@ -43,7 +44,8 @@ struct KickDial: View {
                 }
                 Circle()
                     .fill(.luna(coreFill))
-                    .shadow(color: Color.luna(.pregOnSoft).opacity(0.45), radius: 15, y: 14)
+                    // A warm drop shadow in light mode; in dark mode it would glow.
+                    .shadow(color: colorScheme == .dark ? Color.black.opacity(0.35) : Color.luna(.pregOnSoft).opacity(0.45), radius: 15, y: 14)
                     .overlay { RippleRing(trigger: tapPulse) }
                     .overlay {
                         coreContent
@@ -123,7 +125,7 @@ struct KickDial: View {
                     .lunaLabelStyle(.onAccent)
                 Text(total, format: .number)
                     .font(.luna(.doneCount))
-                Text(L10n.counterDoneDetail(Formatting.minutes(duration / 60)))
+                Text(L10n.counterDoneDetail(duration < 60 ? L10n.underOneMinute : Formatting.minutes(duration / 60)))
                     .font(.luna(.body))
             }
             .foregroundStyle(.luna(.onAccent))
