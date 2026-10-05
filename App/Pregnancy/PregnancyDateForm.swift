@@ -38,7 +38,7 @@ struct PregnancyDateForm: View {
                 Text(source == .dueDate ? L10n.pregnancyDateHintDueDate : L10n.pregnancyDateHintLMP)
                 if source == .lmp {
                     Text(L10n.pregnancyDateEstimatedDue(
-                        PregnancyDates.dueDate(fromLMP: date).formatted(date: .long, time: .omitted)
+                        Formatting.longDate(PregnancyDates.dueDate(fromLMP: date))
                     ))
                     .fontWeight(.semibold)
                     .accessibilityIdentifier("pregnancyEstimatedDue")

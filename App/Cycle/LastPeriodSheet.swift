@@ -1,7 +1,7 @@
 import KickCore
 import SwiftUI
 
-/// "When did your last period start?" — from the empty Cycle tab.
+/// "When did your last period start?" — from the empty Today screen (spec §4.9).
 struct LastPeriodSheet: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(\.dismiss) private var dismiss
@@ -16,28 +16,39 @@ struct LastPeriodSheet: View {
     }
 
     var body: some View {
-        NavigationStack {
-            Form {
-                LastPeriodPicker(date: $date, now: now)
-            }
-            .navigationTitle(L10n.lastPeriodTitle)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(L10n.commonCancel) { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(L10n.commonSave) { Task { await save() } }
-                        .disabled(saving)
-                        .accessibilityIdentifier("lastPeriodSave")
-                }
-            }
-            .alert(failure.map(L10n.cycleFailure) ?? "", isPresented: Binding(
-                get: { failure != nil },
-                set: { if !$0 { failure = nil } }
-            )) {
-                Button(L10n.commonOK) {}
-            }
+        LunaSheet(title: L10n.lastPeriodTitle) {
+            LunaSheetSectionTitle(title: L10n.lastPeriodDate)
+            DatePicker(
+                L10n.lastPeriodDate,
+                selection: $date,
+                in: CycleRules.lastPeriodRange(now: now, calendar: .current),
+                displayedComponents: .date
+            )
+            .datePickerStyle(.wheel)
+            .labelsHidden()
+            .frame(maxWidth: .infinity)
+            .accessibilityLabel(L10n.lastPeriodDate)
+            .accessibilityIdentifier("lastPeriodPicker")
+            .lunaCard(padding: 8)
+            Text(L10n.lastPeriodHint)
+                .font(.luna(.small))
+                .foregroundStyle(.luna(.textSecondary))
+                .padding(.top, 8)
+            Button(L10n.commonSave) { Task { await save() } }
+                .buttonStyle(.pill(.filled(.cycleStrong)))
+                .disabled(saving)
+                .padding(.top, 20)
+                .accessibilityIdentifier("lastPeriodSave")
+            Button(L10n.commonCancel) { dismiss() }
+                .buttonStyle(.pill(.text(.textSecondary), height: 44))
+                .accessibilityIdentifier("lastPeriodCancel")
+        }
+        .lunaSheetPresentation()
+        .alert(failure.map(L10n.cycleFailure) ?? "", isPresented: Binding(
+            get: { failure != nil },
+            set: { if !$0 { failure = nil } }
+        )) {
+            Button(L10n.commonOK) {}
         }
     }
 
@@ -54,7 +65,7 @@ struct LastPeriodSheet: View {
 }
 
 /// Wheel picker for the first day of the last period (the past year up to
-/// today). A `Section`: place it inside a `Form`. Shared with onboarding.
+/// today). A `Section`: place it inside a `Form`. Used by onboarding's "Another day".
 struct LastPeriodPicker: View {
     @Binding var date: Date
     let now: Date

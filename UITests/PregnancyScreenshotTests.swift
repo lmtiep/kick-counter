@@ -104,7 +104,7 @@ final class PregnancyScreenshotTests: XCTestCase {
 
     @MainActor
     func testEmptyStateScreens() {
-        for (language, dark) in [("vi", false), ("vi", true), ("en", false)] {
+        for (language, dark) in UITestVariants.all {
             let suffix = "\(language)-\(dark ? "dark" : "light")"
             let app = XCUIApplication.launchPinned(language: language, dark: dark)
             let addDates = app.buttons["pregnancyAddDateButton"]
@@ -121,7 +121,7 @@ final class PregnancyScreenshotTests: XCTestCase {
 
     @MainActor
     func testAppointmentsScreens() {
-        for (language, dark) in [("vi", false), ("vi", true), ("en", false)] {
+        for (language, dark) in UITestVariants.all {
             let suffix = "\(language)-\(dark ? "dark" : "light")"
             let app = XCUIApplication.launchPinned(language: language, dark: dark, dueDate: UITestDates.dueAtWeek24)
             let card = app.buttons["nextAppointmentCard"]

@@ -124,6 +124,14 @@ final class CycleScreenshotTests: XCTestCase {
             button.tap()
             XCTAssertTrue(app.buttons["imPregnantSave"].waitForExistence(timeout: 5))
             attachScreenshot(app, "im-pregnant-\(suffix)")
+            if !dark {
+                app.buttons["imPregnantSourceDue"].tap()
+                attachScreenshot(app, "im-pregnant-due-\(suffix)")
+                app.buttons["imPregnantDate"].tap()
+                XCTAssertTrue(app.datePickers["imPregnantPicker"].waitForExistence(timeout: 5))
+                attachScreenshot(app, "im-pregnant-picker-\(suffix)")
+                app.buttons[language == "vi" ? "Xong" : "Done"].tap()
+            }
             if language == "vi", !dark {
                 app.buttons["imPregnantSave"].tap()
                 XCTAssertTrue(app.descendants(matching: .any)["weekProgressCard"].waitForExistence(timeout: 10))

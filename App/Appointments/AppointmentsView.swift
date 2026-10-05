@@ -34,26 +34,32 @@ struct AppointmentsView: View {
                 Section {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(L10n.appointmentsNotificationsOff)
-                            .font(.footnote)
+                            .font(.luna(.caption))
+                            .foregroundStyle(.luna(.textPrimary))
                         Button(L10n.settingsOpenSettings) {
                             if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
                         }
-                        .font(.footnote.weight(.semibold))
+                        .font(.luna(.captionStrong))
+                        .tint(.luna(.pregStrong))
                     }
+                    .listRowBackground(Color.luna(.card))
                 }
             }
 
             Section {
                 if appointments.upcoming.isEmpty {
                     Text(L10n.appointmentsEmpty)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.luna(.caption))
+                        .foregroundStyle(.luna(.textSecondary))
+                        .listRowBackground(Color.luna(.card))
                 }
                 ForEach(appointments.upcoming) { record in
                     row(for: record)
                 }
             } header: {
                 Text(L10n.appointmentsUpcoming)
+                    .font(.luna(.captionStrong))
+                    .foregroundStyle(.luna(.textSecondary))
                     .accessibilityIdentifier("upcomingHeader")
             }
 
@@ -67,9 +73,12 @@ struct AppointmentsView: View {
                                 milestoneID: milestone.id
                             )
                         }
+                        .listRowBackground(Color.luna(.card))
                     }
                 } header: {
                     Text(L10n.appointmentsMilestones)
+                        .font(.luna(.captionStrong))
+                        .foregroundStyle(.luna(.textSecondary))
                         .accessibilityIdentifier("milestonesHeader")
                 }
             }
@@ -81,10 +90,23 @@ struct AppointmentsView: View {
                     }
                 } header: {
                     Text(L10n.appointmentsPast)
+                        .font(.luna(.captionStrong))
+                        .foregroundStyle(.luna(.textSecondary))
                         .accessibilityIdentifier("pastHeader")
                 }
             }
         }
+        .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        // Content scrolled up stays out from under the status bar (as on Kicks and Profile).
+        .safeAreaInset(edge: .top, spacing: 0) {
+            Color.clear
+                .frame(height: 0)
+                .background(Color.luna(.background).ignoresSafeArea(edges: .top))
+                .accessibilityHidden(true)
+        }
+        .background(.luna(.background))
+        .tint(.luna(.pregStrong))
         .navigationTitle(L10n.appointmentsTitle)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -98,6 +120,7 @@ struct AppointmentsView: View {
         }
         .sheet(item: $editor) { mode in
             AppointmentEditorSheet(mode: mode)
+                .lunaSheetPresentation()
         }
         .confirmationDialog(
             L10n.appointmentsDeleteConfirmTitle,
@@ -126,6 +149,7 @@ struct AppointmentsView: View {
         }
         .tint(.primary)
         .accessibilityIdentifier("appointmentRow")
+        .listRowBackground(Color.luna(.card))
         .swipeActions(edge: .trailing) {
             Button(role: .destructive) {
                 pendingDelete = record

@@ -2738,6 +2738,23 @@
         }
       }
     },
+    "dayLog.title.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today, %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay, %@"
+          }
+        }
+      }
+    },
     "endPregnancy.body": {
       "extractionState": "manual",
       "localizations": {
@@ -3214,19 +3231,70 @@
         }
       }
     },
-    "imPregnant.body": {
+    "imPregnant.byDue": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your due date is worked out from the first day of your last period. Check the date, then tap Save."
+            "value": "By due date"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ngày dự sinh được tính từ ngày đầu tiên của kỳ kinh cuối. Hãy kiểm tra lại ngày rồi bấm Lưu."
+            "value": "Theo ngày dự sinh"
+          }
+        }
+      }
+    },
+    "imPregnant.byLMP": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By last period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo kỳ kinh cuối"
+          }
+        }
+      }
+    },
+    "imPregnant.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on pregnancy mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật chế độ mang thai"
+          }
+        }
+      }
+    },
+    "imPregnant.earlier": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One day earlier"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sớm hơn 1 ngày"
           }
         }
       }
@@ -3237,13 +3305,64 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your cycle history is kept. You can switch back in Settings."
+            "value": "Your cycle history is kept. You can switch back in Profile."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dữ liệu chu kỳ vẫn được giữ lại. Bạn có thể đổi lại trong Cài đặt."
+            "value": "Dữ liệu chu kỳ vẫn được giữ lại. Bạn có thể đổi lại trong Cá nhân."
+          }
+        }
+      }
+    },
+    "imPregnant.later": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One day later"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muộn hơn 1 ngày"
+          }
+        }
+      }
+    },
+    "imPregnant.result": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today: %1$@ · due %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay: %1$@ · dự sinh %2$@"
+          }
+        }
+      }
+    },
+    "imPregnant.switchBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom will switch to pregnancy tracking: weeks, your baby's size and kick counting."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom sẽ chuyển sang theo dõi thai kỳ: tuần thai, kích thước của bé và đếm cử động."
           }
         }
       }

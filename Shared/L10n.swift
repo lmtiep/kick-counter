@@ -212,7 +212,6 @@ enum L10n {
     static var cycleImPregnant: String { t("cycle.imPregnant") }
     static var cycleStatusLate: String { t("cycle.status.late") }
     static var imPregnantTitle: String { t("imPregnant.title") }
-    static var imPregnantBody: String { t("imPregnant.body") }
     static var imPregnantKeepsData: String { t("imPregnant.keepsData") }
     static var cycleDisclaimer: String { t("cycle.disclaimer") }
     static var cycleNotificationsOff: String { t("cycle.notificationsOff") }
@@ -461,4 +460,19 @@ enum L10n {
     static var endPregnancyBody: String { t("endPregnancy.body") }
     static var endPregnancyConfirm: String { t("endPregnancy.confirm") }
     static var commonNotNow: String { t("common.notNow") }
+
+    // MARK: - Phase 4: sheets
+
+    /// Day log title for today: "Today, Oct 4".
+    static func dayLogTitleToday(_ date: String) -> String { String(format: t("dayLog.title.today"), date) }
+    static var imPregnantSwitchBody: String { t("imPregnant.switchBody") }
+    static var imPregnantByDue: String { t("imPregnant.byDue") }
+    static var imPregnantByLMP: String { t("imPregnant.byLMP") }
+    static var imPregnantEarlier: String { t("imPregnant.earlier") }
+    static var imPregnantLater: String { t("imPregnant.later") }
+    /// "Today: 4 weeks, 4 days · due June 7, 2027".
+    static func imPregnantResult(_ weeks: String, _ due: String) -> String {
+        String(format: t("imPregnant.result"), weeks, due)
+    }
+    static var imPregnantConfirm: String { t("imPregnant.confirm") }
 }

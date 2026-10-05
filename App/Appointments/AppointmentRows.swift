@@ -8,20 +8,21 @@ struct AppointmentRow: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 8) {
                 Text(record.title)
-                    .font(.body.weight(.semibold))
+                    .font(.luna(.bodyStrong))
+                    .foregroundStyle(.luna(.textPrimary))
                 if record.isDone {
                     Label(L10n.appointmentsStatusDone, systemImage: "checkmark.circle.fill")
-                        .font(.caption)
-                        .foregroundStyle(.green)
+                        .font(.luna(.label))
+                        .foregroundStyle(.luna(.tealStrong))
                 }
             }
-            Text(record.date.formatted(date: .abbreviated, time: .shortened))
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+            Text(Formatting.dateTime(record.date))
+                .font(.luna(.caption))
+                .foregroundStyle(.luna(.textSecondary))
             if !record.note.isEmpty {
                 Text(record.note)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .font(.luna(.small))
+                    .foregroundStyle(.luna(.textSecondary))
                     .lineLimit(2)
             }
         }
@@ -39,13 +40,14 @@ struct MilestoneRow: View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(milestone.title.text(language))
-                    .font(.subheadline.weight(.semibold))
+                    .font(.luna(.bodyStrong))
+                    .foregroundStyle(.luna(.textPrimary))
                 Text(L10n.milestoneWeeks(milestone.fromWeek, milestone.toWeek))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.luna(.label))
+                    .foregroundStyle(.luna(.pregStrong))
                 Text(milestone.detail.text(language))
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .font(.luna(.small))
+                    .foregroundStyle(.luna(.textSecondary))
                 if !milestone.reviewed {
                     PendingReviewBadge()
                 }
@@ -55,7 +57,10 @@ struct MilestoneRow: View {
             Button(action: onAdd) {
                 Label(L10n.appointmentsMilestoneAdd, systemImage: "calendar.badge.plus")
                     .labelStyle(.iconOnly)
-                    .font(.title3)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundStyle(.luna(.pregOnSoft))
+                    .frame(width: 44, height: 44)
+                    .background(Circle().fill(.luna(.pregSoft)))
             }
             .buttonStyle(.borderless)
             .accessibilityIdentifier("addMilestoneButton")

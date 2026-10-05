@@ -223,7 +223,7 @@ final class CycleUITests: XCTestCase {
         let pregnant = app.segmentedControls.buttons["Pregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 10))
         pregnant.tap()
-        let cancel = app.navigationBars.buttons["Cancel"]
+        let cancel = app.buttons["imPregnantCancel"]
         XCTAssertTrue(cancel.waitForExistence(timeout: 5))
         cancel.tap()
 
