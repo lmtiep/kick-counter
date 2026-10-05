@@ -98,13 +98,8 @@ struct AppointmentsView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        // Content scrolled up stays out from under the status bar (as on Kicks and Profile).
-        .safeAreaInset(edge: .top, spacing: 0) {
-            Color.clear
-                .frame(height: 0)
-                .background(Color.luna(.background).ignoresSafeArea(edges: .top))
-                .accessibilityHidden(true)
-        }
+        // Content scrolled up stays out from under the status bar.
+        .lunaStatusBarBackdrop()
         .background(.luna(.background))
         .tint(.luna(.pregStrong))
         .navigationTitle(L10n.appointmentsTitle)
@@ -164,7 +159,7 @@ struct AppointmentsView: View {
                 } label: {
                     Label(L10n.appointmentsMarkDone, systemImage: "checkmark")
                 }
-                .tint(.green)
+                .tint(.luna(.tealStrong))
             }
         }
     }

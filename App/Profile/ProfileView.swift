@@ -75,13 +75,8 @@ struct ProfileView: View {
                 .padding(.top, 10)
                 .padding(.bottom, 24)
             }
-            // Content scrolled up stays out from under the status bar (as on Kicks).
-            .safeAreaInset(edge: .top, spacing: 0) {
-                Color.clear
-                    .frame(height: 0)
-                    .background(Color.luna(.background).ignoresSafeArea(edges: .top))
-                    .accessibilityHidden(true)
-            }
+            // Content scrolled up stays out from under the status bar.
+            .lunaStatusBarBackdrop()
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showingPregnancyDates) { PregnancyDateSheet() }

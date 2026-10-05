@@ -55,6 +55,10 @@ private struct PillButtonLabel: View {
     let fullWidth: Bool
     let height: CGFloat
     @Environment(\.isEnabled) private var isEnabled
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    /// The 98 % press shrink; not with Reduce Motion or in UI tests (as KickDial).
+    private var animates: Bool { !reduceMotion && LunaMotion.isEnabled }
 
     private var isOnboarding: Bool {
         if case .onboarding = kind { return true }
@@ -75,9 +79,9 @@ private struct PillButtonLabel: View {
                 }
             }
             .contentShape(Capsule())
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+            .scaleEffect(animates && configuration.isPressed ? 0.98 : 1)
             .opacity(isEnabled ? 1 : 0.35)
-            .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
+            .animation(animates ? .easeOut(duration: 0.12) : nil, value: configuration.isPressed)
     }
 }
 

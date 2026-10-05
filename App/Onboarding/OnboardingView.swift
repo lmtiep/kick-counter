@@ -10,7 +10,10 @@ import SwiftUI
 /// no mode, settings, period or pregnancy dates are saved. The language
 /// choice still applies, as a view preference.
 struct OnboardingView: View {
-    let replay: Bool
+    /// Captured once, when the view first appears: RootView recomputes the
+    /// `replay` argument while the cover is being dismissed, and a second tap
+    /// then must not fall through to the saving path.
+    @State private var isReplay: Bool
     let onFinish: () -> Void
 
     @Environment(CycleCoordinator.self) private var cycle
@@ -35,7 +38,7 @@ struct OnboardingView: View {
     }
 
     init(replay: Bool = false, onFinish: @escaping () -> Void) {
-        self.replay = replay
+        _isReplay = State(initialValue: replay)
         self.onFinish = onFinish
         let now = AppClock.now()
         self.now = now
@@ -517,7 +520,7 @@ struct OnboardingView: View {
     /// period instead of the first-run defaults (the due date already starts
     /// from the stored one, see `init`).
     private func startFromCurrentValues() {
-        guard replay else { return }
+        guard isReplay else { return }
         cycleLength = cycle.settings.typicalCycleLength
         if let start = cycle.forecast?.currentPeriodStart {
             lastPeriod = AppLocale.calendar.startOfDay(for: start)
@@ -526,7 +529,7 @@ struct OnboardingView: View {
 
     private func finishPregnancy(savingDates: Bool) {
         // Replaying never changes the mode or the pregnancy dates.
-        guard !replay else { return onFinish() }
+        guard !isReplay else { return onFinish() }
         AppMode.save(.pregnant, to: AppGroup.defaults)
         if savingDates {
             PregnancyProfile.save(source: dateSelection.source, date: dateSelection.date, to: AppGroup.defaults)
@@ -538,7 +541,7 @@ struct OnboardingView: View {
     /// skipped — the last period. A failed save shows on Today.
     private func finishCycle(savingLastPeriod: Bool) async {
         // Replaying never changes the mode, the cycle settings or the periods.
-        guard !replay else { return onFinish() }
+        guard !isReplay else { return onFinish() }
         saving = true
         defer { saving = false }
         // CycleSettings lengths are set only through its clamping init.

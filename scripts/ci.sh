@@ -30,6 +30,18 @@ XCODE_ACTION="test"
 UI_TEST_TARGET="KickCounterUITests"
 ONLY_TESTING_ARGS=()
 TRAILER="$(git log -1 --format=%B | sed -n 's/^CI-Only-Testing:[[:space:]]*//p' | head -1)"
+# The trailer only scopes branch pushes: pull requests, manual runs and main
+# always run the full suite. GITHUB_EVENT_NAME / GITHUB_REF are default
+# GitHub Actions variables; run locally (unset), this counts as a branch push.
+if [[ -n "$TRAILER" ]]; then
+  if [[ "${GITHUB_EVENT_NAME:-push}" != "push" ]]; then
+    echo "==> CI-Only-Testing trailer ignored: event is ${GITHUB_EVENT_NAME}"
+    TRAILER=""
+  elif [[ "${GITHUB_REF:-}" == "refs/heads/main" ]]; then
+    echo "==> CI-Only-Testing trailer ignored: push to main"
+    TRAILER=""
+  fi
+fi
 if [[ -n "$TRAILER" ]]; then
   VALID=1
   CLASSES=()

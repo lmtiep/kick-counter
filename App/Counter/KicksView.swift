@@ -90,12 +90,7 @@ struct KicksView: View {
                 .padding(.bottom, 24)
             }
             // Content scrolled up stays out from under the status bar.
-            .safeAreaInset(edge: .top, spacing: 0) {
-                Color.clear
-                    .frame(height: 0)
-                    .background(Color.luna(.background).ignoresSafeArea(edges: .top))
-                    .accessibilityHidden(true)
-            }
+            .lunaStatusBarBackdrop()
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
             // A light tap for every counted movement, when turned on (spec §4.6).

@@ -47,13 +47,8 @@ struct MedicalInfoView: View {
             }
             .padding(20)
         }
-        // Content scrolled up stays out from under the status bar (as on Kicks and Profile).
-        .safeAreaInset(edge: .top, spacing: 0) {
-            Color.clear
-                .frame(height: 0)
-                .background(Color.luna(.background).ignoresSafeArea(edges: .top))
-                .accessibilityHidden(true)
-        }
+        // Content scrolled up stays out from under the status bar.
+        .lunaStatusBarBackdrop()
         .background(.luna(.background))
         .navigationTitle(L10n.medicalTitle)
         .navigationBarTitleDisplayMode(.inline)

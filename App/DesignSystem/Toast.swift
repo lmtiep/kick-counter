@@ -31,7 +31,7 @@ private struct ToastModifier: ViewModifier {
                         }
                 }
             }
-            .animation(.easeOut(duration: 0.2), value: message)
+            .animation(LunaMotion.isEnabled ? .easeOut(duration: 0.2) : nil, value: message)
     }
 }
 

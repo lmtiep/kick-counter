@@ -37,6 +37,8 @@ struct CycleCalendarView: View {
                 }
                 .padding(.bottom, 24)
             }
+            // Content scrolled up stays out from under the status bar.
+            .lunaStatusBarBackdrop()
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
             .simultaneousGesture(
