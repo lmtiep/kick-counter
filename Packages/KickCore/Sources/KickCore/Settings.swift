@@ -30,6 +30,8 @@ public enum SettingsKey {
     public static let cycleRemindersEnabled = "cycleRemindersEnabled"
     /// `AppLanguage` raw value (`"system"`, `"vi"`, `"en"`). Missing means `system`.
     public static let appLanguage = "appLanguage"
+    /// A short vibration on every counted tap. Missing means on.
+    public static let kickHapticsEnabled = "kickHapticsEnabled"
 }
 
 public enum SettingsDefault {

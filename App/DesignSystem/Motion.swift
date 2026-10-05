@@ -131,7 +131,8 @@ private struct RippleValue {
 /// `trigger` changes (each counted kick).
 struct RippleRing<Trigger: Equatable>: View {
     let trigger: Trigger
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    // Not private: keeps the memberwise init usable from other files.
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     var body: some View {
         if !reduceMotion && LunaMotion.isEnabled {

@@ -72,7 +72,7 @@ struct RootView: View {
                     onOpenProfile: { selectedTab = .profile }
                 )
                 .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
-                CounterView()
+                KicksView()
                     .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks)
             }
             SettingsView()

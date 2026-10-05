@@ -70,9 +70,7 @@ enum L10n {
     static var weekPendingReview: String { t("week.pendingReview") }
 
     static var counterTitle: String { t("counter.title") }
-    static var counterStart: String { t("counter.start") }
     static var counterTapHint: String { t("counter.tapHint") }
-    static var counterElapsed: String { t("counter.elapsed") }
     static var counterUndo: String { t("counter.undo") }
     static var counterCancel: String { t("counter.cancel") }
     static var counterCancelConfirmTitle: String { t("counter.cancel.confirm.title") }
@@ -80,8 +78,6 @@ enum L10n {
     static var counterKeepCounting: String { t("counter.keepCounting") }
     static var counterA11yButton: String { t("counter.a11y.button") }
     static func counterA11yValue(_ count: Int, _ target: Int) -> String { String(format: t("counter.a11y.value"), count, target) }
-    static func counterProgress(_ count: Int, _ target: Int) -> String { String(format: t("counter.progress"), count, target) }
-    static func counterWeek(_ week: GestationalWeek) -> String { String(format: t("counter.week"), week.weeks, week.days) }
 
     static var overdueTitle: String { t("overdue.title") }
     static var overdueBody: String { t("overdue.body") }
@@ -411,4 +407,30 @@ enum L10n {
     static var commonClose: String { t("common.close") }
     /// "About 600 g": the Hadlock 50th percentile is an estimate, not a measurement.
     static func weekAbout(_ value: String) -> String { String(format: t("week.about"), value) }
+
+    // MARK: - Phase 4: kicks
+
+    /// "Week 24 · count to 10 movements".
+    static func counterSubtitle(_ week: Int, _ target: Int) -> String { String(format: t("counter.subtitle"), week, target) }
+    static func counterSubtitleNoWeek(_ target: Int) -> String { String(format: t("counter.subtitle.noWeek"), target) }
+    static var counterSettings: String { t("counter.settings") }
+    static func counterReminderPill(_ time: String) -> String { String(format: t("counter.reminderPill"), time) }
+    static var counterReminderOff: String { t("counter.reminderOff") }
+    static var counterIdleTitle: String { t("counter.idle.title") }
+    static var counterIdleBody: String { t("counter.idle.body") }
+    static func counterOfTarget(_ target: Int) -> String { String(format: t("counter.ofTarget"), target) }
+    static var counterDoneLabel: String { t("counter.doneLabel") }
+    static func counterDoneDetail(_ duration: String) -> String { String(format: t("counter.doneDetail"), duration) }
+    /// Vietnamese emergency number; the button is only shown in Vietnamese.
+    static var counterCall115: String { t("counter.call115") }
+    static var kicksLastSevenDays: String { t("kicks.last7") }
+    static var kicksCardiffTitle: String { t("kicks.cardiff.title") }
+    static var kicksCardiffBody: String { t("kicks.cardiff.body") }
+    static var kickSettingsTitle: String { t("kickSettings.title") }
+    static var kickSettingsReminderDetail: String { t("kickSettings.reminder.detail") }
+    static var kickSettingsHaptics: String { t("kickSettings.haptics") }
+    static var kickSettingsHapticsDetail: String { t("kickSettings.haptics.detail") }
+    static var kickSettingsGoal: String { t("kickSettings.goal") }
+    /// Today's bar in the charts: "Today" / "Nay".
+    static var historyToday: String { t("history.today") }
 }

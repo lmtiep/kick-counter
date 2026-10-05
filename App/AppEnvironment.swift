@@ -39,8 +39,14 @@ struct AppEnvironment {
         let notificationCenter: NotificationCenterClient = isUITesting ? DisabledNotificationCenter() : SystemNotificationCenter()
         let liveActivities: LiveActivityManaging = isUITesting ? NoopLiveActivityManager() : SystemLiveActivityManager()
         let notifications = NotificationScheduler(center: notificationCenter)
+        let kickStore = KickStore(context: container.mainContext)
+        #if DEBUG
+        if isUITesting, AppClock.launchOptions.seedOverdueSession {
+            try seedOverdueSession(into: kickStore)
+        }
+        #endif
         let coordinator = KickCoordinator(
-            store: KickStore(context: container.mainContext),
+            store: kickStore,
             notifications: notifications,
             liveActivities: liveActivities,
             overdueText: ReminderTexts.overdue
@@ -83,6 +89,16 @@ struct AppEnvironment {
         }
         for log in records.logs {
             try store.saveLog(log, today: now)
+        }
+    }
+
+    /// `-uiTesting -seedOverdueSession`: a session started 2 h 5 min ago on the real
+    /// clock (counting never uses the pinned one) with 4 movements, so the 2-hour
+    /// card shows on Kicks.
+    private static func seedOverdueSession(into store: KickStore) throws {
+        let start = Date().addingTimeInterval(-125 * 60)
+        for minutes in [0.0, 15, 45, 80] {
+            _ = try store.addKick(at: start.addingTimeInterval(minutes * 60))
         }
     }
     #endif

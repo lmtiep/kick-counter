@@ -43,7 +43,7 @@ final class KickCounterUITests: XCTestCase {
     /// Waits for the kick button's accessibility value to become `expected` and asserts it.
     ///
     /// Counter mutations (`recordKick`, `undo`, `cancelSession`) all run inside an async
-    /// `Task` in `CounterView`, so the accessibility value updates asynchronously after
+    /// `Task` in `KicksView`, so the accessibility value updates asynchronously after
     /// the triggering tap. Reading `kickValue` immediately after a tap races that update and
     /// can observe the stale value (seen flaking on CI); wait for the predicate instead of
     /// asserting straight away.

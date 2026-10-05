@@ -87,6 +87,17 @@ final class ScreenshotTests: XCTestCase {
         let app = launch(language: "en")
         tapKick(app, times: 2)
         snap(app, "counter-2-en")
+        app.terminate()
+
+        // Spec §5: Dynamic Type AX5 on Kicks, idle and counting.
+        let large = XCUIApplication.launchPinned(language: "vi", dueDate: UITestDates.dueAtWeek38, largestText: true)
+        large.openTab(.kicks)
+        XCTAssertTrue(large.buttons["kickButton"].waitForExistence(timeout: 10))
+        snap(large, "kicks-idle-vi-ax5")
+        tapKick(large, times: 3)
+        snap(large, "kicks-running-vi-ax5")
+        large.swipeUp()
+        snap(large, "kicks-running-vi-ax5-scrolled")
     }
 
     /// The largest accessibility text size: tab labels stay 11 pt and the

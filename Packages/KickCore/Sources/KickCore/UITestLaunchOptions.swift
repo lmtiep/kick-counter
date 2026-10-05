@@ -6,17 +6,20 @@ import Foundation
 /// - `-seedDueDate <ISO8601>` stores that due date at launch.
 /// - `-seedCycles <scenario>` switches to trying-to-conceive mode and stores
 ///   that `CycleSeedScenario`'s periods and logs, relative to the pinned clock.
+/// - `-seedOverdueSession` starts a kick session 2 h 5 min ago (real clock) with 4 movements.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
     public let seedDueDate: Date?
     public let seedCycles: CycleSeedScenario?
+    public let seedOverdueSession: Bool
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
         fixedNow = isUITesting ? Self.date(after: "-fixedNow", in: arguments) : nil
         seedDueDate = isUITesting ? Self.date(after: "-seedDueDate", in: arguments) : nil
         seedCycles = isUITesting ? Self.value(after: "-seedCycles", in: arguments).flatMap(CycleSeedScenario.init(rawValue:)) : nil
+        seedOverdueSession = isUITesting && arguments.contains("-seedOverdueSession")
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {
