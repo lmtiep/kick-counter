@@ -61,9 +61,7 @@ struct KickSettingsSheet: View {
                 .padding(.top, 18)
                 .accessibilityIdentifier("kickSettingsDone")
         }
-        .onChange(of: reminderEnabled) { Task { await applyReminder() } }
-        .onChange(of: reminderHour) { Task { await applyReminder() } }
-        .onChange(of: reminderMinute) { Task { await applyReminder() } }
+        .onChange(of: reminder) { _, settings in Task { await applyReminder(settings) } }
     }
 
     private func toggleRow(title: String, detail: String, isOn: Binding<Bool>, identifier: String) -> some View {
@@ -83,26 +81,18 @@ struct KickSettingsSheet: View {
         .accessibilityIdentifier(identifier)
     }
 
+    private var reminder: DailyKickReminder.Settings {
+        DailyKickReminder.Settings(enabled: reminderEnabled, hour: reminderHour, minute: reminderMinute)
+    }
+
     private var reminderTime: Binding<Date> {
-        Binding(
-            get: { Calendar.current.date(from: DateComponents(hour: reminderHour, minute: reminderMinute)) ?? .now },
-            set: { date in
-                let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-                reminderHour = components.hour ?? SettingsDefault.reminderHour
-                reminderMinute = components.minute ?? SettingsDefault.reminderMinute
-            }
-        )
+        DailyKickReminder.timeBinding(hour: $reminderHour, minute: $reminderMinute)
     }
 
     /// Schedules or cancels the daily reminder; turns the switch back off when
     /// it can't be scheduled (usually: notifications denied).
-    private func applyReminder() async {
-        let scheduled = await coordinator.setDailyReminder(
-            enabled: reminderEnabled,
-            hour: reminderHour,
-            minute: reminderMinute,
-            text: ReminderTexts.daily
-        )
+    private func applyReminder(_ settings: DailyKickReminder.Settings) async {
+        let scheduled = await DailyKickReminder.apply(settings, with: coordinator)
         if !scheduled { reminderEnabled = false }
     }
 }

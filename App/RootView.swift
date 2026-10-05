@@ -75,7 +75,7 @@ struct RootView: View {
                 KicksView()
                     .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks)
             }
-            SettingsView()
+            ProfileView()
                 .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
         }
         // Active tab: cycleStrong / pregnancy (pregOnSoft: pregStrong fails AA at 11 pt).
@@ -94,16 +94,11 @@ struct RootView: View {
         await coordinator.updateOverdueText(ReminderTexts.overdue)
         await cycle.updateReminderTexts(ReminderTexts.cycle)
         await appointments.updateReminderText(ReminderTexts.appointment)
-        let defaults = AppGroup.defaults
-        guard defaults.bool(forKey: SettingsKey.reminderEnabled) else { return }
-        // setDailyReminder may prompt; a language change never should.
+        let reminder = DailyKickReminder.stored
+        guard reminder.enabled else { return }
+        // Enabling may prompt; a language change never should.
         guard await coordinator.notificationsAuthorized() else { return }
-        _ = await coordinator.setDailyReminder(
-            enabled: true,
-            hour: defaults.object(forKey: SettingsKey.reminderHour) as? Int ?? SettingsDefault.reminderHour,
-            minute: defaults.object(forKey: SettingsKey.reminderMinute) as? Int ?? SettingsDefault.reminderMinute,
-            text: ReminderTexts.daily
-        )
+        _ = await DailyKickReminder.apply(reminder, with: coordinator)
     }
 }
 

@@ -1,6 +1,23 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "app.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom"
+          }
+        }
+      }
+    },
     "appointments.add": {
       "extractionState": "manual",
       "localizations": {
@@ -694,6 +711,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "%ld phút"
+          }
+        }
+      }
+    },
+    "common.notNow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not now"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Để sau"
           }
         }
       }
@@ -2700,6 +2734,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bắt đầu kỳ kinh ngày này"
+          }
+        }
+      }
+    },
+    "endPregnancy.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your pregnancy data stays saved. Luna Mom will go back to cycle tracking."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu thai kỳ vẫn được lưu lại. Luna Mom sẽ quay về theo dõi chu kỳ kinh nguyệt."
+          }
+        }
+      }
+    },
+    "endPregnancy.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Return to cycle tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quay về theo dõi chu kỳ"
+          }
+        }
+      }
+    },
+    "endPregnancy.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End pregnancy tracking?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc theo dõi thai kỳ?"
           }
         }
       }
@@ -4846,6 +4931,142 @@
         }
       }
     },
+    "profile.endPregnancy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End pregnancy tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc theo dõi thai kỳ"
+          }
+        }
+      }
+    },
+    "profile.fontLicense": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Font: Be Vietnam Pro (SIL Open Font License)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phông chữ: Be Vietnam Pro (giấy phép SIL OFL)"
+          }
+        }
+      }
+    },
+    "profile.kickReminder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kick reminder"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc đếm cử động"
+          }
+        }
+      }
+    },
+    "profile.mode.cycle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi chu kỳ"
+          }
+        }
+      }
+    },
+    "profile.mode.pregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnancy mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chế độ mang thai"
+          }
+        }
+      }
+    },
+    "profile.reminderOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt"
+          }
+        }
+      }
+    },
+    "profile.replayOnboarding": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replay the introduction"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem lại phần giới thiệu"
+          }
+        }
+      }
+    },
+    "profile.switchToPregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch to pregnancy mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển sang chế độ mang thai"
+          }
+        }
+      }
+    },
     "profile.title": {
       "extractionState": "manual",
       "localizations": {
@@ -4893,23 +5114,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đến giờ đếm thai máy"
-          }
-        }
-      }
-    },
-    "settings.about.section": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thông tin"
           }
         }
       }
@@ -5152,23 +5356,6 @@
         }
       }
     },
-    "settings.pregnancy.section": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pregnancy"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thai kỳ"
-          }
-        }
-      }
-    },
     "settings.pregnancy.set": {
       "extractionState": "manual",
       "localizations": {
@@ -5216,40 +5403,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Giờ nhắc"
-          }
-        }
-      }
-    },
-    "settings.reminder.toggle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Remind me to count"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nhắc tôi đếm"
-          }
-        }
-      }
-    },
-    "settings.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cài đặt"
           }
         }
       }

@@ -100,17 +100,13 @@ enum L10n {
     static var commonOK: String { t("common.ok") }
     static var commonSave: String { t("common.save") }
 
-    static var settingsTitle: String { t("settings.title") }
     static var settingsReminderSection: String { t("settings.reminder.section") }
-    static var settingsReminderToggle: String { t("settings.reminder.toggle") }
     static var settingsReminderTime: String { t("settings.reminder.time") }
-    static var settingsPregnancySection: String { t("settings.pregnancy.section") }
     static var settingsDueDate: String { t("settings.dueDate") }
     static var settingsPermissionsSection: String { t("settings.permissions.section") }
     static var settingsNotificationsDenied: String { t("settings.notifications.denied") }
     static var settingsLiveActivitiesOff: String { t("settings.liveActivities.off") }
     static var settingsOpenSettings: String { t("settings.openSettings") }
-    static var settingsAboutSection: String { t("settings.about.section") }
     static var settingsMedicalInfo: String { t("settings.medicalInfo") }
     static var settingsVersion: String { t("settings.version") }
     static var settingsPregnancySet: String { t("settings.pregnancy.set") }
@@ -449,4 +445,20 @@ enum L10n {
     static var historyNoSession: String { t("history.noSession") }
     static var historyGuideTitle: String { t("history.guide.title") }
     static var historyGuideBody: String { t("history.guide.body") }
+
+    // MARK: - Phase 4: profile
+
+    static var appName: String { t("app.name") }
+    static var profileModePregnant: String { t("profile.mode.pregnant") }
+    static var profileModeCycle: String { t("profile.mode.cycle") }
+    static var profileEndPregnancy: String { t("profile.endPregnancy") }
+    static var profileSwitchToPregnant: String { t("profile.switchToPregnant") }
+    static var profileKickReminder: String { t("profile.kickReminder") }
+    static var profileReminderOff: String { t("profile.reminderOff") }
+    static var profileReplayOnboarding: String { t("profile.replayOnboarding") }
+    static var profileFontLicense: String { t("profile.fontLicense") }
+    static var endPregnancyTitle: String { t("endPregnancy.title") }
+    static var endPregnancyBody: String { t("endPregnancy.body") }
+    static var endPregnancyConfirm: String { t("endPregnancy.confirm") }
+    static var commonNotNow: String { t("common.notNow") }
 }

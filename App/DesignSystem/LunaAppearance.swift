@@ -44,7 +44,8 @@ enum LunaAppearance {
         segmented.selectedSegmentTintColor = .luna(.card)
         segmented.backgroundColor = .luna(.surfaceAlt)
         segmented.setTitleTextAttributes([
-            .font: UIFont.luna(size: 13, weight: .semibold, textStyle: .footnote),
+            // Capped: segments share one line, so accessibility sizes would truncate every label.
+            .font: UIFont.luna(size: 13, weight: .semibold, textStyle: .footnote, maximumPointSize: 21),
             .foregroundColor: UIColor.luna(.textPrimary),
         ], for: .normal)
     }
