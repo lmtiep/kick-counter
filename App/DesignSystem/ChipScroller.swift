@@ -1,0 +1,73 @@
+import KickCore
+import SwiftUI
+
+/// A horizontal row of chips that scrolls the chosen chip into the middle,
+/// on appear and whenever the selection changes (week detail, spec §4.5).
+struct ChipScroller<Value: Hashable>: View {
+    let values: [Value]
+    @Binding var selection: Value
+    let title: (Value) -> String
+    let identifier: (Value) -> String
+    /// What VoiceOver reads for a chip when the short title is not enough
+    /// ("Week 24" rather than "24 wks"); `nil` reads the title.
+    var accessibilityTitle: ((Value) -> String)? = nil
+    var selectedFill: LunaToken = .card
+    var selectedText: LunaToken = .textPrimary
+    var idleText: LunaToken = .pregOnSoft
+    // Not private: a private stored property would make the memberwise init private.
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+
+    var body: some View {
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(values, id: \.self) { value in
+                        let isSelected = value == selection
+                        Button {
+                            selection = value
+                        } label: {
+                            Text(title(value))
+                                .font(.luna(.bodyStrong))
+                                .foregroundStyle(.luna(isSelected ? selectedText : idleText))
+                                .padding(.horizontal, 16)
+                                .frame(minHeight: 40)
+                                .background(
+                                    Capsule().fill(isSelected ? Color.luna(selectedFill) : Color.luna(.card).opacity(0.35))
+                                )
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(accessibilityTitle?(value) ?? title(value))
+                        .accessibilityAddTraits(isSelected ? .isSelected : [])
+                        .accessibilityIdentifier(identifier(value))
+                        .id(value)
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 4)
+            }
+            .onAppear { proxy.scrollTo(selection, anchor: .center) }
+            .onChange(of: selection) { _, value in
+                withAnimation(reduceMotion || !LunaMotion.isEnabled ? nil : .easeOut(duration: 0.25)) { proxy.scrollTo(value, anchor: .center) }
+            }
+        }
+    }
+}
+
+private struct ChipScrollerPreview: View {
+    @State private var week = 24
+
+    var body: some View {
+        ChipScroller(
+            values: Array(4...42),
+            selection: $week,
+            title: { "\($0) tuần" },
+            identifier: { "weekChip-\($0)" }
+        )
+        .padding(.vertical)
+        .background(.luna(.heroMiddle))
+    }
+}
+
+#Preview {
+    ChipScrollerPreview()
+}

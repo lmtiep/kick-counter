@@ -1,209 +1,315 @@
 import KickCore
 import SwiftUI
 
-/// Ring of the current cycle's days coloured by status, with today marked.
-/// Decorative: `CycleStatusCard` says the same in words.
-struct CycleRing: View {
-    let forecast: CycleForecast
-    var lineWidth: CGFloat = 14
-
-    private var length: Int { max(forecast.averageCycleLength, forecast.cycleDay) }
-
-    var body: some View {
-        GeometryReader { proxy in
-            let size = min(proxy.size.width, proxy.size.height)
-            ZStack {
-                ForEach(0..<length, id: \.self) { index in
-                    Circle()
-                        .trim(from: start(of: index), to: end(of: index))
-                        .stroke(color(of: index), style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt))
-                        .rotationEffect(.degrees(-90))
-                        .padding(lineWidth / 2)
-                }
-                Circle()
-                    .fill(Color.primary)
-                    .frame(width: lineWidth * 0.7, height: lineWidth * 0.7)
-                    .offset(y: -(size - lineWidth) / 2)
-                    .rotationEffect(.degrees(360 * (Double(forecast.cycleDay) - 0.5) / Double(length)))
-            }
-            .frame(width: size, height: size)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .accessibilityHidden(true)
-    }
-
-    private func start(of index: Int) -> CGFloat { (CGFloat(index) + 0.08) / CGFloat(length) }
-    private func end(of index: Int) -> CGFloat { (CGFloat(index) + 0.92) / CGFloat(length) }
-
-    private func color(of index: Int) -> Color {
-        let day = Calendar.current.date(byAdding: .day, value: index, to: forecast.currentPeriodStart) ?? forecast.currentPeriodStart
-        return CyclePalette.ringColor(for: forecast.dayStatus(for: day))
-    }
-}
-
-/// "Day 12 of your cycle · High chance of conceiving" around the ring.
-struct CycleStatusCard: View {
-    let forecast: CycleForecast
-    @ScaledMetric(relativeTo: .title) private var ringSize: CGFloat = 190
-
-    private var todayStatus: CycleDayStatus { forecast.dayStatus(for: forecast.today) }
-
-    var body: some View {
-        VStack(spacing: 16) {
-            ZStack {
-                CycleRing(forecast: forecast)
-                VStack(spacing: 2) {
-                    Text(forecast.cycleDay, format: .number)
-                        .font(.system(.largeTitle, design: .rounded).bold())
-                        .accessibilityHidden(true)
-                }
-            }
-            .frame(width: ringSize, height: ringSize)
-            .frame(maxWidth: .infinity)
-
-            VStack(spacing: 6) {
-                Text(L10n.cycleDay(forecast.cycleDay))
-                    .font(.title3.bold())
-                // While late a "low chance" status would mislead (she may be pregnant).
-                if forecast.daysLate > 0 {
-                    Label(L10n.cycleStatusLate, systemImage: "calendar.badge.exclamationmark")
-                        .foregroundStyle(.primary)
-                        .font(.headline)
-                } else {
-                    Label {
-                        Text(L10n.cycleStatus(todayStatus))
-                    } icon: {
-                        Image(systemName: CyclePalette.symbol(for: todayStatus) ?? "circle")
-                            .foregroundStyle(CyclePalette.ringColor(for: todayStatus))
-                    }
-                    .font(.headline)
-                }
-            }
-            .multilineTextAlignment(.center)
-        }
-        .card()
-        .accessibilityElement(children: .combine)
-        .accessibilityIdentifier("cycleStatusCard")
-    }
-}
-
-struct NextPeriodCard: View {
-    let forecast: CycleForecast
-
-    private var value: String { value(formatting: Formatting.cycleDate) }
-    /// The same text with the date in spoken form, for VoiceOver.
-    private var spokenValue: String { value(formatting: Formatting.spokenDay) }
-
-    private func value(formatting format: (Date) -> String) -> String {
+/// Texts shared by Today, the calendar and VoiceOver.
+enum CycleTexts {
+    /// "Oct 18 (in 16 days)", "Oct 18 (tomorrow)", "Days late: 4".
+    static func nextPeriod(_ forecast: CycleForecast, format: (Date) -> String) -> String {
         if forecast.daysLate > 0 { return L10n.cycleNextPeriodLate(forecast.daysLate) }
         let date = format(forecast.nextPeriodStart)
-        let days = forecast.daysUntilNextPeriod
-        switch days {
+        switch forecast.daysUntilNextPeriod {
         case 0: return L10n.cycleNextPeriodToday(date)
         case 1: return L10n.cycleNextPeriodTomorrow(date)
-        default: return L10n.cycleNextPeriodIn(date, days)
+        default: return L10n.cycleNextPeriodIn(date, forecast.daysUntilNextPeriod)
         }
     }
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Label {
-                Text(L10n.cycleNextPeriodTitle)
-            } icon: {
-                Image(systemName: "drop.fill").foregroundStyle(CyclePalette.period)
-            }
-            .font(.headline)
-            Text(value)
-                .font(.title3.weight(.semibold))
-                .accessibilityLabel(spokenValue)
-        }
-        .card()
-        .accessibilityElement(children: .combine)
-        .accessibilityIdentifier("cycleNextPeriodCard")
-    }
-}
-
-struct FertileWindowCard: View {
-    let forecast: CycleForecast
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Label {
-                Text(L10n.cycleFertileTitle)
-            } icon: {
-                Image(systemName: "leaf.fill").foregroundStyle(CyclePalette.fertile)
-            }
-            .font(.headline)
-            Text(range(formatting: Formatting.cycleDate))
-                .font(.title3.weight(.semibold))
-                .accessibilityLabel(range(formatting: Formatting.spokenDay))
-            Label {
-                Text(ovulation(formatting: Formatting.cycleDate))
-                    .accessibilityLabel(ovulation(formatting: Formatting.spokenDay))
-            } icon: {
-                Image(systemName: forecast.ovulationConfirmed ? "checkmark.seal.fill" : "sparkles")
-                    .foregroundStyle(CyclePalette.peak)
-            }
-            .font(.subheadline)
-            if forecast.ovulationSource == .lhTest {
-                Text(L10n.cycleOvulationLH)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-            }
-            if forecast.confidence == .low {
-                Label(
-                    forecast.usableCycleLengths.count < 2 ? L10n.cycleLowConfidenceFewCycles : L10n.cycleLowConfidenceIrregular,
-                    systemImage: "exclamationmark.circle"
-                )
-                .font(.footnote.weight(.semibold))
-                .foregroundStyle(.orange)
-            }
-        }
-        .card()
-        .accessibilityElement(children: .combine)
-        .accessibilityIdentifier("cycleFertileCard")
-    }
-
-    private func range(formatting format: (Date) -> String) -> String {
+    static func fertileRange(_ forecast: CycleForecast, format: (Date) -> String) -> String {
         L10n.cycleFertileRange(format(forecast.fertileWindow.lowerBound), format(forecast.fertileWindow.upperBound))
     }
 
-    private func ovulation(formatting format: (Date) -> String) -> String {
+    /// "Estimated ovulation: Oct 4" or "Ovulation confirmed by temperature: Oct 3".
+    static func ovulation(_ forecast: CycleForecast, format: (Date) -> String) -> String {
         let date = format(forecast.ovulationDate)
         return forecast.ovulationConfirmed ? L10n.cycleOvulationConfirmed(date) : L10n.cycleOvulation(date)
     }
+
+    /// What is logged for a day, e.g. "LH Positive · 36.4°C · Egg white"; nil when nothing is.
+    static func logSummary(_ log: CycleLogRecord?) -> String? {
+        guard let log, !log.isEmpty else { return nil }
+        var parts: [String] = []
+        switch log.lh {
+        case .positive?: parts.append(L10n.cycleLogLH(L10n.dayLogLHPositive))
+        case .negative?: parts.append(L10n.cycleLogLH(L10n.dayLogLHNegative))
+        case nil: break
+        }
+        if let bbt = log.bbtCelsius { parts.append(Formatting.temperature(bbt)) }
+        if let mucus = log.mucus { parts.append(L10n.mucus(mucus)) }
+        if !log.note.isEmpty { parts.append(L10n.dayLogNote) }
+        return parts.joined(separator: " · ")
+    }
+
+    /// The status of a day in words (calendar card, phase pill).
+    static func status(_ status: CycleDayStatus) -> String {
+        switch status {
+        case .period(isPredicted: false): L10n.calendarLegendPeriod
+        case .period(isPredicted: true): L10n.calendarLegendPredicted
+        default: L10n.cycleStatus(status)
+        }
+    }
 }
 
-/// Orange notice card, same style as `OverdueBanner`.
+/// The 264 pt cycle ring (spec §4.2, README §2): coloured stretches from
+/// `CycleRingGeometry`, today's marker, and the centre content on top.
+/// The ring itself is decorative; the centre says the same in words.
+///
+/// Fertile (`fertile`) and ovulation (`teal`) are only 2.3:1 apart in light mode
+/// and 1.2:1 in dark, so colour is not the only cue: segments are separated by
+/// 2 pt gaps and the ovulation days are drawn thicker (20 pt vs 14 pt), matching
+/// the ringed ovulation dot in "Coming up".
+struct CycleRingView<Center: View>: View {
+    let forecast: CycleForecast
+    @ViewBuilder var center: Center
+
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private let diameter: CGFloat = 264
+    private let thickness: CGFloat = 14
+    private let ovulationThickness: CGFloat = 20
+    private let gap: CGFloat = 2
+
+    var body: some View {
+        ZStack {
+            ZStack {
+                let segments = CycleRingGeometry.segments(for: forecast)
+                // Half the gap, as a fraction of the ring's centre line.
+                let inset = segments.count > 1 ? Double(gap / (.pi * (diameter - thickness))) / 2 : 0
+                ForEach(Array(segments.enumerated()), id: \.offset) { _, segment in
+                    Circle()
+                        .trim(from: segment.start + inset, to: segment.end - inset)
+                        .stroke(
+                            color(segment.kind),
+                            style: StrokeStyle(lineWidth: segment.kind == .ovulation ? ovulationThickness : thickness, lineCap: .butt)
+                        )
+                        .rotationEffect(.degrees(-90))
+                        .padding(thickness / 2)
+                }
+                marker
+            }
+            .accessibilityHidden(true)
+            center
+                // At accessibility sizes a narrower column keeps the label and
+                // the button clear of the arc.
+                .frame(width: dynamicTypeSize.isAccessibilitySize ? diameter * 0.7 : diameter - 2 * thickness - 12)
+                // The ring keeps its 264 pt at every text size; past xxxLarge the
+                // label and button would be cut off inside it.
+                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+        }
+        .frame(width: diameter, height: diameter)
+    }
+
+    private var marker: some View {
+        let angle = CycleRingGeometry.markerAngle(for: forecast)
+        let offset = CycleRingGeometry.markerOffset(angle: angle, radius: Double(diameter - thickness) / 2)
+        return Circle()
+            .fill(.luna(.card))
+            .overlay(Circle().strokeBorder(.luna(.textPrimary), lineWidth: 3))
+            .frame(width: 22, height: 22)
+            .offset(x: offset.x, y: offset.y)
+    }
+
+    private func color(_ kind: CycleRingKind) -> Color {
+        switch kind {
+        case .period: .luna(.cycle)
+        case .predictedPeriod: Color.luna(.cycle).opacity(0.45)
+        case .fertile: .luna(.fertile)
+        case .ovulation: .luna(.teal)
+        case .base: .luna(.ringTrack)
+        }
+    }
+}
+
+/// The 7 days under the header (spec §4.2): 6 days before today, then today,
+/// coloured by status. Each day is a button that opens its log.
+struct CycleWeekStrip: View {
+    let forecast: CycleForecast?
+    let today: Date
+    let log: (Date) -> CycleLogRecord?
+    let onSelect: (Date) -> Void
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(WeekStrip.days(endingAt: today, calendar: AppLocale.calendar)) { day in
+                let status = forecast?.dayStatus(for: day.date)
+                Button {
+                    onSelect(day.date)
+                } label: {
+                    VStack(spacing: 6) {
+                        Text(day.isToday ? L10n.stripToday : WeekdayLabel.short(for: day.date, calendar: AppLocale.calendar))
+                            .font(.luna(.tiny))
+                            .tracking(0.4)
+                            .foregroundStyle(.luna(.textSecondary))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
+                        DayCircle(
+                            number: Formatting.dayNumber(day.date),
+                            style: .strip(status),
+                            isToday: day.isToday,
+                            raisedToday: true
+                        )
+                    }
+                    .frame(maxWidth: .infinity)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(CycleAccessibility.dayLabel(day: day.date, status: status, log: log(day.date), isToday: day.isToday))
+                .accessibilityIdentifier("stripDay")
+            }
+        }
+        .padding(.horizontal, 10)
+        .padding(.top, 8)
+        // Seven fixed 40 pt days: larger weekday names would overlap.
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+    }
+}
+
+/// "Coming up" (spec §4.2): next period; fertile window and ovulation while not
+/// late; average cycle length, typical period length, and regular / not yet.
+struct ComingUpCard: View {
+    let forecast: CycleForecast
+    let typicalPeriodLength: Int
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(L10n.cycleComingUp)
+                .font(.luna(.cardTitleSmall))
+                .foregroundStyle(.luna(.textPrimary))
+                .accessibilityAddTraits(.isHeader)
+            row(dot: .cycle, title: L10n.cycleNextPeriodTitle, value: nextPeriodValue)
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(L10n.cycleNextPeriodTitle + ": " + CycleTexts.nextPeriod(forecast, format: Formatting.spokenDay))
+                .accessibilityIdentifier("cycleNextPeriodCard")
+            // While late the window has passed; showing it beside "late" confuses.
+            if forecast.daysLate <= 0 {
+                fertileRows
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(fertileSpoken)
+                    .accessibilityIdentifier("cycleFertileCard")
+            }
+            LunaDivider()
+            HStack(alignment: .top, spacing: 8) {
+                stat(L10n.days(forecast.averageCycleLength), L10n.cycleLengthTitle)
+                stat(L10n.days(typicalPeriodLength), L10n.calendarLegendPeriod)
+                stat(forecast.isRegular ? L10n.cycleStatsRegular : L10n.cycleStatsIrregular, L10n.cycleStatsPattern)
+            }
+            .accessibilityElement(children: .combine)
+        }
+        .lunaCard()
+    }
+
+    private var nextPeriodValue: String {
+        forecast.daysLate > 0 ? L10n.cycleNextPeriodLate(forecast.daysLate) : Formatting.shortDay(forecast.nextPeriodStart)
+    }
+
+    private var fertileRows: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            row(dot: .fertile, title: L10n.cycleFertileTitle, value: CycleTexts.fertileRange(forecast, format: Formatting.shortDay))
+            row(dot: .teal, ringed: true, title: L10n.cycleOvulationTitle, value: Formatting.shortDay(forecast.ovulationDate))
+            if forecast.ovulationConfirmed {
+                note(L10n.cycleOvulationConfirmedNote, color: .tealStrong)
+            } else if forecast.ovulationSource == .lhTest {
+                note(L10n.cycleOvulationLH, color: .textSecondary)
+            }
+            if forecast.confidence == .low {
+                note(lowConfidence, color: .warningText, symbol: "exclamationmark.circle")
+            }
+        }
+    }
+
+    private var lowConfidence: String {
+        forecast.usableCycleLengths.count < 2 ? L10n.cycleLowConfidenceFewCycles : L10n.cycleLowConfidenceIrregular
+    }
+
+    private var fertileSpoken: String {
+        var parts = [
+            L10n.cycleFertileTitle + ": " + CycleTexts.fertileRange(forecast, format: Formatting.spokenDay),
+            CycleTexts.ovulation(forecast, format: Formatting.spokenDay),
+        ]
+        if forecast.ovulationSource == .lhTest { parts.append(L10n.cycleOvulationLH) }
+        if forecast.confidence == .low { parts.append(lowConfidence) }
+        return parts.joined(separator: ". ")
+    }
+
+    private func row(dot: LunaToken, ringed: Bool = false, title: String, value: String) -> some View {
+        HStack(spacing: 12) {
+            // Ovulation: a dot with a ring around it, like its thicker stretch on
+            // the cycle ring (its colour alone is too close to the fertile one).
+            Circle().fill(.luna(dot)).frame(width: 10, height: 10)
+                .padding(ringed ? 3 : 0)
+                .overlay {
+                    if ringed { Circle().strokeBorder(.luna(dot), lineWidth: 1.5) }
+                }
+                .frame(width: 16, height: 16)
+            Text(title)
+                .font(.luna(.body))
+                .foregroundStyle(.luna(.textPrimary))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Text(value)
+                .font(.luna(.bodyStrong))
+                .foregroundStyle(.luna(.textPrimary))
+                .multilineTextAlignment(.trailing)
+        }
+    }
+
+    private func note(_ text: String, color: LunaToken, symbol: String? = nil) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 6) {
+            if let symbol { Image(systemName: symbol) }
+            Text(text)
+        }
+        .font(.luna(.label))
+        .foregroundStyle(.luna(color))
+    }
+
+    private func stat(_ value: String, _ label: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(value)
+                .font(.luna(.statFigure))
+                .foregroundStyle(.luna(.textPrimary))
+                .lineLimit(2)
+                .minimumScaleFactor(0.7)
+            Text(label)
+                .font(.luna(.small))
+                .foregroundStyle(.luna(.textSecondary))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+/// Late, irregular and long-period notices (phase 3 rules, new style):
+/// `warning` = warningBackground with a border, `soft` = cycleSoft.
 struct CycleNoticeCard<Actions: View>: View {
-    let symbol: String
+    enum Style {
+        case warning
+        case soft
+    }
+
     let title: String
     let message: String
+    let style: Style
     let identifier: String
     @ViewBuilder var actions: Actions
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top, spacing: 12) {
-                Image(systemName: symbol)
-                    .font(.title3)
-                    .foregroundStyle(.orange)
-                    .accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(title).font(.headline)
-                    Text(message).font(.subheadline)
-                }
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.luna(.cardTitleSmall))
+                    .foregroundStyle(.luna(style == .warning ? .warningText : .cycleOnSoft))
+                Text(message)
+                    .font(.luna(.caption))
+                    .foregroundStyle(.luna(.textPrimary))
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .accessibilityElement(children: .combine)
             .accessibilityIdentifier(identifier)
             actions
         }
-        .card(tint: Color.orange.opacity(0.12))
+        .lunaCard(style == .warning ? .warningBackground : .cycleSoft, border: style == .warning ? .warningBorder : nil, padding: 16)
     }
 }
 
 extension CycleNoticeCard where Actions == EmptyView {
-    init(symbol: String, title: String, message: String, identifier: String) {
-        self.init(symbol: symbol, title: title, message: message, identifier: identifier) { EmptyView() }
+    init(title: String, message: String, style: Style, identifier: String) {
+        self.init(title: title, message: message, style: style, identifier: identifier) { EmptyView() }
     }
 }

@@ -21,15 +21,28 @@ final class PregnancyScreenshotTests: XCTestCase {
                     let app = XCUIApplication.launchPinned(language: language, dark: dark, dueDate: dueDate)
                     XCTAssertTrue(app.descendants(matching: .any)["weekProgressCard"].waitForExistence(timeout: 10), name)
                     attachScreenshot(app, name)
-                    if week == "38", language == "vi", !dark {
-                        app.swipeUp()
-                        XCTAssertTrue(app.buttons["kickCountCard"].waitForExistence(timeout: 5))
-                        attachScreenshot(app, "pregnancy-home-38-vi-light-bottom")
+                    if !dark {
+                        let appointment = app.buttons["nextAppointmentCard"]
+                        app.scrollUntilHittable(appointment)
+                        if week == "38" { XCTAssertTrue(app.buttons["kickCountCard"].exists) }
+                        attachScreenshot(app, "\(name)-bottom")
                     }
                     app.terminate()
                 }
             }
         }
+    }
+
+    /// Spec §5: Dynamic Type AX5 — nothing cut off.
+    @MainActor
+    func testPregnancyTodayLargestText() {
+        let app = XCUIApplication.launchPinned(language: "vi", dueDate: UITestDates.dueAtWeek38, largestText: true)
+        XCTAssertTrue(app.descendants(matching: .any)["weekProgressCard"].waitForExistence(timeout: 10))
+        attachScreenshot(app, "pregnancy-home-38-vi-ax5")
+        app.swipeUp()
+        attachScreenshot(app, "pregnancy-home-38-vi-ax5-scrolled")
+        app.swipeUp()
+        attachScreenshot(app, "pregnancy-home-38-vi-ax5-bottom")
     }
 
     @MainActor
@@ -57,6 +70,7 @@ final class PregnancyScreenshotTests: XCTestCase {
                 XCTAssertTrue(babyCard.label.contains("About 53.5"), babyCard.label)
                 XCTAssertTrue(babyCard.label.contains("typically 48 to 68"), babyCard.label)
             }
+            app.scrollUntilHittable(babyCard)
             babyCard.tap()
             XCTAssertTrue(app.descendants(matching: .any)["weekWarnings"].firstMatch.waitForExistence(timeout: 5))
             attachScreenshot(app, "week-12-\(language)-light")
@@ -66,19 +80,22 @@ final class PregnancyScreenshotTests: XCTestCase {
 
     @MainActor
     func testWeekDetailScreens() {
-        for (language, dark) in [("vi", false), ("vi", true), ("en", false)] {
-            let suffix = "\(language)-\(dark ? "dark" : "light")"
+        for (language, dark) in UITestVariants.all {
+            let suffix = UITestVariants.suffix(language, dark)
             let app = XCUIApplication.launchPinned(language: language, dark: dark, dueDate: UITestDates.dueAtWeek24)
             let babyCard = app.buttons["babySizeCard"]
             XCTAssertTrue(babyCard.waitForExistence(timeout: 10))
+            app.scrollUntilHittable(babyCard)
             babyCard.tap()
             XCTAssertTrue(app.descendants(matching: .any)["weekWarnings"].firstMatch.waitForExistence(timeout: 5))
             attachScreenshot(app, "week-24-\(suffix)")
             app.swipeUp()
             attachScreenshot(app, "week-24-warnings-\(suffix)")
             if language == "vi", !dark {
-                app.swipeLeft()
-                XCTAssertTrue(app.navigationBars.staticTexts["Tuần 25"].waitForExistence(timeout: 5))
+                app.swipeDown()
+                app.swipeDown()
+                app.buttons["weekChip-25"].tap()
+                waitForLabel(app.staticTexts["weekDetailTitle"], containing: "Tuần 25")
                 attachScreenshot(app, "week-25-vi-light")
             }
             app.terminate()
@@ -87,7 +104,7 @@ final class PregnancyScreenshotTests: XCTestCase {
 
     @MainActor
     func testEmptyStateScreens() {
-        for (language, dark) in [("vi", false), ("vi", true), ("en", false)] {
+        for (language, dark) in UITestVariants.all {
             let suffix = "\(language)-\(dark ? "dark" : "light")"
             let app = XCUIApplication.launchPinned(language: language, dark: dark)
             let addDates = app.buttons["pregnancyAddDateButton"]
@@ -104,11 +121,12 @@ final class PregnancyScreenshotTests: XCTestCase {
 
     @MainActor
     func testAppointmentsScreens() {
-        for (language, dark) in [("vi", false), ("vi", true), ("en", false)] {
+        for (language, dark) in UITestVariants.all {
             let suffix = "\(language)-\(dark ? "dark" : "light")"
             let app = XCUIApplication.launchPinned(language: language, dark: dark, dueDate: UITestDates.dueAtWeek24)
             let card = app.buttons["nextAppointmentCard"]
             XCTAssertTrue(card.waitForExistence(timeout: 10))
+            app.scrollUntilHittable(card)
             card.tap()
             let add = app.buttons["addAppointmentButton"]
             XCTAssertTrue(add.waitForExistence(timeout: 5))

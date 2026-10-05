@@ -1,6 +1,23 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "app.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom"
+          }
+        }
+      }
+    },
     "appointments.add": {
       "extractionState": "manual",
       "localizations": {
@@ -545,6 +562,23 @@
         }
       }
     },
+    "calendar.log": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chú"
+          }
+        }
+      }
+    },
     "calendar.next": {
       "extractionState": "manual",
       "localizations": {
@@ -613,6 +647,40 @@
         }
       }
     },
+    "common.close": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đóng"
+          }
+        }
+      }
+    },
+    "common.days": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld ngày"
+          }
+        }
+      }
+    },
     "common.delete": {
       "extractionState": "manual",
       "localizations": {
@@ -626,6 +694,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xóa"
+          }
+        }
+      }
+    },
+    "common.minutes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld min"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld phút"
+          }
+        }
+      }
+    },
+    "common.notNow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not now"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Để sau"
           }
         }
       }
@@ -647,6 +749,23 @@
         }
       }
     },
+    "common.oneDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 ngày"
+          }
+        }
+      }
+    },
     "common.save": {
       "extractionState": "manual",
       "localizations": {
@@ -660,6 +779,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lưu"
+          }
+        }
+      }
+    },
+    "common.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay"
+          }
+        }
+      }
+    },
+    "common.underOneMinute": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "<1 min"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "<1 phút"
           }
         }
       }
@@ -766,6 +919,23 @@
         }
       }
     },
+    "counter.call115": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call 115"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gọi cấp cứu 115"
+          }
+        }
+      }
+    },
     "counter.cancel": {
       "extractionState": "manual",
       "localizations": {
@@ -817,19 +987,70 @@
         }
       }
     },
-    "counter.elapsed": {
+    "counter.doneDetail": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elapsed"
+            "value": "movements · %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đã trôi qua"
+            "value": "cử động · %@"
+          }
+        }
+      }
+    },
+    "counter.doneLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn thành"
+          }
+        }
+      }
+    },
+    "counter.idle.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each tap counts one movement"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mỗi lần chạm là một cử động"
+          }
+        }
+      }
+    },
+    "counter.idle.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap when baby kicks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chạm khi bé đạp"
           }
         }
       }
@@ -851,36 +1072,104 @@
         }
       }
     },
-    "counter.progress": {
+    "counter.ofTarget": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$ld of %2$ld"
+            "value": "/ %ld movements"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$ld trên %2$ld"
+            "value": "/ %ld cử động"
           }
         }
       }
     },
-    "counter.start": {
+    "counter.reminderOff": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tap to start"
+            "value": "Reminder: off"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chạm để bắt đầu"
+            "value": "Nhắc nhở: tắt"
+          }
+        }
+      }
+    },
+    "counter.reminderPill": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily at %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc lúc %@ hằng ngày"
+          }
+        }
+      }
+    },
+    "counter.settings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settings"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt"
+          }
+        }
+      }
+    },
+    "counter.subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week %1$ld · count to %2$ld movements"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần %1$ld · đếm đến %2$ld cử động"
+          }
+        }
+      }
+    },
+    "counter.subtitle.noWeek": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count to %ld movements"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm đến %ld cử động"
           }
         }
       }
@@ -936,19 +1225,19 @@
         }
       }
     },
-    "counter.week": {
+    "cycle.comingUp": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Week %1$ld + %2$ld days"
+            "value": "Coming up"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tuần %1$ld + %2$ld ngày"
+            "value": "Dự đoán sắp tới"
           }
         }
       }
@@ -1242,19 +1531,53 @@
         }
       }
     },
-    "cycle.logToday": {
+    "cycle.log.lh": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Log today"
+            "value": "LH %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ghi hôm nay"
+            "value": "LH %@"
+          }
+        }
+      }
+    },
+    "cycle.log.prompt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log an LH test, temperature or mucus"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi que thử LH, nhiệt độ, dịch nhầy"
+          }
+        }
+      }
+    },
+    "cycle.log.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How are you feeling today?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay bạn thấy thế nào?"
           }
         }
       }
@@ -1323,6 +1646,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Độ tin cậy thấp — chu kỳ chưa đều"
+          }
+        }
+      }
+    },
+    "cycle.maybePregnant.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch to pregnancy mode to follow week by week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển sang chế độ thai kỳ để theo dõi từng tuần"
+          }
+        }
+      }
+    },
+    "cycle.maybePregnant.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Think you might be pregnant?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có thể bạn đang mang thai?"
           }
         }
       }
@@ -1463,6 +1820,23 @@
         }
       }
     },
+    "cycle.ovulation.confirmedNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirmed by temperature"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xác nhận qua nhiệt độ"
+          }
+        }
+      }
+    },
     "cycle.ovulation.lh": {
       "extractionState": "manual",
       "localizations": {
@@ -1476,6 +1850,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Theo que thử rụng trứng (LH) dương tính"
+          }
+        }
+      }
+    },
+    "cycle.ovulation.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ovulation"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rụng trứng"
+          }
+        }
+      }
+    },
+    "cycle.phase": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %1$ld · %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày %1$ld · %2$@"
           }
         }
       }
@@ -1582,6 +1990,125 @@
         }
       }
     },
+    "cycle.ring.day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày %ld"
+          }
+        }
+      }
+    },
+    "cycle.ring.end": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period ended"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh kết thúc"
+          }
+        }
+      }
+    },
+    "cycle.ring.late": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld days late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trễ %ld ngày"
+          }
+        }
+      }
+    },
+    "cycle.ring.lateOne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 day late"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trễ 1 ngày"
+          }
+        }
+      }
+    },
+    "cycle.ring.start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period started"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh bắt đầu"
+          }
+        }
+      }
+    },
+    "cycle.ring.undo": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tác"
+          }
+        }
+      }
+    },
+    "cycle.ring.undo.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo period start"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoàn tác ngày bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
     "cycle.startPeriod": {
       "extractionState": "manual",
       "localizations": {
@@ -1595,6 +2122,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hôm nay bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.stats.irregular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not regular yet"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa đều"
+          }
+        }
+      }
+    },
+    "cycle.stats.pattern": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pattern"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhịp chu kỳ"
+          }
+        }
+      }
+    },
+    "cycle.stats.regular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regular"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đều"
           }
         }
       }
@@ -1684,19 +2262,53 @@
         }
       }
     },
-    "cycle.title": {
+    "cycle.toast.ended": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your cycle"
+            "value": "Period end logged"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ của bạn"
+            "value": "Đã ghi ngày kết thúc kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.toast.started": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period start logged"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã ghi ngày bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.toast.undone": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Period start removed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xóa ngày bắt đầu kỳ kinh"
           }
         }
       }
@@ -1714,6 +2326,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Độ dài chu kỳ: %d ngày"
+          }
+        }
+      }
+    },
+    "cycleSettings.cycleLength.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle length"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ dài chu kỳ"
           }
         }
       }
@@ -2109,6 +2738,74 @@
         }
       }
     },
+    "dayLog.title.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today, %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay, %@"
+          }
+        }
+      }
+    },
+    "endPregnancy.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your pregnancy data stays saved. Luna Mom will go back to cycle tracking."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu thai kỳ vẫn được lưu lại. Luna Mom sẽ quay về theo dõi chu kỳ kinh nguyệt."
+          }
+        }
+      }
+    },
+    "endPregnancy.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Return to cycle tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quay về theo dõi chu kỳ"
+          }
+        }
+      }
+    },
+    "endPregnancy.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End pregnancy tracking?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc theo dõi thai kỳ?"
+          }
+        }
+      }
+    },
     "error.load": {
       "extractionState": "manual",
       "localizations": {
@@ -2177,19 +2874,36 @@
         }
       }
     },
-    "history.chart.day": {
+    "history.average": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Day"
+            "value": "Average time to 10 movements"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ngày"
+            "value": "Thời gian trung bình để đủ 10 cử động"
+          }
+        }
+      }
+    },
+    "history.bar.minutes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld′"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld′"
           }
         }
       }
@@ -2211,36 +2925,19 @@
         }
       }
     },
-    "history.chart.threshold": {
+    "history.chart.period": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "2 hours"
+            "value": "When"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "2 giờ"
-          }
-        }
-      }
-    },
-    "history.chart.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Time to 10 movements · last 14 days"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thời gian đạt 10 cử động · 14 ngày qua"
+            "value": "Thời gian"
           }
         }
       }
@@ -2296,6 +2993,108 @@
         }
       }
     },
+    "history.guide.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call right away if 10 movements take longer than 2 hours, if movements feel weaker or different from usual, or if you're worried. Don't wait for tomorrow's session."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liên hệ ngay nếu sau 2 giờ chưa đủ 10 cử động, nếu bé cử động yếu hơn hoặc khác hẳn thường ngày, hoặc nếu bạn thấy lo lắng. Đừng chờ đến lượt đếm hôm sau."
+          }
+        }
+      }
+    },
+    "history.guide.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When to call your doctor"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi nào cần gặp bác sĩ"
+          }
+        }
+      }
+    },
+    "history.heading": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movement history"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch sử cử động"
+          }
+        }
+      }
+    },
+    "history.noSession": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No session"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa đếm"
+          }
+        }
+      }
+    },
+    "history.range.month": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4 weeks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "4 tuần"
+          }
+        }
+      }
+    },
+    "history.range.week": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 ngày"
+          }
+        }
+      }
+    },
     "history.row.count": {
       "extractionState": "manual",
       "localizations": {
@@ -2309,6 +3108,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "%ld cử động"
+          }
+        }
+      }
+    },
+    "history.sessions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessions"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các lượt đếm"
           }
         }
       }
@@ -2330,23 +3146,6 @@
         }
       }
     },
-    "history.status.completed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Completed"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hoàn thành"
-          }
-        }
-      }
-    },
     "history.title": {
       "extractionState": "manual",
       "localizations": {
@@ -2364,19 +3163,138 @@
         }
       }
     },
-    "imPregnant.body": {
+    "history.today": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your due date is worked out from the first day of your last period. Check the date, then tap Save."
+            "value": "Today"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ngày dự sinh được tính từ ngày đầu tiên của kỳ kinh cuối. Hãy kiểm tra lại ngày rồi bấm Lưu."
+            "value": "Nay"
+          }
+        }
+      }
+    },
+    "history.week.ago": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld wks ago"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld tuần trước"
+          }
+        }
+      }
+    },
+    "history.week.last": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last wk"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần trước"
+          }
+        }
+      }
+    },
+    "history.week.this": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This wk"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần này"
+          }
+        }
+      }
+    },
+    "imPregnant.byDue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By due date"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo ngày dự sinh"
+          }
+        }
+      }
+    },
+    "imPregnant.byLMP": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By last period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo kỳ kinh cuối"
+          }
+        }
+      }
+    },
+    "imPregnant.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on pregnancy mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật chế độ mang thai"
+          }
+        }
+      }
+    },
+    "imPregnant.earlier": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One day earlier"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sớm hơn 1 ngày"
           }
         }
       }
@@ -2387,13 +3305,64 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your cycle history is kept. You can switch back in Settings."
+            "value": "Your cycle history is kept. You can switch back in Profile."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dữ liệu chu kỳ vẫn được giữ lại. Bạn có thể đổi lại trong Cài đặt."
+            "value": "Dữ liệu chu kỳ vẫn được giữ lại. Bạn có thể đổi lại trong Cá nhân."
+          }
+        }
+      }
+    },
+    "imPregnant.later": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One day later"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muộn hơn 1 ngày"
+          }
+        }
+      }
+    },
+    "imPregnant.result": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today: %1$@ · due %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay: %1$@ · dự sinh %2$@"
+          }
+        }
+      }
+    },
+    "imPregnant.switchBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom will switch to pregnancy tracking: weeks, your baby's size and kick counting."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom sẽ chuyển sang theo dõi thai kỳ: tuần thai, kích thước của bé và đếm cử động."
           }
         }
       }
@@ -2428,6 +3397,142 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ghi nhận cử động"
+          }
+        }
+      }
+    },
+    "kickSettings.goal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goal"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mục tiêu"
+          }
+        }
+      }
+    },
+    "kickSettings.haptics": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vibrate on tap"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rung khi chạm"
+          }
+        }
+      }
+    },
+    "kickSettings.haptics.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A light buzz so you don't need to look at the screen"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phản hồi rung nhẹ để bạn không cần nhìn màn hình"
+          }
+        }
+      }
+    },
+    "kickSettings.reminder.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count at the same time each day, when your baby is usually active"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm cùng một khung giờ mỗi ngày, khi bé thường hoạt động"
+          }
+        }
+      }
+    },
+    "kickSettings.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kick counter settings"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài đặt đếm cử động"
+          }
+        }
+      }
+    },
+    "kicks.cardiff.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count until you reach 10 movements and note how long it takes. Count at the same time each day to learn your baby's normal pattern. If 10 takes over 2 hours, or movements drop, call your doctor."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm đến khi đủ 10 cử động và xem mất bao lâu. Mỗi ngày đếm vào cùng khung giờ để biết nhịp bình thường của bé. Nếu quá 2 giờ chưa đủ 10, hoặc bé cử động ít hơn mọi ngày, hãy gọi bác sĩ."
+          }
+        }
+      }
+    },
+    "kicks.cardiff.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Cardiff method"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phương pháp Cardiff"
+          }
+        }
+      }
+    },
+    "kicks.last7": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last 7 days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 ngày qua"
           }
         }
       }
@@ -2479,6 +3584,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quá 2 giờ — hãy liên hệ bác sĩ"
+          }
+        }
+      }
+    },
+    "language.en": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English"
+          }
+        }
+      }
+    },
+    "language.system": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo máy"
+          }
+        }
+      }
+    },
+    "language.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Language"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngôn ngữ"
+          }
+        }
+      }
+    },
+    "language.vi": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiếng Việt"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiếng Việt"
           }
         }
       }
@@ -2687,74 +3860,6 @@
         }
       }
     },
-    "onboarding.1.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tap the big circle each time you feel your baby move — a kick, roll, or flutter. When you reach 10, you're done."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chạm vào vòng tròn lớn mỗi khi cảm thấy bé cử động: đạp, xoay hay trườn. Đủ 10 lần là xong."
-          }
-        }
-      }
-    },
-    "onboarding.1.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Count 10 movements"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Đếm 10 cử động"
-          }
-        }
-      }
-    },
-    "onboarding.2.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "From week 28, count once a day at a time your baby is usually active, such as after a meal or in the evening."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Từ tuần 28, mỗi ngày đếm một lần vào lúc bé hay cử động, như sau bữa ăn hoặc buổi tối."
-          }
-        }
-      }
-    },
-    "onboarding.2.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "When to count"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Khi nào nên đếm"
-          }
-        }
-      }
-    },
     "onboarding.3.body": {
       "extractionState": "manual",
       "localizations": {
@@ -2789,87 +3894,189 @@
         }
       }
     },
-    "onboarding.4.body": {
+    "onboarding.continue": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your dates to follow your baby's growth week by week. You can also do this later in Settings."
+            "value": "Continue"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nhập ngày để theo dõi bé lớn lên từng tuần. Mẹ cũng có thể làm sau trong Cài đặt."
+            "value": "Tiếp tục"
           }
         }
       }
     },
-    "onboarding.4.title": {
+    "onboarding.cycle.longer": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your pregnancy"
+            "value": "Longer cycle"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thai kỳ của bạn"
+            "value": "Chu kỳ dài hơn"
           }
         }
       }
     },
-    "onboarding.agree": {
+    "onboarding.cycle.shorter": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "I understand"
+            "value": "Shorter cycle"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tôi đã hiểu"
+            "value": "Chu kỳ ngắn hơn"
           }
         }
       }
     },
-    "onboarding.cycle.body": {
+    "onboarding.due.earlier": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Enter the first day of your last period, or skip this and add it later."
+            "value": "One week earlier"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nhập ngày đầu tiên của kỳ kinh gần nhất, hoặc bỏ qua để nhập sau."
+            "value": "Sớm hơn 1 tuần"
           }
         }
       }
     },
-    "onboarding.cycle.title": {
+    "onboarding.due.fromLMP": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your cycle"
+            "value": "Work it out from my last period"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ của bạn"
+            "value": "Tính theo kỳ kinh cuối"
+          }
+        }
+      }
+    },
+    "onboarding.due.later": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One week later"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muộn hơn 1 tuần"
+          }
+        }
+      }
+    },
+    "onboarding.due.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your due date"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày dự sinh của bạn"
+          }
+        }
+      }
+    },
+    "onboarding.goal.cycle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ kinh nguyệt"
+          }
+        }
+      }
+    },
+    "onboarding.goal.cycle.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Predict periods and ovulation"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dự đoán kỳ kinh và ngày rụng trứng"
+          }
+        }
+      }
+    },
+    "onboarding.goal.pregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm pregnant"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tôi đang mang thai"
+          }
+        }
+      }
+    },
+    "onboarding.goal.pregnant.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Follow each week and your baby's movements"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi từng tuần và cử động của bé"
           }
         }
       }
@@ -2891,40 +4098,6 @@
         }
       }
     },
-    "onboarding.mode.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You can change this any time in Settings."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bạn có thể đổi bất cứ lúc nào trong Cài đặt."
-          }
-        }
-      }
-    },
-    "onboarding.mode.pregnant.detail": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Follow your pregnancy week by week and count your baby's kicks"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theo dõi thai kỳ từng tuần và đếm cử động thai"
-          }
-        }
-      }
-    },
     "onboarding.mode.title": {
       "extractionState": "manual",
       "localizations": {
@@ -2942,36 +4115,121 @@
         }
       }
     },
-    "onboarding.mode.ttc.detail": {
+    "onboarding.otherDay": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Track your periods and your most fertile days"
+            "value": "Another day"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Theo dõi kỳ kinh và những ngày dễ thụ thai"
+            "value": "Ngày khác"
           }
         }
       }
     },
-    "onboarding.next": {
+    "onboarding.otherDay.value": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Next"
+            "value": "Another day: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiếp"
+            "value": "Ngày khác: %@"
+          }
+        }
+      }
+    },
+    "onboarding.skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ qua"
+          }
+        }
+      }
+    },
+    "onboarding.start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get started"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu"
+          }
+        }
+      }
+    },
+    "onboarding.step": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step %1$ld of %2$ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bước %1$ld trên %2$ld"
+          }
+        }
+      }
+    },
+    "onboarding.welcome.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Track your cycle every month, and follow along week by week when a baby is on the way."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi chu kỳ mỗi tháng, và đồng hành cùng bạn qua từng tuần khi có em bé."
+          }
+        }
+      }
+    },
+    "onboarding.welcome.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome to Luna Mom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chào mừng đến với Luna Mom"
           }
         }
       }
@@ -3197,23 +4455,6 @@
         }
       }
     },
-    "pregnancy.daysLeft": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Days to go: %ld"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Còn %ld ngày"
-          }
-        }
-      }
-    },
     "pregnancy.dueToday": {
       "extractionState": "manual",
       "localizations": {
@@ -3299,6 +4540,23 @@
         }
       }
     },
+    "pregnancy.hero.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See week %ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem tuần %ld"
+          }
+        }
+      }
+    },
     "pregnancy.invalid.body": {
       "extractionState": "manual",
       "localizations": {
@@ -3350,19 +4608,138 @@
         }
       }
     },
-    "pregnancy.kickCard.title": {
+    "pregnancy.kicksToday.average": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Count kicks today"
+            "value": "7-day average: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đếm cử động thai hôm nay"
+            "value": "Trung bình 7 ngày: %@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count now"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm ngay"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld movements in %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld cử động trong %2$@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.doneDetail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At %1$@ · 7-day average %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lúc %1$@ · trung bình 7 ngày %2$@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not counted yet today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa đếm hôm nay"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.reminder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminder at %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc lúc %@"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Movements today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cử động hôm nay"
+          }
+        }
+      }
+    },
+    "pregnancy.kicksToday.view": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem"
           }
         }
       }
@@ -3418,6 +4795,57 @@
         }
       }
     },
+    "pregnancy.shortcut.kicks": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kick counter"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm cử động"
+          }
+        }
+      }
+    },
+    "pregnancy.shortcut.week": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần thai"
+          }
+        }
+      }
+    },
+    "pregnancy.subline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trimester %1$ld · %2$ld days to go"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tam cá nguyệt %1$ld · còn %2$ld ngày"
+          }
+        }
+      }
+    },
     "pregnancy.tips.title": {
       "extractionState": "manual",
       "localizations": {
@@ -3435,23 +4863,6 @@
         }
       }
     },
-    "pregnancy.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "My pregnancy"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thai kỳ của mẹ"
-          }
-        }
-      }
-    },
     "pregnancy.trimester": {
       "extractionState": "manual",
       "localizations": {
@@ -3465,6 +4876,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tam cá nguyệt %ld"
+          }
+        }
+      }
+    },
+    "pregnancy.weekLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld weeks, %2$ld days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld tuần, %2$ld ngày"
+          }
+        }
+      }
+    },
+    "pregnancy.weekLabel.oneDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld weeks, 1 day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld tuần, 1 ngày"
           }
         }
       }
@@ -3605,6 +5050,159 @@
         }
       }
     },
+    "profile.endPregnancy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End pregnancy tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc theo dõi thai kỳ"
+          }
+        }
+      }
+    },
+    "profile.fontLicense": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Font: Be Vietnam Pro (SIL Open Font License)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phông chữ: Be Vietnam Pro (giấy phép SIL OFL)"
+          }
+        }
+      }
+    },
+    "profile.kickReminder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kick reminder"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc đếm cử động"
+          }
+        }
+      }
+    },
+    "profile.mode.cycle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi chu kỳ"
+          }
+        }
+      }
+    },
+    "profile.mode.pregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnancy mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chế độ mang thai"
+          }
+        }
+      }
+    },
+    "profile.reminderOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tắt"
+          }
+        }
+      }
+    },
+    "profile.replayOnboarding": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replay the introduction"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem lại phần giới thiệu"
+          }
+        }
+      }
+    },
+    "profile.switchToPregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch to pregnancy mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển sang chế độ mang thai"
+          }
+        }
+      }
+    },
+    "profile.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profile"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cá nhân"
+          }
+        }
+      }
+    },
     "reminder.body": {
       "extractionState": "manual",
       "localizations": {
@@ -3635,23 +5233,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đến giờ đếm thai máy"
-          }
-        }
-      }
-    },
-    "settings.about.section": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thông tin"
           }
         }
       }
@@ -3894,23 +5475,6 @@
         }
       }
     },
-    "settings.pregnancy.section": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pregnancy"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thai kỳ"
-          }
-        }
-      }
-    },
     "settings.pregnancy.set": {
       "extractionState": "manual",
       "localizations": {
@@ -3962,40 +5526,6 @@
         }
       }
     },
-    "settings.reminder.toggle": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Remind me to count"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nhắc tôi đếm"
-          }
-        }
-      }
-    },
-    "settings.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cài đặt"
-          }
-        }
-      }
-    },
     "settings.version": {
       "extractionState": "manual",
       "localizations": {
@@ -4009,6 +5539,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Phiên bản"
+          }
+        }
+      }
+    },
+    "strip.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TODAY"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "NAY"
           }
         }
       }
@@ -4030,87 +5577,70 @@
         }
       }
     },
-    "tab.counter": {
+    "tab.kicks": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Count"
+            "value": "Kicks"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đếm"
+            "value": "Cử động"
           }
         }
       }
     },
-    "tab.cycle": {
+    "tab.profile": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cycle"
+            "value": "Profile"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ"
+            "value": "Cá nhân"
           }
         }
       }
     },
-    "tab.history": {
+    "tab.today": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "History"
+            "value": "Today"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lịch sử"
+            "value": "Hôm nay"
           }
         }
       }
     },
-    "tab.pregnancy": {
+    "week.about": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pregnancy"
+            "value": "About %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thai kỳ"
-          }
-        }
-      }
-    },
-    "tab.settings": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cài đặt"
+            "value": "Khoảng %@"
           }
         }
       }
@@ -4132,19 +5662,36 @@
         }
       }
     },
-    "week.current": {
+    "week.chip": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "This week"
+            "value": "%ld wks"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tuần hiện tại"
+            "value": "%ld tuần"
+          }
+        }
+      }
+    },
+    "week.headline": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What happens at %ld weeks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những điều diễn ra ở tuần %ld"
           }
         }
       }
@@ -4183,6 +5730,57 @@
         }
       }
     },
+    "week.reviewed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An obstetrician has reviewed this week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bác sĩ sản khoa đã duyệt nội dung tuần này"
+          }
+        }
+      }
+    },
+    "week.reviewer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reviewed by"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Người xem xét"
+          }
+        }
+      }
+    },
+    "week.sizeLine": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This week, your baby is about the size of %@."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ở tuần này, bé có kích thước bằng %@."
+          }
+        }
+      }
+    },
     "week.tips": {
       "extractionState": "manual",
       "localizations": {
@@ -4213,6 +5811,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tuần %ld"
+          }
+        }
+      }
+    },
+    "week.typicalRange": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Typically %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thường %@"
           }
         }
       }

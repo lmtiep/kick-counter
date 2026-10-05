@@ -143,6 +143,31 @@ struct CycleCoordinatorTests {
         #expect(reminderDay(.period) == 2)
     }
 
+    /// Undo on Today deletes exactly the record that was created, by id.
+    @Test func startingAPeriodReturnsTheNewRecordsID() async throws {
+        let stale = PeriodRecord(startDate: day("2026-08-01"))
+        repository.seed(periods: [stale], logs: [])
+        await coordinator.load()
+
+        let id = try await coordinator.startPeriodReturningID(on: day("2026-09-05")).get()
+        let created = try #require(repository.storedPeriods.first { $0.id == id })
+        #expect(created.startDate == day("2026-09-05"))
+        #expect(id != stale.id)
+
+        #expect(await coordinator.deletePeriod(id: id) == nil)
+        #expect(repository.storedPeriods.map(\.id) == [stale.id])
+    }
+
+    @Test func aCycleFailureErrorIsKept() {
+        #expect(CycleFailure(CycleFailure.overlapsExistingPeriod as Error) == .overlapsExistingPeriod)
+    }
+
+    @Test func startingAPeriodReturnsTheFailure() async {
+        let result = await coordinator.startPeriodReturningID(on: day("2026-09-06"))
+        #expect(throws: CycleFailure.futureDate) { try result.get() }
+        #expect(repository.storedPeriods.isEmpty)
+    }
+
     /// A period left open for weeks (never ended) must not block the next one:
     /// it is closed at the typical length and the new period starts today.
     @Test func startingAPeriodClosesAStaleOpenPeriod() async throws {

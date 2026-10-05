@@ -24,7 +24,7 @@ public final class AppointmentCoordinator {
 
     private let store: AppointmentRepository
     private let notifications: NotificationScheduler
-    private let reminderText: NotificationText
+    @ObservationIgnored private var reminderText: NotificationText
     private let calendar: Calendar
     private let now: @MainActor () -> Date
 
@@ -149,6 +149,13 @@ public final class AppointmentCoordinator {
 
     public func clearFailure() {
         failure = nil
+    }
+
+    /// The app language changed: every pending day-before reminder is scheduled
+    /// again with the new text. Never prompts for permission.
+    public func updateReminderText(_ text: NotificationText) async {
+        reminderText = text
+        await load()
     }
 
     /// Brings one appointment's reminder in line with the store. `generation`

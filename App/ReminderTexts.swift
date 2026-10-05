@@ -1,0 +1,25 @@
+import KickCore
+
+/// Notification texts in the current app language. Read again whenever the
+/// language changes, so pending reminders are rescheduled in it (spec §2.2).
+enum ReminderTexts {
+    static var overdue: NotificationText {
+        NotificationText(title: L10n.overdueTitle, body: L10n.overdueBody)
+    }
+
+    static var daily: NotificationText {
+        NotificationText(title: L10n.reminderTitle, body: L10n.reminderBody)
+    }
+
+    static var appointment: NotificationText {
+        NotificationText(title: L10n.appointmentsReminderTitle, body: L10n.appointmentsReminderBody)
+    }
+
+    static var cycle: CycleReminderTexts {
+        CycleReminderTexts(
+            fertile: NotificationText(title: L10n.cycleReminderFertileTitle, body: L10n.cycleReminderFertileBody),
+            period: NotificationText(title: L10n.cycleReminderPeriodTitle, body: L10n.cycleReminderPeriodBody),
+            late: NotificationText(title: L10n.cycleReminderLateTitle, body: L10n.cycleReminderLateBody)
+        )
+    }
+}

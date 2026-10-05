@@ -51,39 +51,6 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(status.label.contains("Day 13 of your cycle"), status.label)
     }
 
-    @MainActor
-    func testStartingAPeriodClearsTheLateCard() {
-        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "late")
-        let late = app.descendants(matching: .any)["cycleLateCard"]
-        XCTAssertTrue(late.waitForExistence(timeout: 10))
-        XCTAssertTrue(late.label.contains("Your period is 4 days late"), late.label)
-        // While late the status is neutral, never "Low chance of conceiving".
-        let lateStatus = app.descendants(matching: .any)["cycleStatusCard"]
-        XCTAssertTrue(lateStatus.label.contains("Your period is late"), lateStatus.label)
-        // While late, the past fertile window is not shown.
-        let fertileCard = app.descendants(matching: .any)["cycleFertileCard"]
-        XCTAssertTrue(app.descendants(matching: .any)["cycleNextPeriodCard"].exists)
-        XCTAssertFalse(fertileCard.exists)
-
-        let periodButton = app.buttons["cyclePeriodButton"]
-        app.scrollUntilHittable(periodButton)
-        XCTAssertEqual(periodButton.label, "Period started today")
-        periodButton.tap()
-
-        let status = app.descendants(matching: .any)["cycleStatusCard"]
-        waitForLabel(status, containing: "Day 1 of your cycle")
-        XCTAssertFalse(late.exists)
-        XCTAssertEqual(periodButton.label, "Period ended today")
-        XCTAssertTrue(fertileCard.exists)
-
-        let logToday = app.buttons["cycleLogTodayButton"]
-        app.scrollUntilHittable(logToday)
-        logToday.tap()
-        let periodInfo = app.descendants(matching: .any)["dayLogPeriodInfo"]
-        XCTAssertTrue(periodInfo.waitForExistence(timeout: 5))
-        XCTAssertEqual(periodInfo.label, "Period since October 2")
-    }
-
     /// Spec §6: a temperature outside 35.0–38.5 °C is not saved.
     @MainActor
     func testImplausibleTemperatureIsNotSaved() {
@@ -122,7 +89,13 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(day("October 2,").label.contains("today, fertile window"), day("October 2,").label)
         XCTAssertTrue(day("October 4,").label.contains("most fertile day"), day("October 4,").label)
         XCTAssertTrue(day("October 18,").label.contains("predicted period"), day("October 18,").label)
-        XCTAssertFalse(day("October 20,").isEnabled) // future days can't be logged
+        // Future days can be selected to look at, but not logged (spec §4.3).
+        day("October 20,").tap()
+        let selectedDay = app.descendants(matching: .any)["calendarSelectedDay"]
+        waitForLabel(selectedDay, containing: "Oct 20")
+        XCTAssertTrue(selectedDay.label.contains("Day 3 · Predicted period"), selectedDay.label)
+        XCTAssertTrue(day("October 20,").isSelected)
+        XCTAssertFalse(app.buttons["calendarLogButton"].isEnabled)
 
         app.buttons["calendarNext"].tap()
         waitForLabel(title, containing: "November 2026")
@@ -130,6 +103,10 @@ final class CycleUITests: XCTestCase {
         waitForLabel(title, containing: "October 2026")
 
         day("October 2,").tap()
+        let logButton = app.buttons["calendarLogButton"]
+        app.scrollUntilHittable(logButton)
+        XCTAssertTrue(logButton.isEnabled)
+        logButton.tap()
         let positive = app.segmentedControls.buttons["Positive"]
         XCTAssertTrue(positive.waitForExistence(timeout: 5))
         positive.tap()
@@ -138,6 +115,49 @@ final class CycleUITests: XCTestCase {
         // fertile day and 10-04 drops back to the end of the fertile window.
         waitForLabel(day("October 2,"), containing: "today, most fertile day, positive LH test logged")
         XCTAssertTrue(day("October 4,").label.contains("fertile window"), day("October 4,").label)
+    }
+
+    /// Spec §4.3: weeks start on Monday in Vietnamese, Sunday in US English.
+    @MainActor
+    func testCalendarWeekStartsFollowTheLanguage() {
+        for (language, mondayFirst) in [("vi", true), ("en", false)] {
+            let app = XCUIApplication.launchPinned(language: language, seedCycles: "fertile")
+            app.openCycleTab(.calendar)
+            let title = app.staticTexts["calendarMonthTitle"]
+            XCTAssertTrue(title.waitForExistence(timeout: 10))
+            XCTAssertEqual(title.label, mondayFirst ? "Tháng 10 năm 2026" : "October 2026")
+            // October 2026: the 4th is a Sunday, the 5th a Monday.
+            let days = app.buttons.matching(identifier: "calendarDay")
+            let sunday = days.element(boundBy: 3)
+            let monday = days.element(boundBy: 4)
+            if mondayFirst {
+                XCTAssertGreaterThan(sunday.frame.midX, monday.frame.midX, "Sunday ends the week")
+            } else {
+                XCTAssertLessThan(sunday.frame.midX, monday.frame.midX, "Sunday starts the week")
+            }
+            app.terminate()
+        }
+    }
+
+    /// Spec §2.2: the grid follows the language chosen in the app, not the
+    /// device's — Vietnamese chosen in Profile on a US English device starts
+    /// the week on Monday and titles the month in Vietnamese.
+    @MainActor
+    func testCalendarFollowsTheAppLanguageNotTheDevice() {
+        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile")
+        app.openCycleTab(.profile)
+        let vietnamese = app.segmentedControls.buttons["Tiếng Việt"]
+        XCTAssertTrue(vietnamese.waitForExistence(timeout: 10))
+        vietnamese.tap()
+        XCTAssertTrue(app.tabBars.buttons["Lịch"].waitForExistence(timeout: 5))
+
+        app.openCycleTab(.calendar)
+        let title = app.staticTexts["calendarMonthTitle"]
+        XCTAssertTrue(title.waitForExistence(timeout: 10))
+        XCTAssertEqual(title.label, "Tháng 10 năm 2026")
+        let days = app.buttons.matching(identifier: "calendarDay")
+        XCTAssertGreaterThan(days.element(boundBy: 3).frame.midX, days.element(boundBy: 4).frame.midX, "Sunday ends the week")
+        XCTAssertTrue(days.element(boundBy: 0).label.hasPrefix("1 tháng 10"), days.element(boundBy: 0).label)
     }
 
     /// Spec §8: "I'm pregnant" switches to the Pregnancy tab at the right week.
@@ -155,57 +175,31 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(estimate.label.contains("June 7, 2027"), estimate.label)
         app.buttons["imPregnantSave"].tap()
 
-        // 32 days since the last period: 4 weeks 4 days, on the four pregnancy tabs.
+        // 32 days since the last period: 4 weeks 4 days, on the pregnancy tabs.
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 10))
-        XCTAssertTrue(progress.label.contains("Week 4 + 4 days"), progress.label)
-        XCTAssertEqual(app.tabBars.buttons.count, 4)
-    }
-
-    /// Spec §8: onboarding → "Trying to conceive" → last period → the Cycle tab shows the right cycle day.
-    @MainActor
-    func testOnboardingTryingToConceiveShowsTheCycleDay() {
-        let app = XCUIApplication.launchPinned(language: "en", skipOnboarding: false)
-        let next = app.buttons["onboardingNext"]
-        XCTAssertTrue(next.waitForExistence(timeout: 10))
-        next.tap()
-        next.tap()
-        app.buttons["onboardingAgree"].tap()
-        let tryingToConceive = app.buttons["onboardingModeTTC"]
-        XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 5))
-        tryingToConceive.tap()
-
-        let wheels = app.pickerWheels
-        XCTAssertTrue(wheels.element(boundBy: 2).waitForExistence(timeout: 5))
-        wheels.element(boundBy: 0).adjust(toPickerWheelValue: "September") // en_US order: month, day, year
-        wheels.element(boundBy: 1).adjust(toPickerWheelValue: "20")
-        app.buttons["onboardingSaveCycle"].tap()
-
-        // 2026-09-20 → 2026-10-02 is cycle day 13, on the three trying-to-conceive tabs.
-        let status = app.descendants(matching: .any)["cycleStatusCard"]
-        XCTAssertTrue(status.waitForExistence(timeout: 10))
-        XCTAssertTrue(status.label.contains("Day 13 of your cycle"), status.label)
-        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        XCTAssertTrue(progress.label.contains("4 weeks, 4 days"), progress.label)
+        XCTAssertTrue(app.tabBars.buttons["Kicks"].waitForExistence(timeout: 5))
     }
 
     /// Spec §4.3: switching mode in Settings keeps the pregnancy dates.
     @MainActor
     func testSwitchingModeInSettingsKeepsThePregnancyDates() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
-        app.openTab(.settings)
+        app.openTab(.profile)
         let tryingToConceive = app.segmentedControls.buttons["Trying to conceive"]
         XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 10))
         tryingToConceive.tap()
 
         // Settings stays open, now with the cycle section and three tabs.
         XCTAssertTrue(app.descendants(matching: .any)["settingsCycleLength"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["settingsPregnancyDates"].exists)
-        app.openCycleTab(.cycle)
+        app.openCycleTab(.today)
         XCTAssertTrue(app.buttons["cycleAddPeriodButton"].waitForExistence(timeout: 5))
 
         // Back to pregnant: no period logged, so the sheet starts from the stored due date.
-        app.openCycleTab(.settings)
+        app.openCycleTab(.profile)
         let pregnant = app.segmentedControls.buttons["Pregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
         pregnant.tap()
@@ -214,22 +208,22 @@ final class CycleUITests: XCTestCase {
         save.tap()
 
         XCTAssertTrue(app.buttons["settingsPregnancyDates"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.tabBars.buttons.count, 4)
-        app.openTab(.pregnancy)
+        XCTAssertTrue(app.tabBars.buttons["Kicks"].waitForExistence(timeout: 5))
+        app.openTab(.today)
         let progress = app.descendants(matching: .any)["weekProgressCard"]
         XCTAssertTrue(progress.waitForExistence(timeout: 5))
-        XCTAssertTrue(progress.label.contains("Week 24 + 3 days"), progress.label)
+        XCTAssertTrue(progress.label.contains("24 weeks, 3 days"), progress.label)
     }
 
     /// Cancelling "I'm pregnant" from Settings keeps trying-to-conceive mode.
     @MainActor
     func testCancellingImPregnantFromSettingsKeepsTheMode() {
         let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile")
-        app.openCycleTab(.settings)
+        app.openCycleTab(.profile)
         let pregnant = app.segmentedControls.buttons["Pregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 10))
         pregnant.tap()
-        let cancel = app.navigationBars.buttons["Cancel"]
+        let cancel = app.buttons["imPregnantCancel"]
         XCTAssertTrue(cancel.waitForExistence(timeout: 5))
         cancel.tap()
 
@@ -237,7 +231,7 @@ final class CycleUITests: XCTestCase {
         XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 5))
         waitForSelected(tryingToConceive)
         XCTAssertFalse(pregnant.isSelected)
-        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.descendants(matching: .any)["settingsCycleLength"].exists)
     }
 

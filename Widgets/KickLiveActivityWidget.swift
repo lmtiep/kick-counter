@@ -73,7 +73,9 @@ private struct ElapsedLabel: View {
     var body: some View {
         if let completedAt = state.completedAt {
             Text(L10n.laCompleted + " " + Duration.seconds(completedAt.timeIntervalSince(attributes.startedAt).rounded())
-                .formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated, maximumUnitCount: 2)))
+                .formatted(.units(allowed: [.hours, .minutes, .seconds], width: .abbreviated, maximumUnitCount: 2)
+                    // The app's language (App Group), as in the app, not the device's.
+                    .locale(AppLocale.locale)))
         } else {
             Text(timerInterval: attributes.startedAt...Date.distantFuture, countsDown: false)
         }

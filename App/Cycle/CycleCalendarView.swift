@@ -1,233 +1,262 @@
 import KickCore
 import SwiftUI
 
-/// Trying-to-conceive mode, tab 2: month grid coloured by cycle status.
-/// Swipe or use the arrows to change month; tap a past day to log it.
+/// Trying-to-conceive mode, Calendar tab (spec §4.3): month grid in the app
+/// language's week order (Monday first in Vietnamese), legend, and the selected
+/// day with a "Log" button. Swipe or use the arrows to change month; future
+/// days can be selected but not logged.
 struct CycleCalendarView: View {
     @Environment(CycleCoordinator.self) private var cycle
-    @State private var month = CycleCalendarGrid.startOfMonth(AppClock.now())
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var month = CycleCalendarGrid.startOfMonth(AppClock.now(), calendar: AppLocale.calendar)
+    @State private var selected = AppLocale.calendar.startOfDay(for: AppClock.now())
     @State private var logDay: CycleDaySelection?
 
-    private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 7)
+    /// The app language's calendar (Monday first in Vietnamese), not the device's.
+    private var calendar: Calendar { AppLocale.calendar }
+    private var today: Date { calendar.startOfDay(for: AppClock.now()) }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 16) {
-                    monthHeader
+                VStack(alignment: .leading, spacing: 0) {
+                    header
                     grid
+                        .padding(.top, 18)
                     CycleLegend()
+                        .padding(.top, 14)
+                    selectedDayCard
+                        .padding(.top, 16)
                     if cycle.forecast == nil {
                         Text(L10n.calendarEmptyHint)
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.luna(.caption))
+                            .foregroundStyle(.luna(.textSecondary))
+                            .padding(.horizontal, 20)
+                            .padding(.top, 12)
                     }
                 }
-                .padding()
+                .padding(.bottom, 24)
             }
+            // Content scrolled up stays out from under the status bar.
+            .lunaStatusBarBackdrop()
+            .background(.luna(.background))
+            .toolbar(.hidden, for: .navigationBar)
             .simultaneousGesture(
                 DragGesture(minimumDistance: 30).onEnded { value in
                     guard abs(value.translation.width) > abs(value.translation.height) * 2 else { return }
                     showMonth(value.translation.width < 0 ? 1 : -1)
                 }
             )
-            .navigationTitle(L10n.calendarTitle)
             .sheet(item: $logDay) { selection in
                 CycleDayLogSheet(day: selection.date, existing: cycle.log(on: selection.date))
             }
         }
     }
 
-    private var monthHeader: some View {
-        HStack {
-            Button { showMonth(-1) } label: {
-                Image(systemName: "chevron.left")
-                    .frame(minWidth: 44, minHeight: 44)
+    private var header: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8) {
+                title
+                Spacer(minLength: 8)
+                monthSwitcher
             }
-            .accessibilityLabel(L10n.calendarPrevious)
-            .accessibilityIdentifier("calendarPrevious")
-            Spacer()
-            Text(month.formatted(.dateTime.month(.wide).year()))
-                .font(.title3.bold())
-                .accessibilityAddTraits(.isHeader)
-                .accessibilityIdentifier("calendarMonthTitle")
-            Spacer()
-            Button { showMonth(1) } label: {
-                Image(systemName: "chevron.right")
-                    .frame(minWidth: 44, minHeight: 44)
+            VStack(alignment: .leading, spacing: 8) {
+                title
+                monthSwitcher
             }
-            .accessibilityLabel(L10n.calendarNext)
-            .accessibilityIdentifier("calendarNext")
         }
+        .padding(.horizontal, 20)
+        .padding(.top, 10)
+    }
+
+    private var title: some View {
+        Text(L10n.calendarTitle)
+            .font(.luna(.screenTitle))
+            .tracking(-0.56)
+            .foregroundStyle(.luna(.textPrimary))
+            .accessibilityAddTraits(.isHeader)
+    }
+
+    private var monthSwitcher: some View {
+        HStack(spacing: 4) {
+            monthButton("chevron.left", label: L10n.calendarPrevious, identifier: "calendarPrevious") { showMonth(-1) }
+            Text(Formatting.monthYear(month))
+                .font(.luna(.bodyStrong))
+                .foregroundStyle(.luna(.textPrimary))
+                .multilineTextAlignment(.center)
+                .frame(minWidth: 110)
+                .accessibilityIdentifier("calendarMonthTitle")
+            monthButton("chevron.right", label: L10n.calendarNext, identifier: "calendarNext") { showMonth(1) }
+        }
+    }
+
+    private func monthButton(_ symbol: String, label: String, identifier: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: symbol)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(.luna(.textPrimary))
+                .frame(width: 34, height: 34)
+                .background(Circle().fill(.luna(.card)))
+                .frame(minWidth: 44, minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+        .accessibilityIdentifier(identifier)
     }
 
     private var grid: some View {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: AppClock.now())
         let days = CycleCalendarGrid.days(inMonthOf: month, calendar: calendar)
-        return LazyVGrid(columns: columns, spacing: 4) {
-            ForEach(Array(CycleCalendarGrid.weekdaySymbols(calendar: calendar).enumerated()), id: \.offset) { _, symbol in
-                Text(symbol)
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .accessibilityHidden(true)
+        return VStack(spacing: 8) {
+            HStack(spacing: 0) {
+                ForEach(Array(WeekdayLabel.row(calendar: calendar).enumerated()), id: \.offset) { _, symbol in
+                    Text(symbol)
+                        .font(.luna(.tiny))
+                        .foregroundStyle(.luna(.textSecondary))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                        .frame(maxWidth: .infinity)
+                }
             }
-            ForEach(Array(days.enumerated()), id: \.offset) { _, day in
-                if let day {
-                    CalendarDayCell(
-                        day: day,
-                        status: cycle.forecast?.dayStatus(for: day),
-                        log: cycle.log(on: day),
-                        isToday: day == today,
-                        isFuture: day > today
-                    ) {
-                        logDay = CycleDaySelection(date: day)
+            .accessibilityHidden(true)
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 7), spacing: 4) {
+                ForEach(Array(days.enumerated()), id: \.offset) { _, day in
+                    if let day {
+                        CalendarDayCell(
+                            day: day,
+                            status: cycle.forecast?.dayStatus(for: day),
+                            log: cycle.log(on: day),
+                            isToday: day == today,
+                            isSelected: day == selected
+                        ) {
+                            selected = day
+                        }
+                    } else {
+                        Color.clear
+                            .frame(height: 44)
+                            .accessibilityHidden(true)
                     }
-                } else {
-                    Color.clear
-                        .frame(height: 1)
-                        .accessibilityHidden(true)
                 }
             }
         }
+        .padding(.vertical, 14)
+        .padding(.horizontal, 8)
+        .background(.luna(.card), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .padding(.horizontal, 14)
+    }
+
+    private var selectedDayCard: some View {
+        let status = cycle.forecast?.dayStatus(for: selected)
+        let cycleDay = cycle.forecast?.cycleDay(on: selected)
+        let line: String? = status.map { status in
+            cycleDay.map { L10n.cyclePhase($0, CycleTexts.status(status)) } ?? CycleTexts.status(status)
+        }
+        return HStack(spacing: 14) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(selected == today ? L10n.commonToday : Formatting.weekdayDay(selected))
+                    .font(.luna(.caption))
+                    .foregroundStyle(.luna(.textSecondary))
+                if let line {
+                    Text(line)
+                        .font(.luna(.cardTitle))
+                        .foregroundStyle(.luna(.textPrimary))
+                }
+                if let summary = CycleTexts.logSummary(cycle.log(on: selected)) {
+                    Text(summary)
+                        .font(.luna(.caption))
+                        .foregroundStyle(.luna(.textSecondary))
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("calendarSelectedDay")
+            Button(L10n.calendarLog) { logDay = CycleDaySelection(date: selected) }
+                .buttonStyle(.pill(.soft(.cycleSoft, .cycleOnSoft), fullWidth: false, height: 40))
+                // Future days can be looked at, not logged.
+                .disabled(selected > today)
+                .accessibilityIdentifier("calendarLogButton")
+        }
+        .lunaCard(padding: 16)
+        .padding(.horizontal, 20)
     }
 
     private func showMonth(_ offset: Int) {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            month = CycleCalendarGrid.month(offset, from: month)
+        // Off in UI tests; a plain fade with Reduce Motion.
+        let animation: Animation? = LunaMotion.isEnabled ? (reduceMotion ? LunaMotion.fade : .easeInOut(duration: 0.2)) : nil
+        withAnimation(animation) {
+            month = CycleCalendarGrid.month(offset, from: month, calendar: calendar)
         }
     }
 }
 
+/// Ovulation days are not told apart by colour alone (their fill is close to the
+/// fertile one: 1.1:1 light, 1.4:1 dark): `DayCircleStyle.ovulation` adds a teal
+/// ring (≥ 3:1 on the fill, ContrastTests) and bold numbers, like the legend swatch.
 struct CalendarDayCell: View {
     let day: Date
     /// nil when nothing has been logged yet (no forecast).
     let status: CycleDayStatus?
     let log: CycleLogRecord?
     let isToday: Bool
-    let isFuture: Bool
+    let isSelected: Bool
     let action: () -> Void
-
-    @ScaledMetric(relativeTo: .callout) private var height: CGFloat = 46
-
-    private var isRecordedPeriod: Bool { status == .period(isPredicted: false) }
-    private var isPredictedPeriod: Bool { status == .period(isPredicted: true) }
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 2) {
-                Text(day.formatted(.dateTime.day()))
-                    .font(.callout.weight(isToday || isRecordedPeriod || status == .peak ? .bold : .regular))
-                HStack(spacing: 2) {
-                    if let symbol = status.flatMap(CyclePalette.symbol(for:)) {
-                        Image(systemName: symbol)
-                    }
-                    if log != nil {
-                        Circle().frame(width: 5, height: 5)
-                    }
-                }
-                .font(.system(size: 8))
-                .frame(height: 9)
-            }
-            .frame(maxWidth: .infinity, minHeight: height)
-            .foregroundStyle(foreground)
-            .background(background, in: RoundedRectangle(cornerRadius: 10))
-            .overlay {
-                if isPredictedPeriod {
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(CyclePalette.period, style: StrokeStyle(lineWidth: 1.5, dash: [3, 2]))
-                }
-                if isToday {
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(Color.primary, lineWidth: 2)
+            DayCircle(
+                number: Formatting.dayNumber(day),
+                style: .calendar(status),
+                isToday: isToday,
+                isSelected: isSelected,
+                fontSize: 15
+            )
+            .overlay(alignment: .bottom) {
+                if log != nil {
+                    Circle()
+                        .fill(.luna(.textPrimary))
+                        .frame(width: 4, height: 4)
+                        .offset(y: 8)
                 }
             }
-            .opacity(isFuture && status == nil ? 0.5 : 1)
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .contentShape(Rectangle())
         }
-        // Not .plain: a disabled plain button fades the whole cell, which made the
-        // predicted peak days unreadable. Future days keep their colours.
-        .buttonStyle(CalendarDayButtonStyle())
-        .disabled(isFuture)
+        .buttonStyle(.plain)
         .accessibilityLabel(CycleAccessibility.dayLabel(day: day, status: status, log: log, isToday: isToday))
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityIdentifier("calendarDay")
     }
-
-    private var background: Color {
-        switch status {
-        case .period(isPredicted: false)?: CyclePalette.period
-        case .period(isPredicted: true)?: CyclePalette.period.opacity(0.12)
-        case .fertile?: CyclePalette.fertile.opacity(0.3)
-        case .peak?: CyclePalette.peak
-        case .low?, nil: Color.clear
-        }
-    }
-
-    /// Light text on the solid period and peak fills, normal text elsewhere.
-    private var foreground: Color {
-        switch status {
-        case .period(isPredicted: false)?, .peak?: Color(.systemBackground)
-        default: Color.primary
-        }
-    }
 }
 
-/// Pressed feedback only; ignores the disabled state so future days stay legible.
-private struct CalendarDayButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label.opacity(configuration.isPressed ? 0.6 : 1)
-    }
-}
-
+/// Legend under the grid: period, predicted, fertile, ovulation (ringed, as on
+/// the grid), logged.
 struct CycleLegend: View {
-    private struct Item: Identifiable {
-        let id: String
-        let title: String
-        let symbol: String
-        let fill: Color
-        var dashed = false
-    }
-
-    private var items: [Item] {
-        [
-            Item(id: "period", title: L10n.calendarLegendPeriod, symbol: "drop.fill", fill: CyclePalette.period),
-            Item(id: "predicted", title: L10n.calendarLegendPredicted, symbol: "drop", fill: CyclePalette.period.opacity(0.12), dashed: true),
-            Item(id: "fertile", title: L10n.calendarLegendFertile, symbol: "leaf.fill", fill: CyclePalette.fertile.opacity(0.3)),
-            Item(id: "peak", title: L10n.calendarLegendPeak, symbol: "sparkles", fill: CyclePalette.peak),
-        ]
-    }
-
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            ForEach(items) { item in
-                HStack(spacing: 10) {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(item.fill)
-                        .overlay {
-                            if item.dashed {
-                                RoundedRectangle(cornerRadius: 6)
-                                    .strokeBorder(CyclePalette.period, style: StrokeStyle(lineWidth: 1.5, dash: [3, 2]))
-                            }
-                        }
-                        .overlay {
-                            Image(systemName: item.symbol)
-                                .font(.caption2)
-                                .foregroundStyle(item.id == "period" || item.id == "peak" ? Color(.systemBackground) : Color.primary)
-                        }
-                        .frame(width: 28, height: 22)
-                    Text(item.title).font(.subheadline)
-                }
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 130), alignment: .leading)], alignment: .leading, spacing: 8) {
+            item(L10n.calendarLegendPeriod) { Circle().fill(.luna(.cycleStrong)) }
+            item(L10n.calendarLegendPredicted) {
+                Circle().strokeBorder(.luna(.cycle), style: StrokeStyle(lineWidth: 1.5, dash: [3, 2]))
             }
-            HStack(spacing: 10) {
-                Circle().frame(width: 6, height: 6)
-                    .frame(width: 28, height: 22)
-                Text(L10n.calendarLegendLogged).font(.subheadline)
+            item(L10n.calendarLegendFertile) { Circle().fill(.luna(.fertileSoft)) }
+            item(L10n.calendarLegendPeak) {
+                Circle().fill(.luna(.ovulation)).overlay(Circle().strokeBorder(.luna(.teal), lineWidth: 1.5))
+            }
+            item(L10n.calendarLegendLogged) {
+                Circle().fill(.luna(.textPrimary)).frame(width: 5, height: 5)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .card()
+        .padding(.horizontal, 22)
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("calendarLegend")
+    }
+
+    private func item<Swatch: View>(_ title: String, @ViewBuilder swatch: () -> Swatch) -> some View {
+        HStack(spacing: 6) {
+            swatch().frame(width: 12, height: 12)
+            Text(title)
+                .font(.luna(.small))
+                .foregroundStyle(.luna(.textSecondary))
+        }
     }
 }
 

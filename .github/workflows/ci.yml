@@ -10,7 +10,8 @@ concurrency:
 jobs:
   test:
     runs-on: macos-latest
-    timeout-minutes: 45
+    # Full UI suite + screenshots take ~40 min; leave headroom (scoped runs are shorter).
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - name: Select latest stable Xcode

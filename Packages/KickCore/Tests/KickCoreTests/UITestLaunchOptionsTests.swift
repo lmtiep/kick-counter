@@ -37,3 +37,19 @@ struct UITestCycleSeedOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedCycles"]).seedCycles == nil)
     }
 }
+
+struct UITestOverdueSessionOptionTests {
+    @Test func seedOverdueSessionNeedsUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedOverdueSession"]).seedOverdueSession)
+        #expect(UITestLaunchOptions(arguments: ["-seedOverdueSession"]).seedOverdueSession == false)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).seedOverdueSession == false)
+    }
+}
+
+struct UITestSessionSeedOptionTests {
+    @Test func seedSessionsNeedsUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedSessions"]).seedSessions)
+        #expect(UITestLaunchOptions(arguments: ["-seedSessions"]).seedSessions == false)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).seedSessions == false)
+    }
+}

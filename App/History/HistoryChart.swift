@@ -2,45 +2,68 @@ import Charts
 import KickCore
 import SwiftUI
 
+/// 170 pt bar chart (spec §4.7): the current day or week in `pregStrong`, the
+/// others in `pregBar`, no session in `track`; dashed 30′ line; the axis stops at
+/// 60′ and longer bars are cut there with their real value written above.
 struct HistoryChart: View {
-    let summaries: [DailySummary]
-    let endingAt: Date
-
-    private var domain: ClosedRange<Date> {
-        let calendar = Calendar.current
-        let end = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: endingAt))!
-        let start = calendar.date(byAdding: .day, value: -HistorySummary.defaultDays, to: end)!
-        return start...end
+    struct Item: Identifiable {
+        let id: Int
+        let label: String
+        let minutes: Double?
+        let isCurrent: Bool
     }
 
+    let items: [Item]
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(L10n.historyChartTitle).font(.headline)
-            Chart {
-                ForEach(summaries) { summary in
-                    BarMark(
-                        x: .value(L10n.historyChartDay, summary.day, unit: .day),
-                        y: .value(L10n.historyChartMinutes, summary.minutesToTarget)
-                    )
-                    .foregroundStyle(summary.exceededThreshold ? Color.orange : Color.accentColor)
-                    .cornerRadius(4)
+        Chart {
+            // Drawn first, so bars and their values sit above the dashed line.
+            RuleMark(y: .value(L10n.historyChartMinutes, HistoryStats.referenceMinutes))
+                .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+                .foregroundStyle(.luna(.pregBar))
+                .annotation(position: .top, alignment: .trailing) {
+                    Text(L10n.historyBarMinutes(Int(HistoryStats.referenceMinutes)))
+                        .font(.luna(size: 10, weight: .regular, relativeTo: .caption2))
+                        .foregroundStyle(.luna(.textSecondary))
                 }
-                RuleMark(y: .value(L10n.historyChartThreshold, SessionRules.overdueThreshold / 60))
-                    .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
-                    .foregroundStyle(.secondary)
-                    .annotation(position: .top, alignment: .leading) {
-                        Text(L10n.historyChartThreshold).font(.caption2).foregroundStyle(.secondary)
-                    }
-            }
-            .chartXScale(domain: domain)
-            .chartXAxis {
-                AxisMarks(values: .stride(by: .day, count: 2)) {
-                    AxisValueLabel(format: .dateTime.day().month(.defaultDigits))
+                .accessibilityHidden(true)
+            ForEach(items) { item in
+                BarMark(
+                    x: .value(L10n.historyChartPeriod, item.label),
+                    y: .value(L10n.historyChartMinutes, item.minutes.map { min($0, HistoryStats.chartMaxMinutes) } ?? 2),
+                    width: .ratio(0.6)
+                )
+                .foregroundStyle(color(item))
+                .cornerRadius(7)
+                .annotation(position: .top, spacing: 4, overflowResolution: .init(x: .fit, y: .disabled)) {
+                    Text(item.minutes.map { L10n.historyBarMinutes(Int($0.rounded())) } ?? "–")
+                        .font(.luna(size: 11, weight: .semibold, relativeTo: .caption2))
+                        .foregroundStyle(.luna(.textSecondary))
+                        .padding(.horizontal, 3)
+                        .background(.luna(.card)) // hides the 30′ line behind a value near it
                 }
+                .accessibilityLabel(item.label)
+                .accessibilityValue(item.minutes.map(Formatting.minutes) ?? L10n.historyNoSession)
             }
-            .chartYAxisLabel(L10n.historyChartMinutes)
-            .frame(height: 200)
         }
-        .padding(.vertical, 8)
+        // Bars stop at 60′; the extra 8′ above leaves room for a cut bar's real
+        // value inside the plot (plot padding pushed the bars over the x labels).
+        .chartYScale(domain: 0...(HistoryStats.chartMaxMinutes + 8))
+        .chartYAxis(.hidden)
+        .chartXAxis {
+            AxisMarks { _ in
+                AxisValueLabel()
+                    .font(.luna(.tiny))
+                    .foregroundStyle(.luna(.textSecondary))
+            }
+        }
+        .frame(height: 170)
+        .padding(.top, 14)
+        .accessibilityIdentifier("historyChart")
+    }
+
+    private func color(_ item: Item) -> Color {
+        guard item.minutes != nil else { return .luna(.track) }
+        return item.isCurrent ? .luna(.pregStrong) : .luna(.pregBar)
     }
 }

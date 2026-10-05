@@ -17,7 +17,7 @@ final class ScreenshotTests: XCTestCase {
         ]
         if dark { app.launchArguments.append("-forceDarkMode") }
         app.launch()
-        app.openTab(.counter)
+        app.openTab(.kicks)
         return app
     }
 
@@ -54,18 +54,21 @@ final class ScreenshotTests: XCTestCase {
 
     @MainActor
     func testHistoryScreens() {
-        for dark in [false, true] {
-            let suffix = dark ? "dark" : "light"
-            let app = launch(dark: dark)
-            tapKick(app, times: 10)
-            XCTAssertTrue(app.buttons["completionDone"].waitForExistence(timeout: 5))
-            app.buttons["completionDone"].tap()
-            tapKick(app, times: 2)
-            app.buttons["cancelSessionButton"].tap()
-            confirmCancel(app)
-            app.openTab(.history)
-            XCTAssertTrue(app.descendants(matching: .any)["sessionRow"].firstMatch.waitForExistence(timeout: 5))
-            snap(app, "history-\(suffix)")
+        for (language, dark) in UITestVariants.all {
+            let suffix = UITestVariants.suffix(language, dark)
+            let app = XCUIApplication.launchPinned(
+                language: language, dark: dark, dueDate: UITestDates.dueAtWeek38, extraArguments: ["-seedSessions"]
+            )
+            app.openHistory()
+            XCTAssertTrue(app.descendants(matching: .any)["historyAverage"].waitForExistence(timeout: 10))
+            snap(app, "history-week-\(suffix)")
+            app.buttons["historyRange28"].tap()
+            snap(app, "history-month-\(suffix)")
+            if !dark {
+                let guide = app.descendants(matching: .any)["historyGuide"]
+                app.scrollUntilHittable(guide, maxSwipes: 12)
+                snap(app, "history-bottom-\(suffix)")
+            }
             app.terminate()
         }
     }
@@ -87,6 +90,34 @@ final class ScreenshotTests: XCTestCase {
         let app = launch(language: "en")
         tapKick(app, times: 2)
         snap(app, "counter-2-en")
+        app.terminate()
+
+        // Spec §5: Dynamic Type AX5 on Kicks, idle and counting.
+        let large = XCUIApplication.launchPinned(language: "vi", dueDate: UITestDates.dueAtWeek38, largestText: true)
+        large.openTab(.kicks)
+        XCTAssertTrue(large.buttons["kickButton"].waitForExistence(timeout: 10))
+        snap(large, "kicks-idle-vi-ax5")
+        tapKick(large, times: 3)
+        snap(large, "kicks-running-vi-ax5")
+        large.swipeUp()
+        snap(large, "kicks-running-vi-ax5-scrolled")
+    }
+
+    /// The largest accessibility text size: tab labels stay 11 pt and the
+    /// navigation title is capped (LunaAppearance), so neither is clipped.
+    @MainActor
+    func testCounterAtAccessibilityTextSize() {
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-uiTesting", "-skipOnboarding",
+            "-AppleLanguages", "(vi)",
+            "-AppleLocale", "vi_VN",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
+        ]
+        app.launch()
+        app.openTab(.kicks)
+        XCTAssertTrue(app.buttons["kickButton"].waitForExistence(timeout: 10))
+        snap(app, "ax5-counter-vi-light")
     }
 
     @MainActor
@@ -95,24 +126,19 @@ final class ScreenshotTests: XCTestCase {
         app.launchArguments = ["-uiTesting", "-AppleLanguages", "(vi)", "-AppleLocale", "vi_VN"]
         app.launch()
 
+        // Onboarding screenshots: OnboardingUITests.testOnboardingScreens.
         let next = app.buttons["onboardingNext"]
         XCTAssertTrue(next.waitForExistence(timeout: 10))
-        snap(app, "onboarding-1")
         next.tap()
-        snap(app, "onboarding-2")
-        next.tap()
-        snap(app, "onboarding-3")
-        app.buttons["onboardingAgree"].tap()
         let pregnant = app.buttons["onboardingModePregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
-        snap(app, "onboarding-mode")
         pregnant.tap()
+        next.tap()
         let later = app.buttons["onboardingSkipDate"]
         XCTAssertTrue(later.waitForExistence(timeout: 5))
-        snap(app, "onboarding-4")
         later.tap()
 
-        app.openTab(.settings)
+        app.openTab(.profile)
         // The new "Mode" section sits on top; Form only creates rows near the viewport.
         XCTAssertTrue(app.segmentedControls.firstMatch.waitForExistence(timeout: 5))
         let datesRow = app.buttons["settingsPregnancyDates"]
@@ -124,7 +150,7 @@ final class ScreenshotTests: XCTestCase {
         let save = app.buttons["pregnancyDateSave"]
         XCTAssertTrue(save.waitForExistence(timeout: 5))
         snap(app, "pregnancy-date-sheet")
-        app.segmentedControls.buttons.element(boundBy: 1).tap() // "Kỳ kinh cuối"
+        app.segmentedControls["pregnancyDateSourcePicker"].buttons.element(boundBy: 1).tap() // "Kỳ kinh cuối"
         XCTAssertTrue(app.staticTexts["pregnancyEstimatedDue"].waitForExistence(timeout: 5))
         snap(app, "pregnancy-date-sheet-lmp")
         save.tap()
@@ -141,7 +167,7 @@ final class ScreenshotTests: XCTestCase {
         snap(app, "medical-sources")
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
-        app.openTab(.counter)
+        app.openTab(.kicks)
         snap(app, "counter-with-week")
     }
 }

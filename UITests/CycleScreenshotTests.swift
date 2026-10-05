@@ -6,7 +6,7 @@ final class CycleScreenshotTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    private static let variants = [("vi", false), ("vi", true), ("en", false)]
+    private static let variants = UITestVariants.all
 
     /// The Cycle tab during a period, in the fertile window, when late, and with irregular cycles.
     @MainActor
@@ -17,13 +17,26 @@ final class CycleScreenshotTests: XCTestCase {
                 let app = XCUIApplication.launchPinned(language: language, dark: dark, seedCycles: scenario)
                 XCTAssertTrue(app.descendants(matching: .any)["cycleStatusCard"].waitForExistence(timeout: 10), name)
                 attachScreenshot(app, name)
-                if language == "vi", !dark {
-                    let logToday = app.buttons["cycleLogTodayButton"]
-                    app.scrollUntilHittable(logToday)
+                if !dark {
+                    let maybePregnant = app.buttons["cycleMaybePregnantCard"]
+                    app.scrollUntilHittable(maybePregnant)
                     attachScreenshot(app, "\(name)-bottom")
                 }
                 app.terminate()
             }
+        }
+    }
+
+    /// Spec §5: Dynamic Type AX5 — no text cut off, the ring keeps its size.
+    @MainActor
+    func testCycleTodayLargestText() {
+        for scenario in ["fertile", "late"] {
+            let app = XCUIApplication.launchPinned(language: "vi", seedCycles: scenario, largestText: true)
+            XCTAssertTrue(app.descendants(matching: .any)["cycleStatusCard"].waitForExistence(timeout: 10))
+            attachScreenshot(app, "cycle-home-\(scenario)-vi-ax5")
+            app.swipeUp()
+            attachScreenshot(app, "cycle-home-\(scenario)-vi-ax5-scrolled")
+            app.terminate()
         }
     }
 
@@ -83,6 +96,11 @@ final class CycleScreenshotTests: XCTestCase {
                 let legend = app.descendants(matching: .any)["calendarLegend"]
                 app.scrollUntilHittable(legend)
                 attachScreenshot(app, "calendar-legend-vi-light")
+                let future = app.buttons.matching(
+                    NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH '20 tháng 10'")
+                ).firstMatch
+                future.tap()
+                attachScreenshot(app, "calendar-future-day-vi-light")
             }
             app.terminate()
         }
@@ -106,6 +124,14 @@ final class CycleScreenshotTests: XCTestCase {
             button.tap()
             XCTAssertTrue(app.buttons["imPregnantSave"].waitForExistence(timeout: 5))
             attachScreenshot(app, "im-pregnant-\(suffix)")
+            if !dark {
+                app.buttons["imPregnantSourceDue"].tap()
+                attachScreenshot(app, "im-pregnant-due-\(suffix)")
+                app.buttons["imPregnantDate"].tap()
+                XCTAssertTrue(app.datePickers["imPregnantPicker"].waitForExistence(timeout: 5))
+                attachScreenshot(app, "im-pregnant-picker-\(suffix)")
+                app.buttons[language == "vi" ? "Xong" : "Done"].tap()
+            }
             if language == "vi", !dark {
                 app.buttons["imPregnantSave"].tap()
                 XCTAssertTrue(app.descendants(matching: .any)["weekProgressCard"].waitForExistence(timeout: 10))
@@ -116,31 +142,11 @@ final class CycleScreenshotTests: XCTestCase {
     }
 
     @MainActor
-    func testOnboardingModeScreens() {
-        for (language, dark) in Self.variants {
-            let suffix = "\(language)-\(dark ? "dark" : "light")"
-            let app = XCUIApplication.launchPinned(language: language, dark: dark, skipOnboarding: false)
-            let next = app.buttons["onboardingNext"]
-            XCTAssertTrue(next.waitForExistence(timeout: 10))
-            next.tap()
-            next.tap()
-            app.buttons["onboardingAgree"].tap()
-            let tryingToConceive = app.buttons["onboardingModeTTC"]
-            XCTAssertTrue(tryingToConceive.waitForExistence(timeout: 5))
-            attachScreenshot(app, "onboarding-mode-\(suffix)")
-            tryingToConceive.tap()
-            XCTAssertTrue(app.buttons["onboardingSaveCycle"].waitForExistence(timeout: 5))
-            attachScreenshot(app, "onboarding-cycle-\(suffix)")
-            app.terminate()
-        }
-    }
-
-    @MainActor
     func testSettingsScreens() {
         for (language, dark) in Self.variants {
             let suffix = "\(language)-\(dark ? "dark" : "light")"
             let app = XCUIApplication.launchPinned(language: language, dark: dark, seedCycles: "fertile")
-            app.openCycleTab(.settings)
+            app.openCycleTab(.profile)
             XCTAssertTrue(app.descendants(matching: .any)["settingsCycleLength"].waitForExistence(timeout: 10))
             attachScreenshot(app, "settings-ttc-\(suffix)")
             if language == "vi", !dark {

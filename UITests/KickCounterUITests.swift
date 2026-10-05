@@ -10,18 +10,17 @@ final class KickCounterUITests: XCTestCase {
         app.launchArguments = ["-uiTesting", "-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
         completeOnboarding()
-        app.openTab(.counter)
+        app.openTab(.kicks)
     }
 
     private func completeOnboarding() {
         let next = app.buttons["onboardingNext"]
         XCTAssertTrue(next.waitForExistence(timeout: 10))
         next.tap()
-        next.tap()
-        app.buttons["onboardingAgree"].tap()
         let pregnant = app.buttons["onboardingModePregnant"]
         XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
         pregnant.tap()
+        next.tap()
         let later = app.buttons["onboardingSkipDate"]
         XCTAssertTrue(later.waitForExistence(timeout: 5))
         later.tap()
@@ -44,7 +43,7 @@ final class KickCounterUITests: XCTestCase {
     /// Waits for the kick button's accessibility value to become `expected` and asserts it.
     ///
     /// Counter mutations (`recordKick`, `undo`, `cancelSession`) all run inside an async
-    /// `Task` in `CounterView`, so the accessibility value updates asynchronously after
+    /// `Task` in `KicksView`, so the accessibility value updates asynchronously after
     /// the triggering tap. Reading `kickValue` immediately after a tap races that update and
     /// can observe the stale value (seen flaking on CI); wait for the predicate instead of
     /// asserting straight away.
@@ -71,7 +70,7 @@ final class KickCounterUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["completionTitle"].waitForExistence(timeout: 5))
         app.buttons["completionDone"].tap()
 
-        app.openTab(.history)
+        app.openHistory()
         XCTAssertTrue(app.descendants(matching: .any)["sessionRow"].firstMatch.waitForExistence(timeout: 5))
     }
 

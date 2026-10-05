@@ -1,6 +1,8 @@
 import KickCore
 import SwiftUI
 
+/// Medical information (spec §4.9): the kick-count guidance, the
+/// trying-to-conceive notes and the content sources, as cards.
 struct MedicalInfoView: View {
     @Environment(\.contentLibrary) private var library
     @AppStorage(SettingsKey.appMode, store: AppGroup.defaults) private var appMode = AppMode.pregnant.rawValue
@@ -9,7 +11,7 @@ struct MedicalInfoView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            VStack(alignment: .leading, spacing: 12) {
                 // Trying-to-conceive notes first in that mode; kick-count guidance first otherwise.
                 if mode == .tryingToConceive {
                     ttcSection
@@ -20,45 +22,57 @@ struct MedicalInfoView: View {
                 }
 
                 if let sources = library?.sources, !sources.isEmpty {
-                    VStack(alignment: .leading, spacing: 12) {
+                    VStack(alignment: .leading, spacing: 10) {
                         Text(L10n.medicalSourcesTitle)
-                            .font(.headline)
+                            .font(.luna(.cardTitleSmall))
+                            .foregroundStyle(.luna(.textPrimary))
                         Text(L10n.medicalSourcesNote)
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
+                            .font(.luna(.caption))
+                            .foregroundStyle(.luna(.textSecondary))
                         ForEach(sources, id: \.self) { source in
                             Label {
                                 Text(verbatim: source)
                             } icon: {
                                 Image(systemName: "book.closed")
-                                    .foregroundStyle(Color.accentColor)
+                                    .foregroundStyle(.luna(.pregStrong))
                             }
-                            .font(.subheadline)
+                            .font(.luna(.caption))
+                            .foregroundStyle(.luna(.articleText))
                         }
                     }
+                    .lunaCard()
                     .accessibilityElement(children: .contain)
                     .accessibilityIdentifier("medicalSources")
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
+            .padding(20)
         }
+        // Content scrolled up stays out from under the status bar.
+        .lunaStatusBarBackdrop()
+        .background(.luna(.background))
         .navigationTitle(L10n.medicalTitle)
         .navigationBarTitleDisplayMode(.inline)
     }
 
     private var kickSection: some View {
         Text(L10n.medicalBody)
-            .font(.body)
+            .font(.luna(.body))
+            .lineSpacing(4)
+            .foregroundStyle(.luna(.articleText))
+            .lunaCard()
     }
 
     private var ttcSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(L10n.medicalTTCTitle)
-                .font(.headline)
+                .font(.luna(.cardTitleSmall))
+                .foregroundStyle(.luna(.textPrimary))
             Text(L10n.medicalTTCBody)
-                .font(.body)
+                .font(.luna(.body))
+                .lineSpacing(4)
+                .foregroundStyle(.luna(.articleText))
         }
+        .lunaCard()
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("medicalTTC")
     }
