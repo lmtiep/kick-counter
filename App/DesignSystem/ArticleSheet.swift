@@ -125,7 +125,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
                 .onChange(of: resetKey) {
                     reader.scrollTo(Self.topID, anchor: .top)
                 }
-                .task {
+                .task(id: initialAnchor) {
                     guard let initialAnchor else { return }
                     // Once laid out; a jump rather than an animated scroll (Reduce Motion, UI tests).
                     try? await Task.sleep(for: .milliseconds(150))
@@ -144,23 +144,33 @@ struct ArticleSheet<Header: View, Content: View>: View {
         .onChange(of: peekTop) {
             if !isDragging { progress = resolver.progress(for: detent) }
         }
+        .onChange(of: expandedTop) {
+            if !isDragging { progress = resolver.progress(for: detent) }
+        }
+        .onChange(of: containerHeight) {
+            if !isDragging { progress = resolver.progress(for: detent) }
+        }
         .onChange(of: detent) {
             if !isDragging { progress = resolver.progress(for: detent) }
         }
     }
 
-    /// 36×5 pt capsule in a full-width, 44 pt tall hit area; tapping toggles the detent.
+    /// 36×5 pt capsule in a full-width, 44 pt tall hit area; tapping toggles the
+    /// detent. Not a `Button`: the sheet's `.offset` follows the finger during a
+    /// drag that starts here, so the finger stays inside a Button's bounds and
+    /// its tap action would fire on release, flipping the detent a second time.
     private var handle: some View {
-        Button(action: toggle) {
-            Capsule()
-                .fill(.luna(.chevron))
-                .frame(width: 36, height: 5)
-                .frame(maxWidth: .infinity, minHeight: 44)
-                .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(handleLabel(detent))
-        .accessibilityIdentifier(handleIdentifier)
+        Capsule()
+            .fill(.luna(.chevron))
+            .frame(width: 36, height: 5)
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .contentShape(Rectangle())
+            .onTapGesture(perform: toggle)
+            .accessibilityElement()
+            .accessibilityAddTraits(.isButton)
+            .accessibilityAction { toggle() }
+            .accessibilityLabel(handleLabel(detent))
+            .accessibilityIdentifier(handleIdentifier)
     }
 
     private var headerDrag: some Gesture {
