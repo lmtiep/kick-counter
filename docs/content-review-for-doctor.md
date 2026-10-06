@@ -225,11 +225,10 @@ hiện nhóm, dải hay trạng thái.
         nhận cách diễn đạt này đúng ý hay cần sửa lại (không tự đổi câu chữ trong app).
 32. [ ] Duyệt (hoặc sửa) tên lượng kinh, tâm trạng, triệu chứng (vi + en) và các câu trạng thái cân nặng.
 33. [ ] **Câu hỏi sản phẩm — thẻ an toàn và tuần chưa duyệt:** ở bản chính thức, tuần nội dung chưa duyệt bị ẩn
-        hoàn toàn (mục 1). Vì "Xem dấu hiệu cần đi khám" (`symptom.safety.action`) luôn mở Chi tiết tuần hiện tại
-        tại mục cảnh báo, nếu đúng tuần đó chưa duyệt, người dùng có thể mở ra một Chi tiết tuần không còn dấu hiệu
-        cảnh báo nào (nội dung tuần bị ẩn), dù vừa chọn "Cơn gò" hoặc "Phù chân" trên thẻ an toàn. Bác sĩ/nhóm sản
-        phẩm quyết định: có nên luôn hiện mục cảnh báo (`week.warnings`) ngay cả với tuần chưa duyệt, để nút này
-        không bao giờ mở ra một màn trống?
+        hoàn toàn (mục 1). Để nút "Xem dấu hiệu cần đi khám" (`symptom.safety.action`) không mở ra một Chi tiết tuần
+        trống, app hiện **ẩn nút này** khi tuần hiện tại chưa duyệt; câu "đi khám ngay" trên thẻ an toàn vẫn luôn hiện.
+        Bác sĩ/nhóm sản phẩm xác nhận cách này chấp nhận được, hay muốn luôn hiện mục cảnh báo (`week.warnings`)
+        ngay cả với tuần chưa duyệt để nút luôn có?
 34. [ ] **Làm tròn BMI ở biên:** theo quyết định đã ghi trong plan (bảng "Quyết định làm rõ spec" §2.4), BMI được
         làm tròn 1 chữ số thập phân **trước khi** xếp nhóm, để số hiển thị và nhóm khớp nhau. Hệ quả: BMI thật
         24,95–24,99 làm tròn thành 25,0 và bị xếp vào nhóm Thừa cân (`over`), chứ không phải Bình thường
