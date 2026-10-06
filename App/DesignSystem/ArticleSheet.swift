@@ -22,7 +22,7 @@ private struct ArticleScrollOffsetKey: PreferenceKey {
 ///   hands the drag to the sheet.
 /// - `progress` is 0 at peek and 1 expanded, for the caller's background.
 /// - The spring is off under Reduce Motion and in UI tests (`LunaMotion.sheet`).
-struct ArticleSheet<Header: View, Content: View>: View {
+struct ArticleSheet<Header: View, Pinned: View, Content: View>: View {
     @Binding private var detent: SheetDetent
     @Binding private var progress: Double
     private let peekTop: CGFloat
@@ -35,6 +35,10 @@ struct ArticleSheet<Header: View, Content: View>: View {
     private let scrollIdentifier: String
     private let handleLabel: (SheetDetent) -> String
     private let header: Header
+    /// Fixed controls below the header that must not take part in `headerDrag`
+    /// (e.g. a tab pill): a drag that starts on one of them would otherwise keep
+    /// the finger inside its Button and fire a tap on release.
+    private let pinned: Pinned
     private let content: Content
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -60,6 +64,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
         scrollIdentifier: String,
         handleLabel: @escaping (SheetDetent) -> String,
         @ViewBuilder header: () -> Header,
+        @ViewBuilder pinned: () -> Pinned = { EmptyView() },
         @ViewBuilder content: () -> Content
     ) {
         _detent = detent
@@ -74,6 +79,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
         self.scrollIdentifier = scrollIdentifier
         self.handleLabel = handleLabel
         self.header = header()
+        self.pinned = pinned()
         self.content = content()
     }
 
@@ -96,6 +102,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
             }
             .contentShape(Rectangle())
             .simultaneousGesture(headerDrag)
+            pinned
             ScrollViewReader { reader in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {

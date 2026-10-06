@@ -26,6 +26,7 @@ struct WeekDetailView: View {
     @Environment(\.contentLibrary) private var library
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOverEnabled
     @State private var selection: Int
     @State private var tab: ArticleTab
     @State private var detent: SheetDetent
@@ -77,6 +78,8 @@ struct WeekDetailView: View {
                     handleLabel: { $0 == .peek ? L10n.weekArticleExpand : L10n.weekArticleCollapse }
                 ) {
                     sheetHeader
+                } pinned: {
+                    sheetPinned
                 } content: {
                     sheetContent
                 }
@@ -102,8 +105,9 @@ struct WeekDetailView: View {
         // VoiceOver two-finger scrub closes the cover, like the ✕ button.
         .accessibilityAction(.escape) { dismiss() }
         .onAppear {
-            // Accessibility text sizes open expanded (spec §3.4).
-            if dynamicTypeSize.isAccessibilitySize, detent == .peek {
+            // Accessibility text sizes and VoiceOver open expanded (spec §3.4):
+            // at peek the body does not scroll, so VoiceOver could not reach it.
+            if (dynamicTypeSize.isAccessibilitySize || voiceOverEnabled), detent == .peek {
                 detent = .expanded
                 progress = 1
             }
@@ -114,25 +118,35 @@ struct WeekDetailView: View {
 
     private func backgroundLayer(height: CGFloat) -> some View {
         VStack(spacing: 0) {
-            Color.clear.frame(height: Self.closeRowHeight)
-            WeekArtwork.fetus(selection)
-                .resizable()
-                .scaledToFit()
-                .padding(28)
-                .background(
-                    RadialGradient(
-                        colors: [Color.luna(.card).opacity(0.7), Color.luna(.card).opacity(0)],
-                        center: .center,
-                        startRadius: 0,
-                        endRadius: 150
+            VStack(spacing: 0) {
+                Color.clear.frame(height: Self.closeRowHeight)
+                WeekArtwork.fetus(selection)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(28)
+                    .background(
+                        RadialGradient(
+                            colors: [Color.luna(.card).opacity(0.7), Color.luna(.card).opacity(0)],
+                            center: .center,
+                            startRadius: 0,
+                            endRadius: 150
+                        )
+                        .clipShape(Circle())
                     )
-                    .clipShape(Circle())
-                )
-                .frame(height: min(height * 0.36, 320))
-                .frame(maxWidth: .infinity)
-                .opacity(1 - progress)
-                .scaleEffect(reduceMotion ? 1 : 1 - 0.1 * progress)
-                .accessibilityHidden(true)
+                    .frame(height: min(height * 0.36, 320))
+                    .frame(maxWidth: .infinity)
+                    .opacity(1 - progress)
+                    .scaleEffect(reduceMotion ? 1 : 1 - 0.1 * progress)
+                    .accessibilityHidden(true)
+            }
+            .contentShape(Rectangle())
+            // The week swipe stays on the fetus/hero area, not the chips below it.
+            .gesture(
+                DragGesture(minimumDistance: 30).onEnded { value in
+                    guard abs(value.translation.width) > abs(value.translation.height) * 2 else { return }
+                    changeWeek(by: value.translation.width < 0 ? 1 : -1)
+                }
+            )
             ChipScroller(
                 values: Array(WeeklyContentLibrary.weekRange),
                 selection: $selection,
@@ -150,13 +164,6 @@ struct WeekDetailView: View {
             Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .contentShape(Rectangle())
-        .gesture(
-            DragGesture(minimumDistance: 30).onEnded { value in
-                guard abs(value.translation.width) > abs(value.translation.height) * 2 else { return }
-                changeWeek(by: value.translation.width < 0 ? 1 : -1)
-            }
-        )
         // Under the expanded sheet, VoiceOver must not reach the chips.
         .accessibilityHidden(detent == .expanded)
     }
@@ -167,19 +174,35 @@ struct WeekDetailView: View {
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(.luna(.textPrimary))
                 .frame(width: 40, height: 40)
-                .background(Circle().fill(Color.luna(.card).opacity(0.55)))
+                // Opaque, not translucent: a translucent fill let the sheet's
+                // top edge show faintly through once expanded. Opaque `card`
+                // plus a hairline border reads the same, and intentionally,
+                // over the hero gradient (peek) and the sheet (expanded).
+                .background(
+                    Circle()
+                        .fill(.luna(.card))
+                        .overlay(Circle().strokeBorder(.luna(.divider), lineWidth: 1))
+                )
                 .frame(minWidth: 44, minHeight: 44)
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityLabel(L10n.commonClose)
         .accessibilityIdentifier("weekDetailClose")
+        // VoiceOver reaches the ✕ before the fetus/chips or the sheet.
+        .accessibilitySortPriority(1)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 12)
         .padding(.top, 4)
     }
 
     // MARK: Sheet
+
+    /// Whether the Bé/Mẹ pill shows below the header (content loaded, not under review).
+    private var hasPinnedTab: Bool {
+        if case .content? = display { return true }
+        return false
+    }
 
     private var sheetHeader: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -191,6 +214,20 @@ struct WeekDetailView: View {
                 .accessibilityIdentifier("weekDetailTitle")
             if case .content(_, let pendingReview)? = display {
                 reviewer(pendingReview: pendingReview)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 24)
+        // When the pill doesn't show (no content yet, or under review), the
+        // header itself closes the gap before the scrolling body.
+        .padding(.bottom, hasPinnedTab ? 0 : 14)
+    }
+
+    /// The Bé/Mẹ pill: pinned below the header, outside `headerDrag` (spec §3),
+    /// so a drag that starts on a segment moves the sheet without firing its tap.
+    private var sheetPinned: some View {
+        Group {
+            if hasPinnedTab {
                 SegmentedPill(
                     options: [
                         SegmentedOption(value: ArticleTab.baby, title: L10n.weekArticleTabBaby, identifier: "weekTab-baby"),
@@ -198,12 +235,11 @@ struct WeekDetailView: View {
                     ],
                     selection: $tab
                 )
+                .padding(.horizontal, 24)
                 .padding(.top, 14)
+                .padding(.bottom, 14)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 24)
-        .padding(.bottom, 14)
     }
 
     private func reviewer(pendingReview: Bool) -> some View {

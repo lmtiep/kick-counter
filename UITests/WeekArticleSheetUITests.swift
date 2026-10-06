@@ -107,4 +107,21 @@ final class WeekArticleSheetUITests: XCTestCase {
         let app = openWeek24(largestText: true)
         waitForLabel(app.buttons["weekSheetHandle"], containing: "Collapse article")
     }
+
+    /// A drag that starts on the (unselected) Mẹ tab moves the sheet like any other
+    /// header drag; it must not also select that tab, the way a plain tap would.
+    @MainActor
+    func testDraggingFromTheUnselectedTabDoesNotSwitchIt() {
+        let app = openWeek24()
+        XCTAssertTrue(app.buttons["weekTab-baby"].isSelected)
+        XCTAssertFalse(app.buttons["weekTab-mom"].isSelected)
+
+        let start = app.buttons["weekTab-mom"].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        let end = start.withOffset(CGVector(dx: 0, dy: -300))
+        start.press(forDuration: 0.05, thenDragTo: end)
+
+        XCTAssertTrue(app.buttons["weekTab-baby"].isSelected)
+        XCTAssertFalse(app.buttons["weekTab-mom"].isSelected)
+        waitForLabel(app.buttons["weekSheetHandle"], containing: "Collapse article")
+    }
 }
