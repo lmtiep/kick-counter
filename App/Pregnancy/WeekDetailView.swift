@@ -9,58 +9,70 @@ struct WeekSelection: Identifiable, Equatable {
 
 /// Full-screen week detail, weeks 4…42 (spec §4.5): close button, fetus, a row
 /// of week chips scrolled to the current week, and the week's panel. Swipe left
-/// or right on the panel to change week.
+/// or right on the panel to change week. From the symptoms safety card it opens
+/// scrolled to "When to get care right away" (phase 5 spec §3.2).
 struct WeekDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.contentLibrary) private var library
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var selection: Int
+    private let scrollToWarnings: Bool
     private let language = ContentLanguage.current
+    private static let warningsAnchor = "weekWarnings"
 
-    init(currentWeek: Int) {
+    init(currentWeek: Int, scrollToWarnings: Bool = false) {
         _selection = State(initialValue: WeeklyContentLibrary.clampedWeek(currentWeek))
+        self.scrollToWarnings = scrollToWarnings
     }
 
     var body: some View {
         GeometryReader { proxy in
-            ScrollView {
-                VStack(spacing: 0) {
-                    topBar
-                    Image("Fetus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 170)
-                        .frame(width: 220, height: 220)
-                        .background(
-                            RadialGradient(
-                                colors: [Color.luna(.card).opacity(0.7), Color.luna(.card).opacity(0)],
-                                center: .center,
-                                startRadius: 0,
-                                endRadius: 110
+            ScrollViewReader { reader in
+                ScrollView {
+                    VStack(spacing: 0) {
+                        topBar
+                        Image("Fetus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 170)
+                            .frame(width: 220, height: 220)
+                            .background(
+                                RadialGradient(
+                                    colors: [Color.luna(.card).opacity(0.7), Color.luna(.card).opacity(0)],
+                                    center: .center,
+                                    startRadius: 0,
+                                    endRadius: 110
+                                )
+                                .clipShape(Circle())
                             )
-                            .clipShape(Circle())
+                            .padding(.top, 14)
+                            .padding(.bottom, 10)
+                            .accessibilityHidden(true)
+                        ChipScroller(
+                            values: Array(WeeklyContentLibrary.weekRange),
+                            selection: $selection,
+                            title: { L10n.weekChip($0) },
+                            identifier: { "weekChip-\($0)" },
+                            accessibilityTitle: { L10n.weekTitle($0) }
                         )
-                        .padding(.top, 14)
-                        .padding(.bottom, 10)
-                        .accessibilityHidden(true)
-                    ChipScroller(
-                        values: Array(WeeklyContentLibrary.weekRange),
-                        selection: $selection,
-                        title: { L10n.weekChip($0) },
-                        identifier: { "weekChip-\($0)" },
-                        accessibilityTitle: { L10n.weekTitle($0) }
-                    )
-                    .padding(.bottom, 16)
-                    panel(minHeight: proxy.size.height * 0.6)
-                        .simultaneousGesture(
-                            DragGesture(minimumDistance: 30).onEnded { value in
-                                guard abs(value.translation.width) > abs(value.translation.height) * 2 else { return }
-                                changeWeek(by: value.translation.width < 0 ? 1 : -1)
-                            }
-                        )
+                        .padding(.bottom, 16)
+                        panel(minHeight: proxy.size.height * 0.6)
+                            .simultaneousGesture(
+                                DragGesture(minimumDistance: 30).onEnded { value in
+                                    guard abs(value.translation.width) > abs(value.translation.height) * 2 else { return }
+                                    changeWeek(by: value.translation.width < 0 ? 1 : -1)
+                                }
+                            )
+                    }
+                }
+                .scrollBounceBehavior(.basedOnSize)
+                .task {
+                    guard scrollToWarnings else { return }
+                    // Once laid out; a jump rather than an animated scroll (Reduce Motion, UI tests).
+                    try? await Task.sleep(for: .milliseconds(150))
+                    reader.scrollTo(Self.warningsAnchor, anchor: .top)
                 }
             }
-            .scrollBounceBehavior(.basedOnSize)
             // VoiceOver two-finger scrub closes the cover, like the ✕ button.
             .accessibilityAction(.escape) { dismiss() }
             .background {
@@ -138,6 +150,7 @@ struct WeekDetailView: View {
                 WeekSection(title: L10n.weekMom, items: content.mom.items(language))
                 WeekSection(title: L10n.weekTips, items: content.tips.items(language))
                 WarningSection(items: content.warnings.items(language))
+                    .id(Self.warningsAnchor)
                 sources
             case .underReview?:
                 UnderReviewCard()

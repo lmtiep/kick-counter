@@ -9,6 +9,7 @@ struct AppEnvironment {
     let coordinator: KickCoordinator
     let appointments: AppointmentCoordinator
     let cycle: CycleCoordinator
+    let weight: WeightCoordinator
     let content: WeeklyContentLibrary?
 
     private static let arguments = ProcessInfo.processInfo.arguments
@@ -75,11 +76,19 @@ struct AppEnvironment {
             defaults: AppGroup.defaults,
             now: { AppClock.now() }
         )
+        let weightStore = WeightStore(context: container.mainContext)
+        #if DEBUG
+        if isUITesting, AppClock.launchOptions.seedWeights {
+            try seedWeights(into: weightStore)
+        }
+        #endif
+        let weight = WeightCoordinator(store: weightStore, defaults: AppGroup.defaults, now: { AppClock.now() })
         return AppEnvironment(
             container: container,
             coordinator: coordinator,
             appointments: appointments,
             cycle: cycle,
+            weight: weight,
             content: WeeklyContentLibrary.loadBundled()
         )
     }
@@ -94,6 +103,18 @@ struct AppEnvironment {
         }
         for log in records.logs {
             try store.saveLog(log, today: now)
+        }
+    }
+
+    /// `-uiTesting -seedWeights`: the design's pre-pregnancy weight (52 kg), height
+    /// (160 cm) and weights at weeks 12–30 of the seeded pregnancy (`-seedDueDate`),
+    /// up to the pinned today.
+    private static func seedWeights(into store: WeightStore) throws {
+        try WeightSeed.profile.save(to: AppGroup.defaults)
+        guard let dueDate = PregnancyProfile.load(from: AppGroup.defaults).dueDate else { return }
+        let now = AppClock.now()
+        for entry in WeightSeed.entries(dueDate: dueDate, today: now) {
+            try store.save(entry, today: now)
         }
     }
 

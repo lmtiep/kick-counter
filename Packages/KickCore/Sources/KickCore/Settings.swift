@@ -32,6 +32,10 @@ public enum SettingsKey {
     public static let appLanguage = "appLanguage"
     /// A short vibration on every counted tap. Missing means on.
     public static let kickHapticsEnabled = "kickHapticsEnabled"
+    /// Pre-pregnancy weight in kg, 30–200; 0 means "not set" (`MaternalProfile`).
+    public static let maternalPreWeightKg = "maternalPreWeightKg"
+    /// Height in cm, 120–220; 0 means "not set".
+    public static let maternalHeightCm = "maternalHeightCm"
 }
 
 public enum SettingsDefault {

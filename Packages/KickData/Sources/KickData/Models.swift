@@ -123,6 +123,12 @@ public final class CycleLog {
     /// `CervicalMucus.rawValue`: "dry" | "sticky" | "creamy" | "eggWhite".
     public var mucusRaw: String?
     public var note: String = ""
+    /// `MenstrualFlow.rawValue`: "none" | "light" | "medium" | "heavy".
+    public var flowRaw: String?
+    /// Comma-separated `Mood` raw values (`RawList`), e.g. "happy,tired".
+    public var moodsRaw: String?
+    /// Comma-separated `Symptom` raw values of both modes.
+    public var symptomsRaw: String?
 
     public init(record: CycleLogRecord) {
         id = record.id
@@ -131,21 +137,32 @@ public final class CycleLog {
         bbtCelsius = record.bbtCelsius
         mucusRaw = record.mucus?.rawValue
         note = record.note
+        flowRaw = record.flow?.rawValue
+        moodsRaw = RawList.encode(record.moods, unknown: record.unknownMoodsRaw)
+        symptomsRaw = RawList.encode(record.symptoms, unknown: record.unknownSymptomsRaw)
     }
 
     public var record: CycleLogRecord {
-        CycleLogRecord(
+        let moods: (known: [Mood], unknown: [String]) = RawList.decode(moodsRaw)
+        let symptoms: (known: [Symptom], unknown: [String]) = RawList.decode(symptomsRaw)
+        return CycleLogRecord(
             id: id,
             day: day,
             lh: lhRaw.flatMap(LHResult.init(rawValue:)),
             bbtCelsius: bbtCelsius,
             mucus: mucusRaw.flatMap(CervicalMucus.init(rawValue:)),
-            note: note
+            note: note,
+            flow: flowRaw.flatMap(MenstrualFlow.init(rawValue:)),
+            moods: moods.known,
+            symptoms: symptoms.known,
+            unknownMoodsRaw: moods.unknown,
+            unknownSymptomsRaw: symptoms.unknown
         )
     }
 
     /// Raw values this build cannot decode (e.g. synced from a newer app version)
-    /// are kept unless the record actually changes that field.
+    /// are kept unless the record actually changes that field; unknown moods and
+    /// symptoms travel in the record and are written back with it.
     func apply(_ record: CycleLogRecord) {
         day = record.day
         if lhRaw.flatMap(LHResult.init(rawValue:)) != record.lh {
@@ -156,5 +173,41 @@ public final class CycleLog {
             mucusRaw = record.mucus?.rawValue
         }
         note = record.note
+        if flowRaw.flatMap(MenstrualFlow.init(rawValue:)) != record.flow {
+            flowRaw = record.flow?.rawValue
+        }
+        let moods = RawList.encode(record.moods, unknown: record.unknownMoodsRaw)
+        if moodsRaw != moods {
+            moodsRaw = moods
+        }
+        let symptoms = RawList.encode(record.symptoms, unknown: record.unknownSymptomsRaw)
+        if symptomsRaw != symptoms {
+            symptomsRaw = symptoms
+        }
+    }
+}
+
+/// The mother's weight on one day. At most one per day (kept so by `WeightStore`).
+@Model
+public final class WeightEntry {
+    public var id: UUID = UUID()
+    /// Start of the day.
+    public var day: Date = Date()
+    /// 30.0–200.0 kg, one decimal.
+    public var kg: Double = 0
+
+    public init(record: WeightRecord) {
+        id = record.id
+        day = record.day
+        kg = record.kg
+    }
+
+    public var record: WeightRecord {
+        WeightRecord(id: id, day: day, kg: kg)
+    }
+
+    func apply(_ record: WeightRecord) {
+        day = record.day
+        kg = record.kg
     }
 }

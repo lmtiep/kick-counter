@@ -68,9 +68,20 @@ final class CycleScreenshotTests: XCTestCase {
             app.scrollUntilHittable(logToday)
             logToday.tap()
             XCTAssertTrue(app.buttons["dayLogSave"].waitForExistence(timeout: 5))
+            if dark {
+                // Shows a selected chip in dark mode (cycleStrong fill, onAccent text).
+                let happy = app.buttons["moodChip-happy"]
+                XCTAssertTrue(happy.waitForExistence(timeout: 5))
+                happy.tap()
+                XCTAssertTrue(happy.isSelected)
+            }
             attachScreenshot(app, "day-log-\(suffix)")
+            let field = app.textFields["dayLogBBTField"]
+            // The BBT field is already "hittable" half under Save: scroll to the
+            // note below the mucus chips so the whole signals block is shown.
+            app.scrollUntilHittable(app.descendants(matching: .any)["dayLogNoteField"])
+            attachScreenshot(app, "day-log-signals-\(suffix)")
             if language == "vi", !dark {
-                let field = app.textFields["dayLogBBTField"]
                 field.tap()
                 field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 6) + "34")
                 app.buttons["dayLogSave"].tap()

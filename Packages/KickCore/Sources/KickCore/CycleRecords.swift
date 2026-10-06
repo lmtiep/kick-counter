@@ -29,7 +29,8 @@ public enum CervicalMucus: String, Sendable, CaseIterable {
     case eggWhite
 }
 
-/// Body signals logged for one day (value snapshot of the SwiftData `CycleLog`).
+/// What was logged for one day (value snapshot of the SwiftData `CycleLog`):
+/// ovulation signals, flow, moods and symptoms of both modes, and a note.
 public struct CycleLogRecord: Equatable, Sendable, Identifiable {
     public let id: UUID
     /// Start of the calendar day.
@@ -39,6 +40,14 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
     public var bbtCelsius: Double?
     public var mucus: CervicalMucus?
     public var note: String
+    public var flow: MenstrualFlow?
+    /// Enum order, no repeats (`CycleRules.normalized`).
+    public var moods: [Mood]
+    /// Both modes' symptoms, enum order, no repeats.
+    public var symptoms: [Symptom]
+    /// Stored values this build does not know, written back unchanged.
+    public var unknownMoodsRaw: [String]
+    public var unknownSymptomsRaw: [String]
 
     public init(
         id: UUID = UUID(),
@@ -46,7 +55,12 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
         lh: LHResult? = nil,
         bbtCelsius: Double? = nil,
         mucus: CervicalMucus? = nil,
-        note: String = ""
+        note: String = "",
+        flow: MenstrualFlow? = nil,
+        moods: [Mood] = [],
+        symptoms: [Symptom] = [],
+        unknownMoodsRaw: [String] = [],
+        unknownSymptomsRaw: [String] = []
     ) {
         self.id = id
         self.day = day
@@ -54,11 +68,39 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
         self.bbtCelsius = bbtCelsius
         self.mucus = mucus
         self.note = note
+        self.flow = flow
+        self.moods = moods
+        self.symptoms = symptoms
+        self.unknownMoodsRaw = unknownMoodsRaw
+        self.unknownSymptomsRaw = unknownSymptomsRaw
     }
 
-    /// Nothing logged: saving an empty log removes that day's log.
+    /// The same values under another id (a store keeps the id it already has).
+    public func withID(_ id: UUID) -> CycleLogRecord {
+        CycleLogRecord(
+            id: id, day: day, lh: lh, bbtCelsius: bbtCelsius, mucus: mucus, note: note,
+            flow: flow, moods: moods, symptoms: symptoms,
+            unknownMoodsRaw: unknownMoodsRaw, unknownSymptomsRaw: unknownSymptomsRaw
+        )
+    }
+
+    /// Nothing logged: saving an empty log removes that day's log. Values this
+    /// build cannot read count as something, so they are never dropped.
     public var isEmpty: Bool {
-        lh == nil && bbtCelsius == nil && mucus == nil && note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        lh == nil && bbtCelsius == nil && mucus == nil && flow == nil
+            && moods.isEmpty && symptoms.isEmpty && unknownMoodsRaw.isEmpty && unknownSymptomsRaw.isEmpty
+            && note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    /// The symptoms of one mode, as that mode's sheet shows them.
+    public func symptoms(for mode: AppMode) -> [Symptom] {
+        symptoms.filter { $0.mode == mode }
+    }
+
+    /// Replaces one mode's symptoms; the other mode's stay as they are.
+    public mutating func setSymptoms(_ selected: some Sequence<Symptom>, for mode: AppMode) {
+        let chosen = Array(selected).filter { $0.mode == mode }
+        symptoms = RawList.ordered(symptoms.filter { $0.mode != mode } + chosen)
     }
 }
 
@@ -110,6 +152,8 @@ public enum CycleRules {
         var copy = log
         copy.day = calendar.startOfDay(for: log.day)
         copy.note = log.note.trimmingCharacters(in: .whitespacesAndNewlines)
+        copy.moods = RawList.ordered(log.moods)
+        copy.symptoms = RawList.ordered(log.symptoms)
         return copy
     }
 
@@ -198,7 +242,8 @@ public enum CycleRules {
 
     /// Merges logs that fall on the same day (iCloud duplicates). Keeps the id
     /// that sorts first; a positive LH test wins over a negative one; the first
-    /// temperature and mucus found win; distinct notes are joined by newlines.
+    /// temperature and mucus found win; distinct notes are joined by newlines;
+    /// the heavier flow wins; moods, symptoms and unknown raw values are united.
     public static func mergingDuplicates(_ logs: [CycleLogRecord], calendar: Calendar) -> (logs: [CycleLogRecord], removedIDs: [UUID]) {
         let byDay = Dictionary(grouping: logs.map { normalized($0, calendar: calendar) }, by: \.day)
         var merged: [CycleLogRecord] = []
@@ -216,11 +261,25 @@ public enum CycleRules {
                     notes.append(note)
                 }
                 first.note = notes.joined(separator: "\n")
+                first.flow = group.compactMap(\.flow).max()
+                first.moods = RawList.ordered(group.flatMap(\.moods))
+                first.symptoms = RawList.ordered(group.flatMap(\.symptoms))
+                first.unknownMoodsRaw = united(group.map(\.unknownMoodsRaw))
+                first.unknownSymptomsRaw = united(group.map(\.unknownSymptomsRaw))
                 removed += group.dropFirst().map(\.id)
             }
             merged.append(first)
         }
         return (merged, removed)
+    }
+
+    /// Every value once, in the order first seen.
+    private static func united(_ lists: [[String]]) -> [String] {
+        var result: [String] = []
+        for value in lists.joined() where !result.contains(value) {
+            result.append(value)
+        }
+        return result
     }
 }
 

@@ -11,6 +11,7 @@ struct ProfileView: View {
 
     @Environment(KickCoordinator.self) private var coordinator
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(WeightCoordinator.self) private var weight
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
 
@@ -30,6 +31,7 @@ struct ProfileView: View {
     @State private var showingImPregnant = false
     @State private var showingEndPregnancy = false
     @State private var showingKickSettings = false
+    @State private var showingMaternal = false
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
 
@@ -80,6 +82,7 @@ struct ProfileView: View {
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showingPregnancyDates) { PregnancyDateSheet() }
+            .sheet(isPresented: $showingMaternal) { MaternalProfileSheet() }
             .sheet(isPresented: $showingImPregnant) {
                 ImPregnantSheet(lastPeriodStart: cycle.forecast?.currentPeriodStart)
             }
@@ -197,6 +200,12 @@ struct ProfileView: View {
             }
             .buttonStyle(.plain)
             .accessibilityIdentifier("settingsPregnancyDates")
+            LunaDivider()
+            Button { showingMaternal = true } label: {
+                LunaRow(title: L10n.profileMaternal, value: maternalText)
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("profileMaternal")
             if dueDate > 0 {
                 LunaDivider()
                 Button(role: .destructive) {
@@ -215,6 +224,13 @@ struct ProfileView: View {
             }
         }
         .lunaCard(padding: 0)
+    }
+
+    /// "52.0 kg · 160 cm", "52.0 kg", or "Not set".
+    private var maternalText: String {
+        let parts = [weight.profile.preWeightKg.map { Formatting.kilograms($0) }, weight.profile.heightCm.map(Formatting.centimeters)]
+            .compactMap { $0 }
+        return parts.isEmpty ? L10n.profileMaternalNotSet : parts.joined(separator: " · ")
     }
 
     private var cycleCard: some View {

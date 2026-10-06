@@ -25,6 +25,7 @@ final class CycleUITests: XCTestCase {
         logToday.tap()
         let positive = app.segmentedControls.buttons["Positive"]
         XCTAssertTrue(positive.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(positive) // below flow, mood and symptoms (phase 5)
         positive.tap()
         app.buttons["dayLogSave"].tap()
 
@@ -62,6 +63,7 @@ final class CycleUITests: XCTestCase {
 
         let field = app.textFields["dayLogBBTField"]
         XCTAssertTrue(field.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(field)
         field.tap()
         // Clear the seeded "36.3", then type an implausible value.
         field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 6) + "40")
@@ -109,6 +111,7 @@ final class CycleUITests: XCTestCase {
         logButton.tap()
         let positive = app.segmentedControls.buttons["Positive"]
         XCTAssertTrue(positive.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(positive) // below flow, mood and symptoms (phase 5)
         positive.tap()
         app.buttons["dayLogSave"].tap()
         // Ovulation moves from 10-04 to 10-03: today (the day before) becomes a most

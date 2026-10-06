@@ -468,13 +468,55 @@ final class FakeCycleRepository: CycleRepository {
         let existing = storedLogs.first { $0.day == normalized.day }
         storedLogs.removeAll { $0.day == normalized.day }
         guard !normalized.isEmpty else { return }
-        var saved = normalized
-        if let existing {
-            saved = CycleLogRecord(
-                id: existing.id, day: normalized.day, lh: normalized.lh,
-                bbtCelsius: normalized.bbtCelsius, mucus: normalized.mucus, note: normalized.note
-            )
+        storedLogs.append(existing.map { normalized.withID($0.id) } ?? normalized)
+    }
+}
+
+/// In-memory WeightRepository with the same rules as WeightStore.
+@MainActor
+final class FakeWeightRepository: WeightRepository {
+    struct Failed: Error {}
+
+    private(set) var stored: [WeightRecord] = []
+    var calendar = utcCalendar
+    var failNextRead = false
+    var failNextWrite = false
+    private(set) var reads = 0
+
+    func seed(_ entries: WeightRecord...) {
+        stored += entries
+    }
+
+    func entries() throws -> [WeightRecord] {
+        if failNextRead {
+            failNextRead = false
+            throw Failed()
         }
-        storedLogs.append(saved)
+        reads += 1
+        let merged = WeightRules.mergingDuplicates(stored, calendar: calendar)
+        stored = merged.entries
+        return merged.entries
+    }
+
+    func save(_ entry: WeightRecord, today: Date) throws {
+        try WeightRules.validate(entry, today: today, calendar: calendar)
+        if failNextWrite {
+            failNextWrite = false
+            throw Failed()
+        }
+        let normalized = WeightRules.normalized(entry, calendar: calendar)
+        if let index = stored.firstIndex(where: { $0.day == normalized.day }) {
+            stored[index].kg = normalized.kg
+        } else {
+            stored.append(normalized)
+        }
+    }
+
+    func delete(id: UUID) throws {
+        if failNextWrite {
+            failNextWrite = false
+            throw Failed()
+        }
+        stored.removeAll { $0.id == id }
     }
 }

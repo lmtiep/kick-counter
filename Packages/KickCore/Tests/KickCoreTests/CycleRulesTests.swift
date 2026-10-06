@@ -91,6 +91,55 @@ struct CycleRulesTests {
         #expect(!CycleLogRecord(day: today, mucus: .dry).isEmpty)
     }
 
+    @Test func flowMoodsSymptomsAndUnknownValuesAreNotEmpty() {
+        #expect(!CycleLogRecord(day: today, flow: .noFlow).isEmpty)
+        #expect(!CycleLogRecord(day: today, moods: [.calm]).isEmpty)
+        #expect(!CycleLogRecord(day: today, symptoms: [.nausea]).isEmpty)
+        #expect(!CycleLogRecord(day: today, unknownMoodsRaw: ["excited"]).isEmpty)
+        #expect(!CycleLogRecord(day: today, unknownSymptomsRaw: ["hiccups"]).isEmpty)
+    }
+
+    @Test func normalizingOrdersMoodsAndSymptoms() {
+        let log = CycleRules.normalized(
+            CycleLogRecord(day: today, moods: [.tired, .happy, .tired], symptoms: [.nausea, .cramps]),
+            calendar: calendar
+        )
+        #expect(log.moods == [.happy, .tired])
+        #expect(log.symptoms == [.cramps, .nausea])
+    }
+
+    @Test func sameDayLogsUniteMoodsAndSymptomsAndKeepTheHeavierFlow() {
+        let a = CycleLogRecord(
+            id: UUID(uuidString: "00000000-0000-0000-0000-00000000000A")!, day: day("2026-10-01"),
+            flow: .light, moods: [.tired], symptoms: [.cramps], unknownMoodsRaw: ["excited"]
+        )
+        let b = CycleLogRecord(
+            id: UUID(uuidString: "00000000-0000-0000-0000-00000000000B")!, day: day("2026-10-01"),
+            flow: .heavy, moods: [.happy, .tired], symptoms: [.nausea],
+            unknownMoodsRaw: ["excited", "bored"], unknownSymptomsRaw: ["hiccups"]
+        )
+        let result = CycleRules.mergingDuplicates([b, a], calendar: calendar)
+        #expect(result.logs == [CycleLogRecord(
+            id: a.id, day: day("2026-10-01"), flow: .heavy, moods: [.happy, .tired], symptoms: [.cramps, .nausea],
+            unknownMoodsRaw: ["excited", "bored"], unknownSymptomsRaw: ["hiccups"]
+        )])
+        #expect(result.removedIDs == [b.id])
+    }
+
+    @Test func aFlowOnlyOnOneCopySurvivesTheMerge() {
+        let a = CycleLogRecord(id: UUID(uuidString: "00000000-0000-0000-0000-00000000000A")!, day: day("2026-10-01"), note: "x")
+        let b = CycleLogRecord(id: UUID(uuidString: "00000000-0000-0000-0000-00000000000B")!, day: day("2026-10-01"), flow: .noFlow)
+        #expect(CycleRules.mergingDuplicates([a, b], calendar: calendar).logs.first?.flow == .noFlow)
+    }
+
+    @Test func withIDKeepsEveryValue() {
+        let log = CycleLogRecord(day: today, lh: .positive, flow: .medium, moods: [.calm], unknownSymptomsRaw: ["hiccups"])
+        let id = UUID()
+        let copy = log.withID(id)
+        #expect(copy.id == id)
+        #expect(copy == CycleLogRecord(id: id, day: today, lh: .positive, flow: .medium, moods: [.calm], unknownSymptomsRaw: ["hiccups"]))
+    }
+
     @Test func overlappingDuplicatePeriodsAreMergedKeepingTheEnd() {
         let open = PeriodRecord(id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!, startDate: day("2026-09-03"))
         let closed = PeriodRecord(id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!, startDate: day("2026-09-03"), endDate: day("2026-09-07"))

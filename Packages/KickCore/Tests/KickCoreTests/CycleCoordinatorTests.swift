@@ -50,6 +50,16 @@ struct CycleCoordinatorTests {
 
     private var reminderIDs: Set<String> { Set(center.added.map(\.identifier)) }
 
+    // MARK: - Flow, moods and symptoms (phase 5)
+
+    @Test func loggingFlowNeverStartsAPeriod() async {
+        await coordinator.load()
+        #expect(await coordinator.saveLog(CycleLogRecord(day: day("2026-09-05"), flow: .heavy, moods: [.tired])) == nil)
+        #expect(coordinator.periods.isEmpty)
+        #expect(coordinator.forecast == nil)
+        #expect(coordinator.log(on: day("2026-09-05"))?.flow == .heavy)
+    }
+
     // MARK: - Loading
 
     @Test func loadComputesTheForecastAndSchedulesReminders() async throws {

@@ -130,6 +130,11 @@ public enum LunaContrast {
         public var requiredRatio: Double { isLargeText ? 3 : 4.5 }
     }
 
+    /// Whether `usages` lists that text colour on that background.
+    public static func declares(_ text: LunaToken, on background: LunaToken) -> Bool {
+        usages.contains { $0.text == text && $0.background == background }
+    }
+
     public static func ratio(_ first: LunaHex, _ second: LunaHex) -> Double {
         let lighter = max(first.relativeLuminance, second.relativeLuminance)
         let darker = min(first.relativeLuminance, second.relativeLuminance)

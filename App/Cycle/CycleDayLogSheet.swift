@@ -2,9 +2,11 @@ import Accessibility
 import KickCore
 import SwiftUI
 
-/// Log or edit one day (spec §4.9): start/end a period there, LH test, BBT,
-/// mucus, note. Period buttons apply at once; the signals are saved with "Save",
-/// which stays above the keyboard.
+/// Log or edit one day (phase 5 spec §3.1): start/end a period there, then
+/// flow, mood and symptoms, the ovulation signs (LH test, BBT, mucus) and a
+/// note. Period buttons apply at once; the rest is saved with "Save", which
+/// stays above the keyboard. Pregnancy symptoms and values this build cannot
+/// read are kept as they are.
 struct CycleDayLogSheet: View {
     let day: Date
     private let existing: CycleLogRecord?
@@ -15,6 +17,9 @@ struct CycleDayLogSheet: View {
     @State private var temperatureText: String
     @State private var mucus: CervicalMucus?
     @State private var note: String
+    @State private var flow: MenstrualFlow?
+    @State private var moods: Set<Mood>
+    @State private var symptoms: Set<Symptom>
     @State private var temperatureInvalid = false
     @State private var failure: CycleFailure?
     @State private var saving = false
@@ -29,6 +34,9 @@ struct CycleDayLogSheet: View {
         } ?? "")
         _mucus = State(initialValue: existing?.mucus)
         _note = State(initialValue: existing?.note ?? "")
+        _flow = State(initialValue: existing?.flow)
+        _moods = State(initialValue: Set(existing?.moods ?? []))
+        _symptoms = State(initialValue: Set(existing?.symptoms(for: .tryingToConceive) ?? []))
     }
 
     /// The period covering this day, or an earlier one still open that this day could end.
@@ -48,6 +56,21 @@ struct CycleDayLogSheet: View {
         LunaSheet(title: title) {
             LunaSheetSectionTitle(title: L10n.dayLogPeriodSection)
             periodSection
+
+            LunaSheetSectionTitle(title: L10n.symptomFlowTitle)
+            FlowChips(selection: $flow)
+
+            LunaSheetSectionTitle(title: L10n.symptomMoodTitle)
+            MoodChips(selection: $moods)
+
+            LunaSheetSectionTitle(title: L10n.symptomTitle)
+            SymptomChips(mode: .tryingToConceive, selection: $symptoms)
+
+            Text(L10n.dayLogSignals)
+                .font(.luna(.cardTitleSmall))
+                .foregroundStyle(.luna(.textPrimary))
+                .padding(.top, 26)
+                .accessibilityAddTraits(.isHeader)
 
             LunaSheetSectionTitle(title: L10n.dayLogLH)
             Picker(L10n.dayLogLH, selection: $lh) {
@@ -80,7 +103,7 @@ struct CycleDayLogSheet: View {
             }
 
             LunaSheetSectionTitle(title: L10n.dayLogMucus)
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 110), spacing: 8)], alignment: .leading, spacing: 8) {
+            FlowLayout {
                 mucusChip(nil, title: L10n.dayLogMucusNone)
                 ForEach(CervicalMucus.allCases, id: \.self) { value in
                     mucusChip(value, title: L10n.mucus(value))
@@ -172,20 +195,7 @@ struct CycleDayLogSheet: View {
     }
 
     private func mucusChip(_ value: CervicalMucus?, title: String) -> some View {
-        let isSelected = mucus == value
-        return Button {
-            mucus = value
-        } label: {
-            Text(title)
-                .font(.luna(.body))
-                .foregroundStyle(.luna(isSelected ? .onAccent : .textPrimary))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 12)
-                .frame(maxWidth: .infinity, minHeight: 40)
-                .background(Capsule().fill(isSelected ? Color.luna(.cycleStrong) : Color.luna(.card)))
-        }
-        .buttonStyle(.plain)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        SelectableChip(title: title, isSelected: mucus == value) { mucus = value }
     }
 
     private func description(of period: PeriodRecord, formatting format: (Date) -> String) -> String {
@@ -213,9 +223,16 @@ struct CycleDayLogSheet: View {
             AccessibilityNotification.Announcement(L10n.cycleFailure(.invalidTemperature)).post()
             return
         }
-        let log = CycleLogRecord(
-            id: existing?.id ?? UUID(), day: day, lh: lh, bbtCelsius: temperature, mucus: mucus, note: note
-        )
+        // Start from what is stored: pregnancy symptoms and unknown values stay.
+        var log = existing ?? CycleLogRecord(day: day)
+        log.day = day
+        log.lh = lh
+        log.bbtCelsius = temperature
+        log.mucus = mucus
+        log.note = note
+        log.flow = flow
+        log.moods = RawList.ordered(moods)
+        log.setSymptoms(symptoms, for: .tryingToConceive)
         saving = true
         defer { saving = false }
         if let result = await cycle.saveLog(log) {

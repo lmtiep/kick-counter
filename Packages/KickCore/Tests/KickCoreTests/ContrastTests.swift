@@ -77,6 +77,21 @@ struct ContrastTests {
         #expect(ratio(.teal, .background, dark: dark) >= 3)
     }
 
+    /// Text/fill pairs of the symptom chips, the safety card and the weight
+    /// screens (phase 5) are declared, so `everyDeclaredPairMeetsAA` checks them.
+    @Test func phase5PairsAreDeclared() {
+        let pairs: [(LunaToken, LunaToken)] = [
+            (.onAccent, .cycleStrong), (.onAccent, .pregStrong), (.textPrimary, .surface),
+            (.warningText, .warningBackground), (.articleText, .warningBackground),
+            (.tealStrong, .fertileSoft), (.pregOnSoft, .pregSoft), (.pregStrong, .card),
+            (.textSecondary, .card), (.textPrimary, .card), (.onAccent, .pregOnSoft),
+        ]
+        for (text, background) in pairs {
+            #expect(LunaContrast.declares(text, on: background), "\(text) on \(background)")
+        }
+        #expect(!LunaContrast.declares(.textMuted, on: .card))
+    }
+
     @Test func everyTokenHasAValue() {
         for token in LunaToken.allCases {
             let pair = LunaPalette.pair(token)

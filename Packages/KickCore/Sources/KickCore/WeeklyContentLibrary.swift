@@ -12,6 +12,16 @@ public enum WeekDisplay: Equatable, Sendable {
     case content(WeekContent, pendingReview: Bool)
     /// Release build, week not reviewed yet: show "being updated" instead.
     case underReview(week: Int)
+
+    /// True when this week actually renders content (and so has a warnings
+    /// section to show); false for `.underReview`, where the UI should hide
+    /// anything that claims to open "the warnings for this week".
+    public var showsWarnings: Bool {
+        switch self {
+        case .content: true
+        case .underReview: false
+        }
+    }
 }
 
 public struct WeeklyContentLibrary: Sendable {

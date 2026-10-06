@@ -3,6 +3,12 @@ import KickData
 import SwiftData
 import SwiftUI
 
+/// Screens pushed from pregnancy Today (phase 5 spec §3.4).
+enum PregnancyRoute: Hashable {
+    case symptoms
+    case weight
+}
+
 /// Pregnancy mode, Today tab (spec §4.4): header, 7-day strip, the fetus
 /// (→ week detail), weeks and days with the trimester bar, shortcuts, today's
 /// movements, the baby this week, tips and the next check-up.
@@ -24,6 +30,8 @@ struct PregnancyTodayView: View {
     private var sessions: [KickSession]
     @State private var showingDateSheet = false
     @State private var detailWeek: WeekSelection?
+    @State private var route: PregnancyRoute?
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private let language = ContentLanguage.current
     private let visibility = BuildFlags.contentVisibility
@@ -62,6 +70,12 @@ struct PregnancyTodayView: View {
             }
             .sheet(isPresented: $showingDateSheet) {
                 PregnancyDateSheet()
+            }
+            .navigationDestination(item: $route) { route in
+                switch route {
+                case .symptoms: PregnancySymptomsView()
+                case .weight: WeightView()
+                }
             }
         }
     }
@@ -109,6 +123,8 @@ struct PregnancyTodayView: View {
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("babySizeCard")
 
+                weightCard(dueDate: timeline.dueDate)
+
                 Button { detailWeek = WeekSelection(week: contentWeek) } label: {
                     WeekTipsCard(tips: Array(week.tips.items(language).prefix(2)))
                 }
@@ -117,8 +133,9 @@ struct PregnancyTodayView: View {
             case .underReview?:
                 Button { detailWeek = WeekSelection(week: contentWeek) } label: { UnderReviewCard() }
                     .buttonStyle(.plain)
+                weightCard(dueDate: timeline.dueDate)
             case nil:
-                EmptyView()
+                weightCard(dueDate: timeline.dueDate)
             }
             NavigationLink {
                 AppointmentsView()
@@ -139,30 +156,57 @@ struct PregnancyTodayView: View {
         .padding(.horizontal, 20)
     }
 
+    /// Round shortcuts (phase 5 spec §3.4); two per row at accessibility text
+    /// sizes so no label is cut.
     private func shortcuts(week: Int, contentWeek: Int) -> some View {
-        HStack(alignment: .top, spacing: 28) {
-            shortcut(L10n.pregnancyShortcutKicks, identifier: "shortcutKicks", action: onOpenKicks) {
-                Circle()
-                    .fill(.luna(.preg))
-                    .overlay(
-                        Circle()
-                            .fill(.luna(.card))
-                            .frame(width: 16, height: 16)
-                            .padding(6)
-                            .background(Circle().fill(Color.luna(.card).opacity(0.3)))
-                    )
-            }
-            shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = WeekSelection(week: contentWeek) }) {
-                Circle()
-                    .fill(.luna(.card))
-                    .overlay(
-                        Text(week, format: .number)
-                            .font(.luna(size: 15, weight: .bold))
-                            .foregroundStyle(.luna(.textPrimary))
-                    )
+        let kicks = shortcut(L10n.pregnancyShortcutKicks, identifier: "shortcutKicks", action: onOpenKicks) {
+            Circle()
+                .fill(.luna(.preg))
+                .overlay(
+                    Circle()
+                        .fill(.luna(.card))
+                        .frame(width: 16, height: 16)
+                        .padding(6)
+                        .background(Circle().fill(Color.luna(.card).opacity(0.3)))
+                )
+        }
+        let symptoms = shortcut(L10n.pregnancyShortcutSymptoms, identifier: "shortcutSymptoms", action: { route = .symptoms }) {
+            symbolIcon("plus")
+        }
+        let weight = shortcut(L10n.pregnancyShortcutWeight, identifier: "shortcutWeight", action: { route = .weight }) {
+            symbolIcon("scalemass")
+        }
+        let weekShortcut = shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = WeekSelection(week: contentWeek) }) {
+            Circle()
+                .fill(.luna(.card))
+                .overlay(
+                    Text(week, format: .number)
+                        .font(.luna(size: 15, weight: .bold))
+                        .foregroundStyle(.luna(.textPrimary))
+                )
+        }
+        return Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                Grid(horizontalSpacing: 8, verticalSpacing: 18) {
+                    GridRow { kicks; symptoms }
+                    GridRow { weight; weekShortcut }
+                }
+            } else {
+                HStack(alignment: .top, spacing: 8) { kicks; symptoms; weight; weekShortcut }
             }
         }
         .padding(.top, 22)
+    }
+
+    /// A white 58 pt circle with a symbol, like the design's "+".
+    private func symbolIcon(_ name: String) -> some View {
+        Circle()
+            .fill(.luna(.card))
+            .overlay(
+                Image(systemName: name)
+                    .font(.system(size: 22, weight: .light))
+                    .foregroundStyle(.luna(.textPrimary))
+            )
     }
 
     private func shortcut<Icon: View>(
@@ -178,13 +222,23 @@ struct PregnancyTodayView: View {
                     .font(.luna(size: 12, weight: .medium, relativeTo: .caption))
                     .foregroundStyle(.luna(.textPrimary))
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            // 96 pt in the design; wider at large text so words are not broken mid-word.
-            .frame(minWidth: 96, maxWidth: 160)
+            // An equal share of the row each (the design's 4-column grid).
+            .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier(identifier)
+    }
+
+    /// "Your weight" (phase 5 spec §3.4), after the baby's size.
+    private func weightCard(dueDate: Date) -> some View {
+        Button { route = .weight } label: {
+            WeightTodayCard(dueDate: dueDate)
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("weightCard")
     }
 
     /// "Movements today" (spec §4.4): today's latest finished count, or a nudge.

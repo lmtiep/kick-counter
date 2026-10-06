@@ -8,6 +8,7 @@ import Foundation
 ///   that `CycleSeedScenario`'s periods and logs, relative to the pinned clock.
 /// - `-seedOverdueSession` starts a kick session 2 h 5 min ago (real clock) with 4 movements.
 /// - `-seedSessions` stores `SessionSeed`'s four weeks of kick sessions.
+/// - `-seedWeights` stores `WeightSeed`'s pre-pregnancy weight, height and weights.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -15,6 +16,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedCycles: CycleSeedScenario?
     public let seedOverdueSession: Bool
     public let seedSessions: Bool
+    public let seedWeights: Bool
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -23,6 +25,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         seedCycles = isUITesting ? Self.value(after: "-seedCycles", in: arguments).flatMap(CycleSeedScenario.init(rawValue:)) : nil
         seedOverdueSession = isUITesting && arguments.contains("-seedOverdueSession")
         seedSessions = isUITesting && arguments.contains("-seedSessions")
+        seedWeights = isUITesting && arguments.contains("-seedWeights")
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {

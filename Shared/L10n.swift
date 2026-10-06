@@ -475,4 +475,127 @@ enum L10n {
         String(format: t("imPregnant.result"), weeks, due)
     }
     static var imPregnantConfirm: String { t("imPregnant.confirm") }
+
+    // MARK: - Phase 5: symptoms
+
+    static var symptomFlowTitle: String { t("symptom.flow.title") }
+    static var symptomMoodTitle: String { t("symptom.mood.title") }
+    static var symptomTitle: String { t("symptom.title") }
+    static var dayLogSignals: String { t("dayLog.signals") }
+    /// "Flow: Light" in a day's summary.
+    static func symptomSummaryFlow(_ flow: String) -> String { String(format: t("symptom.summary.flow"), flow) }
+    static func flow(_ value: MenstrualFlow) -> String {
+        switch value {
+        case .noFlow: t("symptom.flow.none")
+        case .light: t("symptom.flow.light")
+        case .medium: t("symptom.flow.medium")
+        case .heavy: t("symptom.flow.heavy")
+        }
+    }
+    static func mood(_ value: Mood) -> String {
+        switch value {
+        case .happy: t("symptom.mood.happy")
+        case .calm: t("symptom.mood.calm")
+        case .sensitive: t("symptom.mood.sensitive")
+        case .anxious: t("symptom.mood.anxious")
+        case .tired: t("symptom.mood.tired")
+        }
+    }
+    static func symptom(_ value: Symptom) -> String {
+        switch value {
+        case .cramps: t("symptom.kind.cramps")
+        case .headache: t("symptom.kind.headache")
+        case .tenderBreasts: t("symptom.kind.tenderBreasts")
+        case .acne: t("symptom.kind.acne")
+        case .bloating: t("symptom.kind.bloating")
+        case .cravings: t("symptom.kind.cravings")
+        case .nausea: t("symptom.kind.nausea")
+        case .heartburn: t("symptom.kind.heartburn")
+        case .swollenFeet: t("symptom.kind.swollenFeet")
+        case .backPain: t("symptom.kind.backPain")
+        case .legCramps: t("symptom.kind.legCramps")
+        case .insomnia: t("symptom.kind.insomnia")
+        case .contractions: t("symptom.kind.contractions")
+        }
+    }
+
+    // MARK: - Phase 5: pregnancy symptoms
+
+    static var pregnancyShortcutSymptoms: String { t("pregnancy.shortcut.symptoms") }
+    static var symptomsListTitle: String { t("symptoms.list.title") }
+    static var symptomsListEmpty: String { t("symptoms.list.empty") }
+    static var symptomsTodayEmpty: String { t("symptoms.today.empty") }
+    static var symptomsLogToday: String { t("symptoms.logToday") }
+    static var symptomsEdit: String { t("symptoms.edit") }
+    static var symptomsDeleteConfirm: String { t("symptoms.delete.confirm") }
+    /// VoiceOver, on a day with contractions or swollen feet.
+    static var symptomsRowWarning: String { t("symptoms.row.warning") }
+    static var symptomSafetyTitle: String { t("symptom.safety.title") }
+    static var symptomSafetyContractions: String { t("symptom.safety.contractions") }
+    static var symptomSafetySwelling: String { t("symptom.safety.swelling") }
+    static var symptomSafetyNote: String { t("symptom.safety.note") }
+    static var symptomSafetyAction: String { t("symptom.safety.action") }
+
+    // MARK: - Phase 5: weight
+
+    static var commonDone: String { t("common.done") }
+    static var pregnancyShortcutWeight: String { t("pregnancy.shortcut.weight") }
+    static var weightTitle: String { t("weight.title") }
+    static var weightGained: String { t("weight.gained") }
+    static var weightSince: String { t("weight.since") }
+    /// "BMI 20.3 · Normal".
+    static func weightBMI(_ bmi: String, _ category: String) -> String { String(format: t("weight.bmi"), bmi, category) }
+    static func weightCategory(_ category: BMICategory) -> String {
+        switch category {
+        case .under: t("weight.category.under")
+        case .normal: t("weight.category.normal")
+        case .over: t("weight.category.over")
+        case .obese: t("weight.category.obese")
+        }
+    }
+    static func weightStatus(_ status: WeightStatus) -> String {
+        switch status {
+        case .below: t("weight.status.below")
+        case .inRange: t("weight.status.inRange")
+        case .above: t("weight.status.above")
+        }
+    }
+    static var weightStatusTalk: String { t("weight.status.talk") }
+    static var weightNoHeight: String { t("weight.noHeight") }
+    static var weightChartWeek: String { t("weight.chart.week") }
+    static var weightChartGain: String { t("weight.chart.gain") }
+    static var weightChartRange: String { t("weight.chart.range") }
+    static var weightChartYou: String { t("weight.chart.you") }
+    /// VoiceOver for a chart dot: "Week 24: gained 6.0 kilograms".
+    static func weightChartGainPoint(_ week: Int, _ kg: String) -> String { String(format: t("weight.chart.point.gain"), week, kg) }
+    static func weightChartLossPoint(_ week: Int, _ kg: String) -> String { String(format: t("weight.chart.point.loss"), week, kg) }
+    static var weightAdd: String { t("weight.add") }
+    static var weightAddDate: String { t("weight.add.date") }
+    static var weightAddKg: String { t("weight.add.kg") }
+    static var weightLess: String { t("weight.less") }
+    static var weightMore: String { t("weight.more") }
+    static var weightInvalidKg: String { t("weight.invalid.kg") }
+    static var weightInvalidHeight: String { t("weight.invalid.height") }
+    static var weightSaved: String { t("weight.saved") }
+    static var weightHistory: String { t("weight.history") }
+    static var weightHistoryEmpty: String { t("weight.history.empty") }
+    static var weightHistoryOutside: String { t("weight.history.outside") }
+    static var weightDeleteConfirm: String { t("weight.delete.confirm") }
+    static var weightSetupTitle: String { t("weight.setup.title") }
+    static var weightSetupBody: String { t("weight.setup.body") }
+    static var weightSetupPreWeight: String { t("weight.setup.preWeight") }
+    static var weightSetupHeight: String { t("weight.setup.height") }
+    static var weightCardTitle: String { t("weight.card.title") }
+    static var maternalTitle: String { t("maternal.title") }
+    static var profileMaternal: String { t("profile.maternal") }
+    static var profileMaternalNotSet: String { t("profile.maternal.notSet") }
+    static func weightFailure(_ failure: WeightFailure) -> String {
+        switch failure {
+        case .loadFailed: t("weight.failure.load")
+        case .saveFailed: t("weight.failure.save")
+        case .futureDate: t("weight.failure.future")
+        case .outOfRange: t("weight.invalid.kg")
+        case .invalidHeight: t("weight.invalid.height")
+        }
+    }
 }

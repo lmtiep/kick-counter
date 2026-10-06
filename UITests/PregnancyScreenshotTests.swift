@@ -33,6 +33,35 @@ final class PregnancyScreenshotTests: XCTestCase {
         }
     }
 
+    /// Phase 5: Today's four shortcuts and the weight card with sample weights.
+    @MainActor
+    func testPregnancyHomeWeightCard() {
+        for (language, dark) in UITestVariants.all {
+            let suffix = UITestVariants.suffix(language, dark)
+            let app = XCUIApplication.launchPinned(
+                language: language, dark: dark, dueDate: UITestDates.dueAtWeek38, extraArguments: ["-seedWeights"]
+            )
+            let card = app.buttons["weightCard"]
+            XCTAssertTrue(card.waitForExistence(timeout: 10))
+            app.scrollUntilHittable(card)
+            attachScreenshot(app, "pregnancy-home-weight-\(suffix)")
+            app.terminate()
+        }
+    }
+
+    /// Phase 5: the weight card at AX5 — the pill under the figures, nothing cut off.
+    @MainActor
+    func testPregnancyHomeWeightCardLargestText() {
+        let app = XCUIApplication.launchPinned(
+            language: "vi", dueDate: UITestDates.dueAtWeek38, largestText: true, extraArguments: ["-seedWeights"]
+        )
+        let card = app.buttons["weightCard"]
+        XCTAssertTrue(card.waitForExistence(timeout: 10))
+        app.scrollUntilHittable(card, maxSwipes: 12)
+        app.swipeUp() // the pill sits under the figures, below the tab bar otherwise
+        attachScreenshot(app, "pregnancy-home-weight-vi-ax5")
+    }
+
     /// Spec §5: Dynamic Type AX5 — nothing cut off.
     @MainActor
     func testPregnancyTodayLargestText() {
