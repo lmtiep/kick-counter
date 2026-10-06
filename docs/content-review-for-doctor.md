@@ -366,9 +366,9 @@ Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
           kinh cổ tay (hội chứng ống cổ tay) gây tê tay mẹ; mẹ rụng tóc nhiều hơn bình thường trong vài tháng
           sau sinh.
     - [ ] Tuần 26: màu mắt bé có thể còn thay đổi trong nhiều tháng sau sinh; phản xạ giật mình (Moro); cơn
-          gò sinh lý "có thể là một cách tử cung tập luyện trước khi chuyển dạ"; câu "thức dậy nằm ngửa không
-          sao, chỉ cần nghiêng người lại" (đã sửa ở vòng rà soát 1) — xin xác nhận câu này có mâu thuẫn với
-          khuyến cáo nằm nghiêng từ tuần 28 không.
+          gò sinh lý "có thể là một cách tử cung tập luyện trước khi chuyển dạ"; câu đã sửa ở vòng rà soát 1:
+          "Thức dậy thấy mình nằm ngửa là chuyện thường gặp, mẹ chỉ cần nghiêng người lại." — xin xác nhận câu
+          này có mâu thuẫn với khuyến cáo nằm nghiêng từ tuần 28 không.
     - [ ] Tuần 27: bề mặt não bé bắt đầu có nếp gấp; bé thường hoạt động nhiều hơn vào buổi tối; nấc cụt
           thường vô hại; bé tập mút và nuốt; một số triệu chứng đầu thai kỳ (đi tiểu nhiều hơn) có thể quay
           lại.
@@ -383,19 +383,24 @@ Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
           mang oxy (khớp với câu ở tuần 21); lông tơ giúp giữ ấm, một số bé còn ít lông tơ lúc sinh, thường ở
           vai và lưng; não bé tiếp tục phát triển lâu sau sinh; bé mở mắt khi thức và nhắm khi ngủ; trọng tâm
           cơ thể mẹ thay đổi và khớp lỏng hơn do hormone, nên đi giày đế bằng chống trượt; siêu âm tăng trưởng
-          kiểm tra sự phát triển, vị trí và nước ối.
+          kiểm tra sự phát triển, vị trí và nước ối, và bác sĩ sẽ giải thích kết quả cùng hướng theo dõi tiếp.
     - [ ] Tuần 31: ví dụ về các giác quan của bé (cảm nhận bằng mặt và tay, nếm nước ối, nghe âm thanh bên
           ngoài; thị giác còn hạn chế trong bóng tối tử cung); bé có thể phản ứng với giọng mẹ hoặc âm nhạc
           bằng cử động; sữa non được tả là đặc, màu hơi vàng, một số mẹ không thấy tiết sữa non và cả hai đều
-          bình thường.
+          bình thường, có thể dùng miếng lót thấm sữa; chuẩn bị cho con bú: cách bế, cách ngậm bắt vú, và nơi
+          tìm hỗ trợ.
     - [ ] Tuần 32: cử động tập thở đẩy dịch ra vào phổi bé; oxy vẫn qua bánh nhau đến khi sinh; da bé mềm và
-          bớt trong hơn; chưa cần lo nếu bé chưa quay đầu ở tuần này; đỉnh tử cung mẹ đã cao hẳn trên rốn.
+          bớt trong hơn; chưa cần lo nếu bé chưa quay đầu ở tuần này; đỉnh tử cung mẹ đã cao hẳn trên rốn; nên
+          lên kế hoạch di chuyển và lưu số liên hệ của khoa sản.
     - [ ] Tuần 33: phần lớn kháng thể truyền từ mẹ sang bé diễn ra ở giai đoạn cuối thai kỳ, và kháng thể còn
           giúp bảo vệ bé trong những tháng đầu sau sinh (đã sửa ở vòng rà soát 1); sưng chân mẹ nặng hơn khi
-          nóng hoặc đứng lâu, gác chân cao và tập cổ chân giúp giảm.
+          nóng hoặc đứng lâu, gác chân cao và tập cổ chân giúp giảm; đồ chuẩn bị đi sinh nên có giấy tờ tùy
+          thân và thẻ bảo hiểm y tế, ngoài sổ khám thai.
     - [ ] Tuần 34: phổi bé tiến triển thêm nhưng những tuần cuối vẫn quan trọng; hệ thần kinh nối não với cơ
           nên cử động bé phối hợp hơn; mỡ giúp bé giữ ấm sau sinh; đau vùng bẹn khi mẹ đi lại — báo bác sĩ
-          hoặc nữ hộ sinh nếu đau khung chậu khiến khó đi lại hoặc khó xoay người khi ngủ, nên đi bước ngắn.
+          hoặc nữ hộ sinh nếu đau khung chậu khiến khó đi lại hoặc khó xoay người khi ngủ, nên đi bước ngắn;
+          các dấu hiệu chuyển dạ (cơn gò đều và mạnh hơn, vỡ ối, ra nhầy hồng) — nên lưu số khoa sản và có kế
+          hoạch di chuyển vào bất kỳ giờ nào.
     - [ ] Tuần 35: thận bé tạo nước tiểu, trở thành một phần nước ối; mẹ có thể rỉ ít nước tiểu khi ho, cười
           hoặc hắt hơi — tập cơ sàn chậu, không nên uống ít nước để đỡ phải đi tiểu (đã sửa ở vòng rà soát 1);
           liên cầu khuẩn nhóm B (GBS) được tả là "vi khuẩn thường gặp", xét nghiệm bằng cách phết dịch để kíp
@@ -404,16 +409,18 @@ Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
           sau có thể chỉ xảy ra khi chuyển dạ; chất gây (vernix) vẫn còn và một phần có thể còn lúc sinh;
           lông tơ và chất gây bé nuốt vào trở thành một phần phân su; hầu hết bé đã quay đầu lúc này — nếu bé
           ngôi mông hoặc ngôi ngang, bác sĩ/nữ hộ sinh sẽ trao đổi hướng xử lý; sau khi tụt đầu, ợ nóng có thể
-          giảm và ăn được bữa đầy đủ hơn, mẹ có thể có cảm giác nhói nhẹ phía dưới.
+          giảm và ăn được bữa đầy đủ hơn, mẹ có thể có cảm giác nhói nhẹ phía dưới; đồ chuẩn bị đi sinh nên có
+          tã, đồ mặc, đồ ăn nhẹ và nước uống cho lúc chuyển dạ.
     - [ ] Tuần 37: bé có thể mút tay hoặc ngón tay trong bụng mẹ; một số bé sinh trong vài tuần tới, số khác
           sau ngày dự sinh; "ra nhầy hồng" là nút nhầy, có thể hồng hoặc lẫn máu, xuất hiện vài ngày trước
-          hoặc khi bắt đầu chuyển dạ; khi có dấu hiệu chuyển dạ, gọi khoa sản để được hướng dẫn khi nào cần
-          đến viện; nếu vỡ ối, gọi ngay cho khoa sản dù màu nước ối ra sao (đã sửa ở vòng rà soát 1).
+          hoặc khi bắt đầu chuyển dạ; khám hằng tuần gồm đo huyết áp, nghe tim thai và kiểm tra ngôi thai; khi
+          có dấu hiệu chuyển dạ, gọi khoa sản để được hướng dẫn khi nào cần đến viện; nếu vỡ ối, gọi ngay cho
+          khoa sản dù màu nước ối ra sao (đã sửa ở vòng rà soát 1).
     - [ ] Tuần 38: trong bụng mẹ bé có thể nắm dây rốn hoặc tay mình — đây là phản xạ nắm còn lại sau sinh;
           phân su thường ra trong những ngày đầu sau sinh; bé đang ở thế cuộn tròn; cơn gò sinh lý có thể đến
-          gần nhau hơn, còn cơn gò chuyển dạ đều, dài và mạnh hơn. **Dữ kiện thêm ở vòng rà soát 1:** câu
-          "bụng mẹ có thể thấy căng và nặng khi bé đã chiếm gần hết chỗ" — xin bác sĩ xác nhận tất cả các điểm
-          trên.
+          gần nhau hơn, còn cơn gò chuyển dạ đều, dài và mạnh hơn; nên ăn nhẹ, đủ nước và đi bộ nhẹ nhàng.
+          **Dữ kiện thêm ở vòng rà soát 1:** câu "bụng mẹ có thể thấy căng và nặng khi bé đã chiếm gần hết
+          chỗ" — xin bác sĩ xác nhận tất cả các điểm trên.
     - [ ] Tuần 39: não bé tiếp tục phát triển nhanh trong những năm đầu đời; da tiếp da giúp giữ ấm cho bé;
           surfactant giúp phổi bé hoạt động khi bắt đầu thở không khí; nhầy hồng, cơn gò sinh lý và cảm giác
           tức nặng có thể là dấu hiệu sắp sinh, nhưng chuyển dạ vẫn có thể còn vài ngày hoặc vài tuần nữa.
