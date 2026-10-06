@@ -60,8 +60,11 @@ struct WeightChart: View {
         .chartXAxis {
             AxisMarks(values: [0, 13, 27, 40]) { value in
                 AxisGridLine().foregroundStyle(.luna(.divider))
-                // The last label ends at its tick so Charts does not drop it at the edge.
-                AxisValueLabel(anchor: value.index == value.count - 1 ? .topTrailing : .top)
+                // The edge labels start/end at their tick so Charts drops neither "0" nor "40".
+                AxisValueLabel(
+                    anchor: value.index == 0 ? .topLeading : value.index == value.count - 1 ? .topTrailing : .top,
+                    collisionResolution: .disabled
+                )
                     .font(.luna(size: 10, weight: .regular, relativeTo: .caption2))
                     .foregroundStyle(.luna(.textSecondary))
             }
