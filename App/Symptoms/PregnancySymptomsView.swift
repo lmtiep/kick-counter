@@ -96,7 +96,12 @@ struct PregnancySymptomsView: View {
             isPresented: Binding(get: { pendingDelete != nil }, set: { if !$0 { pendingDelete = nil } }),
             titleVisibility: .visible
         ) {
-            Button(L10n.commonDelete, role: .destructive) { Task { await deletePending() } }
+            Button(L10n.commonDelete, role: .destructive) {
+                // Captured now: closing the dialog clears `pendingDelete` before the task runs.
+                if let log = pendingDelete {
+                    Task { await delete(log) }
+                }
+            }
             Button(L10n.commonCancel, role: .cancel) { pendingDelete = nil }
         }
         .alert(failureMessage ?? "", isPresented: failureBinding) {
@@ -195,8 +200,8 @@ struct PregnancySymptomsView: View {
 
     /// Clears what this screen shows (mood, pregnancy symptoms, note); a day
     /// with nothing else logged is removed.
-    private func deletePending() async {
-        guard var log = pendingDelete else { return }
+    private func delete(_ record: CycleLogRecord) async {
+        var log = record
         pendingDelete = nil
         log.moods = []
         log.setSymptoms([], for: .pregnant)
