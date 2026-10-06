@@ -1174,6 +1174,59 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's lungs are slowly getting ready for breathing after birth, and your baby now has regular times of sleeping and waking.",
+          "vi": "Phổi của bé đang dần chuẩn bị cho những hơi thở đầu tiên sau khi chào đời, và bé đã có những khoảng ngủ, thức khá đều đặn."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is still long and lean. Over the coming weeks, a layer of fat builds up under the skin, and your baby will start to look rounder. Every baby grows at their own pace, so a scan may show a slightly different number."
+          ],
+          "vi": [
+            "Lúc này bé vẫn còn khá thon dài. Trong những tuần tới, một lớp mỡ sẽ dần hình thành dưới da, giúp bé trông tròn trịa hơn. Mỗi bé lớn theo nhịp riêng, nên con số trên siêu âm có thể hơi khác một chút."
+          ]
+        },
+        "development": {
+          "en": [
+            "Deep inside the lungs, the tiny air sacs and the branches that lead to them keep developing. Some lung cells have started to make surfactant, a substance that will later help the air sacs stay open when your baby breathes. The lungs still have many weeks of growing ahead.",
+            "Your baby's inner ear, which helps with balance, is now well formed. Your baby can probably hear your heartbeat, your voice and loud sounds from outside. Some babies wriggle or kick when there is a sudden noise.",
+            "The skin is still thin and slightly see-through, so tiny blood vessels show beneath it. Your baby sleeps and wakes in fairly regular cycles, and you may start to notice the times of day when they are most active."
+          ],
+          "vi": [
+            "Sâu bên trong phổi, các túi khí nhỏ li ti cùng những nhánh dẫn khí tới chúng vẫn đang tiếp tục phát triển. Một số tế bào phổi đã bắt đầu tạo ra surfactant, chất sau này giúp các túi khí không bị xẹp khi bé thở. Phổi của bé còn nhiều tuần nữa để hoàn thiện.",
+            "Tai trong, bộ phận giúp bé giữ thăng bằng, nay đã hình thành khá đầy đủ. Bé có thể nghe được nhịp tim, giọng nói của mẹ và cả những âm thanh lớn bên ngoài. Có bé còn cựa mình hoặc đạp khi nghe tiếng động bất ngờ.",
+            "Da bé vẫn mỏng và hơi trong, nên có thể thấy những mạch máu nhỏ bên dưới. Bé ngủ và thức theo chu kỳ khá đều, và mẹ có thể dần nhận ra những lúc trong ngày bé hay cử động nhất."
+          ]
+        },
+        "body": {
+          "en": [
+            "The top of your womb is now a little above your belly button, and your bump is easy to see. As the skin stretches, it may feel tight or itchy, and stretch marks may appear. A gentle, unscented moisturiser can make it feel more comfortable.",
+            "Heartburn, constipation and backache are common at this stage. Pregnancy hormones relax your muscles, and your growing womb presses on the organs around it. Some people get leg cramps at night, or feel the bump tighten for a few seconds now and then. These tightenings are usually painless and irregular.",
+            "Very strong itching, especially on the palms of your hands or the soles of your feet, is different. Tell your doctor or midwife about it, as you may need a blood test."
+          ],
+          "vi": [
+            "Đáy tử cung lúc này đã lên cao hơn rốn một chút, và bụng mẹ đã lộ rõ. Khi da bụng căng ra, mẹ có thể thấy căng, ngứa hoặc xuất hiện vết rạn. Một loại kem dưỡng ẩm dịu nhẹ, không mùi có thể giúp da dễ chịu hơn.",
+            "Ợ nóng, táo bón và đau lưng khá thường gặp ở giai đoạn này. Nội tiết thai kỳ làm các cơ giãn ra, còn tử cung lớn dần thì chèn vào các cơ quan xung quanh. Một số mẹ bị chuột rút chân về đêm, hoặc thỉnh thoảng thấy bụng gò cứng trong vài giây. Những cơn gò này thường không đau và không đều.",
+            "Ngứa rất nhiều, nhất là ở lòng bàn tay hay lòng bàn chân, thì lại khác. Mẹ hãy báo cho bác sĩ hoặc nữ hộ sinh, vì mẹ có thể cần làm xét nghiệm máu."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Many clinics offer a test for gestational diabetes between weeks 24 and 28. Ask your doctor or midwife whether you need it and how to prepare.",
+            "This is also a good time to get to know your baby's usual pattern of movements: when they are active and what the movements feel like. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait until the next day."
+          ],
+          "vi": [
+            "Nhiều cơ sở y tế làm xét nghiệm tầm soát tiểu đường thai kỳ trong khoảng tuần 24 đến 28. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem mình có cần làm không và cần chuẩn bị thế nào.",
+            "Đây cũng là lúc mẹ làm quen với nhịp cử động thường ngày của bé: bé hay cử động vào lúc nào và cảm giác ra sao. Nếu bé cử động ít đi, ngừng hẳn hoặc khác mọi ngày, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau."
+          ]
+        },
+        "sources": [
+          1,
+          2,
+          4
+        ]
       }
     },
     {

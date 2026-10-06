@@ -57,4 +57,10 @@ struct BundledArticleTests {
             #expect(article.sources.contains { (0...3).contains($0) }, "week \(week.week): guideline body")
         }
     }
+
+    /// Task 3: week 24 carries the first article; the UI tests and screenshots use it.
+    @Test func week24HasAnArticle() throws {
+        let week = try #require(library.content(forWeek: 24))
+        #expect(week.article != nil)
+    }
 }

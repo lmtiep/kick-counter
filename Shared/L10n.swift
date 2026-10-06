@@ -390,14 +390,25 @@ enum L10n {
     // MARK: - Phase 4: week detail
 
     static func weekChip(_ week: Int) -> String { String(format: t("week.chip"), week) }
-    static func weekHeadline(_ week: Int) -> String { String(format: t("week.headline"), week) }
     static var weekReviewer: String { t("week.reviewer") }
     static var weekReviewed: String { t("week.reviewed") }
-    static func weekSizeLine(_ fruit: String) -> String { String(format: t("week.sizeLine"), fruit) }
-    static func weekTypicalRange(_ range: String) -> String { String(format: t("week.typicalRange"), range) }
     static var commonClose: String { t("common.close") }
-    /// "About 600 g": the Hadlock 50th percentile is an estimate, not a measurement.
-    static func weekAbout(_ value: String) -> String { String(format: t("week.about"), value) }
+
+    // MARK: - Phase 6: week article sheet
+
+    static var weekArticleTabBaby: String { t("weekArticle.tab.baby") }
+    static var weekArticleTabMom: String { t("weekArticle.tab.mom") }
+    static var weekArticleSizeHeading: String { t("weekArticle.heading.size") }
+    static var weekArticleDevelopmentHeading: String { t("weekArticle.heading.development") }
+    static var weekArticleBodyHeading: String { t("weekArticle.heading.body") }
+    static var weekArticleTodoHeading: String { t("weekArticle.heading.todo") }
+    static var weekArticleReferences: String { t("weekArticle.references") }
+    static var weekArticleExpand: String { t("weekArticle.handle.expand") }
+    static var weekArticleCollapse: String { t("weekArticle.handle.collapse") }
+    /// Format strings for `WeekSizeLine.Templates`; KickCore fills them in.
+    static var weekArticleSizeLengthFormat: String { t("weekArticle.size.length") }
+    static var weekArticleSizeLengthWeightFormat: String { t("weekArticle.size.lengthWeight") }
+    static var weekArticleSizeWeightFormat: String { t("weekArticle.size.weight") }
 
     // MARK: - Phase 4: kicks
 
