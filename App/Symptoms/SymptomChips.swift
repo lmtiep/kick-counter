@@ -15,7 +15,9 @@ struct FlowLayout: Layout {
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
         let rows = arrange(subviews, maxWidth: proposal.width ?? .infinity)
         let height = rows.map(\.height).reduce(0, +) + spacing * CGFloat(max(rows.count - 1, 0))
-        return CGSize(width: proposal.width ?? rows.map(\.width).max() ?? 0, height: height)
+        // An unbounded proposal (nil or infinity) gets the widest row, never infinity.
+        let proposed = proposal.width.flatMap { $0.isFinite ? $0 : nil }
+        return CGSize(width: proposed ?? rows.map(\.width).max() ?? 0, height: height)
     }
 
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {

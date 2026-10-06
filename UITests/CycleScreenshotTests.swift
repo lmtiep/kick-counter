@@ -68,6 +68,13 @@ final class CycleScreenshotTests: XCTestCase {
             app.scrollUntilHittable(logToday)
             logToday.tap()
             XCTAssertTrue(app.buttons["dayLogSave"].waitForExistence(timeout: 5))
+            if dark {
+                // Shows a selected chip in dark mode (cycleStrong fill, onAccent text).
+                let happy = app.buttons["moodChip-happy"]
+                XCTAssertTrue(happy.waitForExistence(timeout: 5))
+                happy.tap()
+                XCTAssertTrue(happy.isSelected)
+            }
             attachScreenshot(app, "day-log-\(suffix)")
             let field = app.textFields["dayLogBBTField"]
             // The BBT field is already "hittable" half under Save: scroll to the
