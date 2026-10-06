@@ -46,6 +46,60 @@ public struct LocalizedList: Codable, Equatable, Sendable {
     }
 }
 
+/// Paragraphs of a week article, one array per language (phase 6 spec §4.1).
+public struct LocalizedParagraphs: Codable, Equatable, Sendable {
+    public var en: [String]
+    public var vi: [String]
+
+    public init(en: [String], vi: [String]) {
+        self.en = en
+        self.vi = vi
+    }
+
+    public func paragraphs(_ language: ContentLanguage) -> [String] {
+        language == .vi ? vi : en
+    }
+}
+
+/// A week's article (phase 6 spec §4.1). The Bé tab is `lead`, the generated
+/// size line, `sizeNote` and `development`; the Mẹ tab is `body`, `todo` and
+/// the week's `warnings`. Checked by `WeekArticleChecks`.
+public struct WeekArticle: Codable, Equatable, Sendable {
+    /// Bold opening of the Bé tab: at most 30 words (en) / 40 (vi).
+    public var lead: LocalizedText
+    /// "Bé lớn cỡ nào?", shown after the generated `WeekSizeLine`. No figures.
+    public var sizeNote: LocalizedParagraphs
+    /// "Bé phát triển ra sao": 2–3 paragraphs.
+    public var development: LocalizedParagraphs
+    /// Mẹ tab, "Cơ thể mẹ tuần này": 1–3 paragraphs.
+    public var body: LocalizedParagraphs
+    /// Mẹ tab, "Mẹ nên làm gì": 1–2 paragraphs.
+    public var todo: LocalizedParagraphs
+    /// Indices into `PregnancyContent.sources` (append-only, never reordered); at least one.
+    public var sources: [Int]
+
+    /// The paragraph fields by their JSON name, in reading order.
+    var paragraphFields: [(name: String, paragraphs: LocalizedParagraphs)] {
+        [
+            (name: "sizeNote", paragraphs: sizeNote),
+            (name: "development", paragraphs: development),
+            (name: "body", paragraphs: body),
+            (name: "todo", paragraphs: todo),
+        ]
+    }
+
+    /// Every text of one language with its field name: the lead, then each paragraph.
+    func texts(_ language: ContentLanguage) -> [(field: String, text: String)] {
+        var result: [(field: String, text: String)] = [(field: "lead", text: lead.text(language))]
+        for field in paragraphFields {
+            for paragraph in field.paragraphs.paragraphs(language) {
+                result.append((field: field.name, text: paragraph))
+            }
+        }
+        return result
+    }
+}
+
 /// "Your baby is about the size of …", illustrated by an emoji (no images).
 public struct FruitSize: Codable, Equatable, Sendable {
     public var emoji: String
@@ -74,6 +128,9 @@ public struct WeekContent: Codable, Equatable, Sendable, Identifiable {
     public var tips: LocalizedList
     /// "When to get care right away" — every item points to a doctor or maternity unit.
     public var warnings: LocalizedList
+    /// The week's article (version 3); nil in a version-2 file or a week not yet written,
+    /// in which case the week detail shows the bullet lists above.
+    public var article: WeekArticle?
 
     public var id: Int { week }
 

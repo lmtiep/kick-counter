@@ -28,7 +28,8 @@ public enum ContentIssue: Equatable, Sendable {
 /// broken file never ships (the app itself only logs and hides content).
 public enum ContentValidator {
     /// Version 2: Hadlock `crlMm` / `weightG` / `weightP10G` / `weightP90G` replace `lengthCm`.
-    public static let supportedVersion = 2
+    /// Version 3: optional `article` per week (phase 6, checked by `WeekArticleChecks`).
+    public static let supportedVersion = 3
     /// Hadlock 1991 Table 1 starts at week 10; weeks 41–42 reuse week 40.
     public static let weightWeeks = 10...42
     /// Hadlock 1992 crown–rump length, within the CRL dating window (ACOG: up to 13 6/7 weeks).
