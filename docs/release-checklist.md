@@ -60,7 +60,7 @@
 - [ ] CloudKit Console: record type `CD_Appointment` có trong Development (sinh tự động theo cách
       ở mục "Cấu hình" phía trên, sau khi một lịch hẹn đã được lưu từ bản build ký development), rồi
       **Deploy Schema Changes** lên Production — làm cùng lần với bước deploy schema của v1.
-- [ ] Ảnh chụp App Store mới cho tab Thai kỳ (vi + en): `ci-artifacts/screenshots/pregnancy-home-24-*`, `week-24-*`, `appointments-*`.
+- [ ] Ảnh chụp App Store mới cho tab Thai kỳ (vi + en): `ci-artifacts/screenshots/pregnancy-home-24-*`, `week-article-*` (thay `week-24-*` từ giai đoạn 6), `appointments-*`.
 - [ ] Ghi chú phát hành: tab Thai kỳ; nội dung bé + mẹ tuần 4–42; lịch khám có nhắc trước 1 ngày; nhập ngày dự sinh hoặc ngày đầu kỳ kinh cuối.
 
 ### Kiểm thử thủ công trên iPhone qua TestFlight (vi và en)
@@ -209,3 +209,28 @@
       offline rồi bật mạng → còn một bản ghi mỗi ngày. (Dự kiến thất bại cho tới khi schema được deploy Production.)
 - [ ] Dynamic Type lớn nhất: sheet ghi ngày (2 chế độ), màn Triệu chứng, màn Cân nặng, 4 lối tắt không cắt chữ.
 - [ ] Reduce Motion bật: thẻ an toàn chỉ mờ dần.
+
+## Giai đoạn 6 — Bài viết theo tuần
+
+### Trước khi gửi App Store
+- [ ] Không thay đổi CloudKit: bài viết nằm trong `pregnancy-content.json` đóng gói cùng app (phiên bản 3).
+- [ ] Bác sĩ đã duyệt bài viết từng tuần — mục 9 của [`docs/content-review-for-doctor.md`](content-review-for-doctor.md).
+      Tuần chưa duyệt vẫn bị ẩn ở bản App Store (không đổi so với giai đoạn 2).
+- [ ] Mọi tuần 4–42 có bài viết — lệnh sau in ra `[]`:
+      `python3 -c "import json;d=json.load(open('Packages/KickCore/Sources/KickCore/Resources/pregnancy-content.json'));print([w['week'] for w in d['weeks'] if 'article' not in w])"`
+- [ ] Ảnh chụp App Store cho Chi tiết tuần: `week-article-peek-baby-vi-light`, `week-article-expanded-baby-vi-light`,
+      `week-article-expanded-mom-vi-light`, `week-article-*-en-dark`.
+- [ ] Ghi chú phát hành: Chi tiết tuần mới — bài viết theo tuần, chia thẻ Bé / Mẹ, kéo lên để đọc toàn bài.
+
+### Kiểm thử thủ công trên iPhone qua TestFlight (vi và en)
+- [ ] Mở Chi tiết tuần từ ảnh thai nhi ở Hôm nay: sheet ở nấc thấp, thấy tiêu đề, thẻ Bé / Mẹ và câu mở đầu.
+- [ ] Kéo tay nắm lên/xuống: sheet theo tay, thả chậm về nấc gần nhất, vuốt nhanh về nấc theo hướng vuốt;
+      ảnh thai nhi và hàng chip mờ dần khi kéo lên.
+- [ ] Ở nấc cao: bài viết cuộn bình thường; cuộn lên đầu bài rồi kéo xuống → sheet thu về nấc thấp.
+- [ ] Đổi tuần bằng chip hoặc vuốt ngang trên nền: giữ nguyên nấc và thẻ đang chọn, bài viết về đầu.
+- [ ] Triệu chứng → "Cơn gò" → "Xem dấu hiệu cần đi khám": sheet mở ở nấc cao, thẻ Mẹ, đúng mục cảnh báo.
+- [ ] VoiceOver: tay nắm đọc "Mở rộng bài viết" / "Thu gọn bài viết" và chạm hai lần để đổi nấc; câu kích thước
+      đọc đơn vị đầy đủ ("gam", "milimét"); ở nấc cao không chạm tới chip tuần phía sau.
+- [ ] Reduce Motion bật: sheet chuyển nấc tức thì, ảnh nền chỉ mờ đi chứ không thu nhỏ.
+- [ ] Dynamic Type lớn nhất: Chi tiết tuần mở thẳng nấc cao, chữ không bị cắt.
+- [ ] Tuần 4–6 không có câu số đo; tuần 41–42 có dòng "Số liệu chuẩn Hadlock chỉ đến tuần 40."

@@ -168,7 +168,7 @@ trong `ci-artifacts/screenshots/`.
 | `counter.call115` | Nút "Gọi cấp cứu 115" trên thẻ cảnh báo 2 giờ (chỉ tiếng Việt; tiếng Anh không có số chung nên chỉ có chữ) |
 | `kickSettings.reminder.detail` | "Đếm cùng một khung giờ mỗi ngày, khi bé thường hoạt động" |
 | `common.underOneMinute` | "<1 phút" — chữ hiển thị khi một lượt đếm hoàn thành dưới một phút (biểu đồ lịch sử, thẻ lượt đếm) |
-| `week.sizeLine`, `week.about`, `week.typicalRange` | "Ở tuần này, bé có kích thước bằng %@." / "Khoảng %@" / "Thường %@" — câu diễn giải kích thước bé ở Chi tiết tuần (cùng số liệu Hadlock đã duyệt ở mục 1–2, chỉ đổi câu chữ) |
+| `week.sizeLine`, `week.about`, `week.typicalRange` | *Đã bỏ ở giai đoạn 6* — thay bằng câu kích thước tự sinh `weekArticle.size.*` (mục 9). |
 | `week.reviewed`, `week.reviewer` | "Bác sĩ sản khoa đã duyệt nội dung tuần này" / "Người xem xét" — dòng trạng thái duyệt hiển thị cho người dùng, không nêu tên bác sĩ |
 | `cycle.maybePregnant.title`, `cycle.maybePregnant.body` | "Có thể bạn đang mang thai?" / "Chuyển sang chế độ thai kỳ để theo dõi từng tuần" — thẻ gợi ý khi trễ kinh (nội dung y tế đầy đủ vẫn ở `cycle.late.*` đã duyệt giai đoạn 3) |
 
@@ -234,3 +234,198 @@ hiện nhóm, dải hay trạng thái.
         24,95–24,99 làm tròn thành 25,0 và bị xếp vào nhóm Thừa cân (`over`), chứ không phải Bình thường
         (`normal`) theo ngưỡng BMI thật < 25,0. Xác nhận cách làm tròn rồi mới xếp nhóm này là phù hợp ở biên, hay
         nên xếp nhóm theo BMI thật (chưa làm tròn).
+
+## 9. Bài viết theo tuần (giai đoạn 6)
+
+Chi tiết tuần nay là một bài viết ngắn cho mỗi tuần 4–42, chia hai thẻ **Bé** và **Mẹ**, viết mới bằng
+tiếng Việt và tiếng Anh (không dịch máy, không chép từ ứng dụng hay trang web khác). Nội dung nằm trong
+trường `article` của từng tuần trong `pregnancy-content.json`; mọi tuần vẫn `"reviewed": false`. Xem trên
+ảnh chụp `week-article-*` trong `ci-artifacts/screenshots/` của lần CI gần nhất, hoặc trong bản TestFlight.
+
+Cấu trúc mỗi bài:
+- **Thẻ Bé:** câu mở đầu in đậm; "Bé lớn cỡ nào?" (câu kích thước tự sinh + đoạn mô tả); "Bé phát triển ra sao".
+- **Thẻ Mẹ:** "Cơ thể mẹ tuần này"; "Mẹ nên làm gì"; rồi mục "Khi nào cần đi khám ngay" (giữ nguyên như cũ).
+- "Tài liệu tham khảo": các nguồn bài viết dùng (WHO, ACOG, NHS, Bộ Y tế, Hadlock).
+
+**Câu kích thước** không viết tay: app tự ghép từ số liệu Hadlock đã có (mục 21), nên con số luôn khớp bảng
+chuẩn. Mẫu câu (cần duyệt câu chữ, không cần duyệt lại số):
+
+| Khóa | Nội dung (vi) |
+|---|---|
+| `weekArticle.size.length` (tuần 7–9) | "Bé dài khoảng 16 mm (từ đầu đến mông), cỡ một quả anh đào." |
+| `weekArticle.size.lengthWeight` (tuần 10–13) | "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, cỡ một quả kiwi." |
+| `weekArticle.size.weight` (tuần 14–42) | "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), cỡ một bắp ngô." Tuần 41–42 dùng số của tuần 40 kèm dòng "Số liệu chuẩn Hadlock chỉ đến tuần 40." |
+| `weekArticle.heading.*`, `weekArticle.tab.*` | "Bé lớn cỡ nào?", "Bé phát triển ra sao", "Cơ thể mẹ tuần này", "Mẹ nên làm gì"; thẻ "Bé" / "Mẹ" |
+
+Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
+
+**Nguyên tắc viết** (tác giả đã áp dụng; bác sĩ kiểm tra theo):
+- Chỉ viết mới; không câu nào chép hoặc diễn đạt lại sát từ Flo hay bất kỳ trang web nào.
+- Dữ kiện lấy từ các nguồn trong danh sách nguồn; mỗi ý về sự phát triển của bé phải đúng với tuần đó
+  (đối chiếu tài liệu theo tuần của ACOG và NHS).
+- Tiếng Việt viết trực tiếp, không dịch; bản tiếng Anh viết song song, nói cùng nội dung.
+- Xưng "mẹ" và "bé"; giọng ấm áp, bình tĩnh; câu ngắn (khoảng 25 từ trở xuống).
+- Dùng từ rào đón ("thường", "khoảng", "có thể"); không chẩn đoán, không gây sợ hãi, không hứa hẹn về
+  từng em bé; không nêu giới tính hay tỉ lệ phần trăm rủi ro.
+- Chỉ dùng đơn vị mét (g, kg, mm, cm).
+- Không nêu tên thuốc hay liều. Ngoại lệ: axit folic và sắt được nhắc tên (không liều), "theo hướng dẫn của
+  bác sĩ hoặc nữ hộ sinh", như các gạch đầu dòng đã có. Vắc-xin chỉ gọi theo bệnh (uốn ván, ho gà). Mọi việc
+  liên quan y tế đều hướng tới "bác sĩ hoặc nữ hộ sinh".
+- Mỗi thẻ, mỗi ngôn ngữ dài 150–300 chữ (tiếng Việt đếm theo âm tiết); câu mở đầu tối đa 30 từ (en) / 40 âm
+  tiết (vi). Các giới hạn này và việc không có inch/pound/ounce được kiểm tra tự động (`scripts/test-core.sh`).
+
+35. [ ] **Duyệt từng tuần** (đúng dữ kiện, đúng tuần, giọng văn, không mâu thuẫn với các thẻ ở màn Hôm nay):
+    - [ ] Tuần 4
+    - [ ] Tuần 5
+    - [ ] Tuần 6
+    - [ ] Tuần 7
+    - [ ] Tuần 8
+    - [ ] Tuần 9
+    - [ ] Tuần 10
+    - [ ] Tuần 11
+    - [ ] Tuần 12
+    - [ ] Tuần 13
+    - [ ] Tuần 14
+    - [ ] Tuần 15
+    - [ ] Tuần 16
+    - [ ] Tuần 17
+    - [ ] Tuần 18
+    - [ ] Tuần 19
+    - [ ] Tuần 20
+    - [ ] Tuần 21
+    - [ ] Tuần 22
+    - [ ] Tuần 23
+    - [ ] Tuần 24
+    - [ ] Tuần 25
+    - [ ] Tuần 26
+    - [ ] Tuần 27
+    - [ ] Tuần 28
+    - [ ] Tuần 29
+    - [ ] Tuần 30
+    - [ ] Tuần 31
+    - [ ] Tuần 32
+    - [ ] Tuần 33
+    - [ ] Tuần 34
+    - [ ] Tuần 35
+    - [ ] Tuần 36
+    - [ ] Tuần 37
+    - [ ] Tuần 38
+    - [ ] Tuần 39
+    - [ ] Tuần 40
+    - [ ] Tuần 41
+    - [ ] Tuần 42
+36. [ ] Duyệt câu chữ câu kích thước tự sinh và các tiêu đề (bảng trên).
+37. [ ] **Câu hỏi:** cho phép nhắc tên axit folic và sắt (không liều) trong bài viết như các gạch đầu dòng cũ,
+        hay bỏ hẳn tên?
+38. [ ] **Câu hỏi:** dòng "Người xem xét" hiện chỉ ghi "Nội dung đang chờ bác sĩ duyệt", không có tên. Sau khi
+        duyệt, bác sĩ có đồng ý hiện tên mình trên từng tuần không? (Chưa làm ở giai đoạn này.)
+39. [ ] **Dữ kiện tác giả thêm ngoài danh sách kiểm** (lấy từ báo cáo task-4, task-5, task-6; mỗi dữ kiện đã
+        viết song ngữ, rào đón theo nguyên tắc viết ở trên) — xin bác sĩ xác nhận đúng với từng tuần dưới đây,
+        hoặc góp ý sửa:
+    - [ ] Tuần 5: ba lá phôi (ngoại bì, trung bì, nội bì) và các cơ quan mỗi lá hình thành.
+    - [ ] Tuần 6: axit folic giúp ống thần kinh khép lại.
+    - [ ] Tuần 7: túi noãn hoàng (yolk sac) vẫn giúp nuôi dưỡng bé giai đoạn này. **Câu hỏi:** vai trò này còn
+          có tranh luận trong y văn — xin bác sĩ quyết định giữ câu này hay bỏ.
+    - [ ] Tuần 8: tim thai đập nhanh hơn nhiều so với tim mẹ.
+    - [ ] Tuần 9: gan bé đang tạo máu; mí mắt đang khép dần che mắt.
+    - [ ] Tuần 10: tim đã hình thành đủ bốn ngăn; sụn bắt đầu hóa xương.
+    - [ ] Tuần 11: mí mắt đã khép và thường đóng kín đến sau; bé bắt đầu nuốt nước ối; tai đang di chuyển lên
+          vị trí.
+    - [ ] Tuần 12: phần ruột thoát vị sinh lý qua dây rốn nay quay trở lại bụng.
+    - [ ] Tuần 13: mắt bé đã dịch về phía trước mặt; siêu âm tam cá nguyệt hai đo vòng đầu và xương đùi.
+    - [ ] Tuần 14: thân bé lớn nhanh hơn đầu; lông tơ (lanugo) thường rụng trước hoặc ngay sau sinh; tử cung
+          nhô cao hơn khung chậu, bụng có thể lộ sớm hơn ở lần mang thai sau; gợi ý tập theo "phép thử nói
+          chuyện" (vẫn nói được khi tập), bơi, yoga bầu.
+    - [ ] Tuần 15: thể tích máu mẹ tăng khiến niêm mạc mũi phồng lên; cách xử trí chảy máu mũi (bóp phần mềm
+          mũi, cúi người ra trước); canxi đang lắng vào xương bé; tai bé đang di chuyển về vị trí cuối; bé có
+          thể nắm tay.
+    - [ ] Tuần 16: tăng trưởng giai đoạn này chủ yếu vào cơ và xương, mỡ tích sau; tim thai đập nhanh hơn
+          nhiều so với tim mẹ; vị trí bánh nhau có thể làm mẹ khó cảm nhận cử động sớm; vitamin C có thể giúp
+          hấp thu sắt tốt hơn.
+    - [ ] Tuần 17: mỡ giúp trẻ sơ sinh giữ ấm và dự trữ năng lượng; sụn tiếp tục hóa xương đến hết tuổi thiếu
+          niên; lớp gel Wharton bảo vệ mạch máu trong dây rốn; tuyến mồ hôi đang hình thành; bánh nhau lớn
+          cùng bé.
+    - [ ] Tuần 18: các xương tai giữa của bé đang cứng lại; myelin bắt đầu hình thành; huyết áp mẹ thường
+          thấp hơn vào giữa thai kỳ; siêu âm hình thái đo đầu, bụng và xương đùi.
+    - [ ] Tuần 19: mầm răng vĩnh viễn đang hình thành; có thể xuất hiện vết sạm da ở mặt mẹ (má, trán, môi
+          trên); móng tay mẹ có thể mọc nhanh hơn và dễ gãy hơn.
+    - [ ] Tuần 20: từ tuần này chiều dài bé được đo từ đầu đến gót; thận thai nhi tạo nước tiểu quay lại nước
+          ối; phân su gồm tế bào bong, dịch và dịch mật; lượng nước ối tăng dần; nước tiểu mẹ được kiểm tra
+          mỗi lần khám, có nêu tiền sản giật.
+    - [ ] Tuần 21: **câu kiểm tra lại cách viết tủy xương** (đã sửa ở vòng rà soát 1) — vi: "tủy xương ngày
+          càng đảm nhận nhiều hơn việc tạo máu, cùng với gan và lá lách. Trong những tháng tới, tủy xương dần
+          trở thành nơi tạo máu chính." Xin xác nhận câu này, cùng các dữ kiện khác của tuần 21: bé có thể
+          hoạt động nhiều hơn khi mẹ nghỉ ngơi; nghiên cứu về việc bé "nếm" sớm và ảnh hưởng tới thói quen ăn
+          uống sau này (viết ở dạng còn đang nghiên cứu); tất y khoa viết theo hướng "hỏi bác sĩ hoặc nữ hộ
+          sinh".
+    - [ ] Tuần 22: tóc đầu bé chưa có nhiều màu; môi rõ nét hơn; phản xạ nắm là phản xạ sớm, trẻ sơ sinh vẫn
+          còn; móng tay bé đang mọc dài.
+    - [ ] Tuần 23: mắt bé chuyển động nhanh (REM) khi ngủ; có cử động tập thở; huyết áp cao đôi khi không có
+          triệu chứng ban đầu.
+    - [ ] Tuần 25: lỗ mũi bé đang bắt đầu mở; các đường chỉ tay xuất hiện ở lòng bàn tay; chèn ép dây thần
+          kinh cổ tay (hội chứng ống cổ tay) gây tê tay mẹ; mẹ rụng tóc nhiều hơn bình thường trong vài tháng
+          sau sinh.
+    - [ ] Tuần 26: màu mắt bé có thể còn thay đổi trong nhiều tháng sau sinh; phản xạ giật mình (Moro); cơn
+          gò sinh lý "có thể là một cách tử cung tập luyện trước khi chuyển dạ"; câu "thức dậy nằm ngửa không
+          sao, chỉ cần nghiêng người lại" (đã sửa ở vòng rà soát 1) — xin xác nhận câu này có mâu thuẫn với
+          khuyến cáo nằm nghiêng từ tuần 28 không.
+    - [ ] Tuần 27: bề mặt não bé bắt đầu có nếp gấp; bé thường hoạt động nhiều hơn vào buổi tối; nấc cụt
+          thường vô hại; bé tập mút và nuốt; một số triệu chứng đầu thai kỳ (đi tiểu nhiều hơn) có thể quay
+          lại.
+    - [ ] Tuần 28: phổi bé chưa đủ sẵn sàng để tự hoạt động; da bé bắt đầu bớt nhăn khi mỡ tích dần; khi khám
+          có thể đo huyết áp, nước tiểu và bề cao tử cung mẹ; nằm nghiêng cũng áp dụng cho giấc ngủ ngắn ban
+          ngày.
+    - [ ] Tuần 29: tử cung chèn lên cơ hoành và phổi mẹ; ngồi thẳng và chậm lại giúp giảm khó thở; xương bé
+          nhận canxi từ mẹ qua bánh nhau; mẹ có thể thấy bụng chuyển động từ ngoài; nấc cụt của bé cảm nhận
+          như những cú giật nhẹ đều đều; cách giảm ợ nóng (ăn bữa nhỏ, không nằm ngay sau ăn, mặc đồ rộng
+          quanh eo); nếu mẹ không ăn sữa/chế phẩm sữa, hỏi bác sĩ hoặc nữ hộ sinh cách bổ sung đủ canxi.
+    - [ ] Tuần 30: gan và lá lách từng tạo máu trước đây, tủy xương giờ là nơi chính tạo hồng cầu, hồng cầu
+          mang oxy (khớp với câu ở tuần 21); lông tơ giúp giữ ấm, một số bé còn ít lông tơ lúc sinh, thường ở
+          vai và lưng; não bé tiếp tục phát triển lâu sau sinh; bé mở mắt khi thức và nhắm khi ngủ; trọng tâm
+          cơ thể mẹ thay đổi và khớp lỏng hơn do hormone, nên đi giày đế bằng chống trượt; siêu âm tăng trưởng
+          kiểm tra sự phát triển, vị trí và nước ối.
+    - [ ] Tuần 31: ví dụ về các giác quan của bé (cảm nhận bằng mặt và tay, nếm nước ối, nghe âm thanh bên
+          ngoài; thị giác còn hạn chế trong bóng tối tử cung); bé có thể phản ứng với giọng mẹ hoặc âm nhạc
+          bằng cử động; sữa non được tả là đặc, màu hơi vàng, một số mẹ không thấy tiết sữa non và cả hai đều
+          bình thường.
+    - [ ] Tuần 32: cử động tập thở đẩy dịch ra vào phổi bé; oxy vẫn qua bánh nhau đến khi sinh; da bé mềm và
+          bớt trong hơn; chưa cần lo nếu bé chưa quay đầu ở tuần này; đỉnh tử cung mẹ đã cao hẳn trên rốn.
+    - [ ] Tuần 33: phần lớn kháng thể truyền từ mẹ sang bé diễn ra ở giai đoạn cuối thai kỳ, và kháng thể còn
+          giúp bảo vệ bé trong những tháng đầu sau sinh (đã sửa ở vòng rà soát 1); sưng chân mẹ nặng hơn khi
+          nóng hoặc đứng lâu, gác chân cao và tập cổ chân giúp giảm.
+    - [ ] Tuần 34: phổi bé tiến triển thêm nhưng những tuần cuối vẫn quan trọng; hệ thần kinh nối não với cơ
+          nên cử động bé phối hợp hơn; mỡ giúp bé giữ ấm sau sinh; đau vùng bẹn khi mẹ đi lại — báo bác sĩ
+          hoặc nữ hộ sinh nếu đau khung chậu khiến khó đi lại hoặc khó xoay người khi ngủ, nên đi bước ngắn.
+    - [ ] Tuần 35: thận bé tạo nước tiểu, trở thành một phần nước ối; mẹ có thể rỉ ít nước tiểu khi ho, cười
+          hoặc hắt hơi — tập cơ sàn chậu, không nên uống ít nước để đỡ phải đi tiểu (đã sửa ở vòng rà soát 1);
+          liên cầu khuẩn nhóm B (GBS) được tả là "vi khuẩn thường gặp", xét nghiệm bằng cách phết dịch để kíp
+          đỡ sinh có cách bảo vệ bé lúc sinh.
+    - [ ] Tuần 36: tụt đầu (dropping/engaging) — ở lần mang thai đầu thường xảy ra vài tuần trước sinh, ở lần
+          sau có thể chỉ xảy ra khi chuyển dạ; chất gây (vernix) vẫn còn và một phần có thể còn lúc sinh;
+          lông tơ và chất gây bé nuốt vào trở thành một phần phân su; hầu hết bé đã quay đầu lúc này — nếu bé
+          ngôi mông hoặc ngôi ngang, bác sĩ/nữ hộ sinh sẽ trao đổi hướng xử lý; sau khi tụt đầu, ợ nóng có thể
+          giảm và ăn được bữa đầy đủ hơn, mẹ có thể có cảm giác nhói nhẹ phía dưới.
+    - [ ] Tuần 37: bé có thể mút tay hoặc ngón tay trong bụng mẹ; một số bé sinh trong vài tuần tới, số khác
+          sau ngày dự sinh; "ra nhầy hồng" là nút nhầy, có thể hồng hoặc lẫn máu, xuất hiện vài ngày trước
+          hoặc khi bắt đầu chuyển dạ; khi có dấu hiệu chuyển dạ, gọi khoa sản để được hướng dẫn khi nào cần
+          đến viện; nếu vỡ ối, gọi ngay cho khoa sản dù màu nước ối ra sao (đã sửa ở vòng rà soát 1).
+    - [ ] Tuần 38: trong bụng mẹ bé có thể nắm dây rốn hoặc tay mình — đây là phản xạ nắm còn lại sau sinh;
+          phân su thường ra trong những ngày đầu sau sinh; bé đang ở thế cuộn tròn; cơn gò sinh lý có thể đến
+          gần nhau hơn, còn cơn gò chuyển dạ đều, dài và mạnh hơn. **Dữ kiện thêm ở vòng rà soát 1:** câu
+          "bụng mẹ có thể thấy căng và nặng khi bé đã chiếm gần hết chỗ" — xin bác sĩ xác nhận tất cả các điểm
+          trên.
+    - [ ] Tuần 39: não bé tiếp tục phát triển nhanh trong những năm đầu đời; da tiếp da giúp giữ ấm cho bé;
+          surfactant giúp phổi bé hoạt động khi bắt đầu thở không khí; nhầy hồng, cơn gò sinh lý và cảm giác
+          tức nặng có thể là dấu hiệu sắp sinh, nhưng chuyển dạ vẫn có thể còn vài ngày hoặc vài tuần nữa.
+    - [ ] Tuần 40: phản xạ bú của bé (quay đầu theo hướng chạm vào má và bú); đầu bé có thể hơi dài hoặc nhọn
+          vài ngày đầu sau sinh; nhiều bé sinh trong khoảng một hai tuần trước hoặc sau ngày dự sinh, ngày dự
+          sinh chỉ là ước tính; chờ lâu hơn dự sinh thường gặp hơn ở lần mang thai đầu; sau ngày dự sinh bác
+          sĩ/nữ hộ sinh có thể nghe tim thai thường xuyên hơn.
+    - [ ] Tuần 41: phần lớn chất gây đã mất nên da bé có thể khô hoặc bong, thường tự hết trong vài tuần đầu;
+          hỏi nữ hộ sinh cách cắt móng tay cho bé sau sinh; theo dõi quá ngày dự sinh có thể gồm đo huyết áp
+          và kiểm tra tim thai.
+    - [ ] Tuần 42: da bé có thể khô, nứt hoặc bong, đặc biệt ở tay và chân, thường tự lành; bé vẫn nhận oxy
+          và dưỡng chất qua bánh nhau, việc kiểm tra tim thai và nước ối cho biết bé đang thích nghi ra sao;
+          các lần kiểm tra này có thể lặp lại nhiều lần trong tuần để giúp quyết định thời điểm sinh phù hợp.
+- [ ] Khi bác sĩ duyệt xong một tuần: đổi `"reviewed": true` cho tuần đó như mục 1 — cờ này áp dụng cho cả
+      các gạch đầu dòng lẫn bài viết của tuần.
