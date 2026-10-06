@@ -169,3 +169,43 @@
       ở tiếng Anh không có nút; thông báo đẩy 2 giờ vẫn đến.
 - [ ] Cá nhân → "Kết thúc theo dõi thai kỳ" → về Mong con, dữ liệu thai kỳ và lịch khám còn; "Xem lại phần giới
       thiệu" không xóa gì.
+
+## Giai đoạn 5 — Ghi triệu chứng & Cân nặng mẹ
+
+### Trước khi gửi App Store
+- [ ] CloudKit Console: field mới của `CD_CycleLog` — `CD_flowRaw`, `CD_moodsRaw`, `CD_symptomsRaw` — và record
+      type mới `CD_WeightEntry` (`CD_id`, `CD_day`, `CD_kg`) có trong Development. Cách sinh (như mục "Cấu hình"):
+      trên một Mac có Xcode, chạy bản build **ký development** trên thiết bị thật đăng nhập iCloud; ở chế độ Mong con
+      ghi một ngày có lượng kinh, tâm trạng và triệu chứng; chuyển sang Mang thai, nhập cân trước mang thai và ghi
+      một cân nặng. Kiểm tra trong CloudKit Console rồi **Deploy Schema Changes** lên Production. **Không** tạo
+      field/record type bằng tay.
+- [ ] Bác sĩ sản khoa đã duyệt mục 8 của [`docs/content-review-for-doctor.md`](content-review-for-doctor.md)
+      (gồm quyết định ngưỡng BMI châu Á).
+- [ ] Quyền riêng tư: cân nặng, chiều cao, triệu chứng, tâm trạng chỉ lưu trên máy (cân trước mang thai và chiều
+      cao trong App Group, không đồng bộ) và trong iCloud riêng của người dùng (log ngày, cân nặng); app không gửi
+      đi đâu. `App/PrivacyInfo.xcprivacy` giữ `NSPrivacyCollectedDataTypes` rỗng và nhãn App Store "Data Not
+      Collected" vẫn đúng (dữ liệu không đến máy chủ của nhà phát triển). Thêm vào mô tả / chính sách quyền riêng
+      tư: "Cân nặng và triệu chứng chỉ lưu trên máy và iCloud của bạn." Nếu sau này có Bạn đời hay máy chủ, phải
+      khai báo lại (Health & Fitness).
+- [ ] Ảnh chụp App Store (vi + en, sáng): `weight-*-light`, `pregnancy-home-weight-*-light`, `symptoms-list-*-light`,
+      `day-log-*-light`.
+- [ ] Ghi chú phát hành: ghi lượng kinh / tâm trạng / triệu chứng ở cả hai chế độ, màn "Triệu chứng" theo tuần thai
+      và thẻ nhắc khi có cơn gò hoặc phù chân, màn "Cân nặng" với khoảng tăng cân khuyến nghị theo BMI.
+
+### Kiểm thử thủ công trên iPhone qua TestFlight (vi và en)
+- [ ] Mong con: Hôm nay → "Hôm nay bạn thấy thế nào?" → chọn "Ít", chạm lại để bỏ; chọn 2 tâm trạng, 2 triệu chứng
+      → Lưu → thẻ hiện một dòng có "…"; VoiceOver đọc đủ cả dòng; thẻ ngày ở Lịch giống vậy.
+- [ ] Ghi "Nhiều" ở một ngày không có kỳ kinh → **không** tạo kỳ kinh, dự đoán không đổi.
+- [ ] Bỏ hết lựa chọn của một ngày chỉ có lượng kinh → ngày đó hết log.
+- [ ] Mang thai: lối tắt "Triệu chứng" → "Ghi hôm nay" → chọn "Cơn gò" → thẻ an toàn hiện (VoiceOver đọc thẻ trước
+      ô Ghi chú) → "Xem dấu hiệu cần đi khám" → Chi tiết tuần hiện tại mở ở mục cảnh báo. Dòng ngày có ⚠ và VoiceOver
+      đọc "Có triệu chứng cần lưu ý". Vuốt xóa → hỏi xác nhận.
+- [ ] Chuyển Mang thai → Mong con → mở lại ngày đã ghi ở Mang thai: triệu chứng thai kỳ không hiện nhưng vẫn còn khi
+      quay lại chế độ Mang thai.
+- [ ] Cân nặng: thiết lập 52 kg / 160 cm → ghi 58,0 ở tuần 24 → "Trong khoảng"; nhập "56,2" (dấu phẩy) lưu được;
+      nhập 250 → báo lỗi dưới ô, VoiceOver đọc lỗi; ghi hai lần cùng ngày → chỉ còn một dòng.
+- [ ] Bỏ chiều cao (Cá nhân → "Cân nặng trước mang thai · Chiều cao") → không còn dải, nhóm BMI, pill.
+- [ ] Hai máy cùng Apple ID: cân nặng và log ngày ghi trên máy A hiện trên máy B; ghi cùng ngày trên hai máy khi
+      offline rồi bật mạng → còn một bản ghi mỗi ngày. (Dự kiến thất bại cho tới khi schema được deploy Production.)
+- [ ] Dynamic Type lớn nhất: sheet ghi ngày (2 chế độ), màn Triệu chứng, màn Cân nặng, 4 lối tắt không cắt chữ.
+- [ ] Reduce Motion bật: thẻ an toàn chỉ mờ dần.

@@ -177,3 +177,59 @@ trong `ci-artifacts/screenshots/`.
         cơ sở sản khoa của mẹ.
 28. [ ] Thẻ cảnh báo 2 giờ, thông báo đẩy 2 giờ và "Thông tin y tế" giữ nội dung đã duyệt ở giai đoạn 1
         (`overdue.*`, `medical.body`) — chỉ đổi giao diện.
+
+## 8. Ghi triệu chứng & cân nặng mẹ (giai đoạn 5)
+
+Chuỗi trong `Shared/Localizable.xcstrings`; xem câu chữ thật trên ảnh `weight-*`, `pregnancy-home-weight-*`,
+`symptoms-sheet-*`, `symptoms-safety-en`, `week-warnings-en`, `day-log-*` trong `ci-artifacts/screenshots/`.
+Ngưỡng nằm trong `Packages/KickCore/Sources/KickCore/WeightGuidance.swift` (có test `WeightGuidanceTests`).
+
+**Ngưỡng tăng cân (IOM 2009, thai đơn) theo BMI trước mang thai** — BMI = kg / m², làm tròn 1 chữ số thập phân:
+
+| Nhóm (`BMICategory`) | BMI | Tổng tăng tới tuần 40 |
+|---|---|---|
+| Thiếu cân (`under`) | < 18,5 | 12,5–18 kg |
+| Bình thường (`normal`) | 18,5–24,9 | 11,5–16 kg |
+| Thừa cân (`over`) | 25,0–29,9 | 7–11,5 kg |
+| Béo phì (`obese`) | ≥ 30,0 | 5–9 kg |
+
+Cách chia theo tuần (mọi nhóm): tuần 0–13 tăng tuyến tính từ 0 tới 0,5–2,0 kg; tuần 13–40 tuyến tính từ
+0,5 / 2,0 kg tới cận dưới / cận trên của nhóm; sau tuần 40 giữ giá trị tuần 40. Ví dụ BMI bình thường ở tuần 24:
+4,98–7,70 kg. Trạng thái: "Trong khoảng" khi mức tăng nằm trong dải của tuần đó, ngoài ra "Thấp hơn khoảng" /
+"Cao hơn khoảng" (màu trung tính, không đỏ) kèm "Trao đổi với bác sĩ ở lần khám tới". Không có chiều cao → không
+hiện nhóm, dải hay trạng thái.
+
+| Khóa | Nội dung (vi) cần duyệt |
+|---|---|
+| `weight.status.inRange`, `weight.status.below`, `weight.status.above` | "Trong khoảng" / "Thấp hơn khoảng" / "Cao hơn khoảng" |
+| `weight.status.talk` | "Trao đổi với bác sĩ ở lần khám tới" (chỉ khi ngoài khoảng) |
+| `weight.setup.body`, `weight.noHeight` | Giải thích dải IOM 2009 và việc chiều cao không bắt buộc |
+| `weight.category.*` | "Thiếu cân / Bình thường / Thừa cân / Béo phì" (tên nhóm BMI hiển thị cho mẹ) |
+| `symptom.safety.title` | "Khi nào cần đi khám ngay" (cùng câu với `week.warnings` đã có) |
+| `symptom.safety.contractions` | "Đi khám ngay nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu." |
+| `symptom.safety.swelling` | "Đi khám ngay nếu mặt hoặc tay phù đột ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị." |
+| `symptom.safety.note`, `symptom.safety.action` | "Luna Mom không chẩn đoán. Khi không chắc, hãy gọi bác sĩ." / "Xem dấu hiệu cần đi khám" (mở Chi tiết tuần tại mục cảnh báo đã duyệt) |
+| `symptom.flow.*` | Lượng kinh: Không / Ít / Vừa / Nhiều |
+| `symptom.mood.*` | Tâm trạng: Vui vẻ / Bình thường / Nhạy cảm / Lo âu / Mệt mỏi |
+| `symptom.kind.*` | Mong con: Đau bụng / Đau đầu / Căng ngực / Nổi mụn / Đầy hơi / Thèm ăn. Mang thai: Buồn nôn / Ợ nóng / Phù chân / Đau lưng / Chuột rút / Khó ngủ / Cơn gò |
+
+29. [ ] **Ngưỡng BMI cho người châu Á:** app đang dùng ngưỡng chuẩn WHO/IOM (thừa cân ≥ 25, béo phì ≥ 30). WHO
+        (2004) gợi ý cho người châu Á mức hành động thấp hơn (thừa cân ≥ 23, béo phì ≥ 27,5). Bác sĩ chọn: giữ ngưỡng
+        chuẩn, hay đổi sang ngưỡng châu Á (và khi đó dùng dải IOM của nhóm nào)? Đổi chỉ là sửa hằng số trong
+        `BMICategory.init(bmi:)` + test, **không** đổi dữ liệu đã lưu (BMI tính lại từ cân nặng và chiều cao).
+30. [ ] Xác nhận dải IOM 2009 và cách chia theo tuần ở trên (đặc biệt 0,5–2,0 kg ở tuần 13 cho mọi nhóm), và việc
+        không áp dụng cho song thai.
+31. [ ] Duyệt (hoặc sửa) câu chữ thẻ an toàn "Cơn gò" / "Phù chân" và việc thẻ chỉ nhắc đi khám, không chẩn đoán,
+        không đếm cơn gò.
+32. [ ] Duyệt (hoặc sửa) tên lượng kinh, tâm trạng, triệu chứng (vi + en) và các câu trạng thái cân nặng.
+33. [ ] **Câu hỏi sản phẩm — thẻ an toàn và tuần chưa duyệt:** ở bản chính thức, tuần nội dung chưa duyệt bị ẩn
+        hoàn toàn (mục 1). Vì "Xem dấu hiệu cần đi khám" (`symptom.safety.action`) luôn mở Chi tiết tuần hiện tại
+        tại mục cảnh báo, nếu đúng tuần đó chưa duyệt, người dùng có thể mở ra một Chi tiết tuần không còn dấu hiệu
+        cảnh báo nào (nội dung tuần bị ẩn), dù vừa chọn "Cơn gò" hoặc "Phù chân" trên thẻ an toàn. Bác sĩ/nhóm sản
+        phẩm quyết định: có nên luôn hiện mục cảnh báo (`week.warnings`) ngay cả với tuần chưa duyệt, để nút này
+        không bao giờ mở ra một màn trống?
+34. [ ] **Làm tròn BMI ở biên:** theo quyết định đã ghi trong plan (bảng "Quyết định làm rõ spec" §2.4), BMI được
+        làm tròn 1 chữ số thập phân **trước khi** xếp nhóm, để số hiển thị và nhóm khớp nhau. Hệ quả: BMI thật
+        24,95–24,99 làm tròn thành 25,0 và bị xếp vào nhóm Thừa cân (`over`), chứ không phải Bình thường
+        (`normal`) theo ngưỡng BMI thật < 25,0. Xác nhận cách làm tròn rồi mới xếp nhóm này là phù hợp ở biên, hay
+        nên xếp nhóm theo BMI thật (chưa làm tròn).
