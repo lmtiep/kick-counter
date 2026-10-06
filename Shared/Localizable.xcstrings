@@ -4829,6 +4829,23 @@
         }
       }
     },
+    "pregnancy.shortcut.symptoms": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symptoms"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Triệu chứng"
+          }
+        }
+      }
+    },
     "pregnancy.shortcut.week": {
       "extractionState": "manual",
       "localizations": {
@@ -5985,6 +6002,91 @@
         }
       }
     },
+    "symptom.safety.action": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See warning signs"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem dấu hiệu cần đi khám"
+          }
+        }
+      }
+    },
+    "symptom.safety.contractions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Go now if contractions come regularly or hurt before week 37, or if fluid or blood leaks."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đi khám ngay nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu."
+          }
+        }
+      }
+    },
+    "symptom.safety.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom does not diagnose. If in doubt, call your doctor."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom không chẩn đoán. Khi không chắc, hãy gọi bác sĩ."
+          }
+        }
+      }
+    },
+    "symptom.safety.swelling": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Go now if your face or hands swell suddenly with a headache, blurred vision or pain under the ribs."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đi khám ngay nếu mặt hoặc tay phù đột ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị."
+          }
+        }
+      }
+    },
+    "symptom.safety.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When to get care right away"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi nào cần đi khám ngay"
+          }
+        }
+      }
+    },
     "symptom.summary.flow": {
       "extractionState": "manual",
       "localizations": {
@@ -6015,6 +6117,125 @@
           "stringUnit": {
             "state": "translated",
             "value": "Triệu chứng"
+          }
+        }
+      }
+    },
+    "symptoms.delete.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this day's mood, symptoms and note?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xóa tâm trạng, triệu chứng và ghi chú của ngày này?"
+          }
+        }
+      }
+    },
+    "symptoms.edit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Edit"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sửa"
+          }
+        }
+      }
+    },
+    "symptoms.list.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days you log show here, by week of pregnancy."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những ngày bạn ghi sẽ hiện ở đây, theo tuần thai."
+          }
+        }
+      }
+    },
+    "symptoms.list.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Logged days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những ngày đã ghi"
+          }
+        }
+      }
+    },
+    "symptoms.logToday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi hôm nay"
+          }
+        }
+      }
+    },
+    "symptoms.row.warning": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A symptom to watch"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có triệu chứng cần lưu ý"
+          }
+        }
+      }
+    },
+    "symptoms.today.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing logged yet today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay chưa ghi gì"
           }
         }
       }

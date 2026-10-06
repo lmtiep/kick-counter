@@ -3,6 +3,11 @@ import KickData
 import SwiftData
 import SwiftUI
 
+/// Screens pushed from pregnancy Today (phase 5 spec §3.4).
+enum PregnancyRoute: Hashable {
+    case symptoms
+}
+
 /// Pregnancy mode, Today tab (spec §4.4): header, 7-day strip, the fetus
 /// (→ week detail), weeks and days with the trimester bar, shortcuts, today's
 /// movements, the baby this week, tips and the next check-up.
@@ -24,6 +29,8 @@ struct PregnancyTodayView: View {
     private var sessions: [KickSession]
     @State private var showingDateSheet = false
     @State private var detailWeek: WeekSelection?
+    @State private var route: PregnancyRoute?
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private let language = ContentLanguage.current
     private let visibility = BuildFlags.contentVisibility
@@ -62,6 +69,11 @@ struct PregnancyTodayView: View {
             }
             .sheet(isPresented: $showingDateSheet) {
                 PregnancyDateSheet()
+            }
+            .navigationDestination(item: $route) { route in
+                switch route {
+                case .symptoms: PregnancySymptomsView()
+                }
             }
         }
     }
@@ -139,30 +151,54 @@ struct PregnancyTodayView: View {
         .padding(.horizontal, 20)
     }
 
+    /// Round shortcuts (phase 5 spec §3.4); two per row at accessibility text
+    /// sizes so no label is cut.
     private func shortcuts(week: Int, contentWeek: Int) -> some View {
-        HStack(alignment: .top, spacing: 28) {
-            shortcut(L10n.pregnancyShortcutKicks, identifier: "shortcutKicks", action: onOpenKicks) {
-                Circle()
-                    .fill(.luna(.preg))
-                    .overlay(
-                        Circle()
-                            .fill(.luna(.card))
-                            .frame(width: 16, height: 16)
-                            .padding(6)
-                            .background(Circle().fill(Color.luna(.card).opacity(0.3)))
-                    )
-            }
-            shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = WeekSelection(week: contentWeek) }) {
-                Circle()
-                    .fill(.luna(.card))
-                    .overlay(
-                        Text(week, format: .number)
-                            .font(.luna(size: 15, weight: .bold))
-                            .foregroundStyle(.luna(.textPrimary))
-                    )
+        let kicks = shortcut(L10n.pregnancyShortcutKicks, identifier: "shortcutKicks", action: onOpenKicks) {
+            Circle()
+                .fill(.luna(.preg))
+                .overlay(
+                    Circle()
+                        .fill(.luna(.card))
+                        .frame(width: 16, height: 16)
+                        .padding(6)
+                        .background(Circle().fill(Color.luna(.card).opacity(0.3)))
+                )
+        }
+        let symptoms = shortcut(L10n.pregnancyShortcutSymptoms, identifier: "shortcutSymptoms", action: { route = .symptoms }) {
+            symbolIcon("plus")
+        }
+        let weekShortcut = shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = WeekSelection(week: contentWeek) }) {
+            Circle()
+                .fill(.luna(.card))
+                .overlay(
+                    Text(week, format: .number)
+                        .font(.luna(size: 15, weight: .bold))
+                        .foregroundStyle(.luna(.textPrimary))
+                )
+        }
+        return Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                Grid(horizontalSpacing: 8, verticalSpacing: 18) {
+                    GridRow { kicks; symptoms }
+                    GridRow { weekShortcut }
+                }
+            } else {
+                HStack(alignment: .top, spacing: 8) { kicks; symptoms; weekShortcut }
             }
         }
         .padding(.top, 22)
+    }
+
+    /// A white 58 pt circle with a symbol, like the design's "+".
+    private func symbolIcon(_ name: String) -> some View {
+        Circle()
+            .fill(.luna(.card))
+            .overlay(
+                Image(systemName: name)
+                    .font(.system(size: 22, weight: .light))
+                    .foregroundStyle(.luna(.textPrimary))
+            )
     }
 
     private func shortcut<Icon: View>(
@@ -178,9 +214,10 @@ struct PregnancyTodayView: View {
                     .font(.luna(size: 12, weight: .medium, relativeTo: .caption))
                     .foregroundStyle(.luna(.textPrimary))
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            // 96 pt in the design; wider at large text so words are not broken mid-word.
-            .frame(minWidth: 96, maxWidth: 160)
+            // An equal share of the row each (the design's 4-column grid).
+            .frame(maxWidth: .infinity)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

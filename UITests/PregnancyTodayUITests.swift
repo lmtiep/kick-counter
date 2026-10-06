@@ -46,6 +46,19 @@ final class PregnancyTodayUITests: XCTestCase {
         XCTAssertEqual(app.staticTexts["weekDetailTitle"].label, "Week 24")
     }
 
+    /// Phase 5 spec §3.4: "Symptoms" opens the pregnancy Symptoms screen.
+    @MainActor
+    func testSymptomsShortcutOpensTheSymptomsScreen() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
+        let shortcut = app.buttons["shortcutSymptoms"]
+        XCTAssertTrue(shortcut.waitForExistence(timeout: 10))
+        XCTAssertEqual(shortcut.label, "Symptoms")
+        app.scrollUntilHittable(shortcut)
+        shortcut.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["symptomsTodayCard"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tabBars.buttons["Today"].isSelected)
+    }
+
     /// Spec §4.5: chips change the week (scrolled into view), ✕ goes back to Today.
     @MainActor
     func testWeekChipsChangeTheWeekAndCloseReturns() {

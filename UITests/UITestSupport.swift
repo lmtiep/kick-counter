@@ -118,6 +118,27 @@ extension XCUIApplication {
         openTab(at: tab.rawValue)
     }
 
+    /// Taps `label` in a confirmation dialog: an action sheet, or on newer iOS a
+    /// popover whose button comes after the one that opened it.
+    func confirmDialog(_ label: String) {
+        let sheetButton = sheets.buttons[label]
+        if sheetButton.waitForExistence(timeout: 3) {
+            sheetButton.tap()
+            return
+        }
+        let named = buttons.matching(NSPredicate(format: "label == %@", label))
+        named.element(boundBy: max(named.count - 1, 0)).tap()
+    }
+
+    /// Phase 5: pregnancy Today → "Symptoms".
+    func openPregnancySymptoms() {
+        let shortcut = buttons["shortcutSymptoms"]
+        XCTAssertTrue(shortcut.waitForExistence(timeout: 10))
+        scrollUntilHittable(shortcut)
+        shortcut.tap()
+        XCTAssertTrue(descendants(matching: .any)["symptomsTodayCard"].waitForExistence(timeout: 5))
+    }
+
     /// History lives inside the Kicks tab (spec §2.3).
     func openHistory() {
         openTab(.kicks)

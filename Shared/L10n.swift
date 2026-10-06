@@ -518,4 +518,21 @@ enum L10n {
         case .contractions: t("symptom.kind.contractions")
         }
     }
+
+    // MARK: - Phase 5: pregnancy symptoms
+
+    static var pregnancyShortcutSymptoms: String { t("pregnancy.shortcut.symptoms") }
+    static var symptomsListTitle: String { t("symptoms.list.title") }
+    static var symptomsListEmpty: String { t("symptoms.list.empty") }
+    static var symptomsTodayEmpty: String { t("symptoms.today.empty") }
+    static var symptomsLogToday: String { t("symptoms.logToday") }
+    static var symptomsEdit: String { t("symptoms.edit") }
+    static var symptomsDeleteConfirm: String { t("symptoms.delete.confirm") }
+    /// VoiceOver, on a day with contractions or swollen feet.
+    static var symptomsRowWarning: String { t("symptoms.row.warning") }
+    static var symptomSafetyTitle: String { t("symptom.safety.title") }
+    static var symptomSafetyContractions: String { t("symptom.safety.contractions") }
+    static var symptomSafetySwelling: String { t("symptom.safety.swelling") }
+    static var symptomSafetyNote: String { t("symptom.safety.note") }
+    static var symptomSafetyAction: String { t("symptom.safety.action") }
 }
