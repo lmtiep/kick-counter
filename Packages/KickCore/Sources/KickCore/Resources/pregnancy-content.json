@@ -89,11 +89,11 @@
         "body": {
           "en": [
             "Around now, your period would usually be due, and missing it is often the first sign of pregnancy. A home pregnancy test may now show a positive result. If the test is negative but your period still has not come, you can try again in a few days.",
-            "Some women have light spotting as the embryo settles into the womb lining, along with mild cramps a little like period pain. You may also feel more tired than usual, or notice that your breasts feel tender. Many women feel nothing different at all yet, and that is normal too."
+            "Some women have light spotting as the embryo settles into the womb lining, along with mild cramps a little like period pain. You may also feel more tired than usual, or notice that your breasts feel tender. Many women feel nothing different at all yet, and that is normal too. If you notice any bleeding, tell your doctor or midwife; it is often harmless, but it is worth checking."
           ],
           "vi": [
             "Khoảng thời gian này thường là lúc mẹ đến kỳ kinh, và trễ kinh hay là dấu hiệu đầu tiên của thai kỳ. Que thử thai tại nhà lúc này có thể đã lên hai vạch. Nếu que thử chỉ một vạch mà kinh vẫn chưa về, mẹ có thể thử lại sau vài ngày.",
-            "Một số mẹ thấy ra chút máu báo khi phôi làm tổ, kèm đau bụng âm ỉ nhẹ giống lúc hành kinh. Mẹ cũng có thể thấy mệt hơn thường lệ, hoặc ngực căng và hơi đau. Cũng có nhiều mẹ chưa thấy gì khác lạ, điều đó hoàn toàn bình thường."
+            "Một số mẹ thấy ra chút máu báo khi phôi làm tổ, kèm đau bụng âm ỉ nhẹ giống lúc hành kinh. Mẹ cũng có thể thấy mệt hơn thường lệ, hoặc ngực căng và hơi đau. Cũng có nhiều mẹ chưa thấy gì khác lạ, điều đó hoàn toàn bình thường. Nếu thấy ra máu, dù ít, mẹ hãy báo bác sĩ hoặc nữ hộ sinh; thường không đáng lo nhưng nên được kiểm tra."
           ]
         },
         "todo": {
@@ -102,7 +102,7 @@
             "If you take any medicines, check them with your doctor, midwife or pharmacist before you stop or continue them. Then book a first appointment, so a doctor or midwife can confirm the pregnancy and plan your care. For signs that need prompt attention, see the warning signs below."
           ],
           "vi": [
-            "Nếu chưa bổ sung axit folic, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh và dùng theo hướng dẫn của bác sĩ hoặc nữ hộ sinh. Axit folic hỗ trợ sự phát triển sớm của não và tủy sống của bé. Đây cũng là lúc mẹ ngừng rượu bia, thuốc lá và tránh xa khói thuốc của người khác.",
+            "Nếu chưa bổ sung axit folic, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh và dùng theo hướng dẫn. Axit folic hỗ trợ sự phát triển sớm của não và tủy sống của bé. Đây cũng là lúc mẹ ngừng rượu bia, thuốc lá và tránh xa khói thuốc của người khác.",
             "Nếu đang dùng bất kỳ loại thuốc nào, mẹ hãy hỏi bác sĩ, nữ hộ sinh hoặc dược sĩ trước khi ngừng hay dùng tiếp. Sau đó, mẹ hãy đặt lịch khám lần đầu để bác sĩ hoặc nữ hộ sinh xác nhận thai và lên kế hoạch theo dõi. Với những dấu hiệu cần chú ý, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
           ]
         },
@@ -289,12 +289,12 @@
         "development": {
           "en": [
             "The neural tube, which will become the brain and spinal cord, usually closes around now. Folic acid taken in these early weeks helps support this important step.",
-            "Your baby's heart keeps beating steadily. If you have an internal scan through the vagina this week, it may show the heartbeat as a tiny flicker. It is also common for the heartbeat not to be seen yet, especially early in the week. If so, your doctor or midwife may suggest another scan a little later.",
+            "By now, the heart is usually beating steadily. If you have an internal scan through the vagina this week, it may show the heartbeat as a tiny flicker. It is also common for the heartbeat not to be seen yet, especially early in the week. If so, your doctor or midwife may suggest another scan a little later.",
             "Small buds have appeared on each side of the body, and they will grow into arms and legs. The face is starting to form, and dark spots now mark where the eyes will be."
           ],
           "vi": [
             "Ống thần kinh, sau này thành não và tủy sống, thường khép kín vào khoảng thời gian này. Axit folic mẹ bổ sung trong những tuần đầu giúp hỗ trợ bước phát triển quan trọng này.",
-            "Tim bé vẫn đập đều đặn. Nếu mẹ được siêu âm đầu dò âm đạo trong tuần này, có thể sẽ thấy tim thai như một đốm nhấp nháy nhỏ. Việc chưa thấy tim thai lúc này cũng khá thường gặp, nhất là vào đầu tuần. Khi đó, bác sĩ hoặc nữ hộ sinh có thể hẹn mẹ siêu âm lại sau ít ngày.",
+            "Lúc này tim bé thường đã đập đều đặn. Nếu mẹ được siêu âm đầu dò âm đạo trong tuần này, có thể sẽ thấy tim thai như một đốm nhấp nháy nhỏ. Việc chưa thấy tim thai lúc này cũng khá thường gặp, nhất là vào đầu tuần. Khi đó, bác sĩ hoặc nữ hộ sinh có thể hẹn mẹ siêu âm lại sau ít ngày.",
             "Hai bên cơ thể đã nhú lên những mầm nhỏ, sau này sẽ thành tay và chân. Khuôn mặt bé bắt đầu hình thành, với những chấm sẫm màu đánh dấu vị trí đôi mắt sau này."
           ]
         },
@@ -304,7 +304,7 @@
             "Rising hormones can make your moods change quickly, and you may feel tired even after a full night's sleep. Your body is working hard to support the pregnancy, so this tiredness is normal, and it usually eases later on."
           ],
           "vi": [
-            "Buồn nôn rất thường gặp lúc này, và nhiều mẹ thấy mình nhạy cảm với mùi hơn hẳn trước đây. Mùi thức ăn, nước hoa hay cà phê bỗng trở nên quá nồng. Một số mẹ còn bị nôn. Một số mẹ còn thấy trong miệng có vị kim loại.",
+            "Buồn nôn rất thường gặp lúc này, và nhiều mẹ thấy mình nhạy cảm với mùi hơn hẳn trước đây. Mùi thức ăn, nước hoa hay cà phê bỗng trở nên quá nồng. Một số mẹ còn bị nôn, hoặc thấy trong miệng có vị kim loại.",
             "Nội tiết tố tăng có thể khiến tâm trạng mẹ thay đổi thất thường, và mẹ có thể vẫn thấy mệt dù đã ngủ đủ giấc. Cơ thể mẹ đang làm việc rất vất vả để nuôi dưỡng thai kỳ, nên mệt mỏi lúc này là bình thường và thường sẽ đỡ dần về sau."
           ]
         },
@@ -314,7 +314,7 @@
             "If you are vomiting so often that you cannot keep any fluids down, contact your doctor or midwife the same day. For other reasons to get help, see the warning signs below."
           ],
           "vi": [
-            "Mẹ hãy chia nhỏ bữa ăn, ăn nhiều lần những món thanh đạm, vì để bụng đói thường làm cơn buồn nôn nặng hơn. Một số mẹ thấy dễ chịu hơn với bánh quy nhạt hoặc món ăn có gừng. Mẹ nên uống nước từng ngụm nhỏ suốt cả ngày thay vì uống nhiều một lúc, và nghỉ ngơi bất cứ khi nào có thể. Lúc này, mẹ cứ ăn những món thanh đạm mà mình thấy ăn được. Không khí thoáng mát và đồ uống mát cũng có thể giúp mẹ dễ chịu hơn khi mùi làm mẹ khó chịu.",
+            "Mẹ hãy chia nhỏ bữa ăn, ăn nhiều lần những món thanh đạm, vì để bụng đói thường làm cơn buồn nôn nặng hơn. Một số mẹ thấy dễ chịu hơn với bánh quy nhạt hoặc món ăn có gừng. Mẹ nên uống nước từng ngụm nhỏ suốt cả ngày thay vì uống nhiều một lúc, và nghỉ ngơi bất cứ khi nào có thể. Lúc này, mẹ cứ ăn những món thanh đạm mà mình thấy ăn được. Không khí thoáng mát và đồ uống mát cũng có thể giúp mẹ dễ chịu hơn khi mùi quá nồng.",
             "Nếu nôn nhiều đến mức không giữ được chút nước nào, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay trong ngày. Những dấu hiệu khác cần lưu ý, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
           ]
         },
@@ -493,22 +493,22 @@
         },
         "sizeNote": {
           "en": [
-            "Your baby is starting to straighten out a little from the curled shape of the early weeks. The head is still large for the body, and the arms and legs grow longer week by week. Scans measure each baby a little differently, and small differences from week to week are normal."
+            "Your baby is starting to straighten out a little from the curled shape of the early weeks. The head is still large for the body, and the arms and legs grow longer week by week. Babies grow at slightly different rates, so a scan may differ a little."
           ],
           "vi": [
-            "Cơ thể bé bắt đầu duỗi ra một chút so với dáng cong của những tuần đầu. Đầu bé vẫn khá to so với thân, còn tay chân thì dài thêm qua từng tuần. Số đo trên siêu âm ở mỗi bé có thể chênh nhau đôi chút, và điều đó là bình thường."
+            "Cơ thể bé bắt đầu duỗi ra một chút so với dáng cong của những tuần đầu. Đầu bé vẫn khá to so với thân, còn tay chân thì dài thêm qua từng tuần. Mỗi bé lớn theo nhịp riêng, nên số đo trên siêu âm có thể hơi khác một chút."
           ]
         },
         "development": {
           "en": [
             "Small grooves have appeared on the hands and feet where the fingers and toes will be. For now they are still joined by thin webbing, which will slowly disappear over the next few weeks.",
             "Your baby's face is changing too. The eyelids are starting to form, along with the upper lip and the tip of the nose. Bit by bit, the features are moving into their places.",
-            "The heart beats steadily, much faster than your own, and it is dividing into separate chambers. Your baby also makes tiny, jerky movements, but they are far too small for you to feel. Most women first notice movements much later in pregnancy."
+            "The heart usually beats steadily, much faster than your own, and it is dividing into separate chambers. Your baby also makes tiny, jerky movements, but they are far too small for you to feel. Most women first notice movements much later in pregnancy."
           ],
           "vi": [
             "Trên bàn tay và bàn chân đã xuất hiện những rãnh nhỏ, đánh dấu vị trí các ngón sau này. Hiện các ngón vẫn còn dính với nhau bởi một lớp màng mỏng, lớp màng này sẽ dần mất đi trong vài tuần tới.",
             "Gương mặt bé cũng đang thay đổi. Mí mắt bắt đầu hình thành, cùng với môi trên và chóp mũi. Từng chút một, các đường nét trên gương mặt đang dần về đúng vị trí.",
-            "Tim bé đập đều đặn, nhanh hơn nhiều so với tim mẹ, và đang dần chia thành các buồng riêng biệt. Bé cũng đã có những cử động giật nhẹ, nhưng còn quá nhỏ để mẹ cảm nhận được. Phần lớn các mẹ phải nhiều tuần nữa mới thấy bé máy."
+            "Tim bé thường đập đều đặn, nhanh hơn nhiều so với tim mẹ, và đang dần chia thành các buồng riêng biệt. Bé cũng đã có những cử động giật nhẹ, nhưng còn quá nhỏ để mẹ cảm nhận được. Phần lớn các mẹ phải nhiều tuần nữa mới thấy bé máy."
           ]
         },
         "body": {
@@ -726,11 +726,11 @@
         },
         "body": {
           "en": [
-            "You may feel mild aches or twinges low in your belly as your womb stretches and the ligaments that support it soften. These are usually brief, and they come and go. Sitting down for a while or changing position slowly may ease them.",
+            "You may feel mild aches or twinges low in your belly as your womb stretches and the ligaments that support it soften. These are usually brief, and they come and go. Sitting down for a while or changing position slowly may ease them. If the pain is strong, or comes with bleeding, see the warning signs below.",
             "Feeling emotional or anxious is common in early pregnancy. You may worry about your baby, about money or about the changes ahead in your life. Talking these feelings through with people you trust often helps, and your doctor or midwife is there to listen too. If worry stays with you on most days, tell your doctor or midwife, as support is available."
           ],
           "vi": [
-            "Mẹ có thể thấy hơi đau hoặc nhói nhẹ ở bụng dưới khi tử cung giãn ra và các dây chằng nâng đỡ tử cung mềm dần. Những cơn đau này thường thoáng qua, lúc có lúc không. Ngồi nghỉ một lát hoặc đổi tư thế từ từ có thể giúp mẹ đỡ hơn.",
+            "Mẹ có thể thấy hơi đau hoặc nhói nhẹ ở bụng dưới khi tử cung giãn ra và các dây chằng nâng đỡ tử cung mềm dần. Những cơn đau này thường thoáng qua, lúc có lúc không. Ngồi nghỉ một lát hoặc đổi tư thế từ từ có thể giúp mẹ đỡ hơn. Nếu đau nhiều hoặc kèm ra máu, mẹ xem mục dấu hiệu cần đi khám bên dưới.",
             "Dễ xúc động hay lo lắng là điều thường gặp trong những tháng đầu. Mẹ có thể lo cho bé, lo chuyện tiền bạc hay những thay đổi sắp tới trong cuộc sống. Tâm sự với người mình tin tưởng thường giúp mẹ nhẹ lòng hơn, và bác sĩ hoặc nữ hộ sinh cũng luôn sẵn lòng lắng nghe. Nếu nỗi lo lắng kéo dài gần như mỗi ngày, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh để được hỗ trợ."
           ]
         },
@@ -954,11 +954,11 @@
         },
         "todo": {
           "en": [
-            "If you have not had your screening scan yet, ask your doctor or midwife about it this week. It is usually done by the end of week 14. They can explain the results and any next steps. Bring your pregnancy record book so the results can be noted.",
+            "If you have not had your screening scan yet, ask your doctor or midwife about it this week. It is usually done between weeks 11 and 14. They can explain the results and any next steps. Bring your pregnancy record book so the results can be noted.",
             "Keep taking the supplements your doctor or midwife recommends, such as folic acid or iron, as they advise. If nausea makes them hard to take, tell your doctor or midwife rather than stopping on your own. See the warning signs below for when to get help."
           ],
           "vi": [
-            "Nếu chưa siêu âm sàng lọc, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh ngay trong tuần này, vì siêu âm này thường được làm trước khi hết tuần 14. Bác sĩ hoặc nữ hộ sinh sẽ giải thích kết quả và các bước tiếp theo nếu cần. Mẹ nhớ mang theo sổ khám thai để ghi lại kết quả.",
+            "Nếu chưa siêu âm sàng lọc, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh ngay trong tuần này, vì siêu âm này thường được làm trong khoảng tuần 11 đến tuần 14. Bác sĩ hoặc nữ hộ sinh sẽ giải thích kết quả và các bước tiếp theo nếu cần. Mẹ nhớ mang theo sổ khám thai để ghi lại kết quả.",
             "Mẹ hãy tiếp tục dùng các loại vitamin, khoáng chất như axit folic hay sắt theo hướng dẫn của bác sĩ hoặc nữ hộ sinh. Nếu thấy khó uống vì buồn nôn, mẹ hãy báo với bác sĩ hoặc nữ hộ sinh thay vì tự ý ngừng. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
           ]
         },
@@ -1062,11 +1062,11 @@
         },
         "todo": {
           "en": [
-            "Talk with your doctor or midwife about your check-ups in the second trimester, and note the dates in your pregnancy record book. Keep your test results in the book too, so they are easy to find at each visit. Many women also choose this time to share their news with others, whenever they feel ready.",
+            "If you planned the screening scan but have not had it yet, ask your doctor or midwife about it this week. Talk with your doctor or midwife about your check-ups in the second trimester, and note the dates in your pregnancy record book. Keep your test results in the book too, so they are easy to find at each visit. Many women also choose this time to share their news with others, whenever they feel ready.",
             "Moisturising your belly and hips each day, for example after a shower, may help with dry or itchy skin. Loose clothes made of soft fabric can also feel more comfortable. See the warning signs below for when to get help."
           ],
           "vi": [
-            "Mẹ hãy trao đổi với bác sĩ hoặc nữ hộ sinh về lịch khám trong tam cá nguyệt thứ hai, và ghi các ngày hẹn vào sổ khám thai. Mẹ cũng nên lưu các kết quả xét nghiệm trong sổ để tiện mang theo mỗi lần khám. Nhiều mẹ cũng chọn thời điểm này để báo tin vui với mọi người, vào lúc mẹ thấy sẵn sàng.",
+            "Nếu mẹ dự định làm siêu âm sàng lọc mà chưa làm, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh ngay trong tuần này. Mẹ hãy trao đổi với bác sĩ hoặc nữ hộ sinh về lịch khám trong tam cá nguyệt thứ hai, và ghi các ngày hẹn vào sổ khám thai. Mẹ cũng nên lưu các kết quả xét nghiệm trong sổ để tiện mang theo mỗi lần khám. Nhiều mẹ cũng chọn thời điểm này để báo tin vui với mọi người, vào lúc mẹ thấy sẵn sàng.",
             "Dưỡng ẩm vùng bụng và hông mỗi ngày, chẳng hạn sau khi tắm, có thể giúp đỡ khô và ngứa da. Quần áo rộng, chất vải mềm cũng giúp mẹ dễ chịu hơn. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
           ]
         },
