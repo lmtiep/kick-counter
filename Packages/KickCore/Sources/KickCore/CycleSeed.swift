@@ -5,9 +5,11 @@ import Foundation
 public enum CycleSeedScenario: String, Sendable, CaseIterable {
     /// Trying-to-conceive mode with nothing logged.
     case empty
-    /// Regular 28-day cycles, period started yesterday and still going (cycle day 2).
+    /// Regular 28-day cycles, period started yesterday and still going (cycle day 2),
+    /// with flow logged yesterday and today.
     case period
-    /// Regular 28-day cycles at cycle day 13, inside the fertile window, with signals logged.
+    /// Regular 28-day cycles at cycle day 13, inside the fertile window, with signals
+    /// logged (and a mood and a symptom yesterday).
     case fertile
     /// Regular 28-day cycles, next period 4 days late.
     case late
@@ -31,7 +33,13 @@ public enum CycleSeedScenario: String, Sendable, CaseIterable {
         case .empty:
             return Records(periods: [], logs: [])
         case .period:
-            return Records(periods: closed([-85, -57, -29]) + [PeriodRecord(startDate: day(-1))], logs: [])
+            return Records(
+                periods: closed([-85, -57, -29]) + [PeriodRecord(startDate: day(-1))],
+                logs: [
+                    CycleLogRecord(day: day(-1), flow: .heavy, moods: [.tired], symptoms: [.cramps]),
+                    CycleLogRecord(day: day(0), flow: .medium),
+                ]
+            )
         case .fertile:
             return Records(
                 periods: closed([-96, -68, -40, -12]),
@@ -39,7 +47,7 @@ public enum CycleSeedScenario: String, Sendable, CaseIterable {
                     CycleLogRecord(day: day(-4), bbtCelsius: 36.3),
                     CycleLogRecord(day: day(-3), bbtCelsius: 36.4),
                     CycleLogRecord(day: day(-2), bbtCelsius: 36.3, mucus: .sticky),
-                    CycleLogRecord(day: day(-1), lh: .negative, bbtCelsius: 36.4, mucus: .creamy),
+                    CycleLogRecord(day: day(-1), lh: .negative, bbtCelsius: 36.4, mucus: .creamy, moods: [.calm], symptoms: [.bloating]),
                     CycleLogRecord(day: day(0), bbtCelsius: 36.3, mucus: .eggWhite),
                 ]
             )

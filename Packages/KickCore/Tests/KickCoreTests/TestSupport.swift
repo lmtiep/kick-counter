@@ -468,13 +468,6 @@ final class FakeCycleRepository: CycleRepository {
         let existing = storedLogs.first { $0.day == normalized.day }
         storedLogs.removeAll { $0.day == normalized.day }
         guard !normalized.isEmpty else { return }
-        var saved = normalized
-        if let existing {
-            saved = CycleLogRecord(
-                id: existing.id, day: normalized.day, lh: normalized.lh,
-                bbtCelsius: normalized.bbtCelsius, mucus: normalized.mucus, note: normalized.note
-            )
-        }
-        storedLogs.append(saved)
+        storedLogs.append(existing.map { normalized.withID($0.id) } ?? normalized)
     }
 }

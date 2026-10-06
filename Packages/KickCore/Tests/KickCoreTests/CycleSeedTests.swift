@@ -118,3 +118,17 @@ struct CycleCalendarGridTests {
         #expect(monday.count == 7)
     }
 }
+
+struct CycleSeedSymptomTests {
+    @Test func seededLogsCarryFlowMoodsAndSymptoms() throws {
+        let now = date("2026-10-02T12:00:00Z")
+        let period = CycleSeedScenario.period.records(today: now, calendar: utcCalendar).logs
+        #expect(period.map(\.flow) == [.heavy, .medium])
+        #expect(period.first?.symptoms == [.cramps])
+        let fertile = CycleSeedScenario.fertile.records(today: now, calendar: utcCalendar).logs
+        let yesterday = try #require(fertile.first { $0.day == date("2026-10-01T00:00:00Z") })
+        #expect(yesterday.moods == [.calm])
+        #expect(yesterday.symptoms == [.bloating])
+        #expect(fertile.last?.moods.isEmpty == true)
+    }
+}
