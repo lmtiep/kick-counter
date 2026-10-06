@@ -14,6 +14,13 @@ enum LunaMotion {
     static let dots = Animation.timingCurve(0.65, 0, 0.35, 1, duration: 0.5)
     static let overlay = Animation.easeOut(duration: 0.28)
     static let fade = Animation.easeOut(duration: 0.2)
+    /// The week article sheet settling on a detent (phase 6 spec §3.5).
+    static let sheetSpring = Animation.spring(response: 0.35, dampingFraction: 0.85)
+
+    /// `sheetSpring`, or nil (the sheet jumps) under Reduce Motion and in UI tests.
+    static func sheet(reduceMotion: Bool) -> Animation? {
+        isEnabled && !reduceMotion ? sheetSpring : nil
+    }
 }
 
 enum LunaEntrance {
