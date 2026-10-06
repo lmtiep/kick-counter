@@ -58,6 +58,7 @@ final class PregnancyScreenshotTests: XCTestCase {
         let card = app.buttons["weightCard"]
         XCTAssertTrue(card.waitForExistence(timeout: 10))
         app.scrollUntilHittable(card, maxSwipes: 12)
+        app.swipeUp() // the pill sits under the figures, below the tab bar otherwise
         attachScreenshot(app, "pregnancy-home-weight-vi-ax5")
     }
 

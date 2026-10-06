@@ -58,9 +58,10 @@ struct WeightChart: View {
         .chartXScale(domain: xDomain)
         .chartYScale(domain: yDomain)
         .chartXAxis {
-            AxisMarks(values: [0, 13, 27, 40]) { _ in
+            AxisMarks(values: [0, 13, 27, 40]) { value in
                 AxisGridLine().foregroundStyle(.luna(.divider))
-                AxisValueLabel()
+                // The last label ends at its tick so Charts does not drop it at the edge.
+                AxisValueLabel(anchor: value.index == value.count - 1 ? .topTrailing : .top)
                     .font(.luna(size: 10, weight: .regular, relativeTo: .caption2))
                     .foregroundStyle(.luna(.textSecondary))
             }

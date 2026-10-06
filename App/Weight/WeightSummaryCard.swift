@@ -35,6 +35,7 @@ struct WeightSummaryCard: View {
                     Text(L10n.weightSince)
                         .font(.luna(.small))
                         .foregroundStyle(.luna(.textSecondary))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 if let latest {
