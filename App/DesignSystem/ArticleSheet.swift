@@ -22,7 +22,7 @@ private struct ArticleScrollOffsetKey: PreferenceKey {
 ///   hands the drag to the sheet.
 /// - `progress` is 0 at peek and 1 expanded, for the caller's background.
 /// - The spring is off under Reduce Motion and in UI tests (`LunaMotion.sheet`).
-struct ArticleSheet<Header: View, Pinned: View, Content: View>: View {
+struct ArticleSheet<Header: View, Content: View>: View {
     @Binding private var detent: SheetDetent
     @Binding private var progress: Double
     private let peekTop: CGFloat
@@ -35,11 +35,12 @@ struct ArticleSheet<Header: View, Pinned: View, Content: View>: View {
     private let scrollIdentifier: String
     private let handleLabel: (SheetDetent) -> String
     private let header: Header
-    /// Fixed controls below the header that must not take part in `headerDrag`
-    /// (e.g. a tab pill): a drag that starts on one of them would otherwise keep
-    /// the finger inside its Button and fire a tap on release.
-    private let pinned: Pinned
     private let content: Content
+    /// True while a drag on the handle/header is moving the sheet. A Button inside
+    /// `header` (e.g. a tab pill) moves with the sheet's offset, so the finger stays
+    /// over it and its tap would otherwise fire on release; callers with such a
+    /// Button should ignore the resulting selection change while this is true.
+    @Binding private var headerDragActive: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isDragging = false
@@ -63,8 +64,8 @@ struct ArticleSheet<Header: View, Pinned: View, Content: View>: View {
         handleIdentifier: String,
         scrollIdentifier: String,
         handleLabel: @escaping (SheetDetent) -> String,
+        headerDragActive: Binding<Bool> = .constant(false),
         @ViewBuilder header: () -> Header,
-        @ViewBuilder pinned: () -> Pinned = { EmptyView() },
         @ViewBuilder content: () -> Content
     ) {
         _detent = detent
@@ -78,8 +79,8 @@ struct ArticleSheet<Header: View, Pinned: View, Content: View>: View {
         self.handleIdentifier = handleIdentifier
         self.scrollIdentifier = scrollIdentifier
         self.handleLabel = handleLabel
+        _headerDragActive = headerDragActive
         self.header = header()
-        self.pinned = pinned()
         self.content = content()
     }
 
@@ -102,7 +103,6 @@ struct ArticleSheet<Header: View, Pinned: View, Content: View>: View {
             }
             .contentShape(Rectangle())
             .simultaneousGesture(headerDrag)
-            pinned
             ScrollViewReader { reader in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
@@ -182,8 +182,16 @@ struct ArticleSheet<Header: View, Pinned: View, Content: View>: View {
 
     private var headerDrag: some Gesture {
         DragGesture(minimumDistance: 4, coordinateSpace: .global)
-            .onChanged { value in move(by: value.translation.height) }
-            .onEnded { value in settle(velocity: value.velocity.height) }
+            .onChanged { value in
+                headerDragActive = true
+                move(by: value.translation.height)
+            }
+            .onEnded { value in
+                settle(velocity: value.velocity.height)
+                // Deferred: a Button inside `header` resolves its own tap gesture
+                // around the same release event, and must still see this as true.
+                DispatchQueue.main.async { headerDragActive = false }
+            }
     }
 
     private var bodyDrag: some Gesture {

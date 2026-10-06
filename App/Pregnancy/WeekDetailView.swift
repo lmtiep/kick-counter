@@ -32,6 +32,8 @@ struct WeekDetailView: View {
     @State private var detent: SheetDetent
     @State private var progress: Double
     @State private var chipsBottom: CGFloat = 0
+    /// True while a drag on the sheet's handle/header is in progress (`ArticleSheet`).
+    @State private var isHeaderDragging = false
     private let scrollToWarnings: Bool
     private let language = ContentLanguage.current
 
@@ -75,11 +77,10 @@ struct WeekDetailView: View {
                     initialAnchor: scrollToWarnings ? WeekArticleView.warningsAnchor : nil,
                     handleIdentifier: "weekSheetHandle",
                     scrollIdentifier: "weekArticleScroll",
-                    handleLabel: { $0 == .peek ? L10n.weekArticleExpand : L10n.weekArticleCollapse }
+                    handleLabel: { $0 == .peek ? L10n.weekArticleExpand : L10n.weekArticleCollapse },
+                    headerDragActive: $isHeaderDragging
                 ) {
                     sheetHeader
-                } pinned: {
-                    sheetPinned
                 } content: {
                     sheetContent
                 }
@@ -198,12 +199,6 @@ struct WeekDetailView: View {
 
     // MARK: Sheet
 
-    /// Whether the Bé/Mẹ pill shows below the header (content loaded, not under review).
-    private var hasPinnedTab: Bool {
-        if case .content? = display { return true }
-        return false
-    }
-
     private var sheetHeader: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(L10n.weekTitle(selection))
@@ -214,32 +209,31 @@ struct WeekDetailView: View {
                 .accessibilityIdentifier("weekDetailTitle")
             if case .content(_, let pendingReview)? = display {
                 reviewer(pendingReview: pendingReview)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 24)
-        // When the pill doesn't show (no content yet, or under review), the
-        // header itself closes the gap before the scrolling body.
-        .padding(.bottom, hasPinnedTab ? 0 : 14)
-    }
-
-    /// The Bé/Mẹ pill: pinned below the header, outside `headerDrag` (spec §3),
-    /// so a drag that starts on a segment moves the sheet without firing its tap.
-    private var sheetPinned: some View {
-        Group {
-            if hasPinnedTab {
                 SegmentedPill(
                     options: [
                         SegmentedOption(value: ArticleTab.baby, title: L10n.weekArticleTabBaby, identifier: "weekTab-baby"),
                         SegmentedOption(value: ArticleTab.mom, title: L10n.weekArticleTabMom, identifier: "weekTab-mom"),
                     ],
-                    selection: $tab
+                    // The pill sits inside the sheet's draggable header (spec §3), so a
+                    // drag that starts on a segment also moves the sheet; the segment's
+                    // Button then sees a tap on release too (it moved with the sheet, so
+                    // the finger never left its bounds). Ignore that tap's selection
+                    // while `isHeaderDragging` is true; a plain tap still goes through,
+                    // since the drag gesture never reports itself as active for it.
+                    selection: Binding(
+                        get: { tab },
+                        set: { newValue in
+                            guard !isHeaderDragging else { return }
+                            tab = newValue
+                        }
+                    )
                 )
-                .padding(.horizontal, 24)
                 .padding(.top, 14)
-                .padding(.bottom, 14)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 14)
     }
 
     private func reviewer(pendingReview: Bool) -> some View {
