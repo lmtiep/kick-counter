@@ -8,11 +8,23 @@ struct WeightSummaryCard: View {
     let points: [WeightPoint]
     let profile: MaternalProfile
 
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    /// Side by side, or stacked at accessibility sizes so words are not split.
+    private func row(bottom: Bool) -> AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 10))
+            : AnyLayout(HStackLayout(alignment: bottom ? .bottom : .center, spacing: bottom ? 12 : 10))
+    }
+
     var body: some View {
         let latest = points.last
         let band = profile.category.map(WeightStats.band(category:)) ?? []
+        let stacked = dynamicTypeSize.isAccessibilitySize
+        let gainRow = row(bottom: true)
+        let bmiRow = row(bottom: false)
         VStack(alignment: .leading, spacing: 14) {
-            HStack(alignment: .bottom, spacing: 12) {
+            gainRow {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L10n.weightGained)
                         .font(.luna(.caption))
@@ -26,7 +38,7 @@ struct WeightSummaryCard: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 if let latest {
-                    VStack(alignment: .trailing, spacing: 2) {
+                    VStack(alignment: stacked ? .leading : .trailing, spacing: 2) {
                         Text(Formatting.kilograms(latest.kg))
                             .font(.luna(size: 24, weight: .bold, relativeTo: .title2))
                             .foregroundStyle(.luna(.textPrimary))
@@ -40,11 +52,12 @@ struct WeightSummaryCard: View {
             .accessibilityIdentifier("weightSummary")
 
             if let bmi = profile.bmi, let category = profile.category {
-                HStack(spacing: 10) {
+                bmiRow {
                     Text(L10n.weightBMI(Formatting.decimal(bmi), L10n.weightCategory(category)))
                         .font(.luna(.bodyMedium))
                         .foregroundStyle(.luna(.textPrimary))
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("weightBMI")
                     if let status = latest?.status {
                         WeightStatusPill(status: status)

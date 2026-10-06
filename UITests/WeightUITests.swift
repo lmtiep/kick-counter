@@ -86,7 +86,10 @@ final class WeightUITests: XCTestCase {
         let save = app.buttons["weightSave"]
         app.scrollUntilHittable(save)
         save.tap()
-        XCTAssertTrue(app.descendants(matching: .any)["weightRow"].firstMatch.waitForExistence(timeout: 5))
+        // The history sits below the fold of a lazy List.
+        let row = app.descendants(matching: .any)["weightRow"].firstMatch
+        app.scrollUntilHittable(row)
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
         XCTAssertFalse(app.staticTexts["weightStatusPill"].exists)
         XCTAssertFalse(app.staticTexts["weightBMI"].exists)
         XCTAssertTrue(app.descendants(matching: .any)["weightSummary"].label.contains("+6.0 kg"))

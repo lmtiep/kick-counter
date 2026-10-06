@@ -19,7 +19,8 @@ struct WeightChart: View {
     }
 
     private var xDomain: ClosedRange<Double> {
-        0...max(WeightGuidance.termWeek, points.last?.exactWeek ?? 0)
+        // A little room after the last week so its "40" label is not dropped at the edge.
+        0...(max(WeightGuidance.termWeek, points.last?.exactWeek ?? 0) + 1.5)
     }
 
     var body: some View {

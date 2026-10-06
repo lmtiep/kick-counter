@@ -31,6 +31,7 @@ struct WeightStatusPill: View {
             .font(.luna(.label))
             .foregroundStyle(.luna(inRange ? .tealStrong : .pregOnSoft))
             .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
             .background(Capsule().fill(.luna(inRange ? .fertileSoft : .pregSoft)))

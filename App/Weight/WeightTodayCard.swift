@@ -8,6 +8,7 @@ struct WeightTodayCard: View {
     let dueDate: Date
 
     @Environment(WeightCoordinator.self) private var weight
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         let latest = WeightStats.points(weight.entries, profile: weight.profile, dueDate: dueDate).last
@@ -18,6 +19,12 @@ struct WeightTodayCard: View {
                 Text(latest.map(WeightTexts.line) ?? L10n.weightAdd)
                     .font(.luna(.cardTitle))
                     .foregroundStyle(.luna(.textPrimary))
+                    .fixedSize(horizontal: false, vertical: true)
+                // At accessibility sizes the pill goes under the figures, not beside them.
+                if dynamicTypeSize.isAccessibilitySize, let status = latest?.status {
+                    WeightStatusPill(status: status)
+                        .padding(.top, 4)
+                }
                 if let status = latest?.status, status != .inRange {
                     Text(L10n.weightStatusTalk)
                         .font(.luna(.caption))
@@ -26,7 +33,7 @@ struct WeightTodayCard: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            if let status = latest?.status {
+            if !dynamicTypeSize.isAccessibilitySize, let status = latest?.status {
                 WeightStatusPill(status: status)
             }
             Image(systemName: "chevron.right")

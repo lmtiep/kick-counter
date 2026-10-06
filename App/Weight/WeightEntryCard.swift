@@ -21,17 +21,24 @@ struct WeightEntryCard: View {
             Text(L10n.weightAdd)
                 .font(.luna(.cardTitleSmall))
                 .foregroundStyle(.luna(.textPrimary))
+                .fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader)
-            DatePicker(
-                L10n.weightAddDate,
-                selection: $day,
-                in: WeightRules.dayRange(dueDate: dueDate, now: AppClock.now(), calendar: .current),
-                displayedComponents: .date
-            )
-            .font(.luna(.body))
-            .foregroundStyle(.luna(.textPrimary))
-            .tint(.luna(.pregStrong))
-            .accessibilityIdentifier("weightDatePicker")
+            // At accessibility sizes "Day" goes above the picker, whose compact button
+            // is capped so the long date cannot push the card past the screen edge.
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(L10n.weightAddDate)
+                        .font(.luna(.body))
+                        .foregroundStyle(.luna(.textPrimary))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityHidden(true)
+                    datePicker
+                        .labelsHidden()
+                        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
+                }
+            } else {
+                datePicker
+            }
             // At accessibility sizes the −/+ buttons go under the figure so it is not cut.
             if dynamicTypeSize.isAccessibilitySize {
                 VStack(spacing: 12) {
@@ -54,6 +61,7 @@ struct WeightEntryCard: View {
                     .font(.luna(.caption))
                     .foregroundStyle(.luna(.warningText))
                     .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityElement(children: .combine)
                     .accessibilityIdentifier("weightKgError")
             }
             Button(L10n.commonSave, action: save)
@@ -71,6 +79,20 @@ struct WeightEntryCard: View {
         )) {
             Button(L10n.commonOK) {}
         }
+    }
+
+    private var datePicker: some View {
+        DatePicker(
+            L10n.weightAddDate,
+            selection: $day,
+            in: WeightRules.dayRange(dueDate: dueDate, now: AppClock.now(), calendar: .current),
+            displayedComponents: .date
+        )
+        .font(.luna(.body))
+        .foregroundStyle(.luna(.textPrimary))
+        .tint(.luna(.pregStrong))
+        .accessibilityLabel(L10n.weightAddDate)
+        .accessibilityIdentifier("weightDatePicker")
     }
 
     /// The figure (32/700, tabular digits) and "kg".

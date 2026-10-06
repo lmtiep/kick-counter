@@ -15,6 +15,7 @@ struct MaternalProfileForm: View {
     @State private var weightInvalid = false
     @State private var heightInvalid = false
     @State private var filled = false
+    @State private var failure: WeightFailure?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -35,6 +36,12 @@ struct MaternalProfileForm: View {
                 .accessibilityIdentifier("weightSetupSave")
         }
         .onAppear(perform: fill)
+        .alert(failure.map(L10n.weightFailure) ?? "", isPresented: Binding(
+            get: { failure != nil },
+            set: { if !$0 { failure = nil } }
+        )) {
+            Button(L10n.commonOK) {}
+        }
     }
 
     private func field(_ title: String, text: Binding<String>, identifier: String) -> some View {
@@ -58,6 +65,8 @@ struct MaternalProfileForm: View {
         Label(message, systemImage: "exclamationmark.triangle.fill")
             .font(.luna(.caption))
             .foregroundStyle(.luna(.warningText))
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityElement(children: .combine)
             .accessibilityIdentifier(identifier)
     }
 
@@ -82,7 +91,10 @@ struct MaternalProfileForm: View {
             return
         }
         let profile = MaternalProfile(preWeightKg: value(of: preWeight), heightCm: value(of: height))
-        if weight.updateProfile(profile) == nil {
+        if let error = weight.updateProfile(profile) {
+            weight.clearFailure()
+            failure = error
+        } else {
             onSaved()
         }
     }
