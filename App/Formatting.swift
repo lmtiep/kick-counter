@@ -127,6 +127,30 @@ enum Formatting {
         )
     }
 
+    /// The mother's weight: "58.0 kg" / "58,0 kg"; `signed` writes gains as
+    /// "+6.0 kg" / "−0.4 kg"; `spoken` spells the unit out for VoiceOver.
+    static func kilograms(_ kg: Double, signed: Bool = false, spoken: Bool = false) -> String {
+        let digits = FloatingPointFormatStyle<Double>.number.precision(.fractionLength(1))
+            .sign(strategy: signed ? .always() : .automatic)
+            .locale(locale)
+        return Measurement(value: kg, unit: UnitMass.kilograms).formatted(
+            .measurement(width: spoken ? .wide : .abbreviated, usage: .asProvided, numberFormatStyle: digits).locale(locale)
+        )
+    }
+
+    /// Height: "160 cm" / "158,5 cm".
+    static func centimeters(_ cm: Double) -> String {
+        Measurement(value: cm, unit: UnitLength.centimeters).formatted(
+            .measurement(width: .abbreviated, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0...1)))
+                .locale(locale)
+        )
+    }
+
+    /// One decimal, e.g. a BMI: "20.3" / "20,3".
+    static func decimal(_ value: Double) -> String {
+        value.formatted(.number.precision(.fractionLength(1)).locale(locale))
+    }
+
     private static var kilogramDigits: FloatingPointFormatStyle<Double> {
         .number.precision(.fractionLength(1)).locale(locale)
     }

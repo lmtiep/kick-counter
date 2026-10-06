@@ -14,6 +14,7 @@ struct RootView: View {
     @Environment(KickCoordinator.self) private var coordinator
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(WeightCoordinator.self) private var weight
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(SettingsKey.hasCompletedOnboarding, store: AppGroup.defaults)
     private var hasCompletedOnboarding = false
@@ -96,6 +97,7 @@ struct RootView: View {
         await coordinator.load()
         await appointments.load()
         await cycle.load()
+        await weight.load()
     }
 
     /// The language changed: every pending reminder is scheduled again in it

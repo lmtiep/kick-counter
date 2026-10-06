@@ -59,6 +59,26 @@ final class PregnancyTodayUITests: XCTestCase {
         XCTAssertTrue(app.tabBars.buttons["Today"].isSelected)
     }
 
+    /// Phase 5 spec §3.4: "Weight" and the weight card open the Weight screen.
+    @MainActor
+    func testWeightShortcutAndCardOpenTheWeightScreen() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
+        let shortcut = app.buttons["shortcutWeight"]
+        XCTAssertTrue(shortcut.waitForExistence(timeout: 10))
+        XCTAssertEqual(shortcut.label, "Weight")
+        app.scrollUntilHittable(shortcut)
+        shortcut.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["weightSetupCard"].waitForExistence(timeout: 5))
+        app.navigationBars.buttons.firstMatch.tap()
+
+        let card = app.buttons["weightCard"]
+        XCTAssertTrue(card.waitForExistence(timeout: 5))
+        XCTAssertTrue(card.label.contains("Log weight"), card.label) // nothing logged yet
+        app.scrollUntilHittable(card)
+        card.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["weightSetupCard"].waitForExistence(timeout: 5))
+    }
+
     /// Spec §4.5: chips change the week (scrolled into view), ✕ goes back to Today.
     @MainActor
     func testWeekChipsChangeTheWeekAndCloseReturns() {

@@ -34,6 +34,40 @@ final class ProfileUITests: XCTestCase {
         XCTAssertTrue(progress.label.contains("24 weeks, 3 days"), progress.label)
     }
 
+    /// Phase 5 spec §3.5: pre-pregnancy weight and height are edited from Profile.
+    @MainActor
+    func testMaternalRowEditsWeightAndHeight() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
+        app.openTab(.profile)
+        let row = app.buttons["profileMaternal"]
+        XCTAssertTrue(row.waitForExistence(timeout: 10))
+        XCTAssertTrue(row.label.contains("Not set"), row.label)
+        app.scrollUntilHittable(row)
+        row.tap()
+        let weight = app.textFields["weightSetupPreWeight"]
+        XCTAssertTrue(weight.waitForExistence(timeout: 5))
+        weight.tap()
+        weight.typeText("52")
+        let height = app.textFields["weightSetupHeight"]
+        // Near the right edge: the cursor lands after any text already there.
+        height.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+        height.typeText("150")
+        app.buttons["keyboardDone"].tap()
+        app.buttons["weightSetupSave"].tap()
+        waitForLabel(row, containing: "52.0 kg · 150 cm")
+
+        // A height outside 120–220 cm is refused and the sheet stays open.
+        row.tap()
+        XCTAssertTrue(height.waitForExistence(timeout: 5))
+        height.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+        height.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 5) + "99")
+        app.buttons["keyboardDone"].tap()
+        app.buttons["weightSetupSave"].tap()
+        XCTAssertTrue(app.descendants(matching: .any)["weightSetupHeightError"].waitForExistence(timeout: 5))
+        app.buttons["maternalCancel"].tap()
+        XCTAssertTrue(row.label.contains("150 cm"), row.label)
+    }
+
     @MainActor
     func testNotNowKeepsPregnancyMode() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
