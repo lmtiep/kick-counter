@@ -69,8 +69,10 @@ final class CycleScreenshotTests: XCTestCase {
             logToday.tap()
             XCTAssertTrue(app.buttons["dayLogSave"].waitForExistence(timeout: 5))
             attachScreenshot(app, "day-log-\(suffix)")
+            let field = app.textFields["dayLogBBTField"]
+            app.scrollUntilHittable(field)
+            attachScreenshot(app, "day-log-signals-\(suffix)")
             if language == "vi", !dark {
-                let field = app.textFields["dayLogBBTField"]
                 field.tap()
                 field.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: 6) + "34")
                 app.buttons["dayLogSave"].tap()

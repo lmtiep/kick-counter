@@ -24,19 +24,26 @@ enum CycleTexts {
         return forecast.ovulationConfirmed ? L10n.cycleOvulationConfirmed(date) : L10n.cycleOvulation(date)
     }
 
-    /// What is logged for a day, e.g. "LH Positive · 36.4°C · Egg white"; nil when nothing is.
-    static func logSummary(_ log: CycleLogRecord?) -> String? {
-        guard let log, !log.isEmpty else { return nil }
-        var parts: [String] = []
-        switch log.lh {
-        case .positive?: parts.append(L10n.cycleLogLH(L10n.dayLogLHPositive))
-        case .negative?: parts.append(L10n.cycleLogLH(L10n.dayLogLHNegative))
-        case nil: break
+    /// What is logged for a day in the order of phase 5 spec §3.1, e.g.
+    /// "Flow: Light · Calm · Cramps · 36.4 °C · LH Positive · Egg white"; only
+    /// `mode`'s symptoms. nil when nothing readable is logged.
+    static func logSummary(_ log: CycleLogRecord?, mode: AppMode = .tryingToConceive) -> String? {
+        guard let log else { return nil }
+        let parts = log.summaryItems(mode: mode).map(summaryText)
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+
+    private static func summaryText(_ item: CycleLogSummaryItem) -> String {
+        switch item {
+        case .flow(let flow): L10n.symptomSummaryFlow(L10n.flow(flow))
+        case .mood(let mood): L10n.mood(mood)
+        case .symptom(let symptom): L10n.symptom(symptom)
+        case .temperature(let celsius): Formatting.temperature(celsius)
+        case .lh(.positive): L10n.cycleLogLH(L10n.dayLogLHPositive)
+        case .lh(.negative): L10n.cycleLogLH(L10n.dayLogLHNegative)
+        case .mucus(let mucus): L10n.mucus(mucus)
+        case .note: L10n.dayLogNote
         }
-        if let bbt = log.bbtCelsius { parts.append(Formatting.temperature(bbt)) }
-        if let mucus = log.mucus { parts.append(L10n.mucus(mucus)) }
-        if !log.note.isEmpty { parts.append(L10n.dayLogNote) }
-        return parts.joined(separator: " · ")
     }
 
     /// The status of a day in words (calendar card, phase pill).

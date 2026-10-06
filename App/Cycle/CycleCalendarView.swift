@@ -162,9 +162,12 @@ struct CycleCalendarView: View {
                         .foregroundStyle(.luna(.textPrimary))
                 }
                 if let summary = CycleTexts.logSummary(cycle.log(on: selected)) {
+                    // One line, cut with "…"; VoiceOver still reads all of it (spec §3.1).
                     Text(summary)
                         .font(.luna(.caption))
                         .foregroundStyle(.luna(.textSecondary))
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

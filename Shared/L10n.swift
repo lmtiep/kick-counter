@@ -475,4 +475,47 @@ enum L10n {
         String(format: t("imPregnant.result"), weeks, due)
     }
     static var imPregnantConfirm: String { t("imPregnant.confirm") }
+
+    // MARK: - Phase 5: symptoms
+
+    static var symptomFlowTitle: String { t("symptom.flow.title") }
+    static var symptomMoodTitle: String { t("symptom.mood.title") }
+    static var symptomTitle: String { t("symptom.title") }
+    static var dayLogSignals: String { t("dayLog.signals") }
+    /// "Flow: Light" in a day's summary.
+    static func symptomSummaryFlow(_ flow: String) -> String { String(format: t("symptom.summary.flow"), flow) }
+    static func flow(_ value: MenstrualFlow) -> String {
+        switch value {
+        case .noFlow: t("symptom.flow.none")
+        case .light: t("symptom.flow.light")
+        case .medium: t("symptom.flow.medium")
+        case .heavy: t("symptom.flow.heavy")
+        }
+    }
+    static func mood(_ value: Mood) -> String {
+        switch value {
+        case .happy: t("symptom.mood.happy")
+        case .calm: t("symptom.mood.calm")
+        case .sensitive: t("symptom.mood.sensitive")
+        case .anxious: t("symptom.mood.anxious")
+        case .tired: t("symptom.mood.tired")
+        }
+    }
+    static func symptom(_ value: Symptom) -> String {
+        switch value {
+        case .cramps: t("symptom.kind.cramps")
+        case .headache: t("symptom.kind.headache")
+        case .tenderBreasts: t("symptom.kind.tenderBreasts")
+        case .acne: t("symptom.kind.acne")
+        case .bloating: t("symptom.kind.bloating")
+        case .cravings: t("symptom.kind.cravings")
+        case .nausea: t("symptom.kind.nausea")
+        case .heartburn: t("symptom.kind.heartburn")
+        case .swollenFeet: t("symptom.kind.swollenFeet")
+        case .backPain: t("symptom.kind.backPain")
+        case .legCramps: t("symptom.kind.legCramps")
+        case .insomnia: t("symptom.kind.insomnia")
+        case .contractions: t("symptom.kind.contractions")
+        }
+    }
 }

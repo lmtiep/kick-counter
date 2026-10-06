@@ -45,6 +45,7 @@ final class SheetsUITests: XCTestCase {
         XCTAssertEqual(app.staticTexts["lunaSheetTitle"].label, "Today, Oct 2")
         let field = app.textFields["dayLogBBTField"]
         XCTAssertTrue(field.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(field) // below flow, mood and symptoms (phase 5)
         field.tap()
         field.typeText("36.6")
         XCTAssertTrue(app.buttons["dayLogSave"].isHittable) // stays above the keyboard

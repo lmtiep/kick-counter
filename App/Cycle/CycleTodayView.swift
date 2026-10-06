@@ -294,10 +294,12 @@ struct CycleTodayView: View {
                     Text(L10n.cycleLogTitle)
                         .font(.luna(.cardTitleSmall))
                         .foregroundStyle(.luna(.textPrimary))
+                    // One line, cut with "…"; VoiceOver still reads all of it (spec §3.1).
                     Text(CycleTexts.logSummary(cycle.log(on: today)) ?? L10n.cycleLogPrompt)
                         .font(.luna(.caption))
                         .foregroundStyle(.luna(.textSecondary))
-                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 Image(systemName: "chevron.right")
