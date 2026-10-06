@@ -195,6 +195,70 @@ struct CycleStoreTests {
         #expect(kept.mucusRaw == "spotting")
     }
 
+    // MARK: - Flow, moods and symptoms (phase 5)
+
+    @Test func flowMoodsAndSymptomsRoundTrip() throws {
+        let log = CycleLogRecord(
+            day: day("2026-10-01"), flow: .heavy, moods: [.tired, .happy], symptoms: [.nausea, .cramps]
+        )
+        try store.saveLog(log, today: today)
+        #expect(try store.logs() == [CycleLogRecord(
+            id: log.id, day: day("2026-10-01"), flow: .heavy, moods: [.happy, .tired], symptoms: [.cramps, .nausea]
+        )])
+        let model = try #require(try container.mainContext.fetch(FetchDescriptor<CycleLog>()).first)
+        #expect(model.flowRaw == "heavy")
+        #expect(model.moodsRaw == "happy,tired")
+        #expect(model.symptomsRaw == "cramps,nausea")
+    }
+
+    @Test func aLogWithOnlyAMoodIsKeptAndClearingItDeletesTheDay() throws {
+        try store.saveLog(CycleLogRecord(day: day("2026-10-01"), moods: [.calm]), today: today)
+        #expect(try count(CycleLog.self) == 1)
+        try store.saveLog(CycleLogRecord(day: day("2026-10-01")), today: today)
+        #expect(try count(CycleLog.self) == 0)
+    }
+
+    @Test func unknownMoodsSymptomsAndFlowSurviveAnEdit() throws {
+        // Values a newer app version may sync that this build does not know.
+        let context = container.mainContext
+        let model = CycleLog(record: CycleLogRecord(day: day("2026-10-01"), moods: [.calm]))
+        model.flowRaw = "spotting"
+        model.moodsRaw = "calm,excited"
+        model.symptomsRaw = "hiccups,nausea"
+        context.insert(model)
+        try context.save()
+
+        let loaded = try #require(try store.logs().first)
+        #expect(loaded.flow == nil)
+        #expect(loaded.moods == [.calm])
+        #expect(loaded.unknownMoodsRaw == ["excited"])
+        #expect(loaded.symptoms == [.nausea])
+        #expect(loaded.unknownSymptomsRaw == ["hiccups"])
+
+        // The sheet edits the record it loaded: unknown values ride along.
+        var edited = loaded
+        edited.moods = [.happy]
+        edited.setSymptoms([.contractions], for: .pregnant)
+        try store.saveLog(edited, today: today)
+        #expect(model.flowRaw == "spotting")
+        #expect(model.moodsRaw == "happy,excited")
+        #expect(model.symptomsRaw == "contractions,hiccups")
+    }
+
+    @Test func sameDayLogsFromSyncUniteMoodsAndKeepTheHeavierFlow() throws {
+        let context = container.mainContext
+        context.insert(CycleLog(record: CycleLogRecord(day: day("2026-10-01"), flow: .light, moods: [.tired])))
+        context.insert(CycleLog(record: CycleLogRecord(day: day("2026-10-01"), flow: .heavy, moods: [.happy], symptoms: [.cramps])))
+        try context.save()
+
+        let logs = try store.logs()
+        #expect(logs.count == 1)
+        #expect(logs.first?.flow == .heavy)
+        #expect(logs.first?.moods == [.happy, .tired])
+        #expect(logs.first?.symptoms == [.cramps])
+        #expect(try count(CycleLog.self) == 1)
+    }
+
     // MARK: - Rollback
 
     @Test func failedPeriodSaveRollsBack() throws {
