@@ -6,7 +6,7 @@ import Testing
 struct BundledArticleTests {
     /// Weeks that must already have an article. Each content task widens it:
     /// nil (Tasks 1–3) → 4...13 (Task 4) → 4...27 (Task 5) → WeeklyContentLibrary.weekRange (Task 6).
-    static let requiredArticleWeeks: ClosedRange<Int>? = nil
+    static let requiredArticleWeeks: ClosedRange<Int>? = 4...13
 
     let library: WeeklyContentLibrary
 
