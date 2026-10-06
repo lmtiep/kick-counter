@@ -4,9 +4,8 @@ import Testing
 
 /// Phase 6 spec §4.5: the week articles in the shipped `pregnancy-content.json`.
 struct BundledArticleTests {
-    /// Weeks that must already have an article. Each content task widens it:
-    /// nil (Tasks 1–3) → 4...13 (Task 4) → 4...27 (Task 5) → WeeklyContentLibrary.weekRange (Task 6).
-    static let requiredArticleWeeks: ClosedRange<Int>? = 4...27
+    /// Every week 4–42 must have an article (phase 6 spec §4.5).
+    static let requiredArticleWeeks: ClosedRange<Int>? = WeeklyContentLibrary.weekRange
 
     let library: WeeklyContentLibrary
 
