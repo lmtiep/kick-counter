@@ -120,6 +120,7 @@ public final class WeightCoordinator {
         profile = MaternalProfile.load(from: defaults)
         do {
             entries = try store.entries()
+            if failure == .loadFailed { failure = nil }
         } catch {
             logger.error("Loading weights failed: \(error.localizedDescription)")
             failure = .loadFailed

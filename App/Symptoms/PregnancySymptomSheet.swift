@@ -7,6 +7,10 @@ import SwiftUI
 struct PregnancySymptomSheet: View {
     let day: Date
     private let existing: CycleLogRecord?
+    /// False when the current week's content is hidden (release build, not yet
+    /// reviewed): the safety card's action button is hidden, since it would
+    /// open a week detail with no warnings section to scroll to.
+    private let canShowWarnings: Bool
     /// After a save from the safety card: open the week detail at its warnings.
     private let onShowWarnings: () -> Void
 
@@ -18,9 +22,15 @@ struct PregnancySymptomSheet: View {
     @State private var failure: CycleFailure?
     @State private var saving = false
 
-    init(day: Date, existing: CycleLogRecord?, onShowWarnings: @escaping () -> Void) {
+    init(
+        day: Date,
+        existing: CycleLogRecord?,
+        canShowWarnings: Bool,
+        onShowWarnings: @escaping () -> Void
+    ) {
         self.day = Calendar.current.startOfDay(for: day)
         self.existing = existing
+        self.canShowWarnings = canShowWarnings
         self.onShowWarnings = onShowWarnings
         _moods = State(initialValue: Set(existing?.moods ?? []))
         _symptoms = State(initialValue: Set(existing?.symptoms(for: .pregnant) ?? []))
@@ -45,7 +55,7 @@ struct PregnancySymptomSheet: View {
 
             // Read right after the chips, before the note (spec §5).
             if showsSafetyCard {
-                SymptomSafetyCard(symptoms: symptoms) {
+                SymptomSafetyCard(symptoms: symptoms, canShowWarnings: canShowWarnings) {
                     Task {
                         if await save() { onShowWarnings() }
                     }

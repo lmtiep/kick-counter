@@ -64,6 +64,17 @@ struct WeightCoordinatorTests {
         #expect(coordinator.entries.count == 1)
     }
 
+    @Test func aSuccessfulRefreshClearsAPriorLoadFailure() async {
+        repository.seed(WeightRecord(day: day("2026-09-29"), kg: 57.6))
+        await coordinator.load()
+        repository.failNextRead = true
+        await coordinator.load()
+        #expect(coordinator.failure == .loadFailed)
+        await coordinator.load()
+        #expect(coordinator.failure == nil)
+        #expect(coordinator.entries.map(\.kg) == [57.6])
+    }
+
     @Test func deleteRemovesTheEntry() async throws {
         repository.seed(WeightRecord(day: day("2026-09-29"), kg: 57.6))
         await coordinator.load()

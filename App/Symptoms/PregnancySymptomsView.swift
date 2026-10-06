@@ -6,6 +6,7 @@ import SwiftUI
 /// Tap a day to edit it, swipe to delete (with a confirmation).
 struct PregnancySymptomsView: View {
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(\.contentLibrary) private var library
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     @State private var logDay: CycleDaySelection?
     @State private var pendingDelete: CycleLogRecord?
@@ -19,6 +20,15 @@ struct PregnancySymptomsView: View {
     private var today: Date { Calendar.current.startOfDay(for: now) }
     private var due: Date? { dueDate > 0 ? Date(timeIntervalSince1970: dueDate) : nil }
     private var timeline: PregnancyTimeline? { due.flatMap { PregnancyTimeline(dueDate: $0, now: now) } }
+
+    /// Whether "Xem dấu hiệu cần đi khám" would open a week detail that actually
+    /// shows the warnings section: false when the current week's content is
+    /// hidden (release build, week not yet reviewed) — see `WeekDetailView`.
+    private var canShowWarnings: Bool {
+        guard let timeline else { return false }
+        let week = WeeklyContentLibrary.clampedWeek(timeline.week.weeks)
+        return library?.display(forWeek: week, visibility: BuildFlags.contentVisibility)?.showsWarnings ?? false
+    }
 
     var body: some View {
         List {
@@ -83,7 +93,11 @@ struct PregnancySymptomsView: View {
         .background(.luna(.background))
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $logDay, onDismiss: openWarningsIfAsked) { selection in
-            PregnancySymptomSheet(day: selection.date, existing: cycle.log(on: selection.date)) {
+            PregnancySymptomSheet(
+                day: selection.date,
+                existing: cycle.log(on: selection.date),
+                canShowWarnings: canShowWarnings
+            ) {
                 showWarningsNext = true
             }
         }

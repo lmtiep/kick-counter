@@ -6,6 +6,11 @@ import SwiftUI
 /// no diagnosis and no contraction counting.
 struct SymptomSafetyCard: View {
     let symptoms: Set<Symptom>
+    /// False when the current week's content is hidden (release build, not
+    /// yet reviewed): the action button is hidden, since it would open a week
+    /// detail with no warnings section to scroll to. The "go now" text above
+    /// stays either way.
+    let canShowWarnings: Bool
     let onShowWarnings: () -> Void
 
     var body: some View {
@@ -24,9 +29,11 @@ struct SymptomSafetyCard: View {
             }
             Text(L10n.symptomSafetyNote)
                 .font(.luna(.small))
-            Button(L10n.symptomSafetyAction, action: onShowWarnings)
-                .buttonStyle(.pill(.text(.warningText), fullWidth: false, height: 44))
-                .accessibilityIdentifier("symptomSafetyAction")
+            if canShowWarnings {
+                Button(L10n.symptomSafetyAction, action: onShowWarnings)
+                    .buttonStyle(.pill(.text(.warningText), fullWidth: false, height: 44))
+                    .accessibilityIdentifier("symptomSafetyAction")
+            }
         }
         .font(.luna(.body))
         .foregroundStyle(.luna(.articleText))
@@ -37,7 +44,7 @@ struct SymptomSafetyCard: View {
 }
 
 #Preview {
-    SymptomSafetyCard(symptoms: [.contractions, .swollenFeet]) {}
+    SymptomSafetyCard(symptoms: [.contractions, .swollenFeet], canShowWarnings: true) {}
         .padding(22)
         .background(.luna(.background))
 }

@@ -64,6 +64,13 @@ struct WeeklyContentLibraryTests {
         #expect(library.display(forWeek: 7, visibility: .all) == .content(week7, pendingReview: false))
     }
 
+    @Test func showsWarningsIsFalseOnlyWhenUnderReview() throws {
+        let library = try library()
+        #expect(library.display(forWeek: 7, visibility: .reviewedOnly)?.showsWarnings == true)
+        #expect(library.display(forWeek: 8, visibility: .reviewedOnly)?.showsWarnings == false)
+        #expect(library.display(forWeek: 8, visibility: .all)?.showsWarnings == true)
+    }
+
     @Test func upcomingMilestonesIncludeOnesUnderway() throws {
         let library = try library()
         #expect(library.upcomingMilestones(atWeek: 7).map(\.id) == ["m-early", "m-late"])

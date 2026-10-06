@@ -208,7 +208,7 @@ hiện nhóm, dải hay trạng thái.
 | `symptom.safety.title` | "Khi nào cần đi khám ngay" (cùng câu với `week.warnings` đã có) |
 | `symptom.safety.contractions` | "Đi khám ngay nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu." |
 | `symptom.safety.swelling` | "Đi khám ngay nếu mặt hoặc tay phù đột ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị." |
-| `symptom.safety.note`, `symptom.safety.action` | "Luna Mom không chẩn đoán. Khi không chắc, hãy gọi bác sĩ." / "Xem dấu hiệu cần đi khám" (mở Chi tiết tuần tại mục cảnh báo đã duyệt) |
+| `symptom.safety.note`, `symptom.safety.action` | "Luna Mom không chẩn đoán. Khi không chắc, hãy gọi bác sĩ." / "Xem dấu hiệu cần đi khám" (mở Chi tiết tuần tại mục cảnh báo, trong bản chính thức chỉ khi tuần đó đã duyệt — xem mục 33) |
 | `symptom.flow.*` | Lượng kinh: Không / Ít / Vừa / Nhiều |
 | `symptom.mood.*` | Tâm trạng: Vui vẻ / Bình thường / Nhạy cảm / Lo âu / Mệt mỏi |
 | `symptom.kind.*` | Mong con: Đau bụng / Đau đầu / Căng ngực / Nổi mụn / Đầy hơi / Thèm ăn. Mang thai: Buồn nôn / Ợ nóng / Phù chân / Đau lưng / Chuột rút / Khó ngủ / Cơn gò |
@@ -220,7 +220,9 @@ hiện nhóm, dải hay trạng thái.
 30. [ ] Xác nhận dải IOM 2009 và cách chia theo tuần ở trên (đặc biệt 0,5–2,0 kg ở tuần 13 cho mọi nhóm), và việc
         không áp dụng cho song thai.
 31. [ ] Duyệt (hoặc sửa) câu chữ thẻ an toàn "Cơn gò" / "Phù chân" và việc thẻ chỉ nhắc đi khám, không chẩn đoán,
-        không đếm cơn gò.
+        không đếm cơn gò. **Câu hỏi:** câu "Đi khám ngay nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước,
+        ra máu" có thể đọc thành cơn gò đều đặn hoặc đau *từ* tuần 37 trở đi thì không cần đi khám — xin bác sĩ xác
+        nhận cách diễn đạt này đúng ý hay cần sửa lại (không tự đổi câu chữ trong app).
 32. [ ] Duyệt (hoặc sửa) tên lượng kinh, tâm trạng, triệu chứng (vi + en) và các câu trạng thái cân nặng.
 33. [ ] **Câu hỏi sản phẩm — thẻ an toàn và tuần chưa duyệt:** ở bản chính thức, tuần nội dung chưa duyệt bị ẩn
         hoàn toàn (mục 1). Vì "Xem dấu hiệu cần đi khám" (`symptom.safety.action`) luôn mở Chi tiết tuần hiện tại
