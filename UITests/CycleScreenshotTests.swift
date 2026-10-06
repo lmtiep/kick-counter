@@ -70,7 +70,9 @@ final class CycleScreenshotTests: XCTestCase {
             XCTAssertTrue(app.buttons["dayLogSave"].waitForExistence(timeout: 5))
             attachScreenshot(app, "day-log-\(suffix)")
             let field = app.textFields["dayLogBBTField"]
-            app.scrollUntilHittable(field)
+            // The BBT field is already "hittable" half under Save: scroll to the
+            // note below the mucus chips so the whole signals block is shown.
+            app.scrollUntilHittable(app.descendants(matching: .any)["dayLogNoteField"])
             attachScreenshot(app, "day-log-signals-\(suffix)")
             if language == "vi", !dark {
                 field.tap()
