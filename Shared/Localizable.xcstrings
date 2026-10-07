@@ -6393,23 +6393,6 @@
         }
       }
     },
-    "week.about": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "About %@"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Khoảng %@"
-          }
-        }
-      }
-    },
     "week.baby": {
       "extractionState": "manual",
       "localizations": {
@@ -6440,23 +6423,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "%ld tuần"
-          }
-        }
-      }
-    },
-    "week.headline": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "What happens at %ld weeks"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Những điều diễn ra ở tuần %ld"
           }
         }
       }
@@ -6529,23 +6495,6 @@
         }
       }
     },
-    "week.sizeLine": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This week, your baby is about the size of %@."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ở tuần này, bé có kích thước bằng %@."
-          }
-        }
-      }
-    },
     "week.tips": {
       "extractionState": "manual",
       "localizations": {
@@ -6580,23 +6529,6 @@
         }
       }
     },
-    "week.typicalRange": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Typically %@"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thường %@"
-          }
-        }
-      }
-    },
     "week.underReview": {
       "extractionState": "manual",
       "localizations": {
@@ -6627,6 +6559,210 @@
           "stringUnit": {
             "state": "translated",
             "value": "Khi nào cần đi khám ngay"
+          }
+        }
+      }
+    },
+    "weekArticle.handle.collapse": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Collapse article"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thu gọn bài viết"
+          }
+        }
+      }
+    },
+    "weekArticle.handle.expand": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expand article"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở rộng bài viết"
+          }
+        }
+      }
+    },
+    "weekArticle.heading.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your body this week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơ thể mẹ tuần này"
+          }
+        }
+      }
+    },
+    "weekArticle.heading.development": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How your baby is developing"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé phát triển ra sao"
+          }
+        }
+      }
+    },
+    "weekArticle.heading.size": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How big is your baby?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé lớn cỡ nào?"
+          }
+        }
+      }
+    },
+    "weekArticle.heading.todo": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What you can do"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mẹ nên làm gì"
+          }
+        }
+      }
+    },
+    "weekArticle.references": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "References"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tài liệu tham khảo"
+          }
+        }
+      }
+    },
+    "weekArticle.size.length": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your baby is about %1$@ long from head to bottom, roughly the size of %2$@."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé dài khoảng %1$@ (từ đầu đến mông), cỡ %2$@."
+          }
+        }
+      }
+    },
+    "weekArticle.size.lengthWeight": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your baby is about %1$@ long from head to bottom and weighs about %2$@, roughly the size of %3$@."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, cỡ %3$@."
+          }
+        }
+      }
+    },
+    "weekArticle.size.weight": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your baby weighs about %1$@ (typically %2$@ to %3$@), roughly the size of %4$@."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), cỡ %4$@."
+          }
+        }
+      }
+    },
+    "weekArticle.tab.baby": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé"
+          }
+        }
+      }
+    },
+    "weekArticle.tab.mom": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mẹ"
           }
         }
       }

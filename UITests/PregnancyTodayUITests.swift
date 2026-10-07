@@ -24,7 +24,7 @@ final class PregnancyTodayUITests: XCTestCase {
         XCTAssertTrue(fetus.waitForExistence(timeout: 10))
         XCTAssertEqual(fetus.label, "See week 24")
         fetus.tap()
-        XCTAssertTrue(app.staticTexts["weekHeadline"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["weekDetailTitle"].waitForExistence(timeout: 5))
         XCTAssertEqual(app.staticTexts["weekDetailTitle"].label, "Week 24")
     }
 
@@ -42,7 +42,7 @@ final class PregnancyTodayUITests: XCTestCase {
         let week = app.buttons["shortcutWeek"]
         app.scrollUntilHittable(week)
         week.tap()
-        XCTAssertTrue(app.staticTexts["weekHeadline"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["weekDetailTitle"].waitForExistence(timeout: 5))
         XCTAssertEqual(app.staticTexts["weekDetailTitle"].label, "Week 24")
     }
 
@@ -95,7 +95,7 @@ final class PregnancyTodayUITests: XCTestCase {
 
         app.buttons["weekChip-25"].tap()
         waitForLabel(title, containing: "Week 25")
-        XCTAssertEqual(app.staticTexts["weekHeadline"].label, "What happens at 25 weeks")
+        XCTAssertEqual(app.buttons["weekSheetHandle"].label, "Expand article") // still at peek
 
         app.buttons["weekDetailClose"].tap()
         XCTAssertTrue(fetus.waitForExistence(timeout: 5))

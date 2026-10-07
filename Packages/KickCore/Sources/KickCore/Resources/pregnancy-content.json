@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "sources": [
     "WHO recommendations on antenatal care for a positive pregnancy experience (World Health Organization, 2016)",
     "ACOG patient education: Your Pregnancy and Childbirth: Month to Month, and pregnancy FAQs (American College of Obstetricians and Gynecologists)",
@@ -60,6 +60,57 @@
           "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby has just settled into the lining of your womb, and the cells that will build the embryo and the placenta are busy dividing.",
+          "vi": "Bé vừa bám vào lớp niêm mạc tử cung của mẹ, và các tế bào sẽ tạo nên phôi cùng nhau thai đang phân chia không ngừng."
+        },
+        "sizeNote": {
+          "en": [
+            "Right now your baby is roughly the size of a poppy seed. It is only a tiny cluster of cells, but each group of cells already has its own job. Over the next few weeks, growth speeds up a great deal."
+          ],
+          "vi": [
+            "Lúc này bé chỉ nhỏ cỡ một hạt anh túc. Bé mới là một cụm tế bào li ti, nhưng mỗi nhóm tế bào đã mang sẵn một nhiệm vụ riêng. Trong vài tuần tới, bé sẽ lớn nhanh hơn rất nhiều."
+          ]
+        },
+        "development": {
+          "en": [
+            "The fertilised egg travelled down into your womb as a hollow ball of cells. It has now settled into the soft lining, a step called implantation. From here, it can start to draw nourishment from your body.",
+            "The ball has two parts. The inner group of cells will become the embryo, and the outer layer will grow into the placenta, which feeds your baby until birth. Around the embryo, the amniotic sac begins to form, along with a small yolk sac that gives early nourishment.",
+            "Pregnancy weeks are counted from the first day of your last period, not from conception. So even though this is called week 4, you most likely conceived about two weeks ago. This method is used because the date of a period is usually easier to know."
+          ],
+          "vi": [
+            "Trứng đã thụ tinh di chuyển xuống tử cung dưới dạng một khối tế bào nhỏ, rỗng ở giữa. Giờ đây khối tế bào này đã bám vào lớp niêm mạc mềm của tử cung, quá trình này gọi là làm tổ. Từ đây, bé bắt đầu nhận dưỡng chất từ cơ thể mẹ.",
+            "Khối tế bào có hai phần. Nhóm tế bào bên trong sẽ phát triển thành phôi, còn lớp tế bào bên ngoài sẽ thành nhau thai, nơi nuôi dưỡng bé cho đến ngày chào đời. Quanh phôi, túi ối bắt đầu hình thành, cùng một túi noãn hoàng nhỏ cung cấp dưỡng chất trong những tuần đầu.",
+            "Tuổi thai được tính từ ngày đầu tiên của kỳ kinh cuối, chứ không phải từ lúc thụ thai. Vì vậy, dù gọi là tuần 4, thực ra trứng thường mới được thụ tinh khoảng hai tuần trước. Cách tính này được dùng vì ngày kinh cuối thường dễ biết hơn ngày thụ thai."
+          ]
+        },
+        "body": {
+          "en": [
+            "Around now, your period would usually be due, and missing it is often the first sign of pregnancy. A home pregnancy test may now show a positive result. If the test is negative but your period still has not come, you can try again in a few days.",
+            "Some women have light spotting as the embryo settles into the womb lining, along with mild cramps a little like period pain. You may also feel more tired than usual, or notice that your breasts feel tender. Many women feel nothing different at all yet, and that is normal too. If you notice any bleeding, tell your doctor or midwife; it is often harmless, but it is worth checking."
+          ],
+          "vi": [
+            "Khoảng thời gian này thường là lúc mẹ đến kỳ kinh, và trễ kinh hay là dấu hiệu đầu tiên của thai kỳ. Que thử thai tại nhà lúc này có thể đã lên hai vạch. Nếu que thử chỉ một vạch mà kinh vẫn chưa về, mẹ có thể thử lại sau vài ngày.",
+            "Một số mẹ thấy ra chút máu báo khi phôi làm tổ, kèm đau bụng âm ỉ nhẹ giống lúc hành kinh. Mẹ cũng có thể thấy mệt hơn thường lệ, hoặc ngực căng và hơi đau. Cũng có nhiều mẹ chưa thấy gì khác lạ, điều đó hoàn toàn bình thường. Nếu thấy ra máu, dù ít, mẹ hãy báo bác sĩ hoặc nữ hộ sinh; thường không đáng lo nhưng nên được kiểm tra."
+          ]
+        },
+        "todo": {
+          "en": [
+            "If you are not taking folic acid yet, ask your doctor or midwife about starting it, and take it as they advise. It supports the early growth of your baby's brain and spinal cord. This is also the time to stop drinking alcohol and smoking, and to keep away from other people's smoke.",
+            "If you take any medicines, check them with your doctor, midwife or pharmacist before you stop or continue them. Then book a first appointment, so a doctor or midwife can confirm the pregnancy and plan your care. For signs that need prompt attention, see the warning signs below."
+          ],
+          "vi": [
+            "Nếu chưa bổ sung axit folic, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh và dùng theo hướng dẫn. Axit folic hỗ trợ sự phát triển sớm của não và tủy sống của bé. Đây cũng là lúc mẹ ngừng rượu bia, thuốc lá và tránh xa khói thuốc của người khác.",
+            "Nếu đang dùng bất kỳ loại thuốc nào, mẹ hãy hỏi bác sĩ, nữ hộ sinh hoặc dược sĩ trước khi ngừng hay dùng tiếp. Sau đó, mẹ hãy đặt lịch khám lần đầu để bác sĩ hoặc nữ hộ sinh xác nhận thai và lên kế hoạch theo dõi. Với những dấu hiệu cần chú ý, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2
+        ]
       }
     },
     {
@@ -112,6 +163,57 @@
           "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
           "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's brain, spinal cord and heart are all starting to form this week, laying the groundwork for every body system to come.",
+          "vi": "Tuần này, não bộ, tủy sống và trái tim của bé đều bắt đầu hình thành, đặt nền móng cho mọi cơ quan sau này."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is now about the size of a sesame seed. Inside that tiny shape, the plan for the whole body is being laid out, step by step."
+          ],
+          "vi": [
+            "Lúc này bé chỉ nhỏ cỡ một hạt vừng. Bên trong hình hài bé xíu ấy, bản phác thảo cho toàn bộ cơ thể đang dần được vẽ ra, từng bước một."
+          ]
+        },
+        "development": {
+          "en": [
+            "The embryo has now arranged itself into three layers of cells, and each layer has its own future. One will form the brain, nerves and skin. Another will form the heart, blood, bones and muscles. The third will form the lining of the gut, the lungs and the liver.",
+            "Along the back of the embryo, a groove is folding up to make the neural tube. This tube will become the brain and spinal cord, and it usually closes over the next week or so.",
+            "A simple tube is also taking shape where the heart will be. Around this time, it may start to beat for the first time, though it is still too small to see on most scans. Over the coming weeks, it will fold and divide into chambers."
+          ],
+          "vi": [
+            "Phôi giờ đây đã sắp xếp thành ba lớp tế bào, mỗi lớp có một nhiệm vụ riêng. Một lớp sẽ tạo nên não, dây thần kinh và da. Lớp thứ hai tạo nên tim, máu, xương và cơ. Lớp còn lại tạo nên niêm mạc ruột, phổi và gan.",
+            "Dọc theo lưng phôi, một rãnh nhỏ đang cuộn lại để tạo thành ống thần kinh. Ống này sau này sẽ thành não và tủy sống, và thường khép kín trong khoảng một tuần tới.",
+            "Ở vị trí trái tim sau này, một ống đơn giản cũng đang hình thành. Vào khoảng thời gian này, ống tim có thể bắt đầu đập những nhịp đầu tiên, dù còn quá nhỏ để thấy trên phần lớn các lần siêu âm. Trong những tuần tới, tim sẽ gấp lại và chia thành các buồng."
+          ]
+        },
+        "body": {
+          "en": [
+            "Many women feel unusually tired this week. Your breasts may feel sore or heavy, and you may need to pee more often, as more blood flows to your kidneys and pelvis.",
+            "Nausea may begin now, though for some it starts later, and some women hardly feel it at all. It is often called morning sickness, but it can come at any time of the day or night. Rising hormones can also make your moods change quickly, from cheerful to teary in a short time. Be gentle with yourself, as these feelings are very common."
+          ],
+          "vi": [
+            "Nhiều mẹ thấy mệt mỏi khác thường trong tuần này. Ngực có thể căng, nặng và đau, và mẹ có thể đi tiểu nhiều hơn do lượng máu đến thận và vùng chậu tăng lên.",
+            "Ốm nghén có thể bắt đầu từ lúc này, dù có mẹ nghén muộn hơn, cũng có mẹ hầu như không nghén. Cảm giác buồn nôn không chỉ đến vào buổi sáng mà có thể xuất hiện bất cứ lúc nào trong ngày. Nội tiết tố tăng cũng khiến tâm trạng mẹ thay đổi nhanh, vừa vui đó đã muốn khóc. Mẹ hãy nhẹ nhàng với bản thân, vì đây là điều rất thường gặp."
+          ]
+        },
+        "todo": {
+          "en": [
+            "If you have not done so yet, book your first antenatal appointment with a doctor or midwife. Write down the first day of your last period, as they will use it to work out your due date.",
+            "Take extra care with food. Avoid raw or undercooked meat, fish and eggs, and milk that has not been pasteurised, as they can carry germs that are harmful in pregnancy. Cut down on coffee, strong tea and energy drinks, which all contain caffeine. Keep taking folic acid as your doctor or midwife advises."
+          ],
+          "vi": [
+            "Nếu chưa đặt lịch, mẹ hãy hẹn khám thai lần đầu với bác sĩ hoặc nữ hộ sinh. Mẹ nên ghi lại ngày đầu tiên của kỳ kinh cuối, vì bác sĩ hoặc nữ hộ sinh sẽ dựa vào đó để tính ngày dự sinh.",
+            "Mẹ hãy cẩn thận hơn với đồ ăn. Tránh thịt, cá, trứng sống hoặc chưa chín kỹ, và sữa tươi chưa thanh trùng, vì chúng có thể chứa vi khuẩn gây hại khi mang thai. Mẹ nên hạn chế cà phê, trà đặc và nước tăng lực vì đều chứa chất cafein. Mẹ tiếp tục bổ sung axit folic theo hướng dẫn của bác sĩ hoặc nữ hộ sinh."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2
         ]
       }
     },
@@ -170,6 +272,57 @@
           "Nôn nhiều đến mức không giữ được nước: mẹ hãy đi khám bác sĩ ngay trong ngày.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's face is beginning to take shape this week, and tiny buds have appeared that will one day grow into arms and legs.",
+          "vi": "Tuần này khuôn mặt bé bắt đầu thành hình, và những mầm nhỏ đã xuất hiện, sau này sẽ lớn thành tay và chân."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is now about the size of a mung bean, with a gently curved body and a head that is starting to stand out. Growth is fast at this stage, and size can differ a little from one embryo to another."
+          ],
+          "vi": [
+            "Lúc này bé nhỏ cỡ một hạt đậu xanh, cơ thể hơi cong và phần đầu bắt đầu nổi rõ. Ở giai đoạn này bé lớn rất nhanh, và kích thước mỗi phôi có thể hơi khác nhau."
+          ]
+        },
+        "development": {
+          "en": [
+            "The neural tube, which will become the brain and spinal cord, usually closes around now. Folic acid taken in these early weeks helps support this important step.",
+            "By now, the heart is usually beating steadily. If you have an internal scan through the vagina this week, it may show the heartbeat as a tiny flicker. It is also common for the heartbeat not to be seen yet, especially early in the week. If so, your doctor or midwife may suggest another scan a little later.",
+            "Small buds have appeared on each side of the body, and they will grow into arms and legs. The face is starting to form, and dark spots now mark where the eyes will be."
+          ],
+          "vi": [
+            "Ống thần kinh, sau này thành não và tủy sống, thường khép kín vào khoảng thời gian này. Axit folic mẹ bổ sung trong những tuần đầu giúp hỗ trợ bước phát triển quan trọng này.",
+            "Lúc này tim bé thường đã đập đều đặn. Nếu mẹ được siêu âm đầu dò âm đạo trong tuần này, có thể sẽ thấy tim thai như một đốm nhấp nháy nhỏ. Việc chưa thấy tim thai lúc này cũng khá thường gặp, nhất là vào đầu tuần. Khi đó, bác sĩ hoặc nữ hộ sinh có thể hẹn mẹ siêu âm lại sau ít ngày.",
+            "Hai bên cơ thể đã nhú lên những mầm nhỏ, sau này sẽ thành tay và chân. Khuôn mặt bé bắt đầu hình thành, với những chấm sẫm màu đánh dấu vị trí đôi mắt sau này."
+          ]
+        },
+        "body": {
+          "en": [
+            "Nausea is common now, and many women find that smells bother them far more than before. Cooking smells, perfume or coffee may suddenly seem much too strong. For some women, vomiting comes along with it. Some women also notice a metallic taste in the mouth.",
+            "Rising hormones can make your moods change quickly, and you may feel tired even after a full night's sleep. Your body is working hard to support the pregnancy, so this tiredness is normal, and it usually eases later on."
+          ],
+          "vi": [
+            "Buồn nôn rất thường gặp lúc này, và nhiều mẹ thấy mình nhạy cảm với mùi hơn hẳn trước đây. Mùi thức ăn, nước hoa hay cà phê bỗng trở nên quá nồng. Một số mẹ còn bị nôn, hoặc thấy trong miệng có vị kim loại.",
+            "Nội tiết tố tăng có thể khiến tâm trạng mẹ thay đổi thất thường, và mẹ có thể vẫn thấy mệt dù đã ngủ đủ giấc. Cơ thể mẹ đang làm việc rất vất vả để nuôi dưỡng thai kỳ, nên mệt mỏi lúc này là bình thường và thường sẽ đỡ dần về sau."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Eating small, plain meals often can help, as an empty stomach tends to make nausea worse. Some women find dry crackers or foods made with ginger helpful. Sip water through the day rather than drinking a lot at once, and rest whenever you can. For now, it is fine to eat whatever plain foods you can manage. Fresh air and cool drinks may also help when smells feel overwhelming.",
+            "If you are vomiting so often that you cannot keep any fluids down, contact your doctor or midwife the same day. For other reasons to get help, see the warning signs below."
+          ],
+          "vi": [
+            "Mẹ hãy chia nhỏ bữa ăn, ăn nhiều lần những món thanh đạm, vì để bụng đói thường làm cơn buồn nôn nặng hơn. Một số mẹ thấy dễ chịu hơn với bánh quy nhạt hoặc món ăn có gừng. Mẹ nên uống nước từng ngụm nhỏ suốt cả ngày thay vì uống nhiều một lúc, và nghỉ ngơi bất cứ khi nào có thể. Lúc này, mẹ cứ ăn những món thanh đạm mà mình thấy ăn được. Không khí thoáng mát và đồ uống mát cũng có thể giúp mẹ dễ chịu hơn khi mùi quá nồng.",
+            "Nếu nôn nhiều đến mức không giữ được chút nước nào, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay trong ngày. Những dấu hiệu khác cần lưu ý, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2
+        ]
       }
     },
     {
@@ -223,6 +376,58 @@
           "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's brain is growing fast this week, and the tiny arm buds are stretching out into flat paddles that will become hands.",
+          "vi": "Tuần này não bộ của bé phát triển rất nhanh, và mầm tay nhỏ đang dài ra, dẹt lại như mái chèo, sau này sẽ thành bàn tay."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby's head is large compared with the body, because the brain is growing so quickly. The body still curls forward in a gentle C shape. At this stage, your baby is measured from the top of the head to the bottom, as the legs are still very small."
+          ],
+          "vi": [
+            "Đầu bé trông khá to so với thân, vì não đang lớn rất nhanh. Cơ thể bé vẫn hơi cong về phía trước như hình chữ C. Ở giai đoạn này, chiều dài của bé được đo từ đỉnh đầu đến mông, vì chân còn rất nhỏ."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's brain is growing quickly, and new nerve cells are forming all the time. That is why the head looks so large for the body. The different parts of the brain are also starting to take shape.",
+            "The arm buds have lengthened and flattened into small paddles, which will later become hands. The leg buds follow a few days behind. Deeper inside, the kidneys have begun to form.",
+            "The umbilical cord now links your baby to the developing placenta. Over the coming weeks, it will carry oxygen and nourishment to your baby and take waste away. Until the placenta is fully working, the yolk sac still helps with early nourishment."
+          ],
+          "vi": [
+            "Não bộ của bé đang lớn rất nhanh, các tế bào thần kinh mới được tạo ra liên tục. Đó là lý do đầu bé trông to so với cơ thể. Các vùng khác nhau của não cũng bắt đầu thành hình.",
+            "Mầm tay đã dài ra và dẹt lại thành những mái chèo nhỏ, sau này sẽ thành bàn tay. Mầm chân phát triển chậm hơn vài ngày. Sâu bên trong, thận của bé cũng đã bắt đầu hình thành.",
+            "Dây rốn giờ đây nối bé với nhau thai đang phát triển. Trong những tuần tới, dây rốn sẽ mang oxy và dưỡng chất đến cho bé, đồng thời đưa chất thải đi. Trong lúc nhau thai chưa hoạt động đầy đủ, túi noãn hoàng vẫn góp phần nuôi dưỡng bé."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your womb is growing to make room for your baby, but your bump will not show for a while yet. You may feel bloated, and constipation is common, because pregnancy hormones slow down your bowels. Some women also notice more saliva than usual.",
+            "You may need to pee often, as the growing womb presses on your bladder and your kidneys work harder. Tiredness and nausea may still be part of your days. If you can, rest during the day and go to bed a little earlier."
+          ],
+          "vi": [
+            "Tử cung đang lớn dần để nhường chỗ cho bé, nhưng phải một thời gian nữa bụng mẹ mới lộ rõ. Mẹ có thể thấy đầy hơi, và táo bón khá thường gặp vì nội tiết thai kỳ làm ruột hoạt động chậm lại. Một số mẹ còn thấy tiết nhiều nước bọt hơn bình thường.",
+            "Mẹ có thể phải đi tiểu nhiều lần, vì tử cung lớn dần đè lên bàng quang và thận làm việc nhiều hơn. Mệt mỏi và buồn nôn có thể vẫn còn theo mẹ trong những ngày này. Nếu có thể, mẹ hãy nghỉ ngơi thêm trong ngày và đi ngủ sớm hơn một chút."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Your first check-up usually happens between weeks 6 and 8. Before you go, write down any questions you have. For example, ask which foods to avoid, which tests are offered and how to reach the clinic if you feel unwell. Take a notebook, too, so you can write down the answers.",
+            "To ease constipation, eat plenty of vegetables and fruit, which are rich in fibre, and drink enough water through the day. Gentle movement, such as a short walk, may also help. See the warning signs below for when to get help."
+          ],
+          "vi": [
+            "Lần khám thai đầu tiên thường vào khoảng tuần 6 đến tuần 8. Trước khi đi, mẹ hãy ghi sẵn những điều muốn hỏi, như nên kiêng món gì, có những xét nghiệm nào và cách liên hệ phòng khám khi thấy không khỏe. Mẹ có thể mang theo một cuốn sổ nhỏ để ghi lại lời dặn.",
+            "Để đỡ táo bón, mẹ nên ăn nhiều rau xanh và trái cây giàu chất xơ, đồng thời uống đủ nước trong ngày. Vận động nhẹ nhàng như đi bộ một lát cũng có thể giúp ích. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          5
         ]
       }
     },
@@ -280,6 +485,58 @@
           "Nôn hết mọi thứ, kèm chóng mặt hoặc nước tiểu sẫm màu: mẹ hãy đi khám bác sĩ trong ngày.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's fingers and toes are beginning to form this week, and your baby is already making small movements that you cannot feel yet.",
+          "vi": "Tuần này ngón tay, ngón chân của bé bắt đầu hình thành, và bé đã có những cử động nhỏ mà mẹ chưa thể cảm nhận."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is starting to straighten out a little from the curled shape of the early weeks. The head is still large for the body, and the arms and legs grow longer week by week. Babies grow at slightly different rates, so a scan may differ a little."
+          ],
+          "vi": [
+            "Cơ thể bé bắt đầu duỗi ra một chút so với dáng cong của những tuần đầu. Đầu bé vẫn khá to so với thân, còn tay chân thì dài thêm qua từng tuần. Mỗi bé lớn theo nhịp riêng, nên số đo trên siêu âm có thể hơi khác một chút."
+          ]
+        },
+        "development": {
+          "en": [
+            "Small grooves have appeared on the hands and feet where the fingers and toes will be. For now they are still joined by thin webbing, which will slowly disappear over the next few weeks.",
+            "Your baby's face is changing too. The eyelids are starting to form, along with the upper lip and the tip of the nose. Bit by bit, the features are moving into their places.",
+            "The heart usually beats steadily, much faster than your own, and it is dividing into separate chambers. Your baby also makes tiny, jerky movements, but they are far too small for you to feel. Most women first notice movements much later in pregnancy."
+          ],
+          "vi": [
+            "Trên bàn tay và bàn chân đã xuất hiện những rãnh nhỏ, đánh dấu vị trí các ngón sau này. Hiện các ngón vẫn còn dính với nhau bởi một lớp màng mỏng, lớp màng này sẽ dần mất đi trong vài tuần tới.",
+            "Gương mặt bé cũng đang thay đổi. Mí mắt bắt đầu hình thành, cùng với môi trên và chóp mũi. Từng chút một, các đường nét trên gương mặt đang dần về đúng vị trí.",
+            "Tim bé thường đập đều đặn, nhanh hơn nhiều so với tim mẹ, và đang dần chia thành các buồng riêng biệt. Bé cũng đã có những cử động giật nhẹ, nhưng còn quá nhỏ để mẹ cảm nhận được. Phần lớn các mẹ phải nhiều tuần nữa mới thấy bé máy."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your waistband may start to feel tighter even before your bump shows, as your womb grows and bloating comes and goes. Your breasts keep changing too: they may feel fuller and more tender, and the skin around the nipples may get darker.",
+            "For many women, nausea and tiredness are at their strongest around now. It may help to know that, for most, these feelings ease as the weeks go by. Where you can, accept help with meals and household chores, and take short rests during the day."
+          ],
+          "vi": [
+            "Cạp quần có thể bắt đầu thấy chật dù bụng chưa lộ rõ, vì tử cung lớn dần và mẹ hay bị đầy hơi. Ngực mẹ cũng tiếp tục thay đổi: căng đầy và nhạy cảm hơn, quầng vú có thể sẫm màu dần.",
+            "Với nhiều mẹ, buồn nôn và mệt mỏi thường rõ nhất vào khoảng thời gian này. Mẹ hãy nhớ rằng ở phần lớn các mẹ, những cảm giác này sẽ dịu dần theo thời gian. Khi có thể, mẹ đừng ngại nhờ người thân giúp việc nấu nướng, dọn dẹp, và tranh thủ nghỉ ngắn trong ngày."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Your first visit usually includes blood tests, a urine test and a blood pressure check. Your doctor or midwife will explain what each test is for, so feel free to ask questions. Keep all your results together in your pregnancy record book, and bring it to every visit.",
+            "Wash fruit and vegetables well before eating, and wash your hands before meals and after touching raw meat. These simple habits help protect you from infections. See the warning signs below for when to get help."
+          ],
+          "vi": [
+            "Lần khám đầu tiên thường gồm xét nghiệm máu, xét nghiệm nước tiểu và đo huyết áp. Bác sĩ hoặc nữ hộ sinh sẽ giải thích mục đích của từng xét nghiệm, mẹ cứ thoải mái hỏi. Mẹ hãy lưu mọi kết quả trong sổ khám thai và mang theo sổ mỗi lần đi khám.",
+            "Mẹ nên rửa sạch rau quả trước khi ăn, rửa tay trước bữa ăn và sau khi chạm vào thịt sống. Những thói quen đơn giản này giúp mẹ phòng tránh nhiễm trùng. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          5
+        ]
       }
     },
     {
@@ -331,6 +588,58 @@
           "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
           "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "All of your baby's main organs have now begun to form, and the tiny arms can already bend at the elbows.",
+          "vi": "Tất cả các cơ quan chính của bé nay đã bắt đầu hình thành, và cánh tay nhỏ xíu đã gập được ở khuỷu."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby looks more and more like a tiny person. The body is slowly straightening, the neck is becoming clearer, and the hands and feet now stand out at the ends of the limbs. Your baby can also move the whole body a little, though you will not feel it."
+          ],
+          "vi": [
+            "Bé ngày càng giống một em bé tí hon. Cơ thể duỗi thẳng dần, phần cổ rõ hơn, và bàn tay, bàn chân đã hiện rõ ở cuối tay chân. Bé cũng đã có thể cử động cả người một chút, dù mẹ chưa cảm nhận được."
+          ]
+        },
+        "development": {
+          "en": [
+            "By this week, all of the main organs, including the heart, brain, lungs, liver and kidneys, have begun to form. They are far from finished, and they will keep growing and maturing for months. At this stage, the liver is busy making blood cells.",
+            "Muscles are developing, so the arms can now bend at the elbows, and the fingers are becoming more distinct. The small tail-like end at the bottom of the spine, seen in earlier weeks, has now almost disappeared.",
+            "On the sides of the head, the outer ears are beginning to form. Inside the gums, tiny buds that will one day become the baby teeth are starting to appear. The eyelids are growing over the eyes and will soon close."
+          ],
+          "vi": [
+            "Đến tuần này, tất cả các cơ quan chính như tim, não, phổi, gan và thận đều đã bắt đầu hình thành. Chúng còn lâu mới hoàn thiện, và sẽ tiếp tục lớn lên, trưởng thành trong nhiều tháng tới. Ở giai đoạn này, gan của bé đang đảm nhận việc tạo ra các tế bào máu.",
+            "Cơ bắp đang phát triển, nên cánh tay đã gập được ở khuỷu, và các ngón tay ngày càng rõ hơn. Phần đuôi nhỏ ở cuối cột sống, thấy được ở những tuần trước, giờ gần như đã biến mất.",
+            "Hai bên đầu, vành tai bắt đầu hình thành. Bên trong lợi, những mầm nhỏ sau này sẽ thành răng sữa cũng đang dần xuất hiện. Mí mắt đang dần che phủ đôi mắt và sắp khép lại."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your breasts may be growing, and the veins on them may look more visible as your blood supply increases. They may also feel tender. Heartburn is common too, because pregnancy hormones relax the ring of muscle at the top of your stomach.",
+            "Mood swings and tiredness may still come and go. It is fine to have days when you feel low or worried. Talking about how you feel with people close to you, or with your doctor or midwife, can help. Rest when you can, as tiredness can make low moods feel heavier."
+          ],
+          "vi": [
+            "Ngực mẹ có thể to lên, và các mạch máu trên ngực hiện rõ hơn do lượng máu trong cơ thể tăng. Ngực cũng có thể căng tức. Ợ nóng cũng hay gặp, vì nội tiết thai kỳ làm giãn vòng cơ ở đầu trên dạ dày.",
+            "Tâm trạng thất thường và mệt mỏi có thể vẫn đến rồi đi. Có những ngày mẹ thấy buồn hay lo lắng cũng không sao cả. Chia sẻ cảm xúc với người thân, bạn bè, hoặc với bác sĩ, nữ hộ sinh có thể giúp mẹ nhẹ lòng hơn. Mẹ hãy nghỉ ngơi khi có thể, vì mệt mỏi dễ khiến tâm trạng nặng nề hơn."
+          ]
+        },
+        "todo": {
+          "en": [
+            "A supportive, well-fitting bra can make tender breasts more comfortable, and you may need a bigger size soon. Some women also like to wear a soft bra at night. Soft cotton and a band that does not dig in usually feel best.",
+            "For heartburn, try eating smaller meals more often, and avoid lying down straight after eating. If heartburn keeps bothering you, ask your doctor or midwife what might help, rather than choosing a remedy yourself. See the warning signs below for when to get help."
+          ],
+          "vi": [
+            "Một chiếc áo ngực vừa vặn, nâng đỡ tốt sẽ giúp ngực đỡ căng tức, và có thể mẹ sẽ sớm cần cỡ lớn hơn. Một số mẹ thấy dễ chịu hơn khi mặc áo ngực mềm vào ban đêm. Áo bằng vải cotton mềm, có viền không bó chặt thường dễ chịu nhất.",
+            "Để đỡ ợ nóng, mẹ hãy chia nhỏ bữa ăn và tránh nằm ngay sau khi ăn. Nếu ợ nóng vẫn làm mẹ khó chịu, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh cách xử lý, thay vì tự chọn thuốc. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          5
         ]
       }
     },
@@ -389,6 +698,59 @@
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "From this week your baby is called a fetus: the major organs are all in place, and from now on they keep growing and maturing.",
+          "vi": "Từ tuần này bé được gọi là thai nhi: các cơ quan chính đã có đủ, và từ đây chúng tiếp tục lớn lên, hoàn thiện dần."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is growing quickly now and gaining weight week by week. The head is still large compared with the body, but the rest of the body is slowly catching up. Every baby follows a slightly different curve, so small differences between weeks are normal."
+          ],
+          "vi": [
+            "Bé đang lớn nhanh và nặng thêm qua từng tuần. Đầu bé vẫn còn to so với thân, nhưng phần cơ thể đang dần bắt kịp. Mỗi bé lớn theo một đường cong hơi khác nhau, nên chênh lệch nhỏ giữa các tuần là bình thường."
+          ]
+        },
+        "development": {
+          "en": [
+            "Until now, your baby has been called an embryo. From this week, the word is fetus. The major organs are in place, and from here on their work is mainly to grow and mature. The heart has now formed its four chambers, and it beats very fast.",
+            "The fingers and toes have separated, and the webbing between them has gone. Tiny nails are starting to grow on them. The arms and legs can now bend at the joints.",
+            "Much of the skeleton starts out as soft cartilage, which is now beginning to harden into bone. This hardening continues through the rest of pregnancy and even after birth."
+          ],
+          "vi": [
+            "Trước đây bé được gọi là phôi. Từ tuần này, bé được gọi là thai nhi. Các cơ quan chính đã có đủ, và từ giờ việc chủ yếu của chúng là lớn lên và hoàn thiện dần. Tim bé nay đã có đủ bốn buồng và đập rất nhanh.",
+            "Các ngón tay, ngón chân đã tách rời, lớp màng giữa các ngón không còn nữa. Những chiếc móng nhỏ xíu bắt đầu mọc. Tay chân bé đã gập được ở các khớp.",
+            "Phần lớn bộ xương ban đầu là sụn mềm, nay bắt đầu cứng dần thành xương. Quá trình này còn tiếp diễn suốt thai kỳ và cả sau khi bé chào đời."
+          ]
+        },
+        "body": {
+          "en": [
+            "You may feel mild aches or twinges low in your belly as your womb stretches and the ligaments that support it soften. These are usually brief, and they come and go. Sitting down for a while or changing position slowly may ease them. If the pain is strong, or comes with bleeding, see the warning signs below.",
+            "Feeling emotional or anxious is common in early pregnancy. You may worry about your baby, about money or about the changes ahead in your life. Talking these feelings through with people you trust often helps, and your doctor or midwife is there to listen too. If worry stays with you on most days, tell your doctor or midwife, as support is available."
+          ],
+          "vi": [
+            "Mẹ có thể thấy hơi đau hoặc nhói nhẹ ở bụng dưới khi tử cung giãn ra và các dây chằng nâng đỡ tử cung mềm dần. Những cơn đau này thường thoáng qua, lúc có lúc không. Ngồi nghỉ một lát hoặc đổi tư thế từ từ có thể giúp mẹ đỡ hơn. Nếu đau nhiều hoặc kèm ra máu, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Dễ xúc động hay lo lắng là điều thường gặp trong những tháng đầu. Mẹ có thể lo cho bé, lo chuyện tiền bạc hay những thay đổi sắp tới trong cuộc sống. Tâm sự với người mình tin tưởng thường giúp mẹ nhẹ lòng hơn, và bác sĩ hoặc nữ hộ sinh cũng luôn sẵn lòng lắng nghe. Nếu nỗi lo lắng kéo dài gần như mỗi ngày, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh để được hỗ trợ."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Between weeks 11 and 14, many clinics offer a nuchal translucency scan, sometimes together with a blood test called the double test. Ask your doctor or midwife what these tests look for, whether you need them, and when to book.",
+            "Gentle exercise, such as walking or swimming, is good for most pregnant women. Check with your doctor or midwife first, and slow down if you feel short of breath or unwell. See the warning signs below for when to get help."
+          ],
+          "vi": [
+            "Trong khoảng tuần 11 đến tuần 14, nhiều cơ sở y tế có siêu âm đo độ mờ da gáy, đôi khi kèm xét nghiệm máu gọi là double test. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh các xét nghiệm này để làm gì, mình có cần làm không và nên đặt lịch khi nào.",
+            "Vận động nhẹ nhàng như đi bộ hoặc bơi tốt cho hầu hết các mẹ bầu. Mẹ hãy hỏi ý kiến bác sĩ hoặc nữ hộ sinh trước, và chậm lại nếu thấy hụt hơi hay không khỏe. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ]
       }
     },
     {
@@ -446,6 +808,59 @@
           "Khí hư ngứa, có mùi hôi hoặc màu xanh: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby is busy kicking, stretching and even hiccuping this week, though it will be many weeks before you can feel any of it.",
+          "vi": "Tuần này bé đạp, vươn vai, thậm chí còn nấc cụt, dù phải nhiều tuần nữa mẹ mới cảm nhận được."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby's head is still about half the length of the whole body. Over the coming weeks, the body grows faster than the head, and your baby will look more evenly proportioned."
+          ],
+          "vi": [
+            "Đầu bé lúc này vẫn dài khoảng một nửa chiều dài cơ thể. Trong những tuần tới, thân bé sẽ lớn nhanh hơn đầu, giúp bé trông cân đối hơn."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby moves a lot: kicking, stretching, turning and sometimes hiccuping. These movements help the muscles and joints develop. Because your baby is so small and well cushioned by fluid, you will not feel them yet. Your baby is also starting to open the mouth and swallow small amounts of amniotic fluid.",
+            "The bones keep hardening, little by little. Tiny hair follicles are forming in the skin. The fingers and toes are now fully separate, and the nails keep growing. The skin is still very thin and see-through.",
+            "The face is maturing too. The eyelids have closed over the eyes, and they usually stay shut until later in pregnancy. The ears are slowly moving up towards their final place on the sides of the head."
+          ],
+          "vi": [
+            "Bé cử động rất nhiều: đạp chân, vươn vai, xoay người, có khi còn nấc cụt. Những cử động này giúp cơ và khớp phát triển. Vì bé còn rất nhỏ và được nước ối bao bọc êm ái, mẹ chưa cảm nhận được. Bé cũng bắt đầu biết há miệng và nuốt một ít nước ối.",
+            "Xương bé tiếp tục cứng dần từng chút một. Trong da, những nang lông nhỏ li ti đang hình thành. Các ngón tay, ngón chân đã tách rời hẳn, và móng vẫn đang mọc dài thêm. Da bé vẫn còn rất mỏng và trong.",
+            "Gương mặt bé cũng đang hoàn thiện dần. Mí mắt đã khép lại che đôi mắt, và thường sẽ khép như vậy cho đến giai đoạn sau của thai kỳ. Đôi tai đang dần dịch lên vị trí cuối cùng ở hai bên đầu."
+          ]
+        },
+        "body": {
+          "en": [
+            "For some women, nausea starts to ease around now, while for others it lasts a few more weeks. If you are still feeling sick, that is common too. Your appetite may start to come back as well.",
+            "You may notice more vaginal discharge than before. Discharge that is clear or white and does not smell strongly is normal in pregnancy. It comes from higher hormone levels and more blood flowing to the area. Cotton underwear, and avoiding scented soaps in that area, may help you stay comfortable."
+          ],
+          "vi": [
+            "Với một số mẹ, cơn buồn nôn bắt đầu giảm từ khoảng thời gian này, dù có mẹ còn nghén thêm vài tuần. Nếu mẹ vẫn còn nghén, điều đó cũng rất thường gặp. Cảm giác thèm ăn cũng có thể dần quay lại.",
+            "Mẹ có thể thấy khí hư nhiều hơn trước. Khí hư trong hoặc trắng, không có mùi nặng là bình thường khi mang thai. Đó là do nội tiết tố tăng và lượng máu đến vùng kín nhiều hơn. Mặc đồ lót bằng vải cotton và tránh dùng xà phòng có mùi thơm ở vùng kín có thể giúp mẹ thấy dễ chịu hơn."
+          ]
+        },
+        "todo": {
+          "en": [
+            "The nuchal translucency scan and the double test blood test are usually done between weeks 11 and 14. If you and your doctor or midwife have decided to have them, check that your appointment falls within this window.",
+            "Try to include protein, iron-rich foods and dairy in your meals. Lean meat, fish and eggs that are well cooked, beans, tofu, dark green vegetables, milk and yoghurt are all good choices. If you take iron, take it as your doctor or midwife advises. See the warning signs below for when to get help."
+          ],
+          "vi": [
+            "Siêu âm đo độ mờ da gáy và xét nghiệm máu double test thường được làm trong khoảng tuần 11 đến tuần 14. Nếu mẹ và bác sĩ hoặc nữ hộ sinh đã thống nhất làm các xét nghiệm này, mẹ hãy kiểm tra để lịch hẹn rơi đúng khoảng thời gian đó.",
+            "Mẹ nên có chất đạm, thực phẩm giàu sắt và sữa hoặc chế phẩm từ sữa trong bữa ăn. Thịt nạc, cá, trứng nấu chín kỹ, các loại đậu, đậu phụ, rau xanh đậm, sữa và sữa chua đều là lựa chọn tốt. Nếu có bổ sung sắt, mẹ hãy dùng theo hướng dẫn của bác sĩ hoặc nữ hộ sinh. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ]
       }
     },
     {
@@ -500,6 +915,59 @@
           "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
           "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's reflexes are developing this week: the fingers can open and close, the toes can curl, and the kidneys have started making urine.",
+          "vi": "Tuần này phản xạ của bé đang phát triển: ngón tay biết xòe và nắm, ngón chân biết co lại, và thận đã bắt đầu tạo nước tiểu."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby now has a clearly human shape, with a rounded head and a body and limbs in better proportion. The body is catching up with the head, and growth stays fast over the next few weeks."
+          ],
+          "vi": [
+            "Bé giờ đã mang dáng hình một em bé rõ ràng, với đầu tròn, thân và tay chân cân đối hơn. Thân bé đang bắt kịp phần đầu, và bé vẫn lớn nhanh trong vài tuần tới."
+          ]
+        },
+        "development": {
+          "en": [
+            "Reflexes are developing. Your baby's fingers can open and close, the toes can curl, and your baby may start to make small sucking movements with the mouth. These early reflexes are practice for skills your baby will need after birth, such as feeding.",
+            "The kidneys have started to make urine, which passes into the amniotic fluid around your baby. This is a normal part of how the fluid is renewed. Your baby also swallows some of this fluid, which helps the gut practise its work.",
+            "In earlier weeks, part of the intestines grew inside the umbilical cord, because there was not yet enough room in the belly. Now they are moving back into your baby's belly, where they will stay."
+          ],
+          "vi": [
+            "Phản xạ của bé đang phát triển. Các ngón tay biết xòe ra rồi nắm lại, ngón chân biết co, và bé có thể bắt đầu có những cử động mút nhỏ ở miệng. Những phản xạ ban đầu này là bước tập dượt cho các kỹ năng bé cần sau khi chào đời, như bú.",
+            "Thận của bé đã bắt đầu tạo nước tiểu và thải vào nước ối xung quanh bé. Đây là một phần bình thường của quá trình nước ối được làm mới. Bé cũng nuốt một phần nước ối, giúp ruột tập làm quen với công việc của mình.",
+            "Ở những tuần trước, một phần ruột phát triển bên trong dây rốn vì trong bụng bé chưa đủ chỗ. Giờ đây ruột đang dần trở vào trong ổ bụng và sẽ nằm yên ở đó."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your womb has grown enough to rise above your pubic bone, the bone at the front of your pelvis. Your doctor or midwife may now be able to feel the top of it by gently pressing on your lower belly. Other people may still not notice a bump.",
+            "Many women find that nausea eases around this time and their energy slowly returns. If you still feel sick or tired, that is common too, and it may take a few more weeks."
+          ],
+          "vi": [
+            "Tử cung đã lớn đến mức nhô lên trên xương mu, phần xương ở phía trước khung chậu. Lúc này bác sĩ hoặc nữ hộ sinh có thể sờ thấy đáy tử cung khi ấn nhẹ lên bụng dưới của mẹ. Tuy vậy, người ngoài có thể vẫn chưa nhận ra bụng bầu.",
+            "Nhiều mẹ thấy cơn buồn nôn dịu bớt vào khoảng thời gian này, và sức lực dần hồi phục. Nếu mẹ vẫn còn nghén hay mệt, điều đó cũng thường gặp, có thể cần thêm vài tuần nữa."
+          ]
+        },
+        "todo": {
+          "en": [
+            "If you have not had your screening scan yet, ask your doctor or midwife about it this week. It is usually done between weeks 11 and 14. They can explain the results and any next steps. Bring your pregnancy record book so the results can be noted.",
+            "Keep taking the supplements your doctor or midwife recommends, such as folic acid or iron, as they advise. If nausea makes them hard to take, tell your doctor or midwife rather than stopping on your own. See the warning signs below for when to get help."
+          ],
+          "vi": [
+            "Nếu chưa siêu âm sàng lọc, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh ngay trong tuần này, vì siêu âm này thường được làm trong khoảng tuần 11 đến tuần 14. Bác sĩ hoặc nữ hộ sinh sẽ giải thích kết quả và các bước tiếp theo nếu cần. Mẹ nhớ mang theo sổ khám thai để ghi lại kết quả.",
+            "Mẹ hãy tiếp tục dùng các loại vitamin, khoáng chất như axit folic hay sắt theo hướng dẫn của bác sĩ hoặc nữ hộ sinh. Nếu thấy khó uống vì buồn nôn, mẹ hãy báo với bác sĩ hoặc nữ hộ sinh thay vì tự ý ngừng. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4,
+          5
         ]
       }
     },
@@ -556,6 +1024,59 @@
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "This is the last week of your first trimester: your baby's vocal cords are forming, and tiny fingerprints are appearing on the fingertips.",
+          "vi": "Đây là tuần cuối của tam cá nguyệt thứ nhất: dây thanh âm của bé đang hình thành, và vân tay nhỏ xíu bắt đầu hiện trên đầu ngón tay."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is growing steadily and looks more in proportion each week. From the second trimester, scans usually measure your baby in other ways, such as around the head and along the thigh bone."
+          ],
+          "vi": [
+            "Bé lớn đều và ngày càng cân đối hơn. Từ tam cá nguyệt thứ hai, siêu âm thường đo bé theo những cách khác, như đo vòng đầu và chiều dài xương đùi."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's vocal cords are forming in the voice box. They cannot make a sound before birth, because there is no air in the womb. Even so, they are getting ready for your baby's first cry.",
+            "The intestines have now settled inside the belly. Fingerprints are starting to form on the tips of the fingers, as tiny ridges in the skin. Each pattern is unique to your baby. The eyes, which started out on the sides of the head, have moved closer to the front of the face.",
+            "The skeleton keeps hardening, and the bones of the arms, legs and skull are getting stronger. Your baby moves often, though it will usually be several more weeks before you notice anything. The hands can now reach the face, and your baby may touch it now and then."
+          ],
+          "vi": [
+            "Dây thanh âm của bé đang hình thành trong thanh quản. Bé chưa phát ra tiếng khi còn trong bụng mẹ, vì trong tử cung không có không khí, nhưng dây thanh âm đang chuẩn bị cho tiếng khóc đầu đời.",
+            "Ruột bé nay đã nằm gọn trong ổ bụng. Vân tay bắt đầu hình thành trên đầu các ngón tay, là những đường gờ nhỏ trên da. Mỗi bé có một hoa văn vân tay riêng. Đôi mắt, lúc đầu nằm ở hai bên đầu, nay đã dịch dần về phía trước khuôn mặt.",
+            "Bộ xương tiếp tục cứng dần, xương tay, xương chân và xương sọ ngày càng chắc hơn. Bé cử động thường xuyên, dù thường phải vài tuần nữa mẹ mới nhận ra. Tay bé giờ đã chạm tới mặt, và thỉnh thoảng bé có thể đưa tay lên mặt."
+          ]
+        },
+        "body": {
+          "en": [
+            "This is the last week of the first trimester. Many women feel more energetic now, as nausea eases and tiredness lifts. If you still feel unwell, it may take a little longer, and that is common too. Your appetite may grow, so choose filling meals with vegetables, whole grains and protein.",
+            "As your belly begins to grow, the skin there and on your hips may feel dry, tight or a little itchy. Your waist may thicken, and you may start to want looser clothes. Some women notice changes in skin colour, such as darker nipples, which usually fade after birth."
+          ],
+          "vi": [
+            "Đây là tuần cuối của tam cá nguyệt thứ nhất. Nhiều mẹ thấy khỏe khoắn hơn khi cơn nghén dịu đi và bớt mệt mỏi. Nếu mẹ vẫn còn khó chịu, có thể cần thêm ít thời gian nữa, điều đó cũng rất thường gặp. Mẹ có thể ăn ngon miệng hơn, nên hãy chọn những bữa ăn no lâu với rau, ngũ cốc nguyên hạt và chất đạm.",
+            "Khi bụng bắt đầu lớn, da bụng và hông có thể thấy khô, căng hoặc hơi ngứa. Vòng eo cũng dày hơn, và mẹ có thể bắt đầu muốn mặc quần áo rộng rãi hơn. Một số mẹ thấy da thay đổi màu, như quầng vú sẫm hơn, và những thay đổi này thường nhạt dần sau sinh."
+          ]
+        },
+        "todo": {
+          "en": [
+            "If you planned the screening scan but have not had it yet, ask your doctor or midwife about it this week. Talk with your doctor or midwife about your check-ups in the second trimester, and note the dates in your pregnancy record book. Keep your test results in the book too, so they are easy to find at each visit. Many women also choose this time to share their news with others, whenever they feel ready.",
+            "Moisturising your belly and hips each day, for example after a shower, may help with dry or itchy skin. Loose clothes made of soft fabric can also feel more comfortable. See the warning signs below for when to get help."
+          ],
+          "vi": [
+            "Nếu mẹ dự định làm siêu âm sàng lọc mà chưa làm, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh ngay trong tuần này. Mẹ hãy trao đổi với bác sĩ hoặc nữ hộ sinh về lịch khám trong tam cá nguyệt thứ hai, và ghi các ngày hẹn vào sổ khám thai. Mẹ cũng nên lưu các kết quả xét nghiệm trong sổ để tiện mang theo mỗi lần khám. Nhiều mẹ cũng chọn thời điểm này để báo tin vui với mọi người, vào lúc mẹ thấy sẵn sàng.",
+            "Dưỡng ẩm vùng bụng và hông mỗi ngày, chẳng hạn sau khi tắm, có thể giúp đỡ khô và ngứa da. Quần áo rộng, chất vải mềm cũng giúp mẹ dễ chịu hơn. Khi nào cần đi khám, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4,
+          5
+        ]
       }
     },
     {
@@ -607,6 +1128,58 @@
         "vi": [
           "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby can now squint and frown, and a fine, soft hair is starting to grow over the skin.",
+          "vi": "Bé đã biết nheo mắt, nhíu mày, và một lớp lông tơ mềm mịn đang bắt đầu mọc trên da bé."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby could still rest in the palm of your hand. The body is now growing faster than the head, so your baby looks a little less top-heavy each week. In the months ahead, scans usually estimate weight by combining several measurements."
+          ],
+          "vi": [
+            "Lúc này bé vẫn đủ nhỏ để nằm gọn trong lòng bàn tay. Thân mình giờ lớn nhanh hơn phần đầu, nên qua từng tuần bé trông cân đối hơn. Trong những tháng tới, siêu âm thường ước tính cân nặng của bé bằng cách kết hợp nhiều số đo."
+          ]
+        },
+        "development": {
+          "en": [
+            "The muscles of your baby's face are getting busy. Your baby can squint, frown and make other small expressions, as if practising the movements of the face. The neck is getting longer, so the head sits more upright on the body.",
+            "A fine, soft hair called lanugo is starting to grow over the skin. Most of it usually falls out before birth or soon after.",
+            "Inside, the organs are taking on new jobs. The liver has started to make bile, a fluid that later helps with digesting food. The spleen is helping to make blood cells. Your baby moves a lot, though these movements are usually still too light for you to feel."
+          ],
+          "vi": [
+            "Các cơ trên khuôn mặt bé đang hoạt động nhiều hơn. Bé có thể nheo mắt, nhíu mày và làm những biểu cảm nhỏ khác, như đang tập cử động gương mặt. Cổ bé dài ra, nên đầu bé dần ngẩng thẳng hơn.",
+            "Một lớp lông tơ mỏng, mềm gọi là lanugo đang bắt đầu mọc phủ lên da. Phần lớn lớp lông này thường rụng đi trước khi bé chào đời hoặc ít lâu sau sinh.",
+            "Bên trong cơ thể, các cơ quan đang đảm nhận thêm việc mới. Gan bắt đầu tiết ra mật, chất dịch sau này giúp tiêu hóa thức ăn. Lá lách cũng góp phần tạo ra các tế bào máu. Bé cử động khá nhiều, nhưng những cử động này thường còn quá nhẹ để mẹ cảm nhận được."
+          ]
+        },
+        "body": {
+          "en": [
+            "Welcome to the second trimester. For many women, this is the most comfortable stage of pregnancy. Nausea and tiredness often ease, and your appetite may come back. Some women still feel sick for a while longer, and that is common too.",
+            "Your womb is now rising above your pelvic bone, so your bump may start to show, especially if this is not your first pregnancy. Pregnancy hormones can also make your gums softer and more likely to swell or bleed when you brush. This usually settles after birth."
+          ],
+          "vi": [
+            "Chào mừng mẹ bước sang tam cá nguyệt thứ hai. Với nhiều mẹ, đây là giai đoạn dễ chịu nhất của thai kỳ. Cơn nghén và cảm giác mệt mỏi thường dịu dần, mẹ cũng có thể ăn ngon miệng trở lại. Có mẹ vẫn còn buồn nôn thêm một thời gian, điều này cũng thường gặp.",
+            "Tử cung lúc này đã lớn vượt lên trên xương mu, nên bụng mẹ có thể bắt đầu lộ ra, nhất là từ lần mang thai thứ hai trở đi. Nội tiết thai kỳ cũng làm lợi mềm hơn, dễ sưng hoặc chảy máu khi đánh răng. Tình trạng này thường hết sau sinh."
+          ]
+        },
+        "todo": {
+          "en": [
+            "If your doctor or midwife agrees, aim for some gentle exercise most days. Walking, swimming and pregnancy yoga are good choices. A comfortable pace is one at which you can still talk normally. Stop and rest if you feel dizzy, short of breath or unwell.",
+            "Book a check-up with a dentist, and tell them you are pregnant. Brush gently twice a day and clean between your teeth. Regular check-ups help keep your teeth and gums healthy through pregnancy. To know when to contact your doctor, see the warning signs below."
+          ],
+          "vi": [
+            "Nếu bác sĩ hoặc nữ hộ sinh đồng ý, mẹ hãy vận động nhẹ nhàng gần như mỗi ngày. Đi bộ, bơi hay yoga cho bà bầu đều là những lựa chọn tốt. Tập vừa sức là khi mẹ vẫn nói chuyện được bình thường. Nếu thấy chóng mặt, hụt hơi hay mệt, mẹ hãy dừng lại nghỉ ngơi.",
+            "Mẹ cũng nên đi khám răng và báo cho nha sĩ biết mình đang mang thai. Hãy chải răng nhẹ nhàng hai lần mỗi ngày và làm sạch kẽ răng. Khám răng định kỳ giúp giữ cho răng và lợi khỏe mạnh suốt thai kỳ. Để biết khi nào cần liên hệ bác sĩ, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -662,6 +1235,58 @@
           "Ra nước âm đạo, rỉ rả hay ồ ạt: mẹ hãy đến khoa sản của bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's bones are hardening and show clearly on a scan, and even behind closed eyelids your baby may sense light.",
+          "vi": "Xương bé đang cứng dần, hiện rõ trên siêu âm, và dù mí mắt còn khép, bé có thể đã cảm nhận được ánh sáng."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is growing quickly now and gains a little more weight each week. In shape, your baby looks more and more like a newborn, only much smaller and thinner."
+          ],
+          "vi": [
+            "Lúc này bé lớn khá nhanh, mỗi tuần lại nặng thêm một chút. Về hình dáng, bé ngày càng giống một em bé sơ sinh, chỉ nhỏ và gầy hơn nhiều."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's skeleton keeps hardening, as calcium is laid down in the bones. On a scan, the spine, the ribs and the bones of the arms and legs now show up clearly. The legs have grown longer than the arms.",
+            "The eyelids are still closed and protect the developing eyes. Even so, your baby may already sense light through them, much as you can tell it is daytime with your eyes shut. The ears are also moving closer to their final place on the sides of the head.",
+            "Your baby bends the arms and legs, moves the joints and may even turn over in the fluid. These movements help the muscles and joints develop. Most women do not feel them yet, as your baby is still small and well cushioned. Your baby can also make a fist and may bring the hands up to the face."
+          ],
+          "vi": [
+            "Bộ xương của bé tiếp tục cứng dần nhờ canxi được tích vào xương. Trên siêu âm, cột sống, xương sườn và xương tay chân giờ đã hiện rõ. Đôi chân của bé nay đã dài hơn đôi tay.",
+            "Mí mắt bé vẫn còn khép kín để bảo vệ đôi mắt đang phát triển. Dù vậy, bé có thể đã cảm nhận được ánh sáng xuyên qua mí mắt, giống như khi nhắm mắt mẹ vẫn biết trời đang sáng. Đôi tai cũng đang dịch dần về vị trí cuối cùng ở hai bên đầu.",
+            "Bé co duỗi tay chân, cử động các khớp và có thể còn xoay người trong nước ối. Những cử động này giúp cơ và khớp của bé phát triển. Phần lớn các mẹ chưa cảm nhận được, vì bé còn nhỏ và được nước ối che chở. Bé cũng biết nắm tay lại và có thể đưa tay lên gần mặt."
+          ]
+        },
+        "body": {
+          "en": [
+            "Pregnancy increases the amount of blood in your body, and hormones make the lining of your nose swell. You may have a stuffy nose, or small nosebleeds now and then. Pinching the soft part of your nose and leaning forward usually stops a nosebleed. Tell your doctor or midwife if nosebleeds are frequent or heavy.",
+            "Your gums may also be softer and bleed a little when you brush. This is common and usually settles after birth. Many women feel more energetic this month, so it is a good time to plan ahead for the months to come."
+          ],
+          "vi": [
+            "Khi mang thai, lượng máu trong cơ thể mẹ tăng lên, còn nội tiết thai kỳ làm niêm mạc mũi sưng nhẹ. Vì vậy mẹ có thể bị nghẹt mũi, hoặc thỉnh thoảng chảy chút máu cam. Bóp nhẹ phần mềm của mũi và hơi cúi người về trước thường giúp cầm máu. Nếu chảy máu cam thường xuyên hoặc nhiều, mẹ hãy báo bác sĩ hoặc nữ hộ sinh.",
+            "Lợi cũng có thể mềm hơn và chảy chút máu khi đánh răng. Điều này khá thường gặp và thường hết sau sinh. Nhiều mẹ thấy khỏe hơn trong tháng này, nên đây là lúc thuận tiện để lên kế hoạch cho những tháng tới."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Some clinics offer a blood test called the triple test, usually between weeks 15 and 18. It screens for some chromosomal conditions and neural tube defects. Ask your doctor or midwife whether you need it. They can also explain what a screening result can and cannot tell you.",
+            "For your gums, use a soft toothbrush, brush gently twice a day and floss every day. Rinsing your mouth with water after meals may also help. The warning signs below show when to contact your doctor or midwife."
+          ],
+          "vi": [
+            "Một số cơ sở y tế làm xét nghiệm máu triple test, thường trong khoảng tuần 15 đến 18. Xét nghiệm này sàng lọc một số bất thường nhiễm sắc thể và dị tật ống thần kinh. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem mình có cần làm không. Bác sĩ hoặc nữ hộ sinh cũng có thể giải thích kết quả sàng lọc nói lên điều gì và chưa nói được điều gì.",
+            "Để chăm sóc lợi, mẹ hãy dùng bàn chải lông mềm, chải răng nhẹ nhàng hai lần mỗi ngày và dùng chỉ nha khoa mỗi ngày. Súc miệng bằng nước sau bữa ăn cũng có thể giúp ích. Khi nào cần gặp bác sĩ, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -715,6 +1340,58 @@
           "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's eyes may now make slow movements behind the closed eyelids, and the heart is pumping a large amount of blood every day.",
+          "vi": "Mắt bé có thể đã chuyển động chậm sau mí mắt đang khép, và trái tim nhỏ bơm một lượng máu lớn mỗi ngày."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby's weight is starting to climb more quickly. Much of the growth now goes into muscles and bones, while fat comes a little later. For now, your baby is still lean, with thin skin and little padding."
+          ],
+          "vi": [
+            "Cân nặng của bé bắt đầu tăng nhanh hơn. Lúc này bé lớn chủ yếu ở cơ và xương, còn lớp mỡ đến muộn hơn một chút. Hiện giờ bé vẫn còn gầy, da mỏng và chưa có nhiều mỡ."
+          ]
+        },
+        "development": {
+          "en": [
+            "Behind the closed eyelids, your baby's eyes may now make slow movements from side to side. The eyelids themselves stay shut for now. The muscles of the face keep working too, and your baby may open the mouth and make small sucking movements.",
+            "Your baby's heart is working hard. Every day it pumps a large amount of blood around the small body, beating much faster than your own heart. The blood travels through the umbilical cord to the placenta and back, bringing oxygen and food.",
+            "The nervous system is linking up with the muscles, so your baby's movements are becoming more coordinated. Your baby may bend and kick the legs, stretch out and change position in the fluid."
+          ],
+          "vi": [
+            "Sau mí mắt đang khép, đôi mắt bé có thể đã chuyển động chậm từ bên này sang bên kia. Mí mắt thì vẫn còn đóng trong thời gian này. Các cơ mặt cũng tiếp tục hoạt động, bé có thể há miệng và làm những động tác mút nhỏ.",
+            "Trái tim bé đang làm việc rất chăm chỉ. Mỗi ngày, tim bơm một lượng máu lớn đi khắp cơ thể nhỏ bé, với nhịp đập nhanh hơn tim mẹ khá nhiều. Máu theo dây rốn tới bánh nhau rồi trở về, mang theo oxy và chất dinh dưỡng cho bé.",
+            "Hệ thần kinh đang kết nối dần với các cơ, nên cử động của bé ngày càng nhịp nhàng hơn. Bé có thể co chân, đạp, vươn người và đổi tư thế trong nước ối."
+          ]
+        },
+        "body": {
+          "en": [
+            "Some women feel their baby move for the first time around now. Early movements are often described as flutters, bubbles or gentle tapping low in the belly. They can be easy to mistake for wind. If you have been pregnant before, you may recognise them sooner.",
+            "Not feeling anything yet is perfectly normal. Most women first notice movements somewhere between weeks 16 and 24, and often later in a first pregnancy. Where the placenta lies can also soften what you feel. There is plenty of time to get to know these movements in the weeks ahead."
+          ],
+          "vi": [
+            "Khoảng thời gian này, một số mẹ lần đầu cảm nhận được bé cử động. Thai máy lúc đầu thường giống như cánh bướm khẽ chạm, bong bóng nổi lên hay những cái gõ nhẹ ở bụng dưới. Cảm giác này dễ bị nhầm với hơi trong ruột. Nếu đã từng mang thai, mẹ có thể nhận ra sớm hơn.",
+            "Chưa cảm nhận được gì cũng là điều hoàn toàn bình thường. Đa số mẹ cảm nhận thai máy lần đầu trong khoảng tuần 16 đến 24, và ở lần mang thai đầu thường muộn hơn. Vị trí bánh nhau cũng có thể làm cảm giác này nhẹ đi. Mẹ còn nhiều thời gian để làm quen với những cử động của bé trong các tuần tới."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Your body needs more iron now to make extra blood for you and your baby. Iron-rich foods include lean meat, eggs, beans, lentils and dark green leafy vegetables. Eating them with fruit or vegetables rich in vitamin C may help your body absorb the iron. If you need extra iron, take it as your doctor or midwife advises.",
+            "Drink plenty of water through the day, and keep sugary drinks and juices to a minimum. Water also helps prevent constipation, which is common in pregnancy. If something does not feel right, see the warning signs below."
+          ],
+          "vi": [
+            "Lúc này cơ thể mẹ cần nhiều sắt hơn để tạo thêm máu cho cả mẹ và bé. Thực phẩm giàu sắt gồm thịt nạc, trứng, các loại đậu và rau xanh đậm. Ăn kèm trái cây hoặc rau giàu vitamin C có thể giúp cơ thể hấp thu sắt tốt hơn. Nếu cần uống thêm sắt, mẹ hãy dùng theo hướng dẫn của bác sĩ hoặc nữ hộ sinh.",
+            "Mẹ hãy uống đủ nước trong ngày và hạn chế nước ngọt, nước ép nhiều đường. Nước lọc cũng giúp phòng táo bón, vốn thường gặp khi mang thai. Khi thấy có gì bất thường, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -770,6 +1447,58 @@
           "Đau dữ dội hoặc không đỡ khi nghỉ ngơi: mẹ hãy liên hệ bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "A thin layer of fat is starting to form under your baby's skin, and soft cartilage is slowly turning into bone.",
+          "vi": "Một lớp mỡ mỏng bắt đầu hình thành dưới da bé, còn phần sụn mềm đang dần chuyển thành xương."
+        },
+        "sizeNote": {
+          "en": [
+            "Until now, your baby has had almost no fat. The first fat under the skin begins to add a little weight, though your baby still looks slim. Babies usually fill out most in the last months of pregnancy."
+          ],
+          "vi": [
+            "Từ trước tới giờ, cơ thể bé gần như chưa có mỡ. Lớp mỡ đầu tiên dưới da bắt đầu góp thêm chút cân nặng, dù bé trông vẫn còn gầy. Bé thường đầy đặn lên rõ rệt vào những tháng cuối thai kỳ."
+          ]
+        },
+        "development": {
+          "en": [
+            "Body fat helps newborn babies keep warm, and it also stores energy. For now, the layer under your baby's skin is very thin. It builds up slowly over the coming weeks and months. The sweat glands in the skin are starting to develop as well.",
+            "Much of your baby's skeleton started out as soft, bendy cartilage. Bit by bit, it is turning into harder bone. This process carries on through childhood.",
+            "The umbilical cord is growing thicker and stronger. It carries oxygen and food from the placenta to your baby, and takes waste away. A soft, jelly-like layer around its blood vessels helps protect them from being squeezed. The placenta keeps growing too, keeping pace with your baby."
+          ],
+          "vi": [
+            "Lớp mỡ dưới da giúp trẻ sơ sinh giữ ấm sau khi chào đời, đồng thời là nơi dự trữ năng lượng. Lúc này lớp mỡ của bé còn rất mỏng. Lớp mỡ ấy dày dần lên trong những tuần, những tháng tới. Các tuyến mồ hôi trên da bé cũng đang bắt đầu hình thành.",
+            "Phần lớn bộ xương của bé lúc đầu là sụn mềm, dẻo. Từng chút một, sụn đang chuyển thành xương cứng hơn. Quá trình này còn tiếp tục suốt những năm tháng tuổi thơ.",
+            "Dây rốn ngày càng to và chắc khỏe hơn. Nhờ dây rốn, bé nhận oxy và dưỡng chất từ bánh nhau, đồng thời đưa các chất cặn ra ngoài. Một lớp chất mềm như thạch bao quanh các mạch máu giúp chúng không bị chèn ép. Bánh nhau cũng lớn dần lên theo bé."
+          ]
+        },
+        "body": {
+          "en": [
+            "As your womb grows, the ligaments that support it are being stretched. You may feel brief, sharp pains or a pulling feeling on one or both sides of your bump. They often come when you stand up, cough or turn quickly, and they usually pass within moments. If a pain is severe or does not ease with rest, see the warning signs below.",
+            "Your centre of gravity is also shifting as your belly grows. You may feel a little less steady on your feet, especially as pregnancy hormones loosen your joints. Take extra care on stairs, wet floors and uneven ground."
+          ],
+          "vi": [
+            "Khi tử cung lớn dần, các dây chằng nâng đỡ tử cung bị kéo giãn. Mẹ có thể thấy đau nhói thoáng qua hoặc cảm giác co kéo ở một hay cả hai bên bụng. Cơn đau hay đến khi mẹ đứng dậy, ho hoặc xoay người nhanh, và thường hết sau giây lát. Nếu đau dữ dội hoặc không đỡ khi nghỉ, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Trọng tâm cơ thể cũng thay đổi khi bụng lớn lên. Mẹ có thể thấy đứng không vững như trước, nhất là khi nội tiết thai kỳ làm các khớp lỏng hơn. Khi lên xuống cầu thang, đi trên sàn ướt hay đường gồ ghề, mẹ nhớ cẩn thận hơn."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Get up slowly from lying or sitting, and change position gently. When you get out of bed, roll onto your side first, then push yourself up with your arms. A warm bath or resting in a comfortable position may ease ligament pain.",
+            "Choose flat, comfortable shoes with a good grip to lower the chance of a fall. On stairs, try to keep one hand free so you can hold the rail. Flat shoes also take some strain off your back."
+          ],
+          "vi": [
+            "Mẹ hãy đứng dậy từ từ và đổi tư thế nhẹ nhàng. Khi ra khỏi giường, mẹ nên nghiêng người sang một bên trước, rồi chống tay để ngồi dậy. Tắm nước ấm hoặc nằm nghỉ ở tư thế thoải mái có thể giúp đỡ đau dây chằng.",
+            "Một đôi giày đế bằng, êm chân và có độ bám tốt giúp mẹ tránh trượt ngã. Khi lên xuống cầu thang, mẹ nên để một tay rảnh mà bám lan can. Giày đế bằng cũng giúp lưng mẹ đỡ mỏi hơn."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -824,6 +1553,58 @@
           "Ngất xỉu, hoặc chóng mặt không đỡ khi ngồi nghỉ: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's ears have reached their final position, and your baby may begin to pick up sounds, such as your heartbeat.",
+          "vi": "Tai bé đã nằm đúng vị trí, và bé có thể bắt đầu nghe được một số âm thanh, như tiếng tim mẹ đập."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is gaining weight steadily. At the anomaly scan, the head, belly and thigh bone are usually measured to see how your baby is growing. Growth is usually checked again at later visits."
+          ],
+          "vi": [
+            "Bé đang tăng cân đều đặn. Khi siêu âm hình thái, bác sĩ thường đo đầu, vòng bụng và xương đùi để xem bé lớn thế nào. Ở những lần khám sau, sự phát triển của bé thường được kiểm tra lại."
+          ]
+        },
+        "development": {
+          "en": [
+            "The ears have moved into their final place on the sides of the head. The tiny bones of the middle ear are hardening, and the nerves that link the ear to the brain are developing. Your baby may begin to hear muffled sounds, such as your heartbeat and the gurgling of your stomach.",
+            "Your baby is busy practising movements. Yawning and stretching can often be seen on scans around this time. Some babies bring a hand to the mouth and suck a thumb or finger. You may feel some of this activity as flutters, though many women do not notice it yet.",
+            "A fatty coating called myelin is beginning to form around the nerves. It helps messages travel quickly between the brain and the body, and it keeps developing for years after birth."
+          ],
+          "vi": [
+            "Đôi tai đã dịch về đúng vị trí ở hai bên đầu. Các xương nhỏ ở tai giữa đang cứng dần, và dây thần kinh nối tai với não cũng đang phát triển. Bé có thể bắt đầu nghe được những âm thanh còn lùng bùng, như tiếng tim mẹ đập hay tiếng ọc ọc trong bụng mẹ.",
+            "Lúc này bé tập rất nhiều động tác. Trên siêu âm vào thời gian này, thường có thể thấy bé ngáp hay vươn vai. Có bé còn đưa tay lên miệng và mút ngón tay. Mẹ có thể thấy một phần những cử động này như những rung động nhẹ, dù nhiều mẹ chưa nhận ra.",
+            "Một lớp vỏ chứa chất béo gọi là myelin đang bắt đầu bao quanh các dây thần kinh. Lớp vỏ này giúp tín hiệu truyền nhanh giữa não và cơ thể, và còn tiếp tục phát triển nhiều năm sau sinh."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your blood pressure is often a little lower in the middle of pregnancy, as your blood vessels relax. Standing up quickly, or staying on your feet in a warm room, may make you feel dizzy. Sit, or lie down on your side, until it passes, then get up slowly. If the dizziness does not pass when you sit, see the warning signs below.",
+            "As your bump grows, your posture changes and pregnancy hormones soften your ligaments. Together, these can put extra strain on your lower back. Bending your knees to lift, sitting with your back supported and avoiding heavy loads may help."
+          ],
+          "vi": [
+            "Ở giữa thai kỳ, huyết áp của mẹ thường hơi thấp hơn bình thường do các mạch máu giãn ra. Đứng dậy quá nhanh hoặc đứng lâu trong phòng nóng có thể khiến mẹ chóng mặt. Khi đó, mẹ hãy ngồi hoặc nằm nghiêng cho đến khi đỡ, rồi đứng lên thật từ từ. Nếu chóng mặt không đỡ khi ngồi nghỉ, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Khi bụng lớn dần, dáng người thay đổi, còn nội tiết thai kỳ làm dây chằng mềm ra. Hai điều này cộng lại khiến vùng lưng dưới phải chịu thêm sức nặng. Mẹ có thể đỡ đau lưng bằng cách khuỵu gối khi nhấc đồ, ngồi có tựa lưng và tránh mang vác nặng."
+          ]
+        },
+        "todo": {
+          "en": [
+            "The detailed anomaly scan is usually done between weeks 18 and 22. It looks closely at how your baby's organs and body are developing, and where the placenta lies. If you do not have a date yet, ask your doctor or midwife and book it now.",
+            "Talk, read or sing to your baby during the day. Your baby may soon come to recognise your voice. It can be a calm moment for you, too, and a way for your family to feel close to the baby."
+          ],
+          "vi": [
+            "Siêu âm hình thái thường được làm trong khoảng tuần 18 đến 22. Lần siêu âm này kiểm tra kỹ sự phát triển các cơ quan, hình thái của bé và vị trí bánh nhau. Nếu chưa có lịch hẹn, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh và đặt lịch ngay từ bây giờ.",
+            "Mẹ hãy trò chuyện, đọc sách hoặc hát cho bé nghe trong ngày. Bé có thể dần quen với giọng nói của mẹ. Đó cũng là những phút thư thả cho mẹ, và là cách để cả gia đình thấy gần gũi bé hơn."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -877,6 +1658,58 @@
           "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
           "Ra nước âm đạo, rỉ rả hay ồ ạt: mẹ hãy đến khoa sản của bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "A creamy white coating called vernix is forming on your baby's skin, while hearing, taste, smell and touch keep developing.",
+          "vi": "Một lớp chất gây màu trắng như kem đang phủ lên da bé, trong khi thính giác, vị giác, khứu giác và xúc giác tiếp tục phát triển."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby's weight keeps rising steadily. The fat under the skin is still thin, so most of the weight is bone, muscle and growing organs. Growth can vary a little from baby to baby, and from one scan to the next."
+          ],
+          "vi": [
+            "Cân nặng của bé vẫn tăng đều. Lớp mỡ dưới da còn mỏng, nên phần lớn cân nặng lúc này là xương, cơ và các cơ quan đang lớn. Mỗi bé lớn một khác, và kết quả giữa các lần siêu âm cũng có thể chênh nhau đôi chút."
+          ]
+        },
+        "development": {
+          "en": [
+            "A creamy white coating called vernix is forming over your baby's skin. It helps protect the skin during the many months your baby spends floating in amniotic fluid. Some babies still have a little vernix on their skin at birth.",
+            "The parts of the brain that handle the senses are developing quickly. Hearing, taste, smell and touch are all taking shape. Your baby may already sense touch, for example when a hand brushes the face or the wall of the womb.",
+            "Tiny buds for the adult teeth are forming behind the buds of the baby teeth. Your baby is also moving a lot, turning, kicking and stretching, and you may be starting to notice some of it."
+          ],
+          "vi": [
+            "Một lớp chất gây màu trắng, mịn như kem đang hình thành và phủ lên da bé. Lớp này giúp bảo vệ làn da trong suốt những tháng bé ngâm mình trong nước ối. Khi chào đời, có bé vẫn còn một ít chất gây trên da.",
+            "Những vùng não phụ trách các giác quan đang phát triển nhanh. Thính giác, vị giác, khứu giác và xúc giác đều đang dần hình thành. Bé có thể đã cảm nhận được xúc chạm, chẳng hạn khi tay bé lướt qua mặt hay chạm vào thành tử cung.",
+            "Mầm răng vĩnh viễn đang hình thành phía sau mầm răng sữa. Bé cũng cử động khá nhiều, xoay người, đạp và vươn vai, và mẹ có thể bắt đầu nhận ra một phần những cử động đó."
+          ]
+        },
+        "body": {
+          "en": [
+            "Pregnancy hormones can make your skin produce more pigment. A dark line, called the linea nigra, may appear down the middle of your belly. You may also notice darker patches on your cheeks, forehead or upper lip. Both are common and usually fade in the months after birth. Some women also find their nails grow faster but break more easily.",
+            "Your skin may burn or darken more easily in the sun. As your bump grows, it may also be harder to get comfortable in bed. Lying on your side is often easier now than lying flat on your back."
+          ],
+          "vi": [
+            "Nội tiết thai kỳ có thể khiến da tạo ra nhiều sắc tố hơn. Một đường sẫm màu, gọi là đường linea nigra, có thể xuất hiện dọc giữa bụng. Mẹ cũng có thể thấy những mảng sẫm màu trên gò má, trán hoặc môi trên. Cả hai đều khá thường gặp và thường mờ dần trong vài tháng sau sinh. Một số mẹ còn thấy móng tay mọc nhanh hơn nhưng dễ gãy hơn.",
+            "Da mẹ cũng dễ bị bắt nắng và sạm màu hơn. Khi bụng lớn dần, mẹ có thể thấy khó tìm được tư thế nằm thoải mái. Lúc này, nằm nghiêng thường dễ chịu hơn nằm ngửa."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Protect your skin when you go out. Wear a wide-brimmed hat, cover up with light clothing and use a sunscreen with a high protection factor. Try to stay in the shade around the middle of the day. Sunscreen is worth using even on cloudy days.",
+            "At night, try sleeping on your side with a pillow between your knees. A pillow under your bump or behind your back may give extra support. If anything worries you, see the warning signs below."
+          ],
+          "vi": [
+            "Khi ra ngoài, mẹ hãy che nắng kỹ cho da. Đội mũ rộng vành, mặc áo mỏng và dùng kem chống nắng có chỉ số bảo vệ cao sẽ giúp ích. Mẹ cũng nên tránh nắng vào khoảng giữa trưa. Ngay cả hôm trời nhiều mây, kem chống nắng vẫn cần thiết.",
+            "Buổi tối, mẹ thử nằm nghiêng và kẹp một chiếc gối giữa hai đầu gối. Kê thêm gối dưới bụng hoặc sau lưng có thể giúp mẹ được nâng đỡ tốt hơn. Nếu có điều gì khiến mẹ lo lắng, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -935,6 +1768,58 @@
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "You are halfway through your pregnancy, and your baby is swallowing amniotic fluid, which helps the gut develop.",
+          "vi": "Mẹ đã đi được nửa chặng đường thai kỳ, và bé đang nuốt nước ối, giúp hệ tiêu hóa phát triển."
+        },
+        "sizeNote": {
+          "en": [
+            "From around this week, your baby's length is usually measured from head to heel, rather than from head to bottom. So when you compare it with earlier weeks, the length may seem to jump. Your baby has not suddenly grown; only the way of measuring has changed."
+          ],
+          "vi": [
+            "Từ khoảng tuần này, chiều dài của bé thường được đo từ đầu đến gót chân, thay vì từ đầu đến mông. Vì vậy, khi so với các tuần trước, chiều dài có thể như tăng vọt. Thực ra bé không lớn đột ngột, chỉ là cách đo đã thay đổi."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby swallows amniotic fluid throughout the day. This helps the stomach and intestines practise their work and develop. The fluid passes through the gut, and your baby's kidneys make urine, which goes back into the amniotic fluid. The amount of amniotic fluid keeps increasing as your baby grows.",
+            "In the bowel, the first stool, called meconium, is starting to form. It is a dark, sticky mixture of shed cells, fluid and bile. It usually stays in the bowel until after birth.",
+            "Your baby's movements are getting stronger as the muscles develop. Your baby also spends many hours a day asleep, so there may be quiet spells between the active ones. Fine lanugo hair and creamy vernix now cover much of the skin."
+          ],
+          "vi": [
+            "Suốt cả ngày, bé nuốt nước ối vào bụng. Việc này giúp dạ dày và ruột của bé tập hoạt động và phát triển. Nước ối đi qua đường tiêu hóa, rồi thận của bé tạo ra nước tiểu, quay trở lại buồng ối. Lượng nước ối cũng tăng dần theo sự lớn lên của bé.",
+            "Trong ruột bé, phân su, tức phân đầu tiên, đang bắt đầu hình thành. Đó là hỗn hợp sẫm màu, dính, gồm tế bào bong ra, nước ối và dịch mật. Thường thì phân su nằm yên trong ruột cho tới khi bé chào đời.",
+            "Cơ bắp phát triển nên cử động của bé ngày càng mạnh hơn. Mỗi ngày bé cũng ngủ nhiều giờ, vì thế giữa những lúc hiếu động có thể có những quãng yên ắng. Lớp lông tơ mịn và chất gây trắng giờ đã phủ phần lớn làn da bé."
+          ]
+        },
+        "body": {
+          "en": [
+            "The top of your womb has now reached about the level of your belly button. Your bump is likely to be easy to see, and you may need looser clothes. At this stage, many women feel well and have a steady appetite.",
+            "Many women now feel their baby move. In a first pregnancy, it may take a little longer, often until around weeks 20 to 22. If you are unsure, try lying on your side in a quiet moment with a hand on your bump. If you have not felt any movements by week 24, contact your doctor or midwife."
+          ],
+          "vi": [
+            "Đáy tử cung lúc này đã lên khoảng ngang rốn. Bụng mẹ có lẽ đã lộ rõ, và mẹ có thể cần quần áo rộng hơn. Ở giai đoạn này, nhiều mẹ thấy khỏe và ăn uống ổn định.",
+            "Nhiều mẹ giờ đã cảm nhận được bé cử động. Với lần mang thai đầu, thai máy có thể đến muộn hơn một chút, thường khoảng tuần 20 đến 22. Nếu chưa chắc, mẹ thử nằm nghiêng lúc yên tĩnh và đặt tay lên bụng. Đến tuần 24 mà vẫn chưa thấy bé cử động, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh."
+          ]
+        },
+        "todo": {
+          "en": [
+            "If you have not had the detailed anomaly scan yet, book it this week, as it is usually done between weeks 18 and 22. The scan checks your baby's organs and growth, and where the placenta lies. Ask your doctor or midwife about anything you are unsure of.",
+            "Your blood pressure is checked at every antenatal visit, and your urine may be tested too. These checks help spot problems such as pre-eclampsia early, often before you notice anything. Keep each appointment, and see the warning signs below for symptoms that need help straight away."
+          ],
+          "vi": [
+            "Nếu chưa siêu âm hình thái, mẹ hãy đặt lịch ngay trong tuần này, vì lần siêu âm này thường làm trong khoảng tuần 18 đến 22. Bác sĩ sẽ xem kỹ các cơ quan, sự phát triển của bé và vị trí bánh nhau. Có điều gì chưa rõ, mẹ cứ hỏi bác sĩ hoặc nữ hộ sinh.",
+            "Ở mỗi lần khám thai, mẹ được đo huyết áp và có thể được xét nghiệm nước tiểu. Những kiểm tra này giúp phát hiện sớm các vấn đề như tiền sản giật, nhiều khi trước cả lúc mẹ thấy khác lạ. Mẹ hãy đi khám đúng hẹn, và với những triệu chứng cần đến viện ngay, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -996,6 +1881,58 @@
           "Một bên chân đau, đỏ hoặc sưng: mẹ hãy đi khám bác sĩ ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's movements are getting stronger and more frequent, and the taste buds may now pick up flavours in the amniotic fluid.",
+          "vi": "Bé cử động mạnh và thường xuyên hơn, và các nụ vị giác có thể đã cảm nhận được hương vị trong nước ối."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is gaining weight faster now than in earlier weeks. Even so, there is still plenty of room in the womb for turning, rolling and somersaults."
+          ],
+          "vi": [
+            "Lúc này bé tăng cân nhanh hơn những tuần trước. Dù vậy, trong tử cung vẫn còn rộng chỗ để bé xoay người, lăn mình và nhào lộn."
+          ]
+        },
+        "development": {
+          "en": [
+            "As the muscles grow stronger, your baby's kicks, punches and rolls become firmer. You may feel them more often, and sometimes at similar times each day. Someone resting a hand on your bump may soon be able to feel a kick too. Many babies seem livelier when you are resting, perhaps because your own movements no longer rock them.",
+            "The taste buds on your baby's tongue are working. Flavours from the food you eat can pass into the amniotic fluid. Your baby may taste them when swallowing the fluid. Some research suggests this early tasting may shape later food likes, but this is still being studied.",
+            "Inside the bones, the marrow is taking on a growing share of making blood cells, alongside the liver and spleen. Over the coming months, it gradually becomes the main place where blood cells are made."
+          ],
+          "vi": [
+            "Cơ bắp khỏe hơn nên những cú đạp, cú đấm và cú lộn người của bé cũng chắc hơn. Mẹ có thể thấy chúng thường xuyên hơn, đôi khi vào những giờ quen thuộc trong ngày. Người thân đặt tay lên bụng mẹ có thể sớm cảm nhận được cú đạp của bé. Nhiều bé có vẻ hiếu động hơn lúc mẹ nằm nghỉ, có lẽ vì không còn được những bước đi của mẹ ru ngủ.",
+            "Các nụ vị giác trên lưỡi bé đã hoạt động. Hương vị từ thức ăn mẹ ăn có thể đi vào nước ối. Bé có thể nếm được chúng khi nuốt nước ối. Một số nghiên cứu cho rằng việc nếm sớm này có thể ảnh hưởng đến khẩu vị của bé sau này, nhưng điều đó vẫn đang được tìm hiểu.",
+            "Bên trong xương, tủy xương ngày càng đảm nhận nhiều hơn việc tạo máu, cùng với gan và lá lách. Trong những tháng tới, tủy xương dần trở thành nơi tạo máu chính."
+          ]
+        },
+        "body": {
+          "en": [
+            "Leg cramps are common from now on, often at night. A sudden, tight pain grips the calf or foot and can wake you. Pulling your toes up towards your shin and rubbing the muscle usually helps it ease.",
+            "Your extra blood and the pressure of your womb can make the veins in your legs swell and show more. Your ankles may also swell a little by the evening, especially after a long day on your feet. Swollen veins usually improve after birth. Sudden swelling, or a painful, red or swollen area in one leg, is different: see the warning signs below."
+          ],
+          "vi": [
+            "Từ giai đoạn này, chuột rút ở chân khá thường gặp, nhất là về đêm. Bắp chân hoặc bàn chân bỗng co cứng, đau thắt và có thể làm mẹ tỉnh giấc. Kéo các ngón chân hướng về phía ống chân và xoa bóp bắp chân thường giúp cơn chuột rút dịu đi.",
+            "Lượng máu tăng thêm cùng sức ép của tử cung có thể khiến tĩnh mạch ở chân nổi rõ hơn. Đến chiều tối, mắt cá chân cũng có thể hơi phù, nhất là sau một ngày đứng nhiều. Tĩnh mạch nổi thường đỡ dần sau sinh. Phù đột ngột, hoặc một bên chân đau, đỏ hay sưng thì lại khác, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Stretch your calves gently before bed, and keep moving during the day with walks or swimming. Drinking enough water may help too. Try not to stand still for long periods.",
+            "When you rest, put your feet up, and try not to sit with your legs crossed. Circling your ankles and flexing your feet now and then helps blood flow back from your legs. Support stockings may help with swollen veins; ask your doctor or midwife whether they suit you."
+          ],
+          "vi": [
+            "Trước khi ngủ, mẹ hãy duỗi bắp chân nhẹ nhàng, và trong ngày nên vận động như đi bộ hoặc bơi. Uống đủ nước cũng có thể giúp ích. Mẹ cố gắng đừng đứng yên một chỗ quá lâu.",
+            "Lúc nghỉ ngơi, mẹ hãy kê cao chân và tránh ngồi bắt chéo chân. Thỉnh thoảng xoay cổ chân, gập duỗi bàn chân để máu từ chân lưu thông về tim dễ hơn. Tất y khoa có thể giúp đỡ nổi tĩnh mạch, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem có phù hợp với mình không."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1054,6 +1991,58 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's eyebrows and eyelashes are growing, and your baby can now grip, sometimes holding on to the umbilical cord.",
+          "vi": "Lông mày và lông mi của bé đang mọc, và bé đã biết nắm tay, đôi khi còn nắm cả dây rốn."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is beginning to look like a small newborn, only much thinner. The figure above is an average for this week, and babies who are growing well can sit a little above or below it."
+          ],
+          "vi": [
+            "Bé bắt đầu trông giống một em bé sơ sinh thu nhỏ, chỉ gầy hơn nhiều. Con số phía trên là mức trung bình của tuần này, và những bé đang lớn tốt vẫn có thể cao hoặc thấp hơn một chút."
+          ]
+        },
+        "development": {
+          "en": [
+            "Fine eyebrows and eyelashes are growing on your baby's face. The hair on the head may be growing too, though it usually has little colour yet. The lips are more clearly shaped now.",
+            "Your baby's hands are busy. Your baby can grip, and may hold on to the umbilical cord, touch the face or bring the fingers together. The fingernails are growing as well. Gripping is an early reflex, and newborn babies still hold a finger tightly.",
+            "The brain is growing quickly, and the nerves that carry signals of touch, sound and movement are maturing. Your baby is likely to respond more and more to what is going on around them. Your voice and the rhythm of your walking are among the things your baby may notice."
+          ],
+          "vi": [
+            "Lông mày và lông mi mảnh đang mọc trên gương mặt bé. Tóc trên đầu cũng có thể đang mọc, dù thường chưa có nhiều màu. Đôi môi bé giờ cũng đã rõ nét hơn.",
+            "Bàn tay bé cũng rất bận rộn. Bé biết nắm, có thể nắm lấy dây rốn, sờ lên mặt hay chụm các ngón tay lại. Móng tay cũng đang dài ra. Nắm tay là một phản xạ sớm, và trẻ sơ sinh vẫn nắm chặt ngón tay người lớn.",
+            "Não bộ lớn nhanh, các dây thần kinh truyền tín hiệu xúc chạm, âm thanh và chuyển động ngày càng hoàn thiện. Bé thường phản ứng ngày một nhiều hơn với những gì diễn ra xung quanh. Giọng nói của mẹ và nhịp bước chân khi mẹ đi lại là những điều bé có thể nhận ra."
+          ]
+        },
+        "body": {
+          "en": [
+            "As your skin stretches, you may notice stretch marks on your belly, breasts or thighs. They often look pink, red or purple at first, then slowly fade to a paler colour after birth. Whether you get them depends partly on your skin type. Moisturising may make the skin feel more comfortable, even if it cannot fully prevent the marks.",
+            "You may also feel warmer than usual and sweat more, because your body is making more blood and using more energy. Cool showers, a fan and light bedding can help you rest at night."
+          ],
+          "vi": [
+            "Khi da bị kéo căng, mẹ có thể thấy vết rạn xuất hiện ở bụng, ngực hoặc đùi. Lúc đầu vết rạn thường có màu hồng, đỏ hoặc tím, rồi nhạt dần sau sinh. Có bị rạn hay không một phần phụ thuộc vào cơ địa của mỗi người. Dưỡng ẩm có thể giúp da dễ chịu hơn, dù không ngăn được hẳn vết rạn.",
+            "Mẹ cũng có thể thấy nóng người và ra mồ hôi nhiều hơn, vì cơ thể đang tạo thêm máu và tiêu hao nhiều năng lượng hơn. Tắm nước mát, dùng quạt và đắp chăn mỏng có thể giúp mẹ ngủ ngon hơn."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Wear loose clothes made from breathable fabrics such as cotton. Keep a bottle of water with you and sip through the day, especially when it is hot.",
+            "This is a good time to ask your doctor or midwife about antenatal classes. Classes can help you prepare for labour, birth, feeding and the first days with your baby. They are also a chance to meet other parents due around the same time. For when to get help, see the warning signs below."
+          ],
+          "vi": [
+            "Mẹ nên mặc quần áo rộng, chất vải thoáng như vải cotton. Hãy mang theo chai nước và uống từng ngụm trong ngày, nhất là khi trời nóng.",
+            "Đây là lúc thích hợp để hỏi bác sĩ hoặc nữ hộ sinh về các lớp tiền sản. Các lớp học giúp mẹ chuẩn bị cho chuyển dạ, ngày sinh, việc cho bé bú và những ngày đầu bên bé. Đó cũng là dịp làm quen với những gia đình có ngày dự sinh gần với mẹ. Để biết lúc nào cần gặp bác sĩ, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1111,6 +2100,58 @@
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby may hear loud sounds from outside the womb, and the lungs are growing the branching airways they need for breathing.",
+          "vi": "Bé có thể nghe được những âm thanh lớn từ bên ngoài, và phổi đang phát triển các nhánh dẫn khí cần cho việc thở sau này."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is still slim, and the skin looks wrinkled and reddish, partly because it is thin and there is little fat beneath it yet. Over the next few months, fat usually fills out these wrinkles."
+          ],
+          "vi": [
+            "Lúc này bé vẫn còn thon gầy, da trông nhăn nheo và hơi đỏ, phần vì da còn mỏng và bên dưới chưa có nhiều mỡ. Trong vài tháng tới, lớp mỡ thường sẽ dần làm phẳng những nếp nhăn này."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby may now hear louder sounds from the world outside, such as a dog barking, music or a vacuum cleaner. Inside the womb, these sounds are muffled by your body and the fluid. Your own voice, heartbeat and digestion are usually the clearest sounds of all.",
+            "In the lungs, the airways keep branching into smaller and smaller tubes, like the branches of a tree. Blood vessels are also growing around them, ready to pick up oxygen later on. The lungs keep maturing right up to birth.",
+            "Rapid eye movements may begin to appear while your baby sleeps. Your baby also practises breathing movements, moving the chest muscles even though the lungs hold fluid, not air."
+          ],
+          "vi": [
+            "Bé có thể đã nghe được những âm thanh lớn hơn từ thế giới bên ngoài, như tiếng chó sủa, tiếng nhạc hay tiếng máy hút bụi. Trong bụng mẹ, những âm thanh này bị cơ thể mẹ và nước ối làm nhỏ đi. Giọng nói, nhịp tim và tiếng ruột của mẹ thường là những âm thanh bé nghe rõ nhất.",
+            "Trong phổi, các đường dẫn khí tiếp tục chia nhánh thành những ống ngày càng nhỏ, giống như cành cây. Các mạch máu cũng mọc quanh đó, sẵn sàng nhận oxy sau này. Phổi còn tiếp tục trưởng thành cho đến khi bé chào đời.",
+            "Khi bé ngủ, mắt có thể bắt đầu chuyển động nhanh. Bé cũng tập cử động thở, các cơ ngực chuyển động dù trong phổi là nước ối chứ chưa phải không khí."
+          ]
+        },
+        "body": {
+          "en": [
+            "Mild swelling of the feet and ankles is common, especially in the evening or on hot days. Your body holds on to more fluid in pregnancy, and the growing womb slows the flow of blood back from your legs. Swelling that comes on suddenly, especially in the face or hands, is different: see the warning signs below.",
+            "Your belly button may start to pop out as your bump grows, and it usually goes back after birth. Your bump may also feel firmer, which can make bending down harder. It is fine to take things a little more slowly."
+          ],
+          "vi": [
+            "Phù nhẹ ở bàn chân và mắt cá chân khá thường gặp, nhất là vào buổi tối hoặc những ngày nóng. Khi mang thai, cơ thể giữ nước nhiều hơn, và tử cung lớn dần làm máu từ chân về tim chậm hơn. Nếu bị phù đột ngột, nhất là ở mặt hoặc tay, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Rốn của mẹ có thể bắt đầu lồi ra khi bụng lớn lên, và thường trở lại như cũ sau sinh. Bụng cũng có thể căng hơn, khiến việc cúi người khó khăn hơn. Mẹ cứ thong thả làm mọi việc chậm lại một chút."
+          ]
+        },
+        "todo": {
+          "en": [
+            "When you sit down to rest, raise your feet on a stool or cushion. Lying on your side for a while may also ease mild swelling. Comfortable shoes and moving around often during the day can help too.",
+            "Keep every antenatal appointment, even when you feel well. Some problems, such as high blood pressure, may cause no symptoms at first. Write down questions as they come to you, and bring them to your next visit. Your doctor or midwife can also tell you when your next scan or blood test is due."
+          ],
+          "vi": [
+            "Khi ngồi nghỉ, mẹ hãy gác chân lên ghế đẩu hoặc gối. Nằm nghiêng một lúc cũng có thể giúp giảm phù nhẹ. Đi giày êm và thường xuyên đi lại trong ngày cũng có ích.",
+            "Mẹ hãy đi khám thai đúng hẹn, kể cả khi thấy khỏe. Một số vấn đề như tăng huyết áp có thể chưa gây triệu chứng gì lúc đầu. Mẹ có thể ghi lại các câu hỏi khi chợt nghĩ ra, rồi mang theo trong lần khám tới. Bác sĩ hoặc nữ hộ sinh cũng sẽ cho mẹ biết khi nào đến lần siêu âm hay xét nghiệm máu tiếp theo."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -1174,6 +2215,59 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's lungs are slowly getting ready for breathing after birth, and your baby now has fairly regular times of sleeping and waking.",
+          "vi": "Phổi của bé đang dần chuẩn bị cho những hơi thở đầu tiên sau khi chào đời, và bé đã có những khoảng ngủ, thức khá đều đặn."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is still long and lean. Over the coming weeks, a layer of fat builds up under the skin, and your baby usually starts to look rounder. Every baby grows at their own pace, so a scan may show a slightly different number."
+          ],
+          "vi": [
+            "Lúc này bé vẫn còn khá thon dài. Trong những tuần tới, một lớp mỡ sẽ dần hình thành dưới da, nên bé thường trông tròn trịa hơn. Mỗi bé lớn theo nhịp riêng, nên con số trên siêu âm có thể hơi khác một chút."
+          ]
+        },
+        "development": {
+          "en": [
+            "Deep inside the lungs, the tiny air sacs and the branches that lead to them keep developing. Some lung cells have started to make surfactant, a substance that will later help the air sacs stay open when your baby breathes. The lungs still have many weeks of growing ahead.",
+            "Your baby's inner ear, which helps with balance, is now well formed. Your baby can probably hear your heartbeat, your voice and loud sounds from outside. Some babies wriggle or kick when there is a sudden noise.",
+            "The skin is still thin and slightly see-through, so tiny blood vessels show beneath it. Your baby sleeps and wakes in fairly regular cycles, and you may start to notice the times of day when they are most active."
+          ],
+          "vi": [
+            "Sâu bên trong phổi, các túi khí nhỏ li ti cùng những nhánh dẫn khí tới chúng vẫn đang tiếp tục phát triển. Một số tế bào phổi đã bắt đầu tạo ra surfactant, chất sau này giúp các túi khí không bị xẹp khi bé thở. Phổi của bé còn nhiều tuần nữa để hoàn thiện.",
+            "Tai trong, bộ phận giúp bé giữ thăng bằng, nay đã hình thành khá đầy đủ. Bé có thể nghe được nhịp tim, giọng nói của mẹ và cả những âm thanh lớn bên ngoài. Có bé còn cựa mình hoặc đạp khi nghe tiếng động bất ngờ.",
+            "Da bé vẫn mỏng và hơi trong, nên có thể thấy những mạch máu nhỏ bên dưới. Bé ngủ và thức theo chu kỳ khá đều, và mẹ có thể dần nhận ra những lúc trong ngày bé hay cử động nhất."
+          ]
+        },
+        "body": {
+          "en": [
+            "The top of your womb is now a little above your belly button, and your bump is easy to see. As the skin stretches, it may feel tight or itchy, and stretch marks may appear. A gentle, unscented moisturiser can make it feel more comfortable.",
+            "Heartburn, constipation and backache are common at this stage. Pregnancy hormones relax your muscles, and your growing womb presses on the organs around it. Some people get leg cramps at night, or feel the bump tighten now and then for around half a minute to a minute. These tightenings are usually painless and irregular. If they become regular or painful, see the warning signs below.",
+            "Very strong itching, especially on the palms of your hands or the soles of your feet, is different. Tell your doctor or midwife about it, as you may need a blood test."
+          ],
+          "vi": [
+            "Đáy tử cung lúc này đã lên cao hơn rốn một chút, và bụng mẹ đã lộ rõ. Khi da bụng căng ra, mẹ có thể thấy căng, ngứa hoặc xuất hiện vết rạn. Một loại kem dưỡng ẩm dịu nhẹ, không mùi có thể giúp da dễ chịu hơn.",
+            "Ợ nóng, táo bón và đau lưng khá thường gặp ở giai đoạn này. Nội tiết thai kỳ làm các cơ giãn ra, còn tử cung lớn dần thì chèn vào các cơ quan xung quanh. Một số mẹ bị chuột rút chân về đêm, hoặc thỉnh thoảng thấy bụng gò cứng trong khoảng nửa phút đến một phút. Những cơn gò này thường không đau và không đều. Nếu cơn gò trở nên đều đặn hoặc gây đau, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Ngứa rất nhiều, nhất là ở lòng bàn tay hay lòng bàn chân, thì lại khác. Mẹ hãy báo cho bác sĩ hoặc nữ hộ sinh, vì mẹ có thể cần làm xét nghiệm máu."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Many clinics offer a test for gestational diabetes between weeks 24 and 28. Ask your doctor or midwife whether you need it and how to prepare.",
+            "This is also a good time to get to know your baby's usual pattern of movements. Notice when they are active and what the movements feel like. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait until the next day."
+          ],
+          "vi": [
+            "Nhiều cơ sở y tế làm xét nghiệm tầm soát tiểu đường thai kỳ trong khoảng tuần 24 đến 28. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem mình có cần làm không và cần chuẩn bị thế nào.",
+            "Đây cũng là lúc mẹ làm quen với nhịp cử động thường ngày của bé. Mẹ thử để ý xem bé hay cử động vào lúc nào và cảm giác ra sao. Nếu bé cử động ít đi, ngừng hẳn hoặc khác mọi ngày, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau."
+          ]
+        },
+        "sources": [
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1233,6 +2327,60 @@
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby may move in response to your voice, and the hands are now fully formed, ready to explore by touch.",
+          "vi": "Bé có thể cử động khi nghe giọng mẹ, và đôi bàn tay đã hoàn chỉnh, sẵn sàng khám phá mọi thứ bằng cách sờ chạm."
+        },
+        "sizeNote": {
+          "en": [
+            "Fat keeps building up under your baby's skin, so the body is slowly filling out and the wrinkles are smoothing a little. Your baby is getting longer too, and takes up a bit more room each week."
+          ],
+          "vi": [
+            "Mỡ tiếp tục tích dưới da, nên cơ thể bé đầy đặn dần và các nếp nhăn bớt đi đôi chút. Bé cũng dài thêm, mỗi tuần lại chiếm thêm một ít chỗ trong bụng mẹ."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby may now respond to your voice. When you talk or sing, you may notice a kick or a change in movement. Your baby may hear other voices in your family too, though yours is usually the clearest from inside. Talking to your bump is a simple way to feel close.",
+            "The hands are now fully formed, with fingers, nails and creases on the palms. Your baby explores by touch, feeling the face, the cord and the wall of the womb. Your baby may open and close the fists, too.",
+            "The nostrils, which have been blocked until now, are starting to open. The spine is getting stronger, as its many small bones, joints and ligaments take shape."
+          ],
+          "vi": [
+            "Giờ đây bé có thể đã phản ứng với giọng nói của mẹ. Khi mẹ trò chuyện hoặc hát, mẹ có thể thấy một cú đạp hay bé cử động khác đi. Bé cũng có thể nghe giọng những người khác trong nhà, dù giọng mẹ thường rõ nhất khi ở trong bụng. Trò chuyện với bé là một cách giản dị để mẹ con gần nhau hơn.",
+            "Bàn tay bé nay đã hoàn chỉnh, có đủ ngón, móng và những đường chỉ tay. Bé khám phá bằng cách sờ chạm, chạm vào mặt, dây rốn và thành tử cung. Đôi khi bé còn nắm tay lại rồi xòe ra.",
+            "Hai lỗ mũi, vốn bị bít từ trước tới nay, đang bắt đầu thông ra. Cột sống cũng ngày càng chắc khỏe, với nhiều đốt xương nhỏ, khớp và dây chằng đang hình thành."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your hair may look thicker and shinier than usual, because pregnancy hormones mean you shed less hair each day. After birth, the extra hair often falls out over a few months, which is normal.",
+            "Fluid build-up can press on the nerves in your wrists, causing tingling, numbness or aching in your hands, often at night. Shaking your hands or keeping your wrists straight may help. Tell your doctor or midwife if it bothers you a lot.",
+            "Constipation is common too, and some women get piles, which are swollen veins around the bottom. They may itch, ache or bleed a little after a bowel movement. Mention any bleeding to your doctor or midwife, so they can check the cause."
+          ],
+          "vi": [
+            "Tóc mẹ có thể trông dày và bóng hơn bình thường, vì nội tiết thai kỳ khiến tóc rụng ít hơn mỗi ngày. Sau sinh, phần tóc này thường rụng bớt trong vài tháng, đó là điều bình thường.",
+            "Cơ thể giữ nước nhiều hơn có thể làm dây thần kinh ở cổ tay bị chèn ép, gây tê, châm chích hoặc đau nhức bàn tay, thường về đêm. Vẩy nhẹ bàn tay hoặc giữ cổ tay thẳng có thể giúp giảm tê. Nếu tình trạng này làm mẹ khó chịu nhiều, mẹ hãy báo bác sĩ hoặc nữ hộ sinh.",
+            "Táo bón cũng hay gặp, và một số mẹ bị trĩ, tức các tĩnh mạch quanh hậu môn bị sưng. Trĩ có thể gây ngứa, đau hoặc chảy chút máu sau khi đi ngoài. Nếu thấy chảy máu, mẹ hãy báo bác sĩ hoặc nữ hộ sinh để được kiểm tra."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Build your meals around whole grains, vegetables and protein, such as fish, eggs, beans or lean meat. These foods release energy slowly and keep you fuller for longer. Their fibre, with plenty of water, also helps with constipation.",
+            "Notice the times of day when your baby is most active, and enjoy them. If the movements slow down or change, see the warning signs below."
+          ],
+          "vi": [
+            "Bữa ăn của mẹ nên có ngũ cốc nguyên hạt, rau xanh và chất đạm như cá, trứng, các loại đậu hoặc thịt nạc. Những thực phẩm này cung cấp năng lượng từ từ và giúp mẹ no lâu hơn. Chất xơ trong đó, cùng với uống đủ nước, cũng giúp giảm táo bón.",
+            "Mẹ hãy để ý những lúc trong ngày bé hiếu động nhất và tận hưởng những khoảnh khắc ấy. Nếu bé cử động ít đi hoặc khác thường, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -1294,6 +2442,58 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's eyes are beginning to open, and your baby may startle at loud noises.",
+          "vi": "Mắt bé đang bắt đầu mở ra, và bé có thể giật mình khi nghe tiếng động lớn."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is putting on weight steadily, and the gain from one week to the next is getting bigger. There is still room in the womb, but it is likely to feel more snug in the coming weeks."
+          ],
+          "vi": [
+            "Bé tăng cân đều, và mức tăng giữa các tuần ngày càng lớn. Trong tử cung vẫn còn chỗ, nhưng có lẽ sẽ dần chật hơn trong những tuần tới."
+          ]
+        },
+        "development": {
+          "en": [
+            "For many weeks, your baby's eyelids have been closed. Now they are beginning to open, and your baby may start to blink. Babies usually keep their eyes closed for much of the time, especially while asleep. Eye colour can keep changing for some months after birth.",
+            "Your baby may startle at a loud noise, with a sudden jerk of the arms and legs. This reflex is a sign that hearing and the nerves are developing. You may feel it as a jolt or a quick flurry of movement.",
+            "The lungs keep developing, adding more air sacs and blood vessels. The nervous system is also maturing, which helps your baby's movements become smoother. Breathing practice continues too, helping the chest muscles grow stronger."
+          ],
+          "vi": [
+            "Suốt nhiều tuần qua, mí mắt bé vẫn khép kín. Giờ đây mí mắt bắt đầu mở ra, và bé có thể bắt đầu chớp mắt. Phần lớn thời gian bé vẫn thường nhắm mắt, nhất là khi ngủ. Màu mắt của bé còn có thể thay đổi trong vài tháng sau sinh.",
+            "Khi nghe tiếng động lớn, bé có thể giật mình, tay chân bất chợt duỗi ra. Phản xạ này là dấu hiệu thính giác và hệ thần kinh đang phát triển. Mẹ có thể thấy như bé thót mình hay cựa quậy liên tục một lúc.",
+            "Phổi tiếp tục phát triển, có thêm các túi khí và mạch máu. Hệ thần kinh cũng đang trưởng thành, giúp cử động của bé ngày càng mềm mại hơn. Bé vẫn tiếp tục tập thở, giúp các cơ ngực khỏe dần lên."
+          ]
+        },
+        "body": {
+          "en": [
+            "You may start to feel practice contractions, also called Braxton Hicks contractions. Your bump tightens and goes hard for a short while, then relaxes. They are usually painless and irregular, and they fade away. They may be one way the womb gets ready for labour.",
+            "Sleep may be harder now. It can be tricky to get comfortable, and you may need to get up to pee at night. Heartburn, leg cramps or a busy mind can also keep you awake. If worries keep you up, talking them through with someone you trust may help."
+          ],
+          "vi": [
+            "Mẹ có thể bắt đầu thấy cơn gò sinh lý, còn gọi là cơn gò Braxton Hicks. Bụng mẹ căng cứng lên trong chốc lát rồi mềm lại. Những cơn gò này thường không đau, không đều và tự hết. Có thể đây là cách tử cung tập dượt dần cho lúc chuyển dạ.",
+            "Giấc ngủ lúc này có thể khó hơn. Mẹ khó tìm tư thế thoải mái, và có thể phải dậy đi tiểu ban đêm. Ợ nóng, chuột rút hay những suy nghĩ ngổn ngang cũng có thể khiến mẹ trằn trọc. Nếu lo lắng làm mẹ mất ngủ, tâm sự với người mình tin tưởng có thể giúp mẹ nhẹ lòng."
+          ]
+        },
+        "todo": {
+          "en": [
+            "When a tightening comes, try changing position, walking around a little or resting. Practice contractions usually ease when you do. If they become regular, painful or keep getting stronger, see the warning signs below.",
+            "At night, lie on your side, with a pillow under your bump and another between your knees. Lying on your side is usually more comfortable now. Waking up on your back is common; simply roll onto your side. A short rest during the day may also help."
+          ],
+          "vi": [
+            "Khi có cơn gò, mẹ thử đổi tư thế, đi lại nhẹ nhàng hoặc nằm nghỉ. Cơn gò sinh lý thường dịu đi khi mẹ làm vậy. Nếu cơn gò trở nên đều đặn, gây đau hoặc mạnh dần lên, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Ban đêm, mẹ hãy nằm nghiêng, kê một chiếc gối dưới bụng và một chiếc giữa hai đầu gối. Lúc này nằm nghiêng thường thoải mái hơn. Thức dậy thấy mình nằm ngửa là chuyện thường gặp, mẹ chỉ cần nghiêng người lại. Chợp mắt một lát trong ngày cũng có thể giúp mẹ đỡ mệt."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1353,6 +2553,59 @@
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's brain is very active, with clear cycles of sleep and waking, and you may feel the rhythmic jolts of hiccups.",
+          "vi": "Não bộ của bé hoạt động rất mạnh, bé có chu kỳ ngủ và thức rõ ràng, và mẹ có thể cảm nhận những cú giật nhịp nhàng khi bé nấc cụt."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is getting heavier quickly and is now much longer than at the start of the second trimester. In the third trimester, babies usually gain most of their birth weight. There is still room to move, but kicks may feel stronger now."
+          ],
+          "vi": [
+            "Bé đang nặng thêm nhanh chóng và đã dài hơn nhiều so với đầu tam cá nguyệt thứ hai. Trong tam cá nguyệt thứ ba, bé thường tăng phần lớn cân nặng lúc chào đời. Bé vẫn còn chỗ để cử động, nhưng những cú đạp có thể mạnh hơn trước."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's brain is very active and growing fast. Its surface is starting to fold, which makes room for more brain cells. Your baby now has clearer cycles of sleep and waking, and spends much of the day asleep. Many babies are more active at certain times of day, often in the evening.",
+            "Now and then, you may feel small, rhythmic jolts, a few seconds apart, that go on for several minutes. These may be hiccups. Hiccups are very common in babies before birth and are usually harmless.",
+            "The eyes can open and close, and the lungs, liver and immune system keep maturing. Your baby is also practising sucking and swallowing, skills that are needed for feeding after birth."
+          ],
+          "vi": [
+            "Não bộ của bé hoạt động mạnh và lớn rất nhanh. Bề mặt não bắt đầu có các nếp gấp, tạo thêm chỗ cho nhiều tế bào não hơn. Bé có chu kỳ ngủ và thức rõ ràng hơn, và ngủ khá nhiều trong ngày. Nhiều bé hiếu động hơn vào những giờ nhất định, thường là buổi tối.",
+            "Thỉnh thoảng, mẹ có thể thấy những cú giật nhỏ, đều đặn, cách nhau vài giây và kéo dài vài phút. Đó có thể là lúc bé nấc cụt. Bé nấc cụt trong bụng mẹ là chuyện rất phổ biến và thường vô hại.",
+            "Mắt bé đã có thể mở và nhắm, còn phổi, gan và hệ miễn dịch tiếp tục trưởng thành. Bé cũng đang tập mút và nuốt, những kỹ năng cần cho việc bú sau khi chào đời."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your second trimester ends this week. From next week, you enter the third trimester, the final stretch before you meet your baby. Your bump is growing quickly, and you may feel more tired again. Some early symptoms, such as needing to pee more often, may also come back.",
+            "Backache and leg cramps may increase as your baby grows heavier. Your back works harder to carry the bump, and your posture keeps changing. Gentle stretching, sitting with your back supported and a pillow behind your lower back when you rest may help."
+          ],
+          "vi": [
+            "Tam cá nguyệt thứ hai khép lại trong tuần này. Từ tuần sau, mẹ bước vào tam cá nguyệt thứ ba, chặng cuối trước ngày gặp bé. Bụng lớn nhanh, và mẹ có thể lại thấy mệt hơn. Một vài triệu chứng hồi đầu thai kỳ, như hay đi tiểu, cũng có thể quay lại.",
+            "Đau lưng và chuột rút có thể tăng lên khi bé ngày càng nặng. Lưng mẹ phải gánh thêm sức nặng của bụng, và dáng người vẫn tiếp tục thay đổi. Vươn duỗi nhẹ nhàng, ngồi có tựa lưng và kê gối sau thắt lưng khi nghỉ có thể giúp mẹ đỡ đau."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Ask your doctor or midwife about the tetanus and whooping cough vaccines in pregnancy. Having them while pregnant helps protect you, and can pass some protection on to your baby for the first weeks after birth. The timing follows the schedule of the clinic where you have your check-ups.",
+            "Keep getting to know your baby's daily pattern of movements. From next week, you can start counting your baby's movements every day. If the movements slow down, stop or change, see the warning signs below."
+          ],
+          "vi": [
+            "Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh về việc tiêm phòng uốn ván và ho gà trong thai kỳ. Tiêm phòng khi mang thai giúp bảo vệ mẹ, và có thể truyền một phần miễn dịch cho bé trong những tuần đầu sau sinh. Thời điểm tiêm theo lịch hướng dẫn của cơ sở y tế nơi mẹ khám thai.",
+            "Mẹ tiếp tục làm quen với nhịp cử động hằng ngày của bé. Từ tuần sau, mẹ có thể bắt đầu đếm cử động của bé mỗi ngày. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          3,
+          4
         ]
       }
     },
@@ -1418,6 +2671,58 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "As the third trimester begins, your baby can open and close the eyes and blink, and the eyelashes have grown.",
+          "vi": "Khi mẹ bước vào tam cá nguyệt thứ ba, bé đã biết mở mắt, nhắm mắt và chớp mắt, hàng mi cũng đã mọc."
+        },
+        "sizeNote": {
+          "en": [
+            "From now until birth, your baby's weight usually rises quickly as fat builds up under the skin. Babies of the same week can differ quite a lot in size, so a scan may show a different number. Your doctor or midwife usually follows how your baby grows across several check-ups."
+          ],
+          "vi": [
+            "Từ nay đến lúc chào đời, cân nặng của bé thường tăng nhanh khi lớp mỡ dưới da dày dần. Các bé cùng tuần tuổi có thể chênh nhau khá nhiều, nên con số trên siêu âm có thể khác. Bác sĩ hoặc nữ hộ sinh thường theo dõi đà lớn của bé qua nhiều lần khám."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's eyelids, which stayed closed for many weeks, can now open and close. Your baby can blink, and eyelashes have grown along the lids. Much of the time, though, the eyes stay closed, especially during sleep.",
+            "The brain is growing fast. Its nerve cells keep forming more and more connections with one another. This work supports your baby's movements, senses and rhythm of sleep and waking.",
+            "Your baby keeps practising breathing movements, and the lungs continue to mature, although they are not yet ready to work on their own. As fat builds up, the skin is starting to look less wrinkled."
+          ],
+          "vi": [
+            "Mí mắt bé, vốn khép kín suốt nhiều tuần, giờ đã có thể mở ra và nhắm lại. Bé biết chớp mắt, và hàng mi đã mọc dọc theo mí. Dù vậy, phần lớn thời gian bé vẫn nhắm mắt, nhất là khi ngủ.",
+            "Não bộ đang lớn rất nhanh. Các tế bào thần kinh liên tục tạo thêm nhiều kết nối với nhau. Nhờ vậy, cử động, các giác quan và nhịp ngủ, thức của bé ngày càng phát triển.",
+            "Bé vẫn tiếp tục tập các động tác thở, và phổi tiếp tục trưởng thành, dù chưa sẵn sàng để tự hoạt động. Khi lớp mỡ dày lên, da bé bắt đầu bớt nhăn nheo hơn trước."
+          ]
+        },
+        "body": {
+          "en": [
+            "This week marks the start of the third trimester, the last stretch of your pregnancy. Your bump is growing quickly, and you may feel more tired again. Rest when you can, and ask others to help with heavy jobs.",
+            "From now on, check-ups usually become more frequent, so your doctor or midwife can follow your health and your baby's growth closely. At each visit, your blood pressure may be checked, your urine tested and your bump measured."
+          ],
+          "vi": [
+            "Tuần này đánh dấu khởi đầu tam cá nguyệt thứ ba, chặng cuối của thai kỳ. Bụng mẹ lớn nhanh, và mẹ có thể lại thấy mệt hơn. Mẹ hãy nghỉ ngơi khi có thể, và nhờ người thân giúp những việc nặng.",
+            "Từ nay, các lần khám thai thường dày hơn, để bác sĩ hoặc nữ hộ sinh theo dõi sát sức khỏe của mẹ và sự lớn lên của bé. Mỗi lần khám, mẹ có thể được đo huyết áp, xét nghiệm nước tiểu và đo bề cao tử cung."
+          ]
+        },
+        "todo": {
+          "en": [
+            "From this week, count your baby's movements every day, at a time when your baby is usually active. Lie on your side or sit comfortably, and notice the kicks, rolls and flutters. This helps you learn what is normal for your baby. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night.",
+            "When you go to sleep, at night or for a nap during the day, lie on your side rather than on your back. If your blood group is Rh negative, ask your doctor or midwife what extra care you need."
+          ],
+          "vi": [
+            "Từ tuần này, mẹ hãy đếm cử động của bé mỗi ngày, vào khoảng thời gian bé thường hiếu động. Mẹ nằm nghiêng hoặc ngồi thoải mái, rồi để ý những cú đạp, cú xoay và cựa mình của bé. Việc này giúp mẹ biết thế nào là bình thường với bé. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm.",
+            "Khi đi ngủ, dù ban đêm hay chợp mắt ban ngày, mẹ nên nằm nghiêng thay vì nằm ngửa. Nếu mẹ có nhóm máu Rh âm, hãy hỏi bác sĩ hoặc nữ hộ sinh xem mẹ cần được chăm sóc thêm những gì."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1479,6 +2784,58 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's kicks and jabs are now strong and easy to feel, while the muscles and lungs keep maturing.",
+          "vi": "Những cú đạp, cú huých của bé giờ đã mạnh và dễ cảm nhận, trong khi cơ bắp và phổi tiếp tục trưởng thành."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is filling out, and the weight gained each week keeps getting larger. As the womb becomes more crowded, you may feel your baby's elbows, knees and feet pressing outwards more clearly. There is still enough room for big movements."
+          ],
+          "vi": [
+            "Bé đang đầy đặn dần, và mức tăng cân mỗi tuần vẫn tiếp tục lớn hơn. Khi tử cung ngày càng chật, mẹ có thể cảm nhận rõ hơn khuỷu tay, đầu gối hay bàn chân bé đẩy ra phía ngoài. Bé vẫn còn đủ chỗ cho những cử động lớn."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's muscles keep getting stronger, so kicks, jabs and stretches are easy to feel. Sometimes you may even see your bump move from the outside. Each baby has their own pattern of active and quiet times.",
+            "The bones are growing longer and storing calcium, which makes them stronger. Your baby gets this calcium from you, through the placenta. This is one reason why calcium-rich food matters now.",
+            "The lungs keep maturing and making more surfactant, though they still need more time. The brain keeps growing too, and your baby has fairly clear times of sleep and waking. Now and then, your baby may have hiccups, which you may feel as small, regular jolts."
+          ],
+          "vi": [
+            "Cơ bắp của bé ngày càng khỏe, nên những cú đạp, cú huých hay lúc bé vươn mình đều dễ nhận ra. Đôi khi mẹ còn nhìn thấy bụng mình nhô lên theo cử động của bé. Mỗi bé có nhịp hiếu động và nghỉ ngơi riêng.",
+            "Xương của bé đang dài ra và tích trữ canxi để chắc khỏe hơn. Bé lấy lượng canxi này từ mẹ, qua bánh nhau. Đó là một lý do khiến thực phẩm giàu canxi lúc này rất cần thiết.",
+            "Phổi tiếp tục trưởng thành và tạo thêm surfactant, dù vẫn cần thêm thời gian. Não bộ cũng tiếp tục lớn, và bé có những khoảng ngủ, thức khá rõ ràng. Thỉnh thoảng bé có thể nấc cụt, mẹ có thể thấy như những cú giật nhỏ, đều đặn."
+          ]
+        },
+        "body": {
+          "en": [
+            "As your womb grows upwards, it presses on your diaphragm and lungs. You may feel short of breath when you climb stairs or talk for a while. Sitting up straight and slowing down usually help. If breathing suddenly becomes hard, see the warning signs below.",
+            "Your baby's weight also presses on your bladder, so you may need to pee often again, including at night. Heartburn is common too, as the womb pushes up on your stomach. Smaller meals, and not lying down straight after eating, may ease it. Loose clothes around your waist may help too."
+          ],
+          "vi": [
+            "Khi tử cung lớn dần lên cao, cơ hoành và phổi bị đẩy lên. Mẹ có thể thấy hụt hơi khi leo cầu thang hay nói chuyện lâu. Ngồi thẳng lưng và đi chậm lại thường giúp mẹ dễ thở hơn. Nếu bỗng thấy khó thở, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Sức nặng của bé cũng đè lên bàng quang, nên mẹ có thể lại phải đi tiểu nhiều lần, kể cả ban đêm. Ợ nóng cũng hay gặp, vì tử cung đẩy dạ dày lên cao. Chia nhỏ bữa ăn và không nằm ngay sau khi ăn có thể giúp mẹ dễ chịu hơn. Mặc quần áo rộng rãi ở vùng eo cũng có thể giúp ích."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at a time when your baby is usually active. Choose a quiet moment, and lie on your side or sit comfortably while you count. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait until the next day.",
+            "Include calcium-rich foods each day, such as milk, yoghurt, tofu, and small fish eaten with their bones. If you do not eat dairy foods, ask your doctor or midwife how to get enough calcium."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào khoảng thời gian bé thường hiếu động. Mẹ chọn một lúc yên tĩnh, nằm nghiêng hoặc ngồi thoải mái trong khi đếm. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau.",
+            "Mỗi ngày, mẹ nên có thực phẩm giàu canxi như sữa, sữa chua, đậu phụ và cá nhỏ ăn cả xương. Nếu mẹ không dùng được sữa và các món từ sữa, hãy hỏi bác sĩ hoặc nữ hộ sinh cách để có đủ canxi."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -1542,6 +2899,58 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Red blood cells are now made in your baby's bone marrow, and the fine lanugo hair is starting to disappear.",
+          "vi": "Tủy xương của bé giờ đã tạo hồng cầu, và lớp lông tơ mịn trên da bắt đầu rụng dần."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is gaining weight faster than before and is getting rounder. Compared with a newborn, your baby is still quite lean, but fills out a little more each week. In the weeks ahead, much of this gain usually comes from fat, which helps your baby keep warm after birth."
+          ],
+          "vi": [
+            "Bé đang tăng cân nhanh hơn trước và ngày càng tròn trịa. So với lúc mới sinh, bé vẫn còn khá gầy, nhưng mỗi tuần lại đầy đặn thêm một chút. Trong những tuần tới, phần lớn số cân tăng thêm thường là mỡ, giúp bé giữ ấm sau khi chào đời."
+          ]
+        },
+        "development": {
+          "en": [
+            "Earlier in pregnancy, the liver and spleen did much of the work of making blood cells. Now the bone marrow inside your baby's bones has become the main place where red blood cells are made. These cells carry oxygen around the body.",
+            "The fine, soft lanugo hair that has covered your baby's skin is starting to disappear. As fat builds up under the skin, your baby relies less on this hair for warmth. Some babies still have a little lanugo at birth, often on the shoulders and back.",
+            "The brain keeps growing quickly, and its surface keeps folding to make room for more cells. This growth continues long after birth. Your baby also opens the eyes when awake and closes them during sleep."
+          ],
+          "vi": [
+            "Trước đây, gan và lá lách đảm nhận phần lớn việc tạo máu. Giờ đây, tủy xương bên trong xương của bé đã trở thành nơi tạo hồng cầu chính. Hồng cầu mang oxy đi khắp cơ thể bé.",
+            "Lớp lông tơ mịn, mềm từng phủ trên da bé đang bắt đầu rụng dần. Khi lớp mỡ dưới da dày lên, bé ít cần đến lông tơ để giữ ấm hơn. Có bé lúc chào đời vẫn còn một ít lông tơ, thường ở vai và lưng.",
+            "Não bộ tiếp tục lớn nhanh, bề mặt não có thêm nhiều nếp gấp để có chỗ cho thêm tế bào. Não của bé vẫn còn tiếp tục phát triển rất lâu sau khi chào đời. Bé cũng mở mắt khi thức và nhắm mắt khi ngủ."
+          ]
+        },
+        "body": {
+          "en": [
+            "Tiredness often returns in the third trimester. Your body is carrying extra weight, and sleep may be broken. Heartburn may also come back, as your growing womb pushes up on your stomach. Short rests during the day, and going to bed a little earlier, may help.",
+            "Your centre of balance shifts as your bump grows, and pregnancy hormones make your joints looser. So you may feel clumsier, and bump into things or drop them more easily. Take care on stairs and wet floors, and wear flat, non-slip shoes to avoid slips and falls."
+          ],
+          "vi": [
+            "Mệt mỏi thường quay lại trong tam cá nguyệt thứ ba. Cơ thể mẹ phải mang thêm sức nặng, và giấc ngủ có thể chập chờn. Ợ nóng cũng có thể trở lại, vì tử cung lớn dần đẩy lên dạ dày. Nghỉ ngắn trong ngày và đi ngủ sớm hơn một chút có thể giúp mẹ đỡ mệt.",
+            "Khi bụng to dần, trọng tâm cơ thể thay đổi, còn nội tiết thai kỳ làm các khớp lỏng hơn. Vì vậy, mẹ có thể thấy mình vụng về hơn, dễ va vấp hay làm rơi đồ. Mẹ hãy cẩn thận khi lên xuống cầu thang hay đi trên sàn ướt, và đi giày dép đế bằng, chống trơn để tránh trượt ngã."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at the time when your baby is usually active. If you notice fewer movements, or a change in the pattern, contact your doctor or midwife straight away, day or night. Do not wait until the next day.",
+            "A growth scan is often done between weeks 30 and 32. It checks your baby's growth and position, and the amount of amniotic fluid. Ask your doctor or midwife whether you need it and when to book it. Your doctor can explain the results and whether any follow-up is needed."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu thấy bé cử động ít hơn, hoặc khác với nhịp quen thuộc, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau.",
+            "Siêu âm đánh giá tăng trưởng thường được làm trong khoảng tuần 30 đến 32. Lần siêu âm này kiểm tra sự lớn lên của bé, ngôi thai và lượng nước ối. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem mình có cần làm không và nên hẹn lúc nào. Bác sĩ có thể giải thích kết quả và cho biết mẹ có cần theo dõi thêm không."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1603,6 +3012,58 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "All five of your baby's senses are now working, and your baby can turn their head from side to side.",
+          "vi": "Cả năm giác quan của bé giờ đều đã hoạt động, và bé có thể quay đầu từ bên này sang bên kia."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby keeps putting on fat, so the arms, legs and face are filling out. Growth is steady, but each baby follows their own curve, so a scan may show a slightly different number."
+          ],
+          "vi": [
+            "Bé tiếp tục tích mỡ, nên tay, chân và gương mặt ngày càng đầy đặn. Bé lớn đều, nhưng mỗi bé có đà tăng trưởng riêng, nên con số trên siêu âm có thể hơi khác một chút."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's senses of touch, taste, smell, hearing and sight are all working now. Your baby can feel their own face and hands, taste the amniotic fluid, and hear sounds from outside. It is dim inside the womb, so sight is still limited, but the eyes keep developing.",
+            "Your baby can now turn their head from side to side. There is still room to change position, so as well as kicks, you may feel your baby turning and rolling over.",
+            "Fat keeps building up under the skin, and the brain is still growing very fast. Your baby also spends a lot of time asleep, often with quiet spells between the active ones. Your baby may respond to your voice or to music with a burst of movement."
+          ],
+          "vi": [
+            "Xúc giác, vị giác, khứu giác, thính giác và thị giác của bé giờ đều đã hoạt động. Bé cảm nhận được khi chạm vào mặt và tay mình, nếm được nước ối và nghe được âm thanh bên ngoài. Trong bụng mẹ khá tối nên thị giác còn hạn chế, nhưng đôi mắt vẫn tiếp tục phát triển.",
+            "Bé đã có thể quay đầu từ bên này sang bên kia. Bé vẫn còn chỗ để đổi tư thế, nên ngoài những cú đạp, mẹ còn có thể thấy bé xoay người, trở mình.",
+            "Lớp mỡ dưới da tiếp tục dày lên, và não bộ vẫn lớn rất nhanh. Bé cũng ngủ khá nhiều, giữa những lúc hiếu động thường có những quãng yên ắng. Bé có thể đáp lại giọng nói của mẹ hoặc tiếng nhạc bằng một loạt cử động."
+          ]
+        },
+        "body": {
+          "en": [
+            "Practice contractions may come more often now. Your bump tightens for a short while, then relaxes. These tightenings are usually irregular and not painful. Changing position or resting usually helps them ease. If they become regular or painful before 37 weeks, see the warning signs below.",
+            "Your breasts are getting ready for feeding. Some women notice a few drops of thick, yellowish early milk, called colostrum, leaking from the nipples. Others notice none at all, and both are normal. A breast pad inside your bra can help keep your clothes dry."
+          ],
+          "vi": [
+            "Lúc này, cơn gò sinh lý có thể đến thường xuyên hơn. Bụng mẹ căng cứng trong chốc lát rồi mềm lại. Những cơn gò này thường không đều và không đau. Đổi tư thế hoặc nghỉ ngơi thường giúp cơn gò dịu đi. Nếu cơn gò trở nên đều đặn hoặc gây đau trước tuần 37, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Bầu ngực đang chuẩn bị cho việc cho con bú. Một số mẹ thấy vài giọt sữa non đặc, hơi vàng rỉ ra ở núm vú. Có mẹ lại không thấy gì, và cả hai đều bình thường. Mẹ có thể lót miếng thấm sữa trong áo ngực để giữ quần áo khô ráo."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at the time your baby is usually active. If the movements slow down, stop or feel different, contact your doctor or midwife straight away, day or night. Do not wait until the next day.",
+            "Now is a good time to start learning about breastfeeding. Ask your doctor or midwife how to hold your baby and help them latch on, and where to find support after birth. Your partner or family can learn with you, so they know how to help."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu bé cử động ít đi, ngừng hẳn hoặc khác lạ, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau.",
+            "Đây là lúc thích hợp để mẹ bắt đầu tìm hiểu về nuôi con bằng sữa mẹ. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh cách bế bé, giúp bé ngậm bắt vú đúng, và nơi có thể tìm hỗ trợ sau sinh. Bố bé hoặc người thân có thể cùng tìm hiểu với mẹ, để biết cách giúp đỡ."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -1666,6 +3127,60 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby is practising breathing movements with amniotic fluid, and the fingernails and toenails have now grown in.",
+          "vi": "Bé đang tập các động tác thở với nước ối, và móng tay, móng chân giờ đã mọc đầy đủ."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is gaining weight steadily and has less room to stretch out. In the coming weeks, many babies settle into a head-down position, though some take longer to turn. Babies at this stage vary in size, so a scan may show a slightly different number."
+          ],
+          "vi": [
+            "Bé tăng cân đều đặn và ngày càng ít chỗ để duỗi người. Trong những tuần tới, nhiều bé dần quay đầu xuống dưới, nhưng cũng có bé xoay muộn hơn. Ở giai đoạn này, kích thước các bé có thể khác nhau, nên con số trên siêu âm có thể hơi lệch một chút."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby moves the chest muscles and diaphragm as if breathing, drawing amniotic fluid in and out of the lungs. This practice helps the lungs and breathing muscles get ready. Until birth, your baby still gets oxygen from you, through the placenta.",
+            "Fingernails and toenails have now grown in. As fat builds up, your baby's skin is also becoming softer and less see-through than before.",
+            "Many babies turn head-down in the coming weeks, ready for birth. Some turn later, and your doctor or midwife usually checks the position around week 36. If your baby is lying another way now, there is no need to worry yet."
+          ],
+          "vi": [
+            "Bé cử động cơ ngực và cơ hoành như đang thở, đưa nước ối vào rồi ra khỏi phổi. Việc tập luyện này giúp phổi và các cơ hô hấp dần sẵn sàng. Cho đến khi chào đời, bé vẫn nhận oxy từ mẹ qua bánh nhau.",
+            "Móng tay và móng chân của bé đã mọc đầy đủ. Khi lớp mỡ dày lên, da bé cũng mềm mại hơn và bớt trong hơn trước.",
+            "Nhiều bé quay đầu xuống dưới trong những tuần tới để chuẩn bị chào đời. Có bé xoay muộn hơn, và bác sĩ hoặc nữ hộ sinh thường kiểm tra ngôi thai vào khoảng tuần 36. Nếu lúc này bé đang nằm ở tư thế khác, mẹ chưa cần lo lắng."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your body is working hard, and you may need to rest more often during the day. Short breaks with your feet up can help, especially if you are still working. Let others help with shopping and housework where they can.",
+            "You may also have backache or heartburn, or need to pee often. The top of your womb is now well above your belly button, and your bump may feel heavy by the evening.",
+            "As the birth comes closer, it is natural to feel excited, anxious, or both. Talking about your feelings with your partner, your family or your midwife may help."
+          ],
+          "vi": [
+            "Cơ thể mẹ đang làm việc rất vất vả, nên mẹ có thể cần nghỉ ngơi nhiều lần hơn trong ngày. Những lúc nghỉ ngắn, gác chân lên cao có thể giúp mẹ đỡ mệt, nhất là khi mẹ vẫn đi làm. Mẹ hãy để người nhà đỡ đần việc đi chợ và việc nhà khi có thể.",
+            "Mẹ cũng có thể bị đau lưng, ợ nóng hoặc hay đi tiểu. Đáy tử cung giờ đã ở cao hơn rốn khá nhiều, và bụng mẹ có thể thấy nặng nề hơn vào buổi tối.",
+            "Khi ngày sinh đến gần, mẹ thấy háo hức, lo lắng, hay cả hai, đều là điều tự nhiên. Chia sẻ cảm xúc với bố bé, người thân hoặc nữ hộ sinh có thể giúp mẹ nhẹ lòng hơn."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, when your baby is usually active. Babies usually keep moving right up to labour. So if the movements slow down, stop or change, contact your doctor or midwife straight away, day or night.",
+            "Talk with your doctor about where you plan to give birth. Ask how to reach the maternity unit, how long the journey takes, and whom to call if you have questions. Knowing the plan early can make the last weeks feel calmer."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ. Vì vậy, nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm.",
+            "Mẹ hãy trao đổi với bác sĩ về nơi mẹ dự định sinh. Mẹ nên hỏi cách liên lạc với khoa sản, đường đi mất bao lâu, và nên gọi ai khi có thắc mắc. Biết trước kế hoạch có thể giúp những tuần cuối nhẹ nhàng hơn."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1727,6 +3242,58 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Most of your baby's bones are hardening, but the skull bones stay soft and separate, which helps with birth.",
+          "vi": "Xương của bé đang cứng dần, riêng các xương sọ vẫn mềm và chưa liền nhau, giúp bé chào đời dễ dàng hơn."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is getting plumper as fat builds up under the skin, and the womb is becoming a snug fit. At each check-up, your doctor or midwife may measure your bump to follow how your baby is growing."
+          ],
+          "vi": [
+            "Bé ngày càng bụ bẫm khi lớp mỡ dưới da dày lên, và tử cung đã khá chật. Ở mỗi lần khám, bác sĩ hoặc nữ hộ sinh có thể đo bụng mẹ để theo dõi bé lớn lên thế nào."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's bones keep hardening as they store more minerals. The bones of the skull, though, stay soft and are not yet joined. This lets the head change shape slightly as your baby passes through the birth canal.",
+            "Antibodies are passing from you to your baby through the placenta. They help protect your baby against some infections in the first months after birth. Most of this passing happens in the last weeks of pregnancy.",
+            "Your baby's brain and nervous system keep maturing, and the lungs are still developing. Your baby has fairly regular times of sleep and waking, and may be more active at certain times of day. You probably know these times well by now."
+          ],
+          "vi": [
+            "Xương của bé tiếp tục cứng dần khi tích thêm khoáng chất. Riêng các xương sọ vẫn mềm và chưa liền lại với nhau. Nhờ vậy, đầu bé có thể thay đổi hình dạng một chút khi đi qua đường sinh.",
+            "Kháng thể đang truyền từ mẹ sang bé qua bánh nhau. Chúng giúp bảo vệ bé trước một số bệnh nhiễm trùng trong những tháng đầu sau sinh. Phần lớn lượng kháng thể này được truyền sang trong những tuần cuối thai kỳ.",
+            "Não bộ và hệ thần kinh của bé tiếp tục trưởng thành, còn phổi vẫn đang phát triển. Bé ngủ và thức theo nhịp khá đều, và có thể hiếu động hơn vào những giờ nhất định trong ngày. Có lẽ đến giờ mẹ đã khá quen với những khoảng thời gian này."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your feet and ankles may swell more by the end of the day, especially in hot weather or after standing for a long time. Resting with your feet up and moving your ankles often may help. Sudden swelling of the face, hands or feet is different, so see the warning signs below.",
+            "Finding a comfortable position in bed may be harder now. Try lying on your side, with extra pillows to support your bump and back. If you wake up often in the night, a short rest during the day may help."
+          ],
+          "vi": [
+            "Bàn chân và mắt cá chân của mẹ có thể phù nhiều hơn vào cuối ngày, nhất là khi trời nóng hoặc sau khi đứng lâu. Nghỉ ngơi gác chân lên cao và thường xuyên xoay cổ chân có thể giúp mẹ đỡ hơn. Phù mặt, tay hoặc chân đột ngột thì lại khác, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Lúc này mẹ có thể khó tìm được tư thế nằm thoải mái. Mẹ thử nằm nghiêng, kê thêm gối để đỡ bụng và lưng. Nếu ban đêm hay thức giấc, chợp mắt một lát trong ngày có thể giúp mẹ đỡ mệt."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at a time when your baby is usually active. If they slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait until the next day.",
+            "Start packing your bag for the hospital. Put in your ID documents, health insurance card and pregnancy record book first, then add clothes for you and your baby. Getting it ready early means one less thing to think about later."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào khoảng thời gian bé thường hiếu động. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau.",
+            "Mẹ bắt đầu chuẩn bị túi đồ đi sinh. Trước hết là giấy tờ tùy thân, thẻ bảo hiểm y tế và sổ khám thai, sau đó thêm quần áo cho mẹ và bé. Chuẩn bị sớm giúp mẹ bớt một việc phải lo về sau."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -1790,6 +3357,58 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's nervous system and lungs keep maturing, and a layer of fat is filling out your baby's body.",
+          "vi": "Hệ thần kinh và phổi của bé tiếp tục trưởng thành, và lớp mỡ đang giúp cơ thể bé đầy đặn hơn."
+        },
+        "sizeNote": {
+          "en": [
+            "Fat is making your baby's body rounder and the skin smoother. From now until birth, your baby usually keeps gaining weight steadily, and the womb feels more and more snug. Every baby grows at their own pace, so a scan may show a different number."
+          ],
+          "vi": [
+            "Lớp mỡ khiến cơ thể bé tròn trịa hơn và làn da mịn màng hơn. Từ nay đến lúc chào đời, bé thường vẫn tăng cân đều đặn, và tử cung ngày càng chật chội. Mỗi bé lớn theo nhịp riêng, nên con số trên siêu âm có thể khác."
+          ]
+        },
+        "development": {
+          "en": [
+            "The lungs are still maturing and making more surfactant. They are much further along than a few weeks ago, but the last weeks of pregnancy still matter for them. Your baby keeps practising breathing movements, which helps strengthen the muscles used for breathing.",
+            "The nervous system keeps developing, linking the brain more closely with the muscles. This helps your baby's movements become more coordinated. Your baby also practises skills needed after birth, such as sucking and swallowing.",
+            "Fat now fills out your baby's arms, legs and cheeks. This fat helps your baby keep warm after birth. Your baby's times of sleep and waking are fairly settled, and you probably know the usual pattern of movements well by now."
+          ],
+          "vi": [
+            "Phổi của bé vẫn đang trưởng thành và tạo thêm surfactant. So với vài tuần trước, phổi đã phát triển hơn nhiều, nhưng những tuần cuối thai kỳ vẫn rất quan trọng với phổi. Bé vẫn đều đặn tập các động tác thở, giúp các cơ hô hấp khỏe dần lên.",
+            "Hệ thần kinh tiếp tục phát triển, kết nối não bộ với cơ bắp chặt chẽ hơn. Nhờ vậy, cử động của bé ngày càng nhịp nhàng. Bé cũng tập những kỹ năng cần cho cuộc sống sau khi chào đời, như mút và nuốt.",
+            "Mỡ giờ đã làm đầy đặn tay, chân và đôi má của bé. Lớp mỡ này giúp bé giữ ấm sau khi chào đời. Giờ ngủ, giờ thức của bé đã khá ổn định, và có lẽ mẹ đã quen với nhịp cử động thường ngày của bé."
+          ]
+        },
+        "body": {
+          "en": [
+            "As your baby grows heavier, you may feel pressure low in your pelvis, or an ache in your groin when you walk. Taking smaller steps and resting often may help. If pain in your pelvis makes walking or turning over in bed hard, tell your doctor or midwife.",
+            "Tiredness and broken sleep are common now. You may wake to pee, to turn over, or because your mind is busy. Rest when you can during the day, and go easy on yourself. A warm shower or a quiet routine before bed may help you settle."
+          ],
+          "vi": [
+            "Khi bé ngày càng nặng, mẹ có thể thấy nặng nề ở vùng chậu, hoặc mỏi ở háng khi đi lại. Bước những bước ngắn hơn và nghỉ thường xuyên có thể giúp mẹ đỡ hơn. Nếu đau vùng chậu đến mức khó đi lại hay khó trở mình trên giường, mẹ hãy báo bác sĩ hoặc nữ hộ sinh.",
+            "Mệt mỏi và ngủ chập chờn lúc này khá thường gặp. Mẹ có thể thức giấc vì buồn tiểu, vì trở mình, hoặc vì suy nghĩ ngổn ngang. Mẹ hãy nghỉ ngơi khi có thể trong ngày và đừng quá khắt khe với bản thân. Tắm nước ấm hoặc thư giãn nhẹ nhàng trước khi ngủ có thể giúp mẹ dễ ngủ hơn."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at your baby's usual active time. If you notice fewer movements or a change, contact your doctor or midwife straight away, day or night. Do not wait until the next day.",
+            "Learn the signs of labour: contractions that come regularly and get stronger, your waters breaking, or a show of mucus. Save the phone number of your maternity unit, and plan how you will get there at any hour. If you notice signs of labour before 37 weeks, see the warning signs below."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu thấy bé cử động ít hơn hoặc khác đi, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau.",
+            "Mẹ hãy tìm hiểu các dấu hiệu chuyển dạ: cơn gò đến đều đặn và mạnh dần, vỡ ối, hoặc ra nhầy. Mẹ nên lưu sẵn số điện thoại của khoa sản nơi mình định sinh, và tính trước cách đến đó vào bất kỳ giờ nào. Nếu thấy dấu hiệu chuyển dạ trước tuần 37, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1851,6 +3470,58 @@
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "The kidneys are now fully developed, and although space is getting tight, you should still feel your baby moving every day.",
+          "vi": "Thận của bé đã phát triển hoàn chỉnh, và dù chỗ trong bụng ngày càng chật, mẹ vẫn cần cảm nhận được bé cử động mỗi ngày."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is now quite plump, and the womb is a snug fit. Much of the weight gained now is fat. Babies at this stage can differ a lot in size, and your doctor or midwife watches how your baby keeps growing over time."
+          ],
+          "vi": [
+            "Bé giờ đã khá bụ bẫm, và tử cung đã chật chội. Phần lớn số cân bé tăng lúc này là mỡ. Ở giai đoạn này, kích thước các bé có thể chênh nhau nhiều, và bác sĩ hoặc nữ hộ sinh thường theo dõi đà lớn của bé qua thời gian."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's kidneys are now fully developed. They make urine, which becomes part of the amniotic fluid. Most other organs are well developed too, though the lungs and brain are still maturing.",
+            "With less room in the womb, your baby's movements may feel different. You may notice more rolls, squirms and pushes than sharp kicks. But the movements should not become fewer. Babies usually keep moving right up to labour.",
+            "Your baby spends much of the day asleep, with active times in between. Sucking, swallowing and breathing movements are still practised every day. You may notice that your baby's active times follow a familiar pattern. Any change in that pattern matters, even if the movements only feel weaker."
+          ],
+          "vi": [
+            "Thận của bé giờ đã phát triển hoàn chỉnh. Thận tạo ra nước tiểu, góp phần vào lượng nước ối. Phần lớn các cơ quan khác cũng đã phát triển khá đầy đủ, dù phổi và não bộ vẫn đang tiếp tục trưởng thành.",
+            "Vì trong tử cung ít chỗ hơn, cử động của bé có thể mang cảm giác khác trước. Mẹ có thể thấy bé xoay, uốn mình hay đẩy nhiều hơn là những cú đạp mạnh. Nhưng số lần cử động không nên ít đi. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ.",
+            "Bé ngủ khá nhiều trong ngày, xen giữa là những lúc hiếu động. Bé vẫn tập mút, nuốt và các động tác thở mỗi ngày. Mẹ có thể nhận ra những lúc bé hiếu động thường lặp lại theo một nhịp quen thuộc. Mọi thay đổi trong nhịp đó đều đáng lưu ý, kể cả khi cử động chỉ yếu đi."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your baby is pressing on your bladder, so you may need to pee more often. A little urine may leak when you cough, laugh or sneeze. Gentle pelvic floor exercises can help. Do not drink less just to avoid trips to the toilet, as your body still needs plenty of fluids.",
+            "Practice contractions may feel stronger and come more often. They usually fade when you rest or change position. If you are unsure whether fluid is urine or your waters, or if tightenings become regular or painful, see the warning signs below."
+          ],
+          "vi": [
+            "Bé đè lên bàng quang nên mẹ có thể phải đi tiểu nhiều hơn. Mẹ có thể bị rỉ một chút nước tiểu khi ho, cười hay hắt hơi. Tập nhẹ nhàng cơ sàn chậu có thể giúp ích. Mẹ đừng vì ngại đi tiểu mà uống ít nước, vì cơ thể vẫn cần đủ nước.",
+            "Cơn gò sinh lý có thể mạnh hơn và đến thường xuyên hơn. Chúng thường dịu đi khi mẹ nghỉ ngơi hoặc đổi tư thế. Nếu mẹ không chắc dịch chảy ra là nước tiểu hay nước ối, hoặc cơn gò trở nên đều đặn hay gây đau, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at the time your baby is usually active. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait until the next day.",
+            "The group B strep test is often done between weeks 35 and 37. A swab checks whether you carry these common bacteria, so your care team can plan how to protect your baby during labour. Ask your doctor whether you need it and when."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến hôm sau.",
+            "Xét nghiệm liên cầu khuẩn nhóm B thường được làm trong khoảng tuần 35 đến 37. Mẫu dịch được lấy để xem mẹ có mang loại vi khuẩn khá phổ biến này không, từ đó đội ngũ y tế lên kế hoạch bảo vệ bé khi chuyển dạ. Mẹ hãy hỏi bác sĩ xem mẹ có cần làm không và làm lúc nào."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -1914,6 +3585,58 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby may soon drop lower into your pelvis, and most of the soft lanugo hair has now gone.",
+          "vi": "Bé có thể sớm tụt xuống thấp hơn trong khung chậu, và phần lớn lớp lông tơ mềm giờ đã rụng."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is getting close to birth weight, though weight gain usually continues until birth. Sizes vary a lot at this stage, and a healthy baby may be smaller or larger than the figure shown."
+          ],
+          "vi": [
+            "Bé đã gần đạt cân nặng lúc chào đời, dù thường vẫn tiếp tục tăng cân cho đến khi sinh. Ở giai đoạn này, kích thước các bé chênh nhau khá nhiều, và một bé khỏe mạnh có thể nhỏ hơn hoặc lớn hơn con số hiển thị."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby may move lower down into your pelvis, which is sometimes called dropping or engaging. In a first pregnancy, this often happens a few weeks before labour. In later pregnancies, it may not happen until labour starts.",
+            "Most of the lanugo hair has now gone. Much of the vernix, the creamy coating on the skin, is still there, and some may remain at birth. Your baby swallows some of the shed hair and vernix with the amniotic fluid, and they become part of the meconium, the first stool.",
+            "Your doctor or midwife may check whether your baby is lying head-down. Most babies are head-down by now. If your baby is bottom-first or lying across, your doctor or midwife will talk with you about the options."
+          ],
+          "vi": [
+            "Bé có thể tụt xuống thấp hơn trong khung chậu, còn gọi là thai xuống hay thai lọt. Ở lần mang thai đầu, điều này hay xảy ra vài tuần trước khi chuyển dạ. Ở những lần mang thai sau, có khi phải đến lúc chuyển dạ bé mới xuống.",
+            "Phần lớn lông tơ của bé giờ đã rụng. Chất gây, lớp sáp trắng phủ trên da, vẫn còn khá nhiều, và một phần có thể còn lại khi bé chào đời. Bé nuốt một phần lông tơ và chất gây bong ra cùng nước ối, và chúng trở thành một phần của phân su, tức phân đầu tiên.",
+            "Bác sĩ hoặc nữ hộ sinh có thể kiểm tra xem bé đã quay đầu xuống dưới chưa. Lúc này, phần lớn các bé đã ở ngôi đầu. Nếu bé nằm ngôi mông hoặc nằm ngang, bác sĩ hoặc nữ hộ sinh sẽ trao đổi với mẹ về các lựa chọn."
+          ]
+        },
+        "body": {
+          "en": [
+            "Once your baby drops, breathing may feel easier, and heartburn may ease as there is less pressure under your ribs. In exchange, you may feel more pressure on your bladder and pelvis, and need to pee even more often. Eating a full meal may feel easier too.",
+            "Some women feel sharp twinges low down as the baby's head presses into the pelvis, and walking may feel awkward. Belly pain that does not go away is different, so see the warning signs below."
+          ],
+          "vi": [
+            "Khi bé tụt xuống, mẹ có thể thấy dễ thở hơn, và ợ nóng có thể đỡ hơn vì phần dưới xương sườn bớt bị chèn ép. Bù lại, bàng quang và vùng chậu bị đè nặng hơn, nên mẹ có thể còn phải đi tiểu nhiều hơn nữa. Mẹ cũng có thể thấy ăn được nhiều hơn trong một bữa.",
+            "Một số mẹ thấy những cơn nhói ở bụng dưới khi đầu bé ép vào khung chậu, và đi lại có thể thấy vướng víu. Đau bụng không dứt thì lại khác, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at the time your baby is usually active. Even with little room left, babies usually keep moving right up to labour. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night.",
+            "Finish packing your hospital bag and keep it near the door. Check that your documents and pregnancy record book are inside. Add a few clothes and nappies for your baby, and something comfortable for you to wear. A few snacks and a drink for labour are useful too."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Dù còn rất ít chỗ, các bé thường vẫn cử động cho đến tận lúc chuyển dạ. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm.",
+            "Mẹ hãy hoàn tất túi đồ đi sinh và để sẵn gần cửa. Mẹ kiểm tra lại xem giấy tờ và sổ khám thai đã có trong túi chưa. Thêm vài bộ quần áo, bỉm cho bé, và một bộ đồ thoải mái cho mẹ. Một ít đồ ăn nhẹ và nước uống cho lúc chuyển dạ cũng rất hữu ích."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -1975,6 +3698,60 @@
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "From this week, your baby is considered early term and is busy practising sucking, blinking and breathing movements.",
+          "vi": "Từ tuần này, bé được xem là đủ tháng sớm và đang chăm chỉ tập bú, chớp mắt cùng các động tác thở."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby keeps gaining weight, much of it as fat, and now fills most of the space in your womb. This fat fills out the cheeks, arms and legs. Your doctor or midwife checks your baby's growth at your weekly visits."
+          ],
+          "vi": [
+            "Bé tiếp tục tăng cân, phần lớn là mỡ, và giờ đã chiếm gần hết chỗ trong tử cung. Lớp mỡ này làm má, tay và chân bé đầy đặn hơn. Bác sĩ hoặc nữ hộ sinh theo dõi sự lớn lên của bé ở các lần khám hằng tuần."
+          ]
+        },
+        "development": {
+          "en": [
+            "From 37 weeks, a baby is described as early term. In many ways, your baby's body is ready for life outside the womb, while the brain and lungs keep maturing in the weeks ahead. Some babies are born in the next few weeks; others wait until after the due date.",
+            "Your baby practises the skills needed after birth. Sucking, swallowing, blinking and breathing movements are all part of the daily routine. Some babies even suck their thumb or fingers in the womb. These skills help your baby feed and breathe in the first hours after birth.",
+            "Your baby still moves every day. The movements may feel more like rolls and pushes than kicks, but they should not become fewer. Babies usually keep moving right up to labour."
+          ],
+          "vi": [
+            "Từ tuần 37, bé được xem là đủ tháng sớm. Ở nhiều mặt, cơ thể bé đã sẵn sàng cho cuộc sống bên ngoài bụng mẹ, còn não và phổi tiếp tục trưởng thành trong những tuần tới. Có bé chào đời trong vài tuần tới, có bé lại đợi đến sau ngày dự sinh.",
+            "Bé đang tập những kỹ năng cần cho cuộc sống sau khi chào đời. Mút, nuốt, chớp mắt và các động tác thở là những việc bé làm hằng ngày. Có bé còn mút ngón tay ngay từ trong bụng mẹ. Những kỹ năng này giúp bé bú và thở trong những giờ đầu sau sinh.",
+            "Bé vẫn cử động mỗi ngày. Cử động có thể giống những cú xoay, đẩy hơn là cú đạp, nhưng không nên ít đi. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ."
+          ]
+        },
+        "body": {
+          "en": [
+            "From now on, check-ups usually happen every week. Your doctor or midwife checks your blood pressure, your baby's heartbeat and which way your baby is lying.",
+            "As your cervix gets ready for labour, you may notice a show. This is a plug of sticky mucus, sometimes pink or streaked with a little blood. A show can come days before labour, or as it begins. Heavy or bright red bleeding is different, so see the warning signs below.",
+            "You may feel heavy and tired, and sleep may be broken. Rest is important now."
+          ],
+          "vi": [
+            "Từ nay, mẹ thường đi khám thai mỗi tuần. Bác sĩ hoặc nữ hộ sinh kiểm tra huyết áp của mẹ, tim thai và tư thế nằm của bé.",
+            "Khi cổ tử cung chuẩn bị cho chuyển dạ, mẹ có thể thấy ra nhầy. Đó là một nút chất nhầy dính, đôi khi có màu hồng hoặc lẫn ít tia máu. Ra nhầy có thể xảy ra vài ngày trước chuyển dạ, hoặc ngay khi chuyển dạ bắt đầu. Ra máu nhiều hoặc máu đỏ tươi thì lại khác, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Mẹ có thể thấy nặng nề, mệt mỏi và ngủ không sâu giấc. Lúc này, nghỉ ngơi là điều rất quan trọng."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at the time your baby is usually active. If they slow down, stop or change, contact your doctor or midwife straight away, day or night.",
+            "Make sure you know the signs that labour may be starting: contractions that come regularly and grow stronger, your waters breaking, or a show. If you think labour has started, call your maternity unit; they can tell you when to come in. If your waters break, call your maternity unit straight away, whatever the colour of the fluid."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm.",
+            "Mẹ hãy nắm chắc các dấu hiệu cho thấy chuyển dạ có thể đang bắt đầu: cơn gò đến đều đặn và mạnh dần, vỡ ối, hoặc ra nhầy. Nếu nghĩ mình đã chuyển dạ, mẹ hãy gọi cho khoa sản để được hướng dẫn khi nào cần đến viện. Nếu vỡ ối, dù nước ối trong, xanh hay nâu, mẹ hãy gọi ngay cho khoa sản."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -2038,6 +3815,58 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby's grasp is now firm, and the organs are ready to work outside the womb.",
+          "vi": "Bé đã nắm tay rất chắc, và các cơ quan đã sẵn sàng hoạt động bên ngoài bụng mẹ."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is still gaining a little weight each week and fits snugly in your womb. Curled up, with the knees drawn up towards the chest, your baby takes up less space. Your bump may feel firm and heavy now that your baby fills most of the space."
+          ],
+          "vi": [
+            "Mỗi tuần bé vẫn tăng thêm một chút cân, và nằm vừa khít trong tử cung. Bé thường cuộn tròn, co gối về phía ngực để chiếm ít chỗ hơn. Bụng mẹ có thể thấy căng và nặng khi bé đã chiếm gần hết chỗ."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby's grasp is now firm. In the womb, your baby may hold on to the umbilical cord or their own hands. After birth, babies usually curl their fingers tightly around anything placed in their palm. This is called the grasp reflex.",
+            "Your baby's organs are ready to work outside the womb. The lungs and brain keep maturing, even after birth. The gut holds meconium, the first stool, which usually passes in the first days after birth.",
+            "Your baby keeps moving every day, though there is little room. You may feel pushes, stretches and rolls more than kicks. Babies usually keep moving right up to labour, so any slowing down or change matters."
+          ],
+          "vi": [
+            "Bé đã biết nắm tay rất chắc. Trong bụng mẹ, bé có thể nắm lấy dây rốn hoặc tay của chính mình. Sau khi chào đời, các bé thường nắm chặt bất cứ thứ gì đặt vào lòng bàn tay. Đây gọi là phản xạ nắm.",
+            "Các cơ quan của bé đã sẵn sàng hoạt động bên ngoài bụng mẹ. Phổi và não bộ vẫn tiếp tục trưởng thành, kể cả sau khi sinh. Trong ruột bé có phân su, tức phân đầu tiên, thường được thải ra trong vài ngày đầu sau sinh.",
+            "Bé vẫn cử động mỗi ngày, dù chỗ đã rất chật. Mẹ có thể thấy bé đẩy, vươn mình hay xoay người nhiều hơn là đạp. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ, nên mọi sự chậm lại hay thay đổi đều đáng lưu ý."
+          ]
+        },
+        "body": {
+          "en": [
+            "You may feel heavy, uncomfortable and impatient now. Sleeping, walking and even sitting can take effort. Many women feel this way in the last weeks, and it is normal to long to meet your baby. Talking with your partner, your family or your midwife about how you feel can help.",
+            "Practice contractions may come often, sometimes several close together. They usually ease when you rest or change position. Labour contractions are different: they come regularly, last longer and keep getting stronger. If you think labour has started or your waters have broken, call your maternity unit straight away."
+          ],
+          "vi": [
+            "Lúc này mẹ có thể thấy nặng nề, khó chịu và sốt ruột. Ngủ, đi lại hay thậm chí ngồi cũng có thể thấy vất vả. Nhiều mẹ cũng cảm thấy như vậy trong những tuần cuối, và mong sớm được gặp bé là điều hoàn toàn bình thường. Chia sẻ cảm xúc với bố bé, người thân hoặc nữ hộ sinh có thể giúp mẹ nhẹ lòng.",
+            "Cơn gò sinh lý có thể đến thường xuyên, đôi khi vài cơn gần nhau. Chúng thường dịu đi khi mẹ nghỉ ngơi hoặc đổi tư thế. Cơn gò chuyển dạ thì khác: đến đều đặn, kéo dài hơn và ngày càng mạnh. Nếu nghĩ mình đã chuyển dạ hoặc đã vỡ ối, mẹ hãy gọi ngay cho khoa sản."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, when your baby is usually active. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait to see if they pick up again.",
+            "Rest when you can, even if you cannot sleep. Eat light, regular meals and snacks to keep your energy up, and drink enough water. A short, gentle walk may also help you feel better."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng chờ xem bé có cử động nhiều trở lại không.",
+            "Mẹ hãy nghỉ ngơi khi có thể, kể cả khi không ngủ được. Ăn các bữa nhẹ, đều đặn cùng vài bữa phụ để giữ sức, và uống đủ nước. Đi bộ nhẹ nhàng một lát cũng có thể giúp mẹ thấy dễ chịu hơn."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -2099,6 +3928,58 @@
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Full term begins this week, and a layer of fat is ready to help your baby keep warm after birth.",
+          "vi": "Từ tuần này bé đã đủ tháng, và lớp mỡ dưới da sẵn sàng giúp bé giữ ấm sau khi chào đời."
+        },
+        "sizeNote": {
+          "en": [
+            "Your baby is still adding a little fat. There is very little room left, so your baby lies curled up most of the time. Birth weights vary widely, and your doctor or midwife looks at how well your baby is doing, not just the number on the scales."
+          ],
+          "vi": [
+            "Bé vẫn tích thêm một chút mỡ. Trong tử cung còn rất ít chỗ, nên phần lớn thời gian bé nằm cuộn tròn. Cân nặng lúc chào đời của các bé rất khác nhau, và bác sĩ hoặc nữ hộ sinh xem xét sức khỏe chung của bé, chứ không chỉ con số trên cân."
+          ]
+        },
+        "development": {
+          "en": [
+            "From 39 weeks, a baby is described as full term. Your baby's body systems are ready for life outside the womb. The brain is still developing quickly, and keeps growing fast through the first years of life.",
+            "A layer of fat under the skin helps your baby keep warm after birth, when the air is much cooler than inside the womb. Skin-to-skin contact with you after birth also helps your baby stay warm.",
+            "The lungs keep making surfactant, which helps them work well once your baby starts to breathe air. Your baby keeps practising breathing movements, sucking and swallowing every day."
+          ],
+          "vi": [
+            "Từ tuần 39, bé được xem là đủ tháng. Các hệ cơ quan của bé đã sẵn sàng cho cuộc sống bên ngoài bụng mẹ. Não bộ vẫn phát triển nhanh, và còn tiếp tục lớn mạnh trong những năm đầu đời.",
+            "Lớp mỡ dưới da giúp bé giữ ấm sau khi chào đời, khi không khí bên ngoài lạnh hơn nhiều so với trong bụng mẹ. Được nằm da kề da với mẹ sau sinh cũng giúp bé giữ ấm.",
+            "Phổi vẫn tiếp tục tạo surfactant, giúp phổi hoạt động tốt khi bé bắt đầu hít thở không khí. Mỗi ngày, bé vẫn tập các động tác thở, mút và nuốt."
+          ]
+        },
+        "body": {
+          "en": [
+            "Labour could start any day now. Some women feel a sudden burst of energy and want to clean or get things ready. Others feel very tired and heavy. Both are common, so listen to your body and do not overdo it.",
+            "You may notice more practice contractions, a show, or more pressure low down. These can be signs that your body is getting ready, but labour may still be days or weeks away. If you think labour has started, or your waters have broken, call your maternity unit straight away."
+          ],
+          "vi": [
+            "Chuyển dạ có thể bắt đầu bất cứ ngày nào. Có mẹ bỗng thấy tràn đầy năng lượng, muốn dọn dẹp, sắp xếp mọi thứ. Có mẹ lại thấy rất mệt và nặng nề. Cả hai đều thường gặp, mẹ hãy lắng nghe cơ thể và đừng gắng sức quá.",
+            "Mẹ có thể thấy cơn gò sinh lý nhiều hơn, ra nhầy, hoặc thấy nặng hơn ở bụng dưới. Đó có thể là dấu hiệu cơ thể đang chuẩn bị, nhưng chuyển dạ vẫn có thể còn vài ngày hoặc vài tuần nữa. Nếu nghĩ mình đã chuyển dạ hoặc đã vỡ ối, mẹ hãy gọi ngay cho khoa sản."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at a time when your baby is usually active. Babies usually keep moving right up to and during labour. So if the movements slow down, stop or change, contact your doctor or midwife straight away, day or night.",
+            "Keep your phone charged and your hospital bag by the door. Agree on who will take you to hospital, and who will look after things at home, such as older children or pets."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ và cả trong khi chuyển dạ. Vì vậy, nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm.",
+            "Mẹ luôn sạc đầy điện thoại và để túi đồ đi sinh gần cửa. Cả nhà nên thống nhất trước ai sẽ đưa mẹ đến viện, và ai sẽ lo việc ở nhà, như trông con lớn hay vật nuôi."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     },
@@ -2162,6 +4043,58 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your due date has arrived and your baby is ready to be born, though only a few babies arrive exactly on the day.",
+          "vi": "Ngày dự sinh đã đến và bé đã sẵn sàng chào đời, dù chỉ một số ít bé ra đời đúng vào ngày này."
+        },
+        "sizeNote": {
+          "en": [
+            "Babies born around the due date come in a wide range of healthy sizes. The figures shown are typical values, so your baby may be smaller or larger. Your doctor or midwife looks at your baby's growth and well-being as a whole."
+          ],
+          "vi": [
+            "Các bé sinh vào khoảng ngày dự sinh có kích thước khỏe mạnh rất khác nhau. Các con số hiển thị chỉ là giá trị thường gặp, nên bé của mẹ có thể nhỏ hơn hoặc lớn hơn. Bác sĩ hoặc nữ hộ sinh xem xét sự lớn lên và sức khỏe chung của bé."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby is ready to be born. The organs are ready to work on their own. Your baby also has the reflexes needed for feeding, such as turning towards a touch on the cheek and sucking.",
+            "The bones of the skull are not yet joined. Soft gaps between them let the head change shape a little as it passes through the birth canal. This is why some newborns have a slightly long or pointed head for the first few days.",
+            "Only a few babies arrive exactly on their due date. Many are born in the week or two either side of it. Your due date is an estimate, not a deadline."
+          ],
+          "vi": [
+            "Bé đã sẵn sàng chào đời. Các cơ quan đã có thể tự hoạt động. Bé cũng đã có những phản xạ cần cho việc bú, như quay đầu về phía má được chạm vào và mút.",
+            "Các xương sọ của bé vẫn chưa liền nhau. Những khe mềm giữa các xương giúp đầu bé thay đổi hình dạng một chút khi đi qua đường sinh. Vì vậy, một số bé sơ sinh có đầu hơi dài hoặc hơi nhọn trong vài ngày đầu.",
+            "Chỉ một số ít bé chào đời đúng vào ngày dự sinh. Nhiều bé ra đời trong khoảng một, hai tuần trước hoặc sau ngày này. Ngày dự sinh chỉ là ngày ước tính, không phải hạn chót."
+          ]
+        },
+        "body": {
+          "en": [
+            "Your due date is here, and waiting a little longer is common, especially in a first pregnancy. It is natural to feel impatient, and questions from family and friends can add to it. It is fine to tell people you will share news when there is some.",
+            "From now on, your doctor or midwife checks on you and your baby more closely. They may listen to your baby's heartbeat, and talk with you about what happens if labour does not start on its own. Ask any questions you have, so you know what to expect."
+          ],
+          "vi": [
+            "Ngày dự sinh đã đến, và chờ thêm ít ngày là chuyện thường gặp, nhất là ở lần mang thai đầu. Mẹ thấy sốt ruột là điều tự nhiên, nhất là khi người thân, bạn bè liên tục hỏi han. Mẹ có thể nhẹ nhàng nói rằng khi có tin vui, gia đình sẽ báo.",
+            "Từ nay, bác sĩ hoặc nữ hộ sinh theo dõi mẹ và bé sát sao hơn. Họ có thể nghe tim thai và trao đổi với mẹ về những gì sẽ làm nếu chuyển dạ không tự bắt đầu. Mẹ cứ hỏi những điều còn băn khoăn, để biết trước mọi việc sẽ diễn ra thế nào."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at a time when your baby is usually active. Babies usually keep moving right up to labour, even after the due date. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night.",
+            "Keep every check-up appointment after your due date, even if you feel well. While you wait, keep your bag ready, rest, and do things that help you relax."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ, kể cả khi đã qua ngày dự sinh. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm.",
+            "Mẹ hãy đi khám đúng hẹn sau ngày dự sinh, kể cả khi thấy khỏe. Trong lúc chờ đợi, mẹ để sẵn túi đồ, nghỉ ngơi và làm những việc giúp mình thư giãn."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -2224,6 +4157,58 @@
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
+      },
+      "article": {
+        "lead": {
+          "en": "Now past your due date, your baby usually keeps growing, and your doctor or midwife will check on you both more often.",
+          "vi": "Đã qua ngày dự sinh, bé thường vẫn tiếp tục lớn, và bác sĩ hoặc nữ hộ sinh sẽ theo dõi mẹ và bé thường xuyên hơn."
+        },
+        "sizeNote": {
+          "en": [
+            "After the due date, your baby usually keeps growing and gaining a little weight. Growth from now on differs from baby to baby. Your doctor or midwife can tell you more about how your baby is doing."
+          ],
+          "vi": [
+            "Sau ngày dự sinh, bé thường vẫn tiếp tục lớn và tăng thêm chút cân. Từ giờ, tốc độ lớn của mỗi bé mỗi khác. Bác sĩ hoặc nữ hộ sinh có thể cho mẹ biết thêm bé đang phát triển thế nào."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby usually keeps growing and laying down a little more fat. The lungs, brain and other organs are ready for birth, and they keep maturing. There is very little room left, so you may feel more stretches and pushes than kicks.",
+            "By now, much of the vernix that protected the skin has gone. So your baby's skin may be a little dry or peeling at birth. This usually settles on its own in the first weeks.",
+            "Your baby's nails may have grown past the fingertips. After the birth, you can ask your midwife how to trim them gently and safely. Babies usually keep moving every day, right up to labour."
+          ],
+          "vi": [
+            "Bé thường vẫn tiếp tục lớn và tích thêm một chút mỡ. Phổi, não bộ và các cơ quan khác đã sẵn sàng cho lúc chào đời, và vẫn đang tiếp tục trưởng thành. Trong tử cung còn rất ít chỗ, nên mẹ có thể thấy bé vươn mình, đẩy nhiều hơn là đạp.",
+            "Đến lúc này, phần lớn lớp chất gây từng bảo vệ làn da đã mất đi. Vì vậy, khi chào đời da bé có thể hơi khô hoặc bong tróc. Tình trạng này thường tự hết trong những tuần đầu.",
+            "Móng tay của bé có thể đã dài quá đầu ngón. Sau khi sinh, mẹ có thể hỏi nữ hộ sinh cách cắt móng cho bé nhẹ nhàng, an toàn. Các bé thường vẫn cử động mỗi ngày, cho đến tận lúc chuyển dạ."
+          ]
+        },
+        "body": {
+          "en": [
+            "Waiting past your due date can feel long and tiring. Your doctor or midwife will monitor you and your baby more often now. These checks may include your blood pressure and your baby's heartbeat. Gentle walks, warm baths and time with people you love may help the days pass.",
+            "Your doctor may talk with you about inducing labour, which means helping labour to start. Ask what the options are, how it is usually done where you plan to give birth, and share what you would prefer. You can ask questions and take time to decide together."
+          ],
+          "vi": [
+            "Chờ đợi khi đã qua ngày dự sinh có thể khiến mẹ thấy dài đằng đẵng và mệt mỏi. Lúc này, bác sĩ hoặc nữ hộ sinh sẽ theo dõi mẹ và bé thường xuyên hơn. Các lần kiểm tra có thể gồm đo huyết áp và nghe tim thai. Đi bộ nhẹ nhàng, tắm nước ấm và ở bên những người thân yêu có thể giúp mẹ thấy thời gian trôi nhanh hơn.",
+            "Bác sĩ có thể trao đổi với mẹ về việc khởi phát chuyển dạ, tức là hỗ trợ để chuyển dạ bắt đầu. Mẹ hãy hỏi có những lựa chọn nào, nơi mẹ dự định sinh thường làm ra sao, và nói rõ mong muốn của mình. Mẹ cứ đặt câu hỏi và dành thời gian cùng bác sĩ quyết định."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at a time when your baby is usually active. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait for your next check-up.",
+            "Ask your doctor about the plan if labour does not start on its own: when your next checks are, and what happens after that. Keep your bag and phone ready, and rest as much as you can."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến lần khám sau.",
+            "Mẹ hãy hỏi bác sĩ về kế hoạch nếu chuyển dạ không tự bắt đầu: khi nào khám lại, và sau đó sẽ làm gì. Mẹ để sẵn túi đồ, điện thoại, và nghỉ ngơi nhiều nhất có thể."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
+        ]
       }
     },
     {
@@ -2285,6 +4270,58 @@
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
+        ]
+      },
+      "article": {
+        "lead": {
+          "en": "Your baby is now past term, so your care team keeps a close eye on you both and plans the birth with you.",
+          "vi": "Lúc này bé đã quá ngày dự sinh, nên đội ngũ y tế theo dõi mẹ và bé sát sao, và cùng mẹ lên kế hoạch cho cuộc sinh."
+        },
+        "sizeNote": {
+          "en": [
+            "Growth after the due date differs from baby to baby, so there is no standard figure for this week. Your check-ups and scans tell your care team far more about your baby than any chart."
+          ],
+          "vi": [
+            "Sau ngày dự sinh, tốc độ lớn của mỗi bé mỗi khác, nên không có con số chuẩn cho tuần này. Các lần khám và siêu âm cho đội ngũ y tế biết về bé nhiều hơn bất kỳ bảng số liệu nào."
+          ]
+        },
+        "development": {
+          "en": [
+            "Your baby is now past term. Your care team watches closely to check that your baby is still doing well in the womb.",
+            "Babies born at this stage often have less lanugo and less vernix on their skin. The skin may look dry, cracked or peeling, especially on the hands and feet. This usually heals by itself in the first weeks after birth. Your midwife can show you how to care for your baby's skin. The nails may be quite long, too.",
+            "Your baby still gets oxygen and nourishment through the placenta. Checking your baby's heartbeat and the amount of amniotic fluid helps your care team see how your baby is coping. Babies usually keep moving every day, right up to labour."
+          ],
+          "vi": [
+            "Lúc này bé đã quá ngày dự sinh. Đội ngũ y tế theo dõi sát sao để chắc chắn bé vẫn khỏe mạnh trong bụng mẹ.",
+            "Các bé chào đời ở giai đoạn này thường có ít lông tơ và ít chất gây trên da hơn. Da có thể trông khô, nứt hoặc bong tróc, nhất là ở bàn tay và bàn chân. Tình trạng này thường tự lành trong những tuần đầu sau sinh. Nữ hộ sinh có thể hướng dẫn mẹ cách chăm sóc da cho bé. Móng tay của bé cũng có thể đã khá dài.",
+            "Bé vẫn nhận oxy và dưỡng chất qua bánh nhau. Việc kiểm tra tim thai và lượng nước ối giúp đội ngũ y tế biết bé đang thích nghi ra sao. Các bé thường vẫn cử động mỗi ngày, cho đến tận lúc chuyển dạ."
+          ]
+        },
+        "body": {
+          "en": [
+            "This week, your doctor checks your baby's heartbeat and the amount of amniotic fluid, sometimes more than once. These checks help decide the best timing for the birth.",
+            "At this stage, your doctor will usually recommend helping labour to start. Ask what the plan involves, how long it may take, and share what matters to you. Feeling tired, frustrated or worried is understandable. Going past your due date is not something you caused, and you have done nothing wrong. Talking it through with your partner or a friend may help."
+          ],
+          "vi": [
+            "Tuần này, bác sĩ kiểm tra tim thai và lượng nước ối, đôi khi nhiều hơn một lần. Những kiểm tra này giúp chọn thời điểm sinh phù hợp nhất.",
+            "Ở giai đoạn này, bác sĩ thường sẽ đề nghị hỗ trợ khởi phát chuyển dạ. Mẹ hãy hỏi kế hoạch gồm những gì, có thể mất bao lâu, và chia sẻ điều mình quan tâm. Thấy mệt, bực bội hay lo lắng là điều dễ hiểu. Việc quá ngày dự sinh không phải do mẹ gây ra, và mẹ không làm gì sai cả. Tâm sự với bố bé hoặc một người bạn có thể giúp mẹ nhẹ lòng."
+          ]
+        },
+        "todo": {
+          "en": [
+            "Keep counting your baby's movements every day, at a time when your baby is usually active. If the movements slow down, stop or change, contact your doctor or midwife straight away, day or night. Do not wait for your next appointment.",
+            "Follow your doctor's plan for monitoring and for the timing of your baby's birth. Keep your bag ready, and ask someone you trust to stay close by. For symptoms that need help straight away, see the warning signs below."
+          ],
+          "vi": [
+            "Mẹ tiếp tục đếm cử động của bé mỗi ngày, vào lúc bé thường hiếu động. Nếu bé cử động ít đi, ngừng hẳn hoặc khác thường, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay, dù ngày hay đêm. Đừng đợi đến lần hẹn khám sau.",
+            "Mẹ hãy làm theo kế hoạch theo dõi và thời điểm sinh mà bác sĩ đề ra. Mẹ để sẵn túi đồ, và nhờ một người mình tin tưởng luôn ở gần. Với những triệu chứng cần đến viện ngay, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
+          ]
+        },
+        "sources": [
+          0,
+          1,
+          2,
+          4
         ]
       }
     }
