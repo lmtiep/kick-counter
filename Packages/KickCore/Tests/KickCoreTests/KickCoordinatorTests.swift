@@ -143,6 +143,22 @@ struct KickCoordinatorTests {
         #expect(live.endAllCount == 1)
     }
 
+    /// Phase 8: a partner iPhone gets no kick reminders, 2-hour alerts or Live
+    /// Activities; the session and the reminder setting are kept for leaving.
+    @Test func partnerModeSilencesKickRemindersAndLiveActivities() async throws {
+        #expect(await coordinator.setDailyReminder(enabled: true, hour: 20, minute: 0, text: overdueText))
+        await kick(times: 2)
+        let id = try #require(coordinator.activeSessionID)
+        #expect(Set(center.added.map(\.identifier)) == [NotificationScheduler.dailyReminderID, NotificationScheduler.overdueID(for: id)])
+
+        await coordinator.silenceForPartnerMode()
+        #expect(center.added.isEmpty)
+        #expect(center.removed.contains(NotificationScheduler.dailyReminderID))
+        #expect(center.removed.contains(NotificationScheduler.overdueID(for: id)))
+        #expect(live.endAllCount == 1)
+        #expect(coordinator.activeSessionID == id)
+    }
+
     @Test func overdueReflectsElapsedTime() async {
         await coordinator.recordKick()
         #expect(coordinator.isOverdue(at: t0.addingTimeInterval(7199)) == false)

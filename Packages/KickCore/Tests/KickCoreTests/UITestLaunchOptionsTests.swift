@@ -53,3 +53,22 @@ struct UITestSessionSeedOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).seedSessions == false)
     }
 }
+
+struct UITestPartnerOptionTests {
+    @Test func parsesTheSharingAndPartnerStatesWhenUITesting() {
+        let options = UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingSharing", "joined", "-uiTestingPartner", "stopped"])
+        #expect(options.sharing == .joined)
+        #expect(options.partner == .stopped)
+    }
+
+    @Test func parsesTheNotReadyPartnerState() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingPartner", "notReadyYet"]).partner == .notReadyYet)
+    }
+
+    @Test func ignoresThemWithoutUITestingOrWhenUnknown() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTestingSharing", "joined"]).sharing == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTestingPartner", "snapshot"]).partner == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingSharing", "shared"]).sharing == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingPartner"]).partner == nil)
+    }
+}

@@ -12,6 +12,10 @@ struct AppEnvironment {
     let weight: WeightCoordinator
     let content: WeeklyContentLibrary?
     let knowledge: KnowledgeLibrary?
+    let sharing: any PartnerSharing
+    let partnerShare: PartnerShareCoordinator
+    let partnerPublisher: PartnerPublisher
+    let partnerJourney: PartnerJourneyModel
 
     private static let arguments = ProcessInfo.processInfo.arguments
     #if DEBUG
@@ -34,6 +38,9 @@ struct AppEnvironment {
             }
             if AppClock.launchOptions.seedCycles != nil {
                 AppMode.save(.tryingToConceive, to: AppGroup.defaults)
+            }
+            if AppClock.launchOptions.partner != nil {
+                AppMode.enterPartner(in: AppGroup.defaults)
             }
         }
         #endif
@@ -84,6 +91,14 @@ struct AppEnvironment {
         }
         #endif
         let weight = WeightCoordinator(store: weightStore, defaults: AppGroup.defaults, now: { AppClock.now() })
+        let sharing = makeSharing()
+        let partnerShare = PartnerShareCoordinator(sharing: sharing, defaults: AppGroup.defaults)
+        // The real clock, not AppClock: the publisher waits 5 s on it.
+        let partnerPublisher = PartnerPublisher(
+            sharing: sharing,
+            isActive: { [weak partnerShare] in partnerShare?.isSharing ?? false },
+            defaults: AppGroup.defaults
+        )
         return AppEnvironment(
             container: container,
             coordinator: coordinator,
@@ -91,8 +106,28 @@ struct AppEnvironment {
             cycle: cycle,
             weight: weight,
             content: WeeklyContentLibrary.loadBundled(),
-            knowledge: KnowledgeLibrary.loadBundled()
+            knowledge: KnowledgeLibrary.loadBundled(),
+            sharing: sharing,
+            partnerShare: partnerShare,
+            partnerPublisher: partnerPublisher,
+            partnerJourney: PartnerJourneyModel(sharing: sharing, defaults: AppGroup.defaults)
         )
+    }
+
+    /// CloudKit, except in UI tests: the fake in the state the launch arguments
+    /// ask for (not shared when they ask for none), so no test touches iCloud.
+    private static func makeSharing() -> any PartnerSharing {
+        #if DEBUG
+        if isUITesting {
+            let options = AppClock.launchOptions
+            if let partner = options.partner {
+                let sample = PartnerSnapshot.uiTestSample(now: AppClock.now(), language: ContentLanguage.current)
+                return FakePartnerSharing(partner: partner, snapshot: sample)
+            }
+            return FakePartnerSharing(mother: options.sharing ?? .notShared)
+        }
+        #endif
+        return CloudPartnerSharing()
     }
 
     #if DEBUG

@@ -259,3 +259,35 @@
 - [ ] VoiceOver: màn đọc mở thẳng nấc cao; ✕ được đọc trước; tiêu đề mục đọc là "tiêu đề".
 - [ ] Dynamic Type lớn nhất: thẻ, thư viện và màn đọc không cắt chữ (tóm tắt ở thẻ tối đa 2 dòng); màn đọc mở nấc cao.
 - [ ] Reduce Motion bật: sheet chuyển nấc tức thì; ảnh nền chỉ mờ đi.
+
+## Giai đoạn 8 — Chia sẻ với bố bé qua iCloud
+
+### Trước khi gửi App Store
+- [ ] **CloudKit schema — record type `Snapshot`.** Bản TestFlight/App Store dùng môi trường **Production**, nơi
+      CloudKit không tự tạo record type; nếu thiếu, việc chia sẻ vẫn tạo được nhưng tải dữ liệu lên báo lỗi và máy
+      bố bé không thấy gì. Làm một trong hai cách, trên CloudKit Console (icloud.developer.apple.com), container
+      `iCloud.com.lmtiep.kickcounter`, môi trường **Development**:
+      - Chạy một bản build ký development trên iPhone thật (Xcode), bật chia sẻ với bố bé một lần: record type
+        `Snapshot` tự sinh trong Development; hoặc
+      - Tạo tay record type `Snapshot` với hai field: `payload` kiểu **Bytes** và `version` kiểu **Int(64)**.
+        Khác với các record `CD_*` của SwiftData (mục "Cấu hình"), record này do app tự ghi bằng CloudKit nên tạo tay
+        là an toàn; không cần index (app chỉ đọc record theo ID, không truy vấn).
+      Rồi **Deploy Schema Changes** lên Production (cùng lần với các record type `CD_*` nếu chưa deploy).
+      Zone `PartnerShare` và bản ghi `CKShare` là của hệ thống, không cần khai báo.
+- [ ] `CKSharingSupported = YES` có trong Info.plist của bản build (sinh từ `project.yml`):
+      `/usr/libexec/PlistBuddy -c "Print :CKSharingSupported" <đường dẫn>/KickCounter.app/Info.plist` in ra `true`.
+- [ ] Entitlement của bản TestFlight có `aps-environment = production` và container
+      `iCloud.com.lmtiep.kickcounter` (`codesign -d --entitlements :- <app>`): đẩy thầm báo dữ liệu mới cho máy bố bé
+      cần push. Entitlements trong repo không đổi ở giai đoạn này.
+- [ ] Kiểm thử thủ công hai Apple ID: [`docs/partner-sharing-manual-test.md`](partner-sharing-manual-test.md), đủ
+      các mục 1–8, một lần tiếng Việt và một lần tiếng Anh.
+- [ ] **Quyền riêng tư.** Chỉ chia sẻ đúng những gì app ghi trong `PartnerSnapshot`: tuần thai / ngày dự sinh,
+      tối đa 5 lịch khám sắp tới (tên và giờ), tóm tắt lượt đếm cử động (lượt gần nhất, số lượt và thời gian trung
+      bình 7 ngày) và tên hiển thị "Mẹ"/"Mom". Không bao giờ: ghi chú, triệu chứng, cân nặng, dữ liệu chu kỳ. Dữ liệu
+      nằm trong iCloud của mẹ và chỉ người được mời xem được; nhà phát triển không nhận dữ liệu nào, nên App Privacy
+      vẫn là "Data Not Collected". Ghi chú cho reviewer: tính năng chia sẻ chỉ xem qua iCloud, cần hai Apple ID để
+      thử; mô tả câu trên.
+- [ ] Ảnh chụp App Store (nếu dùng): `partner-today-vi-light`, `partner-today-en-dark`,
+      `partner-share-row-notShared-vi-light`.
+- [ ] Ghi chú phát hành: "Chia sẻ với bố bé" — mời bố bé xem tuần thai, lịch khám và lượt đếm cử động qua iCloud,
+      chỉ xem, ngừng chia sẻ bất cứ lúc nào.

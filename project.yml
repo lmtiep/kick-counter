@@ -41,6 +41,7 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSSupportsLiveActivities: true
         UIBackgroundModes: [remote-notification]
+        CKSharingSupported: true
         LunaContentPreview: $(LUNA_CONTENT_PREVIEW)
         UIAppFonts:
           - BeVietnamPro-Light.ttf

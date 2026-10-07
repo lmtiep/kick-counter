@@ -617,4 +617,54 @@ enum L10n {
         case .invalidHeight: t("weight.invalid.height")
         }
     }
+
+    // MARK: - Phase 8: partner sharing
+
+    static var partnerAcceptFailedTitle: String { t("partner.accept.failed.title") }
+    static var partnerAcceptFailedBody: String { t("partner.accept.failed.body") }
+    /// The name the partner sees: "Mom" / "Mẹ".
+    static var partnerDefaultName: String { t("partner.defaultName") }
+    static var partnerShareTitle: String { t("partner.share.title") }
+    static var partnerShareChecking: String { t("partner.share.checking") }
+    static var partnerShareInvite: String { t("partner.share.invite") }
+    static var partnerShareInvited: String { t("partner.share.invited") }
+    static var partnerShareJoined: String { t("partner.share.joined") }
+    static var partnerShareNeedsDueDate: String { t("partner.share.needsDueDate") }
+    static var partnerShareICloudUnavailable: String { t("partner.share.iCloudUnavailable") }
+    static var partnerShareICloudFull: String { t("partner.share.iCloudFull") }
+    static var partnerShareFailed: String { t("partner.share.failed") }
+    static var partnerShareStop: String { t("partner.share.stop") }
+    static var partnerShareStopConfirm: String { t("partner.share.stopConfirm") }
+    /// Exactly what is shared (spec §5.3); also on the partner's Profile.
+    static var partnerSharePrivacy: String { t("partner.share.privacy") }
+    /// "Mom's journey" / "Hành trình của Mẹ".
+    static func partnerTodayTitle(_ name: String) -> String { String(format: t("partner.today.title"), name) }
+    static var partnerLoading: String { t("partner.loading") }
+    static var partnerAppointmentsTitle: String { t("partner.appointments.title") }
+    static var partnerAppointmentsNone: String { t("partner.appointments.none") }
+    static var partnerKicksTitle: String { t("partner.kicks.title") }
+    static var partnerKicksNone: String { t("partner.kicks.none") }
+    /// "10 movements in 18 min, 3 hours ago".
+    static func partnerKicksLast(_ count: Int, _ duration: String, _ when: String) -> String {
+        String(format: t("partner.kicks.last"), count, duration, when)
+    }
+    /// "4 sessions in 7 days · average 21 min".
+    static func partnerKicksWeek(_ count: Int, _ average: String) -> String {
+        String(format: t("partner.kicks.week"), count, average)
+    }
+    static func partnerKicksWeekOne(_ average: String) -> String { String(format: t("partner.kicks.weekOne"), average) }
+    static var partnerKicksWeekNone: String { t("partner.kicks.weekNone") }
+    /// "Updated 10 minutes ago".
+    static func partnerUpdated(_ when: String) -> String { String(format: t("partner.updated"), when) }
+    static var partnerStoppedTitle: String { t("partner.stopped.title") }
+    static var partnerStoppedBody: String { t("partner.stopped.body") }
+    static var partnerErrorTitle: String { t("partner.error.title") }
+    static var partnerErrorBody: String { t("partner.error.body") }
+    static var partnerICloudTitle: String { t("partner.iCloud.title") }
+    static var partnerICloudBody: String { t("partner.iCloud.body") }
+    static var partnerRetry: String { t("partner.retry") }
+    static var partnerLeave: String { t("partner.leave") }
+    static var partnerLeaveConfirm: String { t("partner.leaveConfirm") }
+    static var partnerModeName: String { t("partner.modeName") }
+    static var partnerAboutTitle: String { t("partner.about.title") }
 }

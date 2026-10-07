@@ -16,7 +16,6 @@ struct ProfileView: View {
     @Environment(\.scenePhase) private var scenePhase
 
     @AppStorage(SettingsKey.appMode, store: AppGroup.defaults) private var appMode = AppMode.pregnant.rawValue
-    @AppStorage(SettingsKey.appLanguage, store: AppGroup.defaults) private var appLanguage = AppLanguage.system.rawValue
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
     @AppStorage(SettingsKey.reminderHour, store: AppGroup.defaults) private var reminderHour = SettingsDefault.reminderHour
     @AppStorage(SettingsKey.reminderMinute, store: AppGroup.defaults) private var reminderMinute = SettingsDefault.reminderMinute
@@ -40,7 +39,7 @@ struct ProfileView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
                     header
-                    languageCard
+                    LanguagePickerCard()
                     modeCard
                     if mode == .pregnant {
                         pregnancyCard
@@ -69,6 +68,7 @@ struct ProfileView: View {
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("profileAppointments")
                         .lunaCard(padding: 0)
+                        PartnerShareCard()
                     }
                     permissionsCard
                     aboutCard
@@ -134,22 +134,6 @@ struct ProfileView: View {
         .padding(.bottom, 8)
         .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isHeader)
-    }
-
-    private var languageCard: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(L10n.languageTitle)
-                .font(.luna(.bodyStrong))
-                .foregroundStyle(.luna(.textPrimary))
-            Picker(L10n.languageTitle, selection: $appLanguage) {
-                Text(L10n.languageSystem).tag(AppLanguage.system.rawValue)
-                Text(L10n.languageVietnamese).tag(AppLanguage.vi.rawValue)
-                Text(L10n.languageEnglish).tag(AppLanguage.en.rawValue)
-            }
-            .pickerStyle(.segmented)
-            .accessibilityIdentifier("profileLanguagePicker")
-        }
-        .lunaCard()
     }
 
     private var modeCard: some View {
@@ -333,6 +317,9 @@ struct ProfileView: View {
                     }
                 case .pregnant:
                     showingImPregnant = true
+                case .partner:
+                    // The picker offers only the two modes of the mother.
+                    break
                 }
             }
         )
@@ -401,6 +388,27 @@ struct ProfileView: View {
 
     private func refreshPermissions() async {
         notificationsAuthorized = await coordinator.notificationsAuthorized()
+    }
+}
+
+/// The language picker of both Profile tabs (spec §2.2).
+struct LanguagePickerCard: View {
+    @AppStorage(SettingsKey.appLanguage, store: AppGroup.defaults) private var appLanguage = AppLanguage.system.rawValue
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(L10n.languageTitle)
+                .font(.luna(.bodyStrong))
+                .foregroundStyle(.luna(.textPrimary))
+            Picker(L10n.languageTitle, selection: $appLanguage) {
+                Text(L10n.languageSystem).tag(AppLanguage.system.rawValue)
+                Text(L10n.languageVietnamese).tag(AppLanguage.vi.rawValue)
+                Text(L10n.languageEnglish).tag(AppLanguage.en.rawValue)
+            }
+            .pickerStyle(.segmented)
+            .accessibilityIdentifier("profileLanguagePicker")
+        }
+        .lunaCard()
     }
 }
 
