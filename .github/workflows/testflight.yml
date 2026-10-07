@@ -37,6 +37,17 @@ jobs:
           BUILD_NUMBER: ${{ github.run_number }}
           CONTENT_PREVIEW: ${{ inputs.content_preview && '1' || '0' }}
         run: scripts/release.sh
+      # Archiving creates a throwaway Apple Development certificate on this runner;
+      # revoke it so they don't pile up to Apple's per-team limit.
+      - name: Revoke this run's development certificate
+        if: always()
+        continue-on-error: true
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          python3 -m pip install --quiet --break-system-packages pyjwt cryptography
+          scripts/revoke-ci-dev-certs.py
       - name: Remove API key
         if: always()
         run: rm -rf ~/private_keys
