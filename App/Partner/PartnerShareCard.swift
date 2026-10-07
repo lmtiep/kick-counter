@@ -104,7 +104,12 @@ struct PartnerShareCard: View {
         case .needsDueDate: L10n.partnerShareNeedsDueDate
         case .iCloudUnavailable: L10n.partnerShareICloudUnavailable
         case .iCloudFull: L10n.partnerShareICloudFull
-        case .failed: L10n.partnerShareFailed
+        case .failed:
+            if let code = share.failureCode {
+                L10n.partnerShareFailedCode(code)
+            } else {
+                L10n.partnerShareFailed
+            }
         }
     }
 

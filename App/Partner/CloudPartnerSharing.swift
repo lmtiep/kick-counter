@@ -273,7 +273,8 @@ actor CloudPartnerSharing: PartnerSharing {
     static func map(_ error: Error) -> PartnerSharingError {
         if let error = error as? PartnerSharingError { return error }
         guard let error = error as? CKError else {
-            logger.error("Partner sharing failed: \(error.localizedDescription)")
+            let nsError = error as NSError
+            logger.error("Partner sharing failed: \(nsError.domain) \(nsError.code) \(error.localizedDescription)")
             return .failed(code: -1)
         }
         switch error.code {

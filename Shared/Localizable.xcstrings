@@ -4778,6 +4778,23 @@
         }
       }
     },
+    "partner.share.failedCode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't reach iCloud (code %@). Tap to try again"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa kết nối được iCloud (mã %@). Chạm để thử lại"
+          }
+        }
+      }
+    },
     "partner.share.iCloudFull": {
       "extractionState": "manual",
       "localizations": {

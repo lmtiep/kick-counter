@@ -24,6 +24,10 @@ public final class PartnerShareCoordinator {
     }
 
     public private(set) var status: Status = .unknown
+    /// A short diagnostic code set whenever `status` becomes `.failed`, shown
+    /// in the Profile row so TestFlight reports can tell which error occurred.
+    /// Cleared on any other status.
+    public private(set) var failureCode: String?
     /// True while the share is being created or deleted.
     public private(set) var isWorking = false
 
@@ -69,12 +73,12 @@ public final class PartnerShareCoordinator {
         }
         do {
             switch try await sharing.shareStatus() {
-            case .notShared: status = .notShared
-            case .invited: status = .invited
-            case .joined(let count): status = .joined(participantCount: count)
+            case .notShared: setStatus(.notShared)
+            case .invited: setStatus(.invited)
+            case .joined(let count): setStatus(.joined(participantCount: count))
             }
         } catch {
-            status = Self.failureStatus(error)
+            setStatus(Self.failureStatus(error), failureCode: Self.failureCodeString(error))
         }
     }
 
@@ -87,10 +91,10 @@ public final class PartnerShareCoordinator {
         hasPendingZoneDeletion = false
         do {
             let handle = try await sharing.prepareShare()
-            if !isSharing { status = .invited }
+            if !isSharing { setStatus(.invited) }
             return handle
         } catch {
-            status = Self.failureStatus(error)
+            setStatus(Self.failureStatus(error), failureCode: Self.failureCodeString(error))
             return nil
         }
     }
@@ -105,10 +109,10 @@ public final class PartnerShareCoordinator {
         do {
             try await sharing.stopSharing()
             hasPendingZoneDeletion = false
-            status = .notShared
+            setStatus(.notShared)
             return true
         } catch {
-            status = Self.failureStatus(error)
+            setStatus(Self.failureStatus(error), failureCode: Self.failureCodeString(error))
             return false
         }
     }
@@ -135,6 +139,13 @@ public final class PartnerShareCoordinator {
         publisher?.forgetPublished()
     }
 
+    /// Sets `status` and, only when it becomes `.failed`, the diagnostic
+    /// `failureCode`; any other status clears it.
+    private func setStatus(_ newStatus: Status, failureCode: String? = nil) {
+        status = newStatus
+        self.failureCode = newStatus == .failed ? failureCode : nil
+    }
+
     static func failureStatus(_ error: Error) -> Status {
         logger.error("Partner sharing: \(String(describing: error))")
         guard let error = error as? PartnerSharingError else { return .failed }
@@ -146,6 +157,22 @@ public final class PartnerShareCoordinator {
         // Verification is the partner's step; on the mother's side it is just a retryable failure.
         case .retryable, .needsVerification, .notShared, .unreadableSnapshot, .notReadyYet, .ownInvitation, .failed:
             return .failed
+        }
+    }
+
+    /// The short diagnostic code shown in the Profile row (only used when
+    /// `failureStatus(_:)` returns `.failed`).
+    static func failureCodeString(_ error: Error) -> String {
+        guard let error = error as? PartnerSharingError else { return "x" }
+        switch error {
+        case .failed(let code): return "\(code)"
+        case .retryable: return "net"
+        case .needsVerification: return "verify"
+        case .notReadyYet: return "notready"
+        case .unreadableSnapshot: return "data"
+        case .ownInvitation: return "own"
+        case .notShared: return "zone"
+        case .iCloudUnavailable, .iCloudFull: return "x"
         }
     }
 }

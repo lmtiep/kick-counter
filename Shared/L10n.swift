@@ -633,6 +633,7 @@ enum L10n {
     static var partnerShareICloudUnavailable: String { t("partner.share.iCloudUnavailable") }
     static var partnerShareICloudFull: String { t("partner.share.iCloudFull") }
     static var partnerShareFailed: String { t("partner.share.failed") }
+    static func partnerShareFailedCode(_ code: String) -> String { String(format: t("partner.share.failedCode"), code) }
     static var partnerShareStop: String { t("partner.share.stop") }
     static var partnerShareStopConfirm: String { t("partner.share.stopConfirm") }
     /// Exactly what is shared (spec §5.3); also on the partner's Profile.
