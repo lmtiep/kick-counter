@@ -22,6 +22,7 @@ struct ProfileView: View {
     @Environment(WeightCoordinator.self) private var weight
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @AppStorage(SettingsKey.appMode, store: AppGroup.defaults) private var appMode = AppMode.pregnant.rawValue
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
@@ -151,17 +152,20 @@ struct ProfileView: View {
                 Text(L10n.profileGoal)
                     .font(.luna(.bodyStrong))
                     .foregroundStyle(.luna(.textPrimary))
-                Picker(L10n.profileGoal, selection: modeBinding) {
-                    Text(L10n.modeTracking).tag(ProfileModeChoice.tracking)
-                    Text(L10n.modeTryingToConceive).tag(ProfileModeChoice.conceiving)
-                    Text(L10n.modePregnantShort).tag(ProfileModeChoice.pregnant)
+                // UISegmentedControl ignores Dynamic Type and would clip the
+                // Vietnamese labels at AX sizes, so the goal becomes a
+                // vertical list of full-width rows there instead.
+                if dynamicTypeSize.isAccessibilitySize {
+                    goalList
+                } else {
+                    Picker(L10n.profileGoal, selection: modeBinding) {
+                        Text(L10n.modeTracking).tag(ProfileModeChoice.tracking)
+                        Text(L10n.modeTryingToConceive).tag(ProfileModeChoice.conceiving)
+                        Text(L10n.modePregnantShort).tag(ProfileModeChoice.pregnant)
+                    }
+                    .pickerStyle(.segmented)
+                    .accessibilityIdentifier("settingsModePicker")
                 }
-                .pickerStyle(.segmented)
-                // Shrinks the Vietnamese labels instead of truncating them at
-                // the largest Dynamic Type sizes (AX5).
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                .accessibilityIdentifier("settingsModePicker")
             }
             .padding(18)
             LunaDivider()
@@ -180,6 +184,49 @@ struct ProfileView: View {
             }
         }
         .lunaCard(padding: 0)
+    }
+
+    /// The goal picker at accessibility Dynamic Type sizes (phase 9 fix round 1):
+    /// a vertical list of full-width rows instead of the segmented control.
+    private var goalList: some View {
+        VStack(spacing: 10) {
+            goalRow(L10n.modeTracking, choice: .tracking, identifier: "settingsGoal-tracking")
+            goalRow(L10n.modeTryingToConceive, choice: .conceiving, identifier: "settingsGoal-conceiving")
+            goalRow(L10n.modePregnantShort, choice: .pregnant, identifier: "settingsGoal-pregnant")
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("settingsModePicker")
+    }
+
+    private func goalRow(_ title: String, choice: ProfileModeChoice, identifier: String) -> some View {
+        let isSelected = modeBinding.wrappedValue == choice
+        return Button {
+            modeBinding.wrappedValue = choice
+        } label: {
+            HStack(spacing: 12) {
+                Text(title)
+                    .font(.luna(.body))
+                    .foregroundStyle(.luna(.textPrimary))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "checkmark")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.luna(.cycleStrong))
+                    .opacity(isSelected ? 1 : 0)
+                    .accessibilityHidden(true)
+            }
+            .padding(.vertical, 13)
+            .padding(.horizontal, 16)
+            .frame(minHeight: 44)
+            .background(.luna(.surfaceAlt), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(isSelected ? Color.luna(.cycleStrong) : Color.clear, lineWidth: 1.5)
+            }
+            .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier(identifier)
     }
 
     private var pregnancyCard: some View {
@@ -270,25 +317,40 @@ struct ProfileView: View {
     @ViewBuilder
     private var trackingRows: some View {
         LunaDivider()
-        HStack(spacing: 8) {
-            Text(L10n.profileContraception)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            Picker(L10n.profileContraception, selection: contraceptionBinding) {
-                Text(L10n.profileContraceptionNotSet).tag(Contraception?.none)
-                ForEach(Contraception.allCases, id: \.self) { value in
-                    Text(L10n.contraception(value)).tag(Contraception?.some(value))
-                }
+        // At accessibility sizes the label sits above the menu instead of
+        // beside it, so the menu's value is never squeezed to nothing.
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(L10n.profileContraception)
+                contraceptionPicker
             }
-            .pickerStyle(.menu)
-            .tint(.luna(.cycleOnSoft))
-            .accessibilityIdentifier("profileContraception")
+        } else {
+            HStack(spacing: 8) {
+                Text(L10n.profileContraception)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                contraceptionPicker
+            }
         }
         Toggle(L10n.profileShowFertilityTests, isOn: fertilityTestsBinding)
             .tint(.luna(.cycleStrong))
             .accessibilityIdentifier("profileShowFertilityTests")
+            .accessibilityHint(L10n.profileShowFertilityTestsHint)
         Text(L10n.profileShowFertilityTestsHint)
             .font(.luna(.caption))
             .foregroundStyle(.luna(.textSecondary))
+            .accessibilityHidden(true)
+    }
+
+    private var contraceptionPicker: some View {
+        Picker(L10n.profileContraception, selection: contraceptionBinding) {
+            Text(L10n.profileContraceptionNotSet).tag(Contraception?.none)
+            ForEach(Contraception.allCases, id: \.self) { value in
+                Text(L10n.contraception(value)).tag(Contraception?.some(value))
+            }
+        }
+        .pickerStyle(.menu)
+        .tint(.luna(.cycleOnSoft))
+        .accessibilityIdentifier("profileContraception")
     }
 
     @ViewBuilder
@@ -344,10 +406,12 @@ struct ProfileView: View {
 
     // MARK: - Bindings
 
-    /// Both cycle choices are immediate and take the same path,
-    /// `activateCycleMode(goal:)`: from pregnancy it switches the mode, which
-    /// makes RootView stop partner sharing. "Pregnant" goes through the
-    /// "I'm pregnant" sheet so the due date is set.
+    /// "Pregnant" goes through the "I'm pregnant" sheet so the due date is
+    /// set. Switching between the two cycle goals while already in cycle
+    /// mode just changes the preference (`updatePreferences`), never
+    /// prompting for notifications; leaving pregnancy for either goal takes
+    /// `activateCycleMode(goal:)`, which switches the mode and so makes
+    /// RootView stop partner sharing.
     private var modeBinding: Binding<ProfileModeChoice> {
         Binding(
             get: {
@@ -360,7 +424,13 @@ struct ProfileView: View {
                     let goal: CycleGoal = choice == .tracking ? .tracking : .conceiving
                     guard mode != .tryingToConceive || goal != cycle.preferences.goal else { return }
                     Task {
-                        await cycle.activateCycleMode(goal: goal)
+                        if mode == .tryingToConceive {
+                            var preferences = cycle.preferences
+                            preferences.goal = goal
+                            await cycle.updatePreferences(preferences)
+                        } else {
+                            await cycle.activateCycleMode(goal: goal)
+                        }
                         await refreshPermissions()
                     }
                 case .pregnant:

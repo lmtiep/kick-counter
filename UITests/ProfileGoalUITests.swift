@@ -120,7 +120,7 @@ final class ProfileGoalUITests: XCTestCase {
             language: "vi", seedCycles: "fertile", cycleGoal: "tracking", contraception: "copperIUD", largestText: true
         )
         large.openCycleTab(.profile)
-        XCTAssertTrue(large.segmentedControls["settingsModePicker"].waitForExistence(timeout: 10))
+        XCTAssertTrue(large.descendants(matching: .any)["settingsModePicker"].waitForExistence(timeout: 10))
         attachScreenshot(large, "ax5-profile-goal-vi-light")
         let toggle = large.switches["profileShowFertilityTests"]
         large.scrollUntilHittable(toggle, maxSwipes: 10)
