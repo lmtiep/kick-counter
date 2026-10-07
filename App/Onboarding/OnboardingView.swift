@@ -1,14 +1,16 @@
 import KickCore
 import SwiftUI
 
-/// Three steps (spec §4.1): welcome with the language and the medical note →
-/// what to track → the last period (trying to conceive) or the due date
-/// (pregnant). "Skip" on the first two steps jumps to the last one.
+/// Phase 9 onboarding (spec §4.1): welcome with the language, the medical note
+/// and the privacy note → the goal (track my cycle, trying to conceive,
+/// pregnant) → that branch's questions → the result with the reminder opt-in.
+/// `OnboardingFlow` (KickCore) holds the answers and the step order; every
+/// question can be skipped ("Skip" / "Not sure") and has a back button.
 ///
 /// `replay` (Profile → "Replay the introduction") starts from the current mode,
-/// cycle length, period and due date, and finishing or skipping only closes it:
-/// no mode, settings, period or pregnancy dates are saved. The language
-/// choice still applies, as a view preference.
+/// goal, lengths, period and due date, and finishing only closes it: no mode,
+/// settings, period, answers or pregnancy dates are saved. The language choice
+/// still applies, as a view preference.
 struct OnboardingView: View {
     /// Captured once, when the view first appears: RootView recomputes the
     /// `replay` argument while the cover is being dismissed, and a second tap
@@ -17,12 +19,11 @@ struct OnboardingView: View {
     let onFinish: () -> Void
 
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(KickCoordinator.self) private var kicks
     @AppStorage(SettingsKey.appLanguage, store: AppGroup.defaults)
     private var appLanguage = AppLanguage.system.rawValue
-    @State private var step = Step.welcome
-    @State private var goal: AppMode?
-    @State private var lastPeriod: Date
-    @State private var cycleLength = CycleSettings.defaultCycleLength
+    @State private var flow: OnboardingFlow
+    /// The due date step's value; copied into `flow` by "Continue".
     @State private var dateSelection: PregnancyDateSelection
     @State private var showingOtherDay = false
     @State private var showingDuePicker = false
@@ -31,36 +32,38 @@ struct OnboardingView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     private let now: Date
 
-    enum Step: Int, CaseIterable {
-        case welcome
-        case goal
-        case details
-    }
-
     init(replay: Bool = false, onFinish: @escaping () -> Void) {
         _isReplay = State(initialValue: replay)
         self.onFinish = onFinish
         let now = AppClock.now()
         self.now = now
-        _goal = State(initialValue: replay ? AppMode.load(from: AppGroup.defaults) : nil)
-        _lastPeriod = State(initialValue: AppLocale.calendar.startOfDay(for: now))
-        _dateSelection = State(initialValue: PregnancyDateInput.initialSelection(
-            for: PregnancyProfile.load(from: AppGroup.defaults), now: now
+        let defaults = AppGroup.defaults
+        let preferences = CyclePreferences.load(from: defaults)
+        let dates = PregnancyDateInput.initialSelection(for: PregnancyProfile.load(from: defaults), now: now)
+        _dateSelection = State(initialValue: dates)
+        _flow = State(initialValue: OnboardingFlow(
+            goal: replay ? OnboardingGoal(mode: AppMode.load(from: defaults), cycleGoal: preferences.goal) : nil,
+            lastPeriodStart: AppLocale.calendar.startOfDay(for: now),
+            settings: CycleSettings.load(from: defaults),
+            regularity: preferences.regularity,
+            contraception: preferences.contraception,
+            pregnancyDates: dates
         ))
     }
-
-    /// Skipping before choosing keeps the old default: pregnant.
-    private var isCycleBranch: Bool { goal == .tryingToConceive }
 
     private var dueDate: Date {
         dateSelection.source == .dueDate ? dateSelection.date : PregnancyDates.dueDate(fromLMP: dateSelection.date)
     }
 
+    private var isPregnancyBranch: Bool { flow.goal == .pregnant }
+
     private var hero: OnboardingHeroKind {
-        switch step {
+        switch flow.step {
         case .welcome: .welcome
         case .goal: .goal
-        case .details: isCycleBranch ? .lastPeriod : .dueDate
+        case .dueDate: .dueDate
+        case .result: isPregnancyBranch ? .dueDate : .lastPeriod
+        case .lastPeriod, .periodLength, .cycleLength, .regularity, .contraception: .lastPeriod
         }
     }
 
@@ -72,7 +75,7 @@ struct OnboardingView: View {
                     .frame(width: proxy.size.width, height: (proxy.size.height + proxy.safeAreaInsets.top) * hero.heightFraction)
                     .offset(y: -proxy.safeAreaInsets.top)
             }
-            // A new id runs the entrance animations again for every step.
+            // A new id runs the entrance animations again for every picture.
             .id(hero)
             VStack(spacing: 0) {
                 topBar
@@ -88,7 +91,7 @@ struct OnboardingView: View {
                         .background(alignment: .top) { ContentScrim() }
                         .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .bottomLeading)
                         .lunaEntrance(.contentUp)
-                        .id(step)
+                        .id(flow.step)
                     }
                     .scrollBounceBehavior(.basedOnSize)
                     .defaultScrollAnchor(.bottom)
@@ -109,11 +112,25 @@ struct OnboardingView: View {
     // MARK: - Top bar
 
     private var topBar: some View {
-        HStack {
+        HStack(spacing: 8) {
+            if flow.canGoBack {
+                Button { change { $0.back() } } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(.luna(.textOnboarding))
+                        .frame(width: 32, height: 32)
+                        .background(Circle().fill(Color.luna(.card).opacity(0.7)))
+                        .frame(minWidth: 44, minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel(L10n.onboardingBack)
+                .accessibilityIdentifier("onboardingBack")
+            }
             progressDots
             Spacer()
-            if step != .details {
-                Button(L10n.onboardingSkip) { skip() }
+            if flow.isQuestion {
+                Button(skipTitle) { change { $0.skip() } }
                     .font(.luna(.captionMedium))
                     .foregroundStyle(.luna(.textOnboarding))
                     .padding(.horizontal, 14)
@@ -127,20 +144,28 @@ struct OnboardingView: View {
         .padding(.horizontal, 24)
     }
 
+    /// "Not sure" where the answer is a number or a pattern, "Skip" elsewhere.
+    private var skipTitle: String {
+        switch flow.step {
+        case .periodLength, .cycleLength, .regularity: L10n.onboardingNotSure
+        default: L10n.onboardingSkip
+        }
+    }
+
     private var progressDots: some View {
         HStack(spacing: 6) {
-            ForEach(Step.allCases, id: \.self) { item in
+            ForEach(Array(flow.steps.enumerated()), id: \.offset) { index, _ in
                 Capsule()
-                    .fill(Color.luna(.textOnboarding).opacity(item.rawValue <= step.rawValue ? 1 : 0.2))
-                    .frame(width: item == step ? 22 : 6, height: 6)
+                    .fill(Color.luna(.textOnboarding).opacity(index < flow.stepNumber ? 1 : 0.2))
+                    .frame(width: index + 1 == flow.stepNumber ? 22 : 6, height: 6)
             }
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
         .background(Capsule().fill(Color.luna(.card).opacity(0.7)))
-        .animation(LunaMotion.isEnabled && !reduceMotion ? LunaMotion.dots : nil, value: step)
+        .animation(LunaMotion.isEnabled && !reduceMotion ? LunaMotion.dots : nil, value: flow.step)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(L10n.onboardingStep(step.rawValue + 1, Step.allCases.count))
+        .accessibilityLabel(L10n.onboardingStep(flow.stepNumber, flow.stepCount))
         .accessibilityIdentifier("onboardingProgress")
     }
 
@@ -148,15 +173,16 @@ struct OnboardingView: View {
 
     @ViewBuilder
     private var stepContent: some View {
-        switch step {
+        switch flow.step {
         case .welcome: welcomeStep
         case .goal: goalStep
-        case .details:
-            if isCycleBranch {
-                lastPeriodStep
-            } else {
-                dueDateStep
-            }
+        case .lastPeriod: lastPeriodStep
+        case .periodLength: periodLengthStep
+        case .cycleLength: cycleLengthStep
+        case .regularity: regularityStep
+        case .contraception: contraceptionStep
+        case .dueDate: dueDateStep
+        case .result: resultStep
         }
     }
 
@@ -168,6 +194,14 @@ struct OnboardingView: View {
             .foregroundStyle(.luna(.textOnboarding))
             .fixedSize(horizontal: false, vertical: true)
             .accessibilityAddTraits(.isHeader)
+    }
+
+    private func note(_ text: String, identifier: String) -> some View {
+        Text(text)
+            .font(.luna(.caption))
+            .foregroundStyle(.luna(.articleText))
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier(identifier)
     }
 
     private var welcomeStep: some View {
@@ -186,6 +220,7 @@ struct OnboardingView: View {
                 .foregroundStyle(.luna(.articleText))
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityIdentifier("onboardingMedicalNote")
+            note(L10n.onboardingPrivacy, identifier: "onboardingPrivacyNote")
             SegmentedPill(options: [
                 SegmentedOption(value: ContentLanguage.vi, title: L10n.languageVietnamese, identifier: "onboardingLanguageVi"),
                 SegmentedOption(value: ContentLanguage.en, title: L10n.languageEnglish, identifier: "onboardingLanguageEn"),
@@ -208,42 +243,65 @@ struct OnboardingView: View {
         VStack(alignment: .leading, spacing: 10) {
             title(L10n.onboardingModeTitle)
                 .padding(.bottom, 6)
-            goalCard(
-                .tryingToConceive,
-                title: L10n.onboardingGoalCycle,
-                detail: L10n.onboardingGoalCycleDetail,
+            choiceCard(
+                title: L10n.onboardingGoalTracking,
+                detail: L10n.onboardingGoalTrackingDetail,
                 dot: .cycle,
-                identifier: "onboardingModeTTC"
-            )
-            goalCard(
-                .pregnant,
+                isSelected: flow.goal == .tracking,
+                identifier: "onboardingGoal-tracking"
+            ) { flow.goal = .tracking }
+            choiceCard(
+                title: L10n.onboardingGoalConceiving,
+                detail: L10n.onboardingGoalConceivingDetail,
+                dot: .fertile,
+                isSelected: flow.goal == .conceiving,
+                identifier: "onboardingGoal-conceiving"
+            ) { flow.goal = .conceiving }
+            choiceCard(
                 title: L10n.onboardingGoalPregnant,
                 detail: L10n.onboardingGoalPregnantDetail,
                 dot: .preg,
-                identifier: "onboardingModePregnant"
-            )
+                isSelected: flow.goal == .pregnant,
+                identifier: "onboardingGoal-pregnant"
+            ) { flow.goal = .pregnant }
         }
     }
 
-    private func goalCard(_ mode: AppMode, title: String, detail: String, dot: LunaToken, identifier: String) -> some View {
-        let isSelected = goal == mode
-        return Button {
-            goal = mode
-        } label: {
+    /// A large tappable card: the goal, regularity and contraception choices.
+    private func choiceCard(
+        title: String,
+        detail: String? = nil,
+        dot: LunaToken? = nil,
+        isSelected: Bool,
+        identifier: String,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
             HStack(spacing: 14) {
-                Circle().fill(.luna(dot)).frame(width: 12, height: 12)
+                if let dot {
+                    Circle().fill(.luna(dot)).frame(width: 12, height: 12)
+                }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
                         .font(.luna(size: 16, weight: .medium, relativeTo: .headline))
                         .foregroundStyle(.luna(.textOnboarding))
-                    Text(detail)
-                        .font(.luna(.caption))
-                        .foregroundStyle(.luna(.textSecondary))
+                    if let detail {
+                        Text(detail)
+                            .font(.luna(.caption))
+                            .foregroundStyle(.luna(.textSecondary))
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+                if isSelected {
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(.luna(.textOnboarding))
+                        .accessibilityHidden(true)
+                }
             }
-            .padding(.vertical, 16)
+            .padding(.vertical, detail == nil ? 13 : 16)
             .padding(.horizontal, 18)
+            .frame(minHeight: 48)
             .background(.luna(.card), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
             .overlay {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
@@ -259,7 +317,9 @@ struct OnboardingView: View {
     private var lastPeriodStep: some View {
         let calendar = AppLocale.calendar
         let days = RecentDaysGrid.days(endingAt: now, calendar: calendar)
-        let isOtherDay = !days.contains { calendar.isDate($0.date, inSameDayAs: lastPeriod) }
+        let isOtherDay = flow.lastPeriodStart.map { start in
+            !days.contains { calendar.isDate($0.date, inSameDayAs: start) }
+        } ?? false
         return VStack(alignment: .leading, spacing: 12) {
             title(L10n.cycleEmptyTitle)
             VStack(spacing: 8) {
@@ -271,40 +331,28 @@ struct OnboardingView: View {
                 Button {
                     showingOtherDay = true
                 } label: {
-                    Text(isOtherDay ? L10n.onboardingOtherDayValue(Formatting.shortDay(lastPeriod)) : L10n.onboardingOtherDay)
+                    Text(isOtherDay ? L10n.onboardingOtherDayValue(Formatting.shortDay(flow.lastPeriodStart ?? now)) : L10n.onboardingOtherDay)
                 }
                 .buttonStyle(.pill(isOtherDay ? .filled(.cycleStrong) : .soft(.surfaceAlt, .textPrimary), height: 40))
                 .accessibilityAddTraits(isOtherDay ? .isSelected : [])
                 .accessibilityIdentifier("onboardingOtherDay")
             }
             .lunaCard(padding: 10)
-            HStack(spacing: 10) {
-                Text(L10n.cycleLengthTitle)
-                    .font(.luna(size: 14, weight: .medium))
-                    .foregroundStyle(.luna(.textOnboarding))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                roundButton("minus", label: L10n.onboardingCycleShorter, identifier: "onboardingCycleShorter") {
-                    cycleLength = max(CycleSettings.cycleLengthRange.lowerBound, cycleLength - 1)
+            Button(L10n.onboardingDontRemember) {
+                change {
+                    $0.lastPeriodStart = nil
+                    $0.next()
                 }
-                .disabled(cycleLength <= CycleSettings.cycleLengthRange.lowerBound)
-                Text(L10n.days(cycleLength))
-                    .font(.luna(.cardTitleSmall))
-                    .foregroundStyle(.luna(.textOnboarding))
-                    .frame(minWidth: 70)
-                    .accessibilityIdentifier("onboardingCycleLength")
-                roundButton("plus", label: L10n.onboardingCycleLonger, identifier: "onboardingCycleLonger") {
-                    cycleLength = min(CycleSettings.cycleLengthRange.upperBound, cycleLength + 1)
-                }
-                .disabled(cycleLength >= CycleSettings.cycleLengthRange.upperBound)
             }
-            .lunaCard(padding: 12)
+            .buttonStyle(.pill(.text(.textOnboarding), height: 44))
+            .accessibilityIdentifier("onboardingDontRemember")
         }
     }
 
     private func dayChip(_ day: RecentDay, calendar: Calendar) -> some View {
-        let isSelected = calendar.isDate(day.date, inSameDayAs: lastPeriod)
+        let isSelected = flow.lastPeriodStart.map { calendar.isDate(day.date, inSameDayAs: $0) } ?? false
         return Button {
-            lastPeriod = day.date
+            flow.lastPeriodStart = day.date
         } label: {
             VStack(spacing: 2) {
                 Text(WeekdayLabel.short(for: day.date, calendar: calendar))
@@ -326,6 +374,69 @@ struct OnboardingView: View {
         .accessibilityLabel(Formatting.spokenDay(day.date) + (day.isToday ? ", " + L10n.calendarA11yToday : ""))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityIdentifier("onboardingDay")
+    }
+
+    private var periodLengthStep: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            title(L10n.onboardingPeriodLengthTitle)
+            daysWheel(L10n.onboardingPeriodLengthTitle, value: $flow.periodLength, range: CycleSettings.periodLengthRange)
+                .accessibilityIdentifier("onboardingPeriodLengthPicker")
+        }
+    }
+
+    private var cycleLengthStep: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            title(L10n.onboardingCycleLengthTitle)
+            note(L10n.onboardingCycleLengthHint, identifier: "onboardingCycleLengthHint")
+            daysWheel(L10n.onboardingCycleLengthTitle, value: $flow.cycleLength, range: CycleSettings.cycleLengthRange)
+                .accessibilityIdentifier("onboardingCycleLengthPicker")
+        }
+    }
+
+    private func daysWheel(_ label: String, value: Binding<Int>, range: ClosedRange<Int>) -> some View {
+        Picker(label, selection: value) {
+            ForEach(Array(range), id: \.self) { days in
+                Text(L10n.days(days)).tag(days)
+            }
+        }
+        .pickerStyle(.wheel)
+        .frame(maxWidth: .infinity)
+        .lunaCard(padding: 4)
+    }
+
+    private var regularityStep: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            title(L10n.onboardingRegularityTitle)
+                .padding(.bottom, 6)
+            ForEach(CycleRegularity.allCases, id: \.self) { value in
+                choiceCard(
+                    title: L10n.onboardingRegularity(value),
+                    detail: L10n.onboardingRegularityDetail(value),
+                    isSelected: flow.regularity == value,
+                    identifier: "onboardingRegularity-\(value.rawValue)"
+                ) { change { $0.regularity = value } }
+            }
+            if flow.regularity == .irregular {
+                note(L10n.onboardingIrregularNote, identifier: "onboardingIrregularNote")
+                    .padding(.top, 2)
+                    .transition(.opacity)
+            }
+        }
+    }
+
+    private var contraceptionStep: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            title(L10n.onboardingContraceptionTitle)
+            note(L10n.onboardingContraceptionWhy, identifier: "onboardingContraceptionWhy")
+                .padding(.bottom, 4)
+            ForEach(Contraception.allCases, id: \.self) { value in
+                choiceCard(
+                    title: L10n.contraception(value),
+                    isSelected: flow.contraception == value,
+                    identifier: "onboardingContraception-\(value.rawValue)"
+                ) { flow.contraception = value }
+            }
+        }
     }
 
     private var dueDateStep: some View {
@@ -352,7 +463,7 @@ struct OnboardingView: View {
                     roundButton("plus", label: L10n.onboardingDueLater, identifier: "onboardingDueLater") { shiftDueDate(by: 7) }
                         .disabled(shiftedDueDate(by: 7) == nil)
                 }
-                Text(PregnancyTimeline(dueDate: dueDate, now: now).map { L10n.pregnancyWeekLabel($0.week) } ?? "")
+                Text(weekLabel(dueDate))
                     .font(.luna(.captionStrong))
                     .foregroundStyle(.luna(.pregOnSoft))
                     .padding(.horizontal, 12)
@@ -365,6 +476,38 @@ struct OnboardingView: View {
             Button(L10n.onboardingDueFromLMP) { showingLMPForm = true }
                 .buttonStyle(.pill(.text(.textOnboarding), height: 44))
                 .accessibilityIdentifier("onboardingFromLMP")
+        }
+    }
+
+    private func weekLabel(_ dueDate: Date) -> String {
+        PregnancyTimeline(dueDate: dueDate, now: now).map { L10n.pregnancyWeekLabel($0.week) } ?? ""
+    }
+
+    private var resultStep: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            title(L10n.onboardingResultTitle)
+            Text(resultText)
+                .font(.luna(size: 18, weight: .medium, relativeTo: .title3))
+                .foregroundStyle(.luna(.textOnboarding))
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier("onboardingResultText")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .lunaCard(padding: 16)
+            note(L10n.onboardingResultReminders, identifier: "onboardingResultReminders")
+        }
+    }
+
+    /// The early payoff: the predicted next period (cycle) or today's week (pregnancy).
+    private var resultText: String {
+        if isPregnancyBranch {
+            guard let dates = flow.pregnancyDates else { return L10n.onboardingResultNoDueDate }
+            let due = dates.source == .dueDate ? dates.date : PregnancyDates.dueDate(fromLMP: dates.date)
+            return L10n.onboardingResultPregnant(weekLabel(due))
+        }
+        switch flow.prediction(now: now, calendar: AppLocale.calendar) {
+        case .nextPeriod(let date)?: return L10n.onboardingResultNextPeriod(Formatting.longDate(date))
+        case .late(let days)?: return L10n.onboardingResultLate(days)
+        case nil: return L10n.onboardingResultNoPeriod
         }
     }
 
@@ -387,34 +530,20 @@ struct OnboardingView: View {
 
     private var buttons: some View {
         VStack(spacing: 2) {
-            switch step {
-            case .welcome:
-                Button(L10n.onboardingContinue) { go(to: .goal) }
+            if flow.step == .result {
+                Button(L10n.onboardingEnableReminders) { Task { await finish(requestingNotifications: true) } }
                     .buttonStyle(.pill(.onboarding))
-                    .accessibilityIdentifier("onboardingNext")
-            case .goal:
-                Button(L10n.onboardingContinue) { go(to: .details) }
+                    .disabled(saving)
+                    .accessibilityIdentifier("onboardingEnableReminders")
+                Button(L10n.onboardingLater) { Task { await finish(requestingNotifications: false) } }
+                    .buttonStyle(.pill(.text(.textOnboarding), height: 44))
+                    .disabled(saving)
+                    .accessibilityIdentifier("onboardingFinishLater")
+            } else {
+                Button(L10n.onboardingContinue) { continueTapped() }
                     .buttonStyle(.pill(.onboarding))
-                    .disabled(goal == nil)
+                    .disabled(!flow.canContinue)
                     .accessibilityIdentifier("onboardingNext")
-            case .details:
-                if isCycleBranch {
-                    Button(L10n.onboardingStart) { Task { await finishCycle(savingLastPeriod: true) } }
-                        .buttonStyle(.pill(.onboarding))
-                        .disabled(saving)
-                        .accessibilityIdentifier("onboardingSaveCycle")
-                    Button(L10n.onboardingLater) { Task { await finishCycle(savingLastPeriod: false) } }
-                        .buttonStyle(.pill(.text(.textOnboarding), height: 44))
-                        .disabled(saving)
-                        .accessibilityIdentifier("onboardingSkipCycle")
-                } else {
-                    Button(L10n.onboardingStart) { finishPregnancy(savingDates: true) }
-                        .buttonStyle(.pill(.onboarding))
-                        .accessibilityIdentifier("onboardingSaveDate")
-                    Button(L10n.onboardingLater) { finishPregnancy(savingDates: false) }
-                        .buttonStyle(.pill(.text(.textOnboarding), height: 44))
-                        .accessibilityIdentifier("onboardingSkipDate")
-                }
             }
         }
         .padding(.top, 12)
@@ -425,7 +554,10 @@ struct OnboardingView: View {
     private var otherDaySheet: some View {
         NavigationStack {
             Form {
-                LastPeriodPicker(date: $lastPeriod, now: now)
+                LastPeriodPicker(date: Binding(
+                    get: { flow.lastPeriodStart ?? AppLocale.calendar.startOfDay(for: now) },
+                    set: { flow.lastPeriodStart = $0 }
+                ), now: now)
             }
             .scrollContentBackground(.hidden)
             .background(.luna(.background))
@@ -493,13 +625,17 @@ struct OnboardingView: View {
 
     // MARK: - Actions
 
-    private func go(to next: Step) {
-        withAnimation(LunaMotion.isEnabled ? LunaMotion.fade : nil) { step = next }
+    /// Every step change fades (none under UI tests or Reduce Motion).
+    private func change(_ update: (inout OnboardingFlow) -> Void) {
+        withAnimation(LunaMotion.isEnabled && !reduceMotion ? LunaMotion.fade : nil) { update(&flow) }
     }
 
-    private func skip() {
-        if goal == nil { goal = .pregnant }
-        go(to: .details)
+    private func continueTapped() {
+        change { flow in
+            // The due date step's value counts once she continues past it.
+            if flow.step == .dueDate { flow.pregnancyDates = dateSelection }
+            flow.next()
+        }
     }
 
     /// The due date moved by `days`, or nil when that leaves the allowed range
@@ -516,43 +652,41 @@ struct OnboardingView: View {
         dateSelection = PregnancyDateSelection(source: .dueDate, date: shifted)
     }
 
-    /// Replay: the cycle step shows the stored cycle length and the current
-    /// period instead of the first-run defaults (the due date already starts
-    /// from the stored one, see `init`).
+    /// Replay: the last period step shows the current period instead of today
+    /// (the goal, lengths, answers and due date already start from the stored
+    /// ones, see `init`).
     private func startFromCurrentValues() {
-        guard isReplay else { return }
-        cycleLength = cycle.settings.typicalCycleLength
-        if let start = cycle.forecast?.currentPeriodStart {
-            lastPeriod = AppLocale.calendar.startOfDay(for: start)
-        }
+        guard isReplay, let start = cycle.forecast?.currentPeriodStart else { return }
+        flow.lastPeriodStart = AppLocale.calendar.startOfDay(for: start)
     }
 
-    private func finishPregnancy(savingDates: Bool) {
-        // Replaying never changes the mode or the pregnancy dates.
-        guard !isReplay else { return onFinish() }
-        AppMode.save(.pregnant, to: AppGroup.defaults)
-        if savingDates {
-            PregnancyProfile.save(source: dateSelection.source, date: dateSelection.date, to: AppGroup.defaults)
-        }
-        onFinish()
-    }
-
-    /// Saves the cycle length, switches to trying-to-conceive mode and — unless
-    /// skipped — the last period. A failed save shows on Today.
-    private func finishCycle(savingLastPeriod: Bool) async {
-        // Replaying never changes the mode, the cycle settings or the periods.
+    /// Saves the branch's answers with the existing stores (spec §3.2). "Turn on
+    /// reminders" asks for notifications; "Later" never does. In the cycle
+    /// branch `completeOnboarding` asks itself (even without a forecast), so the
+    /// view never asks a second time. A failed period save shows on Today.
+    private func finish(requestingNotifications: Bool) async {
+        // Replaying never changes the mode, the answers, the periods or the dates.
         guard !isReplay else { return onFinish() }
         saving = true
         defer { saving = false }
-        // CycleSettings lengths are set only through its clamping init.
-        await cycle.updateSettings(CycleSettings(
-            typicalCycleLength: cycleLength,
-            typicalPeriodLength: cycle.settings.typicalPeriodLength,
-            remindersEnabled: cycle.settings.remindersEnabled
-        ))
-        await cycle.activateTryingToConceive()
-        if savingLastPeriod {
-            await cycle.logLastPeriod(startingOn: lastPeriod)
+        switch flow.finish() {
+        case let .cycle(goal, settings, firstPeriodStart, regularity, contraception):
+            await cycle.completeOnboarding(
+                goal: goal,
+                settings: settings,
+                firstPeriodStart: firstPeriodStart,
+                regularity: regularity,
+                contraception: contraception,
+                requestNotifications: requestingNotifications
+            )
+        case .pregnant(let dates):
+            AppMode.save(.pregnant, to: AppGroup.defaults)
+            if let dates {
+                PregnancyProfile.save(source: dates.source, date: dates.date, to: AppGroup.defaults)
+            }
+            if requestingNotifications {
+                _ = await kicks.requestNotificationPermission()
+            }
         }
         onFinish()
     }

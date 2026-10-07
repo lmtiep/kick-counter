@@ -67,6 +67,51 @@ extension XCUIApplication {
             remaining -= 1
         }
     }
+
+    /// Swipes down until `element` is hittable: onboarding's steps are anchored
+    /// to the bottom, so a long list starts scrolled to its end.
+    func scrollDownUntilHittable(_ element: XCUIElement, maxSwipes: Int = 4) {
+        var remaining = maxSwipes
+        while !(element.exists && element.isHittable), remaining > 0 {
+            swipeDown()
+            remaining -= 1
+        }
+    }
+
+    /// Phase 9 onboarding, pregnancy branch without a due date: Continue →
+    /// "Pregnant" → Continue → Skip (due date) → Later.
+    func completeOnboardingPregnantWithoutDates() {
+        let next = buttons["onboardingNext"]
+        XCTAssertTrue(next.waitForExistence(timeout: 10))
+        next.tap()
+        let pregnant = buttons["onboardingGoal-pregnant"]
+        XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
+        pregnant.tap()
+        next.tap()
+        XCTAssertTrue(buttons["onboardingDueDate"].waitForExistence(timeout: 5))
+        buttons["onboardingSkip"].tap()
+        let later = buttons["onboardingFinishLater"]
+        XCTAssertTrue(later.waitForExistence(timeout: 5))
+        later.tap()
+    }
+
+    /// Replaying onboarding (the goal is preselected): Continue twice, skip
+    /// every question, then "Later". Replay saves nothing.
+    func skipThroughReplayedOnboarding() {
+        let next = buttons["onboardingNext"]
+        XCTAssertTrue(next.waitForExistence(timeout: 10))
+        next.tap() // welcome
+        XCTAssertTrue(next.isEnabled) // the current goal is already chosen
+        next.tap() // goal
+        let skip = buttons["onboardingSkip"]
+        let later = buttons["onboardingFinishLater"]
+        for _ in 0..<8 where !later.exists {
+            XCTAssertTrue(skip.waitForExistence(timeout: 5))
+            skip.tap()
+        }
+        XCTAssertTrue(later.waitForExistence(timeout: 5))
+        later.tap()
+    }
 }
 
 extension XCTestCase {

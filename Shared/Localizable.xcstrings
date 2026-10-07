@@ -902,6 +902,142 @@
         }
       }
     },
+    "contraception.condom": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condoms"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bao cao su"
+          }
+        }
+      }
+    },
+    "contraception.copperIUD": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copper IUD"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vòng tránh thai chữ T bằng đồng"
+          }
+        }
+      }
+    },
+    "contraception.fertilityAwarenessOrWithdrawal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Counting days or withdrawal"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tính ngày hoặc xuất tinh ngoài"
+          }
+        }
+      }
+    },
+    "contraception.hormonalIUD": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hormonal IUD"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vòng tránh thai có nội tiết"
+          }
+        }
+      }
+    },
+    "contraception.implantOrInjection": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Implant or injection"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que cấy hoặc thuốc tiêm tránh thai"
+          }
+        }
+      }
+    },
+    "contraception.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "None"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không dùng"
+          }
+        }
+      }
+    },
+    "contraception.otherOrPrivate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Something else, or I'd rather not say"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cách khác hoặc không muốn nói"
+          }
+        }
+      }
+    },
+    "contraception.pill": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The pill"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thuốc tránh thai hằng ngày"
+          }
+        }
+      }
+    },
     "counter.a11y.button": {
       "extractionState": "manual",
       "localizations": {
@@ -4013,6 +4149,23 @@
         }
       }
     },
+    "onboarding.back": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quay lại"
+          }
+        }
+      }
+    },
     "onboarding.continue": {
       "extractionState": "manual",
       "localizations": {
@@ -4030,36 +4183,87 @@
         }
       }
     },
-    "onboarding.cycle.longer": {
+    "onboarding.contraception.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longer cycle"
+            "value": "Do you use any contraception?"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ dài hơn"
+            "value": "Bạn đang dùng biện pháp tránh thai nào?"
           }
         }
       }
     },
-    "onboarding.cycle.shorter": {
+    "onboarding.contraception.why": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shorter cycle"
+            "value": "Why we ask: some methods, such as the pill, usually stop ovulation, so Luna Mom will not show fertile days that may not apply to you. This only changes what the app shows."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ ngắn hơn"
+            "value": "Vì sao hỏi: một số biện pháp như thuốc tránh thai thường làm ngừng rụng trứng, nên Luna Mom sẽ không hiện những ngày dễ thụ thai có thể không đúng với bạn. Thông tin này chỉ dùng để chọn nội dung hiển thị."
+          }
+        }
+      }
+    },
+    "onboarding.cycleLength.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count from the first day of one period to the day before the next one starts. Many cycles are 21 to 35 days long; yours may differ."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tính từ ngày đầu của một kỳ kinh đến hết ngày trước kỳ kinh sau. Nhiều người có chu kỳ từ 21 đến 35 ngày, của bạn có thể khác."
+          }
+        }
+      }
+    },
+    "onboarding.cycleLength.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How long is your cycle usually?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ của bạn thường dài bao nhiêu ngày?"
+          }
+        }
+      }
+    },
+    "onboarding.dontRemember": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I don't remember"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không nhớ"
           }
         }
       }
@@ -4132,36 +4336,53 @@
         }
       }
     },
-    "onboarding.goal.cycle": {
+    "onboarding.enableReminders": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "My cycle"
+            "value": "Turn on reminders"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ kinh nguyệt"
+            "value": "Bật nhắc nhở"
           }
         }
       }
     },
-    "onboarding.goal.cycle.detail": {
+    "onboarding.goal.conceiving": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Predict periods and ovulation"
+            "value": "Trying to conceive"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dự đoán kỳ kinh và ngày rụng trứng"
+            "value": "Mong con"
+          }
+        }
+      }
+    },
+    "onboarding.goal.conceiving.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See your fertile days and ovulation"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biết những ngày dễ thụ thai và ngày rụng trứng"
           }
         }
       }
@@ -4172,13 +4393,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "I'm pregnant"
+            "value": "Pregnant"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tôi đang mang thai"
+            "value": "Đang mang thai"
           }
         }
       }
@@ -4196,6 +4417,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Theo dõi từng tuần và cử động của bé"
+          }
+        }
+      }
+    },
+    "onboarding.goal.tracking": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Track my cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi chu kỳ"
+          }
+        }
+      }
+    },
+    "onboarding.goal.tracking.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Understand your body and know when your period is coming"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiểu cơ thể, biết trước kỳ kinh"
           }
         }
       }
@@ -4234,6 +4489,23 @@
         }
       }
     },
+    "onboarding.notSure": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not sure"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không chắc"
+          }
+        }
+      }
+    },
     "onboarding.otherDay": {
       "extractionState": "manual",
       "localizations": {
@@ -4268,6 +4540,295 @@
         }
       }
     },
+    "onboarding.periodLength.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How many days does your period usually last?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh của bạn thường kéo dài mấy ngày?"
+          }
+        }
+      }
+    },
+    "onboarding.privacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your data stays on your iPhone and in your iCloud. No ads, and your data is never sold."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu chỉ nằm trên máy và iCloud của bạn. Không quảng cáo, không bán dữ liệu."
+          }
+        }
+      }
+    },
+    "onboarding.regularity.irregular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Irregular"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không đều"
+          }
+        }
+      }
+    },
+    "onboarding.regularity.irregular.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It changes from month to month"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay đổi từ tháng này sang tháng khác"
+          }
+        }
+      }
+    },
+    "onboarding.regularity.irregularNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycles that vary a little are common, especially after giving birth, while breastfeeding or at stressful times. Predictions usually get closer as you log more periods. If your cycles are often shorter than 21 days or longer than 45 days, it is worth talking to a doctor."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ dao động một chút là chuyện thường gặp, nhất là sau sinh, khi đang cho con bú hoặc lúc căng thẳng. Bạn ghi càng nhiều kỳ kinh, dự đoán thường càng sát hơn. Nếu chu kỳ hay ngắn hơn 21 ngày hoặc dài hơn 45 ngày, bạn nên đi khám để bác sĩ tư vấn."
+          }
+        }
+      }
+    },
+    "onboarding.regularity.regular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regular"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đều"
+          }
+        }
+      }
+    },
+    "onboarding.regularity.regular.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About the same length every month"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ dài gần như nhau mỗi tháng"
+          }
+        }
+      }
+    },
+    "onboarding.regularity.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Is your cycle regular?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ của bạn có đều không?"
+          }
+        }
+      }
+    },
+    "onboarding.regularity.unknown": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I don't know"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không rõ"
+          }
+        }
+      }
+    },
+    "onboarding.regularity.unknown.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That's fine: Luna Mom learns as you log"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không sao, Luna Mom sẽ học dần khi bạn ghi lại"
+          }
+        }
+      }
+    },
+    "onboarding.result.late": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the date you entered, your period may be about %ld days late."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo ngày bạn nhập, kỳ kinh có thể đã trễ khoảng %ld ngày."
+          }
+        }
+      }
+    },
+    "onboarding.result.nextPeriod": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your next period should start around %@."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh tới dự kiến khoảng %@."
+          }
+        }
+      }
+    },
+    "onboarding.result.noDueDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can add your due date later in Profile."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn có thể nhập ngày dự sinh sau trong mục Cá nhân."
+          }
+        }
+      }
+    },
+    "onboarding.result.noPeriod": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log the first day of your next period so Luna Mom can predict the ones after it."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi ngày bắt đầu kỳ kinh tới để Luna Mom dự đoán cho bạn."
+          }
+        }
+      }
+    },
+    "onboarding.result.pregnant": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today you are %@ pregnant."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay thai được %@."
+          }
+        }
+      }
+    },
+    "onboarding.result.reminders": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on reminders and Luna Mom will give you a gentle nudge on the days that matter."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bật nhắc nhở để Luna Mom báo bạn nhẹ nhàng vào những ngày quan trọng."
+          }
+        }
+      }
+    },
+    "onboarding.result.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You're all set"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mọi thứ đã sẵn sàng"
+          }
+        }
+      }
+    },
     "onboarding.skip": {
       "extractionState": "manual",
       "localizations": {
@@ -4281,23 +4842,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bỏ qua"
-          }
-        }
-      }
-    },
-    "onboarding.start": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Get started"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bắt đầu"
           }
         }
       }

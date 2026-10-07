@@ -91,10 +91,7 @@ final class ProfileUITests: XCTestCase {
         XCTAssertTrue(replay.waitForExistence(timeout: 10))
         app.scrollUntilHittable(replay)
         replay.tap()
-        let skip = app.buttons["onboardingSkip"]
-        XCTAssertTrue(skip.waitForExistence(timeout: 5))
-        skip.tap()
-        app.buttons["onboardingSkipDate"].tap()
+        app.skipThroughReplayedOnboarding()
 
         app.openTab(.today)
         let progress = app.descendants(matching: .any)["weekProgressCard"]
@@ -116,12 +113,7 @@ final class ProfileUITests: XCTestCase {
         XCTAssertTrue(replay.waitForExistence(timeout: 10))
         app.scrollUntilHittable(replay)
         replay.tap()
-        let skip = app.buttons["onboardingSkip"]
-        XCTAssertTrue(skip.waitForExistence(timeout: 5))
-        skip.tap()
-        let later = app.buttons["onboardingSkipCycle"]
-        XCTAssertTrue(later.waitForExistence(timeout: 5))
-        later.tap()
+        app.skipThroughReplayedOnboarding()
 
         XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.tabBars.buttons["Kicks"].exists)
