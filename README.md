@@ -69,3 +69,22 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Ảnh riêng từng bài (chưa có): thêm asset `Knowledge-<id>` (ví dụ `Knowledge-safe-exercise`) vào
   `App/Images.xcassets`; khi thiếu, app vẽ biểu tượng SF Symbol của chủ đề.
 - Nội dung chờ bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 10. Bản App Store chỉ hiện bài đã duyệt.
+
+## Chia sẻ với bố bé (giai đoạn 8)
+- Mẹ (chế độ Mang thai) mời qua iCloud ở Cá nhân → "Chia sẻ với bố bé"; bố bé cài app, chạm lời mời và vào
+  **chế độ Bạn đời** chỉ xem (Hôm nay · Kiến thức · Cá nhân). Đặc tả: `docs/superpowers/specs/2026-10-07-partner-design.md`.
+- Dữ liệu chia sẻ là một bản `PartnerSnapshot` (`KickCore/PartnerSnapshot.swift`, JSON phiên bản 1), dựng bởi
+  `PartnerSnapshotBuilder` — hàm này không nhận ghi chú, triệu chứng, cân nặng hay dữ liệu chu kỳ.
+- iCloud: zone riêng `PartnerShare` trong cơ sở dữ liệu riêng của mẹ, một record `Snapshot` tên `current`, chia sẻ cả
+  zone ở quyền chỉ xem (`App/Partner/CloudPartnerSharing.swift`, chỉ file này và các delegate trong `App/Partner/`
+  dùng CloudKit). Kho SwiftData và đồng bộ riêng của nó không đổi.
+- Logic kiểm thử được nằm trong KickCore (`scripts/test-core.sh`): giao thức `PartnerSharing` và bản giả
+  `FakePartnerSharing`, `PartnerShareCoordinator`, `PartnerPublisher` (gom thay đổi, tải lên 5 giây sau thay đổi
+  cuối), `PartnerJourneyModel`, `PartnerAcceptance`.
+- Lời mời: `PartnerAppDelegate` / `PartnerSceneDelegate` (`App/Partner/PartnerAppDelegate.swift`) nhận
+  `CKShare.Metadata`; `CKSharingSupported` khai báo trong `project.yml`.
+- UI test: `-uiTestingSharing <notShared|invited|joined|icloudUnavailable>` (phía mẹ) và
+  `-uiTestingPartner <snapshot|stopped|error|icloudUnavailable>` (vào thẳng chế độ Bạn đời với dữ liệu mẫu tuần 24)
+  dùng `FakePartnerSharing`; chỉ có hiệu lực cùng `-uiTesting`. Không UI test nào chạm iCloud.
+- Chia sẻ thật chỉ thử bằng tay với hai Apple ID: `docs/partner-sharing-manual-test.md`. Trước khi phát hành:
+  record type `Snapshot` phải được deploy lên Production (`docs/release-checklist.md`, "Giai đoạn 8").
