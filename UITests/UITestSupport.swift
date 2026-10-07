@@ -27,7 +27,9 @@ extension XCUIApplication {
     /// Launches with onboarding skipped and the clock pinned to `UITestDates.fixedNow`,
     /// optionally with a stored due date, or — with `seedCycles` (a `CycleSeedScenario`
     /// name: empty, period, fertile, late, irregular) — in trying-to-conceive mode with
-    /// sample cycles. `largestText` uses Dynamic Type AX5; `extraArguments` adds
+    /// sample cycles, and `cycleGoal` / `contraception` (phase 9: `CycleGoal` and
+    /// `Contraception` raw values; none means a user from before phase 9, i.e.
+    /// trying to conceive). `largestText` uses Dynamic Type AX5; `extraArguments` adds
     /// more test-only flags (`-seedSessions`, `-seedOverdueSession`). Only the
     /// pregnancy, appointment, cycle and history screens use the pinned clock;
     /// counting kicks uses real time.
@@ -37,6 +39,8 @@ extension XCUIApplication {
         dark: Bool = false,
         dueDate: String? = nil,
         seedCycles: String? = nil,
+        cycleGoal: String? = nil,
+        contraception: String? = nil,
         skipOnboarding: Bool = true,
         largestText: Bool = false,
         extraArguments: [String] = []
@@ -49,6 +53,8 @@ extension XCUIApplication {
         ]
         if let dueDate { app.launchArguments += ["-seedDueDate", dueDate] }
         if let seedCycles { app.launchArguments += ["-seedCycles", seedCycles] }
+        if let cycleGoal { app.launchArguments += ["-seedCycleGoal", cycleGoal] }
+        if let contraception { app.launchArguments += ["-seedContraception", contraception] }
         if dark { app.launchArguments.append("-forceDarkMode") }
         if largestText {
             app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
@@ -66,6 +72,51 @@ extension XCUIApplication {
             swipeUp()
             remaining -= 1
         }
+    }
+
+    /// Swipes down until `element` is hittable: onboarding's steps are anchored
+    /// to the bottom, so a long list starts scrolled to its end.
+    func scrollDownUntilHittable(_ element: XCUIElement, maxSwipes: Int = 4) {
+        var remaining = maxSwipes
+        while !(element.exists && element.isHittable), remaining > 0 {
+            swipeDown()
+            remaining -= 1
+        }
+    }
+
+    /// Phase 9 onboarding, pregnancy branch without a due date: Continue →
+    /// "Pregnant" → Continue → Skip (due date) → Later.
+    func completeOnboardingPregnantWithoutDates() {
+        let next = buttons["onboardingNext"]
+        XCTAssertTrue(next.waitForExistence(timeout: 10))
+        next.tap()
+        let pregnant = buttons["onboardingGoal-pregnant"]
+        XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
+        pregnant.tap()
+        next.tap()
+        XCTAssertTrue(buttons["onboardingDueDate"].waitForExistence(timeout: 5))
+        buttons["onboardingSkip"].tap()
+        let later = buttons["onboardingFinishLater"]
+        XCTAssertTrue(later.waitForExistence(timeout: 5))
+        later.tap()
+    }
+
+    /// Replaying onboarding (the goal is preselected): Continue twice, skip
+    /// every question, then "Later". Replay saves nothing.
+    func skipThroughReplayedOnboarding() {
+        let next = buttons["onboardingNext"]
+        XCTAssertTrue(next.waitForExistence(timeout: 10))
+        next.tap() // welcome
+        XCTAssertTrue(next.isEnabled) // the current goal is already chosen
+        next.tap() // goal
+        let skip = buttons["onboardingSkip"]
+        let later = buttons["onboardingFinishLater"]
+        for _ in 0..<8 where !later.exists {
+            XCTAssertTrue(skip.waitForExistence(timeout: 5))
+            skip.tap()
+        }
+        XCTAssertTrue(later.waitForExistence(timeout: 5))
+        later.tap()
     }
 }
 

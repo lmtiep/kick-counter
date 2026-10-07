@@ -41,7 +41,12 @@ public enum CycleRingGeometry {
     }
 
     /// Consecutive days with the same colour merged into one segment, from day 1.
-    public static func segments(for forecast: CycleForecast, calendar: Calendar = .current) -> [CycleRingSegment] {
+    /// `policy` hides the fertile window (hormonal contraception, phase 9).
+    public static func segments(
+        for forecast: CycleForecast,
+        policy: CycleDisplayPolicy = .conceiving,
+        calendar: Calendar = .current
+    ) -> [CycleRingSegment] {
         let length = length(of: forecast)
         var segments: [CycleRingSegment] = []
         var runKind: CycleRingKind?
@@ -49,7 +54,7 @@ public enum CycleRingGeometry {
         for index in 0...length {
             let kind: CycleRingKind? = index == length ? nil : calendar
                 .date(byAdding: .day, value: index, to: forecast.currentPeriodStart)
-                .map { CycleRingKind(forecast.dayStatus(for: $0)) }
+                .map { CycleRingKind(policy.visibleStatus(forecast.dayStatus(for: $0))) }
             if kind != runKind || index == length {
                 if let runKind, index > runStart {
                     segments.append(CycleRingSegment(

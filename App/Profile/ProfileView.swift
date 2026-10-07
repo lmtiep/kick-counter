@@ -2,7 +2,15 @@ import KickCore
 import OSLog
 import SwiftUI
 
-/// The Profile tab (spec §4.8), replacing Settings: language, mode (and ending
+/// The three choices of Profile's goal picker (phase 9 spec §4.3): the two
+/// cycle goals and pregnancy, as in onboarding.
+enum ProfileModeChoice: Hashable {
+    case tracking
+    case conceiving
+    case pregnant
+}
+
+/// The Profile tab (spec §4.8), replacing Settings: language, goal (and ending
 /// the pregnancy), pregnancy dates or cycle numbers, kick reminder, check-ups,
 /// permissions, medical information, replaying the introduction, version.
 struct ProfileView: View {
@@ -14,6 +22,7 @@ struct ProfileView: View {
     @Environment(WeightCoordinator.self) private var weight
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @AppStorage(SettingsKey.appMode, store: AppGroup.defaults) private var appMode = AppMode.pregnant.rawValue
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
@@ -136,18 +145,27 @@ struct ProfileView: View {
         .accessibilityAddTraits(.isHeader)
     }
 
+    /// "Goal": track my cycle · trying to conceive · pregnant (phase 9).
     private var modeCard: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
-                Text(L10n.settingsModeSection)
+                Text(L10n.profileGoal)
                     .font(.luna(.bodyStrong))
                     .foregroundStyle(.luna(.textPrimary))
-                Picker(L10n.settingsModeSection, selection: modeBinding) {
-                    Text(L10n.modeTryingToConceive).tag(AppMode.tryingToConceive)
-                    Text(L10n.modePregnant).tag(AppMode.pregnant)
+                // UISegmentedControl ignores Dynamic Type and would clip the
+                // Vietnamese labels at AX sizes, so the goal becomes a
+                // vertical list of full-width rows there instead.
+                if dynamicTypeSize.isAccessibilitySize {
+                    goalList
+                } else {
+                    Picker(L10n.profileGoal, selection: modeBinding) {
+                        Text(L10n.modeTracking).tag(ProfileModeChoice.tracking)
+                        Text(L10n.modeTryingToConceive).tag(ProfileModeChoice.conceiving)
+                        Text(L10n.modePregnantShort).tag(ProfileModeChoice.pregnant)
+                    }
+                    .pickerStyle(.segmented)
+                    .accessibilityIdentifier("settingsModePicker")
                 }
-                .pickerStyle(.segmented)
-                .accessibilityIdentifier("settingsModePicker")
             }
             .padding(18)
             LunaDivider()
@@ -166,6 +184,49 @@ struct ProfileView: View {
             }
         }
         .lunaCard(padding: 0)
+    }
+
+    /// The goal picker at accessibility Dynamic Type sizes (phase 9 fix round 1):
+    /// a vertical list of full-width rows instead of the segmented control.
+    private var goalList: some View {
+        VStack(spacing: 10) {
+            goalRow(L10n.modeTracking, choice: .tracking, identifier: "settingsGoal-tracking")
+            goalRow(L10n.modeTryingToConceive, choice: .conceiving, identifier: "settingsGoal-conceiving")
+            goalRow(L10n.modePregnantShort, choice: .pregnant, identifier: "settingsGoal-pregnant")
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("settingsModePicker")
+    }
+
+    private func goalRow(_ title: String, choice: ProfileModeChoice, identifier: String) -> some View {
+        let isSelected = modeBinding.wrappedValue == choice
+        return Button {
+            modeBinding.wrappedValue = choice
+        } label: {
+            HStack(spacing: 12) {
+                Text(title)
+                    .font(.luna(.body))
+                    .foregroundStyle(.luna(.textPrimary))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "checkmark")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.luna(.cycleStrong))
+                    .opacity(isSelected ? 1 : 0)
+                    .accessibilityHidden(true)
+            }
+            .padding(.vertical, 13)
+            .padding(.horizontal, 16)
+            .frame(minHeight: 44)
+            .background(.luna(.surfaceAlt), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(isSelected ? Color.luna(.cycleStrong) : Color.clear, lineWidth: 1.5)
+            }
+            .contentShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier(identifier)
     }
 
     private var pregnancyCard: some View {
@@ -239,14 +300,87 @@ struct ProfileView: View {
                 .accessibilityIdentifier("settingsCycleReminders")
             VStack(alignment: .leading, spacing: 4) {
                 Text(L10n.cycleSettingsHint)
-                Text(L10n.settingsCycleRemindersHint)
+                Text(cycle.policy.reminderKinds.contains(.fertile)
+                     ? L10n.settingsCycleRemindersHint
+                     : L10n.settingsCycleRemindersHintTracking)
+                    .accessibilityIdentifier("settingsCycleRemindersHint")
             }
             .font(.luna(.caption))
             .foregroundStyle(.luna(.textSecondary))
+            if cycle.preferences.goal == .tracking {
+                trackingRows
+            }
         }
         .font(.luna(.body))
         .foregroundStyle(.luna(.textPrimary))
         .lunaCard()
+    }
+
+    /// Tracking only (phase 9 spec §4.3): the contraception and the LH/BBT override.
+    @ViewBuilder
+    private var trackingRows: some View {
+        LunaDivider()
+        // At accessibility sizes the label sits above the menu instead of
+        // beside it, so the menu's value is never squeezed to nothing.
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(L10n.profileContraception)
+                    .accessibilityHidden(true)
+                contraceptionPicker
+            }
+        } else {
+            HStack(spacing: 8) {
+                Text(L10n.profileContraception)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityHidden(true)
+                contraceptionPicker
+            }
+        }
+        Toggle(L10n.profileShowFertilityTests, isOn: fertilityTestsBinding)
+            .tint(.luna(.cycleStrong))
+            .accessibilityIdentifier("profileShowFertilityTests")
+            .accessibilityHint(L10n.profileShowFertilityTestsHint)
+        Text(L10n.profileShowFertilityTestsHint)
+            .font(.luna(.caption))
+            .foregroundStyle(.luna(.textSecondary))
+            .accessibilityHidden(true)
+    }
+
+    /// A menu whose label is the full current value, wrapped over as many lines as
+    /// it needs (phase 9 final fix): a `.menu` Picker squeezes its value to one
+    /// truncated line at accessibility sizes ("chữ T" for the copper IUD).
+    private var contraceptionPicker: some View {
+        let isAccessibilitySize = dynamicTypeSize.isAccessibilitySize
+        return Menu {
+            Picker(selection: contraceptionBinding) {
+                Text(L10n.profileContraceptionNotSet).tag(Contraception?.none)
+                ForEach(Contraception.allCases, id: \.self) { value in
+                    Text(L10n.contraception(value)).tag(Contraception?.some(value))
+                }
+            } label: {
+                EmptyView()
+            }
+            .pickerStyle(.inline)
+        } label: {
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(contraceptionText)
+                    .multilineTextAlignment(isAccessibilitySize ? .leading : .trailing)
+                    .fixedSize(horizontal: false, vertical: true)
+                Image(systemName: "chevron.up.chevron.down")
+                    .font(.luna(.caption))
+                    .accessibilityHidden(true)
+            }
+            .foregroundStyle(.luna(.cycleOnSoft))
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .accessibilityLabel(L10n.profileContraception)
+        .accessibilityValue(contraceptionText)
+        .accessibilityIdentifier("profileContraception")
+    }
+
+    private var contraceptionText: String {
+        cycle.preferences.contraception.map(L10n.contraception) ?? L10n.profileContraceptionNotSet
     }
 
     @ViewBuilder
@@ -302,25 +436,59 @@ struct ProfileView: View {
 
     // MARK: - Bindings
 
-    /// Switching to "Trying to conceive" is immediate; switching to "Pregnant"
-    /// goes through the "I'm pregnant" sheet so the due date is set.
-    private var modeBinding: Binding<AppMode> {
+    /// "Pregnant" goes through the "I'm pregnant" sheet so the due date is
+    /// set. Switching between the two cycle goals while already in cycle
+    /// mode just changes the preference (`updatePreferences`), never
+    /// prompting for notifications; leaving pregnancy for either goal takes
+    /// `activateCycleMode(goal:)`, which switches the mode and so makes
+    /// RootView stop partner sharing.
+    private var modeBinding: Binding<ProfileModeChoice> {
         Binding(
-            get: { mode },
-            set: { newMode in
-                guard newMode != mode else { return }
-                switch newMode {
-                case .tryingToConceive:
+            get: {
+                guard mode == .tryingToConceive else { return .pregnant }
+                return cycle.preferences.goal == .tracking ? .tracking : .conceiving
+            },
+            set: { choice in
+                switch choice {
+                case .tracking, .conceiving:
+                    let goal: CycleGoal = choice == .tracking ? .tracking : .conceiving
+                    guard mode != .tryingToConceive || goal != cycle.preferences.goal else { return }
                     Task {
-                        await cycle.activateTryingToConceive()
+                        if mode == .tryingToConceive {
+                            var preferences = cycle.preferences
+                            preferences.goal = goal
+                            await cycle.updatePreferences(preferences)
+                        } else {
+                            await cycle.activateCycleMode(goal: goal)
+                        }
                         await refreshPermissions()
                     }
                 case .pregnant:
+                    guard mode != .pregnant else { return }
                     showingImPregnant = true
-                case .partner:
-                    // The picker offers only the two modes of the mother.
-                    break
                 }
+            }
+        )
+    }
+
+    private var contraceptionBinding: Binding<Contraception?> {
+        Binding(
+            get: { cycle.preferences.contraception },
+            set: { value in
+                var preferences = cycle.preferences
+                preferences.contraception = value
+                Task { await cycle.updatePreferences(preferences) }
+            }
+        )
+    }
+
+    private var fertilityTestsBinding: Binding<Bool> {
+        Binding(
+            get: { cycle.preferences.showsFertilityTests },
+            set: { shows in
+                var preferences = cycle.preferences
+                preferences.showsFertilityTests = shows
+                Task { await cycle.updatePreferences(preferences) }
             }
         )
     }

@@ -53,6 +53,16 @@ struct CycleRemindersTests {
         #expect(center.added.first { $0.identifier == "cycle-late" }?.content.body == "Consider a pregnancy test")
     }
 
+    /// Phase 9: tracking schedules only the kinds it asks for; the others are cancelled.
+    @Test func onlyTheRequestedKindsAreScheduled() async throws {
+        try await scheduler.scheduleCycleReminders(for: try regularForecast(), now: date("2026-09-05T12:00:00Z"), texts: texts, calendar: utcCalendar)
+        let scheduled = try await scheduler.scheduleCycleReminders(
+            for: try regularForecast(), now: date("2026-09-05T12:00:00Z"), texts: texts, kinds: [.period, .late], calendar: utcCalendar
+        )
+        #expect(scheduled == [.period, .late])
+        #expect(Set(center.added.map(\.identifier)) == ["cycle-period", "cycle-late"])
+    }
+
     @Test func remindersWhoseTimeHasPassedAreSkipped() async throws {
         // 2026-09-10 at 09:00 exactly: the fertile reminder is not in the future.
         let scheduled = try await scheduler.scheduleCycleReminders(

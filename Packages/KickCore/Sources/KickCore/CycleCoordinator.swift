@@ -39,6 +39,8 @@ public final class CycleCoordinator {
     public private(set) var logs: [CycleLogRecord] = []
     public private(set) var forecast: CycleForecast?
     public private(set) var settings: CycleSettings
+    /// The goal, contraception, regularity and LH/BBT override (phase 9).
+    public private(set) var preferences: CyclePreferences
     /// Store errors for the screen to show; validation errors are only returned.
     public private(set) var failure: CycleFailure?
     /// True when the user has turned notifications off; the UI shows a hint.
@@ -70,9 +72,13 @@ public final class CycleCoordinator {
         self.calendar = calendar
         self.now = now
         settings = CycleSettings.load(from: defaults)
+        preferences = CyclePreferences.load(from: defaults)
     }
 
     public var mode: AppMode { AppMode.load(from: defaults) }
+
+    /// What the cycle screens show for the current goal and contraception.
+    public var policy: CycleDisplayPolicy { CycleDisplayPolicy(preferences) }
 
     /// The log for that calendar day, if any.
     public func log(on day: Date) -> CycleLogRecord? {
@@ -146,10 +152,16 @@ public final class CycleCoordinator {
     /// tab), assuming the typical period length when it is already over.
     @discardableResult
     public func logLastPeriod(startingOn day: Date) async -> CycleFailure? {
+        await write { try addAssumedPeriod(startingOn: day) }
+    }
+
+    /// Builds the assumed period from `day` (`settings.typicalPeriodLength`
+    /// long) and saves it, shared by `logLastPeriod` and `completeOnboarding`.
+    private func addAssumedPeriod(startingOn day: Date) throws {
         let record = CycleRules.assumedPeriod(
             startingOn: day, typicalLength: settings.typicalPeriodLength, today: now(), calendar: calendar
         )
-        return await write { try store.addPeriod(record, today: now()) }
+        try store.addPeriod(record, today: now())
     }
 
     @discardableResult
@@ -193,6 +205,69 @@ public final class CycleCoordinator {
         AppMode.save(.tryingToConceive, to: defaults)
         guard refresh() else { return }
         await syncReminders(generation: bump(), mayPrompt: true)
+    }
+
+    /// Profile changed the goal, contraception or the LH/BBT override: the
+    /// reminders follow the new goal. Never prompts for permission.
+    public func updatePreferences(_ newPreferences: CyclePreferences) async {
+        newPreferences.save(to: defaults)
+        preferences = CyclePreferences.load(from: defaults)
+        await syncReminders(generation: bump(), mayPrompt: false)
+    }
+
+    /// Profile's mode picker chose "Track my cycle" or "Trying to conceive":
+    /// stores the goal, then switches to the cycle mode like
+    /// `activateTryingToConceive()` (from pregnancy, RootView then stops partner sharing).
+    public func activateCycleMode(goal: CycleGoal) async {
+        var updated = CyclePreferences.load(from: defaults)
+        updated.goal = goal
+        updated.save(to: defaults)
+        await activateTryingToConceive()
+    }
+
+    /// Finishing onboarding on a cycle branch (phase 9 spec §3.2): stores the
+    /// lengths, goal, regularity and contraception, switches to the cycle mode
+    /// and, when given, the last period (assumed `settings.typicalPeriodLength`
+    /// long). Asks for notifications only when `requestNotifications` ("Turn on
+    /// reminders") — even without a forecast or with reminders off, so the
+    /// prompt always reflects her choice; "Later" never prompts. Returns a
+    /// failed period save.
+    @discardableResult
+    public func completeOnboarding(
+        goal: CycleGoal,
+        settings newSettings: CycleSettings,
+        firstPeriodStart: Date?,
+        regularity: CycleRegularity,
+        contraception: Contraception?,
+        requestNotifications: Bool
+    ) async -> CycleFailure? {
+        newSettings.save(to: defaults)
+        settings = CycleSettings.load(from: defaults)
+        var updated = CyclePreferences.load(from: defaults)
+        updated.goal = goal
+        updated.regularity = regularity
+        updated.contraception = contraception
+        updated.save(to: defaults)
+        AppMode.save(.tryingToConceive, to: defaults)
+        var failure: CycleFailure?
+        if let firstPeriodStart {
+            do {
+                try addAssumedPeriod(startingOn: firstPeriodStart)
+            } catch {
+                logger.error("Saving the onboarding period failed: \(error.localizedDescription)")
+                failure = report(CycleFailure(error))
+            }
+        }
+        guard refresh() else { return failure }
+        // Ask here (not through `syncReminders`'s `mayPrompt`), since that sync
+        // skips the prompt entirely when there's no forecast or reminders are
+        // off — but "Turn on reminders" must always ask.
+        if requestNotifications {
+            let authorized = await notifications.requestAuthorizationIfNeeded()
+            await updateDeniedHint(authorized: authorized)
+        }
+        await syncReminders(generation: bump(), mayPrompt: false)
+        return failure
     }
 
     /// "I'm pregnant": stores the pregnancy dates (usually the first day of the
@@ -267,7 +342,9 @@ public final class CycleCoordinator {
             return
         }
         do {
-            try await notifications.scheduleCycleReminders(for: forecast, now: now(), texts: reminderTexts, calendar: calendar)
+            try await notifications.scheduleCycleReminders(
+                for: forecast, now: now(), texts: reminderTexts, kinds: policy.reminderKinds, calendar: calendar
+            )
         } catch {
             logger.error("Scheduling cycle reminders failed: \(error.localizedDescription)")
             // Requests that landed before the failure may be stale by now.
@@ -293,6 +370,7 @@ public final class CycleCoordinator {
     @discardableResult
     private func refresh() -> Bool {
         settings = CycleSettings.load(from: defaults)
+        preferences = CyclePreferences.load(from: defaults)
         let loadedPeriods: [PeriodRecord]
         let loadedLogs: [CycleLogRecord]
         do {

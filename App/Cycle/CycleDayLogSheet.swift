@@ -72,34 +72,10 @@ struct CycleDayLogSheet: View {
                 .padding(.top, 26)
                 .accessibilityAddTraits(.isHeader)
 
-            LunaSheetSectionTitle(title: L10n.dayLogLH)
-            Picker(L10n.dayLogLH, selection: $lh) {
-                Text(L10n.dayLogLHNone).tag(LHResult?.none)
-                Text(L10n.dayLogLHNegative).tag(LHResult?.some(.negative))
-                Text(L10n.dayLogLHPositive).tag(LHResult?.some(.positive))
-            }
-            .pickerStyle(.segmented)
-            .accessibilityIdentifier("dayLogLHPicker")
-
-            LunaSheetSectionTitle(title: L10n.dayLogBBT)
-            VStack(alignment: .leading, spacing: 6) {
-                TextField(L10n.dayLogBBTPlaceholder, text: $temperatureText)
-                    .keyboardType(.decimalPad)
-                    .font(.luna(.body))
-                    .padding(14)
-                    .background(.luna(.card), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    .accessibilityLabel(L10n.dayLogBBT)
-                    .accessibilityIdentifier("dayLogBBTField")
-                    .onChange(of: temperatureText) { temperatureInvalid = false }
-                if temperatureInvalid {
-                    Label(L10n.cycleFailure(.invalidTemperature), systemImage: "exclamationmark.triangle.fill")
-                        .font(.luna(.caption))
-                        .foregroundStyle(.luna(.warningText))
-                        .accessibilityIdentifier("dayLogBBTError")
-                }
-                Text(L10n.dayLogBBTHint)
-                    .font(.luna(.small))
-                    .foregroundStyle(.luna(.textSecondary))
+            // Phase 9: hidden while tracking unless Profile turns them on; a
+            // stored LH result or temperature is kept as it is.
+            if cycle.policy.showsLHAndBBT {
+                fertilityTests
             }
 
             LunaSheetSectionTitle(title: L10n.dayLogMucus)
@@ -148,6 +124,41 @@ struct CycleDayLogSheet: View {
                 }
             }
             Button(L10n.commonCancel, role: .cancel) {}
+        }
+    }
+
+    /// The LH test and basal body temperature (trying to conceive, or
+    /// tracking with Profile's override on).
+    @ViewBuilder
+    private var fertilityTests: some View {
+        LunaSheetSectionTitle(title: L10n.dayLogLH)
+        Picker(L10n.dayLogLH, selection: $lh) {
+            Text(L10n.dayLogLHNone).tag(LHResult?.none)
+            Text(L10n.dayLogLHNegative).tag(LHResult?.some(.negative))
+            Text(L10n.dayLogLHPositive).tag(LHResult?.some(.positive))
+        }
+        .pickerStyle(.segmented)
+        .accessibilityIdentifier("dayLogLHPicker")
+
+        LunaSheetSectionTitle(title: L10n.dayLogBBT)
+        VStack(alignment: .leading, spacing: 6) {
+            TextField(L10n.dayLogBBTPlaceholder, text: $temperatureText)
+                .keyboardType(.decimalPad)
+                .font(.luna(.body))
+                .padding(14)
+                .background(.luna(.card), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .accessibilityLabel(L10n.dayLogBBT)
+                .accessibilityIdentifier("dayLogBBTField")
+                .onChange(of: temperatureText) { temperatureInvalid = false }
+            if temperatureInvalid {
+                Label(L10n.cycleFailure(.invalidTemperature), systemImage: "exclamationmark.triangle.fill")
+                    .font(.luna(.caption))
+                    .foregroundStyle(.luna(.warningText))
+                    .accessibilityIdentifier("dayLogBBTError")
+            }
+            Text(L10n.dayLogBBTHint)
+                .font(.luna(.small))
+                .foregroundStyle(.luna(.textSecondary))
         }
     }
 

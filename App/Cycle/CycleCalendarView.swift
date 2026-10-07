@@ -23,7 +23,7 @@ struct CycleCalendarView: View {
                     header
                     grid
                         .padding(.top, 18)
-                    CycleLegend()
+                    CycleLegend(policy: cycle.policy)
                         .padding(.top, 14)
                     selectedDayCard
                         .padding(.top, 16)
@@ -124,10 +124,11 @@ struct CycleCalendarView: View {
                     if let day {
                         CalendarDayCell(
                             day: day,
-                            status: cycle.forecast?.dayStatus(for: day),
+                            status: cycle.forecast.map { cycle.policy.visibleStatus($0.dayStatus(for: day)) },
                             log: cycle.log(on: day),
                             isToday: day == today,
-                            isSelected: day == selected
+                            isSelected: day == selected,
+                            policy: cycle.policy
                         ) {
                             selected = day
                         }
@@ -146,10 +147,11 @@ struct CycleCalendarView: View {
     }
 
     private var selectedDayCard: some View {
+        let policy = cycle.policy
         let status = cycle.forecast?.dayStatus(for: selected)
         let cycleDay = cycle.forecast?.cycleDay(on: selected)
-        let line: String? = status.map { status in
-            cycleDay.map { L10n.cyclePhase($0, CycleTexts.status(status)) } ?? CycleTexts.status(status)
+        let line: String? = status.flatMap { status in
+            cycleDay.map { CycleTexts.phase(day: $0, status: status, policy: policy) } ?? CycleTexts.status(status, policy: policy)
         }
         return HStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 2) {
@@ -202,6 +204,7 @@ struct CalendarDayCell: View {
     let log: CycleLogRecord?
     let isToday: Bool
     let isSelected: Bool
+    var policy: CycleDisplayPolicy = .conceiving
     let action: () -> Void
 
     var body: some View {
@@ -225,24 +228,33 @@ struct CalendarDayCell: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(CycleAccessibility.dayLabel(day: day, status: status, log: log, isToday: isToday))
+        .accessibilityLabel(CycleAccessibility.dayLabel(day: day, status: status, log: log, isToday: isToday, policy: policy))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityIdentifier("calendarDay")
     }
 }
 
 /// Legend under the grid: period, predicted, fertile, ovulation (ringed, as on
-/// the grid), logged.
+/// the grid), logged. Phase 9: named by `policy`; no fertile or ovulation items
+/// when the window is hidden.
 struct CycleLegend: View {
+    var policy: CycleDisplayPolicy = .conceiving
+
     var body: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 130), alignment: .leading)], alignment: .leading, spacing: 8) {
             item(L10n.calendarLegendPeriod) { Circle().fill(.luna(.cycleStrong)) }
-            item(L10n.calendarLegendPredicted) {
+            item(CycleTexts.predictedBleed(policy)) {
                 Circle().strokeBorder(.luna(.cycle), style: StrokeStyle(lineWidth: 1.5, dash: [3, 2]))
             }
-            item(L10n.calendarLegendFertile) { Circle().fill(.luna(.fertileSoft)) }
-            item(L10n.calendarLegendPeak) {
-                Circle().fill(.luna(.ovulation)).overlay(Circle().strokeBorder(.luna(.teal), lineWidth: 1.5))
+            if policy.showsFertileWindow {
+                item(CycleTexts.fertileTitle(policy)) {
+                    Circle().fill(.luna(.fertileSoft))
+                }
+            }
+            if policy.showsOvulation {
+                item(L10n.calendarLegendPeak) {
+                    Circle().fill(.luna(.ovulation)).overlay(Circle().strokeBorder(.luna(.teal), lineWidth: 1.5))
+                }
             }
             item(L10n.calendarLegendLogged) {
                 Circle().fill(.luna(.textPrimary)).frame(width: 5, height: 5)
@@ -266,13 +278,22 @@ struct CycleLegend: View {
 /// What VoiceOver reads for a calendar day, e.g.
 /// "October 12, fertile window, positive LH test logged".
 enum CycleAccessibility {
-    static func dayLabel(day: Date, status: CycleDayStatus?, log: CycleLogRecord?, isToday: Bool) -> String {
+    /// `status` is already what `policy` shows (`CycleDisplayPolicy.visibleStatus`).
+    static func dayLabel(
+        day: Date,
+        status: CycleDayStatus?,
+        log: CycleLogRecord?,
+        isToday: Bool,
+        policy: CycleDisplayPolicy = .conceiving
+    ) -> String {
         var parts = [Formatting.spokenDay(day)]
         if isToday { parts.append(L10n.calendarA11yToday) }
         switch status {
         case .period(isPredicted: false)?: parts.append(L10n.calendarA11yPeriod)
-        case .period(isPredicted: true)?: parts.append(L10n.calendarA11yPredicted)
-        case .fertile?: parts.append(L10n.calendarA11yFertile)
+        case .period(isPredicted: true)?:
+            parts.append(policy.predictedBleedLabel == .withdrawalBleed ? L10n.cycleWithdrawalBleed : L10n.calendarA11yPredicted)
+        case .fertile?:
+            parts.append(policy.fertileLabel == .highPregnancyChance ? L10n.cycleHighPregnancyChance : L10n.calendarA11yFertile)
         case .peak?: parts.append(L10n.calendarA11yPeak)
         case .low?, nil: break
         }

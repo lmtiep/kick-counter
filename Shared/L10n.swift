@@ -164,6 +164,8 @@ enum L10n {
     static var settingsCycleSection: String { t("settings.cycle.section") }
     static var settingsCycleReminders: String { t("settings.cycle.reminders") }
     static var settingsCycleRemindersHint: String { t("settings.cycle.remindersHint") }
+    /// Tracking only (phase 9): no fertile-window reminder, so the hint names only the period and late reminders.
+    static var settingsCycleRemindersHintTracking: String { t("settings.cycleReminders.hint.tracking") }
     static var medicalTTCTitle: String { t("medical.ttc.title") }
     static var medicalTTCBody: String { t("medical.ttc.body") }
 
@@ -304,19 +306,14 @@ enum L10n {
 
     static var onboardingSkip: String { t("onboarding.skip") }
     static var onboardingContinue: String { t("onboarding.continue") }
-    static var onboardingStart: String { t("onboarding.start") }
     /// VoiceOver for the progress dots: "Step 2 of 3".
     static func onboardingStep(_ step: Int, _ count: Int) -> String { String(format: t("onboarding.step"), step, count) }
     static var onboardingWelcomeTitle: String { t("onboarding.welcome.title") }
     static var onboardingWelcomeBody: String { t("onboarding.welcome.body") }
-    static var onboardingGoalCycle: String { t("onboarding.goal.cycle") }
-    static var onboardingGoalCycleDetail: String { t("onboarding.goal.cycle.detail") }
     static var onboardingGoalPregnant: String { t("onboarding.goal.pregnant") }
     static var onboardingGoalPregnantDetail: String { t("onboarding.goal.pregnant.detail") }
     static var onboardingOtherDay: String { t("onboarding.otherDay") }
     static func onboardingOtherDayValue(_ date: String) -> String { String(format: t("onboarding.otherDay.value"), date) }
-    static var onboardingCycleShorter: String { t("onboarding.cycle.shorter") }
-    static var onboardingCycleLonger: String { t("onboarding.cycle.longer") }
     static var onboardingDueTitle: String { t("onboarding.due.title") }
     static var onboardingDueEarlier: String { t("onboarding.due.earlier") }
     static var onboardingDueLater: String { t("onboarding.due.later") }
@@ -668,4 +665,58 @@ enum L10n {
     static var partnerLeaveConfirm: String { t("partner.leaveConfirm") }
     static var partnerModeName: String { t("partner.modeName") }
     static var partnerAboutTitle: String { t("partner.about.title") }
+
+    // MARK: - Phase 9: onboarding
+
+    static var onboardingPrivacy: String { t("onboarding.privacy") }
+    static var onboardingBack: String { t("onboarding.back") }
+    static var onboardingNotSure: String { t("onboarding.notSure") }
+    static var onboardingGoalTracking: String { t("onboarding.goal.tracking") }
+    static var onboardingGoalTrackingDetail: String { t("onboarding.goal.tracking.detail") }
+    static var onboardingGoalConceiving: String { t("onboarding.goal.conceiving") }
+    static var onboardingGoalConceivingDetail: String { t("onboarding.goal.conceiving.detail") }
+    static var onboardingDontRemember: String { t("onboarding.dontRemember") }
+    static var onboardingPeriodLengthTitle: String { t("onboarding.periodLength.title") }
+    static var onboardingCycleLengthTitle: String { t("onboarding.cycleLength.title") }
+    static var onboardingCycleLengthHint: String { t("onboarding.cycleLength.hint") }
+    static var onboardingRegularityTitle: String { t("onboarding.regularity.title") }
+    static func onboardingRegularity(_ value: CycleRegularity) -> String { t("onboarding.regularity.\(value.rawValue)") }
+    static func onboardingRegularityDetail(_ value: CycleRegularity) -> String {
+        t("onboarding.regularity.\(value.rawValue).detail")
+    }
+    static var onboardingIrregularNote: String { t("onboarding.regularity.irregularNote") }
+    static var onboardingContraceptionTitle: String { t("onboarding.contraception.title") }
+    static var onboardingContraceptionWhy: String { t("onboarding.contraception.why") }
+    /// "The pill" / "Thuốc tránh thai hằng ngày" (onboarding and Profile).
+    static func contraception(_ value: Contraception) -> String { t("contraception.\(value.rawValue)") }
+    static var onboardingResultTitle: String { t("onboarding.result.title") }
+    /// "Your next period should start around October 20, 2026."
+    static func onboardingResultNextPeriod(_ date: String) -> String { String(format: t("onboarding.result.nextPeriod"), date) }
+    /// "… about 1 day late" / "… about 3 days late" (`days(_:)` handles the plural).
+    static func onboardingResultLate(_ days: Int) -> String { String(format: t("onboarding.result.late"), Self.days(days)) }
+    static var onboardingResultNoPeriod: String { t("onboarding.result.noPeriod") }
+    /// "Today you are 21 weeks, 0 days pregnant."
+    static func onboardingResultPregnant(_ weeks: String) -> String { String(format: t("onboarding.result.pregnant"), weeks) }
+    static var onboardingResultNoDueDate: String { t("onboarding.result.noDueDate") }
+    static var onboardingResultReminders: String { t("onboarding.result.reminders") }
+    static var onboardingEnableReminders: String { t("onboarding.enableReminders") }
+
+    // MARK: - Phase 9: cycle screens by goal
+
+    /// The fertile window while tracking (title, legend and status).
+    static var cycleHighPregnancyChance: String { t("cycle.highPregnancyChance") }
+    /// The predicted bleed on hormonal contraception.
+    static var cycleWithdrawalBleed: String { t("cycle.withdrawalBleed") }
+    static var cycleNotContraception: String { t("cycle.notContraception") }
+    static var cycleHormonalNote: String { t("cycle.hormonalNote") }
+
+    // MARK: - Phase 9: Profile
+
+    static var profileGoal: String { t("profile.goal") }
+    static var modeTracking: String { t("mode.tracking") }
+    static var modePregnantShort: String { t("mode.pregnant.short") }
+    static var profileContraception: String { t("profile.contraception") }
+    static var profileContraceptionNotSet: String { t("profile.contraception.notSet") }
+    static var profileShowFertilityTests: String { t("profile.showFertilityTests") }
+    static var profileShowFertilityTestsHint: String { t("profile.showFertilityTests.hint") }
 }

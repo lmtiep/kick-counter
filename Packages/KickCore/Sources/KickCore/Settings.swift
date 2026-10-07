@@ -38,6 +38,14 @@ public enum SettingsKey {
     public static let typicalPeriodLength = "typicalPeriodLength"
     /// Fertile-window, period and late-period reminders. Missing means on.
     public static let cycleRemindersEnabled = "cycleRemindersEnabled"
+    /// `CycleGoal` raw value (`"tracking"`, `"conceiving"`). Missing means conceiving (everyone before phase 9).
+    public static let cycleGoal = "cycleGoal"
+    /// `Contraception` raw value. Missing means not asked (treated like none).
+    public static let contraception = "contraception"
+    /// `CycleRegularity` raw value. Missing means unknown.
+    public static let cycleRegularity = "cycleRegularity"
+    /// Shows the LH test and BBT rows while tracking. Missing means off.
+    public static let cycleShowsFertilityTests = "cycleShowsFertilityTests"
     /// `AppLanguage` raw value (`"system"`, `"vi"`, `"en"`). Missing means `system`.
     public static let appLanguage = "appLanguage"
     /// A short vibration on every counted tap. Missing means on.

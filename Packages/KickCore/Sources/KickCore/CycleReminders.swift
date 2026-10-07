@@ -51,19 +51,21 @@ extension NotificationScheduler {
         return dates
     }
 
-    /// Replaces all three cycle reminders with those for `forecast` whose time is
-    /// still ahead of `now`. Returns the kinds that were scheduled.
+    /// Replaces all three cycle reminders with those of `kinds` for `forecast`
+    /// whose time is still ahead of `now` (the others stay cancelled). Returns
+    /// the kinds that were scheduled.
     @discardableResult
     public func scheduleCycleReminders(
         for forecast: CycleForecast,
         now: Date,
         texts: CycleReminderTexts,
+        kinds: Set<CycleReminderKind> = Set(CycleReminderKind.allCases),
         calendar: Calendar = .current
     ) async throws -> Set<CycleReminderKind> {
         cancelCycleReminders()
         let fireDates = Self.cycleReminderFireDates(for: forecast, calendar: calendar)
         var scheduled: Set<CycleReminderKind> = []
-        for kind in CycleReminderKind.allCases {
+        for kind in CycleReminderKind.allCases where kinds.contains(kind) {
             guard let fireDate = fireDates[kind], fireDate > now else { continue }
             let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: fireDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)

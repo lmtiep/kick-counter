@@ -291,6 +291,12 @@ public final class KickCoordinator {
         await notifications.isAuthorized()
     }
 
+    /// Onboarding's "Turn on reminders" (phase 9): asks only if never asked.
+    @discardableResult
+    public func requestNotificationPermission() async -> Bool {
+        await notifications.requestAuthorizationIfNeeded()
+    }
+
     private func publish(_ record: SessionRecord?) {
         activeSession = record?.state
         activeSessionID = record?.id

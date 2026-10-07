@@ -127,16 +127,7 @@ final class ScreenshotTests: XCTestCase {
         app.launch()
 
         // Onboarding screenshots: OnboardingUITests.testOnboardingScreens.
-        let next = app.buttons["onboardingNext"]
-        XCTAssertTrue(next.waitForExistence(timeout: 10))
-        next.tap()
-        let pregnant = app.buttons["onboardingModePregnant"]
-        XCTAssertTrue(pregnant.waitForExistence(timeout: 5))
-        pregnant.tap()
-        next.tap()
-        let later = app.buttons["onboardingSkipDate"]
-        XCTAssertTrue(later.waitForExistence(timeout: 5))
-        later.tap()
+        app.completeOnboardingPregnantWithoutDates()
 
         app.openTab(.profile)
         // The new "Mode" section sits on top; Form only creates rows near the viewport.

@@ -291,3 +291,25 @@
       `partner-share-row-notShared-vi-light`.
 - [ ] Ghi chú phát hành: "Chia sẻ với bố bé" — mời bố bé xem tuần thai, lịch khám và lượt đếm cử động qua iCloud,
       chỉ xem, ngừng chia sẻ bất cứ lúc nào.
+
+## Giai đoạn 9 — Mục tiêu "Theo dõi chu kỳ" và phần giới thiệu mới
+
+### Trước khi gửi App Store
+- [ ] **Không đổi CloudKit.** Mục tiêu, biện pháp tránh thai, độ đều của chu kỳ và công tắc "Hiện que thử rụng trứng &
+      nhiệt độ" nằm trong App Group (`cycleGoal`, `contraception`, `cycleRegularity`, `cycleShowsFertilityTests`), không
+      đồng bộ, như `CycleSettings`. Không cần deploy schema; entitlements và `project.yml` không đổi.
+- [ ] **Người dùng cũ không phải xem lại phần giới thiệu.** Cài bản TestFlight đè lên bản trước trên một máy đang ở chế
+      độ Mong con có dữ liệu: mở app → vào thẳng Hôm nay, vẫn "Cửa sổ thụ thai", vẫn có que thử LH và nhiệt độ trong phần
+      ghi, Cá nhân → "Mục tiêu" đang chọn "Mong con". Làm lại với một máy ở chế độ Mang thai: không đổi gì.
+- [ ] **Bác sĩ đã duyệt mục 11** của [`content-review-for-doctor.md`](content-review-for-doctor.md) (các lựa chọn tránh
+      thai, ghi chú "không phải biện pháp tránh thai", ghi chú nội tiết, lời trấn an chu kỳ không đều).
+- [ ] **Quyền riêng tư.** Biện pháp tránh thai là dữ liệu nhạy cảm: chỉ lưu trên máy (App Group), không gửi đi đâu, không
+      nằm trong `PartnerSnapshot`; App Privacy vẫn là "Data Not Collected". Câu ở bước chào mừng ("Dữ liệu được lưu trên
+      iPhone và iCloud của bạn. Bạn tự chọn chia sẻ những gì. Không quảng cáo, không bán dữ liệu.") phải còn đúng.
+- [ ] **Thông báo.** Cài mới, đi hết nhánh Theo dõi chu kỳ, chọn "Để sau": iOS **không** hỏi quyền thông báo. Cài mới
+      lần nữa, chọn "Bật nhắc nhở": iOS hỏi một lần. Khi theo dõi chu kỳ chỉ có nhắc kỳ kinh và trễ kinh (Cài đặt → Thông
+      báo không cần kiểm tra; xem bằng cách đổi ngày trên máy thử nếu cần).
+- [ ] Ảnh chụp App Store (nếu dùng): `onboarding-goal-vi-light`, `onboarding-result-vi-light`,
+      `cycle-tracking-today-vi-light`.
+- [ ] Ghi chú phát hành: "Theo dõi chu kỳ" — chọn mục tiêu ngay từ đầu: theo dõi kỳ kinh (biết trước kỳ kinh tới, có tính
+      đến biện pháp tránh thai), mong con hoặc mang thai; phần giới thiệu ngắn gọn, câu nào cũng có thể bỏ qua.

@@ -59,7 +59,7 @@ struct CycleTodayView: View {
                         onAvatar: onOpenProfile,
                         onTrailing: onOpenCalendar
                     )
-                    CycleWeekStrip(forecast: cycle.forecast, today: today, log: { cycle.log(on: $0) }) { day in
+                    CycleWeekStrip(forecast: cycle.forecast, policy: cycle.policy, today: today, log: { cycle.log(on: $0) }) { day in
                         logDay = CycleDaySelection(date: day)
                     }
                     if let forecast = cycle.forecast {
@@ -104,7 +104,7 @@ struct CycleTodayView: View {
     private func content(for forecast: CycleForecast) -> some View {
         let headline = CycleRingHeadline(forecast: forecast)
         return VStack(spacing: 12) {
-            CycleRingView(forecast: forecast) {
+            CycleRingView(forecast: forecast, policy: cycle.policy) {
                 ringCenter(forecast, headline: headline)
             }
             .padding(.top, 22)
@@ -112,7 +112,7 @@ struct CycleTodayView: View {
             logCard
                 .padding(.top, 10)
             notices(forecast)
-            ComingUpCard(forecast: forecast, typicalPeriodLength: cycle.settings.typicalPeriodLength)
+            ComingUpCard(forecast: forecast, typicalPeriodLength: cycle.settings.typicalPeriodLength, policy: cycle.policy)
             maybePregnantCard
             footnotes
         }
@@ -157,7 +157,7 @@ struct CycleTodayView: View {
 
     private func ringTitle(_ headline: CycleRingHeadline) -> String {
         if case .periodDay = headline { return L10n.calendarLegendPeriod }
-        return L10n.cycleNextPeriodTitle
+        return CycleTexts.nextBleedTitle(cycle.policy)
     }
 
     private func ringFigure(_ headline: CycleRingHeadline) -> String {
@@ -178,13 +178,17 @@ struct CycleTodayView: View {
     }
 
     /// "Day 13 of your cycle, High chance of conceiving, Next period: October 18 (in 16 days)".
+    /// While tracking an ordinary day has no status (never "Low chance of conceiving").
     private func statusLabel(_ forecast: CycleForecast) -> String {
-        let status = forecast.daysLate > 0 ? L10n.cycleStatusLate : L10n.cycleStatus(forecast.dayStatus(for: forecast.today))
+        let policy = cycle.policy
+        let status = forecast.daysLate > 0
+            ? L10n.cycleStatusLate
+            : CycleTexts.spokenStatus(forecast.dayStatus(for: forecast.today), policy: policy)
         return [
             L10n.cycleDay(forecast.cycleDay),
             status,
-            L10n.cycleNextPeriodTitle + ": " + CycleTexts.nextPeriod(forecast, format: Formatting.spokenDay),
-        ].joined(separator: ", ")
+            CycleTexts.nextBleedTitle(policy) + ": " + CycleTexts.nextPeriod(forecast, format: Formatting.spokenDay),
+        ].compactMap { $0 }.joined(separator: ", ")
     }
 
     private func periodButton(_ forecast: CycleForecast) -> some View {
@@ -249,7 +253,8 @@ struct CycleTodayView: View {
     // MARK: - Cards
 
     private func phasePill(_ forecast: CycleForecast) -> some View {
-        let status = forecast.dayStatus(for: forecast.today)
+        let policy = cycle.policy
+        let status = policy.visibleStatus(forecast.dayStatus(for: forecast.today))
         let fill: LunaToken
         let text: LunaToken
         if forecast.daysLate > 0 {
@@ -268,8 +273,10 @@ struct CycleTodayView: View {
                 text = .textPrimary
             }
         }
-        let label = forecast.daysLate > 0 ? L10n.cycleStatusLate : CycleTexts.status(status)
-        return Text(L10n.cyclePhase(forecast.cycleDay, label))
+        let label = forecast.daysLate > 0
+            ? L10n.cyclePhase(forecast.cycleDay, L10n.cycleStatusLate)
+            : CycleTexts.phase(day: forecast.cycleDay, status: status, policy: policy)
+        return Text(label)
             .font(.luna(.captionStrong))
             .foregroundStyle(.luna(text))
             .multilineTextAlignment(.center)
