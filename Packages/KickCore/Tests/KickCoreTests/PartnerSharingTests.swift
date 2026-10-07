@@ -44,6 +44,17 @@ struct PartnerSharingTests {
         #expect(try await sharing.fetchSharedSnapshot() == nil)
     }
 
+    @Test func anAcceptedShareWithNothingPublishedYetIsNotReadyRatherThanStopped() async throws {
+        let sharing = FakePartnerSharing()
+        _ = try await sharing.prepareShare()
+        try await sharing.accept(PartnerInvitation(payload: nil))
+        await #expect(throws: PartnerSharingError.notReadyYet) {
+            try await sharing.fetchSharedSnapshot()
+        }
+        try await sharing.publish(PartnerSnapshotTests.sample)
+        #expect(try await sharing.fetchSharedSnapshot() == PartnerSnapshotTests.sample)
+    }
+
     @Test func publishingWithoutAShareThrowsNotShared() async {
         let sharing = FakePartnerSharing()
         await #expect(throws: PartnerSharingError.notShared) {
@@ -89,6 +100,9 @@ struct PartnerSharingTests {
         }
         await #expect(throws: PartnerSharingError.iCloudUnavailable) {
             try await FakePartnerSharing(partner: .icloudUnavailable, snapshot: sample).fetchSharedSnapshot()
+        }
+        await #expect(throws: PartnerSharingError.notReadyYet) {
+            try await FakePartnerSharing(partner: .notReadyYet, snapshot: sample).fetchSharedSnapshot()
         }
     }
 

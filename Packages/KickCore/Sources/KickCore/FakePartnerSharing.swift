@@ -11,7 +11,7 @@ public actor FakePartnerSharing: PartnerSharing {
 
     /// `-uiTestingPartner <state>`: the partner's side.
     public enum PartnerState: String, Sendable, CaseIterable {
-        case snapshot, stopped, error, icloudUnavailable
+        case snapshot, stopped, error, icloudUnavailable, notReadyYet
     }
 
     private var isShared = false
@@ -52,6 +52,9 @@ public actor FakePartnerSharing: PartnerSharing {
             failure = .retryable
         case .icloudUnavailable:
             failure = .iCloudUnavailable
+        case .notReadyYet:
+            isShared = true
+            participantCount = 1
         }
     }
 
@@ -113,7 +116,8 @@ public actor FakePartnerSharing: PartnerSharing {
 
     public func fetchSharedSnapshot() async throws -> PartnerSnapshot? {
         try check()
-        guard isAccepted, isShared, let payload else { return nil }
+        guard isAccepted, isShared else { return nil }
+        guard let payload else { throw PartnerSharingError.notReadyYet }
         guard let snapshot = PartnerSnapshot.decode(payload) else { throw PartnerSharingError.unreadableSnapshot }
         return snapshot
     }

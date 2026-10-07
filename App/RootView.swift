@@ -30,6 +30,7 @@ struct RootView: View {
     @State private var invitationFailed = false
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
+    private var showsOnboarding: Bool { !hasCompletedOnboarding || replayingOnboarding }
 
     var body: some View {
         tabs
@@ -41,7 +42,7 @@ struct RootView: View {
             .environment(\.calendar, AppLocale.calendar)
             // Outside the language-rebuilt part, so a replay survives a language change.
             .fullScreenCover(isPresented: Binding(
-                get: { !hasCompletedOnboarding || replayingOnboarding },
+                get: { showsOnboarding },
                 set: { shown in
                     guard !shown else { return }
                     hasCompletedOnboarding = true
@@ -54,6 +55,9 @@ struct RootView: View {
                 }
                     .environment(\.locale, AppLocale.locale)
                     .environment(\.calendar, AppLocale.calendar)
+                    // A fresh install opening an invitation is still onboarding:
+                    // a failure is shown over the cover, where it can be seen.
+                    .partnerAcceptFailedAlert(isPresented: acceptFailedBinding(whileOnboarding: true))
             }
             .task { await reload() }
             .onChange(of: scenePhase) { _, phase in
@@ -74,11 +78,16 @@ struct RootView: View {
                 guard let invitation = invitations.take() else { return }
                 Task { await accept(invitation) }
             }
-            .alert(L10n.partnerAcceptFailedTitle, isPresented: $invitationFailed) {
-                Button(L10n.commonOK) {}
-            } message: {
-                Text(L10n.partnerAcceptFailedBody)
-            }
+            .partnerAcceptFailedAlert(isPresented: acceptFailedBinding(whileOnboarding: false))
+    }
+
+    /// The acceptance-failure alert is presented by whichever view is on top:
+    /// the onboarding cover while it shows, the tabs otherwise.
+    private func acceptFailedBinding(whileOnboarding: Bool) -> Binding<Bool> {
+        Binding(
+            get: { invitationFailed && showsOnboarding == whileOnboarding },
+            set: { if !$0 { invitationFailed = false } }
+        )
     }
 
     private var tabs: some View {
@@ -146,5 +155,16 @@ private extension View {
             .tag(tag)
             .toolbarBackground(Color.luna(.tabBar), for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
+    }
+}
+
+private extension View {
+    /// "Couldn't open the invitation" (phase 8 spec §5.2).
+    func partnerAcceptFailedAlert(isPresented: Binding<Bool>) -> some View {
+        alert(L10n.partnerAcceptFailedTitle, isPresented: isPresented) {
+            Button(L10n.commonOK) {}
+        } message: {
+            Text(L10n.partnerAcceptFailedBody)
+        }
     }
 }

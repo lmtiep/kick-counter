@@ -91,7 +91,7 @@ public protocol PartnerSharing: Sendable {
     func stopSharing() async throws                            // deletes the zone (and with it the share)
     // Partner
     func accept(_ metadata: PartnerInvitation) async throws
-    func fetchSharedSnapshot() async throws -> PartnerSnapshot? // nil = share gone / not accepted
+    func fetchSharedSnapshot() async throws -> PartnerSnapshot? // nil = share gone / not accepted; throws .notReadyYet before the first publish
     func registerForChanges() async throws                     // silent CKDatabaseSubscription on the shared DB
 }
 ```
@@ -102,14 +102,15 @@ public protocol PartnerSharing: Sendable {
 - **Mother side:**
   - **Zone.** The mother's private database gets the custom zone `PartnerShare`. It holds one `Snapshot` record (`recordName: "current"`) with a `payload` field containing the snapshot JSON as `Data`, plus `version`.
   - **Share.** It is a zone-wide `CKShare` with `publicPermission = .none`. The participant permission is set to read-only through the sharing controller's available permissions (`.allowReadOnly`, `.allowPrivate`). The share title is "Luna Mom".
-  - **`publish`.** Upserts the record with `.changedKeys` save policy and retries once on `serverRecordChanged`.
+  - **`publish`.** Upserts the record with `.changedKeys` save policy (which never conflicts). On a transient error (`.zoneBusy`, `.serviceUnavailable`, `.requestRateLimited`) it retries once after a short delay: `retryAfterSeconds` when CloudKit gives one, capped at 5 s, otherwise 1 s.
   - **`stopSharing`.** Deletes the zone.
 - **Partner side:**
   - **Reading.** The partner reads the shared database by fetching the zones, then the `current` record in the zone shared by the owner.
   - **Invitation.** Info.plist gets `CKSharingSupported = YES`. A `UIApplicationDelegateAdaptor` with a scene delegate implements `windowScene(_:userDidAcceptCloudKitShareWith:)` and forwards the metadata to the app.
 - **Errors:**
   - `.notAuthenticated` → status `iCloudUnavailable`.
-  - `.zoneNotFound` / `.unknownItem` → "not shared" for the mother, `nil` for the partner.
+  - `.zoneNotFound` / `.unknownItem` → "not shared" for the mother, `nil` for the partner. Exception: a shared zone that is present but has no `current` record yet throws `notReadyYet` for the partner (loading, not "stopped").
+  - `.quotaExceeded` → `iCloudFull`; `.participantMayNeedVerification` → `needsVerification`.
   - Network errors are surfaced as retryable.
   - Nothing blocks the mother's UI.
 

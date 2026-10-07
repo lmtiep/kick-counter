@@ -19,6 +19,13 @@ public enum PartnerSharingError: Error, Equatable, Sendable {
     case retryable
     /// The shared snapshot exists but this build cannot read it.
     case unreadableSnapshot
+    /// The partner accepted and the share is there, but the mother has not
+    /// published a snapshot yet: keep loading, this is not "stopped sharing".
+    case notReadyYet
+    /// The mother's iCloud storage is full.
+    case iCloudFull
+    /// iCloud wants the partner to verify their account before joining.
+    case needsVerification
     /// The mother opened her own invitation link.
     case ownInvitation
     /// Anything else, with the underlying error code for the log.
@@ -61,7 +68,9 @@ public protocol PartnerSharing: Sendable {
     func stopSharing() async throws
     // Partner
     func accept(_ invitation: PartnerInvitation) async throws
-    /// Nil when the share is gone or was never accepted.
+    /// Nil when the share is gone or was never accepted (the mother stopped
+    /// sharing). Throws `.notReadyYet` when the share is there but nothing has
+    /// been published to it yet.
     func fetchSharedSnapshot() async throws -> PartnerSnapshot?
     /// Silent notifications when the shared snapshot changes.
     func registerForChanges() async throws

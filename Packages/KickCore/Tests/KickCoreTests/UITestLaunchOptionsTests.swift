@@ -61,6 +61,10 @@ struct UITestPartnerOptionTests {
         #expect(options.partner == .stopped)
     }
 
+    @Test func parsesTheNotReadyPartnerState() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingPartner", "notReadyYet"]).partner == .notReadyYet)
+    }
+
     @Test func ignoresThemWithoutUITestingOrWhenUnknown() {
         #expect(UITestLaunchOptions(arguments: ["-uiTestingSharing", "joined"]).sharing == nil)
         #expect(UITestLaunchOptions(arguments: ["-uiTestingPartner", "snapshot"]).partner == nil)
