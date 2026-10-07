@@ -73,6 +73,19 @@ struct OnboardingFlowTests {
         #expect(flow.step == .lastPeriod)
     }
 
+    /// Fix round 1: changing the goal while past it must not strand the flow
+    /// on a step the new branch doesn't have.
+    @Test func changingTheGoalOffTheGoalStepReturnsToIt() {
+        var flow = newFlow()
+        flow.next()
+        flow.goal = .tracking
+        flow.next()
+        flow.next()
+        #expect(flow.step == .periodLength)
+        flow.goal = .pregnant
+        #expect(flow.step == .goal)
+    }
+
     @Test func onlyQuestionStepsCanBeSkipped() {
         var flow = newFlow()
         #expect(flow.isQuestion == false)
@@ -135,6 +148,26 @@ struct OnboardingFlowTests {
         flow.cycleLength = 60
         #expect(flow.periodLength == 2)
         #expect(flow.cycleLength == 45)
+    }
+
+    /// Fix round 1: a replay starting from stored 30/6 must not have skipping
+    /// the length steps silently change them to the app-wide 28/5 default.
+    @Test func skippingALengthRestoresTheStartingValueNotTheGlobalDefault() {
+        var flow = OnboardingFlow(
+            lastPeriodStart: nil,
+            settings: CycleSettings(typicalCycleLength: 30, typicalPeriodLength: 6),
+            pregnancyDates: nil
+        )
+        flow.next() // goal
+        flow.goal = .tracking
+        flow.next() // lastPeriod
+        flow.next() // periodLength
+        flow.periodLength = 9
+        flow.skip() // restores 6, moves to cycleLength
+        flow.cycleLength = 40
+        flow.skip() // restores 30, moves to regularity
+        #expect(flow.periodLength == 6)
+        #expect(flow.cycleLength == 30)
     }
 
     @Test func trackingFinishesWithEveryAnswer() {

@@ -152,10 +152,16 @@ public final class CycleCoordinator {
     /// tab), assuming the typical period length when it is already over.
     @discardableResult
     public func logLastPeriod(startingOn day: Date) async -> CycleFailure? {
+        await write { try addAssumedPeriod(startingOn: day) }
+    }
+
+    /// Builds the assumed period from `day` (`settings.typicalPeriodLength`
+    /// long) and saves it, shared by `logLastPeriod` and `completeOnboarding`.
+    private func addAssumedPeriod(startingOn day: Date) throws {
         let record = CycleRules.assumedPeriod(
             startingOn: day, typicalLength: settings.typicalPeriodLength, today: now(), calendar: calendar
         )
-        return await write { try store.addPeriod(record, today: now()) }
+        try store.addPeriod(record, today: now())
     }
 
     @discardableResult
@@ -223,7 +229,9 @@ public final class CycleCoordinator {
     /// lengths, goal, regularity and contraception, switches to the cycle mode
     /// and, when given, the last period (assumed `settings.typicalPeriodLength`
     /// long). Asks for notifications only when `requestNotifications` ("Turn on
-    /// reminders"); "Later" never prompts. Returns a failed period save.
+    /// reminders") — even without a forecast or with reminders off, so the
+    /// prompt always reflects her choice; "Later" never prompts. Returns a
+    /// failed period save.
     @discardableResult
     public func completeOnboarding(
         goal: CycleGoal,
@@ -243,18 +251,22 @@ public final class CycleCoordinator {
         AppMode.save(.tryingToConceive, to: defaults)
         var failure: CycleFailure?
         if let firstPeriodStart {
-            let record = CycleRules.assumedPeriod(
-                startingOn: firstPeriodStart, typicalLength: settings.typicalPeriodLength, today: now(), calendar: calendar
-            )
             do {
-                try store.addPeriod(record, today: now())
+                try addAssumedPeriod(startingOn: firstPeriodStart)
             } catch {
                 logger.error("Saving the onboarding period failed: \(error.localizedDescription)")
                 failure = report(CycleFailure(error))
             }
         }
         guard refresh() else { return failure }
-        await syncReminders(generation: bump(), mayPrompt: requestNotifications)
+        // Ask here (not through `syncReminders`'s `mayPrompt`), since that sync
+        // skips the prompt entirely when there's no forecast or reminders are
+        // off — but "Turn on reminders" must always ask.
+        if requestNotifications {
+            let authorized = await notifications.requestAuthorizationIfNeeded()
+            await updateDeniedHint(authorized: authorized)
+        }
+        await syncReminders(generation: bump(), mayPrompt: false)
         return failure
     }
 

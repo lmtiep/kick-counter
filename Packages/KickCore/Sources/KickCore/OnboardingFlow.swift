@@ -76,7 +76,12 @@ public enum OnboardingOutcome: Equatable, Sendable {
 /// - pregnant: welcome, goal, dueDate, result
 public struct OnboardingFlow: Equatable, Sendable {
     public private(set) var step: OnboardingStep = .welcome
-    public var goal: OnboardingGoal?
+    /// Changing the goal off the goal step (e.g. a replay) would otherwise
+    /// strand `step` on a step the new branch doesn't have; moving back to
+    /// `.goal` keeps the flow always on a valid step.
+    public var goal: OnboardingGoal? {
+        didSet { if !steps.contains(step) { step = .goal } }
+    }
     /// The first day of the last period; nil after "I don't remember" or a skip.
     public var lastPeriodStart: Date?
     public var periodLength: Int {
@@ -92,6 +97,11 @@ public struct OnboardingFlow: Equatable, Sendable {
     public var pregnancyDates: PregnancyDateSelection?
     /// Kept from the stored settings: onboarding has no reminder switch.
     public let remindersEnabled: Bool
+    /// What `periodLength`/`cycleLength` started from, so skipping them
+    /// restores this instead of the app-wide default (a replay must not
+    /// silently change a stored 30/6 to 28/5).
+    private let initialPeriodLength: Int
+    private let initialCycleLength: Int
 
     public init(
         goal: OnboardingGoal? = nil,
@@ -105,6 +115,8 @@ public struct OnboardingFlow: Equatable, Sendable {
         self.lastPeriodStart = lastPeriodStart
         periodLength = settings.typicalPeriodLength
         cycleLength = settings.typicalCycleLength
+        initialPeriodLength = settings.typicalPeriodLength
+        initialCycleLength = settings.typicalCycleLength
         remindersEnabled = settings.remindersEnabled
         self.regularity = regularity
         self.contraception = contraception
@@ -150,8 +162,8 @@ public struct OnboardingFlow: Equatable, Sendable {
         case .welcome, .result: return
         case .goal: if goal == nil { goal = .pregnant }
         case .lastPeriod: lastPeriodStart = nil
-        case .periodLength: periodLength = CycleSettings.defaultPeriodLength
-        case .cycleLength: cycleLength = CycleSettings.defaultCycleLength
+        case .periodLength: periodLength = initialPeriodLength
+        case .cycleLength: cycleLength = initialCycleLength
         case .regularity: regularity = .unknown
         case .contraception: contraception = nil
         case .dueDate: pregnancyDates = nil

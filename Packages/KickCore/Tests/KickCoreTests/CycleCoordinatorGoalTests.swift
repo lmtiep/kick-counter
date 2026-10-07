@@ -139,7 +139,9 @@ struct CycleCoordinatorGoalTests {
         #expect(coordinator.periods.count == 1)
     }
 
+    /// Fix round 1: "Bật nhắc nhở" must ask even when there is nothing to remind about yet.
     @Test func finishingWithoutAPeriodHasNoForecast() async {
+        center.status = .notDetermined
         await coordinator.completeOnboarding(
             goal: .tracking, settings: CycleSettings(), firstPeriodStart: nil,
             regularity: .unknown, contraception: nil, requestNotifications: true
@@ -147,6 +149,17 @@ struct CycleCoordinatorGoalTests {
         #expect(coordinator.forecast == nil)
         #expect(repository.storedPeriods.isEmpty)
         #expect(coordinator.mode == .tryingToConceive)
+        #expect(center.requestCount == 1)
+    }
+
+    /// Fix round 1: and "Later" must still never ask, even without a forecast.
+    @Test func finishingWithoutAPeriodAndRequestingLaterNeverAsks() async {
+        center.status = .notDetermined
+        await coordinator.completeOnboarding(
+            goal: .tracking, settings: CycleSettings(), firstPeriodStart: nil,
+            regularity: .unknown, contraception: nil, requestNotifications: false
+        )
+        #expect(center.requestCount == 0)
     }
 
     @Test func aFailedPeriodSaveIsReturnedAndTheAnswersAreKept() async {
