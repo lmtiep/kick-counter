@@ -104,6 +104,90 @@ struct PartnerShareCoordinatorTests {
         #expect(coordinator.status == .invited)
     }
 
+    // MARK: - Leaving pregnancy mode (final review fix 1)
+
+    private func publisherRemembering(_ sharing: FakePartnerSharing, in defaults: UserDefaults) throws -> PartnerPublisher {
+        defaults.set(try PartnerSnapshotTests.sample.encoded(), forKey: SettingsKey.partnerPublishedSnapshot)
+        return PartnerPublisher(sharing: sharing, isActive: { false }, defaults: defaults)
+    }
+
+    /// Ending pregnancy tracking (or switching to trying to conceive) stops the
+    /// share: the partner must not keep seeing the last snapshot.
+    @Test func leavingPregnancyStopsTheShareAndForgetsTheUpload() async throws {
+        let defaults = makeTestDefaults()
+        let sharing = FakePartnerSharing(mother: .joined)
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: defaults)
+        let publisher = try publisherRemembering(sharing, in: defaults)
+        await coordinator.refresh()
+        await coordinator.stopSharingAfterLeavingPregnancy(publisher: publisher)
+        #expect(coordinator.status == .notShared)
+        #expect(!coordinator.hasPendingZoneDeletion)
+        #expect(try await sharing.shareStatus() == .notShared)
+        #expect(defaults.data(forKey: SettingsKey.partnerPublishedSnapshot) == nil)
+    }
+
+    /// The status is not known yet (e.g. right after launch): stop anyway.
+    @Test func leavingPregnancyStopsEvenBeforeTheStatusIsKnown() async throws {
+        let sharing = FakePartnerSharing(mother: .invited)
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: makeTestDefaults())
+        await coordinator.stopSharingAfterLeavingPregnancy(publisher: nil)
+        #expect(try await sharing.shareStatus() == .notShared)
+    }
+
+    @Test func leavingPregnancyWithoutAShareDoesNothing() async throws {
+        let sharing = FakePartnerSharing()
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: makeTestDefaults())
+        await coordinator.refresh()
+        // Any call to iCloud would fail and leave a pending deletion behind.
+        await sharing.setFailure(.retryable)
+        await coordinator.stopSharingAfterLeavingPregnancy(publisher: nil)
+        #expect(coordinator.status == .notShared)
+        #expect(!coordinator.hasPendingZoneDeletion)
+    }
+
+    /// Offline when she ends tracking: the stop is remembered and finished by
+    /// the next check in trying-to-conceive mode, even after a relaunch.
+    @Test func aStopThatFailedWhenLeavingIsFinishedOutsidePregnancy() async throws {
+        let defaults = makeTestDefaults()
+        let sharing = FakePartnerSharing(mother: .joined)
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: defaults)
+        await coordinator.refresh()
+        await sharing.setFailure(.retryable)
+        await coordinator.stopSharingAfterLeavingPregnancy(publisher: nil)
+        #expect(coordinator.hasPendingZoneDeletion)
+        await sharing.setFailure(nil)
+        #expect(try await sharing.shareStatus() != .notShared)
+
+        let relaunched = PartnerShareCoordinator(sharing: sharing, defaults: defaults)
+        let publisher = try publisherRemembering(sharing, in: defaults)
+        await relaunched.refreshOutsidePregnancy(publisher: publisher)
+        #expect(relaunched.status == .notShared)
+        #expect(!relaunched.hasPendingZoneDeletion)
+        #expect(try await sharing.shareStatus() == .notShared)
+        #expect(defaults.data(forKey: SettingsKey.partnerPublishedSnapshot) == nil)
+    }
+
+    /// A share found still active outside pregnancy mode (the mode changed
+    /// while the app could not stop it) is stopped.
+    @Test func aShareStillActiveOutsidePregnancyIsStopped() async throws {
+        let sharing = FakePartnerSharing(mother: .invited)
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: makeTestDefaults())
+        await coordinator.refreshOutsidePregnancy(publisher: nil)
+        #expect(coordinator.status == .notShared)
+        #expect(try await sharing.shareStatus() == .notShared)
+    }
+
+    @Test func refreshingOutsidePregnancyWithoutAShareOnlyChecks() async throws {
+        let defaults = makeTestDefaults()
+        let sharing = FakePartnerSharing()
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: defaults)
+        let publisher = try publisherRemembering(sharing, in: defaults)
+        await coordinator.refreshOutsidePregnancy(publisher: publisher)
+        #expect(coordinator.status == .notShared)
+        #expect(!coordinator.hasPendingZoneDeletion)
+        #expect(defaults.data(forKey: SettingsKey.partnerPublishedSnapshot) != nil)
+    }
+
     @Test func theRowFollowsTheSpecTable() {
         #expect(PartnerShareRow(status: .iCloudFull, hasDueDate: true) == .iCloudFull)
         #expect(PartnerShareRow(status: .notShared, hasDueDate: true) == .notShared)

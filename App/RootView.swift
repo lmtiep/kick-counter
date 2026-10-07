@@ -21,6 +21,7 @@ struct RootView: View {
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
     @Environment(\.partnerSharing) private var sharing
+    @Environment(\.partnerPublisher) private var publisher
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(SettingsKey.hasCompletedOnboarding, store: AppGroup.defaults)
     private var hasCompletedOnboarding = false
@@ -71,10 +72,17 @@ struct RootView: View {
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active { Task { await reload() } }
             }
-            .onChange(of: appMode) {
+            .onChange(of: appMode) { oldMode, newMode in
                 // Profile stays open after switching mode there; anywhere else
                 // (e.g. "I'm pregnant" on Today) lands on the new mode's Today.
                 if selectedTab != .profile { selectedTab = .today }
+                // Ending pregnancy tracking or switching to trying to conceive
+                // (Profile, onboarding, any other path) stops the share: the
+                // partner must not keep seeing the last snapshot. Accepting an
+                // invitation (partner mode) keeps it.
+                if AppMode(rawValue: oldMode) == .pregnant, AppMode(rawValue: newMode) == .tryingToConceive {
+                    Task { await partnerShare.stopSharingAfterLeavingPregnancy(publisher: publisher) }
+                }
             }
             .onChange(of: appLanguage) {
                 Task { await relocalizeReminders() }
@@ -170,7 +178,8 @@ struct RootView: View {
         switch mode {
         case .pregnant: await partnerShare.refresh()
         case .partner: await partnerJourney.refresh()
-        case .tryingToConceive: break
+        // Finishes a stop that failed when pregnancy tracking ended (offline).
+        case .tryingToConceive: await partnerShare.refreshOutsidePregnancy(publisher: publisher)
         }
     }
 

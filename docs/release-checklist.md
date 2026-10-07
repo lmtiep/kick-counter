@@ -277,10 +277,10 @@
 - [ ] `CKSharingSupported = YES` có trong Info.plist của bản build (sinh từ `project.yml`):
       `/usr/libexec/PlistBuddy -c "Print :CKSharingSupported" <đường dẫn>/KickCounter.app/Info.plist` in ra `true`.
 - [ ] Entitlement của bản TestFlight có `aps-environment = production` và container
-      `iCloud.com.lmtiep.kickcounter` (`codesign -d --entitlements - <app>`): đẩy thầm báo dữ liệu mới cho máy bố bé
+      `iCloud.com.lmtiep.kickcounter` (`codesign -d --entitlements :- <app>`): đẩy thầm báo dữ liệu mới cho máy bố bé
       cần push. Entitlements trong repo không đổi ở giai đoạn này.
 - [ ] Kiểm thử thủ công hai Apple ID: [`docs/partner-sharing-manual-test.md`](partner-sharing-manual-test.md), đủ
-      các mục 1–7, một lần tiếng Việt và một lần tiếng Anh.
+      các mục 1–8, một lần tiếng Việt và một lần tiếng Anh.
 - [ ] **Quyền riêng tư.** Chỉ chia sẻ đúng những gì app ghi trong `PartnerSnapshot`: tuần thai / ngày dự sinh,
       tối đa 5 lịch khám sắp tới (tên và giờ), tóm tắt lượt đếm cử động (lượt gần nhất, số lượt và thời gian trung
       bình 7 ngày) và tên hiển thị "Mẹ"/"Mom". Không bao giờ: ghi chú, triệu chứng, cân nặng, dữ liệu chu kỳ. Dữ liệu

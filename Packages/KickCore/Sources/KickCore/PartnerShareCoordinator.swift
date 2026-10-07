@@ -113,6 +113,28 @@ public final class PartnerShareCoordinator {
         }
     }
 
+    /// The mother left pregnancy mode (ended pregnancy tracking or switched to
+    /// trying to conceive): what she shared must not stay visible to the
+    /// partner. Stops the share unless it is known not to exist and forgets
+    /// the last upload. A stop that fails is remembered and finished by the
+    /// next `refresh()` / `refreshOutsidePregnancy(publisher:)`.
+    public func stopSharingAfterLeavingPregnancy(publisher: PartnerPublisher?) async {
+        guard status != .notShared || hasPendingZoneDeletion else { return }
+        await stopSharing()
+        publisher?.forgetPublished()
+    }
+
+    /// The check made outside pregnancy mode: finishes a stop that did not
+    /// complete, and stops a share that is somehow still active.
+    public func refreshOutsidePregnancy(publisher: PartnerPublisher?) async {
+        if !hasPendingZoneDeletion {
+            await refresh()
+            guard isSharing else { return }
+        }
+        await stopSharing()
+        publisher?.forgetPublished()
+    }
+
     static func failureStatus(_ error: Error) -> Status {
         logger.error("Partner sharing: \(String(describing: error))")
         guard let error = error as? PartnerSharingError else { return .failed }

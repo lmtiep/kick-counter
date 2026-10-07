@@ -92,6 +92,15 @@ public final class PartnerPublisher {
         startWorker()
     }
 
+    /// The app became active, with the snapshot rebuilt at the current time:
+    /// the 7-day kick window and the upcoming check-ups move with the clock
+    /// even when nothing was edited, so the six-hourly refresh never uploads
+    /// a summary built when something last changed.
+    public func noteBecameActive(rebuilt snapshot: PartnerSnapshot?) {
+        update(snapshot)
+        noteBecameActive()
+    }
+
     /// Sharing stopped and the zone is gone: the next share starts from nothing.
     public func forgetPublished() {
         published = nil

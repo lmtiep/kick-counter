@@ -117,8 +117,8 @@ public protocol PartnerSharing: Sendable {
 ### 4.3 Fake `FakePartnerSharing`
 
 `FakePartnerSharing` is an in-memory store used by the KickCore tests and by UI tests through launch arguments:
-- `-uiTestingSharing <state>`: the mother side, with state `notShared`, `invited` or `joined`.
-- `-uiTestingPartner <state>`: the partner side, with state `snapshot`, `stopped` or `error`. The `snapshot` state seeds a fixed snapshot at week 24 with 2 appointments and a recent kick session.
+- `-uiTestingSharing <state>`: the mother side, with state `notShared`, `invited`, `joined` or `icloudUnavailable` (every call fails with `iCloudUnavailable`).
+- `-uiTestingPartner <state>`: the partner side, with state `snapshot`, `stopped`, `error`, `icloudUnavailable` (every call fails with `iCloudUnavailable`) or `notReadyYet` (accepted and shared, but no snapshot published yet: the fetch throws `notReadyYet`, shown as loading). The `snapshot` state seeds a fixed snapshot at week 24 with 2 appointments and a recent kick session.
 
 ## 5. App
 

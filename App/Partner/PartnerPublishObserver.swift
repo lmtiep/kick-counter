@@ -5,7 +5,8 @@ import SwiftUI
 
 /// Feeds `PartnerPublisher` (phase 8 spec §5.1) in pregnancy mode: a new
 /// snapshot whenever an appointment, a completed kick session or the due date
-/// changes, and "became active" whenever the app does. Draws nothing.
+/// changes, and "became active" (with the snapshot rebuilt at that time)
+/// whenever the app does. Draws nothing.
 struct PartnerPublishObserver: View {
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(\.partnerPublisher) private var publisher
@@ -37,7 +38,9 @@ struct PartnerPublishObserver: View {
                 publisher?.update(snapshot(from: inputs))
             }
             .onChange(of: scenePhase, initial: true) { _, phase in
-                if phase == .active { publisher?.noteBecameActive() }
+                // Rebuilt at the current time: the 7-day kick window and the
+                // upcoming check-ups move with the clock, not only with edits.
+                if phase == .active { publisher?.noteBecameActive(rebuilt: snapshot(from: inputs)) }
             }
     }
 

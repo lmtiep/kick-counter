@@ -37,8 +37,11 @@ trên hai iPhone thật với **hai Apple ID khác nhau**, cài bản TestFlight
 
 ## 3. Cập nhật lịch khám và thấy trên máy bố bé
 1. [ ] Máy A: thêm một lịch khám mới ngày mai, có ghi chú "riêng tư". Sửa tên một lịch khám cũ. Chờ 10 giây.
-2. [ ] Máy B: để app mở ở Hôm nay. Trong vòng khoảng một phút (đẩy thầm của iCloud) danh sách đổi; nếu chưa,
-       kéo xuống để làm mới. Lịch mới và tên mới hiện ra; chữ "riêng tư" **không** xuất hiện ở đâu.
+2. [ ] Máy B: để app mở ở Hôm nay (app ở tiền cảnh, **không** kéo làm mới). Trong vòng khoảng 2 phút (đẩy thầm
+       của iCloud) lịch mới và tên mới phải tự hiện ra; chữ "riêng tư" **không** xuất hiện ở đâu. Nếu sau khoảng 2
+       phút danh sách vẫn chưa đổi: ghi **FAIL** cho bước này (đẩy thầm không hoạt động). Chỉ sau khi đã ghi kết quả
+       mới kéo xuống để làm mới, coi như bước chẩn đoán: dữ liệu hiện ra sau khi kéo nghĩa là tải lên đúng nhưng
+       đẩy thầm hỏng; vẫn không hiện nghĩa là máy A chưa tải lên.
 3. [ ] Máy A: đếm xong một lượt 10 cử động. Máy B (kéo để làm mới): lượt gần nhất là lượt vừa đếm.
 4. [ ] Máy A: xóa một lượt trong Lịch sử, đổi ngày dự sinh rồi đổi lại. Máy B: số lượt 7 ngày và tuần thai đúng
        theo máy A sau khi làm mới.
@@ -53,6 +56,14 @@ trên hai iPhone thật với **hai Apple ID khác nhau**, cài bản TestFlight
 2. [ ] Dòng phụ về lại "Mời bố bé xem hành trình"; không còn "Ngừng chia sẻ".
 3. [ ] (Lần thử thứ hai) Mời lại như mục 1, máy B nhận lại như mục 2; lần này ngừng từ **bên trong** bảng chia sẻ
        của hệ thống ("Ngừng chia sẻ" trong bảng). Kết quả giống bước 4.2.
+4. [ ] (Lần thử thứ ba) Mời lại như mục 1, máy B nhận lại như mục 2. Lần này **không** chạm "Ngừng chia sẻ": máy A
+       Cá nhân → "Kết thúc theo dõi thai kỳ" → "Quay về theo dõi chu kỳ". Máy B (mở app hoặc kéo để làm mới): màn
+       "Mẹ đã ngừng chia sẻ", không còn dữ liệu cũ. Trên CloudKit Console (như ở mục 8, "Ngừng chia sẻ từ bên trong
+       bảng chia sẻ hệ thống"): zone `PartnerShare` của máy A **không còn tồn tại**. Làm lại một lần bằng bộ chọn chế
+       độ ở Cá nhân ("Mong con" thay vì "Kết thúc theo dõi thai kỳ"): kết quả giống hệt.
+5. [ ] (Lần thử thứ tư, ngoại tuyến) Mời lại, máy B nhận lại. Bật chế độ máy bay trên máy A **rồi mới** kết thúc
+       theo dõi thai kỳ. Tắt chế độ máy bay, đưa app máy A về nền rồi mở lại (đang ở chế độ Mong con): việc ngừng
+       chia sẻ dang dở được làm nốt. Máy B hiện "Mẹ đã ngừng chia sẻ"; zone `PartnerShare` của máy A không còn.
 
 ## 5. Bố bé thấy trạng thái đã ngừng (máy B)
 1. [ ] Mở app hoặc kéo để làm mới: màn "Mẹ đã ngừng chia sẻ" với nút "Thoát chế độ Bạn đời". Không còn dữ liệu cũ.
@@ -120,10 +131,11 @@ trên hai iPhone thật với **hai Apple ID khác nhau**, cài bản TestFlight
       từng ở chế độ Mang thai trước khi vào chế độ Bạn đời), chạm "Thoát chế độ Bạn đời": app phải quay lại đúng
       chế độ Mang thai với dữ liệu cũ của máy B (không phải phần giới thiệu, vì máy này không phải cài mới nhận
       lời mời). Nhắc đếm cử động (thông báo và/hoặc Live Activity) hoạt động lại như trước khi vào chế độ Bạn đời.
-- [ ] **(Tùy chọn, nếu thử được) iCloud đầy ở máy mẹ.** Nếu có tài khoản thử với dung lượng iCloud gần đầy: trên
-      máy A, làm cho tải lên `Snapshot` thất bại vì hết dung lượng (hoặc giả lập bằng cách lấp đầy iCloud Drive của
-      tài khoản thử). Thẻ "Chia sẻ với bố bé" ở Cá nhân phải hiện thông báo hết dung lượng iCloud thay vì lỗi
-      chung hoặc im lặng. Bỏ qua mục này nếu không có tài khoản thử phù hợp.
+- [ ] **(Tùy chọn, nếu thử được) iCloud đầy ở máy mẹ.** Nếu có tài khoản thử với dung lượng iCloud đầy (hoặc lấp
+      đầy iCloud Drive của tài khoản thử): lỗi khi tải `Snapshot` lên chỉ được ghi log, thẻ **không** tự đổi, nên
+      đừng chờ thông báo sau một lần tải lên thất bại. Thay vào đó, khi chưa chia sẻ, chạm thẻ "Chia sẻ với bố bé" ở
+      Cá nhân (app kiểm tra lại và chuẩn bị chia sẻ): thẻ phải hiện thông báo hết dung lượng iCloud thay vì lỗi
+      chung hoặc im lặng; chạm lại thẻ thì kiểm tra lại lần nữa. Bỏ qua mục này nếu không có tài khoản thử phù hợp.
 
 ## Ghi kết quả
 Ghi ngày, build, hai model iPhone, ngôn ngữ và mọi bước thất bại (ảnh chụp + mô tả) vào PR hoặc issue của giai đoạn 8.

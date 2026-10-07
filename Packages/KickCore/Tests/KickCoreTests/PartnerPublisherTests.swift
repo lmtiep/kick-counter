@@ -257,16 +257,55 @@ struct PartnerPublisherTests {
         // A relaunch remembers the last upload.
         clock.now += 5 * 3_600 - 60
         let relaunched = makePublisher(sharing)
-        relaunched.update(snapshot(sessions: 1))
-        relaunched.noteBecameActive()
+        relaunched.noteBecameActive(rebuilt: snapshot(sessions: 1))
         await relaunched.waitUntilIdle()
         #expect(await sharing.publishCount == 1)
 
         clock.now += 60
-        relaunched.noteBecameActive()
+        relaunched.noteBecameActive(rebuilt: snapshot(sessions: 1))
         await relaunched.waitUntilIdle()
         #expect(await sharing.publishCount == 2)
         #expect(try await sharing.fetchSharedSnapshot()?.updatedAt == clock.now)
+    }
+
+    /// Final review fix 2: the six-hour refresh uploads the snapshot as it is
+    /// now, not the one built when something last changed. A session that has
+    /// left the 7-day window is no longer counted.
+    @Test func becomingActiveUploadsTheSnapshotRebuiltAtTheCurrentTime() async throws {
+        let sharing = try await sharedFake()
+        let publisher = makePublisher(sharing)
+        // Seven days minus three hours before the first upload.
+        let startedAt = clock.now.addingTimeInterval(-7 * 86_400 + 3 * 3_600)
+        let session = SessionState(
+            startedAt: startedAt,
+            kicks: (0..<10).map { startedAt.addingTimeInterval(Double($0) * 30) },
+            status: .completed,
+            endedAt: startedAt.addingTimeInterval(600)
+        )
+        let clock = clock
+        let build = {
+            PartnerSnapshotBuilder.make(
+                dueDate: date("2027-01-19T00:00:00Z"),
+                appointments: [],
+                sessions: [session],
+                displayName: "Mẹ",
+                now: clock.now,
+                calendar: utcCalendar
+            )
+        }
+        publisher.update(build())
+        await publisher.waitUntilIdle()
+        #expect(try await sharing.fetchSharedSnapshot()?.kicks.sessionsLast7Days == 1)
+
+        clock.now += 6 * 3_600
+        publisher.noteBecameActive(rebuilt: build())
+        await publisher.waitUntilIdle()
+        #expect(await sharing.publishCount == 2)
+        let uploaded = try #require(try await sharing.fetchSharedSnapshot())
+        #expect(uploaded.kicks.sessionsLast7Days == 0)
+        #expect(uploaded.kicks.averageMinutesLast7Days == nil)
+        #expect(uploaded.kicks.lastSession != nil)
+        #expect(uploaded.updatedAt == clock.now)
     }
 
     @Test func aFailedUploadIsRetriedOnTheNextTrigger() async throws {

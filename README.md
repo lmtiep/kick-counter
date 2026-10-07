@@ -84,7 +84,7 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Lời mời: `PartnerAppDelegate` / `PartnerSceneDelegate` (`App/Partner/PartnerAppDelegate.swift`) nhận
   `CKShare.Metadata`; `CKSharingSupported` khai báo trong `project.yml`.
 - UI test: `-uiTestingSharing <notShared|invited|joined|icloudUnavailable>` (phía mẹ) và
-  `-uiTestingPartner <snapshot|stopped|error|icloudUnavailable>` (vào thẳng chế độ Bạn đời với dữ liệu mẫu tuần 24)
+  `-uiTestingPartner <snapshot|stopped|error|icloudUnavailable|notReadyYet>` (vào thẳng chế độ Bạn đời với dữ liệu mẫu tuần 24)
   dùng `FakePartnerSharing`; chỉ có hiệu lực cùng `-uiTesting`. Không UI test nào chạm iCloud.
 - Chia sẻ thật chỉ thử bằng tay với hai Apple ID: `docs/partner-sharing-manual-test.md`. Trước khi phát hành:
   record type `Snapshot` phải được deploy lên Production (`docs/release-checklist.md`, "Giai đoạn 8").
