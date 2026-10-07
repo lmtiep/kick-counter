@@ -64,6 +64,238 @@
   ],
   "articles": [
     {
+      "id": "nutrition-first-trimester",
+      "topic": "nutrition",
+      "trimesters": [
+        1
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Eating well in the first trimester",
+        "vi": "Ăn uống trong tam cá nguyệt đầu"
+      },
+      "summary": {
+        "en": "In the first weeks, what you eat matters more than how much, and small, plain meals can help on the days when you feel sick.",
+        "vi": "Trong những tuần đầu, ăn đa dạng quan trọng hơn ăn nhiều, và những bữa nhỏ, thanh đạm có thể giúp mẹ dễ chịu hơn vào những ngày buồn nôn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Eating in the first weeks",
+            "vi": "Ăn thế nào trong những tuần đầu"
+          },
+          "paragraphs": {
+            "en": [
+              "You do not need to eat for two. In the first trimester, your body needs little or no extra food, so think about variety rather than amount. A wide mix of foods across the week gives you a good range of nutrients.",
+              "A balanced plate usually has plenty of vegetables and fruit, some whole grains such as brown rice or wholemeal bread, and a source of protein. Fish, eggs, beans, tofu and lean meat all count. If you can, add milk, yoghurt or another dairy food each day.",
+              "Keep a cup or bottle of water nearby and sip it through the day. Your body uses more fluid now, and drinking enough also helps with constipation, which is common in pregnancy."
+            ],
+            "vi": [
+              "Mẹ không cần phải “ăn cho hai người”. Trong tam cá nguyệt đầu, cơ thể hầu như chưa cần ăn thêm, nên mẹ hãy chú ý ăn đa dạng hơn là ăn nhiều. Ăn nhiều loại thực phẩm khác nhau trong tuần giúp mẹ có đủ các chất cần thiết.",
+              "Một bữa ăn cân đối thường có nhiều rau và quả, một phần ngũ cốc nguyên hạt như gạo lứt hay bánh mì nguyên cám, và một món giàu đạm. Cá, trứng, các loại đậu, đậu phụ và thịt nạc đều là nguồn đạm tốt. Nếu được, mẹ dùng thêm sữa, sữa chua hoặc món từ sữa mỗi ngày.",
+              "Mẹ hãy để sẵn cốc hoặc chai nước bên cạnh và uống từng ngụm suốt cả ngày. Lúc này cơ thể cần nhiều nước hơn, và uống đủ nước cũng giúp phòng táo bón, vốn hay gặp khi mang thai."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "When you feel sick",
+            "vi": "Khi buồn nôn"
+          },
+          "paragraphs": {
+            "en": [
+              "Nausea is common in the early weeks. Despite the name morning sickness, it can come at any time of the day or night. For many women it eases during the second trimester, though for some it lasts longer.",
+              "Small meals every few hours often sit better than three large ones, because an empty stomach can make nausea worse. Plain, dry foods such as crackers, toast or plain rice may be easier to manage. Some women find foods or drinks made with ginger helpful. On harder days, eat what you can, and return to variety when you feel better.",
+              "If you are vomiting so often that fluids do not stay down, contact your doctor or midwife the same day. Do the same if you also feel dizzy or your urine is very dark."
+            ],
+            "vi": [
+              "Buồn nôn rất hay gặp trong những tuần đầu. Dù hay được gọi là “ốm nghén buổi sáng”, cảm giác này có thể đến bất cứ lúc nào, cả ngày lẫn đêm. Với nhiều mẹ, cơn nghén dịu dần trong tam cá nguyệt thứ hai, dù có mẹ nghén lâu hơn.",
+              "Ăn bữa nhỏ, cách vài giờ một lần thường dễ chịu hơn ba bữa lớn, vì để bụng đói có thể làm cơn buồn nôn nặng thêm. Những món khô, thanh đạm như bánh quy nhạt, bánh mì nướng hay cơm trắng có thể dễ ăn hơn. Một số mẹ thấy dễ chịu hơn với món ăn hoặc đồ uống có gừng. Vào những ngày mệt, mẹ cứ ăn những gì mình ăn được, rồi ăn đa dạng trở lại khi khỏe hơn.",
+              "Nếu nôn nhiều đến mức không giữ được nước, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay trong ngày. Mẹ cũng làm vậy nếu kèm chóng mặt hoặc nước tiểu rất sẫm màu."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Nutrients to think about",
+            "vi": "Những chất cần chú ý"
+          },
+          "paragraphs": {
+            "en": [
+              "Folic acid matters most in the early weeks, while your baby's brain and spine are forming. It is usually advised from before pregnancy and through the first weeks, so take it as your doctor or midwife advises. Green leafy vegetables, beans and oranges also contain folate.",
+              "At your first antenatal visit, tell your doctor or midwife what you usually eat and whether you avoid any foods. They can tell you if you need anything more. Do not start other supplements or herbal remedies without asking them first."
+            ],
+            "vi": [
+              "Axit folic đặc biệt quan trọng trong những tuần đầu, khi não và cột sống của bé đang hình thành. Axit folic thường được khuyên dùng từ trước khi mang thai và suốt những tuần đầu, mẹ hãy bổ sung theo hướng dẫn của bác sĩ hoặc nữ hộ sinh. Rau lá xanh, các loại đậu và cam cũng có folate.",
+              "Ở lần khám thai đầu tiên, mẹ hãy kể với bác sĩ hoặc nữ hộ sinh mình thường ăn gì và có kiêng món nào không. Mẹ sẽ được tư vấn xem có cần bổ sung thêm gì không. Mẹ đừng tự dùng thêm sản phẩm bổ sung hay thuốc nam khi chưa hỏi ý kiến."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        5,
+        9
+      ]
+    },
+    {
+      "id": "food-safety",
+      "topic": "nutrition",
+      "trimesters": [
+        1,
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Food safety in pregnancy",
+        "vi": "An toàn thực phẩm khi mang thai"
+      },
+      "summary": {
+        "en": "Most foods are fine in pregnancy, but a few are best avoided, and careful cooking and storage help protect you from germs that can be more harmful now.",
+        "vi": "Phần lớn thực phẩm đều ăn được khi mang thai, nhưng có một số món mẹ nên tránh, và nấu chín, bảo quản cẩn thận giúp mẹ phòng những vi khuẩn có hại hơn lúc này."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Foods to avoid",
+            "vi": "Thực phẩm nên tránh"
+          },
+          "paragraphs": {
+            "en": [
+              "A few foods can carry germs or other things that are more harmful in pregnancy. Avoid raw or undercooked meat and eggs, and cook eggs until both the white and the yolk are firm. Skip raw fish and shellfish, such as sushi or raw fish salad, as well as tiết canh and raw fermented meat such as nem chua.",
+              "Choose milk and cheese that have been pasteurised, and avoid cheeses made from unpasteurised milk. Liver and foods made from it, such as pâté, hold a lot of vitamin A, which can be harmful in large amounts. So do not eat them often or in large portions.",
+              "Fish is a good food in pregnancy, but a few large fish carry more mercury. Avoid shark, swordfish and king mackerel, and enjoy other kinds of well-cooked fish instead."
+            ],
+            "vi": [
+              "Một số thực phẩm có thể mang vi khuẩn hoặc chất gây hại nhiều hơn khi mang thai. Mẹ tránh thịt và trứng sống hoặc chưa chín kỹ; trứng cần nấu đến khi cả lòng trắng và lòng đỏ đều đông lại. Mẹ cũng nên tránh cá và hải sản sống như sushi hay gỏi cá, tiết canh và các món thịt lên men sống như nem chua.",
+              "Mẹ chọn sữa và pho mát đã thanh trùng, tránh pho mát làm từ sữa chưa thanh trùng. Gan và các món từ gan như pa tê chứa rất nhiều vitamin A, có thể gây hại nếu ăn quá nhiều. Vì vậy, mẹ không nên ăn thường xuyên hay ăn nhiều một lúc.",
+              "Cá là thực phẩm tốt khi mang thai, nhưng một vài loại cá lớn chứa nhiều thủy ngân hơn. Mẹ tránh cá mập, cá kiếm và cá thu vua, và thay bằng các loại cá khác đã nấu chín kỹ."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Caffeine and alcohol",
+            "vi": "Caffeine và rượu bia"
+          },
+          "paragraphs": {
+            "en": [
+              "No amount of alcohol is known to be safe in pregnancy, so the safest choice is not to drink at all. This includes beer, wine and home-made rice liquor.",
+              "Caffeine is in more drinks than many people expect. Most guidelines suggest keeping caffeine below 200 mg a day in total, counting coffee, tea, cola, energy drinks and chocolate. A strong coffee can use up much of that, so a smaller or weaker cup, or decaffeinated coffee, may help."
+            ],
+            "vi": [
+              "Chưa có lượng rượu bia nào được biết là an toàn khi mang thai, nên lựa chọn an toàn nhất là không uống chút nào. Điều này gồm cả bia, rượu vang và rượu gạo tự nấu.",
+              "Caffeine có trong nhiều đồ uống hơn mẹ nghĩ. Phần lớn các hướng dẫn khuyên mẹ giữ tổng lượng caffeine dưới 200 mg mỗi ngày, tính cả cà phê, trà, nước cola, nước tăng lực và sô-cô-la. Một cốc cà phê đậm có thể đã chiếm phần lớn mức này, nên cốc nhỏ hơn, pha loãng hơn hoặc cà phê đã khử caffeine có thể giúp ích."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Preparing and storing food safely",
+            "vi": "Chế biến và bảo quản an toàn"
+          },
+          "paragraphs": {
+            "en": [
+              "Wash your hands before cooking and eating, and after touching raw meat. Wash fruit, vegetables and fresh herbs well, especially the raw herbs often served with meals.",
+              "Keep raw and cooked food apart, and use a separate board and knife for raw meat. Put leftovers in the fridge soon after the meal, and reheat them until they are steaming hot all the way through.",
+              "Some herbal and traditional remedies may not be safe in pregnancy. Ask your doctor or midwife before you take any of them."
+            ],
+            "vi": [
+              "Mẹ rửa tay trước khi nấu ăn, trước bữa ăn và sau khi chạm vào thịt sống. Rau, quả và rau thơm cần được rửa thật kỹ, nhất là rau sống ăn kèm trong bữa.",
+              "Mẹ để riêng đồ sống và đồ chín, dùng thớt và dao riêng cho thịt sống. Thức ăn thừa nên cho vào tủ lạnh sớm sau bữa ăn, và hâm lại cho đến khi nóng bốc hơi đều.",
+              "Một số loại thuốc nam, thuốc bắc hay bài thuốc dân gian có thể không an toàn khi mang thai. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh trước khi dùng."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "id": "iron-calcium-balanced-meals",
+      "topic": "nutrition",
+      "trimesters": [
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Iron, calcium and balanced meals",
+        "vi": "Sắt, canxi và bữa ăn cân đối"
+      },
+      "summary": {
+        "en": "As pregnancy goes on, your body needs more iron and calcium, and a varied plate with a few simple habits can help you get enough.",
+        "vi": "Khi thai kỳ tiến triển, cơ thể mẹ cần nhiều sắt và canxi hơn, và một bữa ăn đa dạng cùng vài thói quen đơn giản có thể giúp mẹ có đủ."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why you need more iron",
+            "vi": "Vì sao cần thêm sắt"
+          },
+          "paragraphs": {
+            "en": [
+              "During pregnancy, the amount of blood in your body rises a lot, and your body uses iron to make it. That is why you need more iron, especially in the second and third trimesters.",
+              "Good sources of iron include lean red meat, eggs, beans and tofu, and dark green leafy vegetables such as rau ngót, rau dền and rau muống. Eating them with foods rich in vitamin C, such as oranges, guava or tomatoes, can help your body absorb more iron.",
+              "Tea and coffee drunk with a meal can lower how much iron you take in, so have them between meals instead. If extra iron is needed, take it as your doctor or midwife advises.",
+              "If you feel unusually tired, get breathless easily or look pale, tell your doctor or midwife. A simple blood test can check for anaemia."
+            ],
+            "vi": [
+              "Khi mang thai, lượng máu trong cơ thể mẹ tăng lên nhiều, và cơ thể cần sắt để tạo máu. Vì vậy mẹ cần nhiều sắt hơn, nhất là trong tam cá nguyệt thứ hai và thứ ba.",
+              "Thực phẩm giàu sắt gồm thịt đỏ nạc, trứng, các loại đậu, đậu phụ và rau lá xanh đậm như rau ngót, rau dền, rau muống. Ăn kèm thực phẩm giàu vitamin C như cam, ổi hay cà chua có thể giúp cơ thể hấp thu sắt tốt hơn.",
+              "Uống trà hoặc cà phê ngay trong bữa ăn có thể làm giảm lượng sắt được hấp thu, nên mẹ hãy uống vào giữa các bữa. Nếu mẹ cần thêm sắt, hãy bổ sung theo hướng dẫn của bác sĩ hoặc nữ hộ sinh.",
+              "Nếu thấy mệt bất thường, dễ hụt hơi hoặc da xanh xao, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Một xét nghiệm máu đơn giản có thể cho biết mẹ có bị thiếu máu không."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Calcium for bones",
+            "vi": "Canxi cho xương"
+          },
+          "paragraphs": {
+            "en": [
+              "Calcium helps build your baby's bones and teeth and keeps your own bones strong. Milk, yoghurt and pasteurised cheese are easy sources. Tofu, green vegetables, small fish eaten with their bones, such as cá cơm, and tiny shrimp eaten whole, such as tép, add more.",
+              "If you do not eat dairy foods, your doctor or midwife can suggest other ways to get enough calcium."
+            ],
+            "vi": [
+              "Canxi giúp xây dựng xương và răng của bé, đồng thời giữ cho xương của mẹ chắc khỏe. Sữa, sữa chua và pho mát đã thanh trùng là những nguồn canxi dễ dùng. Đậu phụ, rau xanh, cá cơm ăn cả xương và tép ăn cả vỏ cũng góp thêm canxi.",
+              "Nếu mẹ không dùng được sữa và các món từ sữa, bác sĩ hoặc nữ hộ sinh có thể gợi ý cách khác để mẹ có đủ canxi."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "A balanced meal",
+            "vi": "Một bữa ăn cân đối"
+          },
+          "paragraphs": {
+            "en": [
+              "Your appetite may grow in the second trimester, and that is normal. Even so, later in pregnancy you need only a little more food than before, not double portions. Eating a bit more at meals, or adding a healthy snack, is usually enough. Choose snacks such as fruit, yoghurt, nuts or a boiled egg rather than sweets and sugary drinks.",
+              "A simple meal might be rice or another grain, a dish of fish, meat, eggs or tofu, a large serving of vegetables, and fruit to finish. A glass of milk or a pot of yoghurt between meals adds calcium. Drink water through the day too."
+            ],
+            "vi": [
+              "Mẹ có thể thấy ăn ngon miệng hơn trong tam cá nguyệt thứ hai, điều này là bình thường. Dù vậy, ở giai đoạn sau của thai kỳ, mẹ chỉ cần ăn thêm một chút so với trước, không cần ăn gấp đôi. Ăn thêm một ít trong bữa chính, hoặc thêm một bữa phụ lành mạnh, thường là đủ. Mẹ nên chọn bữa phụ như quả, sữa chua, các loại hạt hay trứng luộc thay vì bánh kẹo và nước ngọt.",
+              "Một bữa ăn đơn giản có thể gồm cơm hoặc ngũ cốc khác, một món cá, thịt, trứng hay đậu phụ, nhiều rau xanh và quả tráng miệng. Một cốc sữa hay một hộp sữa chua giữa các bữa giúp mẹ có thêm canxi. Mẹ cũng nhớ uống đủ nước trong ngày."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        5,
+        9
+      ]
+    },
+    {
       "id": "safe-exercise",
       "topic": "movement",
       "trimesters": [
@@ -89,11 +321,11 @@
           "paragraphs": {
             "en": [
               "Staying active during pregnancy can lift your mood, help you sleep and ease some common discomforts, such as backache and constipation. It can also help keep your weight gain in a healthy range and build stamina for labour.",
-              "The World Health Organization and other guidelines suggest about 150 minutes of moderate activity a week, spread over several days. Short sessions of about 10 minutes count too. If you were not active before, start with a few minutes a day and build up slowly."
+              "The World Health Organization and other guidelines suggest about 150 minutes of moderate activity a week, spread over several days. Even short sessions count. If you did little activity before, start with a few minutes a day and build up slowly."
             ],
             "vi": [
-              "Vận động đều đặn khi mang thai có thể giúp mẹ vui vẻ hơn, ngủ ngon hơn và đỡ một số khó chịu thường gặp như đau lưng hay táo bón. Vận động cũng giúp mẹ tăng cân trong mức hợp lý và có thêm sức bền cho lúc chuyển dạ.",
-              "Tổ chức Y tế Thế giới và nhiều hướng dẫn khác gợi ý mẹ vận động vừa sức khoảng 150 phút mỗi tuần, chia ra nhiều ngày. Những lần tập ngắn khoảng 10 phút cũng được tính. Nếu trước đây ít vận động, mẹ hãy bắt đầu với vài phút mỗi ngày rồi tăng dần."
+              "Vận động đều đặn có thể giúp mẹ vui vẻ hơn, ngủ ngon hơn và đỡ một số khó chịu thường gặp như đau lưng hay táo bón. Vận động cũng giúp mẹ tăng cân hợp lý và có thêm sức bền cho lúc chuyển dạ.",
+              "Tổ chức Y tế Thế giới và các hướng dẫn khác gợi ý mẹ vận động vừa sức khoảng 150 phút mỗi tuần, chia ra nhiều ngày. Ngay cả những lần tập ngắn cũng được tính. Nếu trước đây ít vận động, mẹ bắt đầu với vài phút mỗi ngày rồi tăng dần."
             ]
           }
         },
@@ -105,13 +337,13 @@
           "paragraphs": {
             "en": [
               "Brisk walking, swimming, water aerobics, an exercise bike and pregnancy yoga or pilates classes suit most people. If you were already active before pregnancy, you can usually carry on, easing off as your bump grows.",
-              "Avoid contact sports, activities with a high chance of falling, such as horse riding or skiing, and scuba diving. Once your bump is growing, avoid exercises that keep you lying flat on your back for a long time; lie on your side or sit propped up instead.",
-              "If you have a health condition, or a complication in this pregnancy, ask your doctor or midwife which kinds of activity suit you."
+              "Leave scuba diving and hot yoga until after the birth. Also avoid sports where a fall or a blow to your bump is more likely, such as gymnastics, off-road cycling or boxing. Once your bump is growing, avoid exercises that keep you lying flat on your back for long; lie on your side or sit propped up.",
+              "If you have a health condition or a pregnancy complication, ask your doctor or midwife which kinds of activity suit you."
             ],
             "vi": [
-              "Đi bộ nhanh, bơi, thể dục dưới nước, đạp xe tại chỗ và các lớp yoga hay pilates cho bà bầu hợp với phần lớn các mẹ. Nếu trước đây mẹ đã quen tập luyện, mẹ thường có thể tiếp tục và giảm dần cường độ khi bụng lớn lên.",
-              "Mẹ nên tránh các môn thể thao đối kháng, các hoạt động dễ ngã như cưỡi ngựa hay trượt tuyết, và lặn có bình dưỡng khí. Khi bụng đã lớn dần, mẹ tránh những bài tập phải nằm ngửa lâu; thay vào đó, mẹ nằm nghiêng hoặc ngồi tựa lưng.",
-              "Nếu mẹ có bệnh lý sẵn có hoặc có biến chứng trong lần mang thai này, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem cách vận động nào phù hợp với mình."
+              "Đi bộ nhanh, bơi, thể dục dưới nước, đạp xe tại chỗ và các lớp yoga hay pilates cho bà bầu hợp với phần lớn mẹ bầu. Nếu đã quen tập luyện từ trước, mẹ thường có thể tiếp tục và giảm dần cường độ khi bụng lớn lên.",
+              "Mẹ tạm gác lặn có bình dưỡng khí và yoga trong phòng nóng đến sau sinh. Mẹ cũng tránh các môn dễ ngã hoặc dễ bị va vào bụng, như thể dục dụng cụ, đạp xe địa hình hay quyền anh. Khi bụng đã lớn, mẹ tránh bài tập phải nằm ngửa lâu; hãy nằm nghiêng hoặc ngồi tựa lưng.",
+              "Nếu có bệnh lý sẵn có hoặc biến chứng thai kỳ, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh cách vận động phù hợp."
             ]
           }
         },
@@ -123,13 +355,13 @@
           "paragraphs": {
             "en": [
               "At a moderate pace, you can still speak in full sentences. Drink water before, during and after exercise, and avoid getting very hot, especially on humid days. Your joints are looser in pregnancy, so warm up gently and avoid jerky movements.",
-              "Stop and rest if you feel dizzy or unusually tired, or more out of breath than the effort explains, and tell your doctor or midwife before you exercise again. If you faint, or the dizziness does not pass when you sit down, see your doctor. Pain and swelling in one calf needs a doctor straight away.",
-              "Some signs need care straight away. If you have bleeding from your vagina, regular painful tightenings, or fluid leaking from your vagina, contact your maternity unit straight away, whatever the colour of the fluid. If your baby moves less than usual, call your maternity unit straight away, day or night. For chest pain, or trouble breathing that does not ease with rest, call an emergency ambulance (115) straight away."
+              "Stop and rest if you feel dizzy, unusually tired or more out of breath than the effort explains. Stop too if you get a headache, or muscle weakness that affects your balance. Tell your doctor or midwife before you exercise again. If you faint, if the dizziness does not pass when you sit down, or if a headache is severe, contact your doctor or midwife straight away. Pain and swelling in one calf needs a doctor straight away.",
+              "If you have bleeding from your vagina, regular painful tightenings, or fluid leaking from your vagina, contact your maternity unit straight away, whatever the colour of the fluid. If your baby moves less than usual, call your maternity unit straight away, day or night. For chest pain, or trouble breathing that does not ease with rest, call an emergency ambulance (115) straight away."
             ],
             "vi": [
-              "Khi tập ở mức vừa phải, mẹ vẫn nói được trọn câu. Mẹ uống nước trước, trong và sau khi tập, và tránh để người quá nóng, nhất là vào hôm trời oi bức. Khi mang thai, các khớp lỏng hơn, nên mẹ khởi động nhẹ nhàng và tránh động tác giật mạnh.",
-              "Mẹ hãy dừng lại nghỉ nếu thấy chóng mặt, mệt bất thường hoặc hụt hơi nhiều hơn mức gắng sức, và báo bác sĩ hoặc nữ hộ sinh trước khi tập lại. Nếu ngất, hoặc chóng mặt không đỡ khi đã ngồi xuống, mẹ hãy đi khám. Nếu một bên bắp chân đau và sưng, mẹ cần gặp bác sĩ ngay.",
-              "Một số dấu hiệu cần được chăm sóc ngay. Nếu ra máu âm đạo, bụng gò đều và đau, hoặc ra nước âm đạo, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì. Nếu bé cử động ít hơn mọi ngày, mẹ hãy gọi ngay cho khoa sản, dù ngày hay đêm. Nếu đau ngực, hoặc khó thở mà nghỉ ngơi không đỡ, mẹ hãy gọi cấp cứu 115 ngay."
+              "Khi tập ở mức vừa phải, mẹ vẫn nói được trọn câu. Mẹ uống nước trước, trong và sau khi tập, và tránh để người quá nóng, nhất là khi trời oi bức. Khi mang thai, các khớp lỏng hơn, nên mẹ khởi động nhẹ nhàng và tránh động tác giật mạnh.",
+              "Mẹ dừng lại nghỉ nếu thấy chóng mặt, mệt bất thường hoặc hụt hơi nhiều hơn mức gắng sức. Mẹ cũng dừng nếu đau đầu, hoặc yếu cơ đến mức khó giữ thăng bằng. Mẹ báo bác sĩ hoặc nữ hộ sinh trước khi tập lại. Nếu ngất, chóng mặt không đỡ khi ngồi xuống, hoặc đau đầu dữ dội, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay. Nếu một bên bắp chân đau và sưng, mẹ cần gặp bác sĩ ngay.",
+              "Nếu ra máu âm đạo, bụng gò đều và đau, hoặc ra nước âm đạo, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì. Nếu bé cử động ít hơn mọi ngày, mẹ hãy gọi ngay cho khoa sản, dù ngày hay đêm. Nếu đau ngực, hoặc khó thở mà nghỉ không đỡ, mẹ hãy gọi cấp cứu 115 ngay."
             ]
           }
         }
@@ -138,6 +370,159 @@
         1,
         3,
         5
+      ]
+    },
+    {
+      "id": "gentle-exercise-second-trimester",
+      "topic": "movement",
+      "trimesters": [
+        2
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Gentle exercise in the second trimester",
+        "vi": "Vận động nhẹ nhàng ở tam cá nguyệt thứ hai"
+      },
+      "summary": {
+        "en": "Many women feel more energetic in the second trimester, which makes it a good time to settle into a gentle routine that you adjust as your bump grows.",
+        "vi": "Nhiều mẹ thấy khỏe hơn trong tam cá nguyệt thứ hai, nên đây là lúc phù hợp để tạo thói quen vận động nhẹ nhàng và điều chỉnh dần khi bụng lớn lên."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "The second trimester often feels easier",
+            "vi": "Tam cá nguyệt thứ hai thường dễ chịu hơn"
+          },
+          "paragraphs": {
+            "en": [
+              "Once nausea and early tiredness fade, many women find they have more energy. If your doctor or midwife agrees, this can be a good time to make movement a regular part of your week.",
+              "Each session adds to the weekly amount described in the article “Staying active safely in pregnancy”: about 150 minutes of moderate activity a week. You do not need to do it all at once. A regular walk on most days soon adds up."
+            ],
+            "vi": [
+              "Khi cơn nghén và cảm giác mệt của những tuần đầu dịu đi, nhiều mẹ thấy mình có thêm sức. Nếu bác sĩ hoặc nữ hộ sinh đồng ý, đây có thể là lúc thích hợp để vận động trở thành một phần quen thuộc trong tuần.",
+              "Mỗi buổi tập đều được tính vào lượng vận động hằng tuần trong bài “Vận động an toàn khi mang thai”, tức khoảng 150 phút vận động vừa sức mỗi tuần. Mẹ không cần tập hết một lúc. Đi bộ đều đặn vào phần lớn các ngày cũng sẽ sớm cộng dồn đủ."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "A gentle session",
+            "vi": "Một buổi tập nhẹ nhàng"
+          },
+          "paragraphs": {
+            "en": [
+              "Begin with a few minutes of gentle warm-up, such as walking slowly and rolling your shoulders. Then spend 20 to 30 minutes on something you enjoy: walking, swimming, cycling on an exercise bike or a pregnancy exercise class.",
+              "Finish with a slower cool-down and some easy stretches, without pushing to your limit. Keep to a pace at which you can still chat. If you cannot talk, slow down.",
+              "Wear a supportive bra, drink water before and after, and choose a cool time of day or a well-aired room so you do not get too hot."
+            ],
+            "vi": [
+              "Mẹ bắt đầu bằng vài phút khởi động nhẹ, chẳng hạn đi bộ chậm và xoay vai. Sau đó, mẹ dành 20 đến 30 phút cho hoạt động mình thích: đi bộ, bơi, đạp xe tại chỗ hoặc một lớp tập cho bà bầu.",
+              "Cuối buổi, mẹ đi chậm lại để thả lỏng và giãn cơ nhẹ nhàng, không cố kéo giãn hết mức. Mẹ giữ nhịp độ sao cho vẫn trò chuyện được. Nếu không nói nổi thành câu, mẹ hãy chậm lại.",
+              "Mẹ mặc áo ngực nâng đỡ tốt, uống nước trước và sau khi tập, và chọn lúc trời mát hoặc phòng thoáng khí để người không bị quá nóng."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Adjusting as your bump grows",
+            "vi": "Điều chỉnh khi bụng lớn dần"
+          },
+          "paragraphs": {
+            "en": [
+              "As your bump grows, your balance shifts. Wear flat shoes with a non-slip sole, take stairs slowly and choose even paths. Exercises done flat on your back are best kept short now; many can be done lying on your side or sitting instead.",
+              "If you feel dizzy, stop and tell your doctor or midwife. See a doctor straight away if one calf is painful and swollen. For chest pain, call an emergency ambulance (115) straight away.",
+              "Bleeding from your vagina, fluid leaking from it or regular painful tightenings mean contacting your maternity unit straight away, whatever the colour of the fluid. Once you can feel your baby move, if the movements become fewer than usual, call your maternity unit straight away, day or night."
+            ],
+            "vi": [
+              "Khi bụng lớn dần, trọng tâm cơ thể thay đổi nên mẹ dễ mất thăng bằng hơn. Mẹ đi giày đế bằng, chống trơn, lên xuống cầu thang chậm rãi và chọn đường bằng phẳng. Những bài tập nằm ngửa giờ nên giữ ngắn; nhiều động tác có thể đổi sang tư thế nằm nghiêng hoặc ngồi.",
+              "Nếu thấy chóng mặt, mẹ hãy dừng tập và báo bác sĩ hoặc nữ hộ sinh. Mẹ cần được bác sĩ khám ngay nếu một bên bắp chân sưng và đau. Nếu đau ngực, mẹ hãy gọi cấp cứu 115 ngay.",
+              "Khi ra máu hoặc ra nước âm đạo, hay bụng gò đều và đau, mẹ cần liên hệ khoa sản ngay, dù nước có màu gì. Khi đã cảm nhận được bé cử động, nếu bé cử động ít hơn mọi ngày, mẹ hãy gọi ngay cho khoa sản, dù ngày hay đêm."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "pelvic-floor-posture",
+      "topic": "movement",
+      "trimesters": [
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Pelvic floor and everyday posture",
+        "vi": "Cơ sàn chậu và tư thế hằng ngày"
+      },
+      "summary": {
+        "en": "Simple daily exercises can help strengthen your pelvic floor, and small changes in how you stand, sit and lift can ease the strain on your back.",
+        "vi": "Vài bài tập đơn giản mỗi ngày có thể giúp cơ sàn chậu khỏe hơn, và những thay đổi nhỏ trong cách đứng, ngồi, nâng đồ có thể giúp lưng mẹ đỡ mỏi."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "What the pelvic floor does",
+            "vi": "Cơ sàn chậu là gì"
+          },
+          "paragraphs": {
+            "en": [
+              "The pelvic floor is a group of muscles at the base of your pelvis. These muscles support your bladder, bowel and womb, and help you control when you pass urine and wind.",
+              "In pregnancy, hormones soften these muscles, and your baby's growing weight presses down on them. So leaking a little urine when you sneeze, laugh or cough is common. UK guidance from NICE recommends pelvic floor exercises during pregnancy, as they can help these muscles get stronger.",
+              "If you are not sure whether a leak is urine or your waters, contact your maternity unit straight away, whatever the colour."
+            ],
+            "vi": [
+              "Sàn chậu là nhóm cơ nằm ở đáy khung chậu. Nhóm cơ này nâng đỡ bàng quang, ruột và tử cung, đồng thời giúp mẹ kiểm soát việc đi tiểu và xì hơi.",
+              "Khi mang thai, nội tiết tố làm các cơ này mềm hơn, và sức nặng ngày càng tăng của bé đè xuống chúng. Vì vậy, rỉ một chút nước tiểu khi hắt hơi, cười hay ho là điều thường gặp. Hướng dẫn NICE của Anh khuyên mẹ tập cơ sàn chậu trong thai kỳ, vì việc này có thể giúp các cơ khỏe hơn.",
+              "Nếu không chắc dịch rỉ ra là nước tiểu hay nước ối, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "How to do the exercises",
+            "vi": "Cách tập"
+          },
+          "paragraphs": {
+            "en": [
+              "Sit, lie or stand comfortably, and relax your thighs, bottom and belly. Squeeze and lift the muscles around your back and front passages, as if you were holding in wind and urine at the same time. Hold for a few seconds while you keep breathing normally, then let go fully.",
+              "Next, do a few quick squeezes, relaxing fully after each one. Repeat both kinds a few times, every day. Linking them to something you already do daily, such as brushing your teeth or waiting for the kettle, may help you remember.",
+              "Do not practise by stopping the flow while you pass urine. If you are not sure you are doing the exercises right, ask your doctor or midwife."
+            ],
+            "vi": [
+              "Mẹ ngồi, nằm hoặc đứng thoải mái, thả lỏng đùi, mông và bụng. Mẹ siết và kéo nhẹ các cơ quanh hậu môn và âm đạo lên trên, như khi đang cố nhịn cả xì hơi lẫn nhịn tiểu. Giữ trong vài giây, vẫn thở đều bình thường, rồi thả lỏng hoàn toàn.",
+              "Tiếp theo, mẹ siết nhanh vài lần, mỗi lần đều thả lỏng hẳn. Mẹ lặp lại cả hai kiểu vài lượt mỗi ngày. Gắn việc tập với một thói quen sẵn có, như lúc đánh răng hay chờ nước sôi, có thể giúp mẹ dễ nhớ hơn.",
+              "Mẹ đừng tập bằng cách nín ngang dòng nước tiểu khi đang đi tiểu. Nếu không chắc mình tập đúng cách, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Everyday posture",
+            "vi": "Tư thế hằng ngày"
+          },
+          "paragraphs": {
+            "en": [
+              "When you stand, keep tall, with your shoulders relaxed and your weight spread evenly on both feet. When you sit, choose a chair that supports your back, and put a small cushion behind your lower back if it helps.",
+              "To pick something up, bend your knees, keep your back straight and hold the load close to your body. Avoid lifting heavy things, and ask someone to help with them. When you turn, move your feet and turn your whole body rather than twisting at the waist.",
+              "Some women feel pain at the front or back of the pelvis that makes walking, climbing stairs or turning over in bed hard. If this happens, tell your doctor or midwife, who can suggest ways to ease it."
+            ],
+            "vi": [
+              "Khi đứng, mẹ giữ người thẳng, thả lỏng vai và dồn đều sức nặng lên hai chân. Khi ngồi, mẹ chọn ghế có tựa lưng tốt, và có thể kê thêm một chiếc gối nhỏ sau thắt lưng nếu thấy dễ chịu hơn.",
+              "Khi nhặt đồ, mẹ khuỵu gối, giữ lưng thẳng và ôm vật sát vào người. Mẹ tránh nâng vật nặng, hãy nhờ người khác giúp. Khi xoay người, mẹ bước chân để xoay cả cơ thể thay vì vặn người ở eo.",
+              "Một số mẹ bị đau ở phía trước hoặc phía sau khung chậu, khiến việc đi lại, leo cầu thang hay trở mình trên giường trở nên khó khăn. Nếu gặp tình trạng này, mẹ hãy báo bác sĩ hoặc nữ hộ sinh để được gợi ý cách làm dịu cơn đau."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        6
       ]
     }
   ]

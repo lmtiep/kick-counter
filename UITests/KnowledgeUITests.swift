@@ -29,9 +29,8 @@ final class KnowledgeUITests: XCTestCase {
         let app = launchAtWeek24()
         XCTAssertTrue(app.descendants(matching: .any)["knowledgeCard"].exists)
         XCTAssertTrue(app.staticTexts["Suggested for trimester 2"].exists)
-        // Task 2: safe-exercise is the only article written so far (Task 3 makes it 3).
-        XCTAssertEqual(suggestions(app).count, 1)
-        XCTAssertTrue(app.buttons["knowledgeSuggestion-safe-exercise"].exists)
+        // Three suggestions (spec §3.3); which ones changes with the content.
+        XCTAssertEqual(suggestions(app).count, 3)
     }
 
     /// §4.3: a suggestion opens the reading screen at peek; the handle expands it; ✕ closes it.
