@@ -58,6 +58,21 @@ struct PartnerShareCoordinatorTests {
         #expect(coordinator.status == .notShared)
     }
 
+    /// A diagnostic code (phase: TestFlight error visibility) lets a failed
+    /// share be told apart in a report; it is cleared once sharing succeeds.
+    @Test func failureCodeIsSetOnFailureAndClearedOnSuccess() async {
+        let sharing = FakePartnerSharing()
+        let coordinator = PartnerShareCoordinator(sharing: sharing)
+        await sharing.setFailure(.failed(code: 15))
+        await coordinator.refresh()
+        #expect(coordinator.status == .failed)
+        #expect(coordinator.failureCode == "15")
+        await sharing.setFailure(nil)
+        await coordinator.refresh()
+        #expect(coordinator.status == .notShared)
+        #expect(coordinator.failureCode == nil)
+    }
+
     @Test func aFullICloudHasItsOwnStatusAndVerificationIsRetryable() async {
         let sharing = FakePartnerSharing()
         let coordinator = PartnerShareCoordinator(sharing: sharing)
