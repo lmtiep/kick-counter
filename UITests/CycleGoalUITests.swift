@@ -98,9 +98,13 @@ final class CycleGoalUITests: XCTestCase {
         let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile", cycleGoal: "tracking", contraception: "copperIUD")
         app.openCycleTab(.calendar)
         XCTAssertTrue(app.staticTexts["calendarMonthTitle"].waitForExistence(timeout: 10))
-        let day = app.buttons.matching(NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH %@", "October 10,")).firstMatch
+        // An ordinary day's label is the bare date ("October 10"); a status or a log
+        // follows a comma. Match both, so the query never depends on there being one.
+        let day = app.buttons.matching(NSPredicate(
+            format: "identifier == 'calendarDay' AND (label == %@ OR label BEGINSWITH %@)", "October 10", "October 10,"
+        )).firstMatch
         XCTAssertTrue(day.waitForExistence(timeout: 5))
-        XCTAssertFalse(day.label.contains("chance"), day.label)
+        XCTAssertEqual(day.label, "October 10") // no status at all, never "Low chance"
         day.tap()
         let selected = app.descendants(matching: .any)["calendarSelectedDay"]
         waitForLabel(selected, containing: "Oct 10")
