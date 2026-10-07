@@ -707,4 +707,14 @@ enum L10n {
     static var cycleWithdrawalBleed: String { t("cycle.withdrawalBleed") }
     static var cycleNotContraception: String { t("cycle.notContraception") }
     static var cycleHormonalNote: String { t("cycle.hormonalNote") }
+
+    // MARK: - Phase 9: Profile
+
+    static var profileGoal: String { t("profile.goal") }
+    static var modeTracking: String { t("mode.tracking") }
+    static var modePregnantShort: String { t("mode.pregnant.short") }
+    static var profileContraception: String { t("profile.contraception") }
+    static var profileContraceptionNotSet: String { t("profile.contraception.notSet") }
+    static var profileShowFertilityTests: String { t("profile.showFertilityTests") }
+    static var profileShowFertilityTestsHint: String { t("profile.showFertilityTests.hint") }
 }

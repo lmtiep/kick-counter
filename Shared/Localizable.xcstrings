@@ -4166,6 +4166,40 @@
         }
       }
     },
+    "mode.pregnant.short": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnant"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mang thai"
+          }
+        }
+      }
+    },
+    "mode.tracking": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Track cycle"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Theo dõi chu kỳ"
+          }
+        }
+      }
+    },
     "mode.tryingToConceive": {
       "extractionState": "manual",
       "localizations": {
@@ -6461,6 +6495,40 @@
         }
       }
     },
+    "profile.contraception": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraception"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biện pháp tránh thai"
+          }
+        }
+      }
+    },
+    "profile.contraception.notSet": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not set"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa chọn"
+          }
+        }
+      }
+    },
     "profile.endPregnancy": {
       "extractionState": "manual",
       "localizations": {
@@ -6491,6 +6559,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Phông chữ: Be Vietnam Pro (giấy phép SIL OFL)"
+          }
+        }
+      }
+    },
+    "profile.goal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goal"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mục tiêu"
           }
         }
       }
@@ -6610,6 +6695,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xem lại phần giới thiệu"
+          }
+        }
+      }
+    },
+    "profile.showFertilityTests": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show ovulation tests & temperature"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện que thử rụng trứng & nhiệt độ"
+          }
+        }
+      }
+    },
+    "profile.showFertilityTests.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adds the LH test and basal body temperature to the day log."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm que thử rụng trứng (LH) và nhiệt độ cơ thể cơ bản vào phần ghi hằng ngày."
           }
         }
       }

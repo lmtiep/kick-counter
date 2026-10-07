@@ -2,7 +2,15 @@ import KickCore
 import OSLog
 import SwiftUI
 
-/// The Profile tab (spec §4.8), replacing Settings: language, mode (and ending
+/// The three choices of Profile's goal picker (phase 9 spec §4.3): the two
+/// cycle goals and pregnancy, as in onboarding.
+enum ProfileModeChoice: Hashable {
+    case tracking
+    case conceiving
+    case pregnant
+}
+
+/// The Profile tab (spec §4.8), replacing Settings: language, goal (and ending
 /// the pregnancy), pregnancy dates or cycle numbers, kick reminder, check-ups,
 /// permissions, medical information, replaying the introduction, version.
 struct ProfileView: View {
@@ -136,17 +144,23 @@ struct ProfileView: View {
         .accessibilityAddTraits(.isHeader)
     }
 
+    /// "Goal": track my cycle · trying to conceive · pregnant (phase 9).
     private var modeCard: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
-                Text(L10n.settingsModeSection)
+                Text(L10n.profileGoal)
                     .font(.luna(.bodyStrong))
                     .foregroundStyle(.luna(.textPrimary))
-                Picker(L10n.settingsModeSection, selection: modeBinding) {
-                    Text(L10n.modeTryingToConceive).tag(AppMode.tryingToConceive)
-                    Text(L10n.modePregnant).tag(AppMode.pregnant)
+                Picker(L10n.profileGoal, selection: modeBinding) {
+                    Text(L10n.modeTracking).tag(ProfileModeChoice.tracking)
+                    Text(L10n.modeTryingToConceive).tag(ProfileModeChoice.conceiving)
+                    Text(L10n.modePregnantShort).tag(ProfileModeChoice.pregnant)
                 }
                 .pickerStyle(.segmented)
+                // Shrinks the Vietnamese labels instead of truncating them at
+                // the largest Dynamic Type sizes (AX5).
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
                 .accessibilityIdentifier("settingsModePicker")
             }
             .padding(18)
@@ -243,10 +257,38 @@ struct ProfileView: View {
             }
             .font(.luna(.caption))
             .foregroundStyle(.luna(.textSecondary))
+            if cycle.preferences.goal == .tracking {
+                trackingRows
+            }
         }
         .font(.luna(.body))
         .foregroundStyle(.luna(.textPrimary))
         .lunaCard()
+    }
+
+    /// Tracking only (phase 9 spec §4.3): the contraception and the LH/BBT override.
+    @ViewBuilder
+    private var trackingRows: some View {
+        LunaDivider()
+        HStack(spacing: 8) {
+            Text(L10n.profileContraception)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Picker(L10n.profileContraception, selection: contraceptionBinding) {
+                Text(L10n.profileContraceptionNotSet).tag(Contraception?.none)
+                ForEach(Contraception.allCases, id: \.self) { value in
+                    Text(L10n.contraception(value)).tag(Contraception?.some(value))
+                }
+            }
+            .pickerStyle(.menu)
+            .tint(.luna(.cycleOnSoft))
+            .accessibilityIdentifier("profileContraception")
+        }
+        Toggle(L10n.profileShowFertilityTests, isOn: fertilityTestsBinding)
+            .tint(.luna(.cycleStrong))
+            .accessibilityIdentifier("profileShowFertilityTests")
+        Text(L10n.profileShowFertilityTestsHint)
+            .font(.luna(.caption))
+            .foregroundStyle(.luna(.textSecondary))
     }
 
     @ViewBuilder
@@ -302,25 +344,51 @@ struct ProfileView: View {
 
     // MARK: - Bindings
 
-    /// Switching to "Trying to conceive" is immediate; switching to "Pregnant"
-    /// goes through the "I'm pregnant" sheet so the due date is set.
-    private var modeBinding: Binding<AppMode> {
+    /// Both cycle choices are immediate and take the same path,
+    /// `activateCycleMode(goal:)`: from pregnancy it switches the mode, which
+    /// makes RootView stop partner sharing. "Pregnant" goes through the
+    /// "I'm pregnant" sheet so the due date is set.
+    private var modeBinding: Binding<ProfileModeChoice> {
         Binding(
-            get: { mode },
-            set: { newMode in
-                guard newMode != mode else { return }
-                switch newMode {
-                case .tryingToConceive:
+            get: {
+                guard mode == .tryingToConceive else { return .pregnant }
+                return cycle.preferences.goal == .tracking ? .tracking : .conceiving
+            },
+            set: { choice in
+                switch choice {
+                case .tracking, .conceiving:
+                    let goal: CycleGoal = choice == .tracking ? .tracking : .conceiving
+                    guard mode != .tryingToConceive || goal != cycle.preferences.goal else { return }
                     Task {
-                        await cycle.activateTryingToConceive()
+                        await cycle.activateCycleMode(goal: goal)
                         await refreshPermissions()
                     }
                 case .pregnant:
+                    guard mode != .pregnant else { return }
                     showingImPregnant = true
-                case .partner:
-                    // The picker offers only the two modes of the mother.
-                    break
                 }
+            }
+        )
+    }
+
+    private var contraceptionBinding: Binding<Contraception?> {
+        Binding(
+            get: { cycle.preferences.contraception },
+            set: { value in
+                var preferences = cycle.preferences
+                preferences.contraception = value
+                Task { await cycle.updatePreferences(preferences) }
+            }
+        )
+    }
+
+    private var fertilityTestsBinding: Binding<Bool> {
+        Binding(
+            get: { cycle.preferences.showsFertilityTests },
+            set: { shows in
+                var preferences = cycle.preferences
+                preferences.showsFertilityTests = shows
+                Task { await cycle.updatePreferences(preferences) }
             }
         )
     }
