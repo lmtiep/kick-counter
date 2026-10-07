@@ -327,11 +327,13 @@ struct ComingUpCard: View {
 
     private func note(_ text: String, color: LunaToken, symbol: String? = nil) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
-            if let symbol { Image(systemName: symbol) }
+            if let symbol { Image(systemName: symbol).accessibilityHidden(true) }
             Text(text)
         }
         .font(.luna(.label))
         .foregroundStyle(.luna(color))
+        // One VoiceOver stop, like `goalNote` (the low-confidence warning stands alone).
+        .accessibilityElement(children: .combine)
     }
 
     private func stat(_ value: String, _ label: String) -> some View {
