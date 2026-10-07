@@ -11,6 +11,8 @@ import Foundation
 /// - `-seedWeights` stores `WeightSeed`'s pre-pregnancy weight, height and weights.
 /// - `-uiTestingSharing <state>` shares through `FakePartnerSharing` in that mother state.
 /// - `-uiTestingPartner <state>` starts in partner mode with `FakePartnerSharing` in that partner state.
+/// - `-seedCycleGoal <goal>` stores that `CycleGoal` (`tracking`, `conceiving`).
+/// - `-seedContraception <method>` stores that `Contraception` (e.g. `pill`, `condom`).
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -21,6 +23,8 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedWeights: Bool
     public let sharing: FakePartnerSharing.MotherState?
     public let partner: FakePartnerSharing.PartnerState?
+    public let seedCycleGoal: CycleGoal?
+    public let seedContraception: Contraception?
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -35,6 +39,10 @@ public struct UITestLaunchOptions: Equatable, Sendable {
             : nil
         partner = isUITesting
             ? Self.value(after: "-uiTestingPartner", in: arguments).flatMap(FakePartnerSharing.PartnerState.init(rawValue:))
+            : nil
+        seedCycleGoal = isUITesting ? Self.value(after: "-seedCycleGoal", in: arguments).flatMap(CycleGoal.init(rawValue:)) : nil
+        seedContraception = isUITesting
+            ? Self.value(after: "-seedContraception", in: arguments).flatMap(Contraception.init(rawValue:))
             : nil
     }
 

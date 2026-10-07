@@ -22,6 +22,13 @@ struct CycleRingTests {
         #expect(segments == expected.map { CycleRingSegment(kind: $0.0, start: Double($0.1) / 28, end: Double($0.2) / 28) })
     }
 
+    /// Phase 9: hormonal contraception hides the fertile window on the ring too.
+    @Test func aHiddenFertileWindowLeavesOnlyPeriodAndBase() throws {
+        let policy = CycleDisplayPolicy(goal: .tracking, contraception: .pill)
+        let segments = CycleRingGeometry.segments(for: try forecast(on: "2026-09-05"), policy: policy, calendar: utcCalendar)
+        #expect(segments == [CycleRingSegment(kind: .period, start: 0, end: 5.0 / 28), CycleRingSegment(kind: .base, start: 5.0 / 28, end: 1)])
+    }
+
     @Test func segmentsCoverTheWholeRing() throws {
         let segments = CycleRingGeometry.segments(for: try forecast(on: "2026-09-20"), calendar: utcCalendar)
         #expect(segments.first?.start == 0)

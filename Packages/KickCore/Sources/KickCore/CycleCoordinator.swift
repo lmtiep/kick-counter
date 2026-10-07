@@ -39,6 +39,8 @@ public final class CycleCoordinator {
     public private(set) var logs: [CycleLogRecord] = []
     public private(set) var forecast: CycleForecast?
     public private(set) var settings: CycleSettings
+    /// The goal, contraception, regularity and LH/BBT override (phase 9).
+    public private(set) var preferences: CyclePreferences
     /// Store errors for the screen to show; validation errors are only returned.
     public private(set) var failure: CycleFailure?
     /// True when the user has turned notifications off; the UI shows a hint.
@@ -70,9 +72,13 @@ public final class CycleCoordinator {
         self.calendar = calendar
         self.now = now
         settings = CycleSettings.load(from: defaults)
+        preferences = CyclePreferences.load(from: defaults)
     }
 
     public var mode: AppMode { AppMode.load(from: defaults) }
+
+    /// What the cycle screens show for the current goal and contraception.
+    public var policy: CycleDisplayPolicy { CycleDisplayPolicy(preferences) }
 
     /// The log for that calendar day, if any.
     public func log(on day: Date) -> CycleLogRecord? {
@@ -195,6 +201,63 @@ public final class CycleCoordinator {
         await syncReminders(generation: bump(), mayPrompt: true)
     }
 
+    /// Profile changed the goal, contraception or the LH/BBT override: the
+    /// reminders follow the new goal. Never prompts for permission.
+    public func updatePreferences(_ newPreferences: CyclePreferences) async {
+        newPreferences.save(to: defaults)
+        preferences = CyclePreferences.load(from: defaults)
+        await syncReminders(generation: bump(), mayPrompt: false)
+    }
+
+    /// Profile's mode picker chose "Track my cycle" or "Trying to conceive":
+    /// stores the goal, then switches to the cycle mode like
+    /// `activateTryingToConceive()` (from pregnancy, RootView then stops partner sharing).
+    public func activateCycleMode(goal: CycleGoal) async {
+        var updated = CyclePreferences.load(from: defaults)
+        updated.goal = goal
+        updated.save(to: defaults)
+        await activateTryingToConceive()
+    }
+
+    /// Finishing onboarding on a cycle branch (phase 9 spec §3.2): stores the
+    /// lengths, goal, regularity and contraception, switches to the cycle mode
+    /// and, when given, the last period (assumed `settings.typicalPeriodLength`
+    /// long). Asks for notifications only when `requestNotifications` ("Turn on
+    /// reminders"); "Later" never prompts. Returns a failed period save.
+    @discardableResult
+    public func completeOnboarding(
+        goal: CycleGoal,
+        settings newSettings: CycleSettings,
+        firstPeriodStart: Date?,
+        regularity: CycleRegularity,
+        contraception: Contraception?,
+        requestNotifications: Bool
+    ) async -> CycleFailure? {
+        newSettings.save(to: defaults)
+        settings = CycleSettings.load(from: defaults)
+        var updated = CyclePreferences.load(from: defaults)
+        updated.goal = goal
+        updated.regularity = regularity
+        updated.contraception = contraception
+        updated.save(to: defaults)
+        AppMode.save(.tryingToConceive, to: defaults)
+        var failure: CycleFailure?
+        if let firstPeriodStart {
+            let record = CycleRules.assumedPeriod(
+                startingOn: firstPeriodStart, typicalLength: settings.typicalPeriodLength, today: now(), calendar: calendar
+            )
+            do {
+                try store.addPeriod(record, today: now())
+            } catch {
+                logger.error("Saving the onboarding period failed: \(error.localizedDescription)")
+                failure = report(CycleFailure(error))
+            }
+        }
+        guard refresh() else { return failure }
+        await syncReminders(generation: bump(), mayPrompt: requestNotifications)
+        return failure
+    }
+
     /// "I'm pregnant": stores the pregnancy dates (usually the first day of the
     /// latest period), switches to pregnancy mode and cancels cycle reminders.
     /// Cycle data is kept.
@@ -267,7 +330,9 @@ public final class CycleCoordinator {
             return
         }
         do {
-            try await notifications.scheduleCycleReminders(for: forecast, now: now(), texts: reminderTexts, calendar: calendar)
+            try await notifications.scheduleCycleReminders(
+                for: forecast, now: now(), texts: reminderTexts, kinds: policy.reminderKinds, calendar: calendar
+            )
         } catch {
             logger.error("Scheduling cycle reminders failed: \(error.localizedDescription)")
             // Requests that landed before the failure may be stale by now.
@@ -293,6 +358,7 @@ public final class CycleCoordinator {
     @discardableResult
     private func refresh() -> Bool {
         settings = CycleSettings.load(from: defaults)
+        preferences = CyclePreferences.load(from: defaults)
         let loadedPeriods: [PeriodRecord]
         let loadedLogs: [CycleLogRecord]
         do {

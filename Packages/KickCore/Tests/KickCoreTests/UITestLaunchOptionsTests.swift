@@ -72,3 +72,17 @@ struct UITestPartnerOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingPartner"]).partner == nil)
     }
 }
+
+struct UITestCycleGoalOptionTests {
+    @Test func parsesTheGoalAndContraceptionWhenUITesting() {
+        let options = UITestLaunchOptions(arguments: ["-uiTesting", "-seedCycleGoal", "tracking", "-seedContraception", "pill"])
+        #expect(options.seedCycleGoal == .tracking)
+        #expect(options.seedContraception == .pill)
+    }
+
+    @Test func ignoresThemWithoutUITestingOrWhenUnknown() {
+        #expect(UITestLaunchOptions(arguments: ["-seedCycleGoal", "tracking"]).seedCycleGoal == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedCycleGoal", "avoiding"]).seedCycleGoal == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedContraception", "patch"]).seedContraception == nil)
+    }
+}

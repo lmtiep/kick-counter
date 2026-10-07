@@ -39,6 +39,13 @@ struct AppEnvironment {
             if AppClock.launchOptions.seedCycles != nil {
                 AppMode.save(.tryingToConceive, to: AppGroup.defaults)
             }
+            // Phase 9: `-seedCycleGoal` / `-seedContraception`; neither means a
+            // user from before phase 9 (conceiving, not asked).
+            let options = AppClock.launchOptions
+            if options.seedCycleGoal != nil || options.seedContraception != nil {
+                CyclePreferences(goal: options.seedCycleGoal ?? .conceiving, contraception: options.seedContraception)
+                    .save(to: AppGroup.defaults)
+            }
             if AppClock.launchOptions.partner != nil {
                 AppMode.enterPartner(in: AppGroup.defaults)
             }
