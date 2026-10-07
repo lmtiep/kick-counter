@@ -4,15 +4,8 @@ import Testing
 
 /// Phase 7 spec §3.5: the knowledge articles in the shipped `knowledge-content.json`.
 struct BundledKnowledgeTests {
-    /// Articles that must already be written. Each task widens it:
-    /// [] (Task 1) → safe-exercise (Task 2) → + nutrition and movement (Task 3)
-    /// → + sleep and feelings (Task 4) → KnowledgeChecks.articleIDs (Task 5).
-    static let requiredArticleIDs: Set<String> = [
-        "nutrition-first-trimester", "food-safety", "iron-calcium-balanced-meals",
-        "safe-exercise", "gentle-exercise-second-trimester", "pelvic-floor-posture",
-        "first-trimester-tiredness", "sleep-positions", "sleeping-well-late-pregnancy",
-        "early-pregnancy-worries", "changing-body-feelings", "preparing-for-motherhood",
-    ]
+    /// Every article of spec §3.1 must be written (spec §3.5); trimester coverage is checked too.
+    static let requiredArticleIDs: Set<String> = KnowledgeChecks.articleIDs
 
     let library: KnowledgeLibrary
 

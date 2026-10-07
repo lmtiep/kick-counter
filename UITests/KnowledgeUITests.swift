@@ -67,8 +67,7 @@ final class KnowledgeUITests: XCTestCase {
         let selected = XCTNSPredicateExpectation(predicate: NSPredicate(format: "selected == true"), object: third)
         XCTAssertEqual(XCTWaiter().wait(for: [selected], timeout: 5), .completed)
         XCTAssertFalse(second.isSelected)
-        // Task 5 checks signs-of-labour here; until then safe-exercise is the trimester-3 article.
-        let row = app.buttons["knowledgeArticle-safe-exercise"]
+        let row = app.buttons["knowledgeArticle-signs-of-labour"]
         app.scrollUntilHittable(row)
         XCTAssertTrue(row.isHittable)
         row.tap()
