@@ -192,9 +192,19 @@ actor CloudPartnerSharing: PartnerSharing {
 
     /// The zone-wide share of `PartnerShare`, or nil when there is none.
     private func fetchShare() async throws -> CKShare? {
+        let database = container.privateCloudDatabase
+        // Asking for the zone-wide share of a zone that does not exist yet is
+        // rejected as invalid arguments (code 12), not "zone not found", so
+        // look for the zone first: no zone means nothing is shared.
+        do {
+            _ = try await database.recordZone(for: zoneID)
+        } catch {
+            if Self.isMissing(error) { return nil }
+            throw error
+        }
         let shareID = CKRecord.ID(recordName: CKRecordNameZoneWideShare, zoneID: zoneID)
         do {
-            return try await container.privateCloudDatabase.record(for: shareID) as? CKShare
+            return try await database.record(for: shareID) as? CKShare
         } catch {
             if Self.isMissing(error) { return nil }
             throw error
