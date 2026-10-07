@@ -247,7 +247,7 @@ struct CycleLegend: View {
                 Circle().strokeBorder(.luna(.cycle), style: StrokeStyle(lineWidth: 1.5, dash: [3, 2]))
             }
             if policy.showsFertileWindow {
-                item(policy.fertileLabel == .highPregnancyChance ? L10n.cycleHighPregnancyChance : L10n.calendarLegendFertile) {
+                item(CycleTexts.fertileTitle(policy)) {
                     Circle().fill(.luna(.fertileSoft))
                 }
             }

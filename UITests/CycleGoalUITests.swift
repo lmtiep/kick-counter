@@ -30,7 +30,7 @@ final class CycleGoalUITests: XCTestCase {
         app.scrollUntilHittable(fertile)
         XCTAssertTrue(fertile.label.contains("Fertile window"), fertile.label)
         XCTAssertFalse(app.staticTexts["cycleNotContraceptionNote"].exists)
-        app.swipeDown()
+        app.scrollDownUntilHittable(app.buttons["cycleLogTodayButton"])
         openTodaysLog(app)
         XCTAssertTrue(app.segmentedControls["dayLogLHPicker"].exists)
     }
@@ -51,7 +51,7 @@ final class CycleGoalUITests: XCTestCase {
         XCTAssertTrue(note.exists)
         XCTAssertTrue(note.label.contains("not a method of contraception"), note.label)
 
-        for _ in 0..<3 { app.swipeDown() }
+        app.scrollDownUntilHittable(app.buttons["cycleLogTodayButton"])
         openTodaysLog(app)
         XCTAssertFalse(app.segmentedControls["dayLogLHPicker"].exists)
         XCTAssertFalse(app.textFields["dayLogBBTField"].exists)

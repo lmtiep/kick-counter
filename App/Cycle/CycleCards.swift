@@ -62,10 +62,11 @@ enum CycleTexts {
     }
 
     /// What VoiceOver says about today in the ring: the trying-to-conceive
-    /// wording, or `status(_:policy:)`'s while tracking.
+    /// wording, or `status(_:policy:)`'s while tracking — "menstruating" only
+    /// on a logged period day, never on a predicted (or expected) bleed.
     static func spokenStatus(_ status: CycleDayStatus, policy: CycleDisplayPolicy) -> String? {
         if policy.headline == .fertility { return L10n.cycleStatus(status) }
-        if case .period = status { return L10n.cycleStatus(status) }
+        if case .period(isPredicted: false) = status { return L10n.cycleStatus(status) }
         return Self.status(status, policy: policy)
     }
 
@@ -235,7 +236,11 @@ struct ComingUpCard: View {
                     .accessibilityLabel(fertileSpoken)
                     .accessibilityIdentifier("cycleFertileCard")
             }
-            if policy.showsNotContraceptionNote {
+            if forecast.daysLate <= 0, forecast.confidence == .low {
+                note(lowConfidence, color: .warningText, symbol: "exclamationmark.circle")
+            }
+            // Beside the fertile rows only: while late `cycleDisclaimer` covers it.
+            if forecast.daysLate <= 0, policy.showsNotContraceptionNote {
                 goalNote(L10n.cycleNotContraception, identifier: "cycleNotContraceptionNote")
             }
             if !policy.showsFertileWindow {
@@ -283,9 +288,6 @@ struct ComingUpCard: View {
             } else if forecast.ovulationSource == .lhTest {
                 note(L10n.cycleOvulationLH, color: .textSecondary)
             }
-            if forecast.confidence == .low {
-                note(lowConfidence, color: .warningText, symbol: "exclamationmark.circle")
-            }
         }
     }
 
@@ -299,7 +301,6 @@ struct ComingUpCard: View {
             CycleTexts.ovulation(forecast, format: Formatting.spokenDay),
         ]
         if forecast.ovulationSource == .lhTest { parts.append(L10n.cycleOvulationLH) }
-        if forecast.confidence == .low { parts.append(lowConfidence) }
         return parts.joined(separator: ". ")
     }
 
