@@ -46,13 +46,48 @@ enum CycleTexts {
         }
     }
 
-    /// The status of a day in words (calendar card, phase pill).
-    static func status(_ status: CycleDayStatus) -> String {
-        switch status {
-        case .period(isPredicted: false): L10n.calendarLegendPeriod
-        case .period(isPredicted: true): L10n.calendarLegendPredicted
-        default: L10n.cycleStatus(status)
+    /// The status of a day in words (calendar card, phase pill), as `policy`
+    /// shows it. nil for an ordinary day while tracking: tracking never says
+    /// "Low chance of conceiving" (phase 9 spec §3.1).
+    static func status(_ status: CycleDayStatus, policy: CycleDisplayPolicy = .conceiving) -> String? {
+        let visible = policy.visibleStatus(status)
+        switch visible {
+        case .period(isPredicted: false): return L10n.calendarLegendPeriod
+        case .period(isPredicted: true): return predictedBleed(policy)
+        case .fertile, .peak:
+            return policy.fertileLabel == .highPregnancyChance ? L10n.cycleHighPregnancyChance : L10n.cycleStatus(visible)
+        case .low:
+            return policy.headline == .nextPeriod ? nil : L10n.cycleStatus(visible)
         }
+    }
+
+    /// What VoiceOver says about today in the ring: the trying-to-conceive
+    /// wording, or `status(_:policy:)`'s while tracking.
+    static func spokenStatus(_ status: CycleDayStatus, policy: CycleDisplayPolicy) -> String? {
+        if policy.headline == .fertility { return L10n.cycleStatus(status) }
+        if case .period = status { return L10n.cycleStatus(status) }
+        return Self.status(status, policy: policy)
+    }
+
+    /// "Day 13 · High chance of pregnancy", or "Day 13 of your cycle" when the
+    /// day has no status to show.
+    static func phase(day: Int, status: CycleDayStatus, policy: CycleDisplayPolicy) -> String {
+        Self.status(status, policy: policy).map { L10n.cyclePhase(day, $0) } ?? L10n.cycleDay(day)
+    }
+
+    /// "Next period", or "Expected bleed" on hormonal contraception.
+    static func nextBleedTitle(_ policy: CycleDisplayPolicy) -> String {
+        policy.predictedBleedLabel == .withdrawalBleed ? L10n.cycleWithdrawalBleed : L10n.cycleNextPeriodTitle
+    }
+
+    /// "Predicted period", or "Expected bleed" on hormonal contraception.
+    static func predictedBleed(_ policy: CycleDisplayPolicy) -> String {
+        policy.predictedBleedLabel == .withdrawalBleed ? L10n.cycleWithdrawalBleed : L10n.calendarLegendPredicted
+    }
+
+    /// "Fertile window" while trying to conceive, "High chance of pregnancy" while tracking.
+    static func fertileTitle(_ policy: CycleDisplayPolicy) -> String {
+        policy.fertileLabel == .highPregnancyChance ? L10n.cycleHighPregnancyChance : L10n.cycleFertileTitle
     }
 }
 
@@ -66,6 +101,7 @@ enum CycleTexts {
 /// the ringed ovulation dot in "Coming up".
 struct CycleRingView<Center: View>: View {
     let forecast: CycleForecast
+    var policy: CycleDisplayPolicy = .conceiving
     @ViewBuilder var center: Center
 
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -78,7 +114,7 @@ struct CycleRingView<Center: View>: View {
     var body: some View {
         ZStack {
             ZStack {
-                let segments = CycleRingGeometry.segments(for: forecast)
+                let segments = CycleRingGeometry.segments(for: forecast, policy: policy)
                 // Half the gap, as a fraction of the ring's centre line.
                 let inset = segments.count > 1 ? Double(gap / (.pi * (diameter - thickness))) / 2 : 0
                 ForEach(Array(segments.enumerated()), id: \.offset) { _, segment in
@@ -130,6 +166,7 @@ struct CycleRingView<Center: View>: View {
 /// coloured by status. Each day is a button that opens its log.
 struct CycleWeekStrip: View {
     let forecast: CycleForecast?
+    var policy: CycleDisplayPolicy = .conceiving
     let today: Date
     let log: (Date) -> CycleLogRecord?
     let onSelect: (Date) -> Void
@@ -137,7 +174,7 @@ struct CycleWeekStrip: View {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(WeekStrip.days(endingAt: today, calendar: AppLocale.calendar)) { day in
-                let status = forecast?.dayStatus(for: day.date)
+                let status = forecast.map { policy.visibleStatus($0.dayStatus(for: day.date)) }
                 Button {
                     onSelect(day.date)
                 } label: {
@@ -159,7 +196,9 @@ struct CycleWeekStrip: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(CycleAccessibility.dayLabel(day: day.date, status: status, log: log(day.date), isToday: day.isToday))
+                .accessibilityLabel(CycleAccessibility.dayLabel(
+                    day: day.date, status: status, log: log(day.date), isToday: day.isToday, policy: policy
+                ))
                 .accessibilityIdentifier("stripDay")
             }
         }
@@ -172,9 +211,12 @@ struct CycleWeekStrip: View {
 
 /// "Coming up" (spec §4.2): next period; fertile window and ovulation while not
 /// late; average cycle length, typical period length, and regular / not yet.
+/// Phase 9: `policy` names the window, adds the "not contraception" note while
+/// tracking, and hides the window on hormonal contraception (with its note).
 struct ComingUpCard: View {
     let forecast: CycleForecast
     let typicalPeriodLength: Int
+    var policy: CycleDisplayPolicy = .conceiving
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -182,16 +224,22 @@ struct ComingUpCard: View {
                 .font(.luna(.cardTitleSmall))
                 .foregroundStyle(.luna(.textPrimary))
                 .accessibilityAddTraits(.isHeader)
-            row(dot: .cycle, title: L10n.cycleNextPeriodTitle, value: nextPeriodValue)
+            row(dot: .cycle, title: CycleTexts.nextBleedTitle(policy), value: nextPeriodValue)
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(L10n.cycleNextPeriodTitle + ": " + CycleTexts.nextPeriod(forecast, format: Formatting.spokenDay))
+                .accessibilityLabel(CycleTexts.nextBleedTitle(policy) + ": " + CycleTexts.nextPeriod(forecast, format: Formatting.spokenDay))
                 .accessibilityIdentifier("cycleNextPeriodCard")
             // While late the window has passed; showing it beside "late" confuses.
-            if forecast.daysLate <= 0 {
+            if forecast.daysLate <= 0, policy.showsFertileWindow {
                 fertileRows
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(fertileSpoken)
                     .accessibilityIdentifier("cycleFertileCard")
+            }
+            if policy.showsNotContraceptionNote {
+                goalNote(L10n.cycleNotContraception, identifier: "cycleNotContraceptionNote")
+            }
+            if !policy.showsFertileWindow {
+                goalNote(L10n.cycleHormonalNote, identifier: "cycleHormonalNote")
             }
             LunaDivider()
             HStack(alignment: .top, spacing: 8) {
@@ -208,9 +256,27 @@ struct ComingUpCard: View {
         forecast.daysLate > 0 ? L10n.cycleNextPeriodLate(forecast.daysLate) : Formatting.shortDay(forecast.nextPeriodStart)
     }
 
+    /// A quiet, multi-sentence aside under the rows: the icon sits on the first
+    /// line's baseline, and the text gets a little extra leading so the
+    /// paragraph stays readable in Vietnamese and at the largest sizes.
+    private func goalNote(_ text: String, identifier: String) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 6) {
+            Image(systemName: "info.circle")
+                .accessibilityHidden(true)
+            Text(text)
+                .lineSpacing(3)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier(identifier)
+        }
+        .font(.luna(.label))
+        .foregroundStyle(.luna(.textSecondary))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, 2)
+    }
+
     private var fertileRows: some View {
         VStack(alignment: .leading, spacing: 10) {
-            row(dot: .fertile, title: L10n.cycleFertileTitle, value: CycleTexts.fertileRange(forecast, format: Formatting.shortDay))
+            row(dot: .fertile, title: CycleTexts.fertileTitle(policy), value: CycleTexts.fertileRange(forecast, format: Formatting.shortDay))
             row(dot: .teal, ringed: true, title: L10n.cycleOvulationTitle, value: Formatting.shortDay(forecast.ovulationDate))
             if forecast.ovulationConfirmed {
                 note(L10n.cycleOvulationConfirmedNote, color: .tealStrong)
@@ -229,7 +295,7 @@ struct ComingUpCard: View {
 
     private var fertileSpoken: String {
         var parts = [
-            L10n.cycleFertileTitle + ": " + CycleTexts.fertileRange(forecast, format: Formatting.spokenDay),
+            CycleTexts.fertileTitle(policy) + ": " + CycleTexts.fertileRange(forecast, format: Formatting.spokenDay),
             CycleTexts.ovulation(forecast, format: Formatting.spokenDay),
         ]
         if forecast.ovulationSource == .lhTest { parts.append(L10n.cycleOvulationLH) }

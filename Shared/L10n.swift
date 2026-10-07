@@ -698,4 +698,13 @@ enum L10n {
     static var onboardingResultNoDueDate: String { t("onboarding.result.noDueDate") }
     static var onboardingResultReminders: String { t("onboarding.result.reminders") }
     static var onboardingEnableReminders: String { t("onboarding.enableReminders") }
+
+    // MARK: - Phase 9: cycle screens by goal
+
+    /// The fertile window while tracking (title, legend and status).
+    static var cycleHighPregnancyChance: String { t("cycle.highPregnancyChance") }
+    /// The predicted bleed on hormonal contraception.
+    static var cycleWithdrawalBleed: String { t("cycle.withdrawalBleed") }
+    static var cycleNotContraception: String { t("cycle.notContraception") }
+    static var cycleHormonalNote: String { t("cycle.hormonalNote") }
 }

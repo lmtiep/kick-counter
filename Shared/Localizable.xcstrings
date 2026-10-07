@@ -1599,6 +1599,40 @@
         }
       }
     },
+    "cycle.highPregnancyChance": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High chance of pregnancy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khả năng thụ thai cao"
+          }
+        }
+      }
+    },
+    "cycle.hormonalNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hormonal contraception usually stops ovulation, so Luna Mom doesn't show fertile days. Bleeding on the pill, implant, injection or hormonal IUD can differ from a natural period, so the expected date is only a rough guide."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biện pháp tránh thai có nội tiết thường làm ngừng rụng trứng, nên Luna Mom không hiện những ngày dễ thụ thai. Khi dùng thuốc, que cấy, thuốc tiêm hoặc vòng nội tiết, lần ra máu có thể khác kỳ kinh tự nhiên, nên ngày dự kiến chỉ để tham khảo."
+          }
+        }
+      }
+    },
     "cycle.imPregnant": {
       "extractionState": "manual",
       "localizations": {
@@ -1918,6 +1952,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ (ngày mai)"
+          }
+        }
+      }
+    },
+    "cycle.notContraception": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "These are the days when pregnancy is most likely. Predictions are only estimates and are not a method of contraception: if you want to avoid pregnancy, use a reliable method every time."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đây là những ngày dễ có thai nhất. Dự đoán chỉ là ước tính, không phải biện pháp tránh thai: nếu chưa muốn có thai, bạn hãy dùng một biện pháp tránh thai đáng tin cậy mỗi lần."
           }
         }
       }
@@ -2462,6 +2513,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đã xóa ngày bắt đầu kỳ kinh"
+          }
+        }
+      }
+    },
+    "cycle.withdrawalBleed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected bleed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chảy máu dự kiến"
           }
         }
       }

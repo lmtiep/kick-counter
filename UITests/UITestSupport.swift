@@ -27,7 +27,9 @@ extension XCUIApplication {
     /// Launches with onboarding skipped and the clock pinned to `UITestDates.fixedNow`,
     /// optionally with a stored due date, or — with `seedCycles` (a `CycleSeedScenario`
     /// name: empty, period, fertile, late, irregular) — in trying-to-conceive mode with
-    /// sample cycles. `largestText` uses Dynamic Type AX5; `extraArguments` adds
+    /// sample cycles, and `cycleGoal` / `contraception` (phase 9: `CycleGoal` and
+    /// `Contraception` raw values; none means a user from before phase 9, i.e.
+    /// trying to conceive). `largestText` uses Dynamic Type AX5; `extraArguments` adds
     /// more test-only flags (`-seedSessions`, `-seedOverdueSession`). Only the
     /// pregnancy, appointment, cycle and history screens use the pinned clock;
     /// counting kicks uses real time.
@@ -37,6 +39,8 @@ extension XCUIApplication {
         dark: Bool = false,
         dueDate: String? = nil,
         seedCycles: String? = nil,
+        cycleGoal: String? = nil,
+        contraception: String? = nil,
         skipOnboarding: Bool = true,
         largestText: Bool = false,
         extraArguments: [String] = []
@@ -49,6 +53,8 @@ extension XCUIApplication {
         ]
         if let dueDate { app.launchArguments += ["-seedDueDate", dueDate] }
         if let seedCycles { app.launchArguments += ["-seedCycles", seedCycles] }
+        if let cycleGoal { app.launchArguments += ["-seedCycleGoal", cycleGoal] }
+        if let contraception { app.launchArguments += ["-seedContraception", contraception] }
         if dark { app.launchArguments.append("-forceDarkMode") }
         if largestText {
             app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
