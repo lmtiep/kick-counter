@@ -567,3 +567,44 @@ vi/en, nằm trong `Packages/KickCore/Sources/KickCore/Resources/knowledge-conte
 52. [ ] **Ghi chú:** bài `sleep-positions` dẫn sang bài khác bằng tên bài: "Sleeping well in late pregnancy" /
         "Ngủ ngon hơn ở những tháng cuối". Nếu đổi tên bài `sleeping-well-late-pregnancy`, cần sửa câu dẫn này
         theo cho khớp.
+
+## 11. Mục tiêu "Theo dõi chu kỳ" và phần giới thiệu mới (giai đoạn 9)
+
+Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ liệu và dự đoán giống hệt chế độ "Mong con"
+(quy tắc ở mục 6 không đổi); chỉ cách trình bày khác. Các chuỗi dưới đây nằm trong `Shared/Localizable.xcstrings`
+(không có cờ `reviewed`), nên **phải được duyệt trước khi gửi App Store**. Xem câu chữ thật trên ảnh chụp
+`onboarding-regularity-*`, `onboarding-contraception-*`, `onboarding-cycle-length-*`, `cycle-tracking-coming-up-*`,
+`cycle-pill-*` và `profile-tracking-rows-*` trong `ci-artifacts/screenshots/` của lần CI gần nhất.
+
+| Khóa | Nội dung (vi) cần duyệt |
+|---|---|
+| `contraception.none`, `.condom`, `.pill`, `.implantOrInjection`, `.hormonalIUD`, `.copperIUD`, `.fertilityAwarenessOrWithdrawal`, `.otherOrPrivate` | Tám lựa chọn: Không dùng · Bao cao su · Thuốc tránh thai hằng ngày · Que cấy hoặc thuốc tiêm tránh thai · Vòng tránh thai có nội tiết · Vòng tránh thai chữ T bằng đồng · Tính ngày hoặc xuất tinh ngoài · Cách khác hoặc không muốn nói |
+| `onboarding.contraception.why` | "Vì sao hỏi: một số biện pháp như thuốc tránh thai thường làm ngừng rụng trứng, nên Luna Mom sẽ không hiện những ngày dễ thụ thai có thể không đúng với bạn. Thông tin này chỉ dùng để chọn nội dung hiển thị." |
+| `cycle.notContraception` | Ghi chú dưới "Khả năng thụ thai cao" khi theo dõi chu kỳ: "Đây là những ngày dễ có thai nhất. Dự đoán chỉ là ước tính, không phải biện pháp tránh thai. Nếu không muốn có thai, hãy luôn dùng một biện pháp tránh thai đáng tin cậy." |
+| `cycle.highPregnancyChance` | Tên cửa sổ thụ thai khi theo dõi chu kỳ: "Khả năng thụ thai cao" (chế độ Mong con vẫn gọi "Cửa sổ thụ thai") |
+| `cycle.hormonalNote` | Khi dùng thuốc, que cấy/thuốc tiêm hoặc vòng nội tiết: "Khi dùng biện pháp tránh thai bằng nội tiết tố, dự đoán ngày dễ thụ thai không còn chính xác (thuốc tránh thai, que cấy và thuốc tiêm thường làm ngừng rụng trứng), nên Luna Mom không hiển thị những ngày này. Ngày ra máu chỉ mang tính ước tính." |
+| `cycle.withdrawalBleed` | Nhãn "Ra máu dự kiến" thay cho "Kỳ kinh tiếp theo" / "Kỳ kinh dự đoán" khi dùng biện pháp có nội tiết |
+| `onboarding.regularity.irregularNote` | Hiện khi chọn "Không đều": "Chu kỳ dao động một chút là chuyện thường gặp, nhất là sau sinh, khi đang cho con bú hoặc lúc căng thẳng. Bạn ghi càng nhiều kỳ kinh, dự đoán thường càng sát hơn. Nếu chu kỳ hay ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền, bạn nên trao đổi với bác sĩ." |
+| `onboarding.cycleLength.hint` | "Tính từ ngày đầu của một kỳ kinh đến hết ngày trước kỳ kinh sau. Nhiều người có chu kỳ từ 21 đến 35 ngày, của bạn có thể khác." |
+| `onboarding.privacy` | Câu chào mừng: "Dữ liệu được lưu trên iPhone và iCloud của bạn. Bạn tự chọn chia sẻ những gì. Không quảng cáo, không bán dữ liệu." |
+| `onboarding.regularity.*`, `onboarding.result.late`, `profile.showFertilityTests(.hint)` | Đều / Không đều / Không rõ và mô tả; "Theo ngày bạn nhập, kỳ kinh có thể đã trễ khoảng %@."; "Hiện que thử rụng trứng & nhiệt độ" |
+
+53. [ ] Bác sĩ đã duyệt (hoặc sửa) toàn bộ các khóa trong bảng trên, cả bản vi lẫn en.
+54. [ ] **Nhóm "có nội tiết"** (`Contraception.isHormonal` trong `Packages/KickCore/Sources/KickCore/CycleGoal.swift`):
+        thuốc tránh thai hằng ngày, que cấy hoặc thuốc tiêm, vòng có nội tiết. Với nhóm này app **ẩn** cửa sổ thụ thai và
+        ngày rụng trứng, gọi lần ra máu là "Ra máu dự kiến" và không đổi cách tính ngày. Vòng chữ T bằng đồng, bao cao
+        su, tính ngày/xuất tinh ngoài vẫn **hiện** "Khả năng thụ thai cao" kèm ghi chú "không phải biện pháp tránh thai".
+        **Câu hỏi:** cách chia này có đúng không — thuốc chỉ có progestin (progestin-only pill), que cấy và vòng nội
+        tiết không phải lúc nào cũng ngừng rụng trứng. Có nên vẫn ẩn cửa sổ thụ thai, hay hiện kèm ghi chú? (Hiện tại:
+        ẩn.)
+55. [ ] **Khi theo dõi chu kỳ, ngày thường không có nhãn "Khả năng thụ thai thấp"** (chỉ "Ngày 13 của chu kỳ"), để
+        không ai hiểu nhầm là ngày "an toàn". Xác nhận cách làm này.
+56. [ ] **Nhắc nhở khi theo dõi chu kỳ**: chỉ còn hai loại, "Ngày mai có thể đến kỳ kinh" (`cycle.reminder.period.*`)
+        và "Kỳ kinh đã trễ 3 ngày / Bạn có thể thử thai" (`cycle.reminder.late.*`); không nhắc trước cửa sổ thụ thai.
+        **Câu hỏi:** cả hai câu nhắc hiện đều nói "kỳ kinh" (period) dù người dùng đang dùng biện pháp tránh thai nội
+        tiết, mà lần ra máu khi đó có thể là ra máu do thuốc chứ không phải kỳ kinh tự nhiên. Với người dùng nhóm
+        "có nội tiết" (mục 54), thông báo nên vẫn nói "kỳ kinh", hay đổi sang "ra máu" cho đúng hơn?
+57. [ ] **Ngưỡng chu kỳ:** lời giải thích độ dài chu kỳ (`onboarding.cycleLength.hint`) nói "từ 21 đến 35 ngày", và
+        lời trấn an chu kỳ không đều (`onboarding.regularity.irregularNote`) nói nên trao đổi với bác sĩ nếu chu kỳ
+        "ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền". **Câu hỏi:** các ngưỡng 21/35 ngày và
+        mốc "mất kinh 3 tháng" có đúng với người lớn không, hay cần điều chỉnh?

@@ -88,3 +88,23 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   dùng `FakePartnerSharing`; chỉ có hiệu lực cùng `-uiTesting`. Không UI test nào chạm iCloud.
 - Chia sẻ thật chỉ thử bằng tay với hai Apple ID: `docs/partner-sharing-manual-test.md`. Trước khi phát hành:
   record type `Snapshot` phải được deploy lên Production (`docs/release-checklist.md`, "Giai đoạn 8").
+
+## Mục tiêu "Theo dõi chu kỳ" và phần giới thiệu mới (giai đoạn 9)
+- Chế độ chu kỳ có **mục tiêu** (`CycleGoal`): `tracking` (theo dõi kỳ kinh) hoặc `conceiving` (mong con). Cùng dữ liệu,
+  lịch và dự đoán; mục tiêu chỉ đổi cách trình bày. Đặc tả: `docs/superpowers/specs/2026-10-08-cycle-tracking-design.md`.
+- Lưu trong App Group, không đồng bộ (`CyclePreferences` trong `KickCore/CycleGoal.swift`): mục tiêu (mặc định
+  `conceiving`, nên người dùng cũ giữ nguyên mọi thứ), biện pháp tránh thai (`Contraception`, nil = chưa hỏi), độ đều
+  (`CycleRegularity`) và công tắc hiện que thử LH/nhiệt độ khi theo dõi chu kỳ.
+- `CycleDisplayPolicy` (`KickCore/CycleDisplayPolicy.swift`, thuần, có test) quyết định màn hình nào hiện gì: tên cửa sổ
+  thụ thai, ghi chú "không phải biện pháp tránh thai", ẩn cửa sổ và ngày rụng trứng khi dùng biện pháp có nội tiết, "Ra
+  máu dự kiến", có hiện LH/BBT không, và loại nhắc nhở (`reminderKinds`). Hôm nay, Lịch, phần ghi ngày và
+  `CycleCoordinator` (nhắc nhở) đều đọc `cycle.policy`.
+- Phần giới thiệu: `OnboardingFlow` (`KickCore/OnboardingFlow.swift`) giữ câu trả lời và thứ tự bước cho từng nhánh
+  (theo dõi 8 bước, mong con 7, mang thai 4), cách bỏ qua, "Không nhớ", dự đoán ở bước kết quả và những gì cần lưu
+  (`finish()`). `OnboardingView` chỉ hiển thị; nhánh chu kỳ lưu qua `CycleCoordinator.completeOnboarding(…)`
+  (chỉ hỏi quyền thông báo khi chọn "Bật nhắc nhở").
+- Cá nhân: thẻ "Mục tiêu" có ba lựa chọn (Theo dõi chu kỳ · Mong con · Mang thai); hai lựa chọn chu kỳ cùng đi qua
+  `CycleCoordinator.activateCycleMode(goal:)`, nên rời chế độ Mang thai bằng lựa chọn nào cũng dừng chia sẻ với bố bé
+  (`RootView`, giai đoạn 8). Khi theo dõi chu kỳ, thẻ Chu kỳ có thêm "Biện pháp tránh thai" và công tắc LH/BBT.
+- UI test: `-seedCycleGoal <tracking|conceiving>` và `-seedContraception <pill|condom|…>` (cùng `-uiTesting`, thường đi với
+  `-seedCycles`); không có hai cờ này là người dùng cũ (mong con).
