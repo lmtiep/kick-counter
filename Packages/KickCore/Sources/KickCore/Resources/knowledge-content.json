@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "sources": [
+    "WHO recommendations on antenatal care for a positive pregnancy experience (World Health Organization, 2016)",
+    "WHO guidelines on physical activity and sedentary behaviour (World Health Organization, 2020)",
+    "ACOG patient education: Your Pregnancy and Childbirth: Month to Month, and pregnancy FAQs (American College of Obstetricians and Gynecologists)",
+    "ACOG Committee Opinion No. 804: Physical Activity and Exercise During Pregnancy and the Postpartum Period (American College of Obstetricians and Gynecologists, 2020)",
+    "ACOG Committee Opinion No. 462: Moderate Caffeine Consumption During Pregnancy (American College of Obstetricians and Gynecologists, 2010)",
+    "NHS: Your pregnancy and baby guide (National Health Service, UK)",
+    "NICE guideline NG201: Antenatal care (National Institute for Health and Care Excellence, 2021)",
+    "NICE guideline CG192: Antenatal and postnatal mental health (National Institute for Health and Care Excellence, 2014)",
+    "WHO and UNICEF: Implementation guidance on protecting, promoting and supporting breastfeeding in facilities providing maternity and newborn services, the revised Baby-friendly Hospital Initiative (2018)",
+    "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về các dịch vụ chăm sóc sức khỏe sinh sản"
+  ],
+  "topics": [
+    {
+      "id": "nutrition",
+      "name": {
+        "en": "Nutrition",
+        "vi": "Dinh dưỡng"
+      },
+      "symbol": "fork.knife"
+    },
+    {
+      "id": "movement",
+      "name": {
+        "en": "Movement",
+        "vi": "Vận động"
+      },
+      "symbol": "figure.walk"
+    },
+    {
+      "id": "sleep",
+      "name": {
+        "en": "Sleep & rest",
+        "vi": "Giấc ngủ & nghỉ ngơi"
+      },
+      "symbol": "moon.zzz"
+    },
+    {
+      "id": "feelings",
+      "name": {
+        "en": "Feelings",
+        "vi": "Cảm xúc"
+      },
+      "symbol": "heart"
+    },
+    {
+      "id": "checkups",
+      "name": {
+        "en": "Check-ups & tests",
+        "vi": "Khám thai & xét nghiệm"
+      },
+      "symbol": "stethoscope"
+    },
+    {
+      "id": "birth",
+      "name": {
+        "en": "Getting ready for birth",
+        "vi": "Chuẩn bị sinh"
+      },
+      "symbol": "figure.and.child.holdinghands"
+    }
+  ],
+  "articles": []
+}
