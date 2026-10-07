@@ -4421,6 +4421,227 @@
         }
       }
     },
+    "partner.defaultName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mẹ"
+          }
+        }
+      }
+    },
+    "partner.share.checking": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking iCloud…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang kiểm tra iCloud…"
+          }
+        }
+      }
+    },
+    "partner.share.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't reach iCloud. Tap to try again"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa kết nối được iCloud. Chạm để thử lại"
+          }
+        }
+      }
+    },
+    "partner.share.iCloudFull": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your iCloud storage is full"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud của mẹ đã đầy"
+          }
+        }
+      }
+    },
+    "partner.share.iCloudUnavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to iCloud to share"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đăng nhập iCloud để chia sẻ"
+          }
+        }
+      }
+    },
+    "partner.share.invite": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invite baby's dad to follow the journey"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mời bố bé xem hành trình"
+          }
+        }
+      }
+    },
+    "partner.share.invited": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shared"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã chia sẻ"
+          }
+        }
+      }
+    },
+    "partner.share.joined": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baby's dad is following"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bố bé đang xem"
+          }
+        }
+      }
+    },
+    "partner.share.needsDueDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set the due date first"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy đặt ngày dự sinh trước"
+          }
+        }
+      }
+    },
+    "partner.share.privacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shared through iCloud, read-only: the pregnancy week and due date, upcoming check-ups (title and time) and a summary of kick counts. Never notes, symptoms, weight or cycle data."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chia sẻ qua iCloud, chỉ xem: tuần thai và ngày dự sinh, lịch khám sắp tới (tên và giờ) và tóm tắt lượt đếm cử động. Không bao giờ chia sẻ ghi chú, triệu chứng, cân nặng hay dữ liệu chu kỳ."
+          }
+        }
+      }
+    },
+    "partner.share.stop": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop sharing"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngừng chia sẻ"
+          }
+        }
+      }
+    },
+    "partner.share.stopConfirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop sharing with baby's dad? He will no longer see your journey."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngừng chia sẻ với bố bé? Bố bé sẽ không xem được hành trình nữa."
+          }
+        }
+      }
+    },
+    "partner.share.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share with baby's dad"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chia sẻ với bố bé"
+          }
+        }
+      }
+    },
     "pregnancy.appointment.none": {
       "extractionState": "manual",
       "localizations": {

@@ -622,4 +622,19 @@ enum L10n {
 
     static var partnerAcceptFailedTitle: String { t("partner.accept.failed.title") }
     static var partnerAcceptFailedBody: String { t("partner.accept.failed.body") }
+    /// The name the partner sees: "Mom" / "Mẹ".
+    static var partnerDefaultName: String { t("partner.defaultName") }
+    static var partnerShareTitle: String { t("partner.share.title") }
+    static var partnerShareChecking: String { t("partner.share.checking") }
+    static var partnerShareInvite: String { t("partner.share.invite") }
+    static var partnerShareInvited: String { t("partner.share.invited") }
+    static var partnerShareJoined: String { t("partner.share.joined") }
+    static var partnerShareNeedsDueDate: String { t("partner.share.needsDueDate") }
+    static var partnerShareICloudUnavailable: String { t("partner.share.iCloudUnavailable") }
+    static var partnerShareICloudFull: String { t("partner.share.iCloudFull") }
+    static var partnerShareFailed: String { t("partner.share.failed") }
+    static var partnerShareStop: String { t("partner.share.stop") }
+    static var partnerShareStopConfirm: String { t("partner.share.stopConfirm") }
+    /// Exactly what is shared (spec §5.3); also on the partner's Profile.
+    static var partnerSharePrivacy: String { t("partner.share.privacy") }
 }

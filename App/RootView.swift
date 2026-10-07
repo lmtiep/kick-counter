@@ -15,6 +15,7 @@ struct RootView: View {
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
+    @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerInvitationInbox.self) private var invitations
     @Environment(\.partnerSharing) private var sharing
     @Environment(\.scenePhase) private var scenePhase
@@ -58,6 +59,10 @@ struct RootView: View {
                     // A fresh install opening an invitation is still onboarding:
                     // a failure is shown over the cover, where it can be seen.
                     .partnerAcceptFailedAlert(isPresented: acceptFailedBinding(whileOnboarding: true))
+            }
+            // While she shares, the mother's changes reach the partner (phase 8).
+            .background {
+                if mode == .pregnant { PartnerPublishObserver() }
             }
             .task { await reload() }
             .onChange(of: scenePhase) { _, phase in
@@ -133,6 +138,7 @@ struct RootView: View {
         await appointments.load()
         await cycle.load()
         await weight.load()
+        if mode == .pregnant { await partnerShare.refresh() }
     }
 
     /// The language changed: every pending reminder is scheduled again in it

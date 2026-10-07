@@ -26,6 +26,8 @@ public enum SettingsKey {
     public static let previousAppMode = "previousAppMode"
     /// True when accepting a partner invitation skipped onboarding; leaving partner mode shows it.
     public static let partnerSkippedOnboarding = "partnerSkippedOnboarding"
+    /// The mother's last uploaded `PartnerSnapshot` (JSON), so a relaunch does not upload it again.
+    public static let partnerPublishedSnapshot = "partnerPublishedSnapshot"
     /// Days, 21–45 (default 28): used until enough cycles are logged.
     public static let typicalCycleLength = "typicalCycleLength"
     /// Days, 2–10 (default 5).

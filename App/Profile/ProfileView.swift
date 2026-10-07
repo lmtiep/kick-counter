@@ -69,6 +69,7 @@ struct ProfileView: View {
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("profileAppointments")
                         .lunaCard(padding: 0)
+                        PartnerShareCard()
                     }
                     permissionsCard
                     aboutCard

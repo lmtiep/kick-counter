@@ -13,6 +13,10 @@ private struct PartnerSharingKey: EnvironmentKey {
     static let defaultValue: any PartnerSharing = FakePartnerSharing()
 }
 
+private struct PartnerPublisherKey: EnvironmentKey {
+    static let defaultValue: PartnerPublisher? = nil
+}
+
 extension EnvironmentValues {
     /// The bundled week-by-week content; nil if it failed to load (cards are hidden).
     var contentLibrary: WeeklyContentLibrary? {
@@ -30,6 +34,12 @@ extension EnvironmentValues {
     var partnerSharing: any PartnerSharing {
         get { self[PartnerSharingKey.self] }
         set { self[PartnerSharingKey.self] = newValue }
+    }
+
+    /// Uploads the mother's snapshot while she shares (phase 8); nil in previews.
+    var partnerPublisher: PartnerPublisher? {
+        get { self[PartnerPublisherKey.self] }
+        set { self[PartnerPublisherKey.self] = newValue }
     }
 }
 

@@ -13,6 +13,8 @@ struct AppEnvironment {
     let content: WeeklyContentLibrary?
     let knowledge: KnowledgeLibrary?
     let sharing: any PartnerSharing
+    let partnerShare: PartnerShareCoordinator
+    let partnerPublisher: PartnerPublisher
 
     private static let arguments = ProcessInfo.processInfo.arguments
     #if DEBUG
@@ -88,6 +90,14 @@ struct AppEnvironment {
         }
         #endif
         let weight = WeightCoordinator(store: weightStore, defaults: AppGroup.defaults, now: { AppClock.now() })
+        let sharing = makeSharing()
+        let partnerShare = PartnerShareCoordinator(sharing: sharing)
+        // The real clock, not AppClock: the publisher waits 5 s on it.
+        let partnerPublisher = PartnerPublisher(
+            sharing: sharing,
+            isActive: { [weak partnerShare] in partnerShare?.isSharing ?? false },
+            defaults: AppGroup.defaults
+        )
         return AppEnvironment(
             container: container,
             coordinator: coordinator,
@@ -96,7 +106,9 @@ struct AppEnvironment {
             weight: weight,
             content: WeeklyContentLibrary.loadBundled(),
             knowledge: KnowledgeLibrary.loadBundled(),
-            sharing: makeSharing()
+            sharing: sharing,
+            partnerShare: partnerShare,
+            partnerPublisher: partnerPublisher
         )
     }
 
