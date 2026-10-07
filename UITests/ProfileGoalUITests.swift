@@ -26,11 +26,18 @@ final class ProfileGoalUITests: XCTestCase {
         openCycleProfile(app)
         let conceiving = app.segmentedControls.buttons["Trying to conceive"]
         XCTAssertTrue(conceiving.isSelected)
+        // Read without scrolling, so the goal picker stays hittable.
+        let hint = app.staticTexts["settingsCycleRemindersHint"]
+        XCTAssertTrue(hint.exists)
+        XCTAssertTrue(hint.label.contains("fertile window"), hint.label)
         XCTAssertFalse(app.buttons["profileContraception"].exists)
         app.segmentedControls.buttons["Track cycle"].tap()
         let contraception = app.buttons["profileContraception"]
         XCTAssertTrue(contraception.waitForExistence(timeout: 5))
         XCTAssertTrue(app.tabBars.buttons["Profile"].isSelected) // Profile stays open
+        // Tracking has no fertile-window reminder, so the hint does not promise one.
+        waitForLabel(hint, containing: "the day before your period is due")
+        XCTAssertFalse(hint.label.contains("fertile"), hint.label)
 
         app.openCycleTab(.today)
         waitForLabel(status, containing: "High chance of pregnancy")
@@ -41,7 +48,9 @@ final class ProfileGoalUITests: XCTestCase {
         let pill = app.buttons["The pill"]
         XCTAssertTrue(pill.waitForExistence(timeout: 5))
         pill.tap()
-        waitForLabel(contraception, containing: "The pill")
+        // The menu reads as "Contraception, The pill": the label, then the value.
+        XCTAssertEqual(contraception.label, "Contraception")
+        waitForValue(contraception, containing: "The pill")
 
         app.openCycleTab(.today)
         XCTAssertTrue(status.waitForExistence(timeout: 5))
@@ -54,6 +63,10 @@ final class ProfileGoalUITests: XCTestCase {
     func testTheOverrideShowsTheTestsWhileTracking() {
         let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile", cycleGoal: "tracking")
         openCycleProfile(app)
+        // Tracking: the reminder hint names only the period and late reminders.
+        let hint = app.staticTexts["settingsCycleRemindersHint"]
+        app.scrollUntilHittable(hint)
+        XCTAssertEqual(hint.label, "Reminders come at 9:00: the day before your period is due, and once if it is 3 days late.")
         let toggle = app.switches["profileShowFertilityTests"]
         app.scrollUntilHittable(toggle)
         XCTAssertTrue(toggle.exists)
@@ -125,5 +138,19 @@ final class ProfileGoalUITests: XCTestCase {
         let toggle = large.switches["profileShowFertilityTests"]
         large.scrollUntilHittable(toggle, maxSwipes: 10)
         attachScreenshot(large, "ax5-profile-tracking-rows-vi-light")
+    }
+
+    /// Waits for the element's accessibility value to contain `text`.
+    @MainActor
+    private func waitForValue(
+        _ element: XCUIElement,
+        containing text: String,
+        timeout: TimeInterval = 5,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let predicate = NSPredicate(format: "value CONTAINS %@", text)
+        let result = XCTWaiter().wait(for: [XCTNSPredicateExpectation(predicate: predicate, object: element)], timeout: timeout)
+        XCTAssertEqual(result, .completed, "\(String(describing: element.value)) does not contain \(text)", file: file, line: line)
     }
 }

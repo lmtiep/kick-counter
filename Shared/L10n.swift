@@ -164,6 +164,8 @@ enum L10n {
     static var settingsCycleSection: String { t("settings.cycle.section") }
     static var settingsCycleReminders: String { t("settings.cycle.reminders") }
     static var settingsCycleRemindersHint: String { t("settings.cycle.remindersHint") }
+    /// Tracking only (phase 9): no fertile-window reminder, so the hint names only the period and late reminders.
+    static var settingsCycleRemindersHintTracking: String { t("settings.cycleReminders.hint.tracking") }
     static var medicalTTCTitle: String { t("medical.ttc.title") }
     static var medicalTTCBody: String { t("medical.ttc.body") }
 

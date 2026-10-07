@@ -132,7 +132,9 @@ struct OnboardingView: View {
             if flow.isQuestion {
                 Button(skipTitle) { change { $0.skip() } }
                     .font(.luna(.captionMedium))
-                    // One line at every text size: at AX5 it shrinks rather than wraps.
+                    // One line at every text size. The bar is capped at AX2 (below); the
+                    // scale factor stays as a safety net for narrow (375 pt) phones, where
+                    // it shrinks the label a little rather than truncating it.
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
                     .foregroundStyle(.luna(.textOnboarding))
@@ -145,6 +147,10 @@ struct OnboardingView: View {
         }
         .padding(.top, 8)
         .padding(.horizontal, 24)
+        // Phase 9 final fix: past AX2 the Skip pill truncated to "Không…". The bar's
+        // controls are short labels and decorative dots, so they stop growing at AX2
+        // (as system bars do); the question text below keeps the full size.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
     }
 
     /// "Not sure" where the answer is a number or a pattern, "Skip" elsewhere.

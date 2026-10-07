@@ -6852,6 +6852,23 @@
         }
       }
     },
+    "settings.cycleReminders.hint.tracking": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders come at 9:00: the day before your period is due, and once if it is 3 days late."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc lúc 9:00: 1 ngày trước kỳ kinh dự kiến và một lần khi trễ kinh 3 ngày."
+          }
+        }
+      }
+    },
     "settings.dueDate": {
       "extractionState": "manual",
       "localizations": {

@@ -300,7 +300,10 @@ struct ProfileView: View {
                 .accessibilityIdentifier("settingsCycleReminders")
             VStack(alignment: .leading, spacing: 4) {
                 Text(L10n.cycleSettingsHint)
-                Text(L10n.settingsCycleRemindersHint)
+                Text(cycle.policy.reminderKinds.contains(.fertile)
+                     ? L10n.settingsCycleRemindersHint
+                     : L10n.settingsCycleRemindersHintTracking)
+                    .accessibilityIdentifier("settingsCycleRemindersHint")
             }
             .font(.luna(.caption))
             .foregroundStyle(.luna(.textSecondary))
@@ -322,12 +325,14 @@ struct ProfileView: View {
         if dynamicTypeSize.isAccessibilitySize {
             VStack(alignment: .leading, spacing: 8) {
                 Text(L10n.profileContraception)
+                    .accessibilityHidden(true)
                 contraceptionPicker
             }
         } else {
             HStack(spacing: 8) {
                 Text(L10n.profileContraception)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .accessibilityHidden(true)
                 contraceptionPicker
             }
         }
@@ -341,16 +346,41 @@ struct ProfileView: View {
             .accessibilityHidden(true)
     }
 
+    /// A menu whose label is the full current value, wrapped over as many lines as
+    /// it needs (phase 9 final fix): a `.menu` Picker squeezes its value to one
+    /// truncated line at accessibility sizes ("chữ T" for the copper IUD).
     private var contraceptionPicker: some View {
-        Picker(L10n.profileContraception, selection: contraceptionBinding) {
-            Text(L10n.profileContraceptionNotSet).tag(Contraception?.none)
-            ForEach(Contraception.allCases, id: \.self) { value in
-                Text(L10n.contraception(value)).tag(Contraception?.some(value))
+        let isAccessibilitySize = dynamicTypeSize.isAccessibilitySize
+        return Menu {
+            Picker(selection: contraceptionBinding) {
+                Text(L10n.profileContraceptionNotSet).tag(Contraception?.none)
+                ForEach(Contraception.allCases, id: \.self) { value in
+                    Text(L10n.contraception(value)).tag(Contraception?.some(value))
+                }
+            } label: {
+                EmptyView()
             }
+            .pickerStyle(.inline)
+        } label: {
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Text(contraceptionText)
+                    .multilineTextAlignment(isAccessibilitySize ? .leading : .trailing)
+                    .fixedSize(horizontal: false, vertical: true)
+                Image(systemName: "chevron.up.chevron.down")
+                    .font(.luna(.caption))
+                    .accessibilityHidden(true)
+            }
+            .foregroundStyle(.luna(.cycleOnSoft))
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
         }
-        .pickerStyle(.menu)
-        .tint(.luna(.cycleOnSoft))
+        .accessibilityLabel(L10n.profileContraception)
+        .accessibilityValue(contraceptionText)
         .accessibilityIdentifier("profileContraception")
+    }
+
+    private var contraceptionText: String {
+        cycle.preferences.contraception.map(L10n.contraception) ?? L10n.profileContraceptionNotSet
     }
 
     @ViewBuilder

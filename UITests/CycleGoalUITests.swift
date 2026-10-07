@@ -89,4 +89,23 @@ final class CycleGoalUITests: XCTestCase {
         XCTAssertTrue(selected.waitForExistence(timeout: 5))
         XCTAssertTrue(selected.label.contains("Day 13 of your cycle"), selected.label)
     }
+
+    /// Tracking without hormonal contraception: an ordinary day outside the
+    /// window (October 10, cycle day 21 of the "fertile" seed; the window is
+    /// 09-29…10-05) has no status at all, never "Low chance of conceiving".
+    @MainActor
+    func testTrackingOrdinaryDayHasNoLowChanceLabel() {
+        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "fertile", cycleGoal: "tracking", contraception: "copperIUD")
+        app.openCycleTab(.calendar)
+        XCTAssertTrue(app.staticTexts["calendarMonthTitle"].waitForExistence(timeout: 10))
+        let day = app.buttons.matching(NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH %@", "October 10,")).firstMatch
+        XCTAssertTrue(day.waitForExistence(timeout: 5))
+        XCTAssertFalse(day.label.contains("chance"), day.label)
+        day.tap()
+        let selected = app.descendants(matching: .any)["calendarSelectedDay"]
+        waitForLabel(selected, containing: "Oct 10")
+        XCTAssertTrue(selected.label.contains("Day 21 of your cycle"), selected.label)
+        XCTAssertFalse(selected.label.contains("Low chance"), selected.label)
+        XCTAssertFalse(selected.label.contains("chance"), selected.label)
+    }
 }

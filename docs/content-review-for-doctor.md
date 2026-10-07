@@ -588,6 +588,7 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
 | `onboarding.cycleLength.hint` | "Tính từ ngày đầu của một kỳ kinh đến hết ngày trước kỳ kinh sau. Nhiều người có chu kỳ từ 21 đến 35 ngày, của bạn có thể khác." |
 | `onboarding.privacy` | Câu chào mừng: "Dữ liệu được lưu trên iPhone và iCloud của bạn. Bạn tự chọn chia sẻ những gì. Không quảng cáo, không bán dữ liệu." |
 | `onboarding.regularity.*`, `onboarding.result.late`, `profile.showFertilityTests(.hint)` | Đều / Không đều / Không rõ và mô tả; "Theo ngày bạn nhập, kỳ kinh có thể đã trễ khoảng %@."; "Hiện que thử rụng trứng & nhiệt độ" |
+| `settings.cycleReminders.hint.tracking` | Chú thích dưới công tắc "Nhắc chu kỳ" trong Hồ sơ khi theo dõi chu kỳ (không nhắc trước cửa sổ thụ thai, xem mục 56): "Nhắc lúc 9:00: 1 ngày trước kỳ kinh dự kiến và một lần khi trễ kinh 3 ngày." (chế độ Mong con vẫn dùng `settings.cycle.remindersHint`, có nhắc 2 ngày trước cửa sổ thụ thai) |
 
 53. [ ] Bác sĩ đã duyệt (hoặc sửa) toàn bộ các khóa trong bảng trên, cả bản vi lẫn en.
 54. [ ] **Nhóm "có nội tiết"** (`Contraception.isHormonal` trong `Packages/KickCore/Sources/KickCore/CycleGoal.swift`):
@@ -608,3 +609,9 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
         lời trấn an chu kỳ không đều (`onboarding.regularity.irregularNote`) nói nên trao đổi với bác sĩ nếu chu kỳ
         "ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền". **Câu hỏi:** các ngưỡng 21/35 ngày và
         mốc "mất kinh 3 tháng" có đúng với người lớn không, hay cần điều chỉnh?
+58. [ ] **Thuốc tránh thai chỉ có progestin (progestin-only pill, "thuốc tránh thai đơn thuần")** hiện không có lựa chọn
+        riêng: người dùng sẽ chọn "Thuốc tránh thai hằng ngày" (`contraception.pill`), và app xử lý như thuốc phối hợp
+        (ẩn cửa sổ thụ thai và ngày rụng trứng, gọi lần ra máu là "Ra máu dự kiến"). **Câu hỏi:** thuốc chỉ có
+        progestin có nên gộp chung vào "Thuốc tránh thai hằng ngày" không, hay cần một lựa chọn riêng với cách hiển thị
+        riêng (ví dụ vẫn hiện cửa sổ thụ thai kèm ghi chú, vì loại thuốc này không phải lúc nào cũng ngừng rụng trứng)?
+        (Câu hỏi này tách riêng khỏi mục 54, vốn hỏi về cả nhóm "có nội tiết".)
