@@ -7,17 +7,21 @@ import SwiftUI
 enum PregnancyRoute: Hashable {
     case symptoms
     case weight
+    /// The knowledge library, opened on this trimester (phase 7 spec §4.2).
+    case knowledge(trimester: Int)
 }
 
 /// Pregnancy mode, Today tab (spec §4.4): header, 7-day strip, the fetus
 /// (→ week detail), weeks and days with the trimester bar, shortcuts, today's
-/// movements, the baby this week, tips and the next check-up.
+/// movements, the baby this week, tips, the next check-up and the knowledge
+/// suggestions (phase 7).
 struct PregnancyTodayView: View {
     let onOpenKicks: () -> Void
     let onOpenProfile: () -> Void
 
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(\.contentLibrary) private var library
+    @Environment(\.knowledgeLibrary) private var knowledge
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
     @AppStorage(SettingsKey.reminderHour, store: AppGroup.defaults) private var reminderHour = SettingsDefault.reminderHour
@@ -75,6 +79,7 @@ struct PregnancyTodayView: View {
                 switch route {
                 case .symptoms: PregnancySymptomsView()
                 case .weight: WeightView()
+                case .knowledge(let trimester): KnowledgeLibraryView(initialTrimester: trimester)
                 }
             }
         }
@@ -152,8 +157,26 @@ struct PregnancyTodayView: View {
             }
             .buttonStyle(.plain)
             .accessibilityIdentifier("nextAppointmentCard")
+            knowledgeCard(for: timeline)
         }
         .padding(.horizontal, 20)
+    }
+
+    /// "Suggested for trimester N" (phase 7 spec §4.1); hidden when the library
+    /// failed to load or nothing is visible (release builds until reviewed).
+    @ViewBuilder
+    private func knowledgeCard(for timeline: PregnancyTimeline) -> some View {
+        if let knowledge {
+            let suggestions = knowledge.suggestions(forWeek: timeline.week.weeks, visibility: visibility)
+            if !suggestions.isEmpty {
+                KnowledgeCard(
+                    trimester: timeline.trimester.rawValue,
+                    suggestions: suggestions,
+                    topics: knowledge.topics,
+                    language: language
+                ) { route = .knowledge(trimester: timeline.trimester.rawValue) }
+            }
+        }
     }
 
     /// Round shortcuts (phase 5 spec §3.4); two per row at accessibility text

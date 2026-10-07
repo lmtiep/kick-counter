@@ -5,11 +5,21 @@ private struct ContentLibraryKey: EnvironmentKey {
     static let defaultValue: WeeklyContentLibrary? = nil
 }
 
+private struct KnowledgeLibraryKey: EnvironmentKey {
+    static let defaultValue: KnowledgeLibrary? = nil
+}
+
 extension EnvironmentValues {
     /// The bundled week-by-week content; nil if it failed to load (cards are hidden).
     var contentLibrary: WeeklyContentLibrary? {
         get { self[ContentLibraryKey.self] }
         set { self[ContentLibraryKey.self] = newValue }
+    }
+
+    /// The bundled knowledge articles; nil if they failed to load (card and library hidden).
+    var knowledgeLibrary: KnowledgeLibrary? {
+        get { self[KnowledgeLibraryKey.self] }
+        set { self[KnowledgeLibraryKey.self] = newValue }
     }
 }
 

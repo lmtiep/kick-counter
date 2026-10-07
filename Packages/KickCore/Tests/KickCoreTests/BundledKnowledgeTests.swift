@@ -7,7 +7,7 @@ struct BundledKnowledgeTests {
     /// Articles that must already be written. Each task widens it:
     /// [] (Task 1) → safe-exercise (Task 2) → + nutrition and movement (Task 3)
     /// → + sleep and feelings (Task 4) → KnowledgeChecks.articleIDs (Task 5).
-    static let requiredArticleIDs: Set<String> = []
+    static let requiredArticleIDs: Set<String> = ["safe-exercise"]
 
     let library: KnowledgeLibrary
 

@@ -170,31 +170,7 @@ struct WeekDetailView: View {
     }
 
     private var closeButton: some View {
-        Button { dismiss() } label: {
-            Image(systemName: "xmark")
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundStyle(.luna(.textPrimary))
-                .frame(width: 40, height: 40)
-                // Opaque, not translucent: a translucent fill let the sheet's
-                // top edge show faintly through once expanded. Opaque `card`
-                // plus a hairline border reads the same, and intentionally,
-                // over the hero gradient (peek) and the sheet (expanded).
-                .background(
-                    Circle()
-                        .fill(.luna(.card))
-                        .overlay(Circle().strokeBorder(.luna(.divider), lineWidth: 1))
-                )
-                .frame(minWidth: 44, minHeight: 44)
-                .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(L10n.commonClose)
-        .accessibilityIdentifier("weekDetailClose")
-        // VoiceOver reaches the ✕ before the fetus/chips or the sheet.
-        .accessibilitySortPriority(1)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 12)
-        .padding(.top, 4)
+        ArticleCloseButton(identifier: "weekDetailClose") { dismiss() }
     }
 
     // MARK: Sheet
@@ -208,7 +184,7 @@ struct WeekDetailView: View {
                 .accessibilityAddTraits(.isHeader)
                 .accessibilityIdentifier("weekDetailTitle")
             if case .content(_, let pendingReview)? = display {
-                reviewer(pendingReview: pendingReview)
+                ArticleReviewerRow(pendingReview: pendingReview, reviewedText: L10n.weekReviewed, identifier: "weekReviewer")
                 SegmentedPill(
                     options: [
                         SegmentedOption(value: ArticleTab.baby, title: L10n.weekArticleTabBaby, identifier: "weekTab-baby"),
@@ -234,29 +210,6 @@ struct WeekDetailView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 24)
         .padding(.bottom, 14)
-    }
-
-    private func reviewer(pendingReview: Bool) -> some View {
-        HStack(spacing: 10) {
-            Image(systemName: "stethoscope")
-                .font(.system(size: 15, weight: .medium))
-                // articleText, not textSecondary: drawn on `surface` (AA rule).
-                .foregroundStyle(.luna(.articleText))
-                .frame(width: 38, height: 38)
-                .background(Circle().fill(.luna(.surface)))
-            VStack(alignment: .leading, spacing: 0) {
-                Text(L10n.weekReviewer)
-                    .font(.luna(.small))
-                    .foregroundStyle(.luna(.textSecondary))
-                // No doctor's name yet (spec §4.6).
-                Text(pendingReview ? L10n.weekPendingReview : L10n.weekReviewed)
-                    .font(.luna(.label))
-                    .foregroundStyle(.luna(.textPrimary))
-            }
-        }
-        .padding(.top, 10)
-        .accessibilityElement(children: .combine)
-        .accessibilityIdentifier("weekReviewer")
     }
 
     /// Cross-fades over 0.2 s when the week changes; instant under Reduce Motion or in UI tests.
