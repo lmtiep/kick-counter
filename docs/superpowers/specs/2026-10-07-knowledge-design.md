@@ -76,9 +76,11 @@ public struct KnowledgeSection: Codable, Equatable, Sendable {
 
 `KnowledgeSuggester.suggestions(for week: Int, from: [KnowledgeArticle], count: 3) -> [KnowledgeArticle]` is a pure KickCore function:
 - **Filter:** keep only articles whose `trimesters` contain `Trimester(week:)`. Weeks below 4 and above 42 are clamped first, using the existing `Trimester` rules.
-- **Order:** sort the eligible articles by a stable key (topic display order, then id). Rotate the list by `week % eligible.count`.
-- **Pick:** walk the rotated list, first taking one article per topic. If fewer than 3 were found, fill the remaining slots in rotated order.
-- **Result:** the same week always gives the same 3 articles, and the next week gives a different first article. If fewer than 3 articles are eligible, return all of them. If none are, return an empty list and the card is hidden.
+- **Group:** group the eligible articles by topic. Topics are in display order (unknown topics last); the articles inside a topic are sorted by id.
+- **Rotate:** rotate the topic list left by `week % topicCount`, so each week starts one topic later.
+- **Pick:** take one article from each of the first 3 topics. Inside a topic, take the article at index `(week / topicCount) % articlesInTopic`, so each topic cycles through its articles every `topicCount` weeks. If fewer than 3 topics are eligible, fill the remaining slots with each topic's next article (index + 1, then + 2, …), topics in rotated order.
+- **Fairness:** every eligible article is suggested in some week of its trimester, and no article appears in more than 65% of its trimester's weeks. Three of five topics are picked each week in trimesters 1 and 2, so a topic with a single article is suggested in about 60% of those weeks; that is the floor. `BundledKnowledgeSuggestionTests` checks this on the shipped content.
+- **Result:** the same week always gives the same 3 articles, and the next week gives a different first article. The clamped week drives both the trimester filter and the rotation. If fewer than 3 articles are eligible, return all of them. If none are, return an empty list and the card is hidden.
 
 ### 3.4 Writing guide
 
@@ -148,7 +150,7 @@ Shared reading pieces are extracted from `WeekArticleView` into a small `Article
   - decoding;
   - the loader's failure path;
   - visibility filtering;
-  - `KnowledgeSuggester` cases: trimester filter, the same 3 for the same week, rotation between weeks, topic spread, fewer than 3 eligible, none eligible;
+  - `KnowledgeSuggester` cases: trimester filter, the same 3 for the same week, rotation between weeks, topic spread, each topic cycling through its articles, fewer than 3 eligible, none eligible, and fairness on the shipped content (every article suggested, none in more than 65% of its trimester's weeks);
   - the content checks in §3.5.
 - **UI tests** (`KnowledgeUITests`), seeded at week 24 (pinned due date) with `-uiTesting` (content visibility `.all`):
   - Today shows the card with 3 suggestions;

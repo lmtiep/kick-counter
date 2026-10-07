@@ -517,8 +517,8 @@ vi/en, nằm trong `Packages/KickCore/Sources/KickCore/Resources/knowledge-conte
     - [ ] `pelvic-floor-posture`: cơ sàn chậu giúp kiểm soát việc đi tiểu và xì hơi; gợi ý gắn bài tập với một
           việc làm hằng ngày; đau vùng chậu khiến cả việc đi cầu thang, đi lại và xoay người khi ngủ khó khăn hơn.
     - [ ] `safe-exercise`: tránh yoga nóng, thể dục dụng cụ, đi xe đạp địa hình và quyền anh (ACOG CO 804); ngừng
-          tập nếu đau đầu hoặc yếu cơ ảnh hưởng đến thăng bằng (ACOG CO 804); đau đầu dữ dội thì đến bác sĩ hoặc
-          nữ hộ sinh ngay.
+          tập nếu đau đầu hoặc yếu cơ ảnh hưởng đến thăng bằng (ACOG CO 804); đau đầu dữ dội, hoặc kèm nhìn mờ hay
+          phù đột ngột → liên hệ khoa sản ngay.
     - [ ] `first-trimester-tiredness`: năng lượng thường trở lại từ khoảng tuần 14 (đầu tam cá nguyệt hai).
     - [ ] `first-trimester-tiredness`: cảm giác choáng váng muốn ngất → đến khoa cấp cứu ngay (cảnh báo tuần 4–12).
     - [ ] `sleep-positions`: ngất xỉu, hoặc chóng mặt không hết sau khi ngồi dậy → đến bác sĩ hoặc nữ hộ sinh ngay
@@ -545,7 +545,7 @@ vi/en, nằm trong `Packages/KickCore/Sources/KickCore/Resources/knowledge-conte
           sau cao hơn.
     - [ ] `birth-plan-breastfeeding`: WHO khuyên da tiếp da và kẹp dây rốn muộn cho bé khỏe mạnh.
     - [ ] `signs-of-labour`: đau đầu dữ dội, mờ mắt hoặc sưng phù bất thường → đến khoa sản ngay; co giật hoặc
-          khó thở → gọi 115 (theo cảnh báo tuần 34–40).
+          khó thở → gọi 115 (theo cảnh báo tuần 20–42).
     - [ ] `hospital-bag`: nhắc cử động thai giảm (gọi ngay, dù ngày hay đêm) và vỡ ối (đến ngay, dù màu nước ối
           ra sao).
 46. [ ] **Câu hỏi:** bài `food-safety` khuyên nấu chín phô mai mềm mốc trắng (kiểu brie/camembert). Với loại đã
