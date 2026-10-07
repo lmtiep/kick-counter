@@ -9,6 +9,10 @@ private struct KnowledgeLibraryKey: EnvironmentKey {
     static let defaultValue: KnowledgeLibrary? = nil
 }
 
+private struct PartnerSharingKey: EnvironmentKey {
+    static let defaultValue: any PartnerSharing = FakePartnerSharing()
+}
+
 extension EnvironmentValues {
     /// The bundled week-by-week content; nil if it failed to load (cards are hidden).
     var contentLibrary: WeeklyContentLibrary? {
@@ -20,6 +24,12 @@ extension EnvironmentValues {
     var knowledgeLibrary: KnowledgeLibrary? {
         get { self[KnowledgeLibraryKey.self] }
         set { self[KnowledgeLibraryKey.self] = newValue }
+    }
+
+    /// iCloud partner sharing (phase 8): CloudKit in the app, the fake in UI tests and previews.
+    var partnerSharing: any PartnerSharing {
+        get { self[PartnerSharingKey.self] }
+        set { self[PartnerSharingKey.self] = newValue }
     }
 }
 

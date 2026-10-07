@@ -4387,6 +4387,40 @@
         }
       }
     },
+    "partner.accept.failed.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check that you are signed in to iCloud, then open the link again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy kiểm tra iPhone đã đăng nhập iCloud rồi mở lại đường dẫn."
+          }
+        }
+      }
+    },
+    "partner.accept.failed.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't open the invitation"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa mở được lời mời"
+          }
+        }
+      }
+    },
     "pregnancy.appointment.none": {
       "extractionState": "manual",
       "localizations": {

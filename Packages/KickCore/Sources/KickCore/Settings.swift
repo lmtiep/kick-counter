@@ -24,6 +24,8 @@ public enum SettingsKey {
     public static let appMode = "appMode"
     /// The mode to restore when leaving partner mode (`AppMode.leavePartner`).
     public static let previousAppMode = "previousAppMode"
+    /// True when accepting a partner invitation skipped onboarding; leaving partner mode shows it.
+    public static let partnerSkippedOnboarding = "partnerSkippedOnboarding"
     /// Days, 21–45 (default 28): used until enough cycles are logged.
     public static let typicalCycleLength = "typicalCycleLength"
     /// Days, 2–10 (default 5).

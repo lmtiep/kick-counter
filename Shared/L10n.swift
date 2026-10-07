@@ -617,4 +617,9 @@ enum L10n {
         case .invalidHeight: t("weight.invalid.height")
         }
     }
+
+    // MARK: - Phase 8: partner sharing
+
+    static var partnerAcceptFailedTitle: String { t("partner.accept.failed.title") }
+    static var partnerAcceptFailedBody: String { t("partner.accept.failed.body") }
 }

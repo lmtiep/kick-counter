@@ -12,6 +12,7 @@ struct AppEnvironment {
     let weight: WeightCoordinator
     let content: WeeklyContentLibrary?
     let knowledge: KnowledgeLibrary?
+    let sharing: any PartnerSharing
 
     private static let arguments = ProcessInfo.processInfo.arguments
     #if DEBUG
@@ -34,6 +35,9 @@ struct AppEnvironment {
             }
             if AppClock.launchOptions.seedCycles != nil {
                 AppMode.save(.tryingToConceive, to: AppGroup.defaults)
+            }
+            if AppClock.launchOptions.partner != nil {
+                AppMode.enterPartner(in: AppGroup.defaults)
             }
         }
         #endif
@@ -91,8 +95,25 @@ struct AppEnvironment {
             cycle: cycle,
             weight: weight,
             content: WeeklyContentLibrary.loadBundled(),
-            knowledge: KnowledgeLibrary.loadBundled()
+            knowledge: KnowledgeLibrary.loadBundled(),
+            sharing: makeSharing()
         )
+    }
+
+    /// CloudKit, except in UI tests: the fake in the state the launch arguments
+    /// ask for (not shared when they ask for none), so no test touches iCloud.
+    private static func makeSharing() -> any PartnerSharing {
+        #if DEBUG
+        if isUITesting {
+            let options = AppClock.launchOptions
+            if let partner = options.partner {
+                let sample = PartnerSnapshot.uiTestSample(now: AppClock.now(), language: ContentLanguage.current)
+                return FakePartnerSharing(partner: partner, snapshot: sample)
+            }
+            return FakePartnerSharing(mother: options.sharing ?? .notShared)
+        }
+        #endif
+        return CloudPartnerSharing()
     }
 
     #if DEBUG

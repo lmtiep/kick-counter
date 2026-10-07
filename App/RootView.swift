@@ -15,6 +15,8 @@ struct RootView: View {
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
+    @Environment(PartnerInvitationInbox.self) private var invitations
+    @Environment(\.partnerSharing) private var sharing
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(SettingsKey.hasCompletedOnboarding, store: AppGroup.defaults)
     private var hasCompletedOnboarding = false
@@ -25,6 +27,7 @@ struct RootView: View {
     @State private var selectedTab = AppTab.today
     /// Profile → "Replay the introduction": onboarding without saving anything.
     @State private var replayingOnboarding = false
+    @State private var invitationFailed = false
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
 
@@ -64,6 +67,18 @@ struct RootView: View {
             .onChange(of: appLanguage) {
                 Task { await relocalizeReminders() }
             }
+            // An iCloud invitation opened from Messages or Mail (phase 8 spec §5.2).
+            // Not `.task(id:)`: taking the invitation changes the id, which would
+            // cancel the acceptance in flight.
+            .onChange(of: invitations.pending?.id, initial: true) {
+                guard let invitation = invitations.take() else { return }
+                Task { await accept(invitation) }
+            }
+            .alert(L10n.partnerAcceptFailedTitle, isPresented: $invitationFailed) {
+                Button(L10n.commonOK) {}
+            } message: {
+                Text(L10n.partnerAcceptFailedBody)
+            }
     }
 
     private var tabs: some View {
@@ -91,6 +106,17 @@ struct RootView: View {
         }
         // Active tab: cycleStrong / pregnancy (pregOnSoft: pregStrong fails AA at 11 pt).
         .tint(mode == .tryingToConceive ? Color.luna(.cycleStrong) : Color.luna(.pregOnSoft))
+    }
+
+    private func accept(_ invitation: PartnerInvitation) async {
+        switch await PartnerAcceptance.accept(invitation, sharing: sharing, defaults: AppGroup.defaults) {
+        case .accepted:
+            selectedTab = .today
+        case .ignoredOwnInvitation:
+            break
+        case .failed:
+            invitationFailed = true
+        }
     }
 
     private func reload() async {
