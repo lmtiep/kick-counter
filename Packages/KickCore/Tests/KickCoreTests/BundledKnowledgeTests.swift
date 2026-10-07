@@ -10,6 +10,8 @@ struct BundledKnowledgeTests {
     static let requiredArticleIDs: Set<String> = [
         "nutrition-first-trimester", "food-safety", "iron-calcium-balanced-meals",
         "safe-exercise", "gentle-exercise-second-trimester", "pelvic-floor-posture",
+        "first-trimester-tiredness", "sleep-positions", "sleeping-well-late-pregnancy",
+        "early-pregnancy-worries", "changing-body-feelings", "preparing-for-motherhood",
     ]
 
     let library: KnowledgeLibrary

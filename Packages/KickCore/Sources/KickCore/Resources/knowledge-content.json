@@ -524,6 +524,450 @@
         5,
         6
       ]
+    },
+    {
+      "id": "first-trimester-tiredness",
+      "topic": "sleep",
+      "trimesters": [
+        1
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Tiredness in the first trimester",
+        "vi": "Mệt mỏi trong tam cá nguyệt đầu"
+      },
+      "summary": {
+        "en": "Feeling very tired is common in the first weeks of pregnancy; it usually eases later, and rest, regular meals and help from others can make it easier to manage.",
+        "vi": "Mệt mỏi rất thường gặp trong những tuần đầu mang thai; cảm giác này thường đỡ dần về sau, và nghỉ ngơi, ăn uống đều đặn cùng sự giúp đỡ của người thân có thể giúp mẹ dễ chịu hơn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why you feel so tired",
+            "vi": "Vì sao mẹ mệt"
+          },
+          "paragraphs": {
+            "en": [
+              "In the first weeks, your hormone levels rise quickly and your body works hard to build the placenta, which will nourish your baby. Many women feel worn out, sometimes even after a long night's sleep.",
+              "Nausea and broken sleep can add to the tiredness. For many women, energy starts to come back in the second trimester, from around week 14. Until then, try to see rest as part of looking after your pregnancy, not as time wasted."
+            ],
+            "vi": [
+              "Trong những tuần đầu, nội tiết tố tăng nhanh và cơ thể mẹ làm việc vất vả để tạo nên bánh rau, nơi sẽ nuôi dưỡng bé. Nhiều mẹ thấy mệt rã rời, đôi khi ngay cả sau một đêm ngủ dài.",
+              "Buồn nôn và giấc ngủ chập chờn có thể khiến mẹ càng mệt hơn. Với nhiều mẹ, sức lực bắt đầu hồi lại khi sang tam cá nguyệt thứ hai, khoảng từ tuần 14. Trước lúc đó, mẹ hãy coi nghỉ ngơi là một phần của việc chăm sóc thai kỳ, chứ không phải thời gian lãng phí."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Getting enough rest",
+            "vi": "Nghỉ ngơi thế nào cho đủ"
+          },
+          "paragraphs": {
+            "en": [
+              "Go to bed earlier when you can, and take a short nap or lie down for a while during the day if your routine allows. Even a few minutes with your feet up may help. A gentle walk in fresh air or another light activity can also lift your energy, even when moving is the last thing you feel like doing.",
+              "Eat regular meals and snacks, and include foods rich in iron, such as lean meat, eggs, beans and dark green vegetables. Sip water through the day too.",
+              "Ask your partner or family to share the cooking, shopping and housework. If you work, see whether you can take short breaks during the day. When you feel drowsy, avoid driving a car or riding a motorbike, and take extra care on the road."
+            ],
+            "vi": [
+              "Khi có thể, mẹ hãy đi ngủ sớm hơn, và chợp mắt hoặc nằm nghỉ một lát vào ban ngày nếu công việc cho phép. Ngồi gác chân nghỉ vài phút cũng có thể giúp mẹ đỡ mệt. Đi bộ nhẹ nhàng ngoài trời hay vận động nhẹ cũng có thể giúp mẹ khỏe khoắn hơn, dù lúc đó mẹ chẳng muốn nhúc nhích chút nào.",
+              "Mẹ ăn uống đều bữa, thêm vài bữa phụ, và chọn các món giàu sắt như thịt nạc, trứng, các loại đậu và rau xanh đậm. Mẹ cũng nhớ uống nước rải rác trong ngày.",
+              "Mẹ hãy nhờ bố bé hoặc người thân chia sẻ việc nấu nướng, đi chợ và dọn dẹp. Nếu đang đi làm, mẹ thử sắp xếp để được nghỉ giải lao ngắn trong ngày. Khi thấy buồn ngủ, mẹ tránh lái ô tô hay đi xe máy, và cẩn thận hơn khi tham gia giao thông."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "When to ask your doctor or midwife",
+            "vi": "Khi nào nên hỏi bác sĩ hoặc nữ hộ sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "Tiredness is usually part of early pregnancy, but sometimes it has another cause, such as anaemia, when your blood is low in iron. If you are very tired and also get out of breath easily, notice your heart racing or look pale, tell your doctor or midwife. A simple blood test can check for anaemia.",
+              "If you feel faint, go to the emergency department straight away.",
+              "Tiredness can also come with low mood. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family."
+            ],
+            "vi": [
+              "Mệt mỏi thường là một phần của những tuần đầu mang thai, nhưng đôi khi có nguyên nhân khác, chẳng hạn thiếu máu do cơ thể thiếu sắt. Nếu mẹ mệt nhiều và kèm theo dễ hụt hơi, thấy tim đập nhanh hoặc da xanh xao, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Một xét nghiệm máu đơn giản có thể cho biết mẹ có bị thiếu máu không.",
+              "Nếu thấy choáng váng muốn ngất, mẹ hãy đến khoa cấp cứu ngay.",
+              "Mệt mỏi đôi khi đi kèm tâm trạng buồn chán. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        5
+      ]
+    },
+    {
+      "id": "sleep-positions",
+      "topic": "sleep",
+      "trimesters": [
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Sleep positions in pregnancy",
+        "vi": "Tư thế ngủ khi mang thai"
+      },
+      "summary": {
+        "en": "As your bump grows, lying on your side usually feels more comfortable, and from about 28 weeks guidelines advise going to sleep on your side.",
+        "vi": "Khi bụng lớn dần, nằm nghiêng thường dễ chịu hơn, và từ khoảng tuần 28, các hướng dẫn khuyên mẹ nằm nghiêng khi đi ngủ."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Going to sleep on your side",
+            "vi": "Nằm nghiêng khi đi ngủ"
+          },
+          "paragraphs": {
+            "en": [
+              "In the early weeks, you can sleep in whatever position feels comfortable. During the second trimester, as your bump grows, many women find that lying on their side is easier. Lying flat on your back can make some women dizzy, because the weight of the womb presses on a large vein. Turning onto your side usually helps. If you faint, or the dizziness does not pass when you sit up, contact your doctor or midwife straight away.",
+              "From about 28 weeks, guidelines advise going to sleep on your side, both at night and for naps during the day. Lying on your side keeps the weight of the womb off that large vein, so blood can flow more easily to your baby. Either side is fine, and you can change sides during the night."
+            ],
+            "vi": [
+              "Những tuần đầu, mẹ có thể ngủ ở bất kỳ tư thế nào thấy thoải mái. Sang tam cá nguyệt thứ hai, khi bụng lớn dần, nhiều mẹ thấy nằm nghiêng dễ chịu hơn. Nằm ngửa thẳng lưng có thể khiến một số mẹ chóng mặt, vì sức nặng của tử cung đè lên một tĩnh mạch lớn. Nghiêng người sang một bên thường giúp mẹ đỡ hơn. Nếu ngất, hoặc chóng mặt không đỡ khi đã ngồi dậy, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay.",
+              "Từ khoảng tuần 28, các hướng dẫn khuyên mẹ nằm nghiêng khi đi ngủ, cả ban đêm lẫn lúc chợp mắt ban ngày. Nằm nghiêng giúp tử cung không đè lên tĩnh mạch lớn ấy, nhờ vậy máu đến với bé dễ dàng hơn. Mẹ nằm nghiêng bên nào cũng được, và có thể đổi bên trong đêm."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Pillows and comfort",
+            "vi": "Gối và tư thế dễ chịu"
+          },
+          "paragraphs": {
+            "en": [
+              "Pillows can make side sleeping much more comfortable. Try one under your bump, one between your knees and one behind your back, so you are less likely to roll onto your back. A long pillow or a rolled-up blanket can do the same job.",
+              "Bending your knees a little may ease the strain on your back and hips. If one hip starts to ache, turn over to the other side. When you want to read or rest in bed, prop yourself up with pillows rather than lying flat on your back."
+            ],
+            "vi": [
+              "Gối có thể giúp mẹ nằm nghiêng dễ chịu hơn nhiều. Mẹ thử kê một chiếc gối dưới bụng, một chiếc giữa hai đầu gối và một chiếc sau lưng để ít bị lăn sang nằm ngửa. Một chiếc gối dài hoặc tấm chăn cuộn tròn cũng dùng được.",
+              "Co nhẹ hai đầu gối có thể giúp lưng và hông đỡ mỏi. Nếu nằm lâu thấy mỏi một bên hông, mẹ trở mình sang bên kia. Khi muốn đọc sách hay nằm nghỉ trên giường, mẹ kê gối để ngồi tựa thay vì nằm ngửa thẳng lưng."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "If you wake on your back",
+            "vi": "Nếu thức dậy thấy mình nằm ngửa"
+          },
+          "paragraphs": {
+            "en": [
+              "Everyone moves in their sleep, so waking up on your back is common. There is no need to worry: simply roll onto your side and go back to sleep. The advice is about the position you settle into when you go to sleep.",
+              "If sleep is hard for other reasons, such as heartburn or leg cramps, the article “Sleeping well in late pregnancy” has more ideas. If you have questions about sleeping positions, ask your doctor or midwife at your next check-up."
+            ],
+            "vi": [
+              "Ai cũng cử động khi ngủ, nên thức dậy thấy mình nằm ngửa là chuyện thường gặp. Mẹ không cần lo lắng, chỉ cần nghiêng người lại rồi ngủ tiếp. Lời khuyên này nói về tư thế mẹ nằm lúc bắt đầu đi ngủ.",
+              "Nếu mẹ khó ngủ vì những lý do khác như ợ nóng hay chuột rút, bài “Ngủ ngon hơn ở những tháng cuối” có thêm nhiều gợi ý. Nếu còn băn khoăn về tư thế ngủ, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh ở lần khám tới."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "sleeping-well-late-pregnancy",
+      "topic": "sleep",
+      "trimesters": [
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Sleeping well in late pregnancy",
+        "vi": "Ngủ ngon hơn ở những tháng cuối"
+      },
+      "summary": {
+        "en": "Sleep often gets harder in the third trimester, but a calm bedtime routine, small changes to your evenings and support from others can help you rest.",
+        "vi": "Giấc ngủ thường khó hơn ở tam cá nguyệt thứ ba, nhưng nếp sinh hoạt nhẹ nhàng trước giờ ngủ, vài thay đổi nhỏ vào buổi tối và sự hỗ trợ của người thân có thể giúp mẹ nghỉ ngơi tốt hơn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why sleep gets harder",
+            "vi": "Vì sao khó ngủ"
+          },
+          "paragraphs": {
+            "en": [
+              "In the last months, many women sleep less well. A large bump makes it hard to get comfortable, and you may need to get up to pee several times a night. Heartburn, leg cramps and your baby's kicks can wake you too.",
+              "Some women have restless legs: an unpleasant feeling in the legs with an urge to move them, often in the evening. Worries about the birth and about life with a new baby can also keep your mind busy at night."
+            ],
+            "vi": [
+              "Trong những tháng cuối, nhiều mẹ ngủ không ngon giấc. Bụng to khiến mẹ khó tìm tư thế thoải mái, và mẹ có thể phải dậy đi tiểu vài lần mỗi đêm. Ợ nóng, chuột rút ở chân và những cú đạp của bé cũng có thể làm mẹ tỉnh giấc.",
+              "Một số mẹ bị chứng chân không yên: chân bứt rứt khó chịu, cứ muốn cử động, thường vào buổi tối. Những lo lắng về lúc sinh và về cuộc sống khi có bé cũng có thể khiến mẹ trằn trọc ban đêm."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Things that may help",
+            "vi": "Những điều có thể giúp"
+          },
+          "paragraphs": {
+            "en": [
+              "Try to keep a regular routine, going to bed and getting up at about the same times. Wind down for a while before bed with a warm shower, quiet music or a book. Switch off screens a little earlier, and keep your bedroom cool, dark and quiet.",
+              "Drink most of your fluids earlier in the day so you need to get up less at night, but still drink enough overall. For heartburn, have a smaller evening meal a few hours before bed. Raising the head of your bed a little may also help, for example with a pillow under the mattress.",
+              "Gently stretching your calves before bed may help with cramps. Slow, deep breathing can help you relax when your mind is racing. Go to sleep on your side with pillows for support, and rest during the day when you can."
+            ],
+            "vi": [
+              "Mẹ cố giữ nếp sinh hoạt đều đặn, đi ngủ và thức dậy vào khoảng cùng một giờ. Trước khi ngủ, mẹ dành một lúc thư giãn như tắm nước ấm, nghe nhạc nhẹ hay đọc sách. Mẹ tắt điện thoại, máy tính sớm hơn một chút, và giữ phòng ngủ mát mẻ, tối và yên tĩnh.",
+              "Mẹ uống phần lớn lượng nước vào ban ngày để đêm đỡ phải dậy đi tiểu, nhưng vẫn uống đủ nước. Nếu bị ợ nóng, mẹ ăn bữa tối ít hơn, xong trước giờ ngủ vài tiếng. Kê cao đầu giường một chút, chẳng hạn chèn gối dưới đệm, cũng có thể giúp mẹ đỡ hơn.",
+              "Giãn nhẹ bắp chân trước khi ngủ có thể giúp mẹ đỡ chuột rút. Thở chậm và sâu có thể giúp mẹ thư thái khi đầu óc ngổn ngang. Mẹ nằm nghiêng khi đi ngủ, kê gối đỡ quanh người, và tranh thủ nghỉ ngơi ban ngày khi có thể."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "What to tell your doctor or midwife",
+            "vi": "Những điều cần báo bác sĩ hoặc nữ hộ sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "A cramp usually passes within a few minutes. If one leg has a painful, red or swollen area that does not go away, see a doctor straight away. If restless legs disturb your sleep on most nights, tell your doctor or midwife. If you have intense itching, especially on your palms and soles, tell your doctor promptly.",
+              "Get to know your baby's usual pattern of movements, including in the evening and at night. If your baby moves less than usual, or the pattern changes, contact your maternity unit straight away, day or night. Do not wait until the morning.",
+              "If worry or low mood keeps you awake, talk with someone you trust. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family."
+            ],
+            "vi": [
+              "Chuột rút thường hết sau vài phút. Nếu một bên chân có chỗ đau, đỏ hoặc sưng mà không hết, mẹ hãy đi khám bác sĩ ngay. Nếu chứng chân không yên làm mẹ mất ngủ gần như mỗi đêm, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Nếu bị ngứa nhiều, nhất là ở lòng bàn tay, bàn chân, mẹ hãy báo bác sĩ sớm.",
+              "Mẹ hãy để ý nhịp cử động quen thuộc của bé, kể cả buổi tối và ban đêm. Nếu bé cử động ít hơn mọi ngày hoặc khác thường, mẹ hãy liên hệ khoa sản ngay, dù ngày hay đêm. Đừng đợi đến sáng.",
+              "Nếu lo lắng hay buồn chán khiến mẹ mất ngủ, mẹ hãy tâm sự với người mình tin tưởng. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        7
+      ]
+    },
+    {
+      "id": "early-pregnancy-worries",
+      "topic": "feelings",
+      "trimesters": [
+        1
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Worries in early pregnancy",
+        "vi": "Lo lắng khi mới mang thai"
+      },
+      "summary": {
+        "en": "Feeling worried as well as happy is common in early pregnancy; talking, rest and reliable information can help, and your doctor or midwife can support you when you need it.",
+        "vi": "Vừa vui mừng vừa lo lắng là cảm giác thường gặp khi mới mang thai; trò chuyện, nghỉ ngơi và thông tin đáng tin cậy có thể giúp mẹ, và bác sĩ hoặc nữ hộ sinh sẽ hỗ trợ khi mẹ cần."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Worry is common",
+            "vi": "Lo lắng là chuyện thường gặp"
+          },
+          "paragraphs": {
+            "en": [
+              "Finding out you are pregnant can bring joy, surprise and worry all at once. Many women wonder whether the pregnancy will go on smoothly. They may also worry about tests and scans, money, work, or how their body will change.",
+              "Your mood may change quickly too. Rising hormones, nausea and tiredness can leave you tearful or irritable one moment and cheerful the next. These ups and downs are common, and they often settle as the weeks go by."
+            ],
+            "vi": [
+              "Biết tin có thai, mẹ có thể vừa vui, vừa bất ngờ, vừa lo. Nhiều mẹ băn khoăn không biết thai kỳ có tiếp tục suôn sẻ không. Mẹ cũng có thể lo về các xét nghiệm, siêu âm, chuyện tiền bạc, công việc hay những thay đổi của cơ thể.",
+              "Tâm trạng của mẹ cũng có thể thay đổi nhanh. Nội tiết tố tăng, buồn nôn và mệt mỏi có thể khiến mẹ lúc thì dễ khóc, dễ cáu, lúc lại vui vẻ. Những lúc lên xuống như vậy rất hay gặp, và thường dịu dần theo thời gian."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Things that may help",
+            "vi": "Những cách có thể giúp"
+          },
+          "paragraphs": {
+            "en": [
+              "Share how you feel with your partner, a family member or a friend. Saying a worry out loud often makes it feel lighter. You can bring your worries to your check-ups as well.",
+              "Write your questions down as they come up, and take the list with you to your check-ups so nothing is forgotten. Choose reliable sources of information, such as your doctor or midwife. If a test or scan result worries you, ask them to explain what it means and what happens next. Try not to search online late at night, when worries tend to grow.",
+              "Looking after your body helps your mood as well. Rest when you can, eat regular meals and try some gentle activity, such as a short walk each day."
+            ],
+            "vi": [
+              "Mẹ hãy chia sẻ cảm xúc với bố bé, người thân hoặc bạn bè. Nói ra nỗi lo thường giúp mẹ thấy nhẹ lòng hơn. Mẹ cũng có thể nói về những điều mình lo khi đi khám thai.",
+              "Khi nảy ra câu hỏi, mẹ ghi lại và mang theo khi đi khám để không quên điều gì. Mẹ nên tìm thông tin từ nguồn đáng tin cậy, như bác sĩ hoặc nữ hộ sinh. Nếu một kết quả xét nghiệm hay siêu âm khiến mẹ lo, mẹ hãy nhờ họ giải thích ý nghĩa và các bước tiếp theo. Mẹ hạn chế tra cứu trên mạng lúc đêm khuya, khi nỗi lo dễ lớn dần lên.",
+              "Chăm sóc cơ thể cũng giúp tinh thần mẹ khá hơn. Mẹ nghỉ ngơi khi có thể, ăn uống đều bữa và vận động nhẹ nhàng, chẳng hạn đi bộ một lát mỗi ngày."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "When to get support",
+            "vi": "Khi nào cần tìm hỗ trợ"
+          },
+          "paragraphs": {
+            "en": [
+              "Some worries are about your body. If you have any bleeding from your vagina, however light, or belly pain that is severe or does not go away, contact your doctor straight away.",
+              "If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family. Support is available, and asking for it is a sensible step.",
+              "If you ever have thoughts of harming yourself, tell someone you trust and get help straight away. Call an emergency ambulance (115) or go to the nearest hospital."
+            ],
+            "vi": [
+              "Có những nỗi lo liên quan đến cơ thể. Nếu ra máu âm đạo, dù ít hay nhiều, hoặc đau bụng dữ dội hay không dứt, mẹ hãy liên hệ bác sĩ ngay.",
+              "Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình. Mẹ có thể được hỗ trợ, và tìm đến sự giúp đỡ là việc nên làm.",
+              "Nếu có lúc mẹ nghĩ đến việc làm hại bản thân, mẹ hãy nói với người mình tin tưởng và tìm trợ giúp ngay. Mẹ hãy gọi cấp cứu 115 hoặc đến bệnh viện gần nhất."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        5,
+        7
+      ]
+    },
+    {
+      "id": "changing-body-feelings",
+      "topic": "feelings",
+      "trimesters": [
+        2
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Your changing body and feelings",
+        "vi": "Cơ thể thay đổi và cảm xúc của mẹ"
+      },
+      "summary": {
+        "en": "In the second trimester your body changes quickly, and feeling proud, surprised or uneasy about it is common; sharing these feelings and caring for yourself can help.",
+        "vi": "Ở tam cá nguyệt thứ hai, cơ thể mẹ thay đổi nhanh, và cảm thấy tự hào, ngỡ ngàng hay bối rối là điều thường gặp; chia sẻ cảm xúc và chăm sóc bản thân có thể giúp mẹ."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "A changing body, changing feelings",
+            "vi": "Cơ thể thay đổi, cảm xúc cũng đổi thay"
+          },
+          "paragraphs": {
+            "en": [
+              "Your bump is starting to show, and other changes may appear too. You may notice stretch marks, a dark line down your belly, darker patches on your face, or thicker, shinier hair. Many of these fade after the birth, and stretch marks usually become paler over time.",
+              "You may feel proud of your bump one day and uneasy about it the next. Both are common. Comments about your size can hurt, even when they are meant kindly. Every bump is different, and its size depends on many things, such as your height and build. If you are worried about your baby's growth, ask your doctor or midwife, who checks it at your visits."
+            ],
+            "vi": [
+              "Bụng mẹ bắt đầu lộ rõ, và có thể xuất hiện thêm những thay đổi khác. Mẹ có thể thấy vết rạn da, một đường sẫm màu dọc bụng, những mảng sẫm màu trên mặt, hoặc tóc dày và bóng hơn. Nhiều thay đổi trong số này nhạt dần sau sinh, còn vết rạn thường mờ dần theo thời gian.",
+              "Có hôm mẹ thấy tự hào về bụng bầu, hôm sau lại thấy ngại ngùng. Cả hai cảm xúc đều thường gặp. Lời nhận xét về bụng to hay nhỏ có thể khiến mẹ chạnh lòng, dù người nói có ý tốt. Mỗi bụng bầu một khác, và kích thước còn tùy vào nhiều điều như chiều cao, vóc dáng của mẹ. Nếu lo về sự phát triển của bé, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh, người sẽ theo dõi điều này qua mỗi lần khám."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "You and your partner",
+            "vi": "Chuyện vợ chồng"
+          },
+          "paragraphs": {
+            "en": [
+              "In most pregnancies, sex is safe unless your doctor or midwife has advised against it. Your baby is cushioned by the fluid around them and by the strong muscles of the womb. Wanting sex more than before, or less, is normal, and it may change from week to week.",
+              "Talk openly with your partner about how you feel, including about your changing body. Your partner may have worries of their own. Cuddles, a massage or simply time together can keep you close when you do not feel like sex. Trying positions that suit your bump may also help.",
+              "If you have bleeding or belly pain after sex, contact your maternity unit straight away. If fluid leaks from your vagina, contact your maternity unit straight away, whatever the colour."
+            ],
+            "vi": [
+              "Với phần lớn thai kỳ, quan hệ vợ chồng là an toàn, trừ khi bác sĩ hoặc nữ hộ sinh khuyên mẹ tránh. Bé được bao bọc bởi nước ối và lớp cơ tử cung chắc khỏe. Ham muốn nhiều hơn hay ít đi so với trước đều là bình thường, và có thể thay đổi theo từng tuần.",
+              "Mẹ hãy cởi mở nói với chồng về cảm xúc của mình, kể cả những băn khoăn về cơ thể đang thay đổi. Chồng mẹ cũng có thể có những lo lắng riêng. Những cái ôm, xoa bóp hay đơn giản là ở bên nhau giúp hai vợ chồng thân thiết khi mẹ chưa muốn chuyện chăn gối. Thử những tư thế hợp với bụng bầu cũng có thể giúp ích.",
+              "Nếu ra máu hoặc đau bụng sau khi quan hệ, mẹ hãy liên hệ khoa sản ngay. Nếu ra nước âm đạo, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Looking after your mind",
+            "vi": "Chăm sóc tinh thần"
+          },
+          "paragraphs": {
+            "en": [
+              "Small pleasures can lift your mood: a walk outdoors, time with friends, a favourite meal or an early night. Rest when you need to, and feel free to say no to things that can wait.",
+              "If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family. If you ever have thoughts of harming yourself, tell someone you trust and get help straight away. Call an emergency ambulance (115) or go to the nearest hospital."
+            ],
+            "vi": [
+              "Những niềm vui nhỏ có thể giúp mẹ phấn chấn hơn: đi dạo ngoài trời, gặp gỡ bạn bè, một món ăn yêu thích hay một tối đi ngủ sớm. Mẹ nghỉ ngơi khi cần, và cứ thoải mái từ chối những việc có thể để sau.",
+              "Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình. Nếu có lúc mẹ nghĩ đến việc làm hại bản thân, mẹ hãy nói với người mình tin tưởng và tìm trợ giúp ngay. Mẹ hãy gọi cấp cứu 115 hoặc đến bệnh viện gần nhất."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        7
+      ]
+    },
+    {
+      "id": "preparing-for-motherhood",
+      "topic": "feelings",
+      "trimesters": [
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Getting ready for motherhood",
+        "vi": "Chuẩn bị làm mẹ"
+      },
+      "summary": {
+        "en": "In the last weeks, excitement and worry often go together; lining up support for after the birth, and knowing when feelings need help, can make the change easier.",
+        "vi": "Trong những tuần cuối, háo hức và lo lắng thường đi cùng nhau; chuẩn bị trước người hỗ trợ sau sinh, và biết khi nào cảm xúc cần được giúp đỡ, có thể giúp mẹ bước vào chặng mới nhẹ nhàng hơn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Feelings before the birth",
+            "vi": "Cảm xúc trước ngày sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "As the birth gets closer, you may feel excited, impatient and scared, sometimes all on the same day. Many women worry about the pain of labour, how the birth will go, or whether they will cope with a newborn.",
+              "Knowing what to expect often eases fear. Antenatal classes explain the stages of labour and the ways to ease pain. Talk the birth through with your doctor or midwife, and ask about anything that worries you. No birth can be planned in every detail, but you can say what matters to you."
+            ],
+            "vi": [
+              "Khi ngày sinh đến gần, mẹ có thể thấy háo hức, sốt ruột và sợ hãi, đôi khi tất cả trong cùng một ngày. Nhiều mẹ lo về cơn đau chuyển dạ, về việc sinh nở sẽ diễn ra thế nào, hay liệu mình có chăm nổi một em bé mới sinh không.",
+              "Hiểu trước điều sắp tới thường giúp mẹ bớt sợ. Các lớp học tiền sản giải thích những giai đoạn của chuyển dạ và các cách giảm đau. Mẹ hãy trao đổi với bác sĩ hoặc nữ hộ sinh về việc sinh nở, và hỏi về bất cứ điều gì khiến mẹ lo. Không ca sinh nào có thể lên kế hoạch đến từng chi tiết, nhưng mẹ có thể nói ra những điều mình coi trọng."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Lining up support",
+            "vi": "Chuẩn bị chỗ dựa"
+          },
+          "paragraphs": {
+            "en": [
+              "The first weeks with a newborn are tiring for everyone. Before the birth, think about who could help with meals, housework and shopping, so you can rest, feed your baby and get to know each other. Your parents, your in-laws, other relatives and friends may be glad to be asked.",
+              "Talk with your partner about sharing the work, including nappy changes, bathing and the night feeds, so that each of you gets some sleep. It is fine to tell visitors when you need quiet time."
+            ],
+            "vi": [
+              "Những tuần đầu chăm bé sơ sinh thường mệt với cả nhà. Trước khi sinh, mẹ hãy tính xem ai có thể giúp nấu ăn, dọn dẹp, đi chợ, để mẹ được nghỉ ngơi, cho bé bú và làm quen với bé. Ông bà nội ngoại, họ hàng và bạn bè có thể sẽ vui khi được nhờ.",
+              "Mẹ hãy bàn với bố bé cách chia việc, kể cả thay bỉm, tắm cho bé và các cữ bú đêm, để cả hai đều được ngủ. Mẹ cứ thoải mái nói với khách đến thăm khi mình cần yên tĩnh."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "After your baby is born",
+            "vi": "Sau khi bé chào đời"
+          },
+          "paragraphs": {
+            "en": [
+              "In the first days after the birth, many women feel tearful, anxious or up and down. These “baby blues” are common and usually pass within about two weeks. Rest, food and kind support can help.",
+              "Feelings that last longer, or that are severe, may be a sign of postnatal depression. This is common too, and it can be treated. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family. This applies before the birth as well as after it.",
+              "If you ever have thoughts of harming yourself, tell someone you trust and get help straight away. Call an emergency ambulance (115) or go to the nearest hospital."
+            ],
+            "vi": [
+              "Trong những ngày đầu sau sinh, nhiều mẹ dễ khóc, hay lo âu hoặc tâm trạng thất thường. Tình trạng này, thường gọi là “baby blues”, rất hay gặp và thường qua đi trong khoảng hai tuần. Nghỉ ngơi, ăn uống đủ và sự quan tâm của người thân có thể giúp mẹ.",
+              "Nếu những cảm xúc ấy kéo dài hơn hoặc trở nên nặng nề, đó có thể là dấu hiệu của trầm cảm sau sinh. Trầm cảm sau sinh cũng hay gặp và có thể điều trị được. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình. Điều này áp dụng cả trước lẫn sau khi sinh.",
+              "Nếu có lúc mẹ nghĩ đến việc làm hại bản thân, mẹ hãy nói với người mình tin tưởng và tìm trợ giúp ngay. Mẹ hãy gọi cấp cứu 115 hoặc đến bệnh viện gần nhất."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        7,
+        9
+      ]
     }
   ]
 }
