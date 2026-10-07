@@ -91,7 +91,7 @@ struct AppEnvironment {
         #endif
         let weight = WeightCoordinator(store: weightStore, defaults: AppGroup.defaults, now: { AppClock.now() })
         let sharing = makeSharing()
-        let partnerShare = PartnerShareCoordinator(sharing: sharing)
+        let partnerShare = PartnerShareCoordinator(sharing: sharing, defaults: AppGroup.defaults)
         // The real clock, not AppClock: the publisher waits 5 s on it.
         let partnerPublisher = PartnerPublisher(
             sharing: sharing,

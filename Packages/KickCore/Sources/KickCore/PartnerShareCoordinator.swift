@@ -28,9 +28,31 @@ public final class PartnerShareCoordinator {
     public private(set) var isWorking = false
 
     private let sharing: any PartnerSharing
+    /// Remembers a stop that did not finish (`SettingsKey.partnerPendingZoneDeletion`); nil keeps it in memory only.
+    private let defaults: UserDefaults?
+    private var pendingZoneDeletionInMemory = false
 
-    public init(sharing: any PartnerSharing) {
+    public init(sharing: any PartnerSharing, defaults: UserDefaults? = nil) {
         self.sharing = sharing
+        self.defaults = defaults
+    }
+
+    /// A stop failed after it was asked for (e.g. the system sheet already
+    /// deleted the CKShare but deleting the zone failed): `refresh()` deletes
+    /// the zone before anything else.
+    public private(set) var hasPendingZoneDeletion: Bool {
+        get { defaults?.bool(forKey: SettingsKey.partnerPendingZoneDeletion) ?? pendingZoneDeletionInMemory }
+        set {
+            if let defaults {
+                if newValue {
+                    defaults.set(true, forKey: SettingsKey.partnerPendingZoneDeletion)
+                } else {
+                    defaults.removeObject(forKey: SettingsKey.partnerPendingZoneDeletion)
+                }
+            } else {
+                pendingZoneDeletionInMemory = newValue
+            }
+        }
     }
 
     public var isSharing: Bool {
@@ -41,6 +63,10 @@ public final class PartnerShareCoordinator {
     }
 
     public func refresh() async {
+        if hasPendingZoneDeletion {
+            await stopSharing()
+            return
+        }
         do {
             switch try await sharing.shareStatus() {
             case .notShared: status = .notShared
@@ -57,6 +83,8 @@ public final class PartnerShareCoordinator {
     public func startSharing() async -> PartnerShareHandle? {
         isWorking = true
         defer { isWorking = false }
+        // Sharing again: the zone an earlier stop left behind is the one to use.
+        hasPendingZoneDeletion = false
         do {
             let handle = try await sharing.prepareShare()
             if !isSharing { status = .invited }
@@ -67,13 +95,16 @@ public final class PartnerShareCoordinator {
         }
     }
 
-    /// Deletes the zone, the share and the snapshot. Returns false when that failed.
+    /// Deletes the zone, the share and the snapshot. Returns false when that
+    /// failed; the next `refresh()` then tries again.
     @discardableResult
     public func stopSharing() async -> Bool {
         isWorking = true
         defer { isWorking = false }
+        hasPendingZoneDeletion = true
         do {
             try await sharing.stopSharing()
+            hasPendingZoneDeletion = false
             status = .notShared
             return true
         } catch {

@@ -71,6 +71,39 @@ struct PartnerShareCoordinatorTests {
         #expect(coordinator.status == .failed)
     }
 
+    /// Review fix 2: a stop that failed (the system sheet already removed the
+    /// CKShare) deletes the zone on the next check, even after a relaunch.
+    @Test func anInterruptedStopIsFinishedOnTheNextRefresh() async throws {
+        let defaults = makeTestDefaults()
+        let sharing = FakePartnerSharing(mother: .invited)
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: defaults)
+        await coordinator.refresh()
+        await sharing.setFailure(.retryable)
+        #expect(await coordinator.stopSharing() == false)
+        #expect(coordinator.hasPendingZoneDeletion)
+        #expect(defaults.bool(forKey: SettingsKey.partnerPendingZoneDeletion))
+
+        await sharing.setFailure(nil)
+        let relaunched = PartnerShareCoordinator(sharing: sharing, defaults: defaults)
+        await relaunched.refresh()
+        #expect(relaunched.status == .notShared)
+        #expect(!relaunched.hasPendingZoneDeletion)
+        #expect(defaults.object(forKey: SettingsKey.partnerPendingZoneDeletion) == nil)
+        #expect(try await sharing.shareStatus() == .notShared)
+    }
+
+    @Test func sharingAgainDropsThePendingZoneDeletion() async throws {
+        let sharing = FakePartnerSharing(mother: .invited)
+        let coordinator = PartnerShareCoordinator(sharing: sharing, defaults: makeTestDefaults())
+        await sharing.setFailure(.retryable)
+        #expect(await coordinator.stopSharing() == false)
+        await sharing.setFailure(nil)
+        #expect(await coordinator.startSharing() != nil)
+        #expect(!coordinator.hasPendingZoneDeletion)
+        await coordinator.refresh()
+        #expect(coordinator.status == .invited)
+    }
+
     @Test func theRowFollowsTheSpecTable() {
         #expect(PartnerShareRow(status: .iCloudFull, hasDueDate: true) == .iCloudFull)
         #expect(PartnerShareRow(status: .notShared, hasDueDate: true) == .notShared)

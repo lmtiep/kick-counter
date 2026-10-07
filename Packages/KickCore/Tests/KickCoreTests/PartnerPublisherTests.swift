@@ -168,6 +168,80 @@ struct PartnerPublisherTests {
         #expect(await sharing.publishCount == 2)
     }
 
+    /// Review fix 1: a change dropped by a failed upload is uploaded on becoming
+    /// active, even within six hours of the last successful upload.
+    @Test func aFailedChangeIsUploadedOnBecomingActiveWithinSixHours() async throws {
+        let sharing = try await sharedFake()
+        let publisher = makePublisher(sharing)
+        publisher.update(snapshot(sessions: 1))
+        await publisher.waitUntilIdle()
+        await sharing.setFailure(.retryable)
+        publisher.update(snapshot(sessions: 2))
+        await publisher.waitUntilIdle()
+        #expect(await sharing.publishCount == 1)
+
+        await sharing.setFailure(nil)
+        clock.now += 3_600
+        publisher.noteBecameActive()
+        await publisher.waitUntilIdle()
+        #expect(await sharing.publishCount == 2)
+        #expect(try await sharing.fetchSharedSnapshot()?.kicks.sessionsLast7Days == 2)
+    }
+
+    /// Review fix 1: the same for a change that came due while not sharing.
+    @Test func aChangeMadeWhileInactiveIsUploadedOnBecomingActive() async throws {
+        let sharing = try await sharedFake()
+        let active = PartnerActiveFlag()
+        let clock = clock
+        let publisher = PartnerPublisher(
+            sharing: sharing,
+            isActive: { active.value },
+            defaults: defaults,
+            now: { clock.now },
+            sleep: { seconds in await MainActor.run { clock.now += seconds } }
+        )
+        publisher.update(snapshot(sessions: 1))
+        await publisher.waitUntilIdle()
+        active.value = false
+        publisher.update(snapshot(sessions: 2))
+        await publisher.waitUntilIdle()
+        #expect(await sharing.publishCount == 1)
+
+        active.value = true
+        clock.now += 3_600
+        publisher.noteBecameActive()
+        await publisher.waitUntilIdle()
+        #expect(await sharing.publishCount == 2)
+    }
+
+    /// Review fix 3: `publishNow()` waits for the worker's upload in flight, so
+    /// the uploads land in order and the newest one is what is remembered.
+    @Test func overlappingUploadsLandInOrder() async throws {
+        let sharing = GatedPartnerSharing()
+        let clock = clock
+        let publisher = PartnerPublisher(
+            sharing: sharing,
+            isActive: { true },
+            defaults: defaults,
+            now: { clock.now },
+            sleep: { seconds in await MainActor.run { clock.now += seconds } }
+        )
+        publisher.update(snapshot(sessions: 1))
+        while await !sharing.isHolding { await Task.yield() }
+        publisher.update(snapshot(sessions: 2))
+        let now = Task { await publisher.publishNow() }
+        for _ in 0..<20 { await Task.yield() }
+        #expect(await sharing.uploads.isEmpty)
+        await sharing.release()
+        #expect(await now.value)
+        await publisher.waitUntilIdle()
+        #expect(await sharing.uploads.map(\.kicks.sessionsLast7Days) == [1, 2])
+        // The newest upload is the one remembered: the same content is not uploaded again.
+        publisher.update(snapshot(sessions: 2))
+        await publisher.waitUntilIdle()
+        #expect(await sharing.uploads.count == 2)
+    }
+
     @Test func becomingActiveUploadsAtMostEverySixHours() async throws {
         let sharing = try await sharedFake()
         let publisher = makePublisher(sharing)
@@ -211,4 +285,38 @@ struct PartnerPublisherTests {
         #expect(try await sharing.fetchSharedSnapshot()?.kicks.sessionsLast7Days == 2)
         #expect(defaults.data(forKey: SettingsKey.partnerPublishedSnapshot) != nil)
     }
+}
+
+@MainActor
+final class PartnerActiveFlag {
+    var value = true
+}
+
+/// Holds the first upload until `release()`, then records every upload in order.
+actor GatedPartnerSharing: PartnerSharing {
+    private(set) var uploads: [PartnerSnapshot] = []
+    private(set) var isHolding = false
+    private var holdsNext = true
+    private var gate: CheckedContinuation<Void, Never>?
+
+    func release() {
+        gate?.resume()
+        gate = nil
+    }
+
+    func shareStatus() async throws -> PartnerShareStatus { .invited }
+    func prepareShare() async throws -> PartnerShareHandle { PartnerShareHandle(payload: nil) }
+    func publish(_ snapshot: PartnerSnapshot) async throws {
+        if holdsNext {
+            holdsNext = false
+            isHolding = true
+            await withCheckedContinuation { gate = $0 }
+            isHolding = false
+        }
+        uploads.append(snapshot)
+    }
+    func stopSharing() async throws {}
+    func accept(_ invitation: PartnerInvitation) async throws {}
+    func fetchSharedSnapshot() async throws -> PartnerSnapshot? { nil }
+    func registerForChanges() async throws {}
 }

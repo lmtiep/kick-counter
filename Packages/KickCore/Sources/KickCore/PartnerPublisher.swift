@@ -24,6 +24,10 @@ public final class PartnerPublisher {
     /// The next upload happens even if the content is already published.
     private var forced = false
     private var worker: Task<Void, Never>?
+    /// The last upload started: each upload waits for the one before it, so
+    /// `publishNow()` and the worker never upload at the same time and
+    /// `published` always records the newest upload.
+    private var upload: Task<Bool, Never>?
 
     /// `now` must be the real clock: the scheduler waits on it. `sleep` is a seam for tests.
     public init(
@@ -74,11 +78,17 @@ public final class PartnerPublisher {
         return false
     }
 
-    /// The app became active: refresh the partner's copy if the last upload is six hours old.
+    /// The app became active: refresh the partner's copy if the last upload is
+    /// six hours old, and upload any change that was dropped (a failed upload,
+    /// or one due while not sharing) whatever the time since the last upload.
     public func noteBecameActive() {
         let before = scheduler.lastChange
         scheduler.noteBecameActive(at: now())
-        if scheduler.lastChange != before { forced = true }
+        if scheduler.lastChange != before {
+            forced = true
+        } else if let latest, !isPublished(latest) {
+            scheduler.noteChange(at: now())
+        }
         startWorker()
     }
 
@@ -94,6 +104,7 @@ public final class PartnerPublisher {
     /// Waits for the scheduled upload, if any (tests).
     public func waitUntilIdle() async {
         await worker?.value
+        _ = await upload?.value
     }
 
     private func isPublished(_ snapshot: PartnerSnapshot) -> Bool {
@@ -118,9 +129,20 @@ public final class PartnerPublisher {
         worker = nil
     }
 
-    /// True when a snapshot was uploaded.
+    /// True when a snapshot was uploaded. Runs after any upload in flight.
     @discardableResult
     private func publishLatest() async -> Bool {
+        let previous = upload
+        let task = Task { [weak self] () -> Bool in
+            _ = await previous?.value
+            guard let self else { return false }
+            return await self.uploadLatest()
+        }
+        upload = task
+        return await task.value
+    }
+
+    private func uploadLatest() async -> Bool {
         scheduler.startPublishing()
         let force = forced
         forced = false
