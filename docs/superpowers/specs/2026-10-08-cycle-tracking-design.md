@@ -58,7 +58,7 @@ public enum CycleRegularity: String, Sendable, CaseIterable { case regular, irre
 | `fertileLabel` | `.fertileWindow` ("Cửa sổ thụ thai") | `.highPregnancyChance` ("Khả năng thụ thai cao") | n/a |
 | `showsNotContraceptionNote` | false | true | false |
 | `showsLHAndBBT` (daily log, unless the Profile override is on) | true | false | false |
-| `predictedBleedLabel` | `.predictedPeriod` | `.predictedPeriod` | `.withdrawalBleed` ("Chảy máu dự kiến") |
+| `predictedBleedLabel` | `.predictedPeriod` | `.predictedPeriod` | `.withdrawalBleed` ("Ra máu dự kiến") |
 | `headline` (Today) | existing TTC headline | `.nextPeriod` ("Kỳ kinh tới sau N ngày" / "Ngày thứ X của kỳ kinh" / "Trễ N ngày") | same as the column to its left |
 | `reminderKinds` | existing (period soon, fertile window, …) | `[.periodSoon, .periodLate]` | `[.periodSoon, .periodLate]` |
 
