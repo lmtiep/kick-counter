@@ -4387,6 +4387,23 @@
         }
       }
     },
+    "partner.about.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What is shared"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những gì được chia sẻ"
+          }
+        }
+      }
+    },
     "partner.accept.failed.body": {
       "extractionState": "manual",
       "localizations": {
@@ -4421,6 +4438,40 @@
         }
       }
     },
+    "partner.appointments.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No upcoming check-ups yet"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có lịch khám sắp tới"
+          }
+        }
+      }
+    },
+    "partner.appointments.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upcoming check-ups"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lịch khám sắp tới"
+          }
+        }
+      }
+    },
     "partner.defaultName": {
       "extractionState": "manual",
       "localizations": {
@@ -4434,6 +4485,261 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mẹ"
+          }
+        }
+      }
+    },
+    "partner.error.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check your connection and try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy kiểm tra kết nối rồi thử lại."
+          }
+        }
+      }
+    },
+    "partner.error.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load the journey"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa tải được hành trình"
+          }
+        }
+      }
+    },
+    "partner.iCloud.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The shared journey comes through iCloud. Sign in to iCloud in Settings, then try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hành trình được chia sẻ qua iCloud. Hãy đăng nhập iCloud trong Cài đặt rồi thử lại."
+          }
+        }
+      }
+    },
+    "partner.iCloud.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to iCloud"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đăng nhập iCloud"
+          }
+        }
+      }
+    },
+    "partner.kicks.last": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld movements in %2$@, %3$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld cử động trong %2$@, %3$@"
+          }
+        }
+      }
+    },
+    "partner.kicks.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No kick counts yet"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa có lượt đếm nào"
+          }
+        }
+      }
+    },
+    "partner.kicks.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kick counts"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm cử động"
+          }
+        }
+      }
+    },
+    "partner.kicks.week": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld sessions in 7 days · average %2$@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld lượt trong 7 ngày · trung bình %2$@"
+          }
+        }
+      }
+    },
+    "partner.kicks.weekNone": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No sessions in the last 7 days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có lượt nào trong 7 ngày qua"
+          }
+        }
+      }
+    },
+    "partner.kicks.weekOne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 session in 7 days · average %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 lượt trong 7 ngày · trung bình %@"
+          }
+        }
+      }
+    },
+    "partner.leave": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave partner mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thoát chế độ Bạn đời"
+          }
+        }
+      }
+    },
+    "partner.leaveConfirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leave partner mode? The shared journey is removed from this iPhone."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thoát chế độ Bạn đời? Hành trình được chia sẻ sẽ bị xóa khỏi iPhone này."
+          }
+        }
+      }
+    },
+    "partner.loading": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading the journey…"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang tải hành trình…"
+          }
+        }
+      }
+    },
+    "partner.modeName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partner mode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chế độ Bạn đời"
+          }
+        }
+      }
+    },
+    "partner.retry": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try again"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thử lại"
           }
         }
       }
@@ -4638,6 +4944,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chia sẻ với bố bé"
+          }
+        }
+      }
+    },
+    "partner.stopped.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can no longer see this journey. Ask her to invite you again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn không còn xem được hành trình này. Hãy nhờ mẹ mời lại."
+          }
+        }
+      }
+    },
+    "partner.stopped.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mom stopped sharing"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mẹ đã ngừng chia sẻ"
+          }
+        }
+      }
+    },
+    "partner.today.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@'s journey"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hành trình của %@"
+          }
+        }
+      }
+    },
+    "partner.updated": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updated %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cập nhật %@"
           }
         }
       }

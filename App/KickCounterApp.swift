@@ -36,6 +36,7 @@ struct KickCounterApp: App {
                     .environment(\.partnerSharing, env.sharing)
                     .environment(env.partnerShare)
                     .environment(\.partnerPublisher, env.partnerPublisher)
+                    .environment(env.partnerJourney)
                     .environment(\.contentLibrary, env.content)
                     .environment(\.knowledgeLibrary, env.knowledge)
                     .modelContainer(env.container)

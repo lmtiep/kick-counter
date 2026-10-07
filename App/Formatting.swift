@@ -72,6 +72,14 @@ enum Formatting {
         date.formatted(Date.FormatStyle(date: .long, time: .omitted).locale(locale))
     }
 
+    /// Partner mode: "10 minutes ago" / "10 phút trước".
+    static func relative(_ date: Date, now: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = locale
+        formatter.unitsStyle = .full
+        return formatter.localizedString(for: date, relativeTo: now)
+    }
+
     /// Appointments: "Oct 20, 2026 at 2:30 PM".
     static func dateTime(_ date: Date) -> String {
         date.formatted(Date.FormatStyle(date: .abbreviated, time: .shortened).locale(locale))

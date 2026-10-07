@@ -101,6 +101,13 @@ enum AppTab: Int {
     case profile
 }
 
+/// Tab order in RootView in partner mode (phase 8): no kick counter.
+enum PartnerModeTab: Int {
+    case today = 0
+    case knowledge
+    case profile
+}
+
 /// Tab order in RootView in trying-to-conceive mode.
 enum CycleModeTab: Int {
     case today = 0
@@ -110,6 +117,10 @@ enum CycleModeTab: Int {
 
 extension XCUIApplication {
     func openTab(_ tab: AppTab) {
+        openTab(at: tab.rawValue)
+    }
+
+    func openPartnerTab(_ tab: PartnerModeTab) {
         openTab(at: tab.rawValue)
     }
 

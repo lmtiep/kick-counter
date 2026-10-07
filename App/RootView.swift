@@ -5,17 +5,20 @@ enum AppTab: Hashable {
     case today
     case calendar
     case kicks
+    case knowledge
     case profile
 }
 
 /// Three tabs per mode (spec §2.3). Trying to conceive: Today · Calendar ·
-/// Profile. Pregnant: Today · Kicks (with History inside) · Profile.
+/// Profile. Pregnant: Today · Kicks (with History inside) · Profile. Partner
+/// (phase 8): Today · Knowledge · Profile, with no kick counter.
 struct RootView: View {
     @Environment(KickCoordinator.self) private var coordinator
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
     @Environment(PartnerShareCoordinator.self) private var partnerShare
+    @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
     @Environment(\.partnerSharing) private var sharing
     @Environment(\.scenePhase) private var scenePhase
@@ -106,7 +109,7 @@ struct RootView: View {
                 .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
                 CycleCalendarView()
                     .lunaTab(L10n.tabCalendar, systemImage: "calendar", tag: .calendar)
-            case .pregnant, .partner:
+            case .pregnant:
                 PregnancyTodayView(
                     onOpenKicks: { selectedTab = .kicks },
                     onOpenProfile: { selectedTab = .profile }
@@ -114,9 +117,25 @@ struct RootView: View {
                 .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
                 KicksView()
                     .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks)
+            case .partner:
+                PartnerTodayView(onLeave: leavePartnerMode)
+                    .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
+                let trimester = partnerJourney.trimester(now: AppClock.now())
+                NavigationStack {
+                    KnowledgeLibraryView(initialTrimester: trimester)
+                }
+                // The library keeps its first trimester: start again once the
+                // shared due date arrives (or the trimester changes).
+                .id(trimester)
+                .lunaTab(L10n.knowledgeTitle, systemImage: "book.fill", tag: .knowledge)
             }
-            ProfileView(onReplayOnboarding: { replayingOnboarding = true })
-                .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
+            if mode == .partner {
+                PartnerProfileView(onLeave: leavePartnerMode)
+                    .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
+            } else {
+                ProfileView(onReplayOnboarding: { replayingOnboarding = true })
+                    .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
+            }
         }
         // Active tab: cycleStrong / pregnancy (pregOnSoft: pregStrong fails AA at 11 pt).
         .tint(mode == .tryingToConceive ? Color.luna(.cycleStrong) : Color.luna(.pregOnSoft))
@@ -126,6 +145,8 @@ struct RootView: View {
         switch await PartnerAcceptance.accept(invitation, sharing: sharing, defaults: AppGroup.defaults) {
         case .accepted:
             selectedTab = .today
+            // Already in partner mode (a new invitation): Today does not appear again.
+            await partnerJourney.refresh()
         case .ignoredOwnInvitation:
             break
         case .failed:
@@ -138,7 +159,17 @@ struct RootView: View {
         await appointments.load()
         await cycle.load()
         await weight.load()
-        if mode == .pregnant { await partnerShare.refresh() }
+        switch mode {
+        case .pregnant: await partnerShare.refresh()
+        case .partner: await partnerJourney.refresh()
+        case .tryingToConceive: break
+        }
+    }
+
+    /// Back to the mode before partner mode, on its Today.
+    private func leavePartnerMode() {
+        partnerJourney.leave()
+        selectedTab = .today
     }
 
     /// The language changed: every pending reminder is scheduled again in it

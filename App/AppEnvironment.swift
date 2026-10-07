@@ -15,6 +15,7 @@ struct AppEnvironment {
     let sharing: any PartnerSharing
     let partnerShare: PartnerShareCoordinator
     let partnerPublisher: PartnerPublisher
+    let partnerJourney: PartnerJourneyModel
 
     private static let arguments = ProcessInfo.processInfo.arguments
     #if DEBUG
@@ -108,7 +109,8 @@ struct AppEnvironment {
             knowledge: KnowledgeLibrary.loadBundled(),
             sharing: sharing,
             partnerShare: partnerShare,
-            partnerPublisher: partnerPublisher
+            partnerPublisher: partnerPublisher,
+            partnerJourney: PartnerJourneyModel(sharing: sharing, defaults: AppGroup.defaults)
         )
     }
 
