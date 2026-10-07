@@ -30,6 +30,7 @@ struct KickCounterApp: App {
                     .environment(env.cycle)
                     .environment(env.weight)
                     .environment(\.contentLibrary, env.content)
+                    .environment(\.knowledgeLibrary, env.knowledge)
                     .modelContainer(env.container)
                     .preferredColorScheme(AppEnvironment.forceDarkMode ? .dark : nil)
             case .failure:

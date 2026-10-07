@@ -60,7 +60,7 @@
 - [ ] CloudKit Console: record type `CD_Appointment` có trong Development (sinh tự động theo cách
       ở mục "Cấu hình" phía trên, sau khi một lịch hẹn đã được lưu từ bản build ký development), rồi
       **Deploy Schema Changes** lên Production — làm cùng lần với bước deploy schema của v1.
-- [ ] Ảnh chụp App Store mới cho tab Thai kỳ (vi + en): `ci-artifacts/screenshots/pregnancy-home-24-*`, `week-article-*` (thay `week-24-*` từ giai đoạn 6), `appointments-*`.
+- [ ] Ảnh chụp App Store mới cho tab Thai kỳ (vi + en): `ci-artifacts/screenshots/pregnancy-home-24-*`, `week-article-*` (thay `week-24-*` từ giai đoạn 6), `knowledge-*` (giai đoạn 7, khi đã có bài được duyệt), `appointments-*`.
 - [ ] Ghi chú phát hành: tab Thai kỳ; nội dung bé + mẹ tuần 4–42; lịch khám có nhắc trước 1 ngày; nhập ngày dự sinh hoặc ngày đầu kỳ kinh cuối.
 
 ### Kiểm thử thủ công trên iPhone qua TestFlight (vi và en)
@@ -234,3 +234,28 @@
 - [ ] Reduce Motion bật: sheet chuyển nấc tức thì, ảnh nền chỉ mờ đi chứ không thu nhỏ.
 - [ ] Dynamic Type lớn nhất: Chi tiết tuần mở thẳng nấc cao, chữ không bị cắt.
 - [ ] Tuần 4–6 không có câu số đo; tuần 41–42 có dòng "Số liệu chuẩn Hadlock chỉ đến tuần 40."
+
+## Giai đoạn 7 — Kiến thức chuyên sâu
+
+### Trước khi gửi App Store
+- [ ] Không thay đổi CloudKit: bài viết nằm trong `knowledge-content.json` đóng gói cùng app (phiên bản 1).
+- [ ] Bác sĩ đã duyệt các bài — mục 10 của [`docs/content-review-for-doctor.md`](content-review-for-doctor.md).
+      Bài chưa duyệt bị ẩn ở bản App Store; khi chưa có bài nào được duyệt, thẻ ở Hôm nay và thư viện không hiện.
+- [ ] Đủ 18 bài và chưa bài nào tự đánh dấu duyệt — lệnh sau in ra `18`:
+      `python3 -c "import json;print(len(json.load(open('Packages/KickCore/Sources/KickCore/Resources/knowledge-content.json'))['articles']))"`
+- [ ] Ảnh chụp App Store (khi có bài được duyệt): `knowledge-card-vi-light`, `knowledge-library-vi-light`,
+      `knowledge-reading-peek-vi-light`, `knowledge-*-en-dark`.
+- [ ] Ghi chú phát hành: mục Kiến thức mới — bài viết chuyên sâu theo tam cá nguyệt, gợi ý ngay ở màn Hôm nay.
+
+### Kiểm thử thủ công trên iPhone qua TestFlight (vi và en)
+- [ ] Hôm nay (mang thai, có ngày dự sinh): cuối màn có thẻ "Gợi ý cho tam cá nguyệt N" với 3 bài; ngày hôm sau
+      vẫn 3 bài đó, tuần sau bài đầu tiên đổi.
+- [ ] Chạm một bài: màn đọc mở ở nấc thấp, thấy ảnh/biểu tượng chủ đề, tiêu đề, dòng "Người xem xét" và câu tóm tắt;
+      kéo tay nắm lên/xuống như Chi tiết tuần; ✕ đóng màn đọc.
+- [ ] "Xem thêm": thư viện "Kiến thức" mở đúng tam cá nguyệt hiện tại; đổi chip 1/2/3 thì danh sách đổi theo chủ đề.
+- [ ] Đang kéo sheet thì vuốt về màn hình chính hoặc có cuộc gọi đến: mở lại app, sheet nằm đúng một nấc, không
+      treo lưng chừng (sửa lỗi kéo bị hủy).
+- [ ] Chế độ Mong con: không có thẻ Kiến thức.
+- [ ] VoiceOver: màn đọc mở thẳng nấc cao; ✕ được đọc trước; tiêu đề mục đọc là "tiêu đề".
+- [ ] Dynamic Type lớn nhất: thẻ, thư viện và màn đọc không cắt chữ (tóm tắt ở thẻ tối đa 2 dòng); màn đọc mở nấc cao.
+- [ ] Reduce Motion bật: sheet chuyển nấc tức thì; ảnh nền chỉ mờ đi.

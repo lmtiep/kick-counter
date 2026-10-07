@@ -11,6 +11,7 @@ struct AppEnvironment {
     let cycle: CycleCoordinator
     let weight: WeightCoordinator
     let content: WeeklyContentLibrary?
+    let knowledge: KnowledgeLibrary?
 
     private static let arguments = ProcessInfo.processInfo.arguments
     #if DEBUG
@@ -89,7 +90,8 @@ struct AppEnvironment {
             appointments: appointments,
             cycle: cycle,
             weight: weight,
-            content: WeeklyContentLibrary.loadBundled()
+            content: WeeklyContentLibrary.loadBundled(),
+            knowledge: KnowledgeLibrary.loadBundled()
         )
     }
 

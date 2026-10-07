@@ -436,3 +436,134 @@ Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
           các lần kiểm tra này có thể lặp lại nhiều lần trong tuần để giúp quyết định thời điểm sinh phù hợp.
 - [ ] Khi bác sĩ duyệt xong một tuần: đổi `"reviewed": true` cho tuần đó như mục 1 — cờ này áp dụng cho cả
       các gạch đầu dòng lẫn bài viết của tuần.
+
+## 10. Bài viết chuyên sâu theo tam cá nguyệt (giai đoạn 7)
+
+Mục "Kiến thức" gồm 18 bài viết chuyên sâu trong 6 chủ đề, gắn với tam cá nguyệt. Màn Hôm nay (chế độ mang thai)
+có thẻ "Gợi ý cho tam cá nguyệt N" với 3 bài và nút "Xem thêm" mở thư viện. Bài viết mới hoàn toàn, song ngữ
+vi/en, nằm trong `Packages/KickCore/Sources/KickCore/Resources/knowledge-content.json`; mọi bài vẫn
+`"reviewed": false`, nên bản App Store chưa hiện thẻ lẫn thư viện. Xem trên ảnh chụp `knowledge-*` trong
+`ci-artifacts/screenshots/` của lần CI gần nhất, hoặc trong bản TestFlight (thư viện hiện tất cả bài).
+
+**Nguyên tắc viết** (như mục 9, thêm):
+- Mỗi bài 300–500 chữ mỗi ngôn ngữ (tóm tắt + tiêu đề mục + đoạn văn), 2–4 mục; câu tóm tắt tối đa 35 từ (en) /
+  45 âm tiết (vi). Kiểm tra tự động, cùng việc không có đơn vị inch/pound/ounce và không có liều thuốc.
+- Được nêu con số theo hướng dẫn y tế công cộng (danh sách ở mục 41).
+- Bài về cảm xúc luôn có câu: nếu buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói
+  với bác sĩ hoặc nữ hộ sinh, hoặc người thân.
+- Bài "Dấu hiệu chuyển dạ" khớp mục cảnh báo của từng tuần: vỡ ối thì gọi khoa sản ngay, dù nước ối màu gì; bé cử
+  động ít đi thì gọi ngay, dù ngày hay đêm.
+- Tuần luôn tính theo số tuần tròn đã qua (như màn Hôm nay); tiếng Việt dùng từ miền Bắc.
+
+40. [ ] **Duyệt từng bài** (đúng dữ kiện, đúng tam cá nguyệt, giọng văn, khớp với bài viết theo tuần):
+    - [ ] Dinh dưỡng — `nutrition-first-trimester`: Ăn uống trong tam cá nguyệt đầu
+    - [ ] Dinh dưỡng — `food-safety`: An toàn thực phẩm khi mang thai
+    - [ ] Dinh dưỡng — `iron-calcium-balanced-meals`: Sắt, canxi và bữa ăn cân đối
+    - [ ] Vận động — `safe-exercise`: Vận động an toàn khi mang thai
+    - [ ] Vận động — `gentle-exercise-second-trimester`: Vận động nhẹ nhàng ở tam cá nguyệt thứ hai
+    - [ ] Vận động — `pelvic-floor-posture`: Cơ sàn chậu và tư thế hằng ngày
+    - [ ] Giấc ngủ — `first-trimester-tiredness`: Mệt mỏi trong tam cá nguyệt đầu
+    - [ ] Giấc ngủ — `sleep-positions`: Tư thế ngủ khi mang thai
+    - [ ] Giấc ngủ — `sleeping-well-late-pregnancy`: Ngủ ngon hơn ở những tháng cuối
+    - [ ] Cảm xúc — `early-pregnancy-worries`: Lo lắng khi mới mang thai
+    - [ ] Cảm xúc — `changing-body-feelings`: Cơ thể thay đổi và cảm xúc của mẹ
+    - [ ] Cảm xúc — `preparing-for-motherhood`: Chuẩn bị làm mẹ
+    - [ ] Khám thai — `antenatal-checkup-milestones`: Lịch khám thai qua từng giai đoạn
+    - [ ] Khám thai — `first-trimester-screening`: Xét nghiệm và sàng lọc đầu thai kỳ
+    - [ ] Khám thai — `anomaly-scan-glucose-test`: Siêu âm hình thái và xét nghiệm tiểu đường
+    - [ ] Chuẩn bị sinh — `signs-of-labour`: Nhận biết dấu hiệu chuyển dạ
+    - [ ] Chuẩn bị sinh — `hospital-bag`: Chuẩn bị túi đồ đi sinh
+    - [ ] Chuẩn bị sinh — `birth-plan-breastfeeding`: Kế hoạch sinh và những cữ bú đầu
+41. [ ] **Con số theo hướng dẫn** — xác nhận từng con số và nguồn:
+    - [ ] Vận động vừa sức khoảng 150 phút mỗi tuần; những lần tập ngắn cũng được tính (WHO 2020,
+          ACOG CO 804) — `safe-exercise`, `gentle-exercise-second-trimester`.
+    - [ ] Caffeine dưới 200 mg mỗi ngày (ACOG CO 462, NHS) — câu cố định trong `food-safety`: "Phần lớn các hướng
+          dẫn khuyên mẹ giữ tổng lượng caffeine dưới 200 mg mỗi ngày, tính cả cà phê, trà, nước cola, nước tăng lực
+          và sô-cô-la." Đây là câu duy nhất được phép có đơn vị mg.
+    - [ ] Nằm nghiêng khi đi ngủ từ khoảng tuần 28 (NICE NG201, NHS) — `sleep-positions`.
+    - [ ] "Baby blues" thường hết trong khoảng hai tuần (NICE CG192, NHS) — `preparing-for-motherhood`.
+    - [ ] Buồn chán hoặc lo âu gần như mỗi ngày từ hai tuần trở lên thì nói với bác sĩ hoặc nữ hộ sinh — các bài
+          cảm xúc.
+    - [ ] Ít nhất 8 lần tiếp xúc chăm sóc trước sinh (WHO 2016) — `antenatal-checkup-milestones`.
+    - [ ] Các mốc: đo độ mờ da gáy và double test tuần 11–14; siêu âm hình thái tuần 18–22; xét nghiệm tiểu đường
+          thai kỳ tuần 24–28 (khớp lịch khám gợi ý ở mục 4).
+    - [ ] Chuẩn bị túi đồ đi sinh từ khoảng tuần 33, xong trước khoảng tuần 36.
+    - [ ] Cho con bú trong giờ đầu sau sinh; chỉ bú mẹ hoàn toàn trong 6 tháng đầu; kẹp dây rốn sau ít nhất 1 phút
+          khi có thể (WHO, WHO/UNICEF 2018) — `birth-plan-breastfeeding`.
+    - [ ] Nấu ăn bằng muối i-ốt giúp đủ i-ốt, chất cơ thể cần nhiều hơn khi mang thai (WHO, Bộ Y tế) — không kèm
+          liều lượng — `iron-calcium-balanced-meals`.
+42. [ ] **Câu hỏi:** bài `early-pregnancy-worries` có câu "nếu có ý nghĩ làm hại bản thân, hãy nói với người mẹ tin
+        tưởng và tìm trợ giúp ngay: gọi 115 hoặc đến bệnh viện gần nhất". Câu này cũng lặp lại ở `changing-body-feelings`
+        và `preparing-for-motherhood`. Bác sĩ có muốn thêm một đường dây hỗ trợ tâm lý cụ thể ở Việt Nam không?
+43. [ ] **Câu hỏi:** bài `antenatal-checkup-milestones` nêu khuyến cáo "ít nhất 8 lần" của WHO và viết "lịch khám do
+        cơ sở y tế của mẹ đặt". Có cần nêu số lần khám tối thiểu theo hướng dẫn của Bộ Y tế không?
+44. [ ] **Danh sách nguồn** (`sources` trong `knowledge-content.json`, 10 mục: WHO 2016, WHO 2020, ACOG, ACOG CO 804,
+        ACOG CO 462, NHS, NICE NG201, NICE CG192, WHO/UNICEF 2018, Bộ Y tế) — xác nhận phù hợp.
+45. [ ] **Dữ kiện tác giả thêm ngoài danh sách kiểm** (từ các commit nội dung của giai đoạn 7) — xin bác sĩ xác nhận:
+    - [ ] `nutrition-first-trimester`: axit folic quan trọng nhất trong giai đoạn não và cột sống bé hình thành;
+          rau lá xanh, các loại đậu và cam có folate.
+    - [ ] `nutrition-first-trimester`: uống đủ nước giúp đỡ táo bón; nói với bác sĩ hoặc nữ hộ sinh về chế độ ăn
+          ở lần khám đầu; không tự dùng thêm thực phẩm bổ sung hay thuốc nam khi chưa hỏi.
+    - [ ] `food-safety`: pa-tê là sản phẩm từ gan; rượu gạo tự nấu cũng tính là rượu; một cốc cà phê đậm có thể
+          dùng gần hết lượng caffeine cho phép trong ngày, nên chọn cốc nhạt hơn, nhỏ hơn hoặc đã khử caffeine.
+    - [ ] `food-safety`: dùng thớt và dao riêng cho thịt sống; cho thức ăn còn lại vào tủ lạnh sớm sau khi ăn.
+    - [ ] `iron-calcium-balanced-meals`: canxi giúp xây xương và răng cho bé; mẹ có thể thấy ăn ngon hơn ở tam cá
+          nguyệt hai; gợi ý món ăn nhẹ (trái cây, sữa chua, các loại hạt, trứng luộc) thay cho bánh kẹo và nước
+          ngọt.
+    - [ ] `iron-calcium-balanced-meals`: nấu ăn bằng muối i-ốt có thể giúp mẹ có đủ i-ốt, chất cơ thể cần nhiều
+          hơn khi mang thai (WHO, Bộ Y tế).
+    - [ ] `gentle-exercise-second-trimester`: ví dụ khởi động (đi bộ chậm, xoay vai); nên chọn thời điểm trời mát
+          hoặc phòng thoáng khí.
+    - [ ] `pelvic-floor-posture`: cơ sàn chậu giúp kiểm soát việc đi tiểu và xì hơi; gợi ý gắn bài tập với một
+          việc làm hằng ngày; đau vùng chậu khiến cả việc đi cầu thang, đi lại và xoay người khi ngủ khó khăn hơn.
+    - [ ] `safe-exercise`: tránh yoga nóng, thể dục dụng cụ, đi xe đạp địa hình và quyền anh (ACOG CO 804); ngừng
+          tập nếu đau đầu hoặc yếu cơ ảnh hưởng đến thăng bằng (ACOG CO 804); đau đầu dữ dội, hoặc kèm nhìn mờ hay
+          phù đột ngột → liên hệ khoa sản ngay.
+    - [ ] `first-trimester-tiredness`: năng lượng thường trở lại từ khoảng tuần 14 (đầu tam cá nguyệt hai).
+    - [ ] `first-trimester-tiredness`: cảm giác choáng váng muốn ngất → đến khoa cấp cứu ngay (cảnh báo tuần 4–12).
+    - [ ] `sleep-positions`: ngất xỉu, hoặc chóng mặt không hết sau khi ngồi dậy → đến bác sĩ hoặc nữ hộ sinh ngay
+          (như bài `safe-exercise`).
+    - [ ] `sleep-positions`: nằm nghiêng giúp giảm áp lực của tử cung lên tĩnh mạch lớn, máu đến bé dễ dàng hơn.
+    - [ ] `sleep-positions`: hơi gập đầu gối có thể giảm mỏi lưng và hông; nên kê gối ngồi dựa thay vì nằm thẳng
+          khi đọc sách hay nghỉ ngơi.
+    - [ ] `sleeping-well-late-pregnancy`: nâng cao đầu giường, ví dụ kê gối dưới nệm.
+    - [ ] `sleeping-well-late-pregnancy`: chuột rút thường hết trong vài phút; nếu một vùng ở chân sưng, đỏ và
+          đau → đến bác sĩ ngay.
+    - [ ] `early-pregnancy-worries`: nhờ bác sĩ hoặc nữ hộ sinh giải thích một kết quả xét nghiệm hay siêu âm
+          khiến mẹ lo lắng.
+    - [ ] `changing-body-feelings`: đường sậm màu giữa bụng, vài vùng da mặt sậm hơn, tóc dày và óng hơn; phần
+          lớn mờ dần sau sinh, vết rạn da cũng nhạt màu dần.
+    - [ ] `changing-body-feelings`: kích thước bụng phụ thuộc chiều cao và vóc người mẹ; bác sĩ hoặc nữ hộ sinh
+          theo dõi sự phát triển của bé qua các lần khám.
+    - [ ] `changing-body-feelings`: bé được nước ối và các cơ của tử cung đệm bảo vệ.
+    - [ ] `preparing-for-motherhood`: lớp học trước sinh giải thích các giai đoạn chuyển dạ và cách giảm đau
+          (không nêu tên thuốc).
+    - [ ] `preparing-for-motherhood`: trầm cảm sau sinh khá phổ biến và có thể điều trị; câu mốc hai tuần áp dụng
+          cho cả trước và sau khi sinh.
+    - [ ] `first-trimester-screening`: hội chứng Down được nêu một lần làm ví dụ về bất thường nhiễm sắc thể.
+    - [ ] `anomaly-scan-glucose-test`: nên xét nghiệm đường huyết vài tuần sau sinh, vì nguy cơ tiểu đường về
+          sau cao hơn.
+    - [ ] `birth-plan-breastfeeding`: WHO khuyên da tiếp da và kẹp dây rốn muộn cho bé khỏe mạnh.
+    - [ ] `signs-of-labour`: đau đầu dữ dội, mờ mắt hoặc sưng phù bất thường → đến khoa sản ngay; co giật hoặc
+          khó thở → gọi 115 (theo cảnh báo tuần 20–42).
+    - [ ] `hospital-bag`: nhắc cử động thai giảm (gọi ngay, dù ngày hay đêm) và vỡ ối (đến ngay, dù màu nước ối
+          ra sao).
+46. [ ] **Câu hỏi:** bài `food-safety` khuyên nấu chín phô mai mềm mốc trắng (kiểu brie/camembert). Với loại đã
+        tiệt trùng (pasteurised), bác sĩ có cho vẫn cần nấu chín, hay có thể ăn sống nếu nhãn ghi rõ đã tiệt
+        trùng không?
+47. [ ] **Câu hỏi:** bài `food-safety` xếp gan và pa-tê vào cùng mức khuyến cáo. Bác sĩ muốn dùng "hạn chế" hay
+        "tránh hẳn"? Pa-tê rất phổ biến trong bánh mì ở Việt Nam, nên cần câu chữ rõ ràng.
+48. [ ] **Câu hỏi:** về điểm đến khi ngất xỉu — `safe-exercise` và `sleep-positions` viết "đến bác sĩ hoặc nữ hộ
+        sinh ngay", còn `first-trimester-tiredness` viết "đến khoa cấp cứu ngay" (kèm bối cảnh thai ngoài tử
+        cung ở tuần 4–12). Bác sĩ có muốn thống nhất một điểm đến cho cả ba bài, hay giữ khác nhau theo bối cảnh
+        từng bài?
+49. [ ] **Câu hỏi:** bài `sleeping-well-late-pregnancy` hiện chỉ nói về ợ nóng. Có nên thêm câu: đau nặng ngay
+        dưới sườn, kèm đau đầu hoặc thay đổi thị lực, nên đến khoa sản ngay (dấu hiệu tiền sản giật) không?
+50. [ ] **Câu hỏi:** câu muối i-ốt ở mục 41 chỉ là lời khuyên bằng chữ, không kèm liều lượng cụ thể (mg hay đơn
+        vị khác). Bác sĩ xác nhận cách viết không nêu liều là đủ, hay cần nêu con số.
+51. [ ] **Câu hỏi:** các cảnh báo theo tuần trong `pregnancy-content.json` dùng en "maternity unit" / vi
+        "bệnh viện", còn các bài viết chuyên sâu ở mục này dùng "khoa sản". Bác sĩ muốn dùng từ tiếng Việt nào
+        thống nhất — "khoa sản" hay "bệnh viện"?
+52. [ ] **Ghi chú:** bài `sleep-positions` dẫn sang bài khác bằng tên bài: "Sleeping well in late pregnancy" /
+        "Ngủ ngon hơn ở những tháng cuối". Nếu đổi tên bài `sleeping-well-late-pregnancy`, cần sửa câu dẫn này
+        theo cho khớp.

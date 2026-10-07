@@ -1,0 +1,1425 @@
+{
+  "version": 1,
+  "sources": [
+    "WHO recommendations on antenatal care for a positive pregnancy experience (World Health Organization, 2016)",
+    "WHO guidelines on physical activity and sedentary behaviour (World Health Organization, 2020)",
+    "ACOG patient education: Your Pregnancy and Childbirth: Month to Month, and pregnancy FAQs (American College of Obstetricians and Gynecologists)",
+    "ACOG Committee Opinion No. 804: Physical Activity and Exercise During Pregnancy and the Postpartum Period (American College of Obstetricians and Gynecologists, 2020)",
+    "ACOG Committee Opinion No. 462: Moderate Caffeine Consumption During Pregnancy (American College of Obstetricians and Gynecologists, 2010)",
+    "NHS: Your pregnancy and baby guide (National Health Service, UK)",
+    "NICE guideline NG201: Antenatal care (National Institute for Health and Care Excellence, 2021)",
+    "NICE guideline CG192: Antenatal and postnatal mental health (National Institute for Health and Care Excellence, 2014)",
+    "WHO and UNICEF: Implementation guidance on protecting, promoting and supporting breastfeeding in facilities providing maternity and newborn services, the revised Baby-friendly Hospital Initiative (2018)",
+    "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về các dịch vụ chăm sóc sức khỏe sinh sản"
+  ],
+  "topics": [
+    {
+      "id": "nutrition",
+      "name": {
+        "en": "Nutrition",
+        "vi": "Dinh dưỡng"
+      },
+      "symbol": "fork.knife"
+    },
+    {
+      "id": "movement",
+      "name": {
+        "en": "Movement",
+        "vi": "Vận động"
+      },
+      "symbol": "figure.walk"
+    },
+    {
+      "id": "sleep",
+      "name": {
+        "en": "Sleep & rest",
+        "vi": "Giấc ngủ & nghỉ ngơi"
+      },
+      "symbol": "moon.zzz"
+    },
+    {
+      "id": "feelings",
+      "name": {
+        "en": "Feelings",
+        "vi": "Cảm xúc"
+      },
+      "symbol": "heart"
+    },
+    {
+      "id": "checkups",
+      "name": {
+        "en": "Check-ups & tests",
+        "vi": "Khám thai & xét nghiệm"
+      },
+      "symbol": "stethoscope"
+    },
+    {
+      "id": "birth",
+      "name": {
+        "en": "Getting ready for birth",
+        "vi": "Chuẩn bị sinh"
+      },
+      "symbol": "figure.and.child.holdinghands"
+    }
+  ],
+  "articles": [
+    {
+      "id": "nutrition-first-trimester",
+      "topic": "nutrition",
+      "trimesters": [
+        1
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Eating well in the first trimester",
+        "vi": "Ăn uống trong tam cá nguyệt đầu"
+      },
+      "summary": {
+        "en": "In the first weeks, what you eat matters more than how much, and small, plain meals can help on the days when you feel sick.",
+        "vi": "Trong những tuần đầu, ăn đa dạng quan trọng hơn ăn nhiều, và những bữa nhỏ, thanh đạm có thể giúp mẹ dễ chịu hơn vào những ngày buồn nôn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Eating in the first weeks",
+            "vi": "Ăn thế nào trong những tuần đầu"
+          },
+          "paragraphs": {
+            "en": [
+              "You do not need to eat for two. In the first trimester, your body needs little or no extra food, so think about variety rather than amount. A wide mix of foods across the week gives you a good range of nutrients.",
+              "A balanced plate usually has plenty of vegetables and fruit, some whole grains such as brown rice or wholemeal bread, and a source of protein. Fish, eggs, beans, tofu and lean meat all count. If you can, add milk, yoghurt or another dairy food each day.",
+              "Keep a cup or bottle of water nearby and sip it through the day. Your body uses more fluid now, and drinking enough also helps with constipation, which is common in pregnancy."
+            ],
+            "vi": [
+              "Mẹ không cần phải “ăn cho hai người”. Trong tam cá nguyệt đầu, cơ thể hầu như chưa cần ăn thêm, nên mẹ hãy chú ý ăn đa dạng hơn là ăn nhiều. Ăn nhiều loại thực phẩm khác nhau trong tuần giúp mẹ có đủ các chất cần thiết.",
+              "Một bữa ăn cân đối thường có nhiều rau và quả, một phần ngũ cốc nguyên hạt như gạo lứt hay bánh mì nguyên cám, và một món giàu đạm. Cá, trứng, các loại đậu, đậu phụ và thịt nạc đều là nguồn đạm tốt. Nếu được, mẹ dùng thêm sữa, sữa chua hoặc món từ sữa mỗi ngày.",
+              "Mẹ hãy để sẵn cốc hoặc chai nước bên cạnh và uống từng ngụm suốt cả ngày. Lúc này cơ thể cần nhiều nước hơn, và uống đủ nước cũng giúp phòng táo bón, vốn hay gặp khi mang thai."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "When you feel sick",
+            "vi": "Khi buồn nôn"
+          },
+          "paragraphs": {
+            "en": [
+              "Nausea is common in the early weeks. Despite the name morning sickness, it can come at any time of the day or night. For many women it eases during the second trimester, though for some it lasts longer.",
+              "Small meals every few hours often sit better than three large ones, because an empty stomach can make nausea worse. Plain, dry foods such as crackers, toast or plain rice may be easier to manage. Some women find foods or drinks made with ginger helpful. On harder days, eat what you can, and return to variety when you feel better.",
+              "If you are vomiting so often that fluids do not stay down, contact your doctor or midwife the same day. Do the same if you also feel dizzy or your urine is very dark."
+            ],
+            "vi": [
+              "Buồn nôn rất hay gặp trong những tuần đầu. Dù nhiều người nghĩ nghén chỉ đến vào buổi sáng, cảm giác này có thể đến bất cứ lúc nào, cả ngày lẫn đêm. Với nhiều mẹ, cơn nghén dịu dần trong tam cá nguyệt thứ hai, dù có mẹ nghén lâu hơn.",
+              "Ăn bữa nhỏ, cách vài giờ một lần thường dễ chịu hơn ba bữa lớn, vì để bụng đói có thể làm cơn buồn nôn nặng thêm. Những món khô, thanh đạm như bánh quy nhạt, bánh mì nướng hay cơm trắng có thể dễ ăn hơn. Một số mẹ thấy dễ chịu hơn với món ăn hoặc đồ uống có gừng. Vào những ngày mệt, mẹ cứ ăn những gì mình ăn được, rồi ăn đa dạng trở lại khi khỏe hơn.",
+              "Nếu nôn nhiều đến mức không giữ được nước, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay trong ngày. Mẹ cũng làm vậy nếu kèm chóng mặt hoặc nước tiểu rất sẫm màu."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Nutrients to think about",
+            "vi": "Những chất cần chú ý"
+          },
+          "paragraphs": {
+            "en": [
+              "Folic acid matters most in the early weeks, while your baby's brain and spine are forming. It is usually advised from before pregnancy and through the first weeks, so take it as your doctor or midwife advises. Green leafy vegetables, beans and oranges also contain folate.",
+              "At your first antenatal visit, tell your doctor or midwife what you usually eat and whether you avoid any foods. They can tell you if you need anything more. Do not start other supplements or herbal remedies without asking them first."
+            ],
+            "vi": [
+              "Axit folic đặc biệt quan trọng trong những tuần đầu, khi não và cột sống của bé đang hình thành. Axit folic thường được khuyên dùng từ trước khi mang thai và suốt những tuần đầu, mẹ hãy bổ sung theo hướng dẫn của bác sĩ hoặc nữ hộ sinh. Rau lá xanh, các loại đậu và cam cũng có folate.",
+              "Ở lần khám thai đầu tiên, mẹ hãy kể với bác sĩ hoặc nữ hộ sinh mình thường ăn gì và có kiêng món nào không. Mẹ sẽ được tư vấn xem có cần bổ sung thêm gì không. Mẹ đừng tự dùng thêm sản phẩm bổ sung hay thuốc nam khi chưa hỏi ý kiến."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        5,
+        9
+      ]
+    },
+    {
+      "id": "food-safety",
+      "topic": "nutrition",
+      "trimesters": [
+        1,
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Food safety in pregnancy",
+        "vi": "An toàn thực phẩm khi mang thai"
+      },
+      "summary": {
+        "en": "Most foods are fine in pregnancy, but a few are best avoided, and careful cooking and storage help protect you from germs that can be more harmful now.",
+        "vi": "Phần lớn thực phẩm đều ăn được khi mang thai, nhưng có một số món mẹ nên tránh, và nấu chín, bảo quản cẩn thận giúp mẹ phòng những vi khuẩn có hại hơn lúc này."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Foods to avoid",
+            "vi": "Thực phẩm nên tránh"
+          },
+          "paragraphs": {
+            "en": [
+              "A few foods can carry germs or other things that are more harmful in pregnancy. Avoid raw or undercooked meat and eggs, and cook eggs until both the white and the yolk are firm. Skip raw fish and shellfish, such as sushi or raw fish salad, as well as tiết canh and raw fermented meat such as nem chua.",
+              "Choose milk and cheese that have been pasteurised, and avoid cheeses made from unpasteurised milk. Liver and foods made from it, such as pâté, hold a lot of vitamin A, which can be harmful in large amounts. So do not eat them often or in large portions.",
+              "Fish is a good food in pregnancy, but a few large fish carry more mercury. Avoid shark, swordfish and king mackerel, and enjoy other kinds of well-cooked fish instead."
+            ],
+            "vi": [
+              "Một số thực phẩm có thể mang vi khuẩn hoặc chất gây hại nhiều hơn khi mang thai. Mẹ tránh thịt và trứng sống hoặc chưa chín kỹ; trứng cần nấu đến khi cả lòng trắng và lòng đỏ đều đông lại. Mẹ cũng nên tránh cá và hải sản sống như sushi hay gỏi cá, tiết canh và các món thịt lên men sống như nem chua.",
+              "Mẹ chọn sữa và pho mát đã thanh trùng, tránh pho mát làm từ sữa chưa thanh trùng. Gan và các món từ gan như pa tê chứa rất nhiều vitamin A, có thể gây hại nếu ăn quá nhiều. Vì vậy, mẹ không nên ăn thường xuyên hay ăn nhiều một lúc.",
+              "Cá là thực phẩm tốt khi mang thai, nhưng một vài loại cá lớn chứa nhiều thủy ngân hơn. Mẹ tránh cá mập, cá kiếm và cá thu vua, và thay bằng các loại cá khác đã nấu chín kỹ."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Caffeine and alcohol",
+            "vi": "Caffeine và rượu bia"
+          },
+          "paragraphs": {
+            "en": [
+              "No amount of alcohol is known to be safe in pregnancy, so the safest choice is not to drink at all. This includes beer, wine and home-made rice liquor.",
+              "Caffeine is in more drinks than many people expect. Most guidelines suggest keeping caffeine below 200 mg a day in total, counting coffee, tea, cola, energy drinks and chocolate. A strong coffee can use up much of that, so a smaller or weaker cup, or decaffeinated coffee, may help."
+            ],
+            "vi": [
+              "Chưa có lượng rượu bia nào được biết là an toàn khi mang thai, nên lựa chọn an toàn nhất là không uống chút nào. Điều này gồm cả bia, rượu vang và rượu gạo tự nấu.",
+              "Caffeine có trong nhiều đồ uống hơn mẹ nghĩ. Phần lớn các hướng dẫn khuyên mẹ giữ tổng lượng caffeine dưới 200 mg mỗi ngày, tính cả cà phê, trà, nước cola, nước tăng lực và sô-cô-la. Một cốc cà phê đậm có thể đã chiếm phần lớn mức này, nên cốc nhỏ hơn, pha loãng hơn hoặc cà phê đã khử caffeine có thể giúp ích."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Preparing and storing food safely",
+            "vi": "Chế biến và bảo quản an toàn"
+          },
+          "paragraphs": {
+            "en": [
+              "Wash your hands before cooking and eating, and after touching raw meat. Wash fruit, vegetables and fresh herbs well, especially the raw herbs often served with meals.",
+              "Keep raw and cooked food apart, and use a separate board and knife for raw meat. Put leftovers in the fridge soon after the meal, and reheat them until they are steaming hot all the way through.",
+              "Some herbal and traditional remedies may not be safe in pregnancy. Ask your doctor or midwife before you take any of them."
+            ],
+            "vi": [
+              "Mẹ rửa tay trước khi nấu ăn, trước bữa ăn và sau khi chạm vào thịt sống. Rau, quả và rau thơm cần được rửa thật kỹ, nhất là rau sống ăn kèm trong bữa.",
+              "Mẹ để riêng đồ sống và đồ chín, dùng thớt và dao riêng cho thịt sống. Thức ăn thừa nên cho vào tủ lạnh sớm sau bữa ăn, và hâm lại cho đến khi nóng bốc hơi đều.",
+              "Một số loại thuốc nam, thuốc bắc hay bài thuốc dân gian có thể không an toàn khi mang thai. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh trước khi dùng."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        4,
+        5,
+        9
+      ]
+    },
+    {
+      "id": "iron-calcium-balanced-meals",
+      "topic": "nutrition",
+      "trimesters": [
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Iron, calcium and balanced meals",
+        "vi": "Sắt, canxi và bữa ăn cân đối"
+      },
+      "summary": {
+        "en": "As pregnancy goes on, your body needs more iron and calcium, and a varied plate with a few simple habits can help you get enough.",
+        "vi": "Khi thai kỳ tiến triển, cơ thể mẹ cần nhiều sắt và canxi hơn, và một bữa ăn đa dạng cùng vài thói quen đơn giản có thể giúp mẹ có đủ."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why you need more iron",
+            "vi": "Vì sao cần thêm sắt"
+          },
+          "paragraphs": {
+            "en": [
+              "During pregnancy, the amount of blood in your body rises a lot, and your body uses iron to make it. That is why you need more iron, especially in the second and third trimesters.",
+              "Good sources of iron include lean red meat, eggs, beans and tofu, and dark green leafy vegetables such as rau ngót, rau dền and rau muống. Eating them with foods rich in vitamin C, such as oranges, guava or tomatoes, can help your body absorb more iron.",
+              "Tea and coffee drunk with a meal can lower how much iron you take in, so have them between meals instead. Extra iron is often advised in pregnancy; take it as your doctor or midwife advises.",
+              "If you feel unusually tired, get breathless easily or look pale, tell your doctor or midwife. A simple blood test can check for anaemia."
+            ],
+            "vi": [
+              "Khi mang thai, lượng máu trong cơ thể mẹ tăng lên nhiều, và cơ thể cần sắt để tạo máu. Vì vậy mẹ cần nhiều sắt hơn, nhất là trong tam cá nguyệt thứ hai và thứ ba.",
+              "Thực phẩm giàu sắt gồm thịt đỏ nạc, trứng, các loại đậu, đậu phụ và rau lá xanh đậm như rau ngót, rau dền, rau muống. Ăn kèm thực phẩm giàu vitamin C như cam, ổi hay cà chua có thể giúp cơ thể hấp thu sắt tốt hơn.",
+              "Uống trà hoặc cà phê ngay trong bữa ăn có thể làm giảm lượng sắt được hấp thu, nên mẹ hãy uống vào giữa các bữa. Khi mang thai, mẹ thường được khuyên bổ sung thêm sắt; hãy dùng theo hướng dẫn của bác sĩ hoặc nữ hộ sinh.",
+              "Nếu thấy mệt bất thường, dễ hụt hơi hoặc da xanh xao, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Một xét nghiệm máu đơn giản có thể cho biết mẹ có bị thiếu máu không."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Calcium for bones",
+            "vi": "Canxi cho xương"
+          },
+          "paragraphs": {
+            "en": [
+              "Calcium helps build your baby's bones and teeth and keeps your own bones strong. Milk, yoghurt and pasteurised cheese are easy sources. Tofu, green vegetables, small fish eaten with their bones, such as cá cơm, and tiny shrimp eaten whole, such as tép, add more.",
+              "If you do not eat dairy foods, your doctor or midwife can suggest other ways to get enough calcium."
+            ],
+            "vi": [
+              "Canxi giúp xây dựng xương và răng của bé, đồng thời giữ cho xương của mẹ chắc khỏe. Sữa, sữa chua và pho mát đã thanh trùng là những nguồn canxi dễ dùng. Đậu phụ, rau xanh, cá cơm ăn cả xương và tép ăn cả vỏ cũng góp thêm canxi.",
+              "Nếu mẹ không ăn sữa và các món từ sữa, bác sĩ hoặc nữ hộ sinh có thể gợi ý cách khác để mẹ có đủ canxi."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "A balanced meal",
+            "vi": "Một bữa ăn cân đối"
+          },
+          "paragraphs": {
+            "en": [
+              "Your appetite may grow in the second trimester, and that is normal. Even so, later in pregnancy you need only a little more food than before, not double portions. Eating a bit more at meals, or adding a healthy snack, is usually enough. Choose snacks such as fruit, yoghurt, nuts or a boiled egg rather than sweets and sugary drinks.",
+              "A simple meal might be rice or another grain, a dish of fish, meat, eggs or tofu, a large serving of vegetables, and fruit to finish. A glass of milk or a pot of yoghurt between meals adds calcium. Cooking with iodised salt may help you get enough iodine, which your body needs more of in pregnancy. Drink water through the day too."
+            ],
+            "vi": [
+              "Mẹ có thể thấy ăn ngon miệng hơn trong tam cá nguyệt thứ hai, điều này là bình thường. Dù vậy, ở giai đoạn sau của thai kỳ, mẹ chỉ cần ăn thêm một chút so với trước, không cần ăn gấp đôi. Ăn thêm một ít trong bữa chính, hoặc thêm một bữa phụ lành mạnh, thường là đủ. Mẹ nên chọn bữa phụ như quả, sữa chua, các loại hạt hay trứng luộc thay vì bánh kẹo và nước ngọt.",
+              "Một bữa ăn đơn giản có thể gồm cơm hoặc ngũ cốc khác, một món cá, thịt, trứng hay đậu phụ, nhiều rau xanh và quả tráng miệng. Một cốc sữa hay một hộp sữa chua giữa các bữa giúp mẹ có thêm canxi. Nấu ăn bằng muối i-ốt có thể giúp mẹ có đủ i-ốt, chất mà cơ thể cần nhiều hơn khi mang thai. Mẹ cũng nhớ uống đủ nước trong ngày."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        5,
+        9
+      ]
+    },
+    {
+      "id": "safe-exercise",
+      "topic": "movement",
+      "trimesters": [
+        1,
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Staying active safely in pregnancy",
+        "vi": "Vận động an toàn khi mang thai"
+      },
+      "summary": {
+        "en": "For most pregnancies, regular moderate activity is safe and good for you, as long as your doctor or midwife agrees and you adjust it as your body changes.",
+        "vi": "Với phần lớn thai kỳ, vận động vừa sức đều đặn là an toàn và có lợi, miễn là bác sĩ hoặc nữ hộ sinh đồng ý và mẹ điều chỉnh khi cơ thể thay đổi."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why moving helps",
+            "vi": "Vì sao vận động có ích"
+          },
+          "paragraphs": {
+            "en": [
+              "Staying active during pregnancy can lift your mood, help you sleep and ease some discomforts, such as backache and constipation. It can also help keep your weight gain in a healthy range and build stamina for labour.",
+              "The World Health Organization and other guidelines suggest about 150 minutes of moderate activity a week, spread over several days. Even short sessions count. If you did little activity before, start with a few minutes a day and build up slowly."
+            ],
+            "vi": [
+              "Vận động đều đặn có thể giúp mẹ vui vẻ hơn, ngủ ngon hơn và đỡ một số khó chịu như đau lưng hay táo bón. Vận động cũng giúp mẹ tăng cân hợp lý và thêm sức bền khi chuyển dạ.",
+              "Tổ chức Y tế Thế giới và các hướng dẫn khác gợi ý mẹ vận động vừa sức khoảng 150 phút mỗi tuần, chia ra nhiều ngày. Ngay cả những lần tập ngắn cũng được tính. Nếu trước đây ít vận động, mẹ bắt đầu với vài phút mỗi ngày rồi tăng dần."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Choosing what to do",
+            "vi": "Chọn cách vận động phù hợp"
+          },
+          "paragraphs": {
+            "en": [
+              "Brisk walking, swimming, water aerobics, an exercise bike and pregnancy yoga or pilates classes suit most people. If you were already active before pregnancy, you can usually carry on, easing off as your bump grows.",
+              "Leave scuba diving and hot yoga until after the birth. Also avoid sports where a fall or a blow to your bump is more likely, such as gymnastics, off-road cycling or boxing. Once your bump is growing, avoid exercises that keep you lying flat on your back for long; lie on your side or sit propped up.",
+              "If you have a health condition or a pregnancy complication, ask your doctor or midwife which kinds of activity suit you."
+            ],
+            "vi": [
+              "Đi bộ nhanh, bơi, thể dục dưới nước, đạp xe tại chỗ và các lớp yoga hay pilates cho bà bầu hợp với phần lớn mẹ bầu. Nếu đã quen tập từ trước, mẹ thường có thể tiếp tục, giảm dần cường độ khi bụng lớn.",
+              "Mẹ tạm gác lặn có bình dưỡng khí và yoga trong phòng nóng đến sau sinh. Mẹ cũng tránh môn dễ ngã hoặc dễ va vào bụng, như thể dục dụng cụ, đạp xe địa hình hay quyền anh. Khi bụng đã lớn, mẹ tránh bài tập nằm ngửa lâu; hãy nằm nghiêng hoặc ngồi tựa lưng.",
+              "Nếu có bệnh lý hoặc biến chứng thai kỳ, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh cách vận động phù hợp."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Listening to your body",
+            "vi": "Lắng nghe cơ thể"
+          },
+          "paragraphs": {
+            "en": [
+              "At a moderate pace, you can still speak in full sentences. Drink water before, during and after exercise, and avoid getting very hot, especially on humid days. Your joints are looser in pregnancy, so warm up gently and avoid jerky movements.",
+              "Stop and rest if you feel dizzy, unusually tired or more out of breath than the effort explains. Stop too if you get a headache, or muscle weakness that affects your balance. Tell your doctor or midwife before you exercise again. If you faint, or the dizziness does not pass when you sit down, contact your doctor or midwife straight away. If a headache is severe, or comes with blurred vision or sudden swelling, contact your maternity unit straight away. Pain and swelling in one calf needs a doctor straight away.",
+              "If you have bleeding from your vagina, regular painful tightenings, or fluid leaking from your vagina, contact your maternity unit straight away, whatever the colour of the fluid. If your baby moves less than usual, call your maternity unit straight away, day or night. For chest pain, or trouble breathing that does not ease with rest, call an emergency ambulance (115) straight away."
+            ],
+            "vi": [
+              "Khi tập ở mức vừa phải, mẹ vẫn nói được trọn câu. Mẹ uống nước trước, trong và sau khi tập, và tránh để người quá nóng, nhất là khi trời oi bức. Các khớp lỏng hơn khi mang thai, nên mẹ khởi động nhẹ và tránh động tác giật mạnh.",
+              "Mẹ dừng lại nghỉ nếu thấy chóng mặt, mệt bất thường hoặc hụt hơi nhiều hơn mức gắng sức. Mẹ cũng dừng nếu đau đầu, hoặc yếu cơ đến mức khó giữ thăng bằng. Mẹ báo bác sĩ hoặc nữ hộ sinh trước khi tập lại. Nếu ngất, hoặc chóng mặt không đỡ khi ngồi xuống, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay. Nếu đau đầu dữ dội, hoặc kèm nhìn mờ hay phù đột ngột, mẹ hãy liên hệ khoa sản ngay. Nếu một bên bắp chân đau và sưng, mẹ cần gặp bác sĩ ngay.",
+              "Nếu ra máu âm đạo, bụng gò đều và đau, hoặc ra nước âm đạo, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì. Nếu bé cử động ít hơn mọi ngày, mẹ hãy gọi ngay cho khoa sản, dù ngày hay đêm. Nếu đau ngực, hoặc khó thở mà nghỉ không đỡ, mẹ hãy gọi cấp cứu 115 ngay."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "gentle-exercise-second-trimester",
+      "topic": "movement",
+      "trimesters": [
+        2
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Gentle exercise in the second trimester",
+        "vi": "Vận động nhẹ nhàng ở tam cá nguyệt thứ hai"
+      },
+      "summary": {
+        "en": "Many women feel more energetic in the second trimester, which makes it a good time to settle into a gentle routine that you adjust as your bump grows.",
+        "vi": "Nhiều mẹ thấy khỏe hơn trong tam cá nguyệt thứ hai, nên đây là lúc phù hợp để tạo thói quen vận động nhẹ nhàng và điều chỉnh dần khi bụng lớn lên."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "The second trimester often feels easier",
+            "vi": "Tam cá nguyệt thứ hai thường dễ chịu hơn"
+          },
+          "paragraphs": {
+            "en": [
+              "Once nausea and early tiredness fade, many women find they have more energy. If your doctor or midwife agrees, this can be a good time to make movement a regular part of your week.",
+              "Each session adds to the weekly amount described in the article “Staying active safely in pregnancy”: about 150 minutes of moderate activity a week. You do not need to do it all at once. A regular walk on most days soon adds up."
+            ],
+            "vi": [
+              "Khi cơn nghén và cảm giác mệt của những tuần đầu dịu đi, nhiều mẹ thấy mình có thêm sức. Nếu bác sĩ hoặc nữ hộ sinh đồng ý, đây có thể là lúc thích hợp để vận động trở thành một phần quen thuộc trong tuần.",
+              "Mỗi buổi tập đều được tính vào lượng vận động hằng tuần trong bài “Vận động an toàn khi mang thai”, tức khoảng 150 phút vận động vừa sức mỗi tuần. Mẹ không cần tập hết một lúc. Đi bộ đều đặn vào phần lớn các ngày cũng sẽ sớm cộng dồn đủ."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "A gentle session",
+            "vi": "Một buổi tập nhẹ nhàng"
+          },
+          "paragraphs": {
+            "en": [
+              "Begin with a few minutes of gentle warm-up, such as walking slowly and rolling your shoulders. Then spend 20 to 30 minutes on something you enjoy: walking, swimming, cycling on an exercise bike or a pregnancy exercise class.",
+              "Finish with a slower cool-down and some easy stretches, without pushing to your limit. Keep to a pace at which you can still chat. If you cannot talk, slow down.",
+              "Wear a supportive bra, drink water before and after, and choose a cool time of day or a well-aired room so you do not get too hot."
+            ],
+            "vi": [
+              "Mẹ bắt đầu bằng vài phút khởi động nhẹ, chẳng hạn đi bộ chậm và xoay vai. Sau đó, mẹ dành 20 đến 30 phút cho hoạt động mình thích: đi bộ, bơi, đạp xe tại chỗ hoặc một lớp tập cho bà bầu.",
+              "Cuối buổi, mẹ đi chậm lại để thả lỏng và giãn cơ nhẹ nhàng, không cố kéo giãn hết mức. Mẹ giữ nhịp độ sao cho vẫn trò chuyện được. Nếu không nói nổi thành câu, mẹ hãy chậm lại.",
+              "Mẹ mặc áo ngực nâng đỡ tốt, uống nước trước và sau khi tập, và chọn lúc trời mát hoặc phòng thoáng khí để người không bị quá nóng."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Adjusting as your bump grows",
+            "vi": "Điều chỉnh khi bụng lớn dần"
+          },
+          "paragraphs": {
+            "en": [
+              "As your bump grows, your balance shifts. Wear flat shoes with a non-slip sole, take stairs slowly and choose even paths. Exercises done flat on your back are best kept short now; many can be done lying on your side or sitting instead.",
+              "If you feel dizzy, stop and tell your doctor or midwife. See a doctor straight away if one calf is painful and swollen. For chest pain, call an emergency ambulance (115) straight away.",
+              "If you have bleeding from your vagina, fluid leaking from it or regular painful tightenings, contact your maternity unit straight away, whatever the colour of the fluid. Once you can feel your baby move, if the movements become fewer than usual, call your maternity unit straight away, day or night."
+            ],
+            "vi": [
+              "Khi bụng lớn dần, trọng tâm cơ thể thay đổi nên mẹ dễ mất thăng bằng hơn. Mẹ đi giày đế bằng, chống trơn, lên xuống cầu thang chậm rãi và chọn đường bằng phẳng. Những bài tập nằm ngửa giờ nên giữ ngắn; nhiều động tác có thể đổi sang tư thế nằm nghiêng hoặc ngồi.",
+              "Nếu thấy chóng mặt, mẹ hãy dừng tập và báo bác sĩ hoặc nữ hộ sinh. Mẹ cần được bác sĩ khám ngay nếu một bên bắp chân sưng và đau. Nếu đau ngực, mẹ hãy gọi cấp cứu 115 ngay.",
+              "Nếu ra máu hoặc ra nước âm đạo, hay bụng gò đều và đau, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì. Khi đã cảm nhận được bé cử động, nếu bé cử động ít hơn mọi ngày, mẹ hãy gọi ngay cho khoa sản, dù ngày hay đêm."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "id": "pelvic-floor-posture",
+      "topic": "movement",
+      "trimesters": [
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Pelvic floor and everyday posture",
+        "vi": "Cơ sàn chậu và tư thế hằng ngày"
+      },
+      "summary": {
+        "en": "Simple daily exercises can help strengthen your pelvic floor, and small changes in how you stand, sit and lift can ease the strain on your back.",
+        "vi": "Vài bài tập đơn giản mỗi ngày có thể giúp cơ sàn chậu khỏe hơn, và những thay đổi nhỏ trong cách đứng, ngồi, nâng đồ có thể giúp lưng mẹ đỡ mỏi."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "What the pelvic floor does",
+            "vi": "Cơ sàn chậu là gì"
+          },
+          "paragraphs": {
+            "en": [
+              "The pelvic floor is a group of muscles at the base of your pelvis. These muscles support your bladder, bowel and womb, and help you control when you pass urine and wind.",
+              "In pregnancy, hormones soften these muscles, and your baby's growing weight presses down on them. So leaking a little urine when you sneeze, laugh or cough is common. UK guidance from NICE recommends pelvic floor exercises during pregnancy, as they can help these muscles get stronger.",
+              "If you are not sure whether a leak is urine or your waters, contact your maternity unit straight away, whatever the colour."
+            ],
+            "vi": [
+              "Sàn chậu là nhóm cơ nằm ở đáy khung chậu. Nhóm cơ này nâng đỡ bàng quang, ruột và tử cung, đồng thời giúp mẹ kiểm soát việc đi tiểu và xì hơi.",
+              "Khi mang thai, nội tiết tố làm các cơ này mềm hơn, và sức nặng ngày càng tăng của bé đè xuống chúng. Vì vậy, rỉ một chút nước tiểu khi hắt hơi, cười hay ho là điều thường gặp. Hướng dẫn NICE của Anh khuyên mẹ tập cơ sàn chậu trong thai kỳ, vì việc này có thể giúp các cơ khỏe hơn.",
+              "Nếu không chắc dịch rỉ ra là nước tiểu hay nước ối, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "How to do the exercises",
+            "vi": "Cách tập"
+          },
+          "paragraphs": {
+            "en": [
+              "Sit, lie or stand comfortably, and relax your thighs, bottom and belly. Squeeze and lift the muscles around your back and front passages, as if you were holding in wind and urine at the same time. Hold for a few seconds while you keep breathing normally, then let go fully.",
+              "Next, do a few quick squeezes, relaxing fully after each one. Repeat both kinds a few times, every day. Linking them to something you already do daily, such as brushing your teeth or waiting for the kettle, may help you remember.",
+              "Do not practise by stopping the flow while you pass urine. If you are not sure you are doing the exercises right, ask your doctor or midwife."
+            ],
+            "vi": [
+              "Mẹ ngồi, nằm hoặc đứng thoải mái, thả lỏng đùi, mông và bụng. Mẹ siết và kéo nhẹ các cơ quanh hậu môn và âm đạo lên trên, như khi đang cố nhịn cả xì hơi lẫn nước tiểu. Giữ trong vài giây, vẫn thở đều bình thường, rồi thả lỏng hoàn toàn.",
+              "Tiếp theo, mẹ siết nhanh vài lần, mỗi lần đều thả lỏng hẳn. Mẹ lặp lại cả hai kiểu vài lượt mỗi ngày. Gắn việc tập với một thói quen sẵn có, như lúc đánh răng hay chờ nước sôi, có thể giúp mẹ dễ nhớ hơn.",
+              "Mẹ đừng tập bằng cách nhịn ngang dòng nước tiểu khi đang đi tiểu. Nếu không chắc mình tập đúng cách, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Everyday posture",
+            "vi": "Tư thế hằng ngày"
+          },
+          "paragraphs": {
+            "en": [
+              "When you stand, keep tall, with your shoulders relaxed and your weight spread evenly on both feet. When you sit, choose a chair that supports your back, and put a small cushion behind your lower back if it helps.",
+              "To pick something up, bend your knees, keep your back straight and hold the load close to your body. Avoid lifting heavy things, and ask someone to help with them. When you turn, move your feet and turn your whole body rather than twisting at the waist.",
+              "Some women feel pain at the front or back of the pelvis that makes walking, climbing stairs or turning over in bed hard. If this happens, tell your doctor or midwife, who can suggest ways to ease it."
+            ],
+            "vi": [
+              "Khi đứng, mẹ giữ người thẳng, thả lỏng vai và dồn đều sức nặng lên hai chân. Khi ngồi, mẹ chọn ghế có tựa lưng tốt, và có thể kê thêm một chiếc gối nhỏ sau thắt lưng nếu thấy dễ chịu hơn.",
+              "Khi nhặt đồ, mẹ khuỵu gối, giữ lưng thẳng và ôm vật sát vào người. Mẹ tránh nâng vật nặng, hãy nhờ người khác giúp. Khi xoay người, mẹ bước chân để xoay cả cơ thể thay vì vặn người ở eo.",
+              "Một số mẹ bị đau ở phía trước hoặc phía sau khung chậu, khiến việc đi lại, leo cầu thang hay trở mình trên giường trở nên khó khăn. Nếu gặp tình trạng này, mẹ hãy báo bác sĩ hoặc nữ hộ sinh để được gợi ý cách làm dịu cơn đau."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "first-trimester-tiredness",
+      "topic": "sleep",
+      "trimesters": [
+        1
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Tiredness in the first trimester",
+        "vi": "Mệt mỏi trong tam cá nguyệt đầu"
+      },
+      "summary": {
+        "en": "Feeling very tired is common in the first weeks of pregnancy; it usually eases later, and rest, regular meals and help from others can make it easier to manage.",
+        "vi": "Mệt mỏi rất thường gặp trong những tuần đầu mang thai; cảm giác này thường đỡ dần về sau, và nghỉ ngơi, ăn uống đều đặn cùng sự giúp đỡ của người thân có thể giúp mẹ dễ chịu hơn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why you feel so tired",
+            "vi": "Vì sao mẹ mệt"
+          },
+          "paragraphs": {
+            "en": [
+              "In the first weeks, your hormone levels rise quickly and your body works hard to build the placenta, which will nourish your baby. Many women feel worn out, sometimes even after a long night's sleep.",
+              "Nausea and broken sleep can add to the tiredness. For many women, energy starts to come back in the second trimester, from around week 14. Until then, try to see rest as part of looking after your pregnancy, not as time wasted."
+            ],
+            "vi": [
+              "Trong những tuần đầu, nội tiết tố tăng nhanh và cơ thể mẹ làm việc vất vả để tạo nên bánh rau, nơi sẽ nuôi dưỡng bé. Nhiều mẹ thấy mệt rã rời, đôi khi ngay cả sau một đêm ngủ dài.",
+              "Buồn nôn và giấc ngủ chập chờn có thể khiến mẹ càng mệt hơn. Với nhiều mẹ, sức lực bắt đầu hồi lại khi sang tam cá nguyệt thứ hai, khoảng từ tuần 14. Trước lúc đó, mẹ hãy coi nghỉ ngơi là một phần của việc chăm sóc thai kỳ, chứ không phải thời gian lãng phí."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Getting enough rest",
+            "vi": "Nghỉ ngơi thế nào cho đủ"
+          },
+          "paragraphs": {
+            "en": [
+              "Go to bed earlier when you can, and take a short nap or lie down for a while during the day if your routine allows. Even a few minutes with your feet up may help. A gentle walk in fresh air or another light activity can also lift your energy, even when moving is the last thing you feel like doing.",
+              "Eat regular meals and snacks, and include foods rich in iron, such as lean meat, eggs, beans and dark green vegetables. Sip water through the day too.",
+              "Ask your partner or family to share the cooking, shopping and housework. If you work, see whether you can take short breaks during the day. When you feel drowsy, avoid driving a car or riding a motorbike, and take extra care on the road."
+            ],
+            "vi": [
+              "Khi có thể, mẹ hãy đi ngủ sớm hơn, và chợp mắt hoặc nằm nghỉ một lát vào ban ngày nếu công việc cho phép. Ngồi gác chân nghỉ vài phút cũng có thể giúp mẹ đỡ mệt. Đi bộ nhẹ nhàng ngoài trời hay vận động nhẹ cũng có thể giúp mẹ khỏe khoắn hơn, dù lúc đó mẹ chẳng muốn nhúc nhích chút nào.",
+              "Mẹ ăn uống đều bữa, thêm vài bữa phụ, và chọn các món giàu sắt như thịt nạc, trứng, các loại đậu và rau xanh đậm. Mẹ cũng nhớ uống nước rải rác trong ngày.",
+              "Mẹ hãy nhờ bố bé hoặc người thân chia sẻ việc nấu nướng, đi chợ và dọn dẹp. Nếu đang đi làm, mẹ thử sắp xếp để được nghỉ giải lao ngắn trong ngày. Khi thấy buồn ngủ, mẹ tránh lái ô tô hay đi xe máy, và cẩn thận hơn khi tham gia giao thông."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "When to ask your doctor or midwife",
+            "vi": "Khi nào nên hỏi bác sĩ hoặc nữ hộ sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "Tiredness is usually part of early pregnancy, but sometimes it has another cause, such as anaemia from low iron. If you are very tired and also get out of breath easily, notice your heart racing or look pale, tell your doctor or midwife. A simple blood test can check for anaemia.",
+              "If you feel faint, especially with sharp pain on one side or at the tip of your shoulder, go to the emergency department straight away.",
+              "Tiredness can also come with low mood. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family."
+            ],
+            "vi": [
+              "Mệt mỏi thường là một phần của những tuần đầu mang thai, nhưng đôi khi có nguyên nhân khác, chẳng hạn thiếu máu do cơ thể thiếu sắt. Nếu mẹ mệt nhiều và kèm theo dễ hụt hơi, thấy tim đập nhanh hoặc da xanh xao, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Một xét nghiệm máu đơn giản có thể cho biết mẹ có bị thiếu máu không.",
+              "Nếu choáng váng muốn ngất, nhất là khi kèm đau nhói một bên bụng hoặc đau ở đầu vai, mẹ hãy đến khoa cấp cứu ngay.",
+              "Mệt mỏi đôi khi đi kèm tâm trạng buồn chán. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        5
+      ]
+    },
+    {
+      "id": "sleep-positions",
+      "topic": "sleep",
+      "trimesters": [
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Sleep positions in pregnancy",
+        "vi": "Tư thế ngủ khi mang thai"
+      },
+      "summary": {
+        "en": "As your bump grows, lying on your side usually feels more comfortable, and from about 28 weeks guidelines advise going to sleep on your side.",
+        "vi": "Khi bụng lớn dần, nằm nghiêng thường dễ chịu hơn, và từ khoảng tuần 28, các hướng dẫn khuyên mẹ nằm nghiêng khi đi ngủ."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Going to sleep on your side",
+            "vi": "Nằm nghiêng khi đi ngủ"
+          },
+          "paragraphs": {
+            "en": [
+              "In the early weeks, you can sleep in whatever position feels comfortable. During the second trimester, as your bump grows, many women find that lying on their side is easier. Lying flat on your back can make some women dizzy, because the weight of the womb presses on a large vein. Turning onto your side usually helps. If you faint, or the dizziness does not pass when you sit up, contact your doctor or midwife straight away.",
+              "From about 28 weeks, guidelines advise going to sleep on your side, both at night and for naps during the day. Lying on your side keeps the weight of the womb off that large vein, so blood can flow more easily to your baby. Either side is fine, and you can change sides during the night."
+            ],
+            "vi": [
+              "Những tuần đầu, mẹ có thể ngủ ở bất kỳ tư thế nào thấy thoải mái. Sang tam cá nguyệt thứ hai, khi bụng lớn dần, nhiều mẹ thấy nằm nghiêng dễ chịu hơn. Nằm ngửa thẳng lưng có thể khiến một số mẹ chóng mặt, vì sức nặng của tử cung đè lên một tĩnh mạch lớn. Nghiêng người sang một bên thường giúp mẹ đỡ hơn. Nếu ngất, hoặc chóng mặt không đỡ khi đã ngồi dậy, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh ngay.",
+              "Từ khoảng tuần 28, các hướng dẫn khuyên mẹ nằm nghiêng khi đi ngủ, cả ban đêm lẫn lúc chợp mắt ban ngày. Nằm nghiêng giúp tử cung không đè lên tĩnh mạch lớn ấy, nhờ vậy máu đến với bé dễ dàng hơn. Mẹ nằm nghiêng bên nào cũng được, và có thể đổi bên trong đêm."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Pillows and comfort",
+            "vi": "Gối và tư thế dễ chịu"
+          },
+          "paragraphs": {
+            "en": [
+              "Pillows can make side sleeping much more comfortable. Try one under your bump, one between your knees and one behind your back, so you are less likely to roll onto your back. A long pillow or a rolled-up blanket can do the same job.",
+              "Bending your knees a little may ease the strain on your back and hips. If one hip starts to ache, turn over to the other side. When you want to read or rest in bed, prop yourself up with pillows rather than lying flat on your back."
+            ],
+            "vi": [
+              "Gối có thể giúp mẹ nằm nghiêng dễ chịu hơn nhiều. Mẹ thử kê một chiếc gối dưới bụng, một chiếc giữa hai đầu gối và một chiếc sau lưng để ít bị lăn sang nằm ngửa. Một chiếc gối dài hoặc tấm chăn cuộn tròn cũng dùng được.",
+              "Co nhẹ hai đầu gối có thể giúp lưng và hông đỡ mỏi. Nếu nằm lâu thấy mỏi một bên hông, mẹ trở mình sang bên kia. Khi muốn đọc sách hay nằm nghỉ trên giường, mẹ kê gối để ngồi tựa thay vì nằm ngửa thẳng lưng."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "If you wake on your back",
+            "vi": "Nếu thức dậy thấy mình nằm ngửa"
+          },
+          "paragraphs": {
+            "en": [
+              "Everyone moves in their sleep, so waking up on your back is common. There is no need to worry: simply roll onto your side and go back to sleep. The advice is about the position you settle into when you go to sleep.",
+              "If sleep is hard for other reasons, such as heartburn or leg cramps, the article “Sleeping well in late pregnancy” has more ideas. If you have questions about sleeping positions, ask your doctor or midwife at your next check-up."
+            ],
+            "vi": [
+              "Ai cũng cử động khi ngủ, nên thức dậy thấy mình nằm ngửa là chuyện thường gặp. Mẹ không cần lo lắng, chỉ cần nghiêng người lại rồi ngủ tiếp. Lời khuyên này nói về tư thế mẹ nằm lúc bắt đầu đi ngủ.",
+              "Nếu mẹ khó ngủ vì những lý do khác như ợ nóng hay chuột rút, bài “Ngủ ngon hơn ở những tháng cuối” có thêm nhiều gợi ý. Nếu còn băn khoăn về tư thế ngủ, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh ở lần khám tới."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "sleeping-well-late-pregnancy",
+      "topic": "sleep",
+      "trimesters": [
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Sleeping well in late pregnancy",
+        "vi": "Ngủ ngon hơn ở những tháng cuối"
+      },
+      "summary": {
+        "en": "Sleep often gets harder in the third trimester, but a calm bedtime routine, small changes to your evenings and support from others can help you rest.",
+        "vi": "Giấc ngủ thường khó hơn ở tam cá nguyệt thứ ba, nhưng nếp sinh hoạt nhẹ nhàng trước giờ ngủ, vài thay đổi nhỏ vào buổi tối và sự hỗ trợ của người thân có thể giúp mẹ nghỉ ngơi tốt hơn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why sleep gets harder",
+            "vi": "Vì sao khó ngủ"
+          },
+          "paragraphs": {
+            "en": [
+              "In the last months, many women sleep less well. A large bump makes it hard to get comfortable, and you may need to get up to pee several times a night. Heartburn, leg cramps and your baby's kicks can wake you too.",
+              "Some women have restless legs: an unpleasant feeling in the legs with an urge to move them, often in the evening. Worries about the birth and about life with a new baby can also keep your mind busy at night."
+            ],
+            "vi": [
+              "Trong những tháng cuối, nhiều mẹ ngủ không ngon giấc. Bụng to khiến mẹ khó tìm tư thế thoải mái, và mẹ có thể phải dậy đi tiểu vài lần mỗi đêm. Ợ nóng, chuột rút ở chân và những cú đạp của bé cũng có thể làm mẹ tỉnh giấc.",
+              "Một số mẹ bị chứng chân không yên: chân bứt rứt khó chịu, cứ muốn cử động, thường vào buổi tối. Những lo lắng về lúc sinh và về cuộc sống khi có bé cũng có thể khiến mẹ trằn trọc ban đêm."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Things that may help",
+            "vi": "Những điều có thể giúp"
+          },
+          "paragraphs": {
+            "en": [
+              "Try to keep a regular routine, going to bed and getting up at about the same times. Wind down for a while before bed with a warm shower, quiet music or a book. Switch off screens a little earlier, and keep your bedroom cool, dark and quiet.",
+              "Drink most of your fluids earlier in the day so you need to get up less at night, but still drink enough overall. For heartburn, have a smaller evening meal a few hours before bed. Raising the head of your bed a little may also help, for example with a pillow under the mattress.",
+              "Gently stretching your calves before bed may help with cramps. Slow, deep breathing can help you relax when your mind is racing. Go to sleep on your side with pillows for support, and rest during the day when you can."
+            ],
+            "vi": [
+              "Mẹ cố giữ nếp sinh hoạt đều đặn, đi ngủ và thức dậy vào khoảng cùng một giờ. Trước khi ngủ, mẹ dành một lúc thư giãn như tắm nước ấm, nghe nhạc nhẹ hay đọc sách. Mẹ tắt điện thoại, máy tính sớm hơn một chút, và giữ phòng ngủ mát mẻ, tối và yên tĩnh.",
+              "Mẹ uống phần lớn lượng nước vào ban ngày để đêm đỡ phải dậy đi tiểu, nhưng vẫn uống đủ nước. Nếu bị ợ nóng, mẹ ăn bữa tối ít hơn, xong trước giờ ngủ vài tiếng. Kê cao đầu giường một chút, chẳng hạn chèn gối dưới đệm, cũng có thể giúp mẹ đỡ hơn.",
+              "Giãn nhẹ bắp chân trước khi ngủ có thể giúp mẹ đỡ chuột rút. Thở chậm và sâu có thể giúp mẹ thư thái khi đầu óc ngổn ngang. Mẹ nằm nghiêng khi đi ngủ, kê gối đỡ quanh người, và tranh thủ nghỉ ngơi ban ngày khi có thể."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "What to tell your doctor or midwife",
+            "vi": "Những điều cần báo bác sĩ hoặc nữ hộ sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "A cramp usually passes within a few minutes. If one leg has a painful, red or swollen area, see a doctor straight away. If restless legs disturb your sleep on most nights, tell your doctor or midwife. If you have intense itching, especially on your palms and soles, tell your doctor promptly.",
+              "Get to know your baby's usual pattern of movements, including in the evening and at night. If your baby moves less than usual, or the pattern changes, contact your maternity unit straight away, day or night. Do not wait until the morning.",
+              "If worry or low mood keeps you awake, talk with someone you trust. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family."
+            ],
+            "vi": [
+              "Chuột rút thường hết sau vài phút. Nếu một bên chân có chỗ đau, đỏ hoặc sưng, mẹ hãy đi khám bác sĩ ngay. Nếu chứng chân không yên làm mẹ mất ngủ gần như mỗi đêm, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Nếu bị ngứa nhiều, nhất là ở lòng bàn tay, bàn chân, mẹ hãy báo bác sĩ sớm.",
+              "Mẹ hãy để ý nhịp cử động quen thuộc của bé, kể cả buổi tối và ban đêm. Nếu bé cử động ít hơn mọi ngày hoặc khác thường, mẹ hãy liên hệ khoa sản ngay, dù ngày hay đêm. Đừng đợi đến sáng.",
+              "Nếu lo lắng hay buồn chán khiến mẹ mất ngủ, mẹ hãy tâm sự với người mình tin tưởng. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        7
+      ]
+    },
+    {
+      "id": "early-pregnancy-worries",
+      "topic": "feelings",
+      "trimesters": [
+        1
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Worries in early pregnancy",
+        "vi": "Lo lắng khi mới mang thai"
+      },
+      "summary": {
+        "en": "Feeling worried as well as happy is common in early pregnancy; talking, rest and reliable information can help, and your doctor or midwife can support you when you need it.",
+        "vi": "Vừa vui mừng vừa lo lắng là cảm giác thường gặp khi mới mang thai; trò chuyện, nghỉ ngơi và thông tin đáng tin cậy có thể giúp mẹ, và bác sĩ hoặc nữ hộ sinh sẽ hỗ trợ khi mẹ cần."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Worry is common",
+            "vi": "Lo lắng là chuyện thường gặp"
+          },
+          "paragraphs": {
+            "en": [
+              "Finding out you are pregnant can bring joy, surprise and worry all at once. Many women wonder whether the pregnancy will go on smoothly. They may also worry about tests and scans, money, work, or how their body will change.",
+              "Your mood may change quickly too. Rising hormones, nausea and tiredness can leave you tearful or irritable one moment and cheerful the next. These ups and downs are common, and they often settle as the weeks go by."
+            ],
+            "vi": [
+              "Biết tin có thai, mẹ có thể vừa vui, vừa bất ngờ, vừa lo. Nhiều mẹ băn khoăn không biết thai kỳ có tiếp tục suôn sẻ không. Mẹ cũng có thể lo về các xét nghiệm, siêu âm, chuyện tiền bạc, công việc hay những thay đổi của cơ thể.",
+              "Tâm trạng của mẹ cũng có thể thay đổi nhanh. Nội tiết tố tăng, buồn nôn và mệt mỏi có thể khiến mẹ lúc thì dễ khóc, dễ cáu, lúc lại vui vẻ. Những lúc lên xuống như vậy rất hay gặp, và thường dịu dần theo thời gian."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Things that may help",
+            "vi": "Những cách có thể giúp"
+          },
+          "paragraphs": {
+            "en": [
+              "Share how you feel with your partner, a family member or a friend. Saying a worry out loud often makes it feel lighter. You can bring your worries to your check-ups as well.",
+              "Write your questions down as they come up, and take the list with you to your check-ups so nothing is forgotten. Choose reliable sources of information, such as your doctor or midwife. If a test or scan result worries you, ask them to explain what it means and what happens next. Try not to search online late at night, when worries tend to grow.",
+              "Looking after your body helps your mood as well. Rest when you can, eat regular meals and try some gentle activity, such as a short walk each day."
+            ],
+            "vi": [
+              "Mẹ hãy chia sẻ cảm xúc với bố bé, người thân hoặc bạn bè. Nói ra nỗi lo thường giúp mẹ thấy nhẹ lòng hơn. Mẹ cũng có thể nói về những điều mình lo khi đi khám thai.",
+              "Khi nảy ra câu hỏi, mẹ ghi lại và mang theo khi đi khám để không quên điều gì. Mẹ nên tìm thông tin từ nguồn đáng tin cậy, như bác sĩ hoặc nữ hộ sinh. Nếu một kết quả xét nghiệm hay siêu âm khiến mẹ lo, mẹ hãy nhờ họ giải thích ý nghĩa và các bước tiếp theo. Mẹ hạn chế tra cứu trên mạng lúc đêm khuya, khi nỗi lo dễ lớn dần lên.",
+              "Chăm sóc cơ thể cũng giúp tinh thần mẹ khá hơn. Mẹ nghỉ ngơi khi có thể, ăn uống đều bữa và vận động nhẹ nhàng, chẳng hạn đi bộ một lát mỗi ngày."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "When to get support",
+            "vi": "Khi nào cần tìm hỗ trợ"
+          },
+          "paragraphs": {
+            "en": [
+              "Some worries are about your body. If you have any bleeding from your vagina, however light, or belly pain that is severe or does not go away, contact your doctor straight away.",
+              "If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family. Support is available, and asking for it is a sensible step.",
+              "If you ever have thoughts of harming yourself, tell someone you trust and get help straight away. Call an emergency ambulance (115) or go to the nearest hospital."
+            ],
+            "vi": [
+              "Có những nỗi lo liên quan đến cơ thể. Nếu ra máu âm đạo, dù ít hay nhiều, hoặc đau bụng dữ dội hay không dứt, mẹ hãy liên hệ bác sĩ ngay.",
+              "Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình. Mẹ có thể được hỗ trợ, và tìm đến sự giúp đỡ là việc nên làm.",
+              "Nếu có lúc mẹ nghĩ đến việc làm hại bản thân, mẹ hãy nói với người mình tin tưởng và tìm trợ giúp ngay. Mẹ hãy gọi cấp cứu 115 hoặc đến bệnh viện gần nhất."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        5,
+        7
+      ]
+    },
+    {
+      "id": "changing-body-feelings",
+      "topic": "feelings",
+      "trimesters": [
+        2
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Your changing body and feelings",
+        "vi": "Cơ thể thay đổi và cảm xúc của mẹ"
+      },
+      "summary": {
+        "en": "In the second trimester your body changes quickly, and feeling proud, surprised or uneasy about it is common; sharing these feelings and caring for yourself can help.",
+        "vi": "Ở tam cá nguyệt thứ hai, cơ thể mẹ thay đổi nhanh, và cảm thấy tự hào, ngỡ ngàng hay bối rối là điều thường gặp; chia sẻ cảm xúc và chăm sóc bản thân có thể giúp mẹ."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "A changing body, changing feelings",
+            "vi": "Cơ thể thay đổi, cảm xúc cũng đổi thay"
+          },
+          "paragraphs": {
+            "en": [
+              "Your bump is starting to show, and other changes may appear too. You may notice stretch marks, a dark line down your belly, darker patches on your face, or thicker, shinier hair. Many of these fade after the birth, and stretch marks usually become paler over time.",
+              "You may feel proud of your bump one day and uneasy about it the next. Both are common. Comments about your size can hurt, even when they are meant kindly. Every bump is different, and its size depends on many things, such as your height and build. If you are worried about your baby's growth, ask your doctor or midwife, who checks it at your visits."
+            ],
+            "vi": [
+              "Bụng mẹ bắt đầu lộ rõ, và có thể xuất hiện thêm những thay đổi khác. Mẹ có thể thấy vết rạn da, một đường sẫm màu dọc bụng, những mảng sẫm màu trên mặt, hoặc tóc dày và bóng hơn. Nhiều thay đổi trong số này nhạt dần sau sinh, còn vết rạn thường mờ dần theo thời gian.",
+              "Có hôm mẹ thấy tự hào về bụng bầu, hôm sau lại thấy ngại ngùng. Cả hai cảm xúc đều thường gặp. Lời nhận xét về bụng to hay nhỏ có thể khiến mẹ chạnh lòng, dù người nói có ý tốt. Mỗi bụng bầu một khác, và kích thước còn tùy vào nhiều điều như chiều cao, vóc dáng của mẹ. Nếu lo về sự phát triển của bé, mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh, người sẽ theo dõi điều này qua mỗi lần khám."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "You and your partner",
+            "vi": "Mẹ và bố bé"
+          },
+          "paragraphs": {
+            "en": [
+              "In most pregnancies, sex is safe unless your doctor or midwife has advised against it. Your baby is cushioned by the fluid around them and by the strong muscles of the womb. Wanting sex more than before, or less, is normal, and it may change from week to week.",
+              "Talk openly with your partner about how you feel, including about your changing body. Your partner may have worries of their own. Cuddles, a massage or simply time together can keep you close when you do not feel like sex. Trying positions that suit your bump may also help.",
+              "If you have any bleeding from your vagina, or belly pain that is severe or does not go away, contact your maternity unit straight away. If fluid leaks from your vagina, contact your maternity unit straight away, whatever the colour."
+            ],
+            "vi": [
+              "Với phần lớn thai kỳ, quan hệ tình dục là an toàn, trừ khi bác sĩ hoặc nữ hộ sinh khuyên mẹ tránh. Bé được bao bọc bởi nước ối và lớp cơ tử cung chắc khỏe. Ham muốn nhiều hơn hay ít đi so với trước đều là bình thường, và có thể thay đổi theo từng tuần.",
+              "Mẹ hãy cởi mở nói với bố bé về cảm xúc của mình, kể cả những băn khoăn về cơ thể đang thay đổi. Bố bé cũng có thể có những lo lắng riêng. Những cái ôm, xoa bóp hay đơn giản là ở bên nhau giúp mẹ và bố bé gần gũi nhau khi mẹ chưa muốn chuyện chăn gối. Thử những tư thế hợp với bụng bầu cũng có thể giúp ích.",
+              "Nếu ra máu âm đạo, dù ít hay nhiều, hay đau bụng dữ dội hoặc không dứt, mẹ hãy liên hệ khoa sản ngay. Nếu ra nước âm đạo, mẹ hãy liên hệ khoa sản ngay, dù nước có màu gì."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Looking after your mind",
+            "vi": "Chăm sóc tinh thần"
+          },
+          "paragraphs": {
+            "en": [
+              "Small pleasures can lift your mood: a walk outdoors, time with friends, a favourite meal or an early night. Rest when you need to, and feel free to say no to things that can wait.",
+              "If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family. If you ever have thoughts of harming yourself, tell someone you trust and get help straight away. Call an emergency ambulance (115) or go to the nearest hospital."
+            ],
+            "vi": [
+              "Những niềm vui nhỏ có thể giúp mẹ phấn chấn hơn: đi dạo ngoài trời, gặp gỡ bạn bè, một món ăn yêu thích hay một tối đi ngủ sớm. Mẹ nghỉ ngơi khi cần, và cứ thoải mái từ chối những việc có thể để sau.",
+              "Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình. Nếu có lúc mẹ nghĩ đến việc làm hại bản thân, mẹ hãy nói với người mình tin tưởng và tìm trợ giúp ngay. Mẹ hãy gọi cấp cứu 115 hoặc đến bệnh viện gần nhất."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        7
+      ]
+    },
+    {
+      "id": "preparing-for-motherhood",
+      "topic": "feelings",
+      "trimesters": [
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Getting ready for motherhood",
+        "vi": "Chuẩn bị làm mẹ"
+      },
+      "summary": {
+        "en": "In the last weeks, excitement and worry often go together; lining up support for after the birth, and knowing when feelings need help, can make the change easier.",
+        "vi": "Trong những tuần cuối, háo hức và lo lắng thường đi cùng nhau; chuẩn bị trước người hỗ trợ sau sinh, và biết khi nào cảm xúc cần được giúp đỡ, có thể giúp mẹ bước vào chặng mới nhẹ nhàng hơn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Feelings before the birth",
+            "vi": "Cảm xúc trước ngày sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "As the birth gets closer, you may feel excited, impatient and scared, sometimes all on the same day. Many women worry about the pain of labour, how the birth will go, or whether they will cope with a newborn.",
+              "Knowing what to expect often eases fear. Antenatal classes explain the stages of labour and the ways to ease pain. Talk the birth through with your doctor or midwife, and ask about anything that worries you. No birth can be planned in every detail, but you can say what matters to you."
+            ],
+            "vi": [
+              "Khi ngày sinh đến gần, mẹ có thể thấy háo hức, sốt ruột và sợ hãi, đôi khi tất cả trong cùng một ngày. Nhiều mẹ lo về cơn đau chuyển dạ, về việc sinh nở sẽ diễn ra thế nào, hay liệu mình có chăm nổi một em bé mới sinh không.",
+              "Hiểu trước điều sắp tới thường giúp mẹ bớt sợ. Các lớp học tiền sản giải thích những giai đoạn của chuyển dạ và các cách giảm đau. Mẹ hãy trao đổi với bác sĩ hoặc nữ hộ sinh về việc sinh nở, và hỏi về bất cứ điều gì khiến mẹ lo. Không ca sinh nào có thể lên kế hoạch đến từng chi tiết, nhưng mẹ có thể nói ra những điều mình coi trọng."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Lining up support",
+            "vi": "Chuẩn bị chỗ dựa"
+          },
+          "paragraphs": {
+            "en": [
+              "The first weeks with a newborn are tiring for everyone. Before the birth, think about who could help with meals, housework and shopping, so you can rest, feed your baby and get to know each other. Your parents, your in-laws, other relatives and friends may be glad to be asked.",
+              "Talk with your partner about sharing the work, including nappy changes, bathing and the night feeds, so that each of you gets some sleep. It is fine to tell visitors when you need quiet time."
+            ],
+            "vi": [
+              "Những tuần đầu chăm bé sơ sinh thường mệt với cả nhà. Trước khi sinh, mẹ hãy tính xem ai có thể giúp nấu ăn, dọn dẹp, đi chợ, để mẹ được nghỉ ngơi, cho bé bú và làm quen với bé. Ông bà nội ngoại, họ hàng và bạn bè có thể sẽ vui khi được nhờ.",
+              "Mẹ hãy bàn với bố bé cách chia việc, kể cả thay bỉm, tắm cho bé và các cữ bú đêm, để cả hai đều được ngủ. Mẹ cứ thoải mái nói với khách đến thăm khi mình cần yên tĩnh."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "After your baby is born",
+            "vi": "Sau khi bé chào đời"
+          },
+          "paragraphs": {
+            "en": [
+              "In the first days after the birth, many women feel tearful, anxious or up and down. These “baby blues” are common and usually pass within about two weeks. Rest, food and kind support can help.",
+              "Feelings that last longer, or that are severe, may be a sign of postnatal depression. This is common too, and it can be treated. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family. This applies before the birth as well as after it.",
+              "If you ever have thoughts of harming yourself, tell someone you trust and get help straight away. Call an emergency ambulance (115) or go to the nearest hospital."
+            ],
+            "vi": [
+              "Trong những ngày đầu sau sinh, nhiều mẹ dễ khóc, hay lo âu hoặc tâm trạng thất thường. Tình trạng này, thường gọi là “baby blues”, rất hay gặp và thường qua đi trong khoảng hai tuần. Nghỉ ngơi, ăn uống đủ và sự quan tâm của người thân có thể giúp mẹ.",
+              "Nếu những cảm xúc ấy kéo dài hơn hoặc trở nên nặng nề, đó có thể là dấu hiệu của trầm cảm sau sinh. Trầm cảm sau sinh cũng hay gặp và có thể điều trị được. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình. Điều này áp dụng cả trước lẫn sau khi sinh.",
+              "Nếu có lúc mẹ nghĩ đến việc làm hại bản thân, mẹ hãy nói với người mình tin tưởng và tìm trợ giúp ngay. Mẹ hãy gọi cấp cứu 115 hoặc đến bệnh viện gần nhất."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        7,
+        9
+      ]
+    },
+    {
+      "id": "antenatal-checkup-milestones",
+      "topic": "checkups",
+      "trimesters": [
+        1,
+        2,
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Your antenatal check-ups, step by step",
+        "vi": "Lịch khám thai qua từng giai đoạn"
+      },
+      "summary": {
+        "en": "Regular check-ups let your doctor or midwife follow your health and your baby's growth, and knowing the main milestones helps you plan each visit and test in good time.",
+        "vi": "Khám thai đều đặn giúp bác sĩ hoặc nữ hộ sinh theo dõi sức khỏe của mẹ và sự phát triển của bé, còn nắm được các mốc khám chính giúp mẹ chủ động sắp xếp từng lần khám và xét nghiệm."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Why regular check-ups matter",
+            "vi": "Vì sao cần khám thai đều đặn"
+          },
+          "paragraphs": {
+            "en": [
+              "Each check-up gives your doctor or midwife a chance to spot changes early. It is also a time to ask questions, say how you are feeling and plan the next steps together.",
+              "The World Health Organization recommends at least eight antenatal contacts during pregnancy. Clinics in Vietnam set their own schedules, which may differ from this, so follow the plan your clinic gives you."
+            ],
+            "vi": [
+              "Mỗi lần khám thai là dịp để bác sĩ hoặc nữ hộ sinh phát hiện sớm những thay đổi. Đây cũng là lúc mẹ đặt câu hỏi, kể về cảm nhận của mình và cùng bàn các bước tiếp theo.",
+              "Tổ chức Y tế Thế giới khuyến nghị mẹ có ít nhất tám lần tiếp xúc với nhân viên y tế trong suốt thai kỳ. Mỗi cơ sở y tế ở Việt Nam có lịch khám riêng, có thể khác con số này, nên mẹ hãy theo lịch nơi mình khám."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "The main milestones",
+            "vi": "Các mốc khám chính"
+          },
+          "paragraphs": {
+            "en": [
+              "In the first trimester, the first check-up usually takes place between weeks 6 and 8. It confirms the pregnancy and includes the first blood tests. Between weeks 11 and 14, many women choose to have a nuchal translucency scan with the double test.",
+              "In the second trimester, a triple test may be offered between weeks 15 and 18. The detailed anomaly scan usually falls between weeks 18 and 22, and the test for gestational diabetes between weeks 24 and 28.",
+              "In the third trimester, tetanus and whooping cough vaccines are usually given between weeks 27 and 36. A growth scan may also be done between weeks 30 and 32. A group B strep test is often offered between weeks 35 and 37. From week 37, check-ups usually become weekly until the birth. If you go past your due date, your doctor or midwife usually checks on you and your baby more closely between weeks 40 and 42."
+            ],
+            "vi": [
+              "Ở tam cá nguyệt đầu, lần khám thai đầu tiên thường vào khoảng tuần 6 đến 8. Lần khám này xác nhận có thai và làm các xét nghiệm máu ban đầu. Trong khoảng tuần 11 đến 14, nhiều mẹ chọn siêu âm đo độ mờ da gáy kèm xét nghiệm double test.",
+              "Ở tam cá nguyệt thứ hai, mẹ có thể được đề nghị làm xét nghiệm triple test trong khoảng tuần 15 đến 18. Siêu âm hình thái thường làm trong khoảng tuần 18 đến 22, còn xét nghiệm tầm soát tiểu đường thai kỳ trong khoảng tuần 24 đến 28.",
+              "Ở tam cá nguyệt thứ ba, mẹ thường được tiêm phòng uốn ván, ho gà trong khoảng tuần 27 đến 36. Mẹ cũng có thể siêu âm đánh giá tăng trưởng trong khoảng tuần 30 đến 32. Xét nghiệm cấy liên cầu khuẩn nhóm B thường làm trong khoảng tuần 35 đến 37. Từ tuần 37, mẹ thường đi khám mỗi tuần cho đến khi sinh. Nếu đã qua ngày dự sinh, bác sĩ hoặc nữ hộ sinh thường theo dõi mẹ và bé sát hơn trong khoảng tuần 40 đến 42."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "What usually happens at a visit",
+            "vi": "Mỗi lần khám thường có gì"
+          },
+          "paragraphs": {
+            "en": [
+              "Most visits include checking your blood pressure, a urine test and your weight. Your doctor or midwife may also measure the height of your womb and, later in pregnancy, listen to your baby's heartbeat.",
+              "Bring your pregnancy record book (sổ khám thai) and any earlier results to every visit. Write your questions down beforehand so you do not forget them. You can keep your dates in the check-up list in the app.",
+              "If something worries you, contact your doctor or midwife; you do not have to wait for your next visit. For signs that need care straight away, see “When to get care right away” on your week page."
+            ],
+            "vi": [
+              "Phần lớn các lần khám đều có đo huyết áp, xét nghiệm nước tiểu và cân nặng. Bác sĩ hoặc nữ hộ sinh cũng có thể đo chiều cao tử cung và, ở giai đoạn sau, nghe tim thai.",
+              "Mẹ nhớ mang theo sổ khám thai và các kết quả cũ mỗi lần đi khám. Mẹ ghi sẵn câu hỏi ra giấy để khỏi quên. Mẹ có thể lưu ngày hẹn vào danh sách lịch khám trong ứng dụng.",
+              "Nếu có điều gì khiến mẹ lo, mẹ hãy liên hệ bác sĩ hoặc nữ hộ sinh, không cần đợi đến lần khám sau. Với những dấu hiệu cần được chăm sóc ngay, mẹ hãy xem mục “Khi nào cần đi khám ngay” ở trang tuần."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        6,
+        9
+      ]
+    },
+    {
+      "id": "first-trimester-screening",
+      "topic": "checkups",
+      "trimesters": [
+        1
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Tests and screening in early pregnancy",
+        "vi": "Xét nghiệm và sàng lọc đầu thai kỳ"
+      },
+      "summary": {
+        "en": "Early check-ups include blood and urine tests and a dating scan, and between weeks 11 and 14 you can choose screening that estimates the chance of some chromosomal conditions.",
+        "vi": "Những lần khám đầu có xét nghiệm máu, nước tiểu và siêu âm tính tuổi thai; trong khoảng tuần 11 đến 14, mẹ có thể chọn làm sàng lọc để ước tính khả năng bé mắc một số bất thường nhiễm sắc thể."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Tests at the first visit",
+            "vi": "Xét nghiệm ở lần khám đầu"
+          },
+          "paragraphs": {
+            "en": [
+              "At your first check-up, usually between weeks 6 and 8, blood tests usually look at your blood group and Rh type and check for anaemia. They also screen for infections such as hepatitis B, HIV and syphilis. A urine test is usually done too. Knowing your results early helps your doctor or midwife plan your care.",
+              "An early scan confirms the pregnancy, shows whether there is one baby or more and estimates how far along you are. From this, your doctor works out your due date, which the later tests and visits are timed from."
+            ],
+            "vi": [
+              "Ở lần khám đầu, thường vào khoảng tuần 6 đến 8, xét nghiệm máu thường kiểm tra nhóm máu, yếu tố Rh và tình trạng thiếu máu. Mẹ cũng được tầm soát một số bệnh nhiễm trùng như viêm gan B, HIV và giang mai. Ngoài ra, mẹ thường được xét nghiệm nước tiểu. Biết kết quả sớm giúp bác sĩ hoặc nữ hộ sinh lên kế hoạch chăm sóc phù hợp cho mẹ.",
+              "Siêu âm sớm giúp xác nhận có thai, xem mẹ mang một hay nhiều thai và ước tính tuổi thai. Từ đó, bác sĩ tính ra ngày dự sinh, là mốc để hẹn các xét nghiệm và lần khám sau."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "The nuchal scan and double test",
+            "vi": "Siêu âm độ mờ da gáy và double test"
+          },
+          "paragraphs": {
+            "en": [
+              "Between weeks 11 and 14, you can choose to have a nuchal translucency scan. It measures a small fluid-filled space at the back of your baby's neck. It is often done together with a blood test called the double test.",
+              "Together with your age and how far along you are, these results give an estimate of the chance of some chromosomal conditions, such as Down syndrome. Screening is optional. Your doctor or midwife can explain what it involves, so you can decide whether it is right for you."
+            ],
+            "vi": [
+              "Trong khoảng tuần 11 đến 14, mẹ có thể chọn siêu âm đo độ mờ da gáy. Lần siêu âm này đo một khoảng chứa dịch nhỏ ở sau gáy bé. Siêu âm thường được làm cùng một xét nghiệm máu gọi là double test.",
+              "Kết hợp với tuổi của mẹ và tuổi thai, các kết quả này cho một ước tính về khả năng bé mắc một số bất thường nhiễm sắc thể, chẳng hạn hội chứng Down. Sàng lọc là tự nguyện. Bác sĩ hoặc nữ hộ sinh có thể giải thích cụ thể để mẹ quyết định có làm hay không."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Understanding screening results",
+            "vi": "Hiểu kết quả sàng lọc"
+          },
+          "paragraphs": {
+            "en": [
+              "A screening test does not give a diagnosis. It only tells you whether the chance is higher or lower. A higher-chance result does not tell you that your baby has a condition; it means that further tests may be worth discussing.",
+              "If your result shows a higher chance, your doctor will talk with you about the options, which may include further tests that can give a clearer answer. You can take time to think, ask questions and talk it over with your family. Every choice is yours to make, together with your doctor.",
+              "Waiting for results can be stressful. If the worry stays with you, share it with your doctor or midwife."
+            ],
+            "vi": [
+              "Xét nghiệm sàng lọc không đưa ra chẩn đoán. Kết quả chỉ cho biết khả năng cao hay khả năng thấp. Kết quả khả năng cao chưa cho biết bé có mắc bệnh hay không; nó cho thấy mẹ có thể cần bàn thêm về các xét nghiệm tiếp theo.",
+              "Nếu kết quả cho thấy khả năng cao, bác sĩ sẽ trao đổi với mẹ về các lựa chọn, trong đó có thể có những xét nghiệm giúp trả lời rõ hơn. Mẹ có thể dành thời gian suy nghĩ, đặt câu hỏi và bàn bạc với gia đình. Mọi quyết định là của mẹ, cùng với bác sĩ.",
+              "Chờ kết quả có thể khiến mẹ căng thẳng. Nếu nỗi lo cứ đeo bám, mẹ hãy chia sẻ với bác sĩ hoặc nữ hộ sinh."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        6,
+        9
+      ]
+    },
+    {
+      "id": "anomaly-scan-glucose-test",
+      "topic": "checkups",
+      "trimesters": [
+        2
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "The anomaly scan and diabetes test",
+        "vi": "Siêu âm hình thái và xét nghiệm tiểu đường"
+      },
+      "summary": {
+        "en": "Two key checks fall in the second trimester: a detailed scan between weeks 18 and 22, and a test for gestational diabetes between weeks 24 and 28.",
+        "vi": "Tam cá nguyệt thứ hai có hai lần kiểm tra quan trọng: siêu âm hình thái trong khoảng tuần 18 đến 22, và xét nghiệm tiểu đường thai kỳ trong khoảng tuần 24 đến 28."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "The anomaly scan",
+            "vi": "Siêu âm hình thái"
+          },
+          "paragraphs": {
+            "en": [
+              "The anomaly scan usually takes place between weeks 18 and 22. The doctor doing the scan looks closely at your baby's head, heart, spine, kidneys, limbs and other organs, and measures your baby's growth. The scan also checks where the placenta lies and how much fluid surrounds your baby.",
+              "The scan can take a while, especially if your baby is lying in a position that is hard to see. You may be asked to walk around for a bit and come back. You can usually bring someone with you. Even a careful scan cannot find every condition, so it is one part of your care, not a guarantee."
+            ],
+            "vi": [
+              "Siêu âm hình thái thường diễn ra trong khoảng tuần 18 đến 22. Bác sĩ siêu âm xem kỹ đầu, tim, cột sống, thận, tay chân và các cơ quan khác của bé, đồng thời đo sự phát triển của bé. Lần siêu âm này cũng kiểm tra vị trí bánh rau và lượng nước ối quanh bé.",
+              "Buổi siêu âm có thể kéo dài, nhất là khi bé nằm ở tư thế khó quan sát. Mẹ có thể được đề nghị đi lại một lát rồi quay lại siêu âm tiếp. Mẹ thường có thể đưa người thân đi cùng. Dù siêu âm kỹ đến đâu cũng không phát hiện được mọi bất thường, nên đây là một phần trong việc chăm sóc thai kỳ, chứ không phải lời bảo đảm."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "The gestational diabetes test",
+            "vi": "Xét nghiệm tiểu đường thai kỳ"
+          },
+          "paragraphs": {
+            "en": [
+              "Between weeks 24 and 28, many clinics test for gestational diabetes, a type of high blood sugar that starts in pregnancy. The test usually means coming in without eating beforehand, having a sweet drink, and giving blood samples over about two hours. Your clinic will explain how to prepare.",
+              "Gestational diabetes is common. It is usually managed with changes to what you eat and regular activity; some women also need medicine, which your doctor explains. It usually goes away after the birth. A blood sugar check some weeks after the birth is advised, as the chance of diabetes later in life is higher."
+            ],
+            "vi": [
+              "Trong khoảng tuần 24 đến 28, nhiều cơ sở y tế làm xét nghiệm tầm soát tiểu đường thai kỳ, tức tình trạng đường huyết cao xuất hiện khi mang thai. Mẹ thường phải nhịn ăn trước khi đến, uống một cốc nước đường, rồi lấy máu vài lần trong khoảng hai tiếng. Nơi khám sẽ hướng dẫn mẹ cách chuẩn bị.",
+              "Tiểu đường thai kỳ khá thường gặp. Bệnh thường được kiểm soát bằng cách điều chỉnh chế độ ăn và vận động đều đặn; một số mẹ cần dùng thêm thuốc, bác sĩ sẽ giải thích cụ thể. Tiểu đường thai kỳ thường hết sau khi sinh. Mẹ nên kiểm tra lại đường huyết vài tuần sau sinh, vì khả năng mắc tiểu đường về sau cao hơn."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "If more checks are needed",
+            "vi": "Khi cần theo dõi thêm"
+          },
+          "paragraphs": {
+            "en": [
+              "If a scan or test shows something that needs a closer look, your doctor will explain what was found and what happens next. This may be another scan, a visit to a specialist or simply more frequent check-ups. Ask about anything that is unclear, and bring someone with you if that helps.",
+              "Waiting for more information can be hard. Lean on your family, and tell your doctor or midwife if worry is affecting your sleep or mood.",
+              "Between visits, if you notice anything unusual, see “When to get care right away” on your week page."
+            ],
+            "vi": [
+              "Nếu siêu âm hoặc xét nghiệm cho thấy điều cần xem kỹ hơn, bác sĩ sẽ giải thích kết quả và các bước tiếp theo. Đó có thể là siêu âm lại, khám thêm ở chuyên khoa, hoặc đơn giản là đi khám dày hơn. Mẹ cứ hỏi lại bất cứ điều gì chưa rõ, và có thể đưa người thân đi cùng nếu thấy yên tâm hơn.",
+              "Chờ thêm thông tin có thể khiến mẹ thấp thỏm. Mẹ hãy dựa vào gia đình, và báo bác sĩ hoặc nữ hộ sinh nếu nỗi lo ảnh hưởng đến giấc ngủ hay tâm trạng.",
+              "Giữa các lần khám, nếu thấy điều gì bất thường, mẹ hãy xem mục “Khi nào cần đi khám ngay” ở trang tuần."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        6,
+        9
+      ]
+    },
+    {
+      "id": "signs-of-labour",
+      "topic": "birth",
+      "trimesters": [
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Recognising the signs of labour",
+        "vi": "Nhận biết dấu hiệu chuyển dạ"
+      },
+      "summary": {
+        "en": "Knowing how labour usually starts, and which signs mean calling your maternity unit straight away, can help you feel ready when the time comes.",
+        "vi": "Biết chuyển dạ thường bắt đầu thế nào, và dấu hiệu nào cần gọi ngay cho khoa sản, có thể giúp mẹ thấy vững vàng hơn khi thời điểm ấy đến."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Signs that labour is starting",
+            "vi": "Dấu hiệu chuyển dạ"
+          },
+          "paragraphs": {
+            "en": [
+              "Labour often starts slowly, and the early signs differ from woman to woman. The clearest sign is contractions that come regularly and, over time, become longer, stronger and closer together. Each one tightens your whole bump, then eases off.",
+              "You may also notice a show: a blob of thick, sticky mucus that can be clear, pinkish or streaked with blood. Some women have backache, or cramps like period pains. Your waters may also break, which can feel like a rush of fluid or a steady leak."
+            ],
+            "vi": [
+              "Chuyển dạ thường bắt đầu từ từ, và dấu hiệu ban đầu ở mỗi mẹ một khác. Dấu hiệu rõ nhất là những cơn gò đến đều đặn, dần dần dài hơn, mạnh hơn và gần nhau hơn. Mỗi cơn gò làm cả bụng cứng lại, rồi dịu đi.",
+              "Mẹ cũng có thể thấy ra nhầy: một cục chất nhầy đặc và dính, có thể trong, hơi hồng hoặc lẫn tia máu. Một số mẹ thấy đau lưng, hoặc đau quặn như khi hành kinh. Ối cũng có thể vỡ, khi đó mẹ thấy nước chảy ồ ra hoặc rỉ ra liên tục."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Practice or real contractions",
+            "vi": "Cơn gò tập hay cơn gò thật"
+          },
+          "paragraphs": {
+            "en": [
+              "In the last weeks, many women have practice contractions. They tend to come irregularly, do not build in strength, and often ease when you rest, walk about or change position.",
+              "Real labour contractions keep coming whether you rest or move, and they grow stronger over time. If you think labour has started, or you cannot tell which kind you have, call your maternity unit. The staff can talk it through with you and tell you when to come in. Each unit has its own advice, so follow what yours says.",
+              "Save the unit's phone number in your phone, and arrange in advance who will take you there, even in the middle of the night."
+            ],
+            "vi": [
+              "Trong những tuần cuối, nhiều mẹ có cơn gò tập. Những cơn gò này thường đến không đều, không mạnh dần lên, và hay dịu đi khi mẹ nghỉ, đi lại hoặc đổi tư thế.",
+              "Cơn gò chuyển dạ thật vẫn tiếp tục dù mẹ nghỉ hay vận động, và ngày càng mạnh hơn. Nếu nghĩ mình đã chuyển dạ, hoặc không chắc đó là loại gò nào, mẹ hãy gọi cho khoa sản. Nhân viên ở đó sẽ trao đổi với mẹ và cho biết khi nào cần đến viện. Mỗi nơi có hướng dẫn riêng, mẹ hãy làm theo hướng dẫn của nơi mình định sinh.",
+              "Mẹ nên lưu số điện thoại của khoa sản vào máy, và sắp xếp trước ai sẽ đưa mẹ đi, kể cả lúc nửa đêm."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "When to call the maternity unit",
+            "vi": "Khi nào gọi khoa sản"
+          },
+          "paragraphs": {
+            "en": [
+              "If your waters break, call your maternity unit straight away, whether the fluid is clear, green or brown. If your baby moves less than usual, or the pattern of movements changes, call your maternity unit straight away, day or night. Do not wait to see if things change.",
+              "Before 37 weeks, if you have signs of labour, such as regular tightenings or period-like cramps, go to your maternity unit straight away. Do the same for fluid leaking from your vagina, any bleeding, or belly pain that does not go away. From 37 weeks, if you have heavy or bright red bleeding, or constant belly pain that does not ease, go to hospital straight away.",
+              "For a severe headache, blurred vision or sudden swelling of your face, hands or feet, go to your maternity unit straight away. For fits or trouble breathing, call an emergency ambulance (115) straight away."
+            ],
+            "vi": [
+              "Khi vỡ ối, mẹ hãy gọi ngay cho khoa sản, dù nước ối trong, xanh hay nâu. Nếu bé cử động ít hơn mọi ngày hoặc khác thường, mẹ hãy gọi ngay cho khoa sản, dù ngày hay đêm. Đừng chờ xem tình hình có thay đổi không.",
+              "Trước tuần 37, nếu có dấu hiệu chuyển dạ như gò bụng đều đặn hay đau như đau bụng kinh, mẹ hãy đến khoa sản ngay. Nếu ra nước âm đạo, ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt, mẹ cũng hãy đến khoa sản ngay. Từ tuần 37, nếu ra máu nhiều hoặc máu đỏ tươi, hay đau bụng liên tục không dịu, mẹ hãy đến bệnh viện ngay.",
+              "Nếu đau đầu dữ dội, nhìn mờ hoặc phù mặt, tay, chân đột ngột, mẹ hãy đến khoa sản ngay. Nếu co giật hoặc khó thở, hãy gọi cấp cứu 115 ngay."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "hospital-bag",
+      "topic": "birth",
+      "trimesters": [
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Packing your hospital bag",
+        "vi": "Chuẩn bị túi đồ đi sinh"
+      },
+      "summary": {
+        "en": "Packing your hospital bag a few weeks early, with documents, things for you and things for your baby, lets you set off calmly whenever labour starts.",
+        "vi": "Soạn túi đồ đi sinh từ sớm, gồm giấy tờ, đồ dùng cho mẹ và cho bé, giúp mẹ thong thả lên đường bất cứ khi nào chuyển dạ bắt đầu."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "When to pack",
+            "vi": "Khi nào chuẩn bị"
+          },
+          "paragraphs": {
+            "en": [
+              "A good time to start packing is around week 33, aiming to have the bag ready by about week 36. Babies sometimes arrive earlier than expected, so being ready early takes some pressure off.",
+              "Ask your hospital what it provides and what you need to bring, as this varies. Some hospitals give you a list. If it helps, pack two bags: one for labour, and one for your stay after the birth.",
+              "Keep the bag near the door, together with the maternity unit's phone number and your plan for getting there."
+            ],
+            "vi": [
+              "Mẹ có thể bắt đầu soạn đồ từ khoảng tuần 33, và cố gắng chuẩn bị xong trước khoảng tuần 36. Đôi khi bé chào đời sớm hơn dự kiến, nên sẵn sàng từ sớm giúp mẹ đỡ cuống.",
+              "Mẹ hãy hỏi bệnh viện xem ở đó có sẵn những gì và mẹ cần mang theo những gì, vì mỗi nơi một khác. Một số bệnh viện có sẵn danh sách. Nếu tiện, mẹ chia thành hai túi: một túi cho lúc chuyển dạ, một túi cho những ngày nằm viện sau sinh.",
+              "Mẹ để túi gần cửa, cùng số điện thoại của khoa sản và kế hoạch đi đến viện."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "For you",
+            "vi": "Đồ cho mẹ"
+          },
+          "paragraphs": {
+            "en": [
+              "Pack loose, comfortable clothes, and tops that open at the front or nursing bras to make feeding easier. Add plenty of maternity pads, several pairs of underwear, slippers and warm socks.",
+              "Bring your toiletries, a towel, a hair tie and lip balm, along with your phone and its charger. Some snacks and a bottle of water can keep your energy up during labour.",
+              "You might add things that help you relax, such as music or a familiar pillow. Pack a few things for the person coming with you too, like snacks and a change of clothes."
+            ],
+            "vi": [
+              "Mẹ mang quần áo rộng rãi, thoải mái, áo cài khuy trước hoặc áo ngực cho con bú để tiện cho bé bú. Thêm nhiều băng vệ sinh dành cho sản phụ, vài chiếc quần lót, dép đi trong nhà và tất ấm.",
+              "Mẹ mang đồ dùng vệ sinh cá nhân, khăn tắm, dây buộc tóc, son dưỡng môi, cùng điện thoại và sạc. Một ít đồ ăn nhẹ và chai nước giúp mẹ có sức trong lúc chuyển dạ.",
+              "Mẹ có thể mang thêm những thứ giúp mình thư giãn, như nhạc yêu thích hay chiếc gối quen. Mẹ cũng nên mang vài món cho người đi cùng, như đồ ăn nhẹ và quần áo để thay."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "For your baby, and documents",
+            "vi": "Đồ cho bé và giấy tờ"
+          },
+          "paragraphs": {
+            "en": [
+              "For your baby, pack a few sets of clothes, a hat, socks, nappies and a soft cloth for swaddling. If you will travel home by car, fit a baby car seat before the birth.",
+              "Put your documents in a folder at the top of the bag. These are your ID card (căn cước), health insurance card, pregnancy record book (sổ khám thai) and your test and scan results. Hospitals usually ask for these when you arrive.",
+              "While you get ready, keep noticing your baby's movements. If your baby moves less than usual, or the pattern changes, contact your maternity unit straight away, day or night. If your waters break, whatever the colour of the fluid, call or go to your maternity unit straight away."
+            ],
+            "vi": [
+              "Cho bé, mẹ chuẩn bị vài bộ quần áo, mũ, tất, bỉm hoặc tã và khăn quấn mềm. Nếu về nhà bằng ô tô, mẹ nên lắp sẵn ghế ô tô cho trẻ sơ sinh từ trước khi sinh.",
+              "Mẹ để giấy tờ trong một túi riêng ở trên cùng, gồm căn cước, thẻ bảo hiểm y tế, sổ khám thai và các kết quả xét nghiệm, siêu âm. Bệnh viện thường cần những giấy tờ này khi mẹ nhập viện.",
+              "Trong lúc chuẩn bị, mẹ vẫn để ý cử động của bé. Nếu bé cử động ít hơn mọi ngày hoặc khác thường, mẹ hãy liên hệ khoa sản ngay, dù ngày hay đêm. Nếu vỡ ối, dù nước có màu gì, mẹ hãy gọi hoặc đến khoa sản ngay."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        2,
+        5,
+        9
+      ]
+    },
+    {
+      "id": "birth-plan-breastfeeding",
+      "topic": "birth",
+      "trimesters": [
+        3
+      ],
+      "reviewed": false,
+      "title": {
+        "en": "Birth plan and first feeds",
+        "vi": "Kế hoạch sinh và những cữ bú đầu"
+      },
+      "summary": {
+        "en": "Writing down your wishes for the birth helps your care team know what matters to you, and knowing how breastfeeding starts can make the first hours feel calmer.",
+        "vi": "Ghi lại mong muốn của mẹ về cuộc sinh giúp đội ngũ chăm sóc hiểu điều mẹ coi trọng, và biết trước cách bắt đầu cho con bú có thể giúp những giờ đầu nhẹ nhàng hơn."
+      },
+      "sections": [
+        {
+          "heading": {
+            "en": "Your birth plan",
+            "vi": "Kế hoạch sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "A birth plan is a short note of your wishes for labour and birth. It might say who you would like with you and which positions you would like to try. It can also list ways of coping with pain that you want to talk through with your doctor or midwife.",
+              "You can also ask for skin-to-skin contact with your baby straight after the birth. You can ask, too, for the cord to be clamped only after at least a minute, when this is possible. The World Health Organization recommends both for babies who are well.",
+              "Labour does not always go as planned. If things need to change, your care team will usually explain why and talk the options through with you. A change of plan does not mean you have failed."
+            ],
+            "vi": [
+              "Kế hoạch sinh là một tờ ghi ngắn gọn những mong muốn của mẹ cho lúc chuyển dạ và sinh. Mẹ có thể ghi ai sẽ ở bên mình và những tư thế mẹ muốn thử. Mẹ cũng có thể ghi những cách giảm đau mẹ muốn trao đổi trước với bác sĩ hoặc nữ hộ sinh.",
+              "Mẹ cũng có thể đề nghị được da kề da với bé ngay sau sinh. Mẹ có thể đề nghị thêm việc chờ ít nhất một phút rồi mới kẹp dây rốn, khi điều kiện cho phép. Tổ chức Y tế Thế giới khuyến nghị cả hai điều này cho những bé khỏe mạnh.",
+              "Chuyển dạ không phải lúc nào cũng diễn ra như dự định. Nếu cần thay đổi, đội ngũ chăm sóc thường sẽ giải thích lý do và cùng mẹ bàn các lựa chọn. Thay đổi kế hoạch không có nghĩa là mẹ thất bại."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "The first hours after birth",
+            "vi": "Những giờ đầu sau sinh"
+          },
+          "paragraphs": {
+            "en": [
+              "Holding your baby skin to skin, on your bare chest, helps keep your baby warm and settled. It is also a good start for breastfeeding, as many babies begin to look for the breast during this time.",
+              "The World Health Organization advises starting breastfeeding within the first hour after birth. The first milk, called colostrum, is thick and yellowish. It comes in small amounts, which suit a newborn's tiny stomach."
+            ],
+            "vi": [
+              "Ôm bé da kề da trên ngực trần giúp bé được ủ ấm và yên ổn hơn. Đây cũng là bước khởi đầu tốt cho việc bú mẹ, vì nhiều bé bắt đầu tìm vú mẹ trong lúc này.",
+              "Tổ chức Y tế Thế giới khuyên mẹ cho bé bú trong vòng một giờ đầu sau sinh. Sữa đầu tiên, gọi là sữa non, đặc và hơi vàng. Sữa non tiết ra từng chút một, vừa với cái dạ dày nhỏ xíu của trẻ sơ sinh."
+            ]
+          }
+        },
+        {
+          "heading": {
+            "en": "Starting to breastfeed",
+            "vi": "Bắt đầu cho con bú"
+          },
+          "paragraphs": {
+            "en": [
+              "In the first days, feed your baby often, whenever they seem hungry, for example turning to look for the breast or sucking their hands. The World Health Organization recommends breast milk alone for the first 6 months.",
+              "A good position and latch make feeding more comfortable. Ask your midwife to show you how to hold your baby and help them take in plenty of the breast. Sore nipples, or a baby who finds it hard to latch, are common at first, and help is there for you.",
+              "If breastfeeding is hard, or not possible for you, ask your doctor or midwife for support. Your baby can still be fed well, and you can still share close, calm moments together."
+            ],
+            "vi": [
+              "Trong những ngày đầu, mẹ cho bé bú thường xuyên, mỗi khi bé có dấu hiệu đói như quay đầu tìm vú hay mút tay. Tổ chức Y tế Thế giới khuyến nghị cho bé bú mẹ hoàn toàn trong 6 tháng đầu.",
+              "Tư thế bế và cách ngậm bắt vú đúng giúp việc cho bú dễ chịu hơn. Mẹ hãy nhờ nữ hộ sinh chỉ cách bế bé và giúp bé ngậm sâu vào bầu vú. Lúc đầu, đau núm vú hay bé khó ngậm vú khá thường gặp, và mẹ có thể tìm sự hỗ trợ.",
+              "Nếu việc cho con bú gặp khó khăn hoặc mẹ không thể cho bú, mẹ hãy nhờ bác sĩ hoặc nữ hộ sinh hỗ trợ. Bé vẫn có thể được nuôi dưỡng đầy đủ, và mẹ con vẫn có những giây phút gần gũi, bình yên bên nhau."
+            ]
+          }
+        }
+      ],
+      "sources": [
+        0,
+        2,
+        8
+      ]
+    }
+  ]
+}

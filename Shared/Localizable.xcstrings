@@ -3571,6 +3571,74 @@
         }
       }
     },
+    "knowledge.card.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggested for trimester %ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gợi ý cho tam cá nguyệt %ld"
+          }
+        }
+      }
+    },
+    "knowledge.reviewed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An obstetrician has reviewed this article"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bác sĩ sản khoa đã duyệt bài viết này"
+          }
+        }
+      }
+    },
+    "knowledge.seeMore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See more"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem thêm"
+          }
+        }
+      }
+    },
+    "knowledge.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Knowledge"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kiến thức"
+          }
+        }
+      }
+    },
     "la.add": {
       "extractionState": "manual",
       "localizations": {

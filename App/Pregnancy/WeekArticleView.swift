@@ -43,7 +43,7 @@ struct WeekArticleView: View {
             case .baby: babyTab
             case .mom: momTab
             }
-            references
+            ArticleReferences(sources: referenceList, identifier: "weekReferences")
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -158,71 +158,6 @@ struct WeekArticleView: View {
     private var referenceList: [String] {
         guard let article = content.article else { return sources }
         return article.sources.compactMap { sources.indices.contains($0) ? sources[$0] : nil }
-    }
-
-    @ViewBuilder
-    private var references: some View {
-        if !referenceList.isEmpty {
-            DisclosureGroup {
-                VStack(alignment: .leading, spacing: 6) {
-                    ForEach(referenceList, id: \.self) { source in
-                        Text(verbatim: source)
-                            .font(.luna(.small))
-                            .foregroundStyle(.luna(.textSecondary))
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 8)
-            } label: {
-                Text(L10n.weekArticleReferences)
-                    .font(.luna(.captionStrong))
-                    .foregroundStyle(.luna(.textPrimary))
-            }
-            .tint(.luna(.textSecondary))
-            .padding(.top, 26)
-            .accessibilityIdentifier("weekReferences")
-        }
-    }
-}
-
-/// A section heading (headline style, header trait).
-private struct ArticleHeading: View {
-    let title: String
-
-    init(_ title: String) {
-        self.title = title
-    }
-
-    var body: some View {
-        Text(title)
-            .font(.luna(.cardTitle))
-            .foregroundStyle(.luna(.textPrimary))
-            .fixedSize(horizontal: false, vertical: true)
-            .padding(.top, 22)
-            .accessibilityAddTraits(.isHeader)
-    }
-}
-
-/// Body paragraphs, line spacing 4 (spec §4.3).
-private struct ArticleParagraphs: View {
-    let paragraphs: [String]
-
-    init(_ paragraphs: [String]) {
-        self.paragraphs = paragraphs
-    }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            ForEach(Array(paragraphs.enumerated()), id: \.offset) { _, paragraph in
-                Text(paragraph)
-                    .font(.luna(.articleBody))
-                    .lineSpacing(4)
-                    .foregroundStyle(.luna(.articleText))
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-        }
-        .padding(.top, 8)
     }
 }
 

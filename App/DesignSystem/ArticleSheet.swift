@@ -43,10 +43,12 @@ struct ArticleSheet<Header: View, Content: View>: View {
     @Binding private var headerDragActive: Bool
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var isDragging = false
-    @State private var dragTranslation: CGFloat = 0
-    /// The finger's translation when an expanded body drag was handed to the sheet.
-    @State private var handoffStart: CGFloat?
+    /// The drag moving the sheet, if any (`SheetDragState`).
+    @State private var drag = SheetDragState()
+    /// True while a header / body drag gesture is live. Unlike `drag`, these reset
+    /// on their own when a gesture is cancelled without `onEnded`.
+    @GestureState private var headerGestureLive = false
+    @GestureState private var bodyGestureLive = false
     @State private var scrollOffset: CGFloat = 0
 
     private static var topID: String { "articleSheetTop" }
@@ -90,10 +92,11 @@ struct ArticleSheet<Header: View, Content: View>: View {
 
     /// The sheet's top edge now.
     private var top: CGFloat {
-        CGFloat(isDragging
-            ? resolver.dragOffset(from: detent, translation: Double(dragTranslation))
-            : resolver.offset(for: detent))
+        CGFloat(drag.translation.map { resolver.dragOffset(from: detent, translation: $0) }
+            ?? resolver.offset(for: detent))
     }
+
+    private var gestureLive: Bool { headerGestureLive || bodyGestureLive }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -121,7 +124,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
                     .padding(.bottom, bottomInset + 32)
                 }
                 .coordinateSpace(.named(Self.scrollSpace))
-                .scrollDisabled(detent == .peek || handoffStart != nil)
+                .scrollDisabled(detent == .peek || drag.handoffStart != nil)
                 .scrollBounceBehavior(.basedOnSize)
                 .accessibilityIdentifier(scrollIdentifier)
                 .simultaneousGesture(bodyDrag)
@@ -149,16 +152,22 @@ struct ArticleSheet<Header: View, Content: View>: View {
         .offset(y: top)
         .onAppear { progress = resolver.progress(for: detent) }
         .onChange(of: peekTop) {
-            if !isDragging { progress = resolver.progress(for: detent) }
+            if !drag.isDragging { progress = resolver.progress(for: detent) }
         }
         .onChange(of: expandedTop) {
-            if !isDragging { progress = resolver.progress(for: detent) }
+            if !drag.isDragging { progress = resolver.progress(for: detent) }
         }
         .onChange(of: containerHeight) {
-            if !isDragging { progress = resolver.progress(for: detent) }
+            if !drag.isDragging { progress = resolver.progress(for: detent) }
         }
         .onChange(of: detent) {
-            if !isDragging { progress = resolver.progress(for: detent) }
+            if !drag.isDragging { progress = resolver.progress(for: detent) }
+        }
+        .onChange(of: gestureLive) { _, live in
+            guard !live else { return }
+            // A normal release has already run `onEnded` by the next main-queue
+            // turn; a cancelled gesture never does, so clear what it left behind.
+            DispatchQueue.main.async { clearCancelledDrag() }
         }
     }
 
@@ -182,6 +191,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
 
     private var headerDrag: some Gesture {
         DragGesture(minimumDistance: 4, coordinateSpace: .global)
+            .updating($headerGestureLive) { _, live, _ in live = true }
             .onChanged { value in
                 headerDragActive = true
                 move(by: value.translation.height)
@@ -196,30 +206,32 @@ struct ArticleSheet<Header: View, Content: View>: View {
 
     private var bodyDrag: some Gesture {
         DragGesture(minimumDistance: 10, coordinateSpace: .global)
+            .updating($bodyGestureLive) { _, live, _ in live = true }
             .onChanged { value in
                 let translation = value.translation.height
                 switch detent {
                 case .peek:
                     move(by: translation)
                 case .expanded:
-                    if handoffStart == nil {
+                    if drag.handoffStart == nil {
                         // Only a downward pull while the article is at its top.
                         guard scrollOffset >= -1, translation > 0 else { return }
-                        handoffStart = translation
+                        drag.beginHandoff(at: Double(translation))
                     }
-                    move(by: max(0, translation - (handoffStart ?? translation)))
+                    move(by: max(0, translation - CGFloat(drag.handoffStart ?? Double(translation))))
                 }
             }
             .onEnded { value in
-                defer { handoffStart = nil }
-                guard isDragging else { return }
+                guard drag.isDragging else {
+                    drag.end()
+                    return
+                }
                 settle(velocity: value.velocity.height)
             }
     }
 
     private func move(by translation: CGFloat) {
-        isDragging = true
-        dragTranslation = translation
+        drag.move(by: Double(translation))
         progress = resolver.progress(atOffset: Double(top))
     }
 
@@ -227,9 +239,21 @@ struct ArticleSheet<Header: View, Content: View>: View {
         let target = resolver.release(at: Double(top), velocity: Double(velocity))
         withAnimation(LunaMotion.sheet(reduceMotion: reduceMotion)) {
             detent = target
-            isDragging = false
-            dragTranslation = 0
+            drag.end()
             progress = resolver.progress(for: target)
+        }
+    }
+
+    /// After a cancelled drag (no `onEnded`): the sheet goes back to its detent
+    /// and nothing stays marked as dragging. A no-op after a normal release, and
+    /// skipped if a new drag has already begun.
+    private func clearCancelledDrag() {
+        guard !gestureLive else { return }
+        headerDragActive = false
+        guard drag != SheetDragState() else { return }
+        withAnimation(LunaMotion.sheet(reduceMotion: reduceMotion)) {
+            drag.end()
+            progress = resolver.progress(for: detent)
         }
     }
 

@@ -410,6 +410,14 @@ enum L10n {
     static var weekArticleSizeLengthWeightFormat: String { t("weekArticle.size.lengthWeight") }
     static var weekArticleSizeWeightFormat: String { t("weekArticle.size.weight") }
 
+    // MARK: - Phase 7: knowledge
+
+    /// "Suggested for trimester 2".
+    static func knowledgeCardTitle(_ trimester: Int) -> String { String(format: t("knowledge.card.title"), trimester) }
+    static var knowledgeSeeMore: String { t("knowledge.seeMore") }
+    static var knowledgeTitle: String { t("knowledge.title") }
+    static var knowledgeReviewed: String { t("knowledge.reviewed") }
+
     // MARK: - Phase 4: kicks
 
     /// "Week 24 · count to 10 movements".
