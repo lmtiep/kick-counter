@@ -132,6 +132,9 @@ struct OnboardingView: View {
             if flow.isQuestion {
                 Button(skipTitle) { change { $0.skip() } }
                     .font(.luna(.captionMedium))
+                    // One line at every text size: at AX5 it shrinks rather than wraps.
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                     .foregroundStyle(.luna(.textOnboarding))
                     .padding(.horizontal, 14)
                     .frame(minHeight: 32)
@@ -292,12 +295,12 @@ struct OnboardingView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                if isSelected {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(.luna(.textOnboarding))
-                        .accessibilityHidden(true)
-                }
+                // Always laid out, so selecting a card never re-wraps its text.
+                Image(systemName: "checkmark")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.luna(.textOnboarding))
+                    .opacity(isSelected ? 1 : 0)
+                    .accessibilityHidden(true)
             }
             .padding(.vertical, detail == nil ? 13 : 16)
             .padding(.horizontal, 18)
@@ -531,11 +534,11 @@ struct OnboardingView: View {
     private var buttons: some View {
         VStack(spacing: 2) {
             if flow.step == .result {
-                Button(L10n.onboardingEnableReminders) { Task { await finish(requestingNotifications: true) } }
+                Button(L10n.onboardingEnableReminders) { startFinishing(requestingNotifications: true) }
                     .buttonStyle(.pill(.onboarding))
                     .disabled(saving)
                     .accessibilityIdentifier("onboardingEnableReminders")
-                Button(L10n.onboardingLater) { Task { await finish(requestingNotifications: false) } }
+                Button(L10n.onboardingLater) { startFinishing(requestingNotifications: false) }
                     .buttonStyle(.pill(.text(.textOnboarding), height: 44))
                     .disabled(saving)
                     .accessibilityIdentifier("onboardingFinishLater")
@@ -664,11 +667,18 @@ struct OnboardingView: View {
     /// reminders" asks for notifications; "Later" never does. In the cycle
     /// branch `completeOnboarding` asks itself (even without a forecast), so the
     /// view never asks a second time. A failed period save shows on Today.
+    /// Marks the screen as saving before the task starts, so a quick second
+    /// tap on either result button is ignored instead of finishing twice.
+    private func startFinishing(requestingNotifications: Bool) {
+        guard !saving else { return }
+        saving = true
+        Task { await finish(requestingNotifications: requestingNotifications) }
+    }
+
     private func finish(requestingNotifications: Bool) async {
+        defer { saving = false }
         // Replaying never changes the mode, the answers, the periods or the dates.
         guard !isReplay else { return onFinish() }
-        saving = true
-        defer { saving = false }
         switch flow.finish() {
         case let .cycle(goal, settings, firstPeriodStart, regularity, contraception):
             await cycle.completeOnboarding(
@@ -685,7 +695,7 @@ struct OnboardingView: View {
                 PregnancyProfile.save(source: dates.source, date: dates.date, to: AppGroup.defaults)
             }
             if requestingNotifications {
-                _ = await kicks.requestNotificationPermission()
+                await kicks.requestNotificationPermission()
             }
         }
         onFinish()

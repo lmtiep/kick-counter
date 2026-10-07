@@ -13,8 +13,12 @@ final class KickCounterUITests: XCTestCase {
         app.openTab(.kicks)
     }
 
+    /// XCTest runs `setUp` on the main thread; the onboarding helper is main-actor.
     private func completeOnboarding() {
-        app.completeOnboardingPregnantWithoutDates()
+        let app: XCUIApplication = app
+        MainActor.assumeIsolated {
+            app.completeOnboardingPregnantWithoutDates()
+        }
     }
 
     private func tapKick(times: Int) {

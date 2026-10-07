@@ -690,7 +690,8 @@ enum L10n {
     static var onboardingResultTitle: String { t("onboarding.result.title") }
     /// "Your next period should start around October 20, 2026."
     static func onboardingResultNextPeriod(_ date: String) -> String { String(format: t("onboarding.result.nextPeriod"), date) }
-    static func onboardingResultLate(_ days: Int) -> String { String(format: t("onboarding.result.late"), days) }
+    /// "… about 1 day late" / "… about 3 days late" (`days(_:)` handles the plural).
+    static func onboardingResultLate(_ days: Int) -> String { String(format: t("onboarding.result.late"), Self.days(days)) }
     static var onboardingResultNoPeriod: String { t("onboarding.result.noPeriod") }
     /// "Today you are 21 weeks, 0 days pregnant."
     static func onboardingResultPregnant(_ weeks: String) -> String { String(format: t("onboarding.result.pregnant"), weeks) }

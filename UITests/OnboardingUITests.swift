@@ -138,6 +138,24 @@ final class OnboardingUITests: XCTestCase {
         XCTAssertTrue(app.tabBars.buttons["Kicks"].exists)
     }
 
+    /// Pregnant + "Turn on reminders": saves the due date and lands on Today
+    /// (notifications are stubbed under UI tests, so no system alert).
+    @MainActor
+    func testPregnancyBranchTurnsOnReminders() {
+        let app = launch()
+        choose("pregnant", in: app)
+        XCTAssertTrue(app.staticTexts["onboardingDueWeeks"].waitForExistence(timeout: 5))
+        app.buttons["onboardingNext"].tap()
+        let enable = app.buttons["onboardingEnableReminders"]
+        XCTAssertTrue(enable.waitForExistence(timeout: 5))
+        enable.tap()
+
+        let progress = app.descendants(matching: .any)["weekProgressCard"]
+        XCTAssertTrue(progress.waitForExistence(timeout: 10))
+        XCTAssertTrue(progress.label.contains("20 weeks, 0 days"), progress.label)
+        XCTAssertTrue(app.tabBars.buttons["Kicks"].exists)
+    }
+
     /// Welcome has no "Skip"; skipping the goal means pregnancy, and skipping
     /// the due date saves none. The medical and privacy notes are on step 1.
     @MainActor
@@ -206,14 +224,19 @@ final class OnboardingUITests: XCTestCase {
         }
     }
 
-    /// The longest new steps at AX5: contraception (8 choices) and the result.
+    /// The new steps at AX5: "Không chắc" on one line, contraception (8 choices)
+    /// and the result.
     @MainActor
     func testNewStepsAtLargestText() {
         let app = launch(language: "vi", largestText: true)
         choose("tracking", in: app)
         let skip = app.buttons["onboardingSkip"]
         XCTAssertTrue(skip.waitForExistence(timeout: 5))
-        for _ in 0..<4 { skip.tap() } // last period, period length, cycle length, regularity
+        skip.tap() // last period
+        XCTAssertTrue(app.pickerWheels.firstMatch.waitForExistence(timeout: 5))
+        XCTAssertEqual(skip.label, "Không chắc")
+        attachScreenshot(app, "ax5-onboarding-period-length-vi-light")
+        for _ in 0..<3 { skip.tap() } // period length, cycle length, regularity
         XCTAssertTrue(app.buttons["onboardingContraception-otherOrPrivate"].waitForExistence(timeout: 5))
         attachScreenshot(app, "ax5-onboarding-contraception-vi-light")
         skip.tap()
