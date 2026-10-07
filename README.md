@@ -56,3 +56,16 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Ảnh riêng từng tuần (chưa có): thêm asset `Fetus-W##` / `Fruit-W##` (ví dụ `Fetus-W31`) vào
   `App/Images.xcassets`; khi thiếu, app dùng ảnh `Fetus` chung và emoji kích thước.
 - Nội dung vẫn chờ bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 9.
+
+## Kiến thức chuyên sâu (giai đoạn 7)
+- 18 bài viết trong 6 chủ đề, gắn tam cá nguyệt: `Packages/KickCore/Sources/KickCore/Resources/knowledge-content.json`
+  (phiên bản 1; mô hình `KickCore/KnowledgeContent.swift`, nạp bằng `KnowledgeLibrary`, lỗi thì ẩn thẻ và thư viện).
+- Hôm nay (mang thai): thẻ "Gợi ý cho tam cá nguyệt N" (`App/Knowledge/KnowledgeCard.swift`), 3 bài chọn bởi
+  `KickCore/KnowledgeSuggester.swift` (cùng tuần cùng kết quả, tuần sau đổi bài đầu, ưu tiên mỗi chủ đề một bài).
+- Thư viện "Kiến thức" (`KnowledgeLibraryView`) và màn đọc (`KnowledgeArticleView`, dùng `ArticleSheet` hai nấc).
+  Phần chữ dùng chung với Chi tiết tuần: `App/DesignSystem/ArticleText.swift`.
+- Thêm hoặc sửa bài: `scripts/set-knowledge-articles.py` (JSON qua stdin, xem đầu file; in số chữ). Kiểm tra tự
+  động: `scripts/test-core.sh --filter "BundledKnowledgeTests|KnowledgeChecksTests"`.
+- Ảnh riêng từng bài (chưa có): thêm asset `Knowledge-<id>` (ví dụ `Knowledge-safe-exercise`) vào
+  `App/Images.xcassets`; khi thiếu, app vẽ biểu tượng SF Symbol của chủ đề.
+- Nội dung chờ bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 10. Bản App Store chỉ hiện bài đã duyệt.
