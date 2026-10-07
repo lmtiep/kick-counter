@@ -333,6 +333,9 @@ struct ProfileView: View {
                     }
                 case .pregnant:
                     showingImPregnant = true
+                case .partner:
+                    // The picker offers only the two modes of the mother.
+                    break
                 }
             }
         )

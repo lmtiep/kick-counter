@@ -28,6 +28,39 @@ struct AppModeTests {
         defaults.set("planning", forKey: SettingsKey.appMode)
         #expect(AppMode.load(from: defaults) == .pregnant)
     }
+
+    @Test func partnerModeRoundTrips() {
+        let defaults = makeTestDefaults()
+        AppMode.save(.partner, to: defaults)
+        #expect(defaults.string(forKey: SettingsKey.appMode) == "partner")
+        #expect(AppMode.load(from: defaults) == .partner)
+    }
+
+    @Test func leavingPartnerModeRestoresThePreviousMode() {
+        let defaults = makeTestDefaults()
+        AppMode.save(.tryingToConceive, to: defaults)
+        AppMode.enterPartner(in: defaults)
+        #expect(AppMode.load(from: defaults) == .partner)
+        #expect(defaults.string(forKey: SettingsKey.previousAppMode) == "tryingToConceive")
+        #expect(AppMode.leavePartner(in: defaults) == .tryingToConceive)
+        #expect(AppMode.load(from: defaults) == .tryingToConceive)
+        #expect(defaults.string(forKey: SettingsKey.previousAppMode) == nil)
+    }
+
+    @Test func enteringPartnerModeTwiceKeepsTheFirstPreviousMode() {
+        let defaults = makeTestDefaults()
+        AppMode.save(.pregnant, to: defaults)
+        AppMode.enterPartner(in: defaults)
+        AppMode.enterPartner(in: defaults)
+        #expect(AppMode.leavePartner(in: defaults) == .pregnant)
+    }
+
+    @Test func leavingWithoutARememberedModeMeansPregnant() {
+        let defaults = makeTestDefaults()
+        AppMode.save(.partner, to: defaults)
+        #expect(AppMode.leavePartner(in: defaults) == .pregnant)
+        #expect(AppMode.load(from: defaults) == .pregnant)
+    }
 }
 
 struct CycleSettingsTests {

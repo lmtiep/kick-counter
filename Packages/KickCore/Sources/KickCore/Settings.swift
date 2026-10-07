@@ -20,8 +20,10 @@ public enum SettingsKey {
     /// First day of the last period, `timeIntervalSince1970`; 0 means "not set".
     public static let lmpDate = "lmpDate"
     public static let hasCompletedOnboarding = "hasCompletedOnboarding"
-    /// `"tryingToConceive"` or `"pregnant"`. Missing means pregnant (everyone before phase 3).
+    /// `"tryingToConceive"`, `"pregnant"` or `"partner"`. Missing means pregnant (everyone before phase 3).
     public static let appMode = "appMode"
+    /// The mode to restore when leaving partner mode (`AppMode.leavePartner`).
+    public static let previousAppMode = "previousAppMode"
     /// Days, 21–45 (default 28): used until enough cycles are logged.
     public static let typicalCycleLength = "typicalCycleLength"
     /// Days, 2–10 (default 5).
