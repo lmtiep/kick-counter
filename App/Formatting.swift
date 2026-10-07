@@ -73,11 +73,13 @@ enum Formatting {
     }
 
     /// Partner mode: "10 minutes ago" / "10 phút trước".
+    /// Only past moments are shown, so a clock ahead on the mother's iPhone
+    /// reads "now" rather than "in 2 minutes".
     static func relative(_ date: Date, now: Date) -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.locale = locale
         formatter.unitsStyle = .full
-        return formatter.localizedString(for: date, relativeTo: now)
+        return formatter.localizedString(for: min(date, now), relativeTo: now)
     }
 
     /// Appointments: "Oct 20, 2026 at 2:30 PM".

@@ -18,6 +18,18 @@ extension Notification.Name {
 /// Connects a scene delegate to the SwiftUI app so iCloud share invitations
 /// reach it (phase 8 spec §4.2), and forwards the partner's silent pushes.
 final class PartnerAppDelegate: NSObject, UIApplicationDelegate {
+    /// Silent pushes need an APNs token: do not rely on SwiftData's CloudKit
+    /// mirroring registering for us. UI tests never talk to iCloud.
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        if !AppEnvironment.isUITesting {
+            application.registerForRemoteNotifications()
+        }
+        return true
+    }
+
     func application(
         _ application: UIApplication,
         configurationForConnecting connectingSceneSession: UISceneSession,

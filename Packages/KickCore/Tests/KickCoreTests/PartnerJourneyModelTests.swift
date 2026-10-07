@@ -88,6 +88,20 @@ struct PartnerJourneyModelTests {
         #expect(model.trimester(now: now, calendar: utcCalendar) == 2)
     }
 
+    /// An error or no iCloud does not reset the Knowledge tab's trimester; leaving does.
+    @Test func theTrimesterSurvivesTransientStates() async throws {
+        let now = date("2026-10-02T12:00:00Z")
+        let sharing = try await accepted(publishing: sample)
+        let model = PartnerJourneyModel(sharing: sharing, defaults: defaults)
+        await model.refresh()
+        await sharing.setFailure(.iCloudUnavailable)
+        await model.refresh()
+        #expect(model.state == .iCloudUnavailable)
+        #expect(model.trimester(now: now, calendar: utcCalendar) == 2)
+        model.leave()
+        #expect(model.trimester(now: now, calendar: utcCalendar) == nil)
+    }
+
     @Test func leavingRestoresTheModeAndClearsTheCache() async throws {
         AppMode.save(.tryingToConceive, to: defaults)
         defaults.set(true, forKey: SettingsKey.hasCompletedOnboarding)
@@ -146,5 +160,109 @@ struct PartnerJourneyModelTests {
         await sharing.setFailure(failure)
         await model.refresh()
         #expect(model.state == .snapshot(sample))
+    }
+
+    /// Overlapping refreshes (appear, push, pull) share one fetch.
+    @Test func overlappingRefreshesShareOneFetch() async throws {
+        let sharing = GatedJourneySharing(snapshot: sample, gateFetch: true)
+        let model = PartnerJourneyModel(sharing: sharing, defaults: defaults)
+        let first = Task { await model.refresh() }
+        let second = Task { await model.refresh() }
+        await sharing.waitUntilFetchIsWaiting()
+        for _ in 0..<5 { await Task.yield() }
+        await sharing.release()
+        await first.value
+        await second.value
+        #expect(await sharing.fetchCount == 1)
+        #expect(model.state == .snapshot(sample))
+    }
+
+    /// A fetch that finishes after "Leave" changes nothing.
+    @Test func aFetchFinishingAfterLeavingIsIgnored() async throws {
+        let sharing = GatedJourneySharing(snapshot: sample, gateFetch: true)
+        let model = PartnerJourneyModel(sharing: sharing, defaults: defaults)
+        let refresh = Task { await model.refresh() }
+        await sharing.waitUntilFetchIsWaiting()
+        model.leave()
+        await sharing.release()
+        await refresh.value
+        #expect(model.state == .loading)
+        #expect(defaults.data(forKey: SettingsKey.partnerCachedSnapshot) == nil)
+    }
+
+    /// Subscribing that finishes after "Leave" does not count: the next refresh subscribes again.
+    @Test func subscribingThatFinishesAfterLeavingIsDoneAgain() async throws {
+        let sharing = GatedJourneySharing(snapshot: sample, gateRegister: true)
+        let model = PartnerJourneyModel(sharing: sharing, defaults: defaults)
+        let refresh = Task { await model.refresh() }
+        await sharing.waitUntilRegisterIsWaiting()
+        model.leave()
+        await sharing.release()
+        await refresh.value
+        #expect(await sharing.fetchCount == 0)
+        await model.refresh()
+        #expect(await sharing.registerCount == 2)
+        #expect(model.state == .snapshot(sample))
+    }
+}
+
+/// A `PartnerSharing` whose first fetch or subscription waits for `release()`.
+private actor GatedJourneySharing: PartnerSharing {
+    let snapshot: PartnerSnapshot
+    private var gateFetch: Bool
+    private var gateRegister: Bool
+    private var continuations: [CheckedContinuation<Void, Never>] = []
+    private(set) var fetchCount = 0
+    private(set) var registerCount = 0
+    private var fetchWaiting = false
+    private var registerWaiting = false
+
+    init(snapshot: PartnerSnapshot, gateFetch: Bool = false, gateRegister: Bool = false) {
+        self.snapshot = snapshot
+        self.gateFetch = gateFetch
+        self.gateRegister = gateRegister
+    }
+
+    func release() {
+        let waiting = continuations
+        continuations.removeAll()
+        waiting.forEach { $0.resume() }
+    }
+
+    func waitUntilFetchIsWaiting() async {
+        while !fetchWaiting { await Task.yield() }
+    }
+
+    func waitUntilRegisterIsWaiting() async {
+        while !registerWaiting { await Task.yield() }
+    }
+
+    private func gate() async {
+        await withCheckedContinuation { continuations.append($0) }
+    }
+
+    func shareStatus() async throws -> PartnerShareStatus { .notShared }
+    func prepareShare() async throws -> PartnerShareHandle { PartnerShareHandle(payload: nil) }
+    func publish(_ snapshot: PartnerSnapshot) async throws {}
+    func stopSharing() async throws {}
+    func accept(_ invitation: PartnerInvitation) async throws {}
+
+    func fetchSharedSnapshot() async throws -> PartnerSnapshot? {
+        fetchCount += 1
+        if gateFetch {
+            gateFetch = false
+            fetchWaiting = true
+            await gate()
+        }
+        return snapshot
+    }
+
+    func registerForChanges() async throws {
+        registerCount += 1
+        if gateRegister {
+            gateRegister = false
+            registerWaiting = true
+            await gate()
+        }
     }
 }

@@ -21,13 +21,21 @@ public enum PartnerJourneyState: Equatable, Sendable {
 @MainActor
 @Observable
 public final class PartnerJourneyModel {
-    public private(set) var state: PartnerJourneyState
+    public private(set) var state: PartnerJourneyState {
+        didSet { if case .snapshot(let snapshot) = state { lastSnapshot = snapshot } }
+    }
+    /// The last snapshot shown, kept through transient states (an error, no
+    /// iCloud) so the Knowledge tab does not jump back to trimester 1.
+    private var lastSnapshot: PartnerSnapshot?
 
     private let sharing: any PartnerSharing
     private let defaults: UserDefaults
     private var registered = false
     /// Bumped on leaving, so a fetch still in flight cannot bring the journey back.
     private var generation = 0
+    /// The refresh in flight; overlapping callers (appear, push, pull) await it.
+    private var inFlight: (id: Int, task: Task<Void, Never>)?
+    private var nextRefreshID = 0
 
     /// Starts from the cached snapshot, if any, so Today shows at once.
     public init(sharing: any PartnerSharing, defaults: UserDefaults) {
@@ -35,6 +43,7 @@ public final class PartnerJourneyModel {
         self.defaults = defaults
         let cached = defaults.data(forKey: SettingsKey.partnerCachedSnapshot).flatMap(PartnerSnapshot.decode)
         state = cached.map(PartnerJourneyState.snapshot) ?? .loading
+        lastSnapshot = cached
     }
 
     public var snapshot: PartnerSnapshot? {
@@ -42,17 +51,31 @@ public final class PartnerJourneyModel {
         return nil
     }
 
-    /// The trimester of the shared journey on `now`, for the Knowledge tab.
+    /// The trimester of the last shared journey on `now`, for the Knowledge tab.
     public func trimester(now: Date, calendar: Calendar = .current) -> Int? {
-        snapshot.flatMap { PregnancyTimeline(dueDate: $0.dueDate, now: now, calendar: calendar) }?.trimester.rawValue
+        lastSnapshot.flatMap { PregnancyTimeline(dueDate: $0.dueDate, now: now, calendar: calendar) }?.trimester.rawValue
     }
 
     /// Fetches the snapshot. A share that is gone clears the cache. A share
     /// with nothing published yet keeps loading. Network or iCloud trouble
     /// keeps showing the cached snapshot when there is one.
     public func refresh() async {
+        if let inFlight {
+            await inFlight.task.value
+            return
+        }
+        nextRefreshID += 1
+        let id = nextRefreshID
+        let task = Task { await self.performRefresh() }
+        inFlight = (id, task)
+        await task.value
+        if inFlight?.id == id { inFlight = nil }
+    }
+
+    private func performRefresh() async {
         let started = generation
         await registerOnce()
+        guard started == generation else { return }
         let result: Result<PartnerSnapshot?, Error>
         do {
             result = .success(try await sharing.fetchSharedSnapshot())
@@ -69,6 +92,8 @@ public final class PartnerJourneyModel {
     @discardableResult
     public func leave() -> AppMode {
         generation += 1
+        // The next refresh starts afresh; the one in flight is ignored when it ends.
+        inFlight = nil
         clearCache()
         if defaults.bool(forKey: SettingsKey.partnerSkippedOnboarding) {
             defaults.set(false, forKey: SettingsKey.hasCompletedOnboarding)
@@ -76,6 +101,7 @@ public final class PartnerJourneyModel {
         }
         registered = false
         state = .loading
+        lastSnapshot = nil
         return AppMode.leavePartner(in: defaults)
     }
 
@@ -119,9 +145,11 @@ public final class PartnerJourneyModel {
     /// Silent pushes for the shared database; tried again on the next refresh if it failed.
     private func registerOnce() async {
         guard !registered else { return }
+        let started = generation
         do {
             try await sharing.registerForChanges()
-            registered = true
+            // Left partner mode meanwhile: subscribe again next time.
+            if started == generation { registered = true }
         } catch {
             logger.error("Subscribing to shared changes failed: \(String(describing: error))")
         }

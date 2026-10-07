@@ -275,6 +275,18 @@ public final class KickCoordinator {
         }
     }
 
+    /// Partner mode (phase 8): this iPhone follows someone else's pregnancy, so
+    /// the daily kick reminder, every 2-hour alert and every kick Live Activity
+    /// stop. The stored session and the reminder setting are kept: leaving
+    /// partner mode goes back through `load()` and `setDailyReminder`.
+    public func silenceForPartnerMode() async {
+        // A reconciliation in flight could restart what is about to end.
+        if let loadTask { await loadTask.value }
+        notifications.cancelDailyReminder()
+        await liveActivities.endAll()
+        await notifications.cancelOverdueAlerts(except: nil)
+    }
+
     public func notificationsAuthorized() async -> Bool {
         await notifications.isAuthorized()
     }

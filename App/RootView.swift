@@ -125,7 +125,8 @@ struct RootView: View {
                     KnowledgeLibraryView(initialTrimester: trimester)
                 }
                 // The library keeps its first trimester: start again once the
-                // shared due date arrives (or the trimester changes).
+                // shared due date arrives or the trimester changes. Transient
+                // states (an error, no iCloud) keep the last known trimester.
                 .id(trimester)
                 .lunaTab(L10n.knowledgeTitle, systemImage: "book.fill", tag: .knowledge)
             }
@@ -145,6 +146,8 @@ struct RootView: View {
         switch await PartnerAcceptance.accept(invitation, sharing: sharing, defaults: AppGroup.defaults) {
         case .accepted:
             selectedTab = .today
+            // Partner mode now: the kick reminders and Live Activity stop.
+            await coordinator.silenceForPartnerMode()
             // Already in partner mode (a new invitation): Today does not appear again.
             await partnerJourney.refresh()
         case .ignoredOwnInvitation:
@@ -155,7 +158,12 @@ struct RootView: View {
     }
 
     private func reload() async {
-        await coordinator.load()
+        if mode == .partner {
+            // Not her pregnancy on this iPhone: no kick reminders or Live Activity.
+            await coordinator.silenceForPartnerMode()
+        } else {
+            await coordinator.load()
+        }
         await appointments.load()
         await cycle.load()
         await weight.load()
@@ -170,14 +178,27 @@ struct RootView: View {
     private func leavePartnerMode() {
         partnerJourney.leave()
         selectedTab = .today
+        // What partner mode silenced comes back: the session's Live Activity and
+        // 2-hour alert through `load()`, the daily reminder from its stored setting.
+        Task {
+            await coordinator.load()
+            await restoreDailyKickReminder()
+        }
     }
 
     /// The language changed: every pending reminder is scheduled again in it
     /// (2-hour alert, cycle reminders, check-up reminders, daily kick reminder).
     private func relocalizeReminders() async {
-        await coordinator.updateOverdueText(ReminderTexts.overdue)
+        if mode != .partner { await coordinator.updateOverdueText(ReminderTexts.overdue) }
         await cycle.updateReminderTexts(ReminderTexts.cycle)
         await appointments.updateReminderText(ReminderTexts.appointment)
+        await restoreDailyKickReminder()
+    }
+
+    /// Schedules the stored daily kick reminder again, never prompting and
+    /// never in partner mode.
+    private func restoreDailyKickReminder() async {
+        guard mode != .partner else { return }
         let reminder = DailyKickReminder.stored
         guard reminder.enabled else { return }
         // Enabling may prompt; a language change never should.
