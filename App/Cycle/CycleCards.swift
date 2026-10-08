@@ -28,8 +28,16 @@ enum CycleTexts {
     /// "Flow: Light · Calm · Cramps · 36.4 °C · LH Positive · Egg white"; only
     /// `mode`'s symptoms. nil when nothing readable is logged.
     static func logSummary(_ log: CycleLogRecord?, mode: AppMode = .tryingToConceive) -> String? {
+        logSummary(log, mode: mode, includingNote: true)
+    }
+
+    /// Same as `logSummary(_:mode:)`, but `includingNote: false` drops the
+    /// trailing "Note" item — for a detail row that already shows the note's
+    /// own text on a second line, so it is not shown (or spoken) twice.
+    static func logSummary(_ log: CycleLogRecord?, mode: AppMode = .tryingToConceive, includingNote: Bool) -> String? {
         guard let log else { return nil }
-        let parts = log.summaryItems(mode: mode).map(summaryText)
+        let items = includingNote ? log.summaryItems(mode: mode) : log.summaryItems(mode: mode).filter { $0 != .note }
+        let parts = items.map(summaryText)
         return parts.isEmpty ? nil : parts.joined(separator: " · ")
     }
 
@@ -214,6 +222,7 @@ struct CycleWeekStrip: View {
 /// late; average cycle length, typical period length, and regular / not yet.
 /// Phase 9: `policy` names the window, adds the "not contraception" note while
 /// tracking, and hides the window on hormonal contraception (with its note).
+/// Phase 10: a link to the cycle history.
 struct ComingUpCard: View {
     let forecast: CycleForecast
     let typicalPeriodLength: Int
@@ -253,6 +262,23 @@ struct ComingUpCard: View {
                 stat(forecast.isRegular ? L10n.cycleStatsRegular : L10n.cycleStatsIrregular, L10n.cycleStatsPattern)
             }
             .accessibilityElement(children: .combine)
+            LunaDivider()
+            NavigationLink(value: CycleHistoryRoute.list) {
+                HStack {
+                    Text(L10n.cycleHistoryLink)
+                        .font(.luna(.bodyStrong))
+                        .foregroundStyle(.luna(.cycleOnSoft))
+                    Spacer(minLength: 8)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.luna(.cycleOnSoft))
+                        .accessibilityHidden(true)
+                }
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("cycleHistoryLink")
         }
         .lunaCard()
     }

@@ -109,6 +109,13 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - UI test: `-seedCycleGoal <tracking|conceiving>` và `-seedContraception <pill|condom|…>` (cùng `-uiTesting`, thường đi với
   `-seedCycles`); không có hai cờ này là người dùng cũ (mong con).
 
+## Lịch sử chu kỳ (giai đoạn 10)
+- Lịch sử chu kỳ: độ dài trung bình, khoảng dao động, từng chu kỳ và những ngày đã ghi. Đặc tả:
+  `docs/superpowers/specs/2026-10-08-cycle-history-design.md`.
+- `CycleHistory.make` (`KickCore/CycleHistory.swift`, thuần, có test) dựng tóm tắt và danh sách chu kỳ từ `PeriodRecord`
+  và `CycleLogRecord`, dùng cùng quy tắc trung bình với `CyclePredictor`. `CycleHistoryView`/`CycleDetailView`
+  (`App/Cycle/CycleHistoryView.swift`) đọc `cycle.periods`/`cycle.logs`, nên tự cập nhật sau khi ghi ngày.
+
 ## Kích thước theo tuần (giai đoạn 11)
 - Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`
   và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá
