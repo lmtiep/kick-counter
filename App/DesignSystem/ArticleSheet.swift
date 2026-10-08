@@ -144,7 +144,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .frame(height: containerHeight - expandedTop + bottomInset, alignment: .top)
+        .frame(height: max(0, containerHeight - expandedTop + bottomInset), alignment: .top)
         .background(
             .luna(.card),
             in: UnevenRoundedRectangle(topLeadingRadius: 24, topTrailingRadius: 24, style: .continuous)
