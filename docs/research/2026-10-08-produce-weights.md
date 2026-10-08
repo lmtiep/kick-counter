@@ -13,11 +13,17 @@ Machine-readable copy: `docs/research/2026-10-08-produce-weights.json`
   `as purchased = edible-portion gram weight / (1 − refuse % / 100)`
 
   The refuse % and its description come from the same release: the `Refuse` / `Ref_desc` fields of `FOOD_DES` in the SR28 ASCII file. The FDC web page does not display refuse. Every note below shows both numbers, so the derivation can be checked. No weight is estimated by eye.
-- **Vietnamese rows (weeks 33–42).** USDA has no whole-item weight in the 2–4 kg band that fits a familiar Vietnamese item. Its watermelon portion (15″ melon) is far heavier, and wax gourd is 5.7 kg *edible*. These rows therefore use Vietnamese agricultural sources: VAAS variety sheets and the Ninh Bình provincial crop-protection sub-department. Each of these states an average-weight **range** for whole fruit, and `typicalGrams` is the **midpoint** of that range.
+- **Weeks 33–42 (revised 2026-10-08 after the owner's review).** Each of these ten weeks uses a **different** produce item. None of them repeats an item from weeks 4–32, and a size variant counts as the same item. Two rows use USDA SR, computed as above: cauliflower (week 34) and honeydew (week 38). The other eight use:
+  - Vietnamese institute or variety sources: VAAS bí xanh and bí đỏ, VNUF gấc, and the Vietaseeds cải thảo variety sheet;
+  - provincial agriculture or science departments: Ninh Bình dưa hấu, Bến Tre dừa;
+  - the Ministry of Agriculture newspaper (mãng cầu xiêm);
+  - UF/IFAS Extension (jackfruit).
+
+  Where a source gives a range, `typicalGrams` is the midpoint. §4 lists every row whose range ends fall outside ±25 %.
 - **Choice rules applied.**
   - Prefer a familiar Vietnamese item.
   - Use one whole item per week, with no "pair of" or "bunch of".
-  - No item runs for more than two consecutive weeks. Two pairs of rows (bí đỏ, dưa hấu) reappear after a gap; see §4.
+  - No item runs for more than two consecutive weeks in weeks 10–32. In weeks 33–42 every item is distinct and new.
   - Vietnamese names are northern usage with a classifier.
 - **Methodology sources.**
   - SR28 documentation: <https://www.ars.usda.gov/ARSUserFiles/80400535/DATA/SR/sr28/sr28_doc.pdf>, p. "Weights and Measures".
@@ -51,16 +57,16 @@ Machine-readable copy: `docs/research/2026-10-08-produce-weights.json`
 | 30 | 1559 | a large cabbage | một bắp cải to | 🥬 | 1560 | +0.1 | `usda-cabbage` | 1 head, large (about 7" dia) |  |
 | 31 | 1751 | a pineapple | một quả dứa | 🍍 | 1775 | +1.4 | `usda-pineapple` | 1 fruit |  |
 | 32 | 1953 | a durian | một quả sầu riêng | 🍈 | 1881 | -3.7 | `usda-durian` | 1 fruit | no durian emoji; melon is closest |
-| 33 | 2162 | a winter melon | một quả bí xanh | 🥒 | 2500 | +15.6 | `vaas-bi-xanh-so-1` | "quả già khối lượng 2,0 – 3,0 kg" | no wax-gourd emoji; cucumber is closest |
-| 34 | 2377 | a winter melon | một quả bí xanh | 🥒 | 2500 | +5.2 | `vaas-bi-xanh-so-1` | "quả già khối lượng 2,0 – 3,0 kg" | no wax-gourd emoji; cucumber is closest |
-| 35 | 2595 | a small watermelon | một quả dưa hấu nhỏ | 🍉 | 2500 | -3.7 | `ninhbinh-dua-hau-vo-vang` | "khối lượng trung bình quả 2 - 3 kg" |  |
-| 36 | 2813 | a small watermelon | một quả dưa hấu nhỏ | 🍉 | 2500 | -11.1 | `ninhbinh-dua-hau-vo-vang` | "khối lượng trung bình quả 2 - 3 kg" |  |
-| 37 | 3028 | a pumpkin | một quả bí đỏ | 🎃 | 3150 | +4.0 | `vaas-bi-do-mat-sao-2` | "khối lượng quả trung bình 3,0-3,3 kg" |  |
-| 38 | 3236 | a pumpkin | một quả bí đỏ | 🎃 | 3150 | -2.7 | `vaas-bi-do-mat-sao-2` | "khối lượng quả trung bình 3,0-3,3 kg" |  |
-| 39 | 3435 | a watermelon | một quả dưa hấu | 🍉 | 3500 | +1.9 | `ninhbinh-dua-hau-hac-my-nhan` | "khối lượng quả trung bình 3 - 4 kg" |  |
+| 33 | 2162 | a coconut | một quả dừa | 🥥 | 1800 | -16.7 | `bentre-dua-ta` | "Trọng lượng trái từ 1,6-2,0 kg/trái khô" |  |
+| 34 | 2377 | a large cauliflower | một cây súp lơ trắng to | 🥦 | 2154 | -9.4 | `usda-cauliflower` | 1 head large (6-7" dia.) | no cauliflower emoji; broccoli is closest |
+| 35 | 2595 | a napa cabbage | một cây cải thảo | 🥬 | 2250 | -13.3 | `vietaseeds-cai-thao-va304` | "trọng lượng bao TB từ 1,5-3kg" |  |
+| 36 | 2813 | a winter melon | một quả bí xanh | 🥒 | 2500 | -11.1 | `vaas-bi-xanh-so-1` | "quả già khối lượng 2,0 – 3,0 kg" | no wax-gourd emoji; cucumber is closest |
+| 37 | 3028 | a gac fruit | một quả gấc | 🟠 | 2850 | -5.9 | `vnuf-gac-19` | "quả to (2,85 ± 0,95 kg)" (accession GAC-19) | no gac emoji; orange circle |
+| 38 | 3236 | a honeydew melon | một quả dưa mật | 🍈 | 2783 | -14.0 | `usda-honeydew` | 1 melon (6" - 7" dia) |  |
+| 39 | 3435 | a small jackfruit | một quả mít nhỏ | 🟢 | 2948 | -14.2 | `ufifas-jackfruit-hs882` | "A few cultivars are small fruited, weighing 3 to 10 pounds (1.4-4.5 kg) each." | no jackfruit emoji; green circle |
 | 40 | 3619 | a watermelon | một quả dưa hấu | 🍉 | 3500 | -3.3 | `ninhbinh-dua-hau-hac-my-nhan` | "khối lượng quả trung bình 3 - 4 kg" |  |
 | 41 | 3619 | a pumpkin | một quả bí đỏ | 🎃 | 3150 | -13.0 | `vaas-bi-do-mat-sao-2` | "khối lượng quả trung bình 3,0-3,3 kg" |  |
-| 42 | 3619 | a watermelon | một quả dưa hấu | 🍉 | 3500 | -3.3 | `ninhbinh-dua-hau-hac-my-nhan` | "khối lượng quả trung bình 3 - 4 kg" |  |
+| 42 | 3619 | a soursop | một quả mãng cầu xiêm | 🍈 | 3000 | -17.1 | `nnmt-mang-cau-xiem` | "trái sai và to, nặng trung bình từ 2 - 4 kg/trái" | no soursop emoji; melon is closest |
 
 **33 of 33 rows are within ±25 %.**
 
@@ -89,22 +95,29 @@ Machine-readable copy: `docs/research/2026-10-08-produce-weights.json`
 - **`usda-cabbage`** — USDA FoodData Central, SR Legacy: Cabbage, raw (FDC ID 169975). <https://fdc.nal.usda.gov/food-details/169975/nutrients>. Portion used: "1 head, large (about 7" dia)". Portion "1 head, large (about 7" dia)" = 1248 g edible portion (SR weights exclude refuse). SR28 refuse 20% (Outer leaves and core). As purchased = 1248 / (1 - 0.20) = 1560 g.
 - **`usda-pineapple`** — USDA FoodData Central, SR Legacy: Pineapple, raw, all varieties (FDC ID 169124). <https://fdc.nal.usda.gov/food-details/169124/nutrients>. Portion used: "1 fruit". Portion "1 fruit" = 905 g edible portion (SR weights exclude refuse). SR28 refuse 49% (8% core, 16% crown, 26% parings). As purchased = 905 / (1 - 0.49) = 1775 g.
 - **`usda-durian`** — USDA FoodData Central, SR Legacy: Durian, raw or frozen (FDC ID 168192). <https://fdc.nal.usda.gov/food-details/168192/nutrients>. Portion used: "1 fruit". Portion "1 fruit" = 602 g edible portion (SR weights exclude refuse). SR28 refuse 68% (Shell and seeds (for raw fruit)). As purchased = 602 / (1 - 0.68) = 1881 g.
+- **`bentre-dua-ta`** — Sở Khoa học và Công nghệ Bến Tre (dost-bentre.gov.vn, 23-03-2009): Giống Dừa và kỹ thuật chọn giống Dừa – Dừa Ta. <http://dost-bentre.gov.vn/tin-tuc/931/giong-dua-va-ky-thuat-chon-giong-dua>. Portion used: "Trọng lượng trái từ 1,6-2,0 kg/trái khô". Mature (dry) coconut in husk, as sold. Typical = midpoint of 1.6-2.0 kg = 1800 g. The live site did not resolve on 2026-10-08; the text was read from the Internet Archive copy https://web.archive.org/web/20241213211412/http://dost-bentre.gov.vn/tin-tuc/931/giong-dua-va-ky-thuat-chon-giong-dua
+- **`usda-cauliflower`** — USDA FoodData Central, SR Legacy: Cauliflower, raw (FDC ID 169986). <https://fdc.nal.usda.gov/food-details/169986/nutrients>. Portion used: "1 head large (6-7" dia.)". Portion "1 head large (6-7" dia.)" = 840 g edible portion (SR weights exclude refuse). SR28 refuse 61% (Leaf stalks, cores and trimmings). As purchased = 840 / (1 - 0.61) = 2154 g.
+- **`vietaseeds-cai-thao-va304`** — Công ty TNHH Phát triển nông nghiệp Việt Á (Vietaseeds): Hạt giống Cải Thảo lai F1 VA.304 – variety sheet. <https://vietaseeds.com/san-pham/hat-giong-cai-thao-f1-va-304-1gram>. Portion used: "trọng lượng bao TB từ 1,5-3kg". Whole head as harvested. Typical = midpoint of 1.5-3 kg = 2250 g. Seed-company variety sheet (no institute source found).
 - **`vaas-bi-xanh-so-1`** — Viện Khoa học Nông nghiệp Việt Nam (VAAS) – Viện Cây lương thực và Cây thực phẩm: Giống bí xanh số 1. <https://vaas.vn/vi/giong/giong-bi-xanh-so-1>. Portion used: "quả già khối lượng 2,0 – 3,0 kg". Whole fruit as harvested (mature fruit). Typical = midpoint of the stated 2.0-3.0 kg range = 2500 g.
-- **`ninhbinh-dua-hau-vo-vang`** — Chi cục Trồng trọt và BVTV Ninh Bình (Vũ Thị Hương, 05/09/2022): Một số giống dưa hấu trồng phổ biến ở Việt Nam – Giống dưa hấu vỏ vàng, ruột đỏ. <https://chicucttbvtv.ninhbinh.gov.vn/giong-cay-trong/mot-so-giong-dua-hau-trong-pho-bien-o-viet-nam-110.html>. Portion used: "khối lượng trung bình quả 2 - 3 kg". Whole fruit. Typical = midpoint of the stated 2-3 kg average = 2500 g.
-- **`vaas-bi-do-mat-sao-2`** — Viện Khoa học Nông nghiệp Việt Nam (VAAS): Giống bí đỏ Mật Sao 2. <https://vaas.vn/vi/giong/giong-bi-do-mat-sao-2>. Portion used: "khối lượng quả trung bình 3,0-3,3 kg". Whole fruit. Typical = midpoint of the stated 3.0-3.3 kg average = 3150 g.
+- **`vnuf-gac-19`** — Nguyễn Thị Lan Hoa, Đặng Minh Tú, Đào Việt Quốc et al. (2026). Đặc điểm nông sinh học của hai mẫu giống gấc địa phương triển vọng làm dược liệu trồng tại Bắc Ninh. Tạp chí Khoa học và Công nghệ Lâm nghiệp (VNUF). <https://journal.vnuf.edu.vn/vi/article/view/2048>. Portion used: "quả to (2,85 ± 0,95 kg)" (accession GAC-19). Whole fruit, measured mean of a local northern accession (GAC-19). The other accession, GAC-46, averaged 1.861 ± 0.23 kg.
+- **`usda-honeydew`** — USDA FoodData Central, SR Legacy: Melons, honeydew, raw (FDC ID 169911). <https://fdc.nal.usda.gov/food-details/169911/nutrients>. Portion used: "1 melon (6" - 7" dia)". Portion "1 melon (6" - 7" dia)" = 1280 g edible portion (SR weights exclude refuse). SR28 refuse 54% (5% cavity contents, rind 49%). As purchased = 1280 / (1 - 0.54) = 2783 g.
+- **`ufifas-jackfruit-hs882`** — Crane, Balerdi & Campbell. HS-882 The Jackfruit (Artocarpus heterophyllus Lam.) in Florida. UF/IFAS Extension (EDIS). <https://journals.flvc.org/edis/article/download/108125/103418/149645>. Portion used: "A few cultivars are small fruited, weighing 3 to 10 pounds (1.4-4.5 kg) each.". Whole fruit of small-fruited cultivars. Typical = midpoint of 3-10 lb = 6.5 lb = 2948 g.
 - **`ninhbinh-dua-hau-hac-my-nhan`** — Chi cục Trồng trọt và BVTV Ninh Bình (Vũ Thị Hương, 05/09/2022): Một số giống dưa hấu trồng phổ biến ở Việt Nam – Giống Hắc Mỹ Nhân. <https://chicucttbvtv.ninhbinh.gov.vn/giong-cay-trong/mot-so-giong-dua-hau-trong-pho-bien-o-viet-nam-110.html>. Portion used: "khối lượng quả trung bình 3 - 4 kg". Whole fruit. Typical = midpoint of the stated 3-4 kg average = 3500 g.
+- **`vaas-bi-do-mat-sao-2`** — Viện Khoa học Nông nghiệp Việt Nam (VAAS): Giống bí đỏ Mật Sao 2. <https://vaas.vn/vi/giong/giong-bi-do-mat-sao-2>. Portion used: "khối lượng quả trung bình 3,0-3,3 kg". Whole fruit. Typical = midpoint of the stated 3.0-3.3 kg average = 3150 g.
+- **`nnmt-mang-cau-xiem`** — Báo Nông nghiệp và Môi trường (14/05/2015): Trồng mãng cầu xiêm thu nhập cao (Ngã Bảy, Hậu Giang). <https://nongnghiepmoitruong.vn/trong-mang-cau-xiem-thu-nhap-cao-d142790.html>. Portion used: "trái sai và to, nặng trung bình từ 2 - 4 kg/trái". Whole fruit. Typical = midpoint of 2-4 kg = 3000 g. Grower statement reported by the Ministry of Agriculture newspaper.
 
 ## 4. Flagged rows (need a human decision)
 
-1. **Weeks 41–42: items reappear after a gap.** Bí đỏ is used in weeks 37–38 and again in 41. Dưa hấu (Hắc Mỹ Nhân) is used in 39–40 and again in 42. The "two consecutive weeks" rule holds, but the list repeats. Sourced items in the 2714–4524 g band are only pumpkin, watermelon and USDA honeydew. Alternatives:
-   - Week 41 → **honeydew melon** ("một quả dưa lê"/"dưa mật"), USDA FDC 169911, "1 melon (6″ - 7″ dia)" = 1280 g edible, refuse 54 % → 2783 g, −23.1 %. This is close to the limit, and honeydew is less familiar in Vietnam.
-   - Accept the repeat. Weeks 40–42 share one reference weight, so the item could also stay "một quả dưa hấu" for 40–42, but that breaks the two-week rule.
-2. **Weeks 33–42 use midpoints of variety ranges, not single published values.** The ranges are narrow: bí đỏ 3.0–3.3 kg, dưa hấu 3–4 kg / 2–3 kg, bí xanh 2.0–3.0 kg. Most rows stay inside ±25 % at either end of their range. The exceptions are:
-   - week 33 (bí xanh at 3.0 kg = +38.8 %);
-   - week 34 (bí xanh at 3.0 kg = +26.2 %);
-   - week 36 (dưa hấu vỏ vàng at 2.0 kg = −28.9 %).
-
-   Week 33 alternative: **USDA honeydew, small**, FDC 169911, "1 melon (5-1/4″ dia)" = 1000 g edible, refuse 54 % → 2174 g, +0.6 %.
+1. **Weeks 33–42: source strength and range ends.** All ten midpoints are within ±25 %. The weaker rows are:
+   - **Week 33, dừa (1800 g, −16.7 %).** Bến Tre DOST, dừa ta "trái khô", i.e. a mature coconut in its husk. The 1.6 kg end is −26.0 %. The live site is down, so the text was read from the Internet Archive copy (URL in the note). A green drinking coconut (dừa xiêm, 1.2–1.5 kg, same page) would be too light.
+   - **Week 35, cải thảo (2250 g, −13.3 %).** The only source is a seed-company variety sheet, and the range 1.5–3 kg is wide: −42.2 % / +15.6 %. Market heads are often 1.5–2 kg.
+   - **Week 36, bí xanh (2500 g).** The 2.0 kg end is −28.9 %.
+   - **Week 37, gấc (2850 g, −5.9 %).** This is the measured mean of one promising northern accession (GAC-19, ± 0.95 kg). Everyday gấc nếp is usually lighter; the other accession in the paper, GAC-46, averaged 1.861 kg.
+   - **Week 39, mít nhỏ (2948 g, −14.2 %).** UF/IFAS gives a range for *small-fruited cultivars* (3–10 lb), and it is wide: −60 % / +32 %. Common Vietnamese jackfruit is far heavier: RTTC Nông Lâm University cites a 6.75 kg average. The vi name therefore says "mít nhỏ".
+   - **Week 42, mãng cầu xiêm (3000 g, −17.1 %).** This is a grower's statement in the ministry newspaper, with a range of 2–4 kg (−44.7 % / +10.5 %). It conflicts with USDA soursop: FDC 167761, "1 fruit (7″ x 5-1/4″ dia)" = 625 g edible, 33 % refuse → 933 g, a US-market fruit. A Ministry of Industry and Trade page (sanphamvungmien.vn, 2018) says 1–3 kg for Hậu Giang.
+     - Alternative: **casaba melon**, USDA FDC 169093, "1 melon" = 1640 g edible, 40 % refuse → 2733 g, −24.5 %. It is unfamiliar in Vietnam and close to the limit.
+2. **Week 38, the vi name for honeydew.** Honeydew has no settled Vietnamese name. "Dưa mật" is the usual translation; shops also say "dưa lưới ruột xanh" or just "honeydew". Honeydew is *Cucumis melo*, the same species as week 25's cantaloupe (dưa lưới), but it is a different cultivar group with a smooth pale rind, not a size variant. Please confirm the name.
+   - If the owner counts it as the same item as cantaloupe, the only sourced fill for weeks 34–39 is casaba (above).
 3. **Week 32 durian.** The derived whole weight (1881 g) depends on a large refuse factor (68 %), so it is the least certain USDA row. Alternative: **pineapple, traditional varieties**, FDC 168193, "1 fruit" = 1002 g edible, refuse 42 % → 1728 g, −11.5 %. This would mean pineapple in weeks 31–32.
 4. **Week 10 chanh leo.** The USDA value is for purple passion fruit (35 g whole). Some Vietnamese commercial hybrids are larger. Alternatives:
    - **apricot / quả mơ**, 38 g, +8.6 % (but it is used in week 11);
@@ -120,7 +133,11 @@ Machine-readable copy: `docs/research/2026-10-08-produce-weights.json`
    - 24 🥔 jicama;
    - 26 🥬 red cabbage;
    - 27 🍈 pomelo;
-   - 28, 33 and 34 🥒 for bottle gourd and winter melon;
+   - 28 and 36 🥒 for bottle gourd and winter melon;
+   - 34 🥦 cauliflower;
+   - 37 🟠 gấc;
+   - 39 🟢 jackfruit;
+   - 42 🍈 soursop;
    - 29 🥭 papaya;
    - 32 🍈 durian.
 
@@ -132,4 +149,4 @@ All vi names use northern usage:
 - *dứa* (not *thơm*), *bắp cải*, *ngô* (not *bắp*), *bí xanh* (= bí đao), *bí đỏ*, *củ đậu*, *quả bầu*;
 - *dưa lưới* for cantaloupe, *lê Hàn Quốc* for Asian pear.
 
-Classifiers: *một quả* for fruit, *một củ* for jicama, *một bắp* for corn and cabbage.
+Classifiers: *một quả* for fruit, *một củ* for jicama, *một bắp* for corn and cabbage, *một cây* for súp lơ and cải thảo (as in the original week-27 copy, "một cây cải thảo").
