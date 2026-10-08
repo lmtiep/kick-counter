@@ -7,6 +7,7 @@ import SwiftUI
 struct AddPastPeriodSheet: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var start: Date
     @State private var length: Int
     @State private var failure: CycleFailure?
@@ -42,13 +43,9 @@ struct AddPastPeriodSheet: View {
     var body: some View {
         LunaSheet(title: isBleed ? L10n.cycleHistoryAddPastBleed : L10n.cycleHistoryAddPast) {
             LunaSheetSectionTitle(title: L10n.addPastStart)
-            DatePicker(L10n.addPastStart, selection: $start, in: ...today, displayedComponents: .date)
-                .datePickerStyle(.graphical)
+            startPicker
                 .labelsHidden()
                 .tint(.luna(.cycleStrong))
-                // At AX3+ the system calendar's month title runs into its
-                // "previous month" arrow; the range line below stays full size.
-                .dynamicTypeSize(...DynamicTypeSize.accessibility2)
                 .frame(maxWidth: .infinity)
                 .lunaCard(padding: 8)
                 .accessibilityLabel(L10n.addPastStart)
@@ -92,6 +89,18 @@ struct AddPastPeriodSheet: View {
         .lunaSheetPresentation()
         .onChange(of: start) { failure = nil }
         .onChange(of: length) { failure = nil }
+    }
+
+    /// A month calendar; wheels at accessibility sizes, where the system
+    /// calendar's month title runs into its "previous month" arrow (and
+    /// ignores a capped `dynamicTypeSize`).
+    @ViewBuilder private var startPicker: some View {
+        let picker = DatePicker(L10n.addPastStart, selection: $start, in: ...today, displayedComponents: .date)
+        if typeSize.isAccessibilitySize {
+            picker.datePickerStyle(.wheel)
+        } else {
+            picker.datePickerStyle(.graphical)
+        }
     }
 
     /// "Từ 3 thg 9 đến 7 thg 9", or "Vẫn đang diễn ra" when the last day is after today.
