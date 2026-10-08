@@ -85,6 +85,11 @@ struct RootView: View {
                     Task { await partnerShare.stopSharingAfterLeavingPregnancy(publisher: publisher) }
                 }
             }
+            // Onboarding reset (Profile → "Delete all data", or a hidden partner mode):
+            // a fresh start lands on Today, not on the Profile tab it was left on.
+            .onChange(of: hasCompletedOnboarding) { _, completed in
+                if !completed { selectedTab = .today }
+            }
             .onChange(of: appLanguage) {
                 Task { await relocalizeReminders() }
             }
