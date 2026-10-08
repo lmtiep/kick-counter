@@ -9,9 +9,18 @@ concurrency:
   cancel-in-progress: true
 jobs:
   test:
+    name: test (${{ matrix.shard }}/3)
     runs-on: macos-latest
-    # Full UI suite + screenshots take ~70 min; leave headroom (scoped runs are shorter).
-    timeout-minutes: 110
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    env:
+      CI_SHARD_INDEX: ${{ matrix.shard }}
+      CI_SHARD_TOTAL: 3
+    # The full UI suite is split over the three shards (~25–35 min each); scoped runs and
+    # pushes to main use shard 1 only, and the other shards exit at once (scripts/ci.sh).
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - name: Select latest stable Xcode
@@ -27,13 +36,13 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: screenshots
+          name: screenshots-${{ matrix.shard }}
           path: build/screenshots
           if-no-files-found: ignore
       - name: Upload result bundle
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: xcresult
+          name: xcresult-${{ matrix.shard }}
           path: build/KickCounter.xcresult
           if-no-files-found: ignore

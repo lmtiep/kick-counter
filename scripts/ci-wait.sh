@@ -15,6 +15,13 @@ STATUS=0
 gh run watch "$RUN_ID" --exit-status --interval 20 > /dev/null || STATUS=$?
 rm -rf ci-artifacts && mkdir -p ci-artifacts
 gh run download "$RUN_ID" --dir ci-artifacts 2>/dev/null || true
+# The shards upload screenshots-1, screenshots-2, …: gather them in ci-artifacts/screenshots.
+mkdir -p ci-artifacts/screenshots
+for dir in ci-artifacts/screenshots-*; do
+  [[ -d "$dir" ]] || continue
+  cp -R "$dir"/. ci-artifacts/screenshots/
+  rm -rf "$dir"
+done
 if [[ $STATUS -ne 0 ]]; then
   gh run view "$RUN_ID" --log-failed | tail -150
   echo "CI FAILED: $(gh run view "$RUN_ID" --json url -q .url)" >&2
