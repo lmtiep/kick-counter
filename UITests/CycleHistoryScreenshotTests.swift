@@ -38,7 +38,7 @@ final class CycleHistoryScreenshotTests: XCTestCase {
         let app = XCUIApplication.launchPinned(language: "vi", seedCycles: "fertile", largestText: true)
         openHistory(app)
         attachScreenshot(app, "ax5-cycle-history-vi-light")
-        let row = app.buttons.matching(identifier: "cycleHistoryRow").element(boundBy: 1)
+        let row = app.buttons.matching(identifier: "cycleHistoryRow").element(boundBy: 3)
         app.scrollUntilHittable(row, maxSwipes: 10)
         attachScreenshot(app, "ax5-cycle-history-rows-vi-light")
         row.tap()

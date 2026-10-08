@@ -313,3 +313,13 @@
       `cycle-tracking-today-vi-light`.
 - [ ] Ghi chú phát hành: "Theo dõi chu kỳ" — chọn mục tiêu ngay từ đầu: theo dõi kỳ kinh (biết trước kỳ kinh tới, có tính
       đến biện pháp tránh thai), mong con hoặc mang thai; phần giới thiệu ngắn gọn, câu nào cũng có thể bỏ qua.
+
+## Giai đoạn 10 — Lịch sử chu kỳ
+
+### Trước khi gửi App Store
+- [ ] **Không đổi CloudKit.** Trang chỉ đọc `PeriodEntry` và `CycleLog` sẵn có; không thêm trường, không cần deploy schema.
+- [ ] **Trên máy có dữ liệu thật:** Hôm nay → "Sắp tới" → "Xem lịch sử chu kỳ". Số "Chu kỳ trung bình" phải bằng ô độ dài
+      chu kỳ ở thẻ "Sắp tới"; số dòng bằng số kỳ kinh đã ghi; chạm một chu kỳ thấy đúng các ngày đã ghi, sửa một ngày rồi
+      quay lại thấy thay đổi.
+- [ ] **Bác sĩ đã duyệt mục 12** của [`content-review-for-doctor.md`](content-review-for-doctor.md).
+- [ ] Ghi chú phát hành: "Lịch sử chu kỳ" — xem độ dài trung bình, khoảng dao động và từng chu kỳ cùng những ngày đã ghi.
