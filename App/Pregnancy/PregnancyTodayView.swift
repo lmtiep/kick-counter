@@ -63,6 +63,10 @@ struct PregnancyTodayView: View {
                     content
                 }
                 .padding(.bottom, 24)
+                // Exactly the screen's width: a card that measures even a pixel
+                // wider (wrapped text rounds up) would widen the scroll content
+                // and let the whole screen pan and bounce sideways.
+                .containerRelativeFrame(.horizontal)
             }
             // Content scrolled up stays out from under the status bar.
             .lunaStatusBarBackdrop()
