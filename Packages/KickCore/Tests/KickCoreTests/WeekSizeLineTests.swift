@@ -12,8 +12,8 @@ struct WeekSizeLineTests {
     )
     static let vi = WeekSizeLine.Templates(
         length: "Bé dài khoảng %1$@ (từ đầu đến mông), cỡ %2$@.",
-        lengthAndWeight: "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, nặng cỡ %3$@.",
-        weightAndRange: "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), nặng cỡ %4$@."
+        lengthAndWeight: "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, tương đương %3$@.",
+        weightAndRange: "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), tương đương %4$@."
     )
 
     static func decimal(_ value: Double, comma: Bool) -> String {
@@ -69,29 +69,29 @@ struct WeekSizeLineTests {
         #expect(try line(8, .en) == "Your baby is about 16 mm long from head to bottom, roughly the size of a cherry.")
     }
 
-    /// Phase 11: with a weight, the comparison is by weight ("nặng cỡ …").
+    /// Phase 11: with a weight, the comparison is by weight ("tương đương …").
     @Test func week12GivesLengthAndWeight() throws {
-        #expect(try line(12, .vi) == "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, nặng cỡ một quả mận.")
+        #expect(try line(12, .vi) == "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, tương đương một quả mận.")
         #expect(try line(12, .en) == "Your baby is about 53.5 mm long from head to bottom and weighs about 58 g, about as heavy as a plum.")
     }
 
     @Test func week24GivesWeightAndRangeInGrams() throws {
-        #expect(try line(24, .vi) == "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), nặng cỡ một củ đậu.")
+        #expect(try line(24, .vi) == "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), tương đương một củ đậu.")
         #expect(try line(24, .en) == "Your baby weighs about 670 g (typically 556 to 784 g), about as heavy as a jicama.")
     }
 
     @Test func week31GivesWeightAndRangeInKilograms() throws {
-        #expect(try line(31, .vi) == "Bé nặng khoảng 1,8 kg (thường từ 1,5 đến 2,0 kg), nặng cỡ một quả dứa.")
+        #expect(try line(31, .vi) == "Bé nặng khoảng 1,8 kg (thường từ 1,5 đến 2,0 kg), tương đương một quả dứa.")
         #expect(try line(31, .en) == "Your baby weighs about 1.8 kg (typically 1.5 to 2.0 kg), about as heavy as a pineapple.")
     }
 
     @Test func week40() throws {
-        #expect(try line(40, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), nặng cỡ một quả dưa hấu.")
+        #expect(try line(40, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), tương đương một quả dưa hấu.")
         #expect(try line(40, .en) == "Your baby weighs about 3.6 kg (typically 3.0 to 4.2 kg), about as heavy as a watermelon.")
     }
 
     @Test func week41RepeatsWeek40sFiguresWithItsOwnComparison() throws {
-        #expect(try line(41, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), nặng cỡ một quả bí đỏ.")
+        #expect(try line(41, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), tương đương một quả bí đỏ.")
         #expect(try line(41, .en) == "Your baby weighs about 3.6 kg (typically 3.0 to 4.2 kg), about as heavy as a pumpkin.")
         #expect(library.content(forWeek: 41)?.weightBeyondStandard == true)
         #expect(library.content(forWeek: 42)?.weightBeyondStandard == true)

@@ -253,8 +253,8 @@ chuẩn. Mẫu câu (cần duyệt câu chữ, không cần duyệt lại số):
 | Khóa | Nội dung (vi) |
 |---|---|
 | `weekArticle.size.length` (tuần 7–9) | "Bé dài khoảng 16 mm (từ đầu đến mông), cỡ một quả anh đào." |
-| `weekArticle.size.lengthWeight` (tuần 10–13) | "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, nặng cỡ một quả mận." (đổi ở giai đoạn 11, xem phần 13) |
-| `weekArticle.size.weight` (tuần 14–42) | "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), nặng cỡ một củ đậu." (đổi ở giai đoạn 11, xem phần 13) Tuần 41–42 dùng số của tuần 40 kèm dòng "Số liệu chuẩn Hadlock chỉ đến tuần 40." |
+| `weekArticle.size.lengthWeight` (tuần 10–13) | "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, tương đương một quả mận." (đổi ở giai đoạn 11, xem phần 13) |
+| `weekArticle.size.weight` (tuần 14–42) | "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), tương đương một củ đậu." (đổi ở giai đoạn 11, xem phần 13) Tuần 41–42 dùng số của tuần 40 kèm dòng "Số liệu chuẩn Hadlock chỉ đến tuần 40." |
 | `weekArticle.heading.*`, `weekArticle.tab.*` | "Bé lớn cỡ nào?", "Bé phát triển ra sao", "Cơ thể mẹ tuần này", "Mẹ nên làm gì"; thẻ "Bé" / "Mẹ" |
 
 Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
@@ -619,7 +619,7 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
 
 ## 13. So sánh kích thước theo cân nặng (giai đoạn 11)
 
-Từ tuần 10, vật được so sánh ("nặng cỡ một quả …") được chọn theo **cân nặng thường gặp** của cả quả/củ khi mua
+Từ tuần 10, vật được so sánh ("tương đương một quả …") được chọn theo **cân nặng thường gặp** của cả quả/củ khi mua
 (gồm vỏ, hạt, lõi), có nguồn, và chênh không quá ±25 % so với cân nặng Hadlock 1991 (bách phân vị 50) mà app hiển
 thị. Tuần 41–42 so với cân nặng tuần 40 (3619 g). Tuần 4–9 giữ nguyên so sánh cũ. Từ tuần 33 đến 42 mỗi tuần một vật
 khác nhau (theo yêu cầu của chủ sản phẩm). Số liệu nằm ở `size.typicalGrams` / `size.sourceKey` và `produceSources`
@@ -673,13 +673,13 @@ nguồn nằm ngoài ±25 %: tuần 33 (dừa 1,6 kg: −26,0 %), 35 (cải th�
 có thể nặng hoặc nhẹ hơn khá nhiều so với bé; câu chữ đã dùng "cỡ" để không khẳng định bằng nhau.
 
 **Câu chữ mới** (`weekArticle.size.lengthWeight` và `weekArticle.size.weight`; tuần 7–9 vẫn là "cỡ …"):
-- Tuần 12: "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, nặng cỡ một quả mận." / "Your baby is about
+- Tuần 12: "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, tương đương một quả mận." / "Your baby is about
   53.5 mm long from head to bottom and weighs about 58 g, about as heavy as a plum."
-- Tuần 24: "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), nặng cỡ một củ đậu." / "Your baby weighs about 670 g
+- Tuần 24: "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), tương đương một củ đậu." / "Your baby weighs about 670 g
   (typically 556 to 784 g), about as heavy as a jicama."
 
 62. [ ] Bác sĩ đã duyệt (hoặc sửa) bảng trên: tên vi tự nhiên (tiếng Bắc), vật so sánh phù hợp với từng tuần.
-63. [ ] Duyệt câu chữ mới "nặng cỡ …" / "about as heavy as …" (hai câu mẫu ở trên), cả vi lẫn en.
+63. [ ] Duyệt câu chữ mới "tương đương …" / "about as heavy as …" (hai câu mẫu ở trên), cả vi lẫn en.
 64. [ ] **Các điểm nghiên cứu đã nêu và đã chấp nhận** (xem `docs/research/2026-10-08-produce-weights.md` §4) — xin
         bác sĩ xác nhận hoặc đề nghị đổi:
     - [ ] Tuần 33, quả dừa (dừa ta "trái khô", còn vỏ): trang của Sở KH&CN Bến Tre không còn truy cập được, nội

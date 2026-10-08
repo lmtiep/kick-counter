@@ -8173,7 +8173,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, nặng cỡ %3$@."
+            "value": "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, tương đương %3$@."
           }
         }
       }
@@ -8190,7 +8190,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), nặng cỡ %4$@."
+            "value": "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), tương đương %4$@."
           }
         }
       }

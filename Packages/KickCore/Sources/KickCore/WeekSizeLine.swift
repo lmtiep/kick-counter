@@ -10,10 +10,10 @@ public enum WeekSizeLine {
         /// Weeks 7–9: %1$@ crown–rump length, %2$@ size comparison ("cỡ …").
         public var length: String
         /// Weeks 10–13: %1$@ crown–rump length, %2$@ weight, %3$@ weight comparison
-        /// ("nặng cỡ …", phase 11: the produce's `typicalGrams` is close to the weight).
+        /// ("tương đương …", phase 11: the produce's `typicalGrams` is close to the weight).
         public var lengthAndWeight: String
         /// Weeks 14–42: %1$@ weight, %2$@ low end of the typical range (bare number),
-        /// %3$@ high end with its unit, %4$@ weight comparison ("nặng cỡ …").
+        /// %3$@ high end with its unit, %4$@ weight comparison ("tương đương …").
         public var weightAndRange: String
 
         public init(length: String, lengthAndWeight: String, weightAndRange: String) {

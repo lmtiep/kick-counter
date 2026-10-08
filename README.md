@@ -110,7 +110,7 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   `-seedCycles`); không có hai cờ này là người dùng cũ (mong con).
 
 ## Kích thước theo tuần (giai đoạn 11)
-- Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("nặng cỡ một quả mận"): `size.typicalGrams` / `size.sourceKey`
+- Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`
   và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá
   ±25 % so với `weightG` (Hadlock 1991). Tuần 4–9 giữ so sánh cũ.
 - Bảng và nguồn: `docs/research/2026-10-08-produce-weights.md` (bản máy đọc `.json`; test `BundledContentTests` so khớp).
