@@ -168,7 +168,10 @@ final class CycleHistoryUITests: XCTestCase {
             }
             XCTAssertTrue(title.label.contains(month), title.label)
         }
-        let day = app.buttons.matching(NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH %@", "June 10,")).firstMatch
+        // A plain day reads "June 10"; a day with something on it "June 10, …".
+        let day = app.buttons.matching(NSPredicate(
+            format: "identifier == 'calendarDay' AND (label == %@ OR label BEGINSWITH %@)", "June 10", "June 10,"
+        )).firstMatch
         XCTAssertTrue(day.waitForExistence(timeout: 5))
         day.tap()
         let logButton = app.buttons["calendarLogButton"]
