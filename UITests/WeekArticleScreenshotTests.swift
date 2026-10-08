@@ -57,6 +57,27 @@ final class WeekArticleScreenshotTests: XCTestCase {
         attachScreenshot(app, "week-article-warnings-en-dark")
     }
 
+    /// Phase 11: the week's fruit illustration replaces the emoji (weeks 12, 24, 38; vi light and dark).
+    @MainActor
+    func testFruitIllustrations() {
+        let weeks = [(12, UITestDates.dueAtWeek12), (24, UITestDates.dueAtWeek24), (38, UITestDates.dueAtWeek38)]
+        for (week, dueDate) in weeks {
+            for dark in [false, true] {
+                let app = XCUIApplication.launchPinned(language: "vi", dark: dark, dueDate: dueDate)
+                let fetus = app.buttons["fetusHeroButton"]
+                XCTAssertTrue(fetus.waitForExistence(timeout: 10))
+                fetus.tap()
+                let handle = app.buttons["weekSheetHandle"]
+                XCTAssertTrue(handle.waitForExistence(timeout: 5))
+                handle.tap()
+                waitForLabel(handle, containing: "Thu gọn bài viết")
+                waitForLabel(app.staticTexts["weekDetailTitle"], containing: "Tuần \(week)")
+                attachScreenshot(app, "week-article-fruit-\(week)-vi-\(dark ? "dark" : "light")")
+                app.terminate()
+            }
+        }
+    }
+
     /// AX5 opens expanded; nothing is cut.
     @MainActor
     func testLargestText() {

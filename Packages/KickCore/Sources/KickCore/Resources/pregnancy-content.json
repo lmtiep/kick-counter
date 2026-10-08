@@ -124,25 +124,55 @@
       "url": "https://fdc.nal.usda.gov/food-details/168192/nutrients",
       "note": "Portion \"1 fruit\" = 602 g edible portion (SR weights exclude refuse). SR28 refuse 68% (Shell and seeds (for raw fruit)). As purchased = 602 / (1 - 0.68) = 1881 g."
     },
+    "bentre-dua-ta": {
+      "title": "Sở Khoa học và Công nghệ Bến Tre (dost-bentre.gov.vn, 23-03-2009): Giống Dừa và kỹ thuật chọn giống Dừa – Dừa Ta",
+      "url": "https://web.archive.org/web/20241213211412/http://dost-bentre.gov.vn/tin-tuc/931/giong-dua-va-ky-thuat-chon-giong-dua",
+      "note": "Portion text: \"Trọng lượng trái từ 1,6-2,0 kg/trái khô\". Mature (dry) coconut in husk, as sold. Typical = midpoint of 1.6-2.0 kg = 1800 g. The live site did not resolve on 2026-10-08; the text was read from the Internet Archive copy (the url above); live page: http://dost-bentre.gov.vn/tin-tuc/931/giong-dua-va-ky-thuat-chon-giong-dua"
+    },
+    "usda-cauliflower": {
+      "title": "USDA FoodData Central, SR Legacy: Cauliflower, raw (FDC ID 169986)",
+      "url": "https://fdc.nal.usda.gov/food-details/169986/nutrients",
+      "note": "Portion \"1 head large (6-7\" dia.)\" = 840 g edible portion (SR weights exclude refuse). SR28 refuse 61% (Leaf stalks, cores and trimmings). As purchased = 840 / (1 - 0.61) = 2154 g."
+    },
+    "vietaseeds-cai-thao-va304": {
+      "title": "Công ty TNHH Phát triển nông nghiệp Việt Á (Vietaseeds): Hạt giống Cải Thảo lai F1 VA.304 – variety sheet",
+      "url": "https://vietaseeds.com/san-pham/hat-giong-cai-thao-f1-va-304-1gram",
+      "note": "Portion text: \"trọng lượng bao TB từ 1,5-3kg\". Whole head as harvested. Typical = midpoint of 1.5-3 kg = 2250 g. Seed-company variety sheet (no institute source found)."
+    },
     "vaas-bi-xanh-so-1": {
       "title": "Viện Khoa học Nông nghiệp Việt Nam (VAAS) – Viện Cây lương thực và Cây thực phẩm: Giống bí xanh số 1",
       "url": "https://vaas.vn/vi/giong/giong-bi-xanh-so-1",
       "note": "Portion text: \"quả già khối lượng 2,0 – 3,0 kg\". Whole fruit as harvested (mature fruit). Typical = midpoint of the stated 2.0-3.0 kg range = 2500 g."
     },
-    "ninhbinh-dua-hau-vo-vang": {
-      "title": "Chi cục Trồng trọt và BVTV Ninh Bình (Vũ Thị Hương, 05/09/2022): Một số giống dưa hấu trồng phổ biến ở Việt Nam – Giống dưa hấu vỏ vàng, ruột đỏ",
+    "vnuf-gac-19": {
+      "title": "Nguyễn Thị Lan Hoa, Đặng Minh Tú, Đào Việt Quốc et al. (2026). Đặc điểm nông sinh học của hai mẫu giống gấc địa phương triển vọng làm dược liệu trồng tại Bắc Ninh. Tạp chí Khoa học và Công nghệ Lâm nghiệp (VNUF)",
+      "url": "https://journal.vnuf.edu.vn/vi/article/view/2048",
+      "note": "Portion text: \"quả to (2,85 ± 0,95 kg)\" (accession GAC-19). Whole fruit, measured mean of a local northern accession (GAC-19). The other accession, GAC-46, averaged 1.861 ± 0.23 kg."
+    },
+    "usda-honeydew": {
+      "title": "USDA FoodData Central, SR Legacy: Melons, honeydew, raw (FDC ID 169911)",
+      "url": "https://fdc.nal.usda.gov/food-details/169911/nutrients",
+      "note": "Portion \"1 melon (6\" - 7\" dia)\" = 1280 g edible portion (SR weights exclude refuse). SR28 refuse 54% (5% cavity contents, rind 49%). As purchased = 1280 / (1 - 0.54) = 2783 g."
+    },
+    "ufifas-jackfruit-hs882": {
+      "title": "Crane, Balerdi & Campbell. HS-882 The Jackfruit (Artocarpus heterophyllus Lam.) in Florida. UF/IFAS Extension (EDIS)",
+      "url": "https://journals.flvc.org/edis/article/download/108125/103418/149645",
+      "note": "Portion text: \"A few cultivars are small fruited, weighing 3 to 10 pounds (1.4-4.5 kg) each.\". Whole fruit of small-fruited cultivars. Typical = midpoint of 3-10 lb = 6.5 lb = 2948 g."
+    },
+    "ninhbinh-dua-hau-hac-my-nhan": {
+      "title": "Chi cục Trồng trọt và BVTV Ninh Bình (Vũ Thị Hương, 05/09/2022): Một số giống dưa hấu trồng phổ biến ở Việt Nam – Giống Hắc Mỹ Nhân",
       "url": "https://chicucttbvtv.ninhbinh.gov.vn/giong-cay-trong/mot-so-giong-dua-hau-trong-pho-bien-o-viet-nam-110.html",
-      "note": "Portion text: \"khối lượng trung bình quả 2 - 3 kg\". Whole fruit. Typical = midpoint of the stated 2-3 kg average = 2500 g."
+      "note": "Portion text: \"khối lượng quả trung bình 3 - 4 kg\". Whole fruit. Typical = midpoint of the stated 3-4 kg average = 3500 g."
     },
     "vaas-bi-do-mat-sao-2": {
       "title": "Viện Khoa học Nông nghiệp Việt Nam (VAAS): Giống bí đỏ Mật Sao 2",
       "url": "https://vaas.vn/vi/giong/giong-bi-do-mat-sao-2",
       "note": "Portion text: \"khối lượng quả trung bình 3,0-3,3 kg\". Whole fruit. Typical = midpoint of the stated 3.0-3.3 kg average = 3150 g."
     },
-    "ninhbinh-dua-hau-hac-my-nhan": {
-      "title": "Chi cục Trồng trọt và BVTV Ninh Bình (Vũ Thị Hương, 05/09/2022): Một số giống dưa hấu trồng phổ biến ở Việt Nam – Giống Hắc Mỹ Nhân",
-      "url": "https://chicucttbvtv.ninhbinh.gov.vn/giong-cay-trong/mot-so-giong-dua-hau-trong-pho-bien-o-viet-nam-110.html",
-      "note": "Portion text: \"khối lượng quả trung bình 3 - 4 kg\". Whole fruit. Typical = midpoint of the stated 3-4 kg average = 3500 g."
+    "nnmt-mang-cau-xiem": {
+      "title": "Báo Nông nghiệp và Môi trường (14/05/2015): Trồng mãng cầu xiêm thu nhập cao (Ngã Bảy, Hậu Giang)",
+      "url": "https://nongnghiepmoitruong.vn/trong-mang-cau-xiem-thu-nhap-cao-d142790.html",
+      "note": "Portion text: \"trái sai và to, nặng trung bình từ 2 - 4 kg/trái\". Whole fruit. Typical = midpoint of 2-4 kg = 3000 g. Grower statement reported by the Ministry of Agriculture newspaper."
     }
   },
   "weeks": [
@@ -3370,11 +3400,11 @@
       "week": 33,
       "reviewed": false,
       "size": {
-        "emoji": "🥒",
-        "en": "a winter melon",
-        "vi": "một quả bí xanh",
-        "typicalGrams": 2500,
-        "sourceKey": "vaas-bi-xanh-so-1"
+        "emoji": "🥥",
+        "en": "a coconut",
+        "vi": "một quả dừa",
+        "typicalGrams": 1800,
+        "sourceKey": "bentre-dua-ta"
       },
       "weightG": 2162,
       "weightP10G": 1794,
@@ -3486,11 +3516,11 @@
       "week": 34,
       "reviewed": false,
       "size": {
-        "emoji": "🥒",
-        "en": "a winter melon",
-        "vi": "một quả bí xanh",
-        "typicalGrams": 2500,
-        "sourceKey": "vaas-bi-xanh-so-1"
+        "emoji": "🥦",
+        "en": "a large cauliflower",
+        "vi": "một cây súp lơ trắng to",
+        "typicalGrams": 2154,
+        "sourceKey": "usda-cauliflower"
       },
       "weightG": 2377,
       "weightP10G": 1973,
@@ -3602,11 +3632,11 @@
       "week": 35,
       "reviewed": false,
       "size": {
-        "emoji": "🍉",
-        "en": "a small watermelon",
-        "vi": "một quả dưa hấu nhỏ",
-        "typicalGrams": 2500,
-        "sourceKey": "ninhbinh-dua-hau-vo-vang"
+        "emoji": "🥬",
+        "en": "a napa cabbage",
+        "vi": "một cây cải thảo",
+        "typicalGrams": 2250,
+        "sourceKey": "vietaseeds-cai-thao-va304"
       },
       "weightG": 2595,
       "weightP10G": 2154,
@@ -3718,11 +3748,11 @@
       "week": 36,
       "reviewed": false,
       "size": {
-        "emoji": "🍉",
-        "en": "a small watermelon",
-        "vi": "một quả dưa hấu nhỏ",
+        "emoji": "🥒",
+        "en": "a winter melon",
+        "vi": "một quả bí xanh",
         "typicalGrams": 2500,
-        "sourceKey": "ninhbinh-dua-hau-vo-vang"
+        "sourceKey": "vaas-bi-xanh-so-1"
       },
       "weightG": 2813,
       "weightP10G": 2335,
@@ -3834,11 +3864,11 @@
       "week": 37,
       "reviewed": false,
       "size": {
-        "emoji": "🍈",
-        "en": "a pumpkin",
-        "vi": "một quả bí đỏ",
-        "typicalGrams": 3150,
-        "sourceKey": "vaas-bi-do-mat-sao-2"
+        "emoji": "🟠",
+        "en": "a gac fruit",
+        "vi": "một quả gấc",
+        "typicalGrams": 2850,
+        "sourceKey": "vnuf-gac-19"
       },
       "weightG": 3028,
       "weightP10G": 2513,
@@ -3953,10 +3983,10 @@
       "reviewed": false,
       "size": {
         "emoji": "🍈",
-        "en": "a pumpkin",
-        "vi": "một quả bí đỏ",
-        "typicalGrams": 3150,
-        "sourceKey": "vaas-bi-do-mat-sao-2"
+        "en": "a honeydew melon",
+        "vi": "một quả dưa mật",
+        "typicalGrams": 2783,
+        "sourceKey": "usda-honeydew"
       },
       "weightG": 3236,
       "weightP10G": 2686,
@@ -4068,11 +4098,11 @@
       "week": 39,
       "reviewed": false,
       "size": {
-        "emoji": "🍉",
-        "en": "a watermelon",
-        "vi": "một quả dưa hấu",
-        "typicalGrams": 3500,
-        "sourceKey": "ninhbinh-dua-hau-hac-my-nhan"
+        "emoji": "🟢",
+        "en": "a small jackfruit",
+        "vi": "một quả mít nhỏ",
+        "typicalGrams": 2948,
+        "sourceKey": "ufifas-jackfruit-hs882"
       },
       "weightG": 3435,
       "weightP10G": 2851,
@@ -4416,11 +4446,11 @@
       "week": 42,
       "reviewed": false,
       "size": {
-        "emoji": "🍉",
-        "en": "a watermelon",
-        "vi": "một quả dưa hấu",
-        "typicalGrams": 3500,
-        "sourceKey": "ninhbinh-dua-hau-hac-my-nhan"
+        "emoji": "🍈",
+        "en": "a soursop",
+        "vi": "một quả mãng cầu xiêm",
+        "typicalGrams": 3000,
+        "sourceKey": "nnmt-mang-cau-xiem"
       },
       "weightG": 3619,
       "weightP10G": 3004,

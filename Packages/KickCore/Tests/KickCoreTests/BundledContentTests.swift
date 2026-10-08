@@ -141,6 +141,13 @@ struct BundledContentTests {
         }
     }
 
+    /// The owner asked for a different item in each of weeks 33–42.
+    @Test func weeks33To42AreDistinct() {
+        let names = library.document.weeks.filter { (33...42).contains($0.week) }.map(\.size.en)
+        #expect(names.count == 10)
+        #expect(Set(names).count == names.count, "\(names)")
+    }
+
     /// Phase 11 spec §3.2: the produce's typical weight is within ±25 % of the week's Hadlock weight.
     @Test func everyComparisonFromWeek10IsWithinTolerance() throws {
         for week in library.document.weeks where week.week >= 10 {
@@ -180,12 +187,13 @@ struct BundledContentTests {
     }
 
     /// The research JSON's emoji, except the plan's overrides: 🍋‍🟩 needs iOS 17.4 and 🎃 is a jack-o'-lantern.
-    static let emojiOverrides: [Int: String] = [13: "🍋", 37: "🍈", 38: "🍈", 41: "🍈"]
+    static let emojiOverrides: [Int: String] = [13: "🍋", 41: "🍈"]
 
     /// `docs/research/2026-10-08-produce-weights.json` is the reviewed table; the bundle copies it.
     @Test func comparisonsMatchTheResearchTable() throws {
         let expected: [Int: (en: String, grams: Int)] = [
-            10: ("a passion fruit", 35), 20: ("an Asian pear", 302), 31: ("a pineapple", 1775), 40: ("a watermelon", 3500),
+            10: ("a passion fruit", 35), 20: ("an Asian pear", 302), 31: ("a pineapple", 1775),
+            33: ("a coconut", 1800), 38: ("a honeydew melon", 2783), 40: ("a watermelon", 3500), 42: ("a soursop", 3000),
         ]
         for (number, row) in expected {
             let week = try #require(library.content(forWeek: number))

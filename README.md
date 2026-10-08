@@ -114,4 +114,4 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá
   ±25 % so với `weightG` (Hadlock 1991). Tuần 4–9 giữ so sánh cũ.
 - Bảng và nguồn: `docs/research/2026-10-08-produce-weights.md` (bản máy đọc `.json`; test `BundledContentTests` so khớp).
-- Tranh thai nhi theo tuần: `docs/design/fetus-artwork-brief.md`. Bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 12.
+- Tranh thai nhi theo tuần: `docs/design/fetus-artwork-brief.md`. Bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 13.
