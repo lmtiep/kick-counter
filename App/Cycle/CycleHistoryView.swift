@@ -29,6 +29,7 @@ enum CycleHistoryTexts {
 
 struct CycleHistoryView: View {
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     private var history: CycleHistorySummary {
         CycleHistory.make(periods: cycle.periods, logs: cycle.logs, now: AppClock.now())
@@ -49,7 +50,7 @@ struct CycleHistoryView: View {
                     summaryCard(history)
                     VStack(spacing: 0) {
                         ForEach(Array(history.cycles.enumerated()), id: \.element.id) { index, item in
-                            if index > 0 { LunaDivider().padding(.leading, 18) }
+                            if index > 0 { LunaDivider().padding(.horizontal, 18) }
                             NavigationLink(value: CycleHistoryRoute.cycle(item.periodID)) {
                                 CycleHistoryRowView(cycle: item)
                             }
@@ -72,7 +73,11 @@ struct CycleHistoryView: View {
     }
 
     private func summaryCard(_ history: CycleHistorySummary) -> some View {
-        HStack(alignment: .top, spacing: 12) {
+        // Side by side; one above the other at accessibility sizes.
+        let layout = typeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 16))
+            : AnyLayout(HStackLayout(alignment: .top, spacing: 12))
+        return layout {
             VStack(alignment: .leading, spacing: 4) {
                 if let average = history.averageCycleLength {
                     Text(L10n.days(average))
@@ -120,20 +125,22 @@ struct CycleHistoryView: View {
 /// Title, length, the bar and the "not counted" note (spec §4.2).
 struct CycleHistoryRowView: View {
     let cycle: PastCycle
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
+        // At accessibility sizes the length moves under the title, so neither truncates.
+        let stacked = typeSize.isAccessibilitySize
         VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text(cycle.isCurrent ? L10n.cycleHistoryCurrent(cycle.cycleDay ?? 1) : Formatting.shortDay(cycle.start))
-                    .font(.luna(.bodyStrong))
-                    .foregroundStyle(.luna(.textPrimary))
-                    .fixedSize(horizontal: false, vertical: true)
-                Spacer(minLength: 8)
-                if let length = cycle.length {
-                    Text(L10n.days(length))
-                        .font(.luna(.body))
-                        .foregroundStyle(.luna(.textSecondary))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(cycle.isCurrent ? L10n.cycleHistoryCurrent(cycle.cycleDay ?? 1) : Formatting.shortDay(cycle.start))
+                        .font(.luna(.bodyStrong))
+                        .foregroundStyle(.luna(.textPrimary))
+                        .fixedSize(horizontal: false, vertical: true)
+                    if stacked { lengthText }
                 }
+                Spacer(minLength: 8)
+                if !stacked { lengthText }
                 Image(systemName: "chevron.right")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(.luna(.textSecondary))
@@ -149,6 +156,15 @@ struct CycleHistoryRowView: View {
         .padding(.horizontal, 18)
         .frame(minHeight: 44)
         .contentShape(Rectangle())
+    }
+
+    @ViewBuilder private var lengthText: some View {
+        if let length = cycle.length {
+            Text(L10n.days(length))
+                .font(.luna(.body))
+                .foregroundStyle(.luna(.textSecondary))
+                .fixedSize(horizontal: false, vertical: true)
+        }
     }
 }
 
@@ -203,7 +219,7 @@ struct CycleDetailView: View {
             VStack(spacing: 0) {
                 if let past, !past.loggedDays.isEmpty {
                     ForEach(Array(past.loggedDays.enumerated()), id: \.element) { index, offset in
-                        if index > 0 { LunaDivider().padding(.leading, 18) }
+                        if index > 0 { LunaDivider().padding(.horizontal, 18) }
                         dayRow(past, offset: offset)
                     }
                 } else {

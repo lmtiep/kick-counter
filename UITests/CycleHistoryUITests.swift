@@ -43,8 +43,8 @@ final class CycleHistoryUITests: XCTestCase {
         app.scrollUntilHittable(last)
         XCTAssertTrue(last.label.hasPrefix("Day 13"), last.label)
         last.tap()
-        // `TextField(axis: .vertical)` is backed by a text view.
-        let note = app.textViews["dayLogNoteField"]
+        // `TextField(axis: .vertical)` shows up as a text field (CI hierarchy, run 37708044169).
+        let note = app.textFields["dayLogNoteField"]
         XCTAssertTrue(note.waitForExistence(timeout: 5))
         app.scrollUntilHittable(note)
         note.tap()
