@@ -40,7 +40,7 @@ final class AppStoreReadinessScreenshotTests: XCTestCase {
         delete.tap()
         let alert = app.alerts["Xoá toàn bộ dữ liệu?"]
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
-        XCTAssertTrue(alert.buttons["Xoá"].exists)
+        XCTAssertTrue(alert.buttons["Xoá"].firstMatch.exists)
         attachScreenshot(app, "profile-delete-dialog-vi-light")
     }
 

@@ -69,7 +69,8 @@ final class AppStoreReadinessUITests: XCTestCase {
         let alert = app.alerts["Delete all data?"]
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
         XCTAssertTrue(alert.staticTexts.matching(NSPredicate(format: "label CONTAINS 'permanently deleted'")).firstMatch.exists)
-        alert.buttons["Cancel"].tap()
+        // SwiftUI nests the alert button in an element with the same identifier and label.
+        alert.buttons["Cancel"].firstMatch.tap()
         XCTAssertFalse(app.staticTexts["onboardingWelcomeTitle"].waitForExistence(timeout: 2))
         app.openCycleTab(.today)
         XCTAssertTrue(app.descendants(matching: .any)["cycleStatusCard"].waitForExistence(timeout: 5))
@@ -79,7 +80,7 @@ final class AppStoreReadinessUITests: XCTestCase {
         app.scrollUntilHittable(delete)
         delete.tap()
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
-        alert.buttons["Delete"].tap()
+        alert.buttons["Delete"].firstMatch.tap()
         XCTAssertTrue(app.staticTexts["onboardingWelcomeTitle"].waitForExistence(timeout: 10))
 
         // Trying to conceive without a last period: the empty state, no seeded period left.
