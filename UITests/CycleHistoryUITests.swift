@@ -86,4 +86,101 @@ final class CycleHistoryUITests: XCTestCase {
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         XCTAssertTrue(row.label.contains("bleeding 5 days"), row.label)
     }
+
+    // MARK: - Phase 13: past periods
+
+    /// Opens "Add a past period"; the start picker shows May 2026 (one typical
+    /// cycle before the oldest period, Jun 28). Picks `day` in June.
+    @MainActor
+    private func addPastPeriod(_ app: XCUIApplication, juneDay day: Int) {
+        let add = app.buttons["cycleHistoryAddPast"]
+        XCTAssertTrue(add.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(add)
+        add.tap()
+        let next = app.buttons["Next Month"]
+        XCTAssertTrue(next.waitForExistence(timeout: 5))
+        next.tap()
+        // Day cells read e.g. "Thursday, June 4".
+        let dayButton = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "June \(day)")).firstMatch
+        XCTAssertTrue(dayButton.waitForExistence(timeout: 5))
+        dayButton.tap()
+        let range = app.descendants(matching: .any)["addPastRange"]
+        waitForLabel(range, containing: "June \(day)")
+        let save = app.buttons["addPastSave"]
+        app.scrollUntilHittable(save)
+        save.tap()
+    }
+
+    /// Spec §3.2: a period 120 days before the pinned clock (Jun 4, 5 days) is
+    /// added; the history gains a row and confirms with a toast.
+    @MainActor
+    func testAddPastPeriodFromHistory() {
+        let app = XCUIApplication.launchPinned(seedCycles: "fertile")
+        openHistory(app)
+        let rows = app.buttons.matching(identifier: "cycleHistoryRow")
+        XCTAssertTrue(rows.firstMatch.waitForExistence(timeout: 5))
+        XCTAssertEqual(rows.count, 4)
+        addPastPeriod(app, juneDay: 4)
+        XCTAssertTrue(app.staticTexts["toast"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["toast"].label.contains("Period added"))
+        let added = app.buttons.matching(NSPredicate(format: "identifier == 'cycleHistoryRow' AND label CONTAINS %@", "June 4")).firstMatch
+        XCTAssertTrue(added.waitForExistence(timeout: 5))
+        XCTAssertEqual(rows.count, 5)
+        XCTAssertTrue(added.label.contains("24 days"), added.label) // to Jun 28
+        XCTAssertTrue(added.label.contains("period 5 days"), added.label)
+    }
+
+    /// Spec §3.2: a start inside a logged period (Jun 28 – Jul 2) shows the
+    /// overlap inline and saves nothing.
+    @MainActor
+    func testAddPastPeriodOverlapShowsError() {
+        let app = XCUIApplication.launchPinned(seedCycles: "fertile")
+        openHistory(app)
+        addPastPeriod(app, juneDay: 30)
+        let error = app.descendants(matching: .any)["addPastError"]
+        XCTAssertTrue(error.waitForExistence(timeout: 5))
+        XCTAssertTrue(error.label.contains("overlaps a period"), error.label)
+        let cancel = app.buttons["addPastCancel"]
+        app.scrollUntilHittable(cancel)
+        cancel.tap()
+        let rows = app.buttons.matching(identifier: "cycleHistoryRow")
+        XCTAssertTrue(rows.firstMatch.waitForExistence(timeout: 5))
+        XCTAssertEqual(rows.count, 4)
+    }
+
+    /// Spec §3.1: starting a period on an old calendar day stores it closed at
+    /// the typical length (5 days), not open for 10.
+    @MainActor
+    func testStartingAPeriodOnAnOldDayClosesIt() {
+        let app = XCUIApplication.launchPinned(seedCycles: "fertile")
+        app.openCycleTab(.calendar)
+        let title = app.staticTexts["calendarMonthTitle"]
+        XCTAssertTrue(title.waitForExistence(timeout: 10))
+        for month in ["September", "August", "July", "June", "May"] {
+            app.buttons["calendarPrevious"].tap()
+            waitForLabel(title, containing: month)
+        }
+        let day = app.buttons.matching(NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH %@", "May 10,")).firstMatch
+        XCTAssertTrue(day.waitForExistence(timeout: 5))
+        day.tap()
+        let logButton = app.buttons["calendarLogButton"]
+        app.scrollUntilHittable(logButton)
+        XCTAssertTrue(logButton.isEnabled)
+        logButton.tap()
+        let start = app.buttons["dayLogStartPeriod"]
+        XCTAssertTrue(start.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(start)
+        start.tap()
+        let info = app.descendants(matching: .any)["dayLogPeriodInfo"]
+        XCTAssertTrue(info.waitForExistence(timeout: 5))
+        let cancel = app.buttons["dayLogCancel"]
+        app.scrollUntilHittable(cancel)
+        cancel.tap()
+
+        app.openCycleTab(.today)
+        openHistory(app)
+        let row = app.buttons.matching(NSPredicate(format: "identifier == 'cycleHistoryRow' AND label CONTAINS %@", "May 10")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(row.label.contains("period 5 days"), row.label)
+    }
 }

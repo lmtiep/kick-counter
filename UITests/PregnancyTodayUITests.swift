@@ -123,4 +123,22 @@ final class PregnancyTodayUITests: XCTestCase {
         card.tap()
         XCTAssertTrue(app.buttons["kickButton"].waitForExistence(timeout: 5))
     }
+
+    /// Phase 13 spec §3.3: from week 10 the size card compares by weight, as the
+    /// week article does; weeks 4–9 keep "about the size of".
+    @MainActor
+    func testTodayCardUsesWeightWording() {
+        for (dueDate, wording, other) in [
+            (UITestDates.dueAtWeek24, "weighs about as much as", "about the size of"),
+            (UITestDates.dueAtWeek8, "about the size of", "weighs about as much as"),
+        ] {
+            let app = XCUIApplication.launchPinned(language: "en", dueDate: dueDate)
+            let card = app.buttons["babySizeCard"]
+            XCTAssertTrue(card.waitForExistence(timeout: 10))
+            app.scrollUntilHittable(card)
+            XCTAssertTrue(card.label.contains(wording), card.label)
+            XCTAssertFalse(card.label.contains(other), card.label)
+            app.terminate()
+        }
+    }
 }

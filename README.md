@@ -117,6 +117,9 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - `CycleHistory.make` (`KickCore/CycleHistory.swift`, thuần, có test) dựng tóm tắt và danh sách chu kỳ từ `PeriodRecord`
   và `CycleLogRecord`, dùng cùng quy tắc trung bình với `CyclePredictor`. `CycleHistoryView`/`CycleDetailView`
   (`App/Cycle/CycleHistoryView.swift`) đọc `cycle.periods`/`cycle.logs`, nên tự cập nhật sau khi ghi ngày.
+- Giai đoạn 13: nút "Thêm kỳ kinh trước đây" (`App/Cycle/AddPastPeriodSheet.swift`,
+  `CycleCoordinator.addPastPeriod`) ghi bù kỳ kinh cũ; bắt đầu kỳ kinh ở một ngày đã qua đủ lâu thì kỳ đó được đóng ở
+  độ dài thường gặp. Đặc tả: `docs/superpowers/specs/2026-10-08-past-periods-design.md`.
 
 ## Sẵn sàng lên App Store (giai đoạn 12)
 - Bản 1.0 giữ toàn bộ dữ liệu trên máy: `KickCore/AppFeatures.swift` (`cloudSync = false`),

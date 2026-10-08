@@ -30,6 +30,8 @@ enum CycleHistoryTexts {
 struct CycleHistoryView: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(\.dynamicTypeSize) private var typeSize
+    @State private var addingPast = false
+    @State private var toast: String?
 
     private var history: CycleHistorySummary {
         CycleHistory.make(periods: cycle.periods, logs: cycle.logs, now: AppClock.now())
@@ -46,8 +48,10 @@ struct CycleHistoryView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lunaCard()
                         .accessibilityIdentifier("cycleHistoryEmpty")
+                    addPastButton
                 } else {
                     summaryCard(history)
+                    addPastButton
                     VStack(spacing: 0) {
                         ForEach(Array(history.cycles.enumerated()), id: \.element.id) { index, item in
                             if index > 0 { LunaDivider().padding(.horizontal, 18) }
@@ -70,6 +74,30 @@ struct CycleHistoryView: View {
         .navigationTitle(L10n.cycleHistoryTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.visible, for: .navigationBar)
+        .toast($toast)
+        .sheet(isPresented: $addingPast) {
+            AddPastPeriodSheet(
+                defaultStart: AddPastPeriodSheet.defaultStart(periods: cycle.periods, settings: cycle.settings, now: AppClock.now()),
+                typicalLength: cycle.settings.typicalPeriodLength
+            ) {
+                // The toast is read out by VoiceOver.
+                toast = L10n.addPastSaved
+            }
+        }
+    }
+
+    /// "Thêm kỳ kinh trước đây" (phase 13 spec §3.2): below the summary, and in the empty state.
+    private var addPastButton: some View {
+        Button {
+            addingPast = true
+        } label: {
+            Label(
+                cycle.policy.predictedBleedLabel == .withdrawalBleed ? L10n.cycleHistoryAddPastBleed : L10n.cycleHistoryAddPast,
+                systemImage: "plus"
+            )
+        }
+        .buttonStyle(.pill(.soft(.cycleSoft, .cycleOnSoft), height: 48))
+        .accessibilityIdentifier("cycleHistoryAddPast")
     }
 
     private func summaryCard(_ history: CycleHistorySummary) -> some View {

@@ -393,3 +393,18 @@ Khi muốn bật lại đồng bộ iCloud và chế độ chia sẻ với bố 
    (opt-in) nếu đó vẫn là quyết định của chủ dự án. Đẩy lại nhánh `gh-pages`.
 6. Rà lại `docs/app-store-compliance.md` dòng 5.1.3(ii) và các dòng "Không áp dụng (giai đoạn 12)" liên quan đến
    CloudKit/entitlement, đổi lại trạng thái cho đúng với phiên bản mới.
+
+## Giai đoạn 13 — Kỳ kinh trước đây và câu so sánh ở Hôm nay
+
+Đặc tả: `docs/superpowers/specs/2026-10-08-past-periods-design.md`.
+
+- [ ] **Không đổi CloudKit.** Chỉ thêm `PeriodEntry` bằng đường lưu sẵn có; không thêm trường.
+- [ ] **Trên máy thật:** Lịch sử chu kỳ → "Thêm kỳ kinh trước đây", thêm **3 kỳ kinh cũ** (mỗi kỳ cách nhau khoảng
+      một chu kỳ, trước kỳ cũ nhất đã ghi). Mỗi lần lưu thấy thông báo "Đã thêm kỳ kinh" và một dòng mới; "Chu kỳ trung
+      bình" và ngày dự đoán kỳ tới ở thẻ "Sắp tới" (Hôm nay) **thay đổi** theo dữ liệu mới. Chọn ngày trùng một kỳ đã
+      ghi: hiện "Trùng với một kỳ kinh đã ghi." ngay trong trang, không lưu gì.
+- [ ] Lịch → một ngày cách đây vài tháng → "Kỳ kinh bắt đầu": kỳ kinh đó kết thúc sau đúng số ngày thường gặp (không
+      còn "đang diễn ra").
+- [ ] Mang thai, tuần 10 trở đi: thẻ kích thước ở Hôm nay ghi "Bé nặng tương đương …"; tuần 4–9 vẫn "Bé to bằng …".
+- [ ] **Bác sĩ đã duyệt mục 14** của [`content-review-for-doctor.md`](content-review-for-doctor.md).
+- [ ] Ghi chú phát hành: "Thêm kỳ kinh trước đây" trong Lịch sử chu kỳ, để dự đoán dựa trên nhiều chu kỳ hơn.

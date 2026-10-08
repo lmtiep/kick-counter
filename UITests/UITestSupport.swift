@@ -4,6 +4,8 @@ import XCTest
 /// it falls on the same calendar day in any simulator time zone from UTC−11 to UTC+11.
 enum UITestDates {
     static let fixedNow = "2026-10-02T12:00:00Z"
+    /// 8w0d at `fixedNow`: before the Hadlock weights (week 10).
+    static let dueAtWeek8 = "2027-05-14T12:00:00Z"
     /// 12w0d at `fixedNow`.
     static let dueAtWeek12 = "2027-04-16T12:00:00Z"
     /// 24w3d at `fixedNow`, 109 days to go (the spec's example).

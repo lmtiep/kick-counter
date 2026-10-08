@@ -46,4 +46,38 @@ final class CycleHistoryScreenshotTests: XCTestCase {
         attachScreenshot(app, "ax5-cycle-detail-vi-light")
         app.terminate()
     }
+
+    /// Phase 13 spec §4: the history with its "add a past period" button and
+    /// the sheet in vi light/dark and AX5.
+    @MainActor
+    func testAddPastPeriodScreens() {
+        for dark in [false, true] {
+            let suffix = UITestVariants.suffix("vi", dark)
+            let app = XCUIApplication.launchPinned(language: "vi", dark: dark, seedCycles: "fertile")
+            openHistory(app)
+            let add = app.buttons["cycleHistoryAddPast"]
+            XCTAssertTrue(add.waitForExistence(timeout: 5))
+            if !dark { attachScreenshot(app, "cycle-history-with-add-\(suffix)") }
+            add.tap()
+            XCTAssertTrue(app.buttons["addPastSave"].waitForExistence(timeout: 5))
+            attachScreenshot(app, "cycle-add-past-\(suffix)")
+            app.terminate()
+        }
+    }
+
+    @MainActor
+    func testAddPastPeriodAtLargestText() {
+        let app = XCUIApplication.launchPinned(language: "vi", seedCycles: "fertile", largestText: true)
+        openHistory(app)
+        let add = app.buttons["cycleHistoryAddPast"]
+        app.scrollUntilHittable(add, maxSwipes: 10)
+        add.tap()
+        let save = app.buttons["addPastSave"]
+        XCTAssertTrue(save.waitForExistence(timeout: 5))
+        attachScreenshot(app, "ax5-cycle-add-past-vi-light")
+        app.scrollUntilHittable(save, maxSwipes: 10)
+        XCTAssertTrue(save.isHittable)
+        attachScreenshot(app, "ax5-cycle-add-past-bottom-vi-light")
+        app.terminate()
+    }
 }
