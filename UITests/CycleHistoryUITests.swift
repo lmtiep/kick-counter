@@ -148,19 +148,27 @@ final class CycleHistoryUITests: XCTestCase {
         XCTAssertEqual(rows.count, 4)
     }
 
-    /// Spec §3.1: starting a period on an old calendar day stores it closed at
-    /// the typical length (5 days), not open for 10.
+    /// Spec §3.1: starting a period on an old calendar day (Jun 10, well
+    /// before the Jun 28 period) stores it closed at the typical length
+    /// (5 days), not open for 10.
     @MainActor
     func testStartingAPeriodOnAnOldDayClosesIt() {
         let app = XCUIApplication.launchPinned(seedCycles: "fertile")
         app.openCycleTab(.calendar)
         let title = app.staticTexts["calendarMonthTitle"]
         XCTAssertTrue(title.waitForExistence(timeout: 10))
-        for month in ["September", "August", "July", "June", "May"] {
-            app.buttons["calendarPrevious"].tap()
-            waitForLabel(title, containing: month)
+        let previous = app.buttons["calendarPrevious"]
+        for month in ["September", "August", "July", "June"] {
+            // CI run 37810272723: one of several back-to-back taps left the month
+            // unchanged, so a tap that does not move the month is repeated.
+            for _ in 0..<3 where !title.label.contains(month) {
+                previous.tap()
+                let moved = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS %@", month), object: title)
+                _ = XCTWaiter().wait(for: [moved], timeout: 2)
+            }
+            XCTAssertTrue(title.label.contains(month), title.label)
         }
-        let day = app.buttons.matching(NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH %@", "May 10,")).firstMatch
+        let day = app.buttons.matching(NSPredicate(format: "identifier == 'calendarDay' AND label BEGINSWITH %@", "June 10,")).firstMatch
         XCTAssertTrue(day.waitForExistence(timeout: 5))
         day.tap()
         let logButton = app.buttons["calendarLogButton"]
@@ -179,7 +187,7 @@ final class CycleHistoryUITests: XCTestCase {
 
         app.openCycleTab(.today)
         openHistory(app)
-        let row = app.buttons.matching(NSPredicate(format: "identifier == 'cycleHistoryRow' AND label CONTAINS %@", "May 10")).firstMatch
+        let row = app.buttons.matching(NSPredicate(format: "identifier == 'cycleHistoryRow' AND label CONTAINS %@", "June 10")).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         XCTAssertTrue(row.label.contains("period 5 days"), row.label)
     }

@@ -46,6 +46,9 @@ struct AddPastPeriodSheet: View {
                 .datePickerStyle(.graphical)
                 .labelsHidden()
                 .tint(.luna(.cycleStrong))
+                // At AX3+ the system calendar's month title runs into its
+                // "previous month" arrow; the range line below stays full size.
+                .dynamicTypeSize(...DynamicTypeSize.accessibility2)
                 .frame(maxWidth: .infinity)
                 .lunaCard(padding: 8)
                 .accessibilityLabel(L10n.addPastStart)
