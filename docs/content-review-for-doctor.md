@@ -615,3 +615,18 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
         progestin có nên gộp chung vào "Thuốc tránh thai hằng ngày" không, hay cần một lựa chọn riêng với cách hiển thị
         riêng (ví dụ vẫn hiện cửa sổ thụ thai kèm ghi chú, vì loại thuốc này không phải lúc nào cũng ngừng rụng trứng)?
         (Câu hỏi này tách riêng khỏi mục 54, vốn hỏi về cả nhóm "có nội tiết".)
+
+## 12. Lịch sử chu kỳ (giai đoạn 10)
+
+Trang mới "Lịch sử chu kỳ" (mở từ thẻ "Sắp tới" ở Hôm nay) tóm tắt độ dài chu kỳ, độ dài kỳ kinh và liệt kê từng chu
+kỳ đã qua cùng những ngày đã ghi. Cách tính trung bình giống hệt màn Hôm nay (6 chu kỳ gần nhất có độ dài 21–45 ngày).
+
+59. [ ] **"Không tính vào trung bình"** (`cycleHistory.notCounted`): ghi dưới chu kỳ ngắn hơn 21 hoặc dài hơn 45 ngày;
+        app cố ý không dùng từ "bất thường". **Câu hỏi:** khoảng 21–45 ngày có phù hợp để loại khỏi trung bình không? Có
+        nên gợi ý đi khám khi gặp chu kỳ như vậy, hay giữ trung lập như hiện tại?
+60. [ ] **"Chu kỳ trung bình" kèm khoảng dao động** (ví dụ "29 ngày", dòng dưới "26–31 ngày"; `cycleHistory.averageCycle`,
+        `cycleHistory.range`). Khoảng chỉ hiện khi chu kỳ ngắn nhất khác dài nhất. **Câu hỏi:** cách hiển thị này có dễ
+        hiểu và không gây lo lắng không?
+61. [ ] **"Kỳ kinh trung bình" / "Ra máu trung bình"** (`cycleHistory.averagePeriod`, `cycleHistory.averageBleed`): với
+        người dùng biện pháp tránh thai có nội tiết (mục 54), app gọi là "ra máu", cả ở VoiceOver ("ra máu 5 ngày").
+        **Câu hỏi:** cách gọi này có đúng không?
