@@ -124,7 +124,7 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - "Xoá toàn bộ dữ liệu" (Cá nhân, hàng cuối): xóa mọi lượt đếm, kỳ kinh, ghi chép, cân nặng, lịch khám và
   cài đặt trên máy, hủy mọi thông báo và Live Activity đang chạy, rồi về onboarding
   (`KickData/DataReset.swift`, `KickCore/AppDataReset.swift`).
-- Cá nhân → mục "Thông tin" có hai liên kết mở Safari: "Chính sách quyền riêng tư" và "Hỗ trợ"
+- Cuối mục Cá nhân, dưới "Thông tin y tế", có hai liên kết mở Safari: "Chính sách quyền riêng tư" và "Hỗ trợ"
   (`App/AppLinks.swift`), dẫn tới các trang tĩnh trong `site/` (xuất bản qua GitHub Pages, nhánh `gh-pages`):
   trang chủ, chính sách quyền riêng tư và hỗ trợ, cả vi và en, không script hay theo dõi.
 - `Widgets/PrivacyInfo.xcprivacy` khai báo quyền riêng tư của widget (không thu thập dữ liệu, chỉ đọc

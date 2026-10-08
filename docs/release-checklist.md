@@ -359,17 +359,28 @@ Tham khảo: `docs/app-store-compliance.md` (bảng kiểm), `docs/app-review-no
 ### Kiểm thử thủ công trên máy thật (một lần, trước khi gửi duyệt)
 - [ ] Cài bản TestFlight của giai đoạn 12 trên một máy đã có dữ liệu cũ (từ bản trước đó): dữ liệu (lượt đếm, kỳ
       kinh, cân nặng, lịch khám) vẫn còn nguyên sau khi cập nhật.
+- [ ] Kiểm tra **ghi** được sau khi cập nhật (store cũ từng mở với CloudKit, nay mở không có CloudKit): thêm một
+      lượt đếm cử động → vuốt tắt hẳn app → mở lại: lượt đếm đó vẫn còn. Trong lúc thử, mở Console.app (máy nối với
+      Mac, lọc theo `KickCounter`) và xác nhận không có dòng nào chứa "Read Only" / "read-only".
+- [ ] Báo cho người thử (TestFlight): bản sao cũ trong iCloud **không** bị xoá — "Xoá toàn bộ dữ liệu" chỉ xoá trên
+      máy (cố ý, app không còn chạm vào iCloud). Muốn xoá bản sao cũ: Cài đặt → [tên] → iCloud → Quản lý dung lượng
+      (Manage Storage) → Luna Mom → Xoá dữ liệu.
 - [ ] Không có hộp thoại hay yêu cầu đăng nhập iCloud nào xuất hiện ở bất kỳ đâu trong app.
 - [ ] Nếu máy đang ở chế độ Bạn đời (đã từng dùng chế độ bố bé) hoặc có mode `partner` đã lưu: mở app → vào
       thẳng onboarding (không còn tùy chọn chế độ bố bé).
-- [ ] Cá nhân → "Thông tin": hai dòng "Chính sách quyền riêng tư" và "Hỗ trợ" mở đúng hai trang trên qua Safari.
+- [ ] Cuối mục Cá nhân, dưới "Thông tin y tế": hai dòng "Chính sách quyền riêng tư" và "Hỗ trợ" mở đúng hai trang
+      trên qua Safari.
 - [ ] Cá nhân → "Xoá toàn bộ dữ liệu": xác nhận → quay về onboarding; sau khi hoàn tất onboarding lại, không còn
       dữ liệu cũ nào (Lịch sử/Chu kỳ/Thai kỳ trống).
 - [ ] Cài mới (chưa từng cài) trên máy đã đăng xuất iCloud: app chạy đầy đủ, không bị chặn tính năng nào.
 
 ### Khôi phục iCloud ở phiên bản sau (khi cần)
 Khi muốn bật lại đồng bộ iCloud và chế độ chia sẻ với bố bé ở một phiên bản sau, theo đúng thứ tự:
-1. Đổi `AppFeatures.cloudSync` từ `false` thành `true` trong `Packages/KickCore/Sources/KickCore/AppFeatures.swift`.
+1. **Bắt buộc trước khi phát hành:** thêm một cài đặt trong app để người dùng tự bật iCloud (opt-in, **mặc định
+   tắt**), vì `site/privacy.html` hứa rằng tuỳ chọn iCloud trong tương lai là opt-in. Chỉ đổi công tắc lúc biên dịch
+   thì **mọi người** đều bị đồng bộ. Store và chia sẻ chỉ dùng CloudKit khi `AppFeatures.cloudSync` **và** cài đặt
+   đó cùng bật. Sau đó mới đổi `AppFeatures.cloudSync` từ `false` thành `true` trong
+   `Packages/KickCore/Sources/KickCore/AppFeatures.swift` (và sửa test `cloudSyncIsOffForVersion1`).
 2. Thêm lại các entitlement đã gỡ ở giai đoạn 12: `aps-environment`, `com.apple.developer.icloud-container-identifiers`,
    `com.apple.developer.icloud-services` (trong `App/KickCounter.entitlements` và `entitlements:` của `project.yml`).
 3. Thêm lại `UIBackgroundModes: [remote-notification]` và `CKSharingSupported: true` trong Info properties của

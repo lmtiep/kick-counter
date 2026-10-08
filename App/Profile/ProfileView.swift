@@ -537,8 +537,9 @@ struct ProfileView: View {
             return
         }
         AppDataReset.clearDefaults(AppGroup.defaults)
-        // The daily reminder, the 2-hour alerts and every kick Live Activity.
-        await coordinator.silenceForPartnerMode()
+        // Forgets the deleted session and its completion card; stops the daily
+        // reminder, the 2-hour alerts and every kick Live Activity.
+        await coordinator.resetAfterDataDeletion()
         if !AppEnvironment.isUITesting {
             let center = UNUserNotificationCenter.current()
             center.removeAllPendingNotificationRequests()

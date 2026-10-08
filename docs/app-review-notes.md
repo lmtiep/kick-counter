@@ -29,7 +29,9 @@ Profile has a "Delete all data" row (destructive, with a confirmation dialog) th
 
 **Medical content — sources and disclaimers**
 
-Pregnancy and cycle content (weekly articles, fetal size estimates using the Hadlock formula, due-date and ovulation estimates, maternal weight guidance using IOM 2009 ranges) is for general information only, not diagnosis or medical advice. This disclaimer appears in onboarding and in the in-app "Medical information" screen, and weekly content and the "Trying to conceive" screens repeat that predictions are estimates, not a method of contraception. Sources are listed in the in-app "Medical information → Sources" screen. Medical content for this release has been reviewed as described in `docs/content-review-for-doctor.md`; content not yet reviewed is hidden from the App Store build.
+Pregnancy and cycle content (weekly articles, fetal size estimates using the Hadlock formula, due-date and ovulation estimates, maternal weight guidance using IOM 2009 ranges) is for general information only, not diagnosis or medical advice. This disclaimer appears in onboarding and in the in-app "Medical information" screen, and weekly content and the "Trying to conceive" screens repeat that predictions are estimates, not a method of contraception. Sources are listed in the in-app "Medical information → Sources" screen. The content is written from the guidelines and references listed in that screen and is always shown together with these disclaimers.
+
+<!-- TODO (owner): before submitting, confirm the doctor review of the medical content (`docs/content-review-for-doctor.md`) is complete, and only then add a sentence saying so here. Do not paste this comment into App Store Connect. -->
 
 **How to reach each mode / onboarding choices**
 
@@ -56,4 +58,4 @@ The medical/treatment-information questionnaire answer should reflect that pregn
 Privacy Policy: https://lmtiep.github.io/kick-counter/privacy.html
 Support: https://lmtiep.github.io/kick-counter/support.html
 
-Both pages are also linked in-app, from Profile → "Information".
+Both pages are also linked in-app: near the bottom of Profile, under "Medical information" ("Privacy policy" and "Support", which open in Safari).
