@@ -7,13 +7,13 @@ import Testing
 struct WeekSizeLineTests {
     static let en = WeekSizeLine.Templates(
         length: "Your baby is about %1$@ long from head to bottom, roughly the size of %2$@.",
-        lengthAndWeight: "Your baby is about %1$@ long from head to bottom and weighs about %2$@, roughly the size of %3$@.",
-        weightAndRange: "Your baby weighs about %1$@ (typically %2$@ to %3$@), roughly the size of %4$@."
+        lengthAndWeight: "Your baby is about %1$@ long from head to bottom and weighs about %2$@, about as heavy as %3$@.",
+        weightAndRange: "Your baby weighs about %1$@ (typically %2$@ to %3$@), about as heavy as %4$@."
     )
     static let vi = WeekSizeLine.Templates(
         length: "Bé dài khoảng %1$@ (từ đầu đến mông), cỡ %2$@.",
-        lengthAndWeight: "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, cỡ %3$@.",
-        weightAndRange: "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), cỡ %4$@."
+        lengthAndWeight: "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, nặng cỡ %3$@.",
+        weightAndRange: "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), nặng cỡ %4$@."
     )
 
     static func decimal(_ value: Double, comma: Bool) -> String {
@@ -63,30 +63,59 @@ struct WeekSizeLineTests {
         }
     }
 
+    /// Length-only weeks (7–9) keep the size wording.
     @Test func week8GivesTheCrownRumpLength() throws {
         #expect(try line(8, .vi) == "Bé dài khoảng 16 mm (từ đầu đến mông), cỡ một quả anh đào.")
         #expect(try line(8, .en) == "Your baby is about 16 mm long from head to bottom, roughly the size of a cherry.")
     }
 
+    /// Phase 11: with a weight, the comparison is by weight ("nặng cỡ …").
     @Test func week12GivesLengthAndWeight() throws {
-        #expect(try line(12, .vi) == "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, cỡ một quả kiwi.")
-        #expect(try line(12, .en) == "Your baby is about 53.5 mm long from head to bottom and weighs about 58 g, roughly the size of a kiwi.")
+        #expect(try line(12, .vi) == "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, nặng cỡ một quả mận.")
+        #expect(try line(12, .en) == "Your baby is about 53.5 mm long from head to bottom and weighs about 58 g, about as heavy as a plum.")
+    }
+
+    @Test func week24GivesWeightAndRangeInGrams() throws {
+        #expect(try line(24, .vi) == "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), nặng cỡ một củ đậu.")
+        #expect(try line(24, .en) == "Your baby weighs about 670 g (typically 556 to 784 g), about as heavy as a jicama.")
     }
 
     @Test func week31GivesWeightAndRangeInKilograms() throws {
-        #expect(try line(31, .vi) == "Bé nặng khoảng 1,8 kg (thường từ 1,5 đến 2,0 kg), cỡ một quả dưa lưới.")
-        #expect(try line(31, .en) == "Your baby weighs about 1.8 kg (typically 1.5 to 2.0 kg), roughly the size of a cantaloupe.")
+        #expect(try line(31, .vi) == "Bé nặng khoảng 1,8 kg (thường từ 1,5 đến 2,0 kg), nặng cỡ một quả dứa.")
+        #expect(try line(31, .en) == "Your baby weighs about 1.8 kg (typically 1.5 to 2.0 kg), about as heavy as a pineapple.")
     }
 
     @Test func week40() throws {
-        #expect(try line(40, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), cỡ một quả dưa hấu vừa.")
-        #expect(try line(40, .en) == "Your baby weighs about 3.6 kg (typically 3.0 to 4.2 kg), roughly the size of a medium watermelon.")
+        #expect(try line(40, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), nặng cỡ một quả dưa hấu.")
+        #expect(try line(40, .en) == "Your baby weighs about 3.6 kg (typically 3.0 to 4.2 kg), about as heavy as a watermelon.")
     }
 
-    @Test func week42RepeatsWeek40sFiguresWithItsOwnComparison() throws {
-        #expect(try line(42, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), cỡ một quả dưa hấu to.")
-        #expect(try line(42, .en) == "Your baby weighs about 3.6 kg (typically 3.0 to 4.2 kg), roughly the size of a large watermelon.")
+    @Test func week41RepeatsWeek40sFiguresWithItsOwnComparison() throws {
+        #expect(try line(41, .vi) == "Bé nặng khoảng 3,6 kg (thường từ 3,0 đến 4,2 kg), nặng cỡ một quả bí đỏ.")
+        #expect(try line(41, .en) == "Your baby weighs about 3.6 kg (typically 3.0 to 4.2 kg), about as heavy as a pumpkin.")
+        #expect(library.content(forWeek: 41)?.weightBeyondStandard == true)
         #expect(library.content(forWeek: 42)?.weightBeyondStandard == true)
+    }
+
+    /// The templates above are the app's `weekArticle.size.*` strings, not a copy that can drift.
+    @Test func templatesMatchTheStringCatalog() throws {
+        let url = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+            .deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("Shared/Localizable.xcstrings")
+        let catalog = try #require(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+        let strings = try #require(catalog["strings"] as? [String: Any])
+        func value(_ key: String, _ language: String) -> String? {
+            let entry = strings[key] as? [String: Any]
+            let localizations = entry?["localizations"] as? [String: Any]
+            let unit = (localizations?[language] as? [String: Any])?["stringUnit"] as? [String: Any]
+            return unit?["value"] as? String
+        }
+        for (language, templates) in [("en", Self.en), ("vi", Self.vi)] {
+            #expect(value("weekArticle.size.length", language) == templates.length, "\(language)")
+            #expect(value("weekArticle.size.lengthWeight", language) == templates.lengthAndWeight, "\(language)")
+            #expect(value("weekArticle.size.weight", language) == templates.weightAndRange, "\(language)")
+        }
     }
 
     /// VoiceOver reads the same sentence with the units spelled out.
@@ -98,6 +127,6 @@ struct WeekSizeLineTests {
             templates: Self.en,
             numbers: Self.numbers(comma: false, grams: "grams", kilograms: "kilograms", millimeters: "millimeters")
         )
-        #expect(spoken == "Your baby weighs about 670 grams (typically 556 to 784 grams), roughly the size of an ear of corn.")
+        #expect(spoken == "Your baby weighs about 670 grams (typically 556 to 784 grams), about as heavy as a jicama.")
     }
 }

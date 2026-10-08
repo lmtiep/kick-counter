@@ -8167,13 +8167,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your baby is about %1$@ long from head to bottom and weighs about %2$@, roughly the size of %3$@."
+            "value": "Your baby is about %1$@ long from head to bottom and weighs about %2$@, about as heavy as %3$@."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, cỡ %3$@."
+            "value": "Bé dài khoảng %1$@ (từ đầu đến mông) và nặng khoảng %2$@, nặng cỡ %3$@."
           }
         }
       }
@@ -8184,13 +8184,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your baby weighs about %1$@ (typically %2$@ to %3$@), roughly the size of %4$@."
+            "value": "Your baby weighs about %1$@ (typically %2$@ to %3$@), about as heavy as %4$@."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), cỡ %4$@."
+            "value": "Bé nặng khoảng %1$@ (thường từ %2$@ đến %3$@), nặng cỡ %4$@."
           }
         }
       }

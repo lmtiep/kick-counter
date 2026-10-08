@@ -141,4 +141,83 @@ struct ContentValidatorTests {
         #expect(found.contains(.unsupportedVersion(1)))
         #expect(found.contains(.noSources))
     }
+
+    // MARK: - Weight comparisons (phase 11, version 4)
+
+    @Test func version3IsNoLongerSupported() throws {
+        var content = try fixtureContent()
+        content.version = 3 // before typicalGrams / produceSources
+        #expect(issues(content).contains(.unsupportedVersion(3)))
+    }
+
+    @Test func comparisonConstants() {
+        #expect(ContentValidator.supportedVersion == 4)
+        #expect(ContentValidator.comparisonWeeks == 10...42)
+        #expect(ContentValidator.comparisonTolerance == 0.25)
+    }
+
+    @Test func typicalWeightIsRequiredFromWeek10() throws {
+        var content = try fixtureContent()
+        content.weeks[3].size.typicalGrams = nil
+        #expect(issues(content).contains(.missingTypicalWeight(week: 10)))
+    }
+
+    @Test func sourceKeyIsRequiredFromWeek10() throws {
+        var content = try fixtureContent()
+        content.weeks[4].size.sourceKey = nil
+        #expect(issues(content).contains(.missingTypicalWeight(week: 11)))
+    }
+
+    @Test func typicalWeightBeforeWeek10IsUnexpected() throws {
+        var content = try fixtureContent()
+        content.weeks[1].size.typicalGrams = 16
+        content.weeks[1].size.sourceKey = "usda-apricot"
+        let found = issues(content)
+        #expect(found.contains(.unexpectedMeasurement(week: 8, field: "typicalGrams")))
+        #expect(found.contains(.unexpectedMeasurement(week: 8, field: "sourceKey")))
+    }
+
+    @Test func unknownProduceSourceIsReported() throws {
+        var content = try fixtureContent()
+        content.weeks[3].size.sourceKey = "usda-unknown"
+        #expect(issues(content).contains(.unknownProduceSource(week: 10, key: "usda-unknown")))
+    }
+
+    @Test func blankProduceSourceFieldsAreReported() throws {
+        var content = try fixtureContent()
+        content.produceSources["usda-apricot"]?.title = " "
+        content.produceSources["usda-apricot"]?.url = ""
+        let found = issues(content)
+        #expect(found.contains(.blankText("produceSources usda-apricot title")))
+        #expect(found.contains(.blankText("produceSources usda-apricot url")))
+    }
+
+    /// Week 11's Hadlock weight is 45 g: 35 g is −22 % (inside ±25 %), 30 g is −33 %.
+    @Test func comparisonMustBeWithinTolerance() throws {
+        var content = try fixtureContent()
+        content.weeks[4].size.typicalGrams = 35
+        #expect(issues(content).isEmpty)
+        content.weeks[4].size.typicalGrams = 30
+        #expect(issues(content).contains(.comparisonOutOfTolerance(week: 11, typicalGrams: 30, referenceGrams: 45)))
+        content.weeks[4].size.typicalGrams = 57 // +27 %
+        #expect(issues(content).contains(.comparisonOutOfTolerance(week: 11, typicalGrams: 57, referenceGrams: 45)))
+    }
+
+    /// Weeks 41–42 carry week 40's weight in their own `weightG`, which is the reference.
+    @Test func weeks41And42UseTheirOwnWeight() throws {
+        var content = try fixtureContent()
+        for number in [41, 42] {
+            var week = content.weeks[4] // week 11: weightG 45, typicalGrams 38
+            week.week = number
+            week.crlMm = nil
+            content.weeks.append(week)
+        }
+        let comparisons = { (issues: [ContentIssue]) in
+            issues.filter { if case .comparisonOutOfTolerance = $0 { true } else { false } }
+        }
+        #expect(comparisons(ContentValidator.validate(content, requiredWeeks: 7...42)).isEmpty)
+        content.weeks[6].size.typicalGrams = 30
+        #expect(comparisons(ContentValidator.validate(content, requiredWeeks: 7...42))
+            == [.comparisonOutOfTolerance(week: 42, typicalGrams: 30, referenceGrams: 45)])
+    }
 }

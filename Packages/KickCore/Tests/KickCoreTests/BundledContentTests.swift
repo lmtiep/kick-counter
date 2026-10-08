@@ -133,9 +133,81 @@ struct BundledContentTests {
         #expect(unaccented.isEmpty, "\(unaccented)")
     }
 
-    @Test func sizeComparisonsAreDistinct() {
+    /// Repeats are allowed when weights are close, but never three weeks running (phase 11 spec §3.3).
+    @Test func noComparisonRunsLongerThanTwoWeeks() {
         let names = library.document.weeks.map(\.size.en)
-        #expect(Set(names).count == names.count)
+        for index in names.indices.dropFirst(2) where names[index] == names[index - 1] && names[index] == names[index - 2] {
+            Issue.record("weeks \(library.document.weeks[index - 2].week)–\(library.document.weeks[index].week): \(names[index])")
+        }
+    }
+
+    /// Phase 11 spec §3.2: the produce's typical weight is within ±25 % of the week's Hadlock weight.
+    @Test func everyComparisonFromWeek10IsWithinTolerance() throws {
+        for week in library.document.weeks where week.week >= 10 {
+            let typical = try #require(week.size.typicalGrams, "week \(week.week)")
+            let reference = try #require(week.weightG, "week \(week.week)")
+            let deviation = abs(Double(typical - reference)) / Double(reference)
+            #expect(deviation <= ContentValidator.comparisonTolerance, "week \(week.week): \(typical) g vs \(reference) g")
+        }
+    }
+
+    @Test func everyComparisonCitesASource() throws {
+        let sources = library.document.produceSources
+        #expect(!sources.isEmpty)
+        for week in library.document.weeks where week.week >= 10 {
+            let key = try #require(week.size.sourceKey, "week \(week.week)")
+            #expect(sources[key] != nil, "week \(week.week): \(key)")
+        }
+        for (key, source) in sources {
+            #expect(!ContentValidator.isBlank(source.title), "\(key)")
+            #expect(!ContentValidator.isBlank(source.note), "\(key)")
+            #expect(URL(string: source.url)?.scheme == "https", "\(key): \(source.url)")
+        }
+        #expect(library.document.weeks.filter { $0.week < 10 }.allSatisfy { $0.size.typicalGrams == nil && $0.size.sourceKey == nil })
+    }
+
+    private struct ResearchTable: Decodable {
+        struct Row: Decodable {
+            var week: Int
+            var emoji: String
+            var en: String
+            var vi: String
+            var typicalGrams: Int
+            var sourceKey: String
+        }
+        var produceSources: [String: ProduceSource]
+        var weeks: [Row]
+    }
+
+    /// The research JSON's emoji, except the plan's overrides: 🍋‍🟩 needs iOS 17.4 and 🎃 is a jack-o'-lantern.
+    static let emojiOverrides: [Int: String] = [13: "🍋", 37: "🍈", 38: "🍈", 41: "🍈"]
+
+    /// `docs/research/2026-10-08-produce-weights.json` is the reviewed table; the bundle copies it.
+    @Test func comparisonsMatchTheResearchTable() throws {
+        let expected: [Int: (en: String, grams: Int)] = [
+            10: ("a passion fruit", 35), 20: ("an Asian pear", 302), 31: ("a pineapple", 1775), 40: ("a watermelon", 3500),
+        ]
+        for (number, row) in expected {
+            let week = try #require(library.content(forWeek: number))
+            #expect(week.size.en == row.en, "week \(number)")
+            #expect(week.size.typicalGrams == row.grams, "week \(number)")
+        }
+
+        let url = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+            .deletingLastPathComponent().deletingLastPathComponent()
+            .appendingPathComponent("docs/research/2026-10-08-produce-weights.json")
+        let research = try JSONDecoder().decode(ResearchTable.self, from: Data(contentsOf: url))
+        #expect(research.weeks.map(\.week) == Array(10...42))
+        #expect(library.document.produceSources == research.produceSources)
+        for row in research.weeks {
+            let size = try #require(library.content(forWeek: row.week)).size
+            #expect(size.en == row.en, "week \(row.week)")
+            #expect(size.vi == row.vi, "week \(row.week)")
+            #expect(size.typicalGrams == row.typicalGrams, "week \(row.week)")
+            #expect(size.sourceKey == row.sourceKey, "week \(row.week)")
+            #expect(size.emoji == (Self.emojiOverrides[row.week] ?? row.emoji), "week \(row.week)")
+        }
     }
 
     @Test func measurementsAreInTypicalRanges() {
@@ -209,20 +281,18 @@ struct BundledContentTests {
         #expect(source.contains("calculated from this paper's regression equation"), "\(source)")
     }
 
-    /// Every size item must be depicted by its own emoji; items without an
-    /// accurate emoji (pumpkin, pomelo, lime …) are not used.
+    /// Items with a fitting emoji must use it. The emoji is only the fallback when
+    /// a week's fruit artwork is missing, so pumpkin and lime use the closest one.
     @Test func sizeEmojiDepictsTheItem() {
         let expectedEmoji: [(keyword: String, emoji: Set<String>)] = [
             ("watermelon", ["🍉"]), ("cantaloupe", ["🍈"]), ("honeydew", ["🍈"]),
             ("pineapple", ["🍍"]), ("coconut", ["🥥"]), ("banana", ["🍌"]),
             ("cabbage", ["🥬"]), ("lettuce", ["🥬"]), ("lemon", ["🍋"]),
             ("garlic", ["🧄"]), ("ginger", ["🫚"]),
+            ("pumpkin", ["🍈"]), ("lime", ["🍋"]),
         ]
         for week in library.document.weeks {
             let name = week.size.en
-            for unsupported in ["pumpkin", "pomelo", "lime"] {
-                #expect(!name.contains(unsupported), "week \(week.week): \(name)")
-            }
             for rule in expectedEmoji where name.contains(rule.keyword) {
                 #expect(rule.emoji.contains(week.size.emoji), "week \(week.week): \(name) \(week.size.emoji)")
             }

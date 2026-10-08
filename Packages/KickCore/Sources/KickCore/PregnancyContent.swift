@@ -100,11 +100,17 @@ public struct WeekArticle: Codable, Equatable, Sendable {
     }
 }
 
-/// "Your baby is about the size of …", illustrated by an emoji (no images).
+/// "Your baby is about as heavy as …": the week's produce comparison. The emoji is
+/// the fallback when the week's fruit artwork is missing.
 public struct FruitSize: Codable, Equatable, Sendable {
     public var emoji: String
     public var en: String
     public var vi: String
+    /// Typical whole weight of the produce as bought, in grams (version 4). Required in
+    /// weeks 10–42, within ±25 % of the week's `weightG`; absent in weeks 4–9.
+    public var typicalGrams: Int?
+    /// Key into `PregnancyContent.produceSources` for `typicalGrams`.
+    public var sourceKey: String?
 
     public func name(_ language: ContentLanguage) -> String {
         language == .vi ? vi : en
@@ -153,10 +159,40 @@ public struct Milestone: Codable, Equatable, Sendable, Identifiable {
     public var reviewed: Bool
 }
 
+/// Where a produce weight (`FruitSize.typicalGrams`) comes from.
+public struct ProduceSource: Codable, Equatable, Sendable {
+    public var title: String
+    /// An `https` link to the source.
+    public var url: String
+    /// Which portion was used and how the whole weight was derived.
+    public var note: String
+
+    public init(title: String, url: String, note: String) {
+        self.title = title
+        self.url = url
+        self.note = note
+    }
+}
+
 /// Root of `pregnancy-content.json`.
 public struct PregnancyContent: Codable, Equatable, Sendable {
     public var version: Int
     public var sources: [String]
+    /// Sources of the produce weights, by `FruitSize.sourceKey` (version 4; empty before).
+    public var produceSources: [String: ProduceSource]
     public var weeks: [WeekContent]
     public var milestones: [Milestone]
+
+    private enum CodingKeys: String, CodingKey {
+        case version, sources, produceSources, weeks, milestones
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        version = try container.decode(Int.self, forKey: .version)
+        sources = try container.decode([String].self, forKey: .sources)
+        produceSources = try container.decodeIfPresent([String: ProduceSource].self, forKey: .produceSources) ?? [:]
+        weeks = try container.decode([WeekContent].self, forKey: .weeks)
+        milestones = try container.decode([Milestone].self, forKey: .milestones)
+    }
 }

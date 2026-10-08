@@ -22,6 +22,12 @@ public enum ContentIssue: Equatable, Sendable {
     case invalidWeightRange(week: Int)
     case invalidMilestoneRange(id: String)
     case duplicateMilestoneID(String)
+    /// Weeks 10–42 need a produce comparison by weight: `size.typicalGrams` and `size.sourceKey`.
+    case missingTypicalWeight(week: Int)
+    /// `size.sourceKey` names no entry of `produceSources`.
+    case unknownProduceSource(week: Int, key: String)
+    /// `|typicalGrams − reference| / reference` exceeds `comparisonTolerance`.
+    case comparisonOutOfTolerance(week: Int, typicalGrams: Int, referenceGrams: Int)
 }
 
 /// Structural rules for `pregnancy-content.json`, enforced by unit tests so a
@@ -29,11 +35,16 @@ public enum ContentIssue: Equatable, Sendable {
 public enum ContentValidator {
     /// Version 2: Hadlock `crlMm` / `weightG` / `weightP10G` / `weightP90G` replace `lengthCm`.
     /// Version 3: optional `article` per week (phase 6, checked by `WeekArticleChecks`).
-    public static let supportedVersion = 3
+    /// Version 4: `size.typicalGrams` / `size.sourceKey` and `produceSources` (phase 11).
+    public static let supportedVersion = 4
     /// Hadlock 1991 Table 1 starts at week 10; weeks 41–42 reuse week 40.
     public static let weightWeeks = 10...42
     /// Hadlock 1992 crown–rump length, within the CRL dating window (ACOG: up to 13 6/7 weeks).
     public static let crlWeeks = 7...13
+    /// Weeks whose size comparison is by weight (the weeks with a Hadlock weight).
+    public static let comparisonWeeks = 10...42
+    /// The produce's typical weight may differ from the week's `weightG` by at most 25 %.
+    public static let comparisonTolerance = 0.25
     static let minimumItems: [(section: String, minimum: Int)] = [
         ("baby", 2), ("mom", 2), ("tips", 2), ("warnings", 1),
     ]
@@ -48,6 +59,7 @@ public enum ContentValidator {
         for source in content.sources where isBlank(source) { issues.append(.blankText("sources")) }
         issues += weekIssues(content.weeks, requiredWeeks: requiredWeeks)
         issues += measurementIssues(content.weeks.sorted { $0.week < $1.week })
+        issues += comparisonIssues(content)
         issues += milestoneIssues(content.milestones)
         return issues
     }
@@ -129,6 +141,36 @@ public enum ContentValidator {
             if let p10 = week.weightP10G, let p50 = week.weightG, let p90 = week.weightP90G,
                !(p10 <= p50 && p50 <= p90) {
                 issues.append(.invalidWeightRange(week: week.week))
+            }
+        }
+        return issues
+    }
+
+    private static func comparisonIssues(_ content: PregnancyContent) -> [ContentIssue] {
+        var issues: [ContentIssue] = []
+        for (key, source) in content.produceSources.sorted(by: { $0.key < $1.key }) {
+            for (field, text) in [("title", source.title), ("url", source.url), ("note", source.note)] where isBlank(text) {
+                issues.append(.blankText("produceSources \(key) \(field)"))
+            }
+        }
+        for week in content.weeks {
+            let number = week.week
+            let size = week.size
+            guard comparisonWeeks.contains(number) else {
+                if size.typicalGrams != nil { issues.append(.unexpectedMeasurement(week: number, field: "typicalGrams")) }
+                if size.sourceKey != nil { issues.append(.unexpectedMeasurement(week: number, field: "sourceKey")) }
+                continue
+            }
+            if size.typicalGrams == nil || size.sourceKey == nil {
+                issues.append(.missingTypicalWeight(week: number))
+            }
+            if let key = size.sourceKey, content.produceSources[key] == nil {
+                issues.append(.unknownProduceSource(week: number, key: key))
+            }
+            // Weeks 41–42 carry week 40's weight in their own `weightG`.
+            if let typical = size.typicalGrams, let reference = week.weightG, reference > 0,
+               abs(Double(typical - reference)) / Double(reference) > comparisonTolerance {
+                issues.append(.comparisonOutOfTolerance(week: number, typicalGrams: typical, referenceGrams: reference))
             }
         }
         return issues
