@@ -110,7 +110,7 @@ Machine-readable copy: `docs/research/2026-10-08-produce-weights.json`
 
 1. **Weeks 33–42: source strength and range ends.** All ten midpoints are within ±25 %. The weaker rows are:
    - **Week 33, dừa (1800 g, −16.7 %).** Bến Tre DOST, dừa ta "trái khô", i.e. a mature coconut in its husk. The 1.6 kg end is −26.0 %. The live site is down, so the text was read from the Internet Archive copy (URL in the note). A green drinking coconut (dừa xiêm, 1.2–1.5 kg, same page) would be too light.
-   - **Week 35, cải thảo (2250 g, −13.3 %).** The only source is a seed-company variety sheet, and the range 1.5–3 kg is wide: −42.2 % / −16.7 %. Market heads are often 1.5–2 kg.
+   - **Week 35, cải thảo (2250 g, −13.3 %).** The only source is a seed-company variety sheet, and the range 1.5–3 kg is wide: −42.2 % / +15.6 %. Market heads are often 1.5–2 kg.
    - **Week 36, bí xanh (2500 g).** The 2.0 kg end is −28.9 %.
    - **Week 37, gấc (2850 g, −5.9 %).** This is the measured mean of one promising northern accession (GAC-19, ± 0.95 kg). Everyday gấc nếp is usually lighter; the other accession in the paper, GAC-46, averaged 1.861 kg.
    - **Week 39, mít nhỏ (2948 g, −14.2 %).** UF/IFAS gives a range for *small-fruited cultivars* (3–10 lb), and it is wide: −60 % / +32 %. Common Vietnamese jackfruit is far heavier: RTTC Nông Lâm University cites a 6.75 kg average. The vi name therefore says "mít nhỏ".
