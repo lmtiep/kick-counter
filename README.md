@@ -53,8 +53,8 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   `scripts/set-week-articles.py` (JSON qua stdin, xem đầu file; in số chữ mỗi thẻ). Kiểm tra tự động:
   `scripts/test-core.sh --filter "BundledArticleTests|WeekArticleChecksTests"`.
 - Câu "Bé lớn cỡ nào?" tự sinh từ số liệu Hadlock (`KickCore/WeekSizeLine.swift`, mẫu câu `weekArticle.size.*`).
-- Ảnh riêng từng tuần (chưa có): thêm asset `Fetus-W##` / `Fruit-W##` (ví dụ `Fetus-W31`) vào
-  `App/Images.xcassets`; khi thiếu, app dùng ảnh `Fetus` chung và emoji kích thước.
+- Ảnh riêng từng tuần: ảnh trái cây `Fruit-W04…W42` đã có (giai đoạn 11); ảnh thai nhi `Fetus-W##` chưa có — xem
+  `docs/design/fetus-artwork-brief.md`. Khi thiếu ảnh, app dùng ảnh `Fetus` chung và emoji kích thước.
 - Nội dung vẫn chờ bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 9.
 
 ## Kiến thức chuyên sâu (giai đoạn 7)

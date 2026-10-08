@@ -670,7 +670,8 @@ Emoji chỉ dùng khi chưa có tranh minh họa của tuần.
 **Lưu ý về đầu mút khoảng:** test chỉ kiểm tra điểm giữa (con số app dùng). Ở một số tuần, đầu mút của khoảng trong
 nguồn nằm ngoài ±25 %: tuần 33 (dừa 1,6 kg: −26,0 %), 35 (cải thảo 1,5–3 kg: −42,2 % / +15,6 %), 36 (bí xanh 2,0 kg:
 −28,9 %), 39 (mít nhỏ 3–10 lb: −60 % / +32 %), 42 (mãng cầu xiêm 2–4 kg: −44,7 % / +10,5 %). Một quả mua ngoài chợ
-có thể nặng hoặc nhẹ hơn khá nhiều so với bé; câu chữ đã dùng "cỡ" để không khẳng định bằng nhau.
+có thể nặng hoặc nhẹ hơn khá nhiều so với bé. Câu chữ dùng "tương đương" (so sánh gần đúng về cân nặng), không khẳng
+định bằng nhau tuyệt đối; **câu hỏi:** với khoảng rộng như trên, "tương đương" có quá mạnh không, hay nên dùng "cỡ"?
 
 **Câu chữ mới** (`weekArticle.size.lengthWeight` và `weekArticle.size.weight`; tuần 7–9 vẫn là "cỡ …"):
 - Tuần 12: "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, tương đương một quả mận." / "Your baby is about
@@ -682,6 +683,7 @@ có thể nặng hoặc nhẹ hơn khá nhiều so với bé; câu chữ đã d�
 63. [ ] Duyệt câu chữ mới "tương đương …" / "about as heavy as …" (hai câu mẫu ở trên), cả vi lẫn en.
 64. [ ] **Các điểm nghiên cứu đã nêu và đã chấp nhận** (xem `docs/research/2026-10-08-produce-weights.md` §4) — xin
         bác sĩ xác nhận hoặc đề nghị đổi:
+    - [ ] Tuần 26 (bắp cải tím) và tuần 30 (bắp cải to) cùng họ bắp cải; hai vật khác nhau, có nguồn riêng.
     - [ ] Tuần 33, quả dừa (dừa ta "trái khô", còn vỏ): trang của Sở KH&CN Bến Tre không còn truy cập được, nội
           dung được đọc từ bản lưu trên Internet Archive (đường dẫn trong `produceSources`).
     - [ ] Tuần 35, cây cải thảo: nguồn duy nhất là phiếu giống của một công ty hạt giống, khoảng 1,5–3 kg khá rộng;
