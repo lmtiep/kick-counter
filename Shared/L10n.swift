@@ -109,6 +109,15 @@ enum L10n {
     static var settingsOpenSettings: String { t("settings.openSettings") }
     static var settingsMedicalInfo: String { t("settings.medicalInfo") }
     static var settingsVersion: String { t("settings.version") }
+    // Phase 12: App Store readiness.
+    static var settingsPrivacyPolicy: String { t("settings.privacyPolicy") }
+    static var settingsSupport: String { t("settings.support") }
+    static var settingsOpensInSafari: String { t("settings.opensInSafari") }
+    static var settingsDeleteAll: String { t("settings.deleteAll") }
+    static var settingsDeleteAllTitle: String { t("settings.deleteAll.title") }
+    static var settingsDeleteAllMessage: String { t("settings.deleteAll.message") }
+    static var settingsDeleteAllConfirm: String { t("settings.deleteAll.confirm") }
+    static var settingsDeleteAllFailed: String { t("settings.deleteAll.failed") }
     static var settingsPregnancySet: String { t("settings.pregnancy.set") }
     static var settingsPregnancyNotSet: String { t("settings.pregnancy.notSet") }
     static func settingsPregnancyFromLMP(_ date: String) -> String { String(format: t("settings.pregnancy.fromLMP"), date) }

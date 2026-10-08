@@ -19,12 +19,13 @@ extension Notification.Name {
 /// reach it (phase 8 spec §4.2), and forwards the partner's silent pushes.
 final class PartnerAppDelegate: NSObject, UIApplicationDelegate {
     /// Silent pushes need an APNs token: do not rely on SwiftData's CloudKit
-    /// mirroring registering for us. UI tests never talk to iCloud.
+    /// mirroring registering for us. UI tests never talk to iCloud, and nothing
+    /// registers while `AppFeatures.cloudSync` is off (no push entitlement then).
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        if !AppEnvironment.isUITesting {
+        if AppFeatures.cloudSync, !AppEnvironment.isUITesting {
             application.registerForRemoteNotifications()
         }
         return true
@@ -67,6 +68,12 @@ final class PartnerSceneDelegate: NSObject, UIWindowSceneDelegate {
     }
 
     private func receive(_ metadata: CKShare.Metadata) {
+        // Version 1.0 keeps everything on the device (phase 12 spec §3.1): an
+        // incoming share link is ignored.
+        guard AppFeatures.cloudSync else {
+            logger.info("Ignored a partner invitation: iCloud sharing is off")
+            return
+        }
         logger.info("Received a partner invitation")
         PartnerInvitationInbox.shared.receive(PartnerInvitation(payload: CloudInvitationBox(metadata: metadata)))
     }

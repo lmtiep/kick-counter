@@ -143,6 +143,12 @@ final class FakeSessionRepository: SessionRepository {
     var failNextWrite = false
     var failNextCancel = false
 
+    /// "Delete all data" underneath the coordinator (phase 12).
+    func eraseAll() {
+        sessions = [:]
+        activeID = nil
+    }
+
     func activeSession() throws -> SessionRecord? {
         guard let id = activeID, let state = sessions[id] else { return nil }
         return SessionRecord(id: id, state: state)
@@ -325,6 +331,8 @@ final class FakeAppointmentRepository: AppointmentRepository {
         for record in records { appointments[record.id] = record }
     }
 
+    func eraseAll() { appointments = [:] }
+
     private func checkRead() throws {
         if failNextRead {
             failNextRead = false
@@ -404,6 +412,11 @@ final class FakeCycleRepository: CycleRepository {
     func seed(periods: [PeriodRecord] = [], logs: [CycleLogRecord] = []) {
         storedPeriods += periods
         storedLogs += logs
+    }
+
+    func eraseAll() {
+        storedPeriods = []
+        storedLogs = []
     }
 
     private func checkRead() throws {
@@ -486,6 +499,8 @@ final class FakeWeightRepository: WeightRepository {
     func seed(_ entries: WeightRecord...) {
         stored += entries
     }
+
+    func eraseAll() { stored = [] }
 
     func entries() throws -> [WeightRecord] {
         if failNextRead {

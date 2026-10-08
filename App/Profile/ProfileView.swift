@@ -1,6 +1,12 @@
+import ActivityKit
 import KickCore
+import KickData
 import OSLog
+import SwiftData
 import SwiftUI
+@preconcurrency import UserNotifications
+
+private let profileLogger = Logger(subsystem: "com.lmtiep.kickcounter", category: "profile")
 
 /// The three choices of Profile's goal picker (phase 9 spec §4.3): the two
 /// cycle goals and pregnancy, as in onboarding.
@@ -12,7 +18,8 @@ enum ProfileModeChoice: Hashable {
 
 /// The Profile tab (spec §4.8), replacing Settings: language, goal (and ending
 /// the pregnancy), pregnancy dates or cycle numbers, kick reminder, check-ups,
-/// permissions, medical information, replaying the introduction, version.
+/// permissions, medical information, privacy policy and support, replaying the
+/// introduction, version, and deleting all data (phase 12).
 struct ProfileView: View {
     /// Shows onboarding in replay mode (RootView): nothing is saved from it.
     let onReplayOnboarding: () -> Void
@@ -20,6 +27,8 @@ struct ProfileView: View {
     @Environment(KickCoordinator.self) private var coordinator
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
+    @Environment(AppointmentCoordinator.self) private var appointments
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -40,6 +49,9 @@ struct ProfileView: View {
     @State private var showingEndPregnancy = false
     @State private var showingKickSettings = false
     @State private var showingMaternal = false
+    @State private var confirmingDeleteAll = false
+    @State private var deletingAll = false
+    @State private var deleteAllFailed = false
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
 
@@ -77,10 +89,14 @@ struct ProfileView: View {
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("profileAppointments")
                         .lunaCard(padding: 0)
-                        PartnerShareCard()
+                        // Partner sharing needs iCloud, off in 1.0 (phase 12).
+                        if AppEnvironment.showsPartnerUI {
+                            PartnerShareCard()
+                        }
                     }
                     permissionsCard
                     aboutCard
+                    deleteAllCard
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
@@ -111,6 +127,19 @@ struct ProfileView: View {
             ) {
                 Button(L10n.settingsPregnancyClear, role: .destructive) { PregnancyProfile.clear(AppGroup.defaults) }
                 Button(L10n.commonCancel, role: .cancel) {}
+            }
+            .alert(L10n.settingsDeleteAllTitle, isPresented: $confirmingDeleteAll) {
+                Button(L10n.settingsDeleteAllConfirm, role: .destructive) {
+                    Task { await deleteAllData() }
+                }
+                .accessibilityIdentifier("deleteAllConfirm")
+                Button(L10n.commonCancel, role: .cancel) {}
+                    .accessibilityIdentifier("deleteAllCancel")
+            } message: {
+                Text(L10n.settingsDeleteAllMessage)
+            }
+            .alert(L10n.settingsDeleteAllFailed, isPresented: $deleteAllFailed) {
+                Button(L10n.commonOK) {}
             }
             .task { await refreshPermissions() }
             .onChange(of: scenePhase) { _, phase in
@@ -416,6 +445,10 @@ struct ProfileView: View {
             .buttonStyle(.plain)
             .accessibilityIdentifier("settingsMedicalInfo")
             LunaDivider()
+            externalLinkRow(L10n.settingsPrivacyPolicy, url: AppLinks.privacyPolicy, identifier: "profilePrivacyPolicy")
+            LunaDivider()
+            externalLinkRow(L10n.settingsSupport, url: AppLinks.support, identifier: "profileSupport")
+            LunaDivider()
             Button(action: onReplayOnboarding) {
                 LunaRow(title: L10n.profileReplayOnboarding)
             }
@@ -432,6 +465,94 @@ struct ProfileView: View {
                 .accessibilityElement(children: .combine)
         }
         .lunaCard(padding: 0)
+    }
+
+    /// A row that opens a web page in Safari: the `arrow.up.right` accessory instead
+    /// of the chevron, and a hint saying where it goes.
+    private func externalLinkRow(_ title: String, url: URL, identifier: String) -> some View {
+        Link(destination: url) {
+            HStack(spacing: 12) {
+                Text(title)
+                    .font(.luna(.body))
+                    .foregroundStyle(.luna(.textPrimary))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "arrow.up.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.luna(.chevron))
+                    .accessibilityHidden(true)
+            }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 18)
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint(L10n.settingsOpensInSafari)
+        .accessibilityIdentifier(identifier)
+    }
+
+    /// The last card (phase 12 spec §3.4): a destructive row, confirmed by an alert.
+    private var deleteAllCard: some View {
+        Button(role: .destructive) {
+            confirmingDeleteAll = true
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "trash")
+                    .font(.luna(.body))
+                    .accessibilityHidden(true)
+                Text(L10n.settingsDeleteAll)
+                    .font(.luna(.body))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                if deletingAll {
+                    ProgressView()
+                }
+            }
+            .foregroundStyle(.luna(.warningText))
+            .padding(.vertical, 16)
+            .padding(.horizontal, 18)
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .disabled(deletingAll)
+        .accessibilityIdentifier("profileDeleteAllData")
+        .lunaCard(padding: 0)
+    }
+
+    /// "Xoá toàn bộ dữ liệu" (phase 12 spec §3.4). The store goes first: if it cannot
+    /// be emptied, nothing else is touched (the deletions are rolled back) and an alert
+    /// says so. Then the app's own preferences, its notifications and Live Activities;
+    /// the coordinators reload, and RootView shows onboarding (`hasCompletedOnboarding`
+    /// is gone). Only the app's store, its `AppDataReset.ownedKeys` and its own
+    /// notifications and activities are deleted.
+    private func deleteAllData() async {
+        guard !deletingAll else { return }
+        deletingAll = true
+        defer { deletingAll = false }
+        do {
+            try DataReset.deleteAll(in: modelContext.container)
+        } catch {
+            profileLogger.error("Deleting all data failed: \(error.localizedDescription)")
+            deleteAllFailed = true
+            return
+        }
+        AppDataReset.clearDefaults(AppGroup.defaults)
+        // Forgets the deleted session and its completion card; stops the daily
+        // reminder, the 2-hour alerts and every kick Live Activity.
+        await coordinator.resetAfterDataDeletion()
+        if !AppEnvironment.isUITesting {
+            let center = UNUserNotificationCenter.current()
+            center.removeAllPendingNotificationRequests()
+            center.removeAllDeliveredNotifications()
+            for activity in Activity<KickActivityAttributes>.activities {
+                await activity.end(nil, dismissalPolicy: .immediate)
+            }
+        }
+        await coordinator.load()
+        await appointments.load()
+        await cycle.load()
+        await weight.load()
+        profileLogger.info("Deleted all data")
     }
 
     // MARK: - Bindings

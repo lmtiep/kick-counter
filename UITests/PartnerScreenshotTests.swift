@@ -13,7 +13,7 @@ final class PartnerScreenshotTests: XCTestCase {
             language: language,
             dark: dark,
             dueDate: UITestDates.dueAtWeek24,
-            extraArguments: ["-uiTestingSharing", state]
+            extraArguments: ["-uiTestingSharing", state, "-uiTestingPartnerUI"]
         )
         app.openTab(.profile)
         let row = app.buttons["partnerShareRow"]
@@ -42,7 +42,7 @@ final class PartnerScreenshotTests: XCTestCase {
             language: language,
             dark: dark,
             largestText: largestText,
-            extraArguments: ["-uiTestingPartner", state]
+            extraArguments: ["-uiTestingPartner", state, "-uiTestingPartnerUI"]
         )
     }
 

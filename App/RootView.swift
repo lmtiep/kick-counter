@@ -66,7 +66,7 @@ struct RootView: View {
             }
             // While she shares, the mother's changes reach the partner (phase 8).
             .background {
-                if mode == .pregnant { PartnerPublishObserver() }
+                if mode == .pregnant, AppEnvironment.showsPartnerUI { PartnerPublishObserver() }
             }
             .task { await reload() }
             .onChange(of: scenePhase) { _, phase in
@@ -80,9 +80,15 @@ struct RootView: View {
                 // (Profile, onboarding, any other path) stops the share: the
                 // partner must not keep seeing the last snapshot. Accepting an
                 // invitation (partner mode) keeps it.
-                if AppMode(rawValue: oldMode) == .pregnant, AppMode(rawValue: newMode) == .tryingToConceive {
+                if AppEnvironment.showsPartnerUI,
+                   AppMode(rawValue: oldMode) == .pregnant, AppMode(rawValue: newMode) == .tryingToConceive {
                     Task { await partnerShare.stopSharingAfterLeavingPregnancy(publisher: publisher) }
                 }
+            }
+            // Onboarding reset (Profile → "Delete all data", or a hidden partner mode):
+            // a fresh start lands on Today, not on the Profile tab it was left on.
+            .onChange(of: hasCompletedOnboarding) { _, completed in
+                if !completed { selectedTab = .today }
             }
             .onChange(of: appLanguage) {
                 Task { await relocalizeReminders() }
@@ -92,6 +98,8 @@ struct RootView: View {
             // cancel the acceptance in flight.
             .onChange(of: invitations.pending?.id, initial: true) {
                 guard let invitation = invitations.take() else { return }
+                // Partner mode hidden (phase 12): an invitation is dropped.
+                guard AppEnvironment.showsPartnerUI else { return }
                 Task { await accept(invitation) }
             }
             .partnerAcceptFailedAlert(isPresented: acceptFailedBinding(whileOnboarding: false))
@@ -175,6 +183,8 @@ struct RootView: View {
         await appointments.load()
         await cycle.load()
         await weight.load()
+        // Partner sharing is off with iCloud (phase 12): nothing to refresh.
+        guard AppEnvironment.showsPartnerUI else { return }
         switch mode {
         case .pregnant: await partnerShare.refresh()
         case .partner: await partnerJourney.refresh()

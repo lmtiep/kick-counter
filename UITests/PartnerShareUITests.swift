@@ -13,7 +13,7 @@ final class PartnerShareUITests: XCTestCase {
         let app = XCUIApplication.launchPinned(
             language: "en",
             dueDate: dueDate,
-            extraArguments: state.map { ["-uiTestingSharing", $0] } ?? []
+            extraArguments: (state.map { ["-uiTestingSharing", $0] } ?? []) + ["-uiTestingPartnerUI"]
         )
         app.openTab(.profile)
         let row = app.buttons["partnerShareRow"]
@@ -74,7 +74,7 @@ final class PartnerShareUITests: XCTestCase {
     /// Spec §2: no sharing while trying to conceive.
     @MainActor
     func testTryingToConceiveHasNoShareRow() {
-        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "period", extraArguments: ["-uiTestingSharing", "joined"])
+        let app = XCUIApplication.launchPinned(language: "en", seedCycles: "period", extraArguments: ["-uiTestingSharing", "joined", "-uiTestingPartnerUI"])
         app.openCycleTab(.profile)
         XCTAssertTrue(app.buttons["settingsMedicalInfo"].waitForExistence(timeout: 10))
         for _ in 0..<3 { app.swipeUp() }

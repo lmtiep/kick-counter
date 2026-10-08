@@ -13,6 +13,9 @@ import Foundation
 /// - `-uiTestingPartner <state>` starts in partner mode with `FakePartnerSharing` in that partner state.
 /// - `-seedCycleGoal <goal>` stores that `CycleGoal` (`tracking`, `conceiving`).
 /// - `-seedContraception <method>` stores that `Contraception` (e.g. `pill`, `condom`).
+/// - `-uiTestingPartnerUI` keeps the partner UI (share card, partner mode) reachable while
+///   `AppFeatures.cloudSync` is off, so the partner tests keep their coverage (phase 12).
+/// - `-seedAppMode <mode>` stores that `AppMode` (e.g. `partner`) without any fake sharing.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -25,6 +28,8 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let partner: FakePartnerSharing.PartnerState?
     public let seedCycleGoal: CycleGoal?
     public let seedContraception: Contraception?
+    public let forcesPartnerUI: Bool
+    public let seedAppMode: AppMode?
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -44,6 +49,8 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         seedContraception = isUITesting
             ? Self.value(after: "-seedContraception", in: arguments).flatMap(Contraception.init(rawValue:))
             : nil
+        forcesPartnerUI = isUITesting && arguments.contains("-uiTestingPartnerUI")
+        seedAppMode = isUITesting ? Self.value(after: "-seedAppMode", in: arguments).flatMap(AppMode.init(rawValue:)) : nil
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {

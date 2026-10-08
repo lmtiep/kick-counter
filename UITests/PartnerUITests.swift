@@ -10,7 +10,7 @@ final class PartnerUITests: XCTestCase {
 
     @MainActor
     private func launchPartner(_ state: String, language: String = "en") -> XCUIApplication {
-        XCUIApplication.launchPinned(language: language, extraArguments: ["-uiTestingPartner", state])
+        XCUIApplication.launchPinned(language: language, extraArguments: ["-uiTestingPartner", state, "-uiTestingPartnerUI"])
     }
 
     @MainActor

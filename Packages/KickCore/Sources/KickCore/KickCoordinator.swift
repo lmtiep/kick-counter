@@ -74,6 +74,9 @@ public final class KickCoordinator {
     private func performLoad() async {
         do {
             guard let fetched = try store.activeSession() else {
+                // The session shown is gone from the store (e.g. all data deleted):
+                // stop showing it, so the no-session reconciliation can run.
+                if activeSessionID != nil { publish(nil) }
                 await reconcileNoActiveSession()
                 return
             }
@@ -284,6 +287,23 @@ public final class KickCoordinator {
         if let loadTask { await loadTask.value }
         notifications.cancelDailyReminder()
         await liveActivities.endAll()
+        await notifications.cancelOverdueAlerts(except: nil)
+    }
+
+    /// "Delete all data" (phase 12) emptied the store underneath: forgets the
+    /// session it was showing, the completion card and any failure, and stops the
+    /// daily reminder, every 2-hour alert and every kick Live Activity. Call it
+    /// right after the store is emptied, before `load()`.
+    public func resetAfterDataDeletion() async {
+        // A reconciliation in flight could republish what was just deleted.
+        if let loadTask { await loadTask.value }
+        publish(nil)
+        completedSession = nil
+        failure = nil
+        notifications.cancelDailyReminder()
+        await liveActivities.endAll()
+        // A kick may have started a new session while `endAll` was in flight.
+        guard activeSessionID == nil else { return }
         await notifications.cancelOverdueAlerts(except: nil)
     }
 

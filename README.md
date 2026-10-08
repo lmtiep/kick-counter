@@ -118,6 +118,26 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   và `CycleLogRecord`, dùng cùng quy tắc trung bình với `CyclePredictor`. `CycleHistoryView`/`CycleDetailView`
   (`App/Cycle/CycleHistoryView.swift`) đọc `cycle.periods`/`cycle.logs`, nên tự cập nhật sau khi ghi ngày.
 
+## Sẵn sàng lên App Store (giai đoạn 12)
+- Bản 1.0 giữ toàn bộ dữ liệu trên máy: `KickCore/AppFeatures.swift` (`cloudSync = false`),
+  `KickPersistence` dùng `cloudKitDatabase: .none`. Chế độ chia sẻ với bố bé (giai đoạn 8) bị ẩn cùng với
+  switch này — mã vẫn còn, để bật lại ở phiên bản sau (cách khôi phục: `docs/release-checklist.md`,
+  "Giai đoạn 12").
+- "Xoá toàn bộ dữ liệu" (Cá nhân, hàng cuối): xóa mọi lượt đếm, kỳ kinh, ghi chép, cân nặng, lịch khám và
+  cài đặt trên máy, hủy mọi thông báo và Live Activity đang chạy, rồi về onboarding
+  (`KickData/DataReset.swift`, `KickCore/AppDataReset.swift`).
+- Cuối mục Cá nhân, dưới "Thông tin y tế", có hai liên kết mở Safari: "Chính sách quyền riêng tư" và "Hỗ trợ"
+  (`App/AppLinks.swift`), dẫn tới các trang tĩnh trong `site/` (xuất bản qua GitHub Pages, nhánh `gh-pages`):
+  trang chủ, chính sách quyền riêng tư và hỗ trợ, cả vi và en, không script hay theo dõi.
+- `Widgets/PrivacyInfo.xcprivacy` khai báo quyền riêng tư của widget (không thu thập dữ liệu, chỉ đọc
+  UserDefaults của App Group).
+- Các capability không còn dùng đã gỡ: `remote-notification`, `CKSharingSupported`, và entitlement iCloud
+  (`aps-environment`, container/services) — chỉ giữ App Group.
+- Tài liệu: `docs/app-store-compliance.md` (bảng kiểm, các mục đã giải quyết đánh "Đạt (giai đoạn 12)"),
+  `docs/app-review-notes.md` (ghi chú dán vào App Store Connect), `docs/release-checklist.md` ("Giai đoạn 12").
+- Việc còn lại thuộc về chủ dự án: bác sĩ duyệt nội dung y khoa, icon chính thức, bật GitHub Pages, điền
+  thông tin App Store Connect (xem checklist).
+
 ## Kích thước theo tuần (giai đoạn 11)
 - Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`
   và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá
