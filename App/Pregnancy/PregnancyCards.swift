@@ -37,14 +37,15 @@ struct PregnancyWeekStrip: View {
     }
 }
 
-/// The fetus in its 270 pt glow (README §4), floating; tap → week detail.
+/// The week's fetus (`WeekArtwork.fetus`, the shared `Fetus` while a week has none) in its
+/// 270 pt glow (README §4), floating; tap → week detail.
 struct FetusHero: View {
     let week: Int
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
-            Image("Fetus")
+            WeekArtwork.fetus(week)
                 .resizable()
                 .scaledToFit()
                 .frame(height: 230)
