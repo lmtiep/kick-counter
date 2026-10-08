@@ -28,8 +28,16 @@ enum CycleTexts {
     /// "Flow: Light · Calm · Cramps · 36.4 °C · LH Positive · Egg white"; only
     /// `mode`'s symptoms. nil when nothing readable is logged.
     static func logSummary(_ log: CycleLogRecord?, mode: AppMode = .tryingToConceive) -> String? {
+        logSummary(log, mode: mode, includingNote: true)
+    }
+
+    /// Same as `logSummary(_:mode:)`, but `includingNote: false` drops the
+    /// trailing "Note" item — for a detail row that already shows the note's
+    /// own text on a second line, so it is not shown (or spoken) twice.
+    static func logSummary(_ log: CycleLogRecord?, mode: AppMode = .tryingToConceive, includingNote: Bool) -> String? {
         guard let log else { return nil }
-        let parts = log.summaryItems(mode: mode).map(summaryText)
+        let items = includingNote ? log.summaryItems(mode: mode) : log.summaryItems(mode: mode).filter { $0 != .note }
+        let parts = items.map(summaryText)
         return parts.isEmpty ? nil : parts.joined(separator: " · ")
     }
 

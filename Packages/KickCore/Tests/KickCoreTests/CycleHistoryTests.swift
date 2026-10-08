@@ -116,4 +116,10 @@ struct CycleHistoryTests {
         let logs = [CycleLogRecord(day: day("2026-09-22"), note: " ")]
         #expect(history(periods("2026-09-20"), logs: logs, now: "2026-10-02").cycles.first?.loggedDays == [])
     }
+
+    @Test func aPregnancyOnlySymptomIsNotContent() {
+        #expect(CycleLogRecord(day: day("2026-10-01"), symptoms: [.nausea]).hasContent == false)
+        let logs = [CycleLogRecord(day: day("2026-09-22"), symptoms: [.nausea])]
+        #expect(history(periods("2026-09-20"), logs: logs, now: "2026-10-02").cycles.first?.loggedDays == [])
+    }
 }

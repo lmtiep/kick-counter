@@ -12,7 +12,7 @@ enum CycleHistoryTexts {
     static func spokenRow(_ cycle: PastCycle, policy: CycleDisplayPolicy) -> String {
         var parts: [String] = []
         if cycle.isCurrent, let day = cycle.cycleDay {
-            parts.append(L10n.cycleHistoryCurrent(day))
+            parts.append(L10n.cycleHistorySpokenCurrent(day))
         } else {
             parts.append(L10n.cycleHistorySpokenStarted(Formatting.spokenDay(cycle.start)))
         }
@@ -80,28 +80,36 @@ struct CycleHistoryView: View {
         return layout {
             VStack(alignment: .leading, spacing: 4) {
                 if let average = history.averageCycleLength {
-                    Text(L10n.days(average))
-                        .font(.luna(.statFigure))
-                        .foregroundStyle(.luna(.textPrimary))
+                    // The figure and its label are one spoken element
+                    // ("cycleHistoryAverageCycle"); the range is a second,
+                    // separately reachable element, so `.combine` on this group
+                    // does not swallow its own identifier (final review).
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(L10n.days(average))
+                            .font(.luna(.statFigure))
+                            .foregroundStyle(.luna(.textPrimary))
+                        Text(L10n.cycleHistoryAverageCycle)
+                            .font(.luna(.small))
+                            .foregroundStyle(.luna(.textSecondary))
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityIdentifier("cycleHistoryAverageCycle")
                     if let range = history.cycleLengthRange, range.lowerBound < range.upperBound {
                         Text(L10n.cycleHistoryRange(range.lowerBound, range.upperBound))
                             .font(.luna(.small))
                             .foregroundStyle(.luna(.textSecondary))
+                            .accessibilityIdentifier("cycleHistoryRange")
                     }
-                    Text(L10n.cycleHistoryAverageCycle)
-                        .font(.luna(.small))
-                        .foregroundStyle(.luna(.textSecondary))
                 } else {
                     Text(L10n.cycleHistoryNeedMore)
                         .font(.luna(.body))
                         .foregroundStyle(.luna(.textSecondary))
                         .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityElement(children: .combine)
                         .accessibilityIdentifier("cycleHistoryNeedMore")
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .accessibilityElement(children: .combine)
-            .accessibilityIdentifier("cycleHistoryAverageCycle")
             if let period = history.averagePeriodLength {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(L10n.days(period))
@@ -206,6 +214,7 @@ struct CycleHistoryBar: View {
 struct CycleDetailView: View {
     let periodID: UUID
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(\.dismiss) private var dismiss
     @State private var logDay: CycleDaySelection?
 
     private var past: PastCycle? {
@@ -242,6 +251,12 @@ struct CycleDetailView: View {
         .sheet(item: $logDay) { selection in
             CycleDayLogSheet(day: selection.date, existing: cycle.log(on: selection.date))
         }
+        .onAppear {
+            if past == nil { dismiss() }
+        }
+        .onChange(of: past == nil) { _, isGone in
+            if isGone { dismiss() }
+        }
     }
 
     private func title(_ past: PastCycle) -> String {
@@ -254,7 +269,7 @@ struct CycleDetailView: View {
     private func dayRow(_ past: PastCycle, offset: Int) -> some View {
         let date = Calendar.current.date(byAdding: .day, value: offset, to: past.start) ?? past.start
         let log = cycle.log(on: date)
-        let summary = CycleTexts.logSummary(log) ?? ""
+        let summary = CycleTexts.logSummary(log, includingNote: false) ?? ""
         let note = log?.note.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let heading = L10n.cycleHistoryDetailDay(offset + 1, Formatting.shortDay(date))
         let spokenHeading = L10n.cycleHistoryDetailDay(offset + 1, Formatting.spokenDay(date))

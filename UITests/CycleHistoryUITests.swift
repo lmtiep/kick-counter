@@ -65,6 +65,19 @@ final class CycleHistoryUITests: XCTestCase {
     }
 
     @MainActor
+    func testIrregularCyclesShowTheRangeLine() {
+        // CycleSeed.irregular: 24/35/26/34-day cycles (all within 21...45), so
+        // all four count toward the average: range 24...35 (final review —
+        // `cycleHistoryRange` must stay reachable, not swallowed by a `.combine`
+        // container's own identifier).
+        let app = XCUIApplication.launchPinned(seedCycles: "irregular")
+        openHistory(app)
+        let range = app.staticTexts["cycleHistoryRange"]
+        XCTAssertTrue(range.waitForExistence(timeout: 5))
+        XCTAssertTrue(range.label.contains("24–35 days"), range.label)
+    }
+
+    @MainActor
     func testHormonalUsersReadBleedingNotPeriod() {
         let app = XCUIApplication.launchPinned(seedCycles: "fertile", cycleGoal: "tracking", contraception: "pill")
         openHistory(app)

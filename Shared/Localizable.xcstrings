@@ -2755,6 +2755,23 @@
         }
       }
     },
+    "cycleHistory.spoken.current": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current cycle, day %d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ hiện tại, ngày %d"
+          }
+        }
+      }
+    },
     "cycleHistory.spoken.logged": {
       "extractionState": "manual",
       "localizations": {

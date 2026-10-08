@@ -733,6 +733,7 @@ enum L10n {
     static func cycleHistoryCurrent(_ day: Int) -> String { String(format: t("cycleHistory.current"), day) }
     static var cycleHistoryCurrentTitle: String { t("cycleHistory.currentTitle") }
     static var cycleHistoryNotCounted: String { t("cycleHistory.notCounted") }
+    static func cycleHistorySpokenCurrent(_ day: Int) -> String { String(format: t("cycleHistory.spoken.current"), day) }
     static func cycleHistorySpokenStarted(_ date: String) -> String { String(format: t("cycleHistory.spoken.started"), date) }
     static func cycleHistorySpokenPeriod(_ days: String) -> String { String(format: t("cycleHistory.spoken.period"), days) }
     static func cycleHistorySpokenBleed(_ days: String) -> String { String(format: t("cycleHistory.spoken.bleed"), days) }

@@ -99,10 +99,12 @@ public enum CycleHistory {
 }
 
 extension CycleLogRecord {
-    /// Something is logged: flow (even "none"), a mood, a symptom, mucus, LH,
-    /// a temperature or a non-blank note.
+    /// Something is logged: flow (even "none"), a mood, a trying-to-conceive
+    /// symptom, mucus, LH, a temperature or a non-blank note. Mirrors
+    /// `summaryItems(mode: .tryingToConceive)`: a pregnancy-only symptom (e.g.
+    /// `.nausea`) alone does not count, since the history is trying-to-conceive content.
     public var hasContent: Bool {
-        flow != nil || !moods.isEmpty || !symptoms.isEmpty || mucus != nil || lh != nil
+        flow != nil || !moods.isEmpty || !symptoms(for: .tryingToConceive).isEmpty || mucus != nil || lh != nil
             || bbtCelsius != nil || !note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
