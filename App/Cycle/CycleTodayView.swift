@@ -74,6 +74,12 @@ struct CycleTodayView: View {
             .lunaStatusBarBackdrop()
             .background(.luna(.background))
             .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(for: CycleHistoryRoute.self) { route in
+                switch route {
+                case .list: CycleHistoryView()
+                case .cycle(let id): CycleDetailView(periodID: id)
+                }
+            }
             .toast($toast)
             .sheet(isPresented: $showingLastPeriodSheet) { LastPeriodSheet() }
             .sheet(item: $logDay) { selection in

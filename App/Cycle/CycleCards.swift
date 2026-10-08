@@ -214,6 +214,7 @@ struct CycleWeekStrip: View {
 /// late; average cycle length, typical period length, and regular / not yet.
 /// Phase 9: `policy` names the window, adds the "not contraception" note while
 /// tracking, and hides the window on hormonal contraception (with its note).
+/// Phase 10: a link to the cycle history.
 struct ComingUpCard: View {
     let forecast: CycleForecast
     let typicalPeriodLength: Int
@@ -253,6 +254,23 @@ struct ComingUpCard: View {
                 stat(forecast.isRegular ? L10n.cycleStatsRegular : L10n.cycleStatsIrregular, L10n.cycleStatsPattern)
             }
             .accessibilityElement(children: .combine)
+            LunaDivider()
+            NavigationLink(value: CycleHistoryRoute.list) {
+                HStack {
+                    Text(L10n.cycleHistoryLink)
+                        .font(.luna(.bodyStrong))
+                        .foregroundStyle(.luna(.cycleOnSoft))
+                    Spacer(minLength: 8)
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.luna(.cycleOnSoft))
+                        .accessibilityHidden(true)
+                }
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("cycleHistoryLink")
         }
         .lunaCard()
     }

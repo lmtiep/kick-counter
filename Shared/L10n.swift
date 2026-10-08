@@ -719,4 +719,27 @@ enum L10n {
     static var profileContraceptionNotSet: String { t("profile.contraception.notSet") }
     static var profileShowFertilityTests: String { t("profile.showFertilityTests") }
     static var profileShowFertilityTestsHint: String { t("profile.showFertilityTests.hint") }
+
+    // MARK: - Phase 10: cycle history
+
+    static var cycleHistoryLink: String { t("cycleHistory.link") }
+    static var cycleHistoryTitle: String { t("cycleHistory.title") }
+    static var cycleHistoryAverageCycle: String { t("cycleHistory.averageCycle") }
+    static var cycleHistoryAveragePeriod: String { t("cycleHistory.averagePeriod") }
+    static var cycleHistoryAverageBleed: String { t("cycleHistory.averageBleed") }
+    static func cycleHistoryRange(_ low: Int, _ high: Int) -> String { String(format: t("cycleHistory.range"), low, high) }
+    static var cycleHistoryNeedMore: String { t("cycleHistory.needMore") }
+    static var cycleHistoryEmpty: String { t("cycleHistory.empty") }
+    static func cycleHistoryCurrent(_ day: Int) -> String { String(format: t("cycleHistory.current"), day) }
+    static var cycleHistoryCurrentTitle: String { t("cycleHistory.currentTitle") }
+    static var cycleHistoryNotCounted: String { t("cycleHistory.notCounted") }
+    static func cycleHistorySpokenStarted(_ date: String) -> String { String(format: t("cycleHistory.spoken.started"), date) }
+    static func cycleHistorySpokenPeriod(_ days: String) -> String { String(format: t("cycleHistory.spoken.period"), days) }
+    static func cycleHistorySpokenBleed(_ days: String) -> String { String(format: t("cycleHistory.spoken.bleed"), days) }
+    static func cycleHistorySpokenLogged(_ count: Int) -> String {
+        count == 1 ? t("cycleHistory.spoken.loggedOne") : String(format: t("cycleHistory.spoken.logged"), count)
+    }
+    static var cycleHistorySpokenNotCounted: String { t("cycleHistory.spoken.notCounted") }
+    static func cycleHistoryDetailDay(_ day: Int, _ date: String) -> String { String(format: t("cycleHistory.detailDay"), day, date) }
+    static var cycleHistoryDetailEmpty: String { t("cycleHistory.detailEmpty") }
 }
