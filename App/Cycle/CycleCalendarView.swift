@@ -80,14 +80,26 @@ struct CycleCalendarView: View {
     private var monthSwitcher: some View {
         HStack(spacing: 4) {
             monthButton("chevron.left", label: L10n.calendarPrevious, identifier: "calendarPrevious") { showMonth(-1) }
-            Text(Formatting.monthYear(month))
-                .font(.luna(.bodyStrong))
-                .foregroundStyle(.luna(.textPrimary))
-                .multilineTextAlignment(.center)
-                .frame(minWidth: 110)
-                .accessibilityIdentifier("calendarMonthTitle")
+            // As wide as the widest month of the year, so the arrows stay put.
+            ZStack {
+                ForEach(monthsOfShownYear, id: \.self) { other in
+                    Text(Formatting.monthYear(other)).hidden()
+                }
+                Text(Formatting.monthYear(month))
+                    .foregroundStyle(.luna(.textPrimary))
+                    .accessibilityIdentifier("calendarMonthTitle")
+            }
+            .font(.luna(.bodyStrong))
+            .multilineTextAlignment(.center)
+            .frame(minWidth: 110)
             monthButton("chevron.right", label: L10n.calendarNext, identifier: "calendarNext") { showMonth(1) }
         }
+    }
+
+    /// The first day of every month in the shown month's year.
+    private var monthsOfShownYear: [Date] {
+        let year = calendar.dateInterval(of: .year, for: month)?.start ?? month
+        return (0..<12).compactMap { calendar.date(byAdding: .month, value: $0, to: year) }
     }
 
     private func monthButton(_ symbol: String, label: String, identifier: String, action: @escaping () -> Void) -> some View {

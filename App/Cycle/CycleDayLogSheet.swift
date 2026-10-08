@@ -39,9 +39,12 @@ struct CycleDayLogSheet: View {
         _symptoms = State(initialValue: Set(existing?.symptoms(for: .tryingToConceive) ?? []))
     }
 
-    /// The period covering this day, or an earlier one still open that this day could end.
+    /// The period covering this day, or an earlier one this day could end:
+    /// the nearest period within `CycleRules.longPeriodDays` (closed or open,
+    /// phase 13), or an open one left running longer.
     private var coveringPeriod: PeriodRecord? { cycle.period(on: day) }
-    private var openPeriodBefore: PeriodRecord? {
+    private var periodBefore: PeriodRecord? {
+        if let nearest = CycleRules.extendablePeriod(before: day, in: cycle.periods, calendar: .current) { return nearest }
         guard let open = cycle.forecast?.openPeriod, open.startDate < day else { return nil }
         return open
     }
@@ -172,7 +175,8 @@ struct CycleDayLogSheet: View {
                     .accessibilityLabel(description(of: period, formatting: Formatting.spokenDay))
                     .accessibilityIdentifier("dayLogPeriodInfo")
                 HStack(spacing: 8) {
-                    if period.isOpen, day > period.startDate {
+                    // Open or closed: ending it here shortens it (phase 13).
+                    if day > period.startDate, period.endDate.map({ day < Calendar.current.startOfDay(for: $0) }) ?? true {
                         endButton(for: period)
                     }
                     Button(L10n.dayLogPeriodDelete, role: .destructive) { confirmingDeletePeriod = true }
@@ -181,8 +185,15 @@ struct CycleDayLogSheet: View {
                         .accessibilityIdentifier("dayLogDeletePeriod")
                 }
             } else {
-                if let open = openPeriodBefore {
-                    endButton(for: open)
+                // Ending the earlier period here (it lengthens) comes first, so
+                // a day after an assumed end is not logged as a new period by mistake.
+                if let earlier = periodBefore {
+                    Button(L10n.dayLogPeriodEndHere) {
+                        Task { await run { await cycle.endPeriod(id: earlier.id, on: day) } }
+                    }
+                    .buttonStyle(.pill(.soft(.cycleSoft, .cycleOnSoft), fullWidth: false, height: 40))
+                    .disabled(saving)
+                    .accessibilityIdentifier("dayLogExtendPeriod")
                 }
                 Button(L10n.dayLogPeriodStart) {
                     Task { await run { await cycle.startPeriod(on: day) } }

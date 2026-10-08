@@ -150,7 +150,7 @@ struct BabySizeCard: View {
                 .background(.luna(.surface), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 8) {
-                Text(L10n.pregnancyBabySize(week.size.name(language)))
+                Text(sizeLine)
                     .font(.luna(.cardTitle))
                     .foregroundStyle(.luna(.textPrimary))
                     .fixedSize(horizontal: false, vertical: true)
@@ -166,6 +166,13 @@ struct BabySizeCard: View {
         }
         .lunaCard(padding: 14)
         .accessibilityElement(children: .combine)
+    }
+
+    /// From week 10 (weeks with a Hadlock weight) the produce is compared by
+    /// weight, as in the week article (phase 11); weeks 4–9 by size (phase 13 spec §3.3).
+    private var sizeLine: String {
+        let name = week.size.name(language)
+        return week.weightG != nil ? L10n.pregnancyBabySizeWeight(name) : L10n.pregnancyBabySize(name)
     }
 }
 

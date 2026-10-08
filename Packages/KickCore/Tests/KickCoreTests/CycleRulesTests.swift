@@ -212,4 +212,41 @@ struct CycleRulesTests {
         #expect(TemperatureEntry(text: "98.6") == .invalid)
         #expect(TemperatureEntry(text: "36.5.1") == .invalid)
     }
+
+    // MARK: - Extending a period from the day log (phase 13 final review)
+
+    @Test func aClosedPeriodCanBeEndedOnALaterDayWithinTenDays() {
+        let closed = PeriodRecord(startDate: day("2026-06-10"), endDate: day("2026-06-14"))
+        let older = PeriodRecord(startDate: day("2026-05-10"), endDate: day("2026-05-14"))
+        let periods = [older, closed]
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-16"), in: periods, calendar: calendar) == closed)
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-19"), in: periods, calendar: calendar) == closed) // day 10
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-20"), in: periods, calendar: calendar) == nil) // day 11
+    }
+
+    @Test func aDayThePeriodAlreadyCoversIsNotAnExtension() {
+        let closed = PeriodRecord(startDate: day("2026-06-10"), endDate: day("2026-06-14"))
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-14"), in: [closed], calendar: calendar) == nil)
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-10"), in: [closed], calendar: calendar) == nil)
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-09"), in: [closed], calendar: calendar) == nil)
+    }
+
+    @Test func onlyTheNearestEarlierPeriodCanBeExtended() {
+        let first = PeriodRecord(startDate: day("2026-06-01"), endDate: day("2026-06-02"))
+        let second = PeriodRecord(startDate: day("2026-06-05"), endDate: day("2026-06-06"))
+        // The 8th is within ten days of both; only the later one may run to it.
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-08"), in: [second, first], calendar: calendar) == second)
+        #expect(CycleRules.extendablePeriod(before: day("2026-06-04"), in: [second, first], calendar: calendar) == first)
+    }
+
+    @Test func anOpenPeriodBeforeTheDayCanBeEnded() {
+        let open = PeriodRecord(startDate: day("2026-09-28"))
+        #expect(CycleRules.extendablePeriod(before: day("2026-10-02"), in: [open], calendar: calendar) == open)
+        #expect(CycleRules.extendablePeriod(before: day("2026-10-08"), in: [open], calendar: calendar) == nil)
+    }
+
+    @Test func extendablePeriodIgnoresTheTimeOfDay() {
+        let closed = PeriodRecord(startDate: day("2026-06-10"), endDate: day("2026-06-14"))
+        #expect(CycleRules.extendablePeriod(before: date("2026-06-16T18:00:00Z"), in: [closed], calendar: calendar) == closed)
+    }
 }
