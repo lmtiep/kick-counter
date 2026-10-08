@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luna Mom</title>
+<meta name="description" content="Luna Mom — app theo dõi chu kỳ, thai kỳ và cử động thai cho mẹ.">
+<style>
+  :root {
+    --bg: #FBF6F1;
+    --card: #FFFFFF;
+    --text: #2B201C;
+    --text-secondary: #7A6B64;
+    --accent: #2F8C84;
+    --accent-strong: #1F6E67;
+    --divider: rgba(43,32,28,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1412;
+      --card: #262019;
+      --text: #F4ECE5;
+      --text-secondary: #B5A69E;
+      --accent: #7FD3C9;
+      --accent-strong: #A6E3DB;
+      --divider: rgba(244,236,229,0.1);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px 64px;
+  }
+  .lede {
+    color: var(--text-secondary);
+    font-size: 1.05em;
+    margin-top: 4px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 24px 0;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  a {
+    color: var(--accent-strong);
+  }
+  .links a {
+    display: block;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--divider);
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .links a:hover,
+  .links a:focus {
+    border-color: var(--accent);
+  }
+  .lang-switch {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    border-top: 1px solid var(--divider);
+    padding-top: 16px;
+  }
+  section[lang="en"] {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--divider);
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="lang-switch">
+    <a href="#vi">Tiếng Việt</a>
+    <a href="#en">English</a>
+  </div>
+
+  <section id="vi" lang="vi">
+    <h1>Luna Mom</h1>
+    <p class="lede">App iPhone cho mẹ: theo dõi chu kỳ khi mong con, theo dõi thai kỳ từng tuần và đếm cử động thai.</p>
+    <div class="card">
+      <p>Luna Mom giúp mẹ theo dõi kỳ kinh và cửa sổ thụ thai, xem thông tin thai kỳ theo từng tuần, ghi lại cử động của bé và nhận nhắc nhở lịch khám — tất cả ngay trên iPhone.</p>
+    </div>
+    <div class="links">
+      <a href="privacy.html">Chính sách quyền riêng tư</a>
+      <a href="support.html">Hỗ trợ</a>
+    </div>
+  </section>
+
+  <section id="en" lang="en">
+    <h1>Luna Mom</h1>
+    <p class="lede">An iPhone app for moms: cycle tracking while trying to conceive, week-by-week pregnancy guidance, and fetal kick counting.</p>
+    <div class="card">
+      <p>Luna Mom helps you track your period and fertile window, follow your pregnancy week by week, log your baby's kicks, and get reminders for appointments — all on your iPhone.</p>
+    </div>
+    <div class="links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="support.html">Support</a>
+    </div>
+  </section>
+
+  <footer>
+    Luna Mom · <a href="mailto:lmtiep@gmail.com">lmtiep@gmail.com</a>
+  </footer>
+</main>
+</body>
+</html>
