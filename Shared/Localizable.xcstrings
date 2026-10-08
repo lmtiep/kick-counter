@@ -7209,6 +7209,91 @@
         }
       }
     },
+    "settings.deleteAll": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete all data"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá toàn bộ dữ liệu"
+          }
+        }
+      }
+    },
+    "settings.deleteAll.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá"
+          }
+        }
+      }
+    },
+    "settings.deleteAll.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't delete the data. Please try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không xoá được dữ liệu. Bạn thử lại nhé."
+          }
+        }
+      }
+    },
+    "settings.deleteAll.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All kick counts, periods, logs, weights, appointments and settings on this iPhone will be permanently deleted. This can't be undone."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mọi lượt đếm cử động, kỳ kinh, ghi chép, cân nặng, lịch khám và cài đặt trên iPhone này sẽ bị xoá vĩnh viễn. Không thể hoàn tác."
+          }
+        }
+      }
+    },
+    "settings.deleteAll.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete all data?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá toàn bộ dữ liệu?"
+          }
+        }
+      }
+    },
     "settings.dueDate": {
       "extractionState": "manual",
       "localizations": {
@@ -7307,6 +7392,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mở Cài đặt"
+          }
+        }
+      }
+    },
+    "settings.opensInSafari": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opens in Safari"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở trong Safari"
           }
         }
       }
@@ -7413,6 +7515,23 @@
         }
       }
     },
+    "settings.privacyPolicy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy policy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chính sách quyền riêng tư"
+          }
+        }
+      }
+    },
     "settings.reminder.section": {
       "extractionState": "manual",
       "localizations": {
@@ -7443,6 +7562,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Giờ nhắc"
+          }
+        }
+      }
+    },
+    "settings.support": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Support"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỗ trợ"
           }
         }
       }

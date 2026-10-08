@@ -39,4 +39,16 @@ public enum AppMode: String, Sendable, CaseIterable {
         save(previous, to: defaults)
         return previous
     }
+
+    /// Partner mode hidden (`AppFeatures.cloudSync` off, phase 12 spec §3.2): a stored
+    /// partner mode is treated as "not onboarded". Leaves partner mode for the remembered
+    /// mode (pregnant when none) and resets `hasCompletedOnboarding`, so onboarding asks
+    /// for a goal again; nothing else is touched. Returns whether the mode was partner.
+    @discardableResult
+    public static func hidePartnerMode(in defaults: UserDefaults) -> Bool {
+        guard load(from: defaults) == .partner else { return false }
+        leavePartner(in: defaults)
+        defaults.set(false, forKey: SettingsKey.hasCompletedOnboarding)
+        return true
+    }
 }

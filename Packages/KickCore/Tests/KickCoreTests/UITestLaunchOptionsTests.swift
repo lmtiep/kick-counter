@@ -86,3 +86,18 @@ struct UITestCycleGoalOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedContraception", "patch"]).seedContraception == nil)
     }
 }
+
+/// Phase 12: the partner UI behind `AppFeatures.cloudSync`, and a stored mode seed.
+struct UITestPartnerUIOptionTests {
+    @Test func partnerUIIsForcedOnlyWithUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingPartnerUI"]).forcesPartnerUI)
+        #expect(UITestLaunchOptions(arguments: ["-uiTestingPartnerUI"]).forcesPartnerUI == false)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).forcesPartnerUI == false)
+    }
+
+    @Test func seedAppModeParsesAKnownModeWhenUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedAppMode", "partner"]).seedAppMode == .partner)
+        #expect(UITestLaunchOptions(arguments: ["-seedAppMode", "partner"]).seedAppMode == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedAppMode", "dad"]).seedAppMode == nil)
+    }
+}

@@ -1,7 +1,10 @@
 import Foundation
 import KickCore
 import KickData
+import OSLog
 import SwiftData
+
+private let logger = Logger(subsystem: "com.lmtiep.kickcounter", category: "environment")
 
 @MainActor
 struct AppEnvironment {
@@ -26,6 +29,11 @@ struct AppEnvironment {
     static let forceDarkMode = false
     #endif
 
+    /// The partner UI (Profile's share card, partner mode, invitations) exists only with
+    /// iCloud (`AppFeatures.cloudSync`, off in 1.0). UI tests of the partner flows force it
+    /// with `-uiTestingPartnerUI` so they keep covering it for when the switch comes back.
+    static let showsPartnerUI = AppFeatures.cloudSync || AppClock.launchOptions.forcesPartnerUI
+
     static func make() throws -> AppEnvironment {
         #if DEBUG
         if isUITesting {
@@ -49,8 +57,16 @@ struct AppEnvironment {
             if AppClock.launchOptions.partner != nil {
                 AppMode.enterPartner(in: AppGroup.defaults)
             }
+            if let mode = AppClock.launchOptions.seedAppMode {
+                AppMode.save(mode, to: AppGroup.defaults)
+            }
         }
         #endif
+        // Phase 12 spec §3.2: with partner mode hidden, someone who was following a
+        // shared journey goes through onboarding again (nothing else is touched).
+        if !showsPartnerUI, AppMode.hidePartnerMode(in: AppGroup.defaults) {
+            logger.info("Stored partner mode hidden: onboarding again")
+        }
         let container = try KickPersistence.makeContainer(inMemory: isUITesting)
         #if DEBUG
         if isUITesting, AppClock.launchOptions.seedSessions {
@@ -121,8 +137,9 @@ struct AppEnvironment {
         )
     }
 
-    /// CloudKit, except in UI tests: the fake in the state the launch arguments
-    /// ask for (not shared when they ask for none), so no test touches iCloud.
+    /// CloudKit when `AppFeatures.cloudSync` is on, `DisabledPartnerSharing` (never
+    /// touches CloudKit) while it is off. UI tests: the fake in the state the launch
+    /// arguments ask for (not shared when they ask for none), so no test touches iCloud.
     private static func makeSharing() -> any PartnerSharing {
         #if DEBUG
         if isUITesting {
@@ -134,6 +151,7 @@ struct AppEnvironment {
             return FakePartnerSharing(mother: options.sharing ?? .notShared)
         }
         #endif
+        guard AppFeatures.cloudSync else { return DisabledPartnerSharing() }
         return CloudPartnerSharing()
     }
 

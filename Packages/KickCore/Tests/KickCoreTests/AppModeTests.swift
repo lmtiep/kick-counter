@@ -3,6 +3,41 @@ import Testing
 @testable import KickCore
 
 struct AppModeTests {
+    /// Phase 12 spec §3.2: partner mode hidden, a stored partner mode means "not onboarded".
+    @Test func hidingPartnerModeResetsOnboardingAndLeavesPartnerMode() {
+        let defaults = makeTestDefaults()
+        AppMode.save(.tryingToConceive, to: defaults)
+        AppMode.enterPartner(in: defaults)
+        defaults.set(true, forKey: SettingsKey.hasCompletedOnboarding)
+        defaults.set(1_000.0, forKey: SettingsKey.dueDate)
+
+        #expect(AppMode.hidePartnerMode(in: defaults))
+
+        #expect(AppMode.load(from: defaults) == .tryingToConceive)
+        #expect(defaults.bool(forKey: SettingsKey.hasCompletedOnboarding) == false)
+        #expect(defaults.double(forKey: SettingsKey.dueDate) == 1_000)
+    }
+
+    @Test func hidingPartnerModeWithoutPreviousModeStoresPregnant() {
+        let defaults = makeTestDefaults()
+        AppMode.save(.partner, to: defaults)
+        defaults.set(true, forKey: SettingsKey.hasCompletedOnboarding)
+        #expect(AppMode.hidePartnerMode(in: defaults))
+        #expect(AppMode.load(from: defaults) == .pregnant)
+        #expect(defaults.bool(forKey: SettingsKey.hasCompletedOnboarding) == false)
+    }
+
+    @Test func hidingPartnerModeLeavesOtherModesAlone() {
+        for mode in [AppMode.pregnant, .tryingToConceive] {
+            let defaults = makeTestDefaults()
+            AppMode.save(mode, to: defaults)
+            defaults.set(true, forKey: SettingsKey.hasCompletedOnboarding)
+            #expect(AppMode.hidePartnerMode(in: defaults) == false)
+            #expect(AppMode.load(from: defaults) == mode)
+            #expect(defaults.bool(forKey: SettingsKey.hasCompletedOnboarding))
+        }
+    }
+
     @Test func missingModeMeansPregnant() {
         #expect(AppMode.load(from: makeTestDefaults()) == .pregnant)
     }

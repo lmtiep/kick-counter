@@ -89,7 +89,7 @@ final class ProfileGoalUITests: XCTestCase {
         let app = XCUIApplication.launchPinned(
             language: "en",
             dueDate: UITestDates.dueAtWeek24,
-            extraArguments: ["-uiTestingSharing", "joined"]
+            extraArguments: ["-uiTestingSharing", "joined", "-uiTestingPartnerUI"]
         )
         app.openTab(.profile)
         let row = app.buttons["partnerShareRow"]

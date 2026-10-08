@@ -40,8 +40,6 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         ITSAppUsesNonExemptEncryption: false
         NSSupportsLiveActivities: true
-        UIBackgroundModes: [remote-notification]
-        CKSharingSupported: true
         LunaContentPreview: $(LUNA_CONTENT_PREVIEW)
         UIAppFonts:
           - BeVietnamPro-Light.ttf
@@ -53,9 +51,6 @@ targets:
       path: App/KickCounter.entitlements
       properties:
         com.apple.security.application-groups: [group.com.lmtiep.kickcounter]
-        com.apple.developer.icloud-container-identifiers: [iCloud.com.lmtiep.kickcounter]
-        com.apple.developer.icloud-services: [CloudKit]
-        aps-environment: development
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.lmtiep.kickcounter
