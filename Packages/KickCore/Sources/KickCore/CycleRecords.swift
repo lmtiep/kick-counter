@@ -189,6 +189,25 @@ public enum CycleRules {
         }
     }
 
+    /// The period that a day log may end on `day` (phase 13 final review): the
+    /// nearest period starting before `day` (so none starts in between), when
+    /// `day` is at most its `longPeriodDays`-th day and, for a closed period,
+    /// after its last day. Ending it there lengthens it; nil when none can be.
+    /// `CycleCoordinator.endPeriod` still checks overlaps.
+    public static func extendablePeriod(before day: Date, in periods: [PeriodRecord], calendar: Calendar) -> PeriodRecord? {
+        let target = calendar.startOfDay(for: day)
+        guard let nearest = periods
+            .filter({ calendar.startOfDay(for: $0.startDate) < target })
+            .max(by: { $0.startDate < $1.startDate })
+        else { return nil }
+        let start = calendar.startOfDay(for: nearest.startDate)
+        guard let lastAllowed = calendar.date(byAdding: .day, value: longPeriodDays - 1, to: start),
+              target <= lastAllowed
+        else { return nil }
+        if let end = nearest.endDate, calendar.startOfDay(for: end) >= target { return nil }
+        return nearest
+    }
+
     /// The period to store when the mother only knows its first day (onboarding,
     /// "add last period"): it lasted her typical length if that is already over,
     /// otherwise it is still going on.

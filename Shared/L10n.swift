@@ -252,6 +252,8 @@ enum L10n {
     static var dayLogPeriodSection: String { t("dayLog.period") }
     static var dayLogPeriodStart: String { t("dayLog.period.start") }
     static var dayLogPeriodEnd: String { t("dayLog.period.end") }
+    /// The day after a period (within 10 days of its start): end that period here (phase 13).
+    static var dayLogPeriodEndHere: String { t("dayLog.period.endHere") }
     static var dayLogPeriodDelete: String { t("dayLog.period.delete") }
     static var dayLogPeriodDeleteConfirm: String { t("dayLog.period.delete.confirm") }
     static func dayLogPeriodSince(_ date: String) -> String { String(format: t("dayLog.period.since"), date) }
@@ -767,7 +769,9 @@ enum L10n {
     static var addPastOngoing: String { t("addPast.ongoing") }
     static var addPastSave: String { t("addPast.save") }
     static var addPastSaved: String { t("addPast.saved") }
+    static var addPastSavedBleed: String { t("addPast.savedBleed") }
     static var addPastErrorOverlap: String { t("addPast.errorOverlap") }
+    static var addPastErrorOverlapBleed: String { t("addPast.errorOverlapBleed") }
     static var addPastErrorFuture: String { t("addPast.errorFuture") }
     static var addPastErrorSave: String { t("addPast.errorSave") }
 }

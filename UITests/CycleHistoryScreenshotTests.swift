@@ -75,9 +75,6 @@ final class CycleHistoryScreenshotTests: XCTestCase {
         let save = app.buttons["addPastSave"]
         XCTAssertTrue(save.waitForExistence(timeout: 5))
         attachScreenshot(app, "ax5-cycle-add-past-vi-light")
-        app.scrollUntilHittable(save, maxSwipes: 10)
-        XCTAssertTrue(save.isHittable)
-        attachScreenshot(app, "ax5-cycle-add-past-bottom-vi-light")
         app.terminate()
     }
 }

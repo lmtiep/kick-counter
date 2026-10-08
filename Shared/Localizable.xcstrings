@@ -35,6 +35,23 @@
         }
       }
     },
+    "addPast.errorOverlapBleed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This overlaps a bleed you've already logged."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trùng với một lần ra máu đã ghi."
+          }
+        }
+      }
+    },
     "addPast.errorSave": {
       "extractionState": "manual",
       "localizations": {
@@ -150,6 +167,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đã thêm kỳ kinh"
+          }
+        }
+      }
+    },
+    "addPast.savedBleed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bleed added"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã thêm lần ra máu"
           }
         }
       }
@@ -3448,6 +3482,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hết kỳ kinh ngày này"
+          }
+        }
+      }
+    },
+    "dayLog.period.endHere": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End the period on this day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc kỳ kinh vào ngày này"
           }
         }
       }

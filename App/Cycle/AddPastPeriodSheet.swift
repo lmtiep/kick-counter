@@ -1,3 +1,4 @@
+import Accessibility
 import KickCore
 import SwiftUI
 
@@ -18,11 +19,20 @@ struct AddPastPeriodSheet: View {
     /// `defaultStart`: one typical cycle before the oldest logged period, or
     /// 28 days before today when nothing is logged.
     init(defaultStart: Date, typicalLength: Int, now: Date = AppClock.now(), onSaved: @escaping () -> Void) {
-        let today = Calendar.current.startOfDay(for: now)
+        let calendar = AppLocale.calendar
+        let today = calendar.startOfDay(for: now)
         self.today = today
         self.onSaved = onSaved
-        _start = State(initialValue: min(Calendar.current.startOfDay(for: defaultStart), today))
+        let range = Self.startRange(now: now, calendar: calendar)
+        _start = State(initialValue: min(max(calendar.startOfDay(for: defaultStart), range.lowerBound), today))
         _length = State(initialValue: min(max(typicalLength, CycleSettings.periodLengthRange.lowerBound), CycleSettings.periodLengthRange.upperBound))
+    }
+
+    /// Starts the picker allows: the past two years up to today.
+    static func startRange(now: Date, calendar: Calendar) -> ClosedRange<Date> {
+        let today = calendar.startOfDay(for: now)
+        let earliest = calendar.date(byAdding: .year, value: -2, to: today) ?? today
+        return earliest...today
     }
 
     /// The start shown when the sheet opens (spec §3.2).
@@ -36,11 +46,31 @@ struct AddPastPeriodSheet: View {
 
     private var isBleed: Bool { cycle.policy.predictedBleedLabel == .withdrawalBleed }
 
+    private var calendar: Calendar { AppLocale.calendar }
+
     private var end: Date {
-        Calendar.current.date(byAdding: .day, value: length - 1, to: Calendar.current.startOfDay(for: start)) ?? start
+        calendar.date(byAdding: .day, value: length - 1, to: calendar.startOfDay(for: start)) ?? start
     }
 
     var body: some View {
+        // The error sits just above Save; at AX5 it is scrolled into view.
+        ScrollViewReader { proxy in
+            content
+                .onChange(of: failure) { _, new in
+                    guard new != nil else { return }
+                    withAnimation(LunaMotion.isEnabled ? .easeOut(duration: 0.2) : nil) {
+                        proxy.scrollTo(Self.errorAnchor, anchor: .center)
+                    }
+                }
+        }
+        .lunaSheetPresentation()
+        .onChange(of: start) { failure = nil }
+        .onChange(of: length) { failure = nil }
+    }
+
+    private static let errorAnchor = "addPastErrorAnchor"
+
+    private var content: some View {
         LunaSheet(title: isBleed ? L10n.cycleHistoryAddPastBleed : L10n.cycleHistoryAddPast) {
             LunaSheetSectionTitle(title: L10n.addPastStart)
             startPicker
@@ -75,6 +105,7 @@ struct AddPastPeriodSheet: View {
                     .padding(.top, 12)
                     .accessibilityElement(children: .combine)
                     .accessibilityIdentifier("addPastError")
+                    .id(Self.errorAnchor)
             }
 
             Button(L10n.addPastSave) { Task { await save() } }
@@ -86,16 +117,18 @@ struct AddPastPeriodSheet: View {
                 .buttonStyle(.pill(.text(.textSecondary), height: 44))
                 .accessibilityIdentifier("addPastCancel")
         }
-        .lunaSheetPresentation()
-        .onChange(of: start) { failure = nil }
-        .onChange(of: length) { failure = nil }
     }
 
     /// A month calendar; wheels at accessibility sizes, where the system
     /// calendar's month title runs into its "previous month" arrow (and
     /// ignores a capped `dynamicTypeSize`).
     @ViewBuilder private var startPicker: some View {
-        let picker = DatePicker(L10n.addPastStart, selection: $start, in: ...today, displayedComponents: .date)
+        let picker = DatePicker(
+            L10n.addPastStart,
+            selection: $start,
+            in: Self.startRange(now: today, calendar: calendar),
+            displayedComponents: .date
+        )
         if typeSize.isAccessibilitySize {
             picker.datePickerStyle(.wheel)
         } else {
@@ -126,7 +159,7 @@ struct AddPastPeriodSheet: View {
 
     private func message(for failure: CycleFailure) -> String {
         switch failure {
-        case .overlapsExistingPeriod: L10n.addPastErrorOverlap
+        case .overlapsExistingPeriod: isBleed ? L10n.addPastErrorOverlapBleed : L10n.addPastErrorOverlap
         case .futureDate: L10n.addPastErrorFuture
         default: L10n.addPastErrorSave
         }
@@ -139,6 +172,7 @@ struct AddPastPeriodSheet: View {
             // Shown here, not in the screen's alert.
             cycle.clearFailure()
             failure = result
+            AccessibilityNotification.Announcement(message(for: result)).post()
         } else {
             onSaved()
             dismiss()

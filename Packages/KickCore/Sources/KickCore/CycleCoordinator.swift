@@ -154,7 +154,12 @@ public final class CycleCoordinator {
         let last = calendar.date(byAdding: .day, value: days - 1, to: first) ?? first
         let today = calendar.startOfDay(for: now())
         let record = PeriodRecord(startDate: first, endDate: last > today ? nil : last)
-        return await write { try store.addPeriod(record, today: now()) }
+        let stale = staleOpenPeriod(before: record.startDate)
+        return await write {
+            // As when starting a period: never leave two open records.
+            if let stale { try store.updatePeriod(stale, today: now()) }
+            try store.addPeriod(record, today: now())
+        }
     }
 
     /// The open period that has run past `CycleRules.longPeriodDays` by `day`,

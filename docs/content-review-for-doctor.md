@@ -728,11 +728,12 @@ Người dùng có thể ghi thêm các kỳ kinh cũ, để trung bình 6 chu k
         kinh thường gặp − 1 < hôm nay), app lưu kỳ kinh **đã kết thúc**, dài bằng "độ dài kỳ kinh thường gặp" trong Cài
         đặt (mặc định 5 ngày) — cùng quy tắc với câu hỏi "kỳ kinh gần nhất" ở phần giới thiệu. Trang "Lịch sử chu kỳ" có
         thêm nút "Thêm kỳ kinh trước đây": chọn ngày bắt đầu và "Số ngày hành kinh" (2–10 ngày, mặc định là độ dài
-        thường gặp). Nếu ngày cuối rơi sau hôm nay, kỳ kinh được lưu là "đang diễn ra". **Câu hỏi:** giả định độ dài
+        thường gặp). Nếu ngày cuối rơi sau hôm nay, kỳ kinh được lưu là "đang diễn ra". Nếu kỳ kinh thực tế dài hơn,
+        mở ngày cuối thật trong Lịch (tối đa ngày thứ 10) và chọn "Kết thúc kỳ kinh vào ngày này". **Câu hỏi:** giả định độ dài
         thường gặp cho kỳ kinh ghi bù có ổn không, và khoảng 2–10 ngày có phù hợp không?
 67. [ ] **Cách gọi cho người dùng biện pháp tránh thai có nội tiết** (mục 54, 61): nút và tiêu đề là "Thêm lần ra máu
-        trước đây" / "Add a past bleed", ô số ngày là "Số ngày ra máu". **Câu hỏi:** cách gọi này có đúng không? (Thông
-        báo sau khi lưu vẫn là "Đã thêm kỳ kinh".)
+        trước đây" / "Add a past bleed", ô số ngày là "Số ngày ra máu", lỗi trùng là "Trùng với một lần ra máu đã ghi." và
+        thông báo sau khi lưu là "Đã thêm lần ra máu". **Câu hỏi:** cách gọi này có đúng không?
 68. [ ] **"Bé nặng tương đương …"** (`pregnancy.baby.sizeWeight`, "Your baby weighs about as much as …"): thẻ kích
         thước ở Hôm nay, từ tuần 10 (các tuần có cân nặng Hadlock), dùng cùng cách so sánh theo cân nặng như bài viết
         theo tuần (mục 13); tuần 4–9 vẫn là "Bé to bằng …". **Câu hỏi:** như mục 13 — "tương đương" có quá mạnh không?

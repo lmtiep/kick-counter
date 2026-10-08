@@ -77,11 +77,13 @@ struct CycleHistoryView: View {
         .toast($toast)
         .sheet(isPresented: $addingPast) {
             AddPastPeriodSheet(
-                defaultStart: AddPastPeriodSheet.defaultStart(periods: cycle.periods, settings: cycle.settings, now: AppClock.now()),
+                defaultStart: AddPastPeriodSheet.defaultStart(
+                    periods: cycle.periods, settings: cycle.settings, now: AppClock.now(), calendar: AppLocale.calendar
+                ),
                 typicalLength: cycle.settings.typicalPeriodLength
             ) {
                 // The toast is read out by VoiceOver.
-                toast = L10n.addPastSaved
+                toast = cycle.policy.predictedBleedLabel == .withdrawalBleed ? L10n.addPastSavedBleed : L10n.addPastSaved
             }
         }
     }
