@@ -1,6 +1,18 @@
 {
-  "version": 3,
+  "version": 4,
   "sources": ["Fixture source A", "Fixture source B"],
+  "produceSources": {
+    "usda-passionfruit": {
+      "title": "USDA FoodData Central, SR Legacy: Passion-fruit, (granadilla), purple, raw (FDC ID 169108)",
+      "url": "https://fdc.nal.usda.gov/food-details/169108/nutrients",
+      "note": "Portion \"1 fruit without refuse\" = 18 g edible portion (SR weights exclude refuse). SR28 refuse 48% (Shell). As purchased = 18 / (1 - 0.48) = 35 g."
+    },
+    "usda-apricot": {
+      "title": "USDA FoodData Central, SR Legacy: Apricots, raw (FDC ID 171697)",
+      "url": "https://fdc.nal.usda.gov/food-details/171697/nutrients",
+      "note": "Portion \"1 apricot\" = 35 g edible portion (SR weights exclude refuse). SR28 refuse 7% (Pits). As purchased = 35 / (1 - 0.07) = 38 g."
+    }
+  },
   "weeks": [
     {
       "week": 7,
@@ -35,7 +47,7 @@
     {
       "week": 10,
       "reviewed": false,
-      "size": { "emoji": "🍋", "en": "a lime", "vi": "một quả chanh ta" },
+      "size": { "emoji": "🟣", "en": "a passion fruit", "vi": "một quả chanh leo", "typicalGrams": 35, "sourceKey": "usda-passionfruit" },
       "crlMm": 31.3,
       "weightG": 35,
       "weightP10G": 29,
@@ -48,7 +60,7 @@
     {
       "week": 11,
       "reviewed": true,
-      "size": { "emoji": "🧄", "en": "a bulb of garlic", "vi": "một củ tỏi" },
+      "size": { "emoji": "🍑", "en": "an apricot", "vi": "một quả mơ", "typicalGrams": 38, "sourceKey": "usda-apricot" },
       "crlMm": 41.2,
       "weightG": 45,
       "weightP10G": 37,

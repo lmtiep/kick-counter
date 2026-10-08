@@ -1,0 +1,435 @@
+{
+  "produceSources": {
+    "usda-passionfruit": {
+      "title": "USDA FoodData Central, SR Legacy: Passion-fruit, (granadilla), purple, raw (FDC ID 169108)",
+      "url": "https://fdc.nal.usda.gov/food-details/169108/nutrients",
+      "note": "Portion \"1 fruit without refuse\" = 18 g edible portion (SR weights exclude refuse). SR28 refuse 48% (Shell). As purchased = 18 / (1 - 0.48) = 35 g."
+    },
+    "usda-apricot": {
+      "title": "USDA FoodData Central, SR Legacy: Apricots, raw (FDC ID 171697)",
+      "url": "https://fdc.nal.usda.gov/food-details/171697/nutrients",
+      "note": "Portion \"1 apricot\" = 35 g edible portion (SR weights exclude refuse). SR28 refuse 7% (Pits). As purchased = 35 / (1 - 0.07) = 38 g."
+    },
+    "usda-plum": {
+      "title": "USDA FoodData Central, SR Legacy: Plums, raw (FDC ID 169949)",
+      "url": "https://fdc.nal.usda.gov/food-details/169949/nutrients",
+      "note": "Portion \"1 fruit (2-1/8\" dia)\" = 66 g edible portion (SR weights exclude refuse). SR28 refuse 6% (Pits). As purchased = 66 / (1 - 0.06) = 70 g."
+    },
+    "usda-lime": {
+      "title": "USDA FoodData Central, SR Legacy: Limes, raw (FDC ID 168155)",
+      "url": "https://fdc.nal.usda.gov/food-details/168155/nutrients",
+      "note": "Portion \"1 fruit (2\" dia)\" = 67 g edible portion (SR weights exclude refuse). SR28 refuse 16% (Peel and seeds). As purchased = 67 / (1 - 0.16) = 80 g."
+    },
+    "usda-carambola": {
+      "title": "USDA FoodData Central, SR Legacy: Carambola, (starfruit), raw (FDC ID 171715)",
+      "url": "https://fdc.nal.usda.gov/food-details/171715/nutrients",
+      "note": "Portion \"1 medium (3-5/8\" long)\" = 91 g edible portion (SR weights exclude refuse). SR28 refuse 3% (Seeds and stem end). As purchased = 91 / (1 - 0.03) = 94 g."
+    },
+    "usda-tangerine": {
+      "title": "USDA FoodData Central, SR Legacy: Tangerines, (mandarin oranges), raw (FDC ID 169105)",
+      "url": "https://fdc.nal.usda.gov/food-details/169105/nutrients",
+      "note": "Portion \"1 medium (2-1/2\" dia)\" = 88 g edible portion (SR weights exclude refuse). SR28 refuse 26% (Peel and seeds). As purchased = 88 / (1 - 0.26) = 119 g."
+    },
+    "usda-tomato": {
+      "title": "USDA FoodData Central, SR Legacy: Tomatoes, red, ripe, raw, year round average (FDC ID 170457)",
+      "url": "https://fdc.nal.usda.gov/food-details/170457/nutrients",
+      "note": "Portion \"1 medium whole (2-3/5\" dia)\" = 123 g edible portion (SR weights exclude refuse). SR28 refuse 9% (Core and stem ends). As purchased = 123 / (1 - 0.09) = 135 g."
+    },
+    "usda-orange": {
+      "title": "USDA FoodData Central, SR Legacy: Oranges, raw, all commercial varieties (FDC ID 169097)",
+      "url": "https://fdc.nal.usda.gov/food-details/169097/nutrients",
+      "note": "Portion \"1 fruit (2-5/8\" dia)\" = 131 g edible portion (SR weights exclude refuse). SR28 refuse 27% (Peel and seeds). As purchased = 131 / (1 - 0.27) = 179 g."
+    },
+    "usda-apple": {
+      "title": "USDA FoodData Central, SR Legacy: Apples, raw, with skin (FDC ID 171688)",
+      "url": "https://fdc.nal.usda.gov/food-details/171688/nutrients",
+      "note": "Portion \"1 medium (3\" dia)\" = 182 g edible portion (SR weights exclude refuse). SR28 refuse 10% (Core and stem). As purchased = 182 / (1 - 0.10) = 202 g."
+    },
+    "usda-avocado": {
+      "title": "USDA FoodData Central, SR Legacy: Avocados, raw, all commercial varieties (FDC ID 171705)",
+      "url": "https://fdc.nal.usda.gov/food-details/171705/nutrients",
+      "note": "Portion \"1 avocado, NS as to Florida or California\" = 201 g edible portion (SR weights exclude refuse). SR28 refuse 26% (Seed and skin). As purchased = 201 / (1 - 0.26) = 272 g."
+    },
+    "usda-asian-pear": {
+      "title": "USDA FoodData Central, SR Legacy: Pears, asian, raw (FDC ID 168177)",
+      "url": "https://fdc.nal.usda.gov/food-details/168177/nutrients",
+      "note": "Portion \"1 fruit 3-3/8\" high x 3\" diameter\" = 275 g edible portion (SR weights exclude refuse). SR28 refuse 9% (Core and stem). As purchased = 275 / (1 - 0.09) = 302 g."
+    },
+    "usda-corn": {
+      "title": "USDA FoodData Central, SR Legacy: Corn, sweet, yellow, raw (FDC ID 169998)",
+      "url": "https://fdc.nal.usda.gov/food-details/169998/nutrients",
+      "note": "Portion \"1 ear, large (7-3/4\" to 9\" long) yields\" = 143 g edible portion (SR weights exclude refuse). SR28 refuse 64% (35% husk, silk, trimmings; 29% cob). As purchased = 143 / (1 - 0.64) = 397 g."
+    },
+    "usda-mango": {
+      "title": "USDA FoodData Central, SR Legacy: Mangos, raw (FDC ID 169910)",
+      "url": "https://fdc.nal.usda.gov/food-details/169910/nutrients",
+      "note": "Portion \"1 fruit without refuse\" = 336 g edible portion (SR weights exclude refuse). SR28 refuse 29% (Seeds and skin). As purchased = 336 / (1 - 0.29) = 473 g."
+    },
+    "usda-pomegranate": {
+      "title": "USDA FoodData Central, SR Legacy: Pomegranates, raw (FDC ID 169134)",
+      "url": "https://fdc.nal.usda.gov/food-details/169134/nutrients",
+      "note": "Portion \"1 pomegranate (4\" dia)\" = 282 g edible portion (SR weights exclude refuse). SR28 refuse 44% (Skin and membrane). As purchased = 282 / (1 - 0.44) = 504 g."
+    },
+    "usda-jicama": {
+      "title": "USDA FoodData Central, SR Legacy: Yambean (jicama), raw (FDC ID 170073)",
+      "url": "https://fdc.nal.usda.gov/food-details/170073/nutrients",
+      "note": "Portion \"1 medium\" = 659 g edible portion (SR weights exclude refuse). SR28 refuse 8% (Ends and skin). As purchased = 659 / (1 - 0.08) = 716 g."
+    },
+    "usda-cantaloupe": {
+      "title": "USDA FoodData Central, SR Legacy: Melons, cantaloupe, raw (FDC ID 169092)",
+      "url": "https://fdc.nal.usda.gov/food-details/169092/nutrients",
+      "note": "Portion \"1 melon, small (about 4-1/4\" dia)\" = 441 g edible portion (SR weights exclude refuse). SR28 refuse 49% (9% cavity contents, 1% cutting loss, 39% rind). As purchased = 441 / (1 - 0.49) = 865 g."
+    },
+    "usda-red-cabbage": {
+      "title": "USDA FoodData Central, SR Legacy: Cabbage, red, raw (FDC ID 169977)",
+      "url": "https://fdc.nal.usda.gov/food-details/169977/nutrients",
+      "note": "Portion \"1 head, medium (about 5\" dia)\" = 839 g edible portion (SR weights exclude refuse). SR28 refuse 20% (Outer leaves and core). As purchased = 839 / (1 - 0.20) = 1049 g."
+    },
+    "usda-pummelo": {
+      "title": "USDA FoodData Central, SR Legacy: Pummelo, raw (FDC ID 167754)",
+      "url": "https://fdc.nal.usda.gov/food-details/167754/nutrients",
+      "note": "Portion \"1 fruit without refuse\" = 609 g edible portion (SR weights exclude refuse). SR28 refuse 44% (Seeds, skin, and membrane). As purchased = 609 / (1 - 0.44) = 1088 g."
+    },
+    "usda-calabash": {
+      "title": "USDA FoodData Central, SR Legacy: Gourd, white-flowered (calabash), raw (FDC ID 169232)",
+      "url": "https://fdc.nal.usda.gov/food-details/169232/nutrients",
+      "note": "Portion \"1 gourd\" = 771 g edible portion (SR weights exclude refuse). SR28 refuse 30% (Ends, skin, and seeds). As purchased = 771 / (1 - 0.30) = 1101 g."
+    },
+    "usda-papaya": {
+      "title": "USDA FoodData Central, SR Legacy: Papayas, raw (FDC ID 169926)",
+      "url": "https://fdc.nal.usda.gov/food-details/169926/nutrients",
+      "note": "Portion \"1 fruit, large\" = 781 g edible portion (SR weights exclude refuse). SR28 refuse 38% (Seeds and skin). As purchased = 781 / (1 - 0.38) = 1260 g."
+    },
+    "usda-cabbage": {
+      "title": "USDA FoodData Central, SR Legacy: Cabbage, raw (FDC ID 169975)",
+      "url": "https://fdc.nal.usda.gov/food-details/169975/nutrients",
+      "note": "Portion \"1 head, large (about 7\" dia)\" = 1248 g edible portion (SR weights exclude refuse). SR28 refuse 20% (Outer leaves and core). As purchased = 1248 / (1 - 0.20) = 1560 g."
+    },
+    "usda-pineapple": {
+      "title": "USDA FoodData Central, SR Legacy: Pineapple, raw, all varieties (FDC ID 169124)",
+      "url": "https://fdc.nal.usda.gov/food-details/169124/nutrients",
+      "note": "Portion \"1 fruit\" = 905 g edible portion (SR weights exclude refuse). SR28 refuse 49% (8% core, 16% crown, 26% parings). As purchased = 905 / (1 - 0.49) = 1775 g."
+    },
+    "usda-durian": {
+      "title": "USDA FoodData Central, SR Legacy: Durian, raw or frozen (FDC ID 168192)",
+      "url": "https://fdc.nal.usda.gov/food-details/168192/nutrients",
+      "note": "Portion \"1 fruit\" = 602 g edible portion (SR weights exclude refuse). SR28 refuse 68% (Shell and seeds (for raw fruit)). As purchased = 602 / (1 - 0.68) = 1881 g."
+    },
+    "bentre-dua-ta": {
+      "title": "Sở Khoa học và Công nghệ Bến Tre (dost-bentre.gov.vn, 23-03-2009): Giống Dừa và kỹ thuật chọn giống Dừa – Dừa Ta",
+      "url": "https://web.archive.org/web/20241213211412/http://dost-bentre.gov.vn/tin-tuc/931/giong-dua-va-ky-thuat-chon-giong-dua",
+      "note": "Portion text: \"Trọng lượng trái từ 1,6-2,0 kg/trái khô\". Mature (dry) coconut in husk, as sold. Typical = midpoint of 1.6-2.0 kg = 1800 g. The live site did not resolve on 2026-10-08; the text was read from the Internet Archive copy (the url above); live page: http://dost-bentre.gov.vn/tin-tuc/931/giong-dua-va-ky-thuat-chon-giong-dua"
+    },
+    "usda-cauliflower": {
+      "title": "USDA FoodData Central, SR Legacy: Cauliflower, raw (FDC ID 169986)",
+      "url": "https://fdc.nal.usda.gov/food-details/169986/nutrients",
+      "note": "Portion \"1 head large (6-7\" dia.)\" = 840 g edible portion (SR weights exclude refuse). SR28 refuse 61% (Leaf stalks, cores and trimmings). As purchased = 840 / (1 - 0.61) = 2154 g."
+    },
+    "vietaseeds-cai-thao-va304": {
+      "title": "Công ty TNHH Phát triển nông nghiệp Việt Á (Vietaseeds): Hạt giống Cải Thảo lai F1 VA.304 – variety sheet",
+      "url": "https://vietaseeds.com/san-pham/hat-giong-cai-thao-f1-va-304-1gram",
+      "note": "Portion text: \"trọng lượng bao TB từ 1,5-3kg\". Whole head as harvested. Typical = midpoint of 1.5-3 kg = 2250 g. Seed-company variety sheet (no institute source found)."
+    },
+    "vaas-bi-xanh-so-1": {
+      "title": "Viện Khoa học Nông nghiệp Việt Nam (VAAS) – Viện Cây lương thực và Cây thực phẩm: Giống bí xanh số 1",
+      "url": "https://vaas.vn/vi/giong/giong-bi-xanh-so-1",
+      "note": "Portion text: \"quả già khối lượng 2,0 – 3,0 kg\". Whole fruit as harvested (mature fruit). Typical = midpoint of the stated 2.0-3.0 kg range = 2500 g."
+    },
+    "vnuf-gac-19": {
+      "title": "Nguyễn Thị Lan Hoa, Đặng Minh Tú, Đào Việt Quốc et al. (2026). Đặc điểm nông sinh học của hai mẫu giống gấc địa phương triển vọng làm dược liệu trồng tại Bắc Ninh. Tạp chí Khoa học và Công nghệ Lâm nghiệp (VNUF)",
+      "url": "https://journal.vnuf.edu.vn/vi/article/view/2048",
+      "note": "Portion text: \"quả to (2,85 ± 0,95 kg)\" (accession GAC-19). Whole fruit, measured mean of a local northern accession (GAC-19). The other accession, GAC-46, averaged 1.861 ± 0.23 kg."
+    },
+    "usda-honeydew": {
+      "title": "USDA FoodData Central, SR Legacy: Melons, honeydew, raw (FDC ID 169911)",
+      "url": "https://fdc.nal.usda.gov/food-details/169911/nutrients",
+      "note": "Portion \"1 melon (6\" - 7\" dia)\" = 1280 g edible portion (SR weights exclude refuse). SR28 refuse 54% (5% cavity contents, rind 49%). As purchased = 1280 / (1 - 0.54) = 2783 g."
+    },
+    "ufifas-jackfruit-hs882": {
+      "title": "Crane, Balerdi & Campbell. HS-882 The Jackfruit (Artocarpus heterophyllus Lam.) in Florida. UF/IFAS Extension (EDIS)",
+      "url": "https://journals.flvc.org/edis/article/download/108125/103418/149645",
+      "note": "Portion text: \"A few cultivars are small fruited, weighing 3 to 10 pounds (1.4-4.5 kg) each.\". Whole fruit of small-fruited cultivars. Typical = midpoint of 3-10 lb = 6.5 lb = 2948 g."
+    },
+    "ninhbinh-dua-hau-hac-my-nhan": {
+      "title": "Chi cục Trồng trọt và BVTV Ninh Bình (Vũ Thị Hương, 05/09/2022): Một số giống dưa hấu trồng phổ biến ở Việt Nam – Giống Hắc Mỹ Nhân",
+      "url": "https://chicucttbvtv.ninhbinh.gov.vn/giong-cay-trong/mot-so-giong-dua-hau-trong-pho-bien-o-viet-nam-110.html",
+      "note": "Portion text: \"khối lượng quả trung bình 3 - 4 kg\". Whole fruit. Typical = midpoint of the stated 3-4 kg average = 3500 g."
+    },
+    "vaas-bi-do-mat-sao-2": {
+      "title": "Viện Khoa học Nông nghiệp Việt Nam (VAAS): Giống bí đỏ Mật Sao 2",
+      "url": "https://vaas.vn/vi/giong/giong-bi-do-mat-sao-2",
+      "note": "Portion text: \"khối lượng quả trung bình 3,0-3,3 kg\". Whole fruit. Typical = midpoint of the stated 3.0-3.3 kg average = 3150 g."
+    },
+    "nnmt-mang-cau-xiem": {
+      "title": "Báo Nông nghiệp và Môi trường (14/05/2015): Trồng mãng cầu xiêm thu nhập cao (Ngã Bảy, Hậu Giang)",
+      "url": "https://nongnghiepmoitruong.vn/trong-mang-cau-xiem-thu-nhap-cao-d142790.html",
+      "note": "Portion text: \"trái sai và to, nặng trung bình từ 2 - 4 kg/trái\". Whole fruit. Typical = midpoint of 2-4 kg = 3000 g. Grower statement reported by the Ministry of Agriculture newspaper."
+    }
+  },
+  "weeks": [
+    {
+      "week": 10,
+      "emoji": "🟣",
+      "en": "a passion fruit",
+      "vi": "một quả chanh leo",
+      "typicalGrams": 35,
+      "sourceKey": "usda-passionfruit"
+    },
+    {
+      "week": 11,
+      "emoji": "🍑",
+      "en": "an apricot",
+      "vi": "một quả mơ",
+      "typicalGrams": 38,
+      "sourceKey": "usda-apricot"
+    },
+    {
+      "week": 12,
+      "emoji": "🍑",
+      "en": "a plum",
+      "vi": "một quả mận",
+      "typicalGrams": 70,
+      "sourceKey": "usda-plum"
+    },
+    {
+      "week": 13,
+      "emoji": "🍋‍🟩",
+      "en": "a lime",
+      "vi": "một quả chanh không hạt",
+      "typicalGrams": 80,
+      "sourceKey": "usda-lime"
+    },
+    {
+      "week": 14,
+      "emoji": "⭐",
+      "en": "a star fruit",
+      "vi": "một quả khế",
+      "typicalGrams": 94,
+      "sourceKey": "usda-carambola"
+    },
+    {
+      "week": 15,
+      "emoji": "🍊",
+      "en": "a tangerine",
+      "vi": "một quả quýt",
+      "typicalGrams": 119,
+      "sourceKey": "usda-tangerine"
+    },
+    {
+      "week": 16,
+      "emoji": "🍅",
+      "en": "a tomato",
+      "vi": "một quả cà chua",
+      "typicalGrams": 135,
+      "sourceKey": "usda-tomato"
+    },
+    {
+      "week": 17,
+      "emoji": "🍊",
+      "en": "an orange",
+      "vi": "một quả cam",
+      "typicalGrams": 179,
+      "sourceKey": "usda-orange"
+    },
+    {
+      "week": 18,
+      "emoji": "🍎",
+      "en": "an apple",
+      "vi": "một quả táo",
+      "typicalGrams": 202,
+      "sourceKey": "usda-apple"
+    },
+    {
+      "week": 19,
+      "emoji": "🥑",
+      "en": "an avocado",
+      "vi": "một quả bơ",
+      "typicalGrams": 272,
+      "sourceKey": "usda-avocado"
+    },
+    {
+      "week": 20,
+      "emoji": "🍐",
+      "en": "an Asian pear",
+      "vi": "một quả lê Hàn Quốc",
+      "typicalGrams": 302,
+      "sourceKey": "usda-asian-pear"
+    },
+    {
+      "week": 21,
+      "emoji": "🌽",
+      "en": "a large ear of corn",
+      "vi": "một bắp ngô to",
+      "typicalGrams": 397,
+      "sourceKey": "usda-corn"
+    },
+    {
+      "week": 22,
+      "emoji": "🥭",
+      "en": "a mango",
+      "vi": "một quả xoài",
+      "typicalGrams": 473,
+      "sourceKey": "usda-mango"
+    },
+    {
+      "week": 23,
+      "emoji": "🍎",
+      "en": "a pomegranate",
+      "vi": "một quả lựu",
+      "typicalGrams": 504,
+      "sourceKey": "usda-pomegranate"
+    },
+    {
+      "week": 24,
+      "emoji": "🥔",
+      "en": "a jicama",
+      "vi": "một củ đậu",
+      "typicalGrams": 716,
+      "sourceKey": "usda-jicama"
+    },
+    {
+      "week": 25,
+      "emoji": "🍈",
+      "en": "a small cantaloupe",
+      "vi": "một quả dưa lưới nhỏ",
+      "typicalGrams": 865,
+      "sourceKey": "usda-cantaloupe"
+    },
+    {
+      "week": 26,
+      "emoji": "🥬",
+      "en": "a red cabbage",
+      "vi": "một bắp cải tím",
+      "typicalGrams": 1049,
+      "sourceKey": "usda-red-cabbage"
+    },
+    {
+      "week": 27,
+      "emoji": "🍈",
+      "en": "a pomelo",
+      "vi": "một quả bưởi",
+      "typicalGrams": 1088,
+      "sourceKey": "usda-pummelo"
+    },
+    {
+      "week": 28,
+      "emoji": "🥒",
+      "en": "a bottle gourd",
+      "vi": "một quả bầu",
+      "typicalGrams": 1101,
+      "sourceKey": "usda-calabash"
+    },
+    {
+      "week": 29,
+      "emoji": "🥭",
+      "en": "a large papaya",
+      "vi": "một quả đu đủ to",
+      "typicalGrams": 1260,
+      "sourceKey": "usda-papaya"
+    },
+    {
+      "week": 30,
+      "emoji": "🥬",
+      "en": "a large cabbage",
+      "vi": "một bắp cải to",
+      "typicalGrams": 1560,
+      "sourceKey": "usda-cabbage"
+    },
+    {
+      "week": 31,
+      "emoji": "🍍",
+      "en": "a pineapple",
+      "vi": "một quả dứa",
+      "typicalGrams": 1775,
+      "sourceKey": "usda-pineapple"
+    },
+    {
+      "week": 32,
+      "emoji": "🍈",
+      "en": "a durian",
+      "vi": "một quả sầu riêng",
+      "typicalGrams": 1881,
+      "sourceKey": "usda-durian"
+    },
+    {
+      "week": 33,
+      "emoji": "🥥",
+      "en": "a coconut",
+      "vi": "một quả dừa",
+      "typicalGrams": 1800,
+      "sourceKey": "bentre-dua-ta"
+    },
+    {
+      "week": 34,
+      "emoji": "🥦",
+      "en": "a large cauliflower",
+      "vi": "một cây súp lơ trắng to",
+      "typicalGrams": 2154,
+      "sourceKey": "usda-cauliflower"
+    },
+    {
+      "week": 35,
+      "emoji": "🥬",
+      "en": "a napa cabbage",
+      "vi": "một cây cải thảo",
+      "typicalGrams": 2250,
+      "sourceKey": "vietaseeds-cai-thao-va304"
+    },
+    {
+      "week": 36,
+      "emoji": "🥒",
+      "en": "a winter melon",
+      "vi": "một quả bí xanh",
+      "typicalGrams": 2500,
+      "sourceKey": "vaas-bi-xanh-so-1"
+    },
+    {
+      "week": 37,
+      "emoji": "🟠",
+      "en": "a gac fruit",
+      "vi": "một quả gấc",
+      "typicalGrams": 2850,
+      "sourceKey": "vnuf-gac-19"
+    },
+    {
+      "week": 38,
+      "emoji": "🍈",
+      "en": "a honeydew melon",
+      "vi": "một quả dưa mật",
+      "typicalGrams": 2783,
+      "sourceKey": "usda-honeydew"
+    },
+    {
+      "week": 39,
+      "emoji": "🟢",
+      "en": "a small jackfruit",
+      "vi": "một quả mít nhỏ",
+      "typicalGrams": 2948,
+      "sourceKey": "ufifas-jackfruit-hs882"
+    },
+    {
+      "week": 40,
+      "emoji": "🍉",
+      "en": "a watermelon",
+      "vi": "một quả dưa hấu",
+      "typicalGrams": 3500,
+      "sourceKey": "ninhbinh-dua-hau-hac-my-nhan"
+    },
+    {
+      "week": 41,
+      "emoji": "🎃",
+      "en": "a pumpkin",
+      "vi": "một quả bí đỏ",
+      "typicalGrams": 3150,
+      "sourceKey": "vaas-bi-do-mat-sao-2"
+    },
+    {
+      "week": 42,
+      "emoji": "🍈",
+      "en": "a soursop",
+      "vi": "một quả mãng cầu xiêm",
+      "typicalGrams": 3000,
+      "sourceKey": "nnmt-mang-cau-xiem"
+    }
+  ]
+}

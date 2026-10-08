@@ -17,8 +17,9 @@ struct BundledArticleTests {
         library.document.weeks.compactMap { week in week.article.map { (week, $0) } }
     }
 
-    @Test func contentIsVersion3() {
-        #expect(library.document.version == 3)
+    /// Articles arrived in version 3; phase 11 moved the file to version 4.
+    @Test func contentIsVersion4() {
+        #expect(library.document.version == 4)
     }
 
     @Test func everyWrittenArticlePassesTheChecks() {

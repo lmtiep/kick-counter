@@ -253,8 +253,8 @@ chuẩn. Mẫu câu (cần duyệt câu chữ, không cần duyệt lại số):
 | Khóa | Nội dung (vi) |
 |---|---|
 | `weekArticle.size.length` (tuần 7–9) | "Bé dài khoảng 16 mm (từ đầu đến mông), cỡ một quả anh đào." |
-| `weekArticle.size.lengthWeight` (tuần 10–13) | "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, cỡ một quả kiwi." |
-| `weekArticle.size.weight` (tuần 14–42) | "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), cỡ một bắp ngô." Tuần 41–42 dùng số của tuần 40 kèm dòng "Số liệu chuẩn Hadlock chỉ đến tuần 40." |
+| `weekArticle.size.lengthWeight` (tuần 10–13) | "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, tương đương một quả mận." (đổi ở giai đoạn 11, xem phần 13) |
+| `weekArticle.size.weight` (tuần 14–42) | "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), tương đương một củ đậu." (đổi ở giai đoạn 11, xem phần 13) Tuần 41–42 dùng số của tuần 40 kèm dòng "Số liệu chuẩn Hadlock chỉ đến tuần 40." |
 | `weekArticle.heading.*`, `weekArticle.tab.*` | "Bé lớn cỡ nào?", "Bé phát triển ra sao", "Cơ thể mẹ tuần này", "Mẹ nên làm gì"; thẻ "Bé" / "Mẹ" |
 
 Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
@@ -630,3 +630,92 @@ kỳ đã qua cùng những ngày đã ghi. Cách tính trung bình giống hệ
 61. [ ] **"Kỳ kinh trung bình" / "Ra máu trung bình"** (`cycleHistory.averagePeriod`, `cycleHistory.averageBleed`): với
         người dùng biện pháp tránh thai có nội tiết (mục 54), app gọi là "ra máu", cả ở VoiceOver ("ra máu 5 ngày").
         **Câu hỏi:** cách gọi này có đúng không?
+
+## 13. So sánh kích thước theo cân nặng (giai đoạn 11)
+
+Từ tuần 10, vật được so sánh ("tương đương một quả …") được chọn theo **cân nặng thường gặp** của cả quả/củ khi mua
+(gồm vỏ, hạt, lõi), có nguồn, và chênh không quá ±25 % so với cân nặng Hadlock 1991 (bách phân vị 50) mà app hiển
+thị. Tuần 41–42 so với cân nặng tuần 40 (3619 g). Tuần 4–9 giữ nguyên so sánh cũ. Từ tuần 33 đến 42 mỗi tuần một vật
+khác nhau (theo yêu cầu của chủ sản phẩm). Số liệu nằm ở `size.typicalGrams` / `size.sourceKey` và `produceSources`
+trong `pregnancy-content.json` (phiên bản 4); test tự động kiểm tra mức ±25 % (`ContentValidator`). Nghiên cứu đầy
+đủ (cách tính, nguồn, đoạn trích): `docs/research/2026-10-08-produce-weights.md`.
+
+| Tuần | Hadlock (g) | So sánh (vi) | Cân nặng thường gặp (g) | Chênh lệch | Nguồn (`sourceKey`) |
+|---|---|---|---|---|---|
+| 10 | 35 | một quả chanh leo 🟣 | 35 | +0,0 % | `usda-passionfruit` |
+| 11 | 45 | một quả mơ 🍑 | 38 | −15,6 % | `usda-apricot` |
+| 12 | 58 | một quả mận 🍑 | 70 | +20,7 % | `usda-plum` |
+| 13 | 73 | một quả chanh không hạt 🍋 | 80 | +9,6 % | `usda-lime` |
+| 14 | 93 | một quả khế ⭐ | 94 | +1,1 % | `usda-carambola` |
+| 15 | 117 | một quả quýt 🍊 | 119 | +1,7 % | `usda-tangerine` |
+| 16 | 146 | một quả cà chua 🍅 | 135 | −7,5 % | `usda-tomato` |
+| 17 | 181 | một quả cam 🍊 | 179 | −1,1 % | `usda-orange` |
+| 18 | 223 | một quả táo 🍎 | 202 | −9,4 % | `usda-apple` |
+| 19 | 273 | một quả bơ 🥑 | 272 | −0,4 % | `usda-avocado` |
+| 20 | 331 | một quả lê Hàn Quốc 🍐 | 302 | −8,8 % | `usda-asian-pear` |
+| 21 | 399 | một bắp ngô to 🌽 | 397 | −0,5 % | `usda-corn` |
+| 22 | 478 | một quả xoài 🥭 | 473 | −1,0 % | `usda-mango` |
+| 23 | 568 | một quả lựu 🍎 | 504 | −11,3 % | `usda-pomegranate` |
+| 24 | 670 | một củ đậu 🥔 | 716 | +6,9 % | `usda-jicama` |
+| 25 | 785 | một quả dưa lưới nhỏ 🍈 | 865 | +10,2 % | `usda-cantaloupe` |
+| 26 | 913 | một bắp cải tím 🥬 | 1049 | +14,9 % | `usda-red-cabbage` |
+| 27 | 1055 | một quả bưởi 🍈 | 1088 | +3,1 % | `usda-pummelo` |
+| 28 | 1210 | một quả bầu 🥒 | 1101 | −9,0 % | `usda-calabash` |
+| 29 | 1379 | một quả đu đủ to 🥭 | 1260 | −8,6 % | `usda-papaya` |
+| 30 | 1559 | một bắp cải to 🥬 | 1560 | +0,1 % | `usda-cabbage` |
+| 31 | 1751 | một quả dứa 🍍 | 1775 | +1,4 % | `usda-pineapple` |
+| 32 | 1953 | một quả sầu riêng 🍈 | 1881 | −3,7 % | `usda-durian` |
+| 33 | 2162 | một quả dừa 🥥 | 1800 | −16,7 % | `bentre-dua-ta` |
+| 34 | 2377 | một cây súp lơ trắng to 🥦 | 2154 | −9,4 % | `usda-cauliflower` |
+| 35 | 2595 | một cây cải thảo 🥬 | 2250 | −13,3 % | `vietaseeds-cai-thao-va304` |
+| 36 | 2813 | một quả bí xanh 🥒 | 2500 | −11,1 % | `vaas-bi-xanh-so-1` |
+| 37 | 3028 | một quả gấc 🟠 | 2850 | −5,9 % | `vnuf-gac-19` |
+| 38 | 3236 | một quả dưa mật 🍈 | 2783 | −14,0 % | `usda-honeydew` |
+| 39 | 3435 | một quả mít nhỏ 🟢 | 2948 | −14,2 % | `ufifas-jackfruit-hs882` |
+| 40 | 3619 | một quả dưa hấu 🍉 | 3500 | −3,3 % | `ninhbinh-dua-hau-hac-my-nhan` |
+| 41 | 3619 | một quả bí đỏ 🍈 | 3150 | −13,0 % | `vaas-bi-do-mat-sao-2` |
+| 42 | 3619 | một quả mãng cầu xiêm 🍈 | 3000 | −17,1 % | `nnmt-mang-cau-xiem` |
+
+Chênh lệch = (cân nặng thường gặp − Hadlock) / Hadlock. Các dòng USDA FoodData Central (SR Legacy: tuần 10–32, súp
+lơ tuần 34, dưa mật tuần 38) quy từ phần ăn được ra cả quả theo tỉ lệ bỏ đi của SR28. Các dòng còn lại của tuần 33–42
+lấy từ nguồn Việt Nam hoặc UF/IFAS; khi nguồn cho một khoảng, "cân nặng thường gặp" là **điểm giữa** của khoảng đó.
+Emoji chỉ dùng khi chưa có tranh minh họa của tuần.
+
+**Lưu ý về đầu mút khoảng:** test chỉ kiểm tra điểm giữa (con số app dùng). Ở một số tuần, đầu mút của khoảng trong
+nguồn nằm ngoài ±25 %: tuần 33 (dừa 1,6 kg: −26,0 %), 35 (cải thảo 1,5–3 kg: −42,2 % / +15,6 %), 36 (bí xanh 2,0 kg:
+−28,9 %), 39 (mít nhỏ 3–10 lb: −60 % / +32 %), 42 (mãng cầu xiêm 2–4 kg: −44,7 % / +10,5 %). Một quả mua ngoài chợ
+có thể nặng hoặc nhẹ hơn khá nhiều so với bé. Câu chữ dùng "tương đương" (so sánh gần đúng về cân nặng), không khẳng
+định bằng nhau tuyệt đối; **câu hỏi:** với khoảng rộng như trên, "tương đương" có quá mạnh không, hay nên dùng "cỡ"?
+
+**Câu chữ mới** (`weekArticle.size.lengthWeight` và `weekArticle.size.weight`; tuần 7–9 vẫn là "cỡ …"):
+- Tuần 12: "Bé dài khoảng 53,5 mm (từ đầu đến mông) và nặng khoảng 58 g, tương đương một quả mận." / "Your baby is about
+  53.5 mm long from head to bottom and weighs about 58 g, about as heavy as a plum."
+- Tuần 24: "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), tương đương một củ đậu." / "Your baby weighs about 670 g
+  (typically 556 to 784 g), about as heavy as a jicama."
+
+62. [ ] Bác sĩ đã duyệt (hoặc sửa) bảng trên: tên vi tự nhiên (tiếng Bắc), vật so sánh phù hợp với từng tuần.
+63. [ ] Duyệt câu chữ mới "tương đương …" / "about as heavy as …" (hai câu mẫu ở trên), cả vi lẫn en.
+64. [ ] **Các điểm nghiên cứu đã nêu và đã chấp nhận** (xem `docs/research/2026-10-08-produce-weights.md` §4) — xin
+        bác sĩ xác nhận hoặc đề nghị đổi:
+    - [ ] Tuần 26 (bắp cải tím) và tuần 30 (bắp cải to) cùng họ bắp cải; hai vật khác nhau, có nguồn riêng.
+    - [ ] Tuần 33, quả dừa (dừa ta "trái khô", còn vỏ): trang của Sở KH&CN Bến Tre không còn truy cập được, nội
+          dung được đọc từ bản lưu trên Internet Archive (đường dẫn trong `produceSources`).
+    - [ ] Tuần 35, cây cải thảo: nguồn duy nhất là phiếu giống của một công ty hạt giống, khoảng 1,5–3 kg khá rộng;
+          cải thảo ngoài chợ thường 1,5–2 kg.
+    - [ ] Tuần 37, quả gấc: 2850 g là trung bình đo được của một dòng gấc (GAC-19) trong một nghiên cứu; gấc nếp
+          thông thường thường nhẹ hơn (dòng GAC-46 trong cùng bài trung bình 1,861 kg).
+    - [ ] Tuần 38, "quả dưa mật" (honeydew): tên tiếng Việt chưa thống nhất (cửa hàng còn gọi "dưa lưới ruột xanh");
+          cùng loài *Cucumis melo* với dưa lưới tuần 25 nhưng là nhóm giống khác, vỏ trơn màu nhạt. Xin xác nhận tên.
+    - [ ] Tuần 39, "quả mít nhỏ": số liệu UF/IFAS cho các giống mít quả nhỏ (3–10 lb); mít phổ biến ở Việt Nam nặng
+          hơn nhiều (khoảng 6,75 kg), nên tên ghi rõ "mít nhỏ".
+    - [ ] Tuần 42, quả mãng cầu xiêm: lời một nhà vườn trên báo của Bộ (2–4 kg), khác với số liệu USDA (933 g, quả
+          bán ở Mỹ); một trang của Bộ Công Thương ghi 1–3 kg cho Hậu Giang.
+    - [ ] Đầu mút khoảng nằm ngoài ±25 % ở các tuần 33, 35, 36, 39, 42 (xem lưu ý trên bảng).
+    - [ ] Tuần 41 (quả bí đỏ) và 42 so với cân nặng tuần 40, vì chuẩn Hadlock chỉ đến tuần 40.
+    - [ ] Tuần 32 là quả sầu riêng: cân nặng cả quả (1881 g) suy ra từ tỉ lệ bỏ đi lớn (68 %), nên là dòng USDA kém
+          chắc chắn nhất.
+    - [ ] Tuần 10 là quả chanh leo (số liệu USDA cho chanh leo tím, 35 g); một số giống lai ở Việt Nam to hơn.
+    - [ ] Tuần 13 là "quả chanh không hạt" (USDA "Limes, raw" là chanh Tahiti); chanh ta nhỏ hơn và chưa có số liệu.
+    - [ ] Tuần 21 là bắp ngô to tính cả vỏ và lõi (397 g); bắp ngô đã bóc vỏ chỉ khoảng 250 g.
+65. [ ] Tranh thai nhi theo tuần: duyệt theo danh sách kiểm tra y khoa ở `docs/design/fetus-artwork-brief.md` §5
+        (giai đoạn thai, tỉ lệ đầu–thân, mắt, lông tơ, không gây hiểu nhầm là hình ảnh chẩn đoán).

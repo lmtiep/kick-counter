@@ -49,12 +49,12 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Chi tiết tuần: nền cố định (ảnh thai nhi + hàng chip tuần) dưới một sheet kéo được hai nấc
   (`App/DesignSystem/ArticleSheet.swift`, quy tắc thả tay `KickCore/SheetDetentResolver.swift`), thẻ Bé / Mẹ
   trong `App/Pregnancy/WeekArticleView.swift`.
-- Bài viết: trường `article` của mỗi tuần trong `pregnancy-content.json` (phiên bản 3). Thêm hoặc sửa bằng
+- Bài viết: trường `article` của mỗi tuần trong `pregnancy-content.json` (từ phiên bản 3). Thêm hoặc sửa bằng
   `scripts/set-week-articles.py` (JSON qua stdin, xem đầu file; in số chữ mỗi thẻ). Kiểm tra tự động:
   `scripts/test-core.sh --filter "BundledArticleTests|WeekArticleChecksTests"`.
 - Câu "Bé lớn cỡ nào?" tự sinh từ số liệu Hadlock (`KickCore/WeekSizeLine.swift`, mẫu câu `weekArticle.size.*`).
-- Ảnh riêng từng tuần (chưa có): thêm asset `Fetus-W##` / `Fruit-W##` (ví dụ `Fetus-W31`) vào
-  `App/Images.xcassets`; khi thiếu, app dùng ảnh `Fetus` chung và emoji kích thước.
+- Ảnh riêng từng tuần: ảnh trái cây `Fruit-W04…W42` đã có (giai đoạn 11); ảnh thai nhi `Fetus-W##` chưa có — xem
+  `docs/design/fetus-artwork-brief.md`. Khi thiếu ảnh, app dùng ảnh `Fetus` chung và emoji kích thước.
 - Nội dung vẫn chờ bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 9.
 
 ## Kiến thức chuyên sâu (giai đoạn 7)
@@ -115,3 +115,10 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - `CycleHistory.make` (`KickCore/CycleHistory.swift`, thuần, có test) dựng tóm tắt và danh sách chu kỳ từ `PeriodRecord`
   và `CycleLogRecord`, dùng cùng quy tắc trung bình với `CyclePredictor`. `CycleHistoryView`/`CycleDetailView`
   (`App/Cycle/CycleHistoryView.swift`) đọc `cycle.periods`/`cycle.logs`, nên tự cập nhật sau khi ghi ngày.
+
+## Kích thước theo tuần (giai đoạn 11)
+- Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`
+  và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá
+  ±25 % so với `weightG` (Hadlock 1991). Tuần 4–9 giữ so sánh cũ.
+- Bảng và nguồn: `docs/research/2026-10-08-produce-weights.md` (bản máy đọc `.json`; test `BundledContentTests` so khớp).
+- Tranh thai nhi theo tuần: `docs/design/fetus-artwork-brief.md`. Bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 13.
