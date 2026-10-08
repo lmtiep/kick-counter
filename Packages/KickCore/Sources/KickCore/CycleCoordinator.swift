@@ -122,7 +122,7 @@ public final class CycleCoordinator {
     /// Starts a period on `day` and returns the new record's id, so the caller
     /// can undo exactly that record (Today's "Undo").
     public func startPeriodReturningID(on day: Date) async -> Result<UUID, CycleFailure> {
-        let record = PeriodRecord(startDate: calendar.startOfDay(for: day))
+        let record = newPeriod(startingOn: day)
         let stale = staleOpenPeriod(before: record.startDate)
         let failure = await write {
             // A period left open for weeks was never ended: close it at the typical
@@ -131,6 +131,30 @@ public final class CycleCoordinator {
             try store.addPeriod(record, today: now())
         }
         return failure.map { .failure($0) } ?? .success(record.id)
+    }
+
+    /// A period started on a day long enough ago that it is over by today is
+    /// stored closed at the typical length (phase 13 spec §3.1); otherwise open.
+    func newPeriod(startingOn day: Date) -> PeriodRecord {
+        CycleRules.assumedPeriod(
+            startingOn: day, typicalLength: settings.typicalPeriodLength, today: now(), calendar: calendar
+        )
+    }
+
+    /// "Add a past period" (phase 13 spec §3.2): `length` days of bleeding
+    /// (clamped to `CycleSettings.periodLengthRange`) from `start`. When the
+    /// last day is after today the period is stored as still going on.
+    /// Overlaps and future dates come back as `.overlapsExistingPeriod` /
+    /// `.futureDate` and nothing is saved.
+    @discardableResult
+    public func addPastPeriod(start: Date, length: Int) async -> CycleFailure? {
+        let range = CycleSettings.periodLengthRange
+        let days = min(max(length, range.lowerBound), range.upperBound)
+        let first = calendar.startOfDay(for: start)
+        let last = calendar.date(byAdding: .day, value: days - 1, to: first) ?? first
+        let today = calendar.startOfDay(for: now())
+        let record = PeriodRecord(startDate: first, endDate: last > today ? nil : last)
+        return await write { try store.addPeriod(record, today: now()) }
     }
 
     /// The open period that has run past `CycleRules.longPeriodDays` by `day`,
