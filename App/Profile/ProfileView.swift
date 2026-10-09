@@ -331,7 +331,9 @@ struct ProfileView: View {
                 Text(L10n.cycleSettingsHint)
                 Text(cycle.policy.reminderKinds.contains(.fertile)
                      ? L10n.settingsCycleRemindersHint
-                     : L10n.settingsCycleRemindersHintTracking)
+                     : cycle.policy.predictedBleedLabel == .withdrawalBleed
+                        ? L10n.settingsCycleRemindersHintBleed
+                        : L10n.settingsCycleRemindersHintTracking)
                     .accessibilityIdentifier("settingsCycleRemindersHint")
             }
             .font(.luna(.caption))

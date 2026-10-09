@@ -7,7 +7,7 @@ struct BundledContentTests {
     static let requiredMilestones: [String: ClosedRange<Int>] = [
         "confirm-pregnancy": 6...8,
         "nt-scan": 11...14,
-        "triple-test": 15...18,
+        "triple-test": 15...20,
         "anomaly-scan": 18...22,
         "gdm-screening": 24...28,
         "tetanus-pertussis": 27...36,

@@ -1860,13 +1860,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cycles shorter than 21 days, longer than 45 days, or that vary a lot are worth talking over with a doctor."
+            "value": "Cycles shorter than 21 days, longer than 35 days, or that vary a lot are worth talking over with a doctor."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc thay đổi nhiều — bạn nên trao đổi với bác sĩ."
+            "value": "Chu kỳ ngắn hơn 21 ngày, dài hơn 35 ngày hoặc thay đổi nhiều — bạn nên trao đổi với bác sĩ."
           }
         }
       }
@@ -1918,6 +1918,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kỳ kinh đã trễ %d ngày"
+          }
+        }
+      }
+    },
+    "cycle.lateBleed.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you are worried, you could take a pregnancy test. If it is positive, tap “I'm pregnant”."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nếu lo lắng, bạn có thể thử thai. Nếu que thử dương tính, hãy bấm “Tôi đã có thai”."
+          }
+        }
+      }
+    },
+    "cycle.lateBleed.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d days past your expected bleed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã trễ %d ngày so với lần ra máu dự kiến"
           }
         }
       }
@@ -2292,6 +2326,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ngày %1$ld · %2$@"
+          }
+        }
+      }
+    },
+    "cycle.reminder.bleed.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log it when it starts to keep predictions accurate."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy ghi lại khi bắt đầu ra máu để dự đoán chính xác hơn."
+          }
+        }
+      }
+    },
+    "cycle.reminder.bleed.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bleed may start tomorrow"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày mai có thể ra máu"
+          }
+        }
+      }
+    },
+    "cycle.reminder.bleedLate.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you are worried, you could take a pregnancy test."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nếu lo lắng, bạn có thể thử thai."
+          }
+        }
+      }
+    },
+    "cycle.reminder.bleedLate.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 days past your expected bleed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã trễ 3 ngày so với lần ra máu dự kiến"
           }
         }
       }
@@ -4699,13 +4801,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trying-to-conceive mode only helps you track your cycle. It is not a method of contraception and must not be used to avoid pregnancy. Ovulation, the fertile window and the next period are estimates based on what you log.\n\nSee a doctor if:\n• you have been trying for 12 months without getting pregnant (6 months if you are 35 or older);\n• your cycles are shorter than 21 days, longer than 45 days, or very irregular;\n• you have unusual bleeding between periods."
+            "value": "Trying-to-conceive mode only helps you track your cycle. It is not a method of contraception and must not be used to avoid pregnancy. Ovulation, the fertile window and the next period are estimates based on what you log.\n\nSee a doctor if:\n• you have been trying for 12 months without getting pregnant (6 months if you are 35 or older);\n• your cycles are shorter than 21 days, longer than 35 days, or very irregular;\n• you have unusual bleeding between periods."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chế độ Mong con chỉ giúp bạn theo dõi chu kỳ. Đây không phải là biện pháp tránh thai và không được dùng để tránh thai. Ngày rụng trứng, cửa sổ thụ thai và kỳ kinh tiếp theo chỉ là ước tính dựa trên những gì bạn ghi.\n\nHãy đi khám bác sĩ nếu:\n• đã cố gắng có thai 12 tháng mà chưa có (6 tháng nếu từ 35 tuổi trở lên);\n• chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc rất không đều;\n• ra máu bất thường giữa hai kỳ kinh."
+            "value": "Chế độ Mong con chỉ giúp bạn theo dõi chu kỳ. Đây không phải là biện pháp tránh thai và không được dùng để tránh thai. Ngày rụng trứng, cửa sổ thụ thai và kỳ kinh tiếp theo chỉ là ước tính dựa trên những gì bạn ghi.\n\nHãy đi khám bác sĩ nếu:\n• đã cố gắng có thai 12 tháng mà chưa có (6 tháng nếu từ 35 tuổi trở lên);\n• chu kỳ ngắn hơn 21 ngày, dài hơn 35 ngày hoặc rất không đều;\n• ra máu bất thường giữa hai kỳ kinh."
           }
         }
       }
@@ -7464,6 +7566,23 @@
         }
       }
     },
+    "settings.cycleReminders.hint.bleed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders come at 9:00: the day before your expected bleed, and once if it is 3 days late."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc lúc 9:00: 1 ngày trước lần ra máu dự kiến và một lần khi trễ 3 ngày."
+          }
+        }
+      }
+    },
     "settings.cycleReminders.hint.tracking": {
       "extractionState": "manual",
       "localizations": {
@@ -8320,13 +8439,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Go now if contractions come regularly or hurt before week 37, or if fluid or blood leaks."
+            "value": "Go now if fluid or blood leaks, or if contractions come regularly or hurt before week 37. From week 37, call your maternity unit when contractions come about every 5 minutes or more often, or whenever you are worried."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đi khám ngay nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu."
+            "value": "Đi khám ngay nếu ra nước, ra máu, hoặc có cơn gò đều đặn hay đau trước tuần 37. Từ tuần 37, hãy gọi bệnh viện khi cơn gò đều khoảng 5 phút một lần hoặc dày hơn, hoặc khi mẹ lo lắng."
           }
         }
       }
@@ -8354,13 +8473,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Go now if your face or hands swell suddenly with a headache, blurred vision or pain under the ribs."
+            "value": "Go now if your face, hands or feet swell suddenly, or you have a severe headache, blurred vision, flashing lights or pain below the ribs, even just one of these."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đi khám ngay nếu mặt hoặc tay phù đột ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị."
+            "value": "Đi khám ngay nếu mặt, tay hoặc chân phù đột ngột, hoặc đau đầu dữ dội, nhìn mờ, nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, dù chỉ có một dấu hiệu."
           }
         }
       }

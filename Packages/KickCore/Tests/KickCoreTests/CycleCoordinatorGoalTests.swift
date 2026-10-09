@@ -27,7 +27,9 @@ struct CycleCoordinatorGoalTests {
             reminderTexts: CycleReminderTexts(
                 fertile: NotificationText(title: "Fertile window soon", body: "In 2 days"),
                 period: NotificationText(title: "Period tomorrow", body: "Due tomorrow"),
-                late: NotificationText(title: "Period is late", body: "Consider a test")
+                late: NotificationText(title: "Period is late", body: "Consider a test"),
+                bleed: NotificationText(title: "Bleed tomorrow", body: "Due tomorrow"),
+                bleedLate: NotificationText(title: "Bleed is late", body: "If worried, a test")
             ),
             defaults: defaults,
             calendar: utcCalendar,
@@ -60,6 +62,35 @@ struct CycleCoordinatorGoalTests {
         await coordinator.load()
         #expect(coordinator.policy.goal == .tracking)
         #expect(reminderIDs == ["cycle-period", "cycle-late"])
+    }
+
+    private var reminderTitles: [String: String] {
+        Dictionary(uniqueKeysWithValues: center.added.map { ($0.identifier, $0.content.title) })
+    }
+
+    /// Fact-check row 56: on hormonal contraception the bleed is not a period,
+    /// so both reminders say "bleed" instead.
+    @Test func hormonalContraceptionRemindersSayBleed() async {
+        CyclePreferences(goal: .tracking, contraception: .pill).save(to: defaults)
+        seedRegularCycles()
+        await coordinator.load()
+        #expect(reminderTitles == ["cycle-period": "Bleed tomorrow", "cycle-late": "Bleed is late"])
+    }
+
+    @Test func nonHormonalTrackingRemindersSayPeriod() async {
+        CyclePreferences(goal: .tracking, contraception: .copperIUD).save(to: defaults)
+        seedRegularCycles()
+        await coordinator.load()
+        #expect(reminderTitles == ["cycle-period": "Period tomorrow", "cycle-late": "Period is late"])
+    }
+
+    @Test func switchingToHormonalReschedulesWithBleedTexts() async {
+        CyclePreferences(goal: .tracking).save(to: defaults)
+        seedRegularCycles()
+        await coordinator.load()
+        #expect(reminderTitles["cycle-period"] == "Period tomorrow")
+        await coordinator.updatePreferences(CyclePreferences(goal: .tracking, contraception: .hormonalIUD))
+        #expect(reminderTitles == ["cycle-period": "Bleed tomorrow", "cycle-late": "Bleed is late"])
     }
 
     @Test func changingTheGoalReschedulesWithoutPrompting() async {

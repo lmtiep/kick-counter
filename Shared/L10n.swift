@@ -177,6 +177,8 @@ enum L10n {
     static var settingsCycleRemindersHint: String { t("settings.cycle.remindersHint") }
     /// Tracking only (phase 9): no fertile-window reminder, so the hint names only the period and late reminders.
     static var settingsCycleRemindersHintTracking: String { t("settings.cycleReminders.hint.tracking") }
+    /// Tracking on hormonal contraception: the same reminders, named after the expected bleed.
+    static var settingsCycleRemindersHintBleed: String { t("settings.cycleReminders.hint.bleed") }
     static var medicalTTCTitle: String { t("medical.ttc.title") }
     static var medicalTTCBody: String { t("medical.ttc.body") }
 
@@ -216,6 +218,8 @@ enum L10n {
     static var cycleLowConfidenceFewCycles: String { t("cycle.lowConfidence.fewCycles") }
     static func cycleLateTitle(_ days: Int) -> String { String(format: t("cycle.late.title"), days) }
     static var cycleLateBody: String { t("cycle.late.body") }
+    static func cycleLateBleedTitle(_ days: Int) -> String { String(format: t("cycle.lateBleed.title"), days) }
+    static var cycleLateBleedBody: String { t("cycle.lateBleed.body") }
     static var cycleIrregularTitle: String { t("cycle.irregular.title") }
     static var cycleIrregularBody: String { t("cycle.irregular.body") }
     static func cycleLongPeriodTitle(_ days: Int) -> String { String(format: t("cycle.longPeriod.title"), days) }
@@ -234,6 +238,11 @@ enum L10n {
     static var cycleReminderPeriodBody: String { t("cycle.reminder.period.body") }
     static var cycleReminderLateTitle: String { t("cycle.reminder.late.title") }
     static var cycleReminderLateBody: String { t("cycle.reminder.late.body") }
+    /// Hormonal contraception (fact-check row 56): the bleed is not called a period.
+    static var cycleReminderBleedTitle: String { t("cycle.reminder.bleed.title") }
+    static var cycleReminderBleedBody: String { t("cycle.reminder.bleed.body") }
+    static var cycleReminderBleedLateTitle: String { t("cycle.reminder.bleedLate.title") }
+    static var cycleReminderBleedLateBody: String { t("cycle.reminder.bleedLate.body") }
     static func cycleFailure(_ failure: CycleFailure) -> String {
         switch failure {
         case .loadFailed: errorLoad

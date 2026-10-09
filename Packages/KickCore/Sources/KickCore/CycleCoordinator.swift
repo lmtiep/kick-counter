@@ -372,7 +372,8 @@ public final class CycleCoordinator {
         }
         do {
             try await notifications.scheduleCycleReminders(
-                for: forecast, now: now(), texts: reminderTexts, kinds: policy.reminderKinds, calendar: calendar
+                for: forecast, now: now(), texts: reminderTexts.forBleedLabel(policy.predictedBleedLabel),
+                kinds: policy.reminderKinds, calendar: calendar
             )
         } catch {
             logger.error("Scheduling cycle reminders failed: \(error.localizedDescription)")
