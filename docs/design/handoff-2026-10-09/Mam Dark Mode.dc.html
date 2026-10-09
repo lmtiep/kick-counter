@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#2E3150;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#F5F4FB;-webkit-font-smoothing:antialiased}
+a{color:#F7A6B4}a:hover{color:#FFC4CE}
+*::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="min-height:100vh;padding:48px 32px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:40px">
+
+<div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
+  <div style="font-size:28px;font-weight:700;letter-spacing:-.02em">Mầm · Dark mode mới</div>
+  <div style="font-size:14px;color:#C9CBE3;max-width:520px;line-height:1.5">Nền xanh tím (indigo) sáng hơn, thẻ kính trong mờ, giữ hồng làm điểm nhấn. Xanh ngọc cho ngày thụ thai.</div>
+</div>
+
+<div style="display:flex;gap:40px;flex-wrap:wrap;justify-content:center">
+
+<!-- Hôm nay -->
+<div data-screen-label="Hôm nay" style="width:390px;height:844px;border-radius:52px;overflow:hidden;position:relative;flex:none;background:{{ phoneBg }};box-shadow:0 40px 80px -30px rgba(10,10,30,.6),0 0 0 10px #1C1E33">
+  <div style="position:absolute;top:-120px;right:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(247,166,180,.28),transparent 70%)"></div>
+  <div style="position:absolute;bottom:120px;left:-120px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(161,230,232,.16),transparent 70%)"></div>
+  <div style="position:relative;height:100%;overflow:auto;padding:58px 20px 120px;box-sizing:border-box;display:grid;align-content:start;gap:18px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="width:40px;height:40px;border-radius:50%;background:rgba(247,166,180,.22);border:1px solid rgba(247,166,180,.35);display:flex;align-items:center;justify-content:center;font-weight:700;color:#FFD3DA">L</div>
+      <div style="font-size:18px;font-weight:600">9 tháng 10</div>
+      <div style="width:40px;height:40px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center">
+        <div style="width:16px;height:14px;border:2px solid #F5F4FB;border-radius:3px;border-top-width:4px"></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center">
+      <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.06em;color:#C9CBE3">{{ d.lbl }}</div>
+          <div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:{{ d.fg }};background:{{ d.bg }};border:{{ d.bd }}">{{ d.n }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="position:relative;width:300px;height:300px;justify-self:center;margin-top:6px">
+      <svg width="300" height="300" viewBox="0 0 300 300" style="position:absolute;inset:0;transform:rotate(-90deg)">
+        <circle cx="150" cy="150" r="136" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="16"></circle>
+        <circle cx="150" cy="150" r="136" fill="none" stroke="#F49CAB" stroke-width="16" stroke-linecap="round" stroke-dasharray="100 755"></circle>
+        <circle cx="150" cy="150" r="136" fill="none" stroke="#A1E6E8" stroke-width="16" stroke-linecap="round" stroke-dasharray="130 725" stroke-dashoffset="-500" opacity=".85"></circle>
+      </svg>
+      <div style="position:absolute;inset:26px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.14em;color:#C9CBE3">KỲ KINH</div>
+        <div style="font-size:60px;font-weight:700;letter-spacing:-.03em;line-height:1.05;color:#F7A6B4">Ngày 1</div>
+        <div style="font-size:15px;color:#DCDDF0">9 tháng 10</div>
+        <div style="margin-top:12px;padding:12px 26px;border-radius:99px;background:#F49CAB;color:#3A2340;font-size:16px;font-weight:600;box-shadow:0 10px 24px -8px rgba(244,156,171,.6)">Kỳ kinh kết thúc</div>
+      </div>
+    </div>
+    <div style="justify-self:center;padding:8px 18px;border-radius:99px;background:rgba(247,166,180,.18);border:1px solid rgba(247,166,180,.3);color:#FFC4CE;font-size:14px;font-weight:600">Ngày 1 · Kỳ kinh</div>
+    <div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:24px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14)">
+      <div style="width:44px;height:44px;border-radius:50%;background:#F49CAB;color:#3A2340;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:400;flex:none">+</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+        <div style="font-size:16px;font-weight:600">Hôm nay bạn thấy thế nào?</div>
+        <div style="font-size:13px;color:#C9CBE3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Ghi tâm trạng, triệu chứng, lượng kinh</div>
+      </div>
+      <div style="color:#C9CBE3;font-size:20px">›</div>
+    </div>
+    <div style="padding:18px;border-radius:24px;background:linear-gradient(135deg,rgba(247,166,180,.26),rgba(247,166,180,.12));border:1px solid rgba(247,166,180,.32);display:flex;flex-direction:column;gap:6px">
+      <div style="font-size:17px;font-weight:600;color:#FFC4CE">Chu kỳ có vẻ không đều</div>
+      <div style="font-size:14px;line-height:1.5;color:#F5F4FB">Chu kỳ ngắn hơn 21 ngày, dài hơn 35 ngày hoặc thay đổi nhiều – bạn nên trao đổi với bác sĩ.</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:4px;padding:6px;border-radius:99px;background:rgba(58,62,98,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.16);box-shadow:0 16px 32px -12px rgba(10,10,30,.5)">
+    <div style="width:88px;padding:8px 0;border-radius:99px;background:rgba(247,166,180,.22);display:flex;flex-direction:column;align-items:center;gap:3px;color:#FFC4CE"><div style="font-size:18px">☀</div><div style="font-size:11px;font-weight:600">Hôm nay</div></div>
+    <div style="width:88px;padding:8px 0;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:3px;color:#DCDDF0"><div style="font-size:18px">▦</div><div style="font-size:11px;font-weight:500">Lịch</div></div>
+    <div style="width:88px;padding:8px 0;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:3px;color:#DCDDF0"><div style="font-size:18px">●</div><div style="font-size:11px;font-weight:500">Cá nhân</div></div>
+  </div>
+</div>
+
+<!-- Lịch -->
+<div data-screen-label="Lịch" style="width:390px;height:844px;border-radius:52px;overflow:hidden;position:relative;flex:none;background:{{ phoneBg }};box-shadow:0 40px 80px -30px rgba(10,10,30,.6),0 0 0 10px #1C1E33">
+  <div style="position:absolute;top:-100px;left:-80px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(247,166,180,.22),transparent 70%)"></div>
+  <div style="position:relative;padding:58px 20px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px">
+    <div style="font-size:32px;font-weight:700;letter-spacing:-.02em">Lịch chu kỳ</div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:18px">‹</div>
+      <div style="font-size:16px;font-weight:600">Tháng 10 năm 2026</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:18px">›</div>
+    </div>
+    <div style="padding:16px 10px;border-radius:28px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:grid;grid-template-columns:repeat(7,1fr);row-gap:8px;text-align:center">
+      <sc-for list="{{ dows }}" as="w" hint-placeholder-count="7"><div style="font-size:11px;font-weight:600;color:#C9CBE3;padding-bottom:6px">{{ w }}</div></sc-for>
+      <sc-for list="{{ cal }}" as="c" hint-placeholder-count="35">
+        <div style="display:flex;justify-content:center"><div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:{{ c.w }};color:{{ c.fg }};background:{{ c.bg }};border:{{ c.bd }};box-shadow:{{ c.sh }};box-sizing:border-box">{{ c.n }}</div></div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;font-size:13px;color:#DCDDF0">
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:14px;height:14px;border-radius:50%;background:#F49CAB;flex:none"></div>Kỳ kinh</div>
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:14px;height:14px;border-radius:50%;border:1.5px dashed #F7A6B4;box-sizing:border-box;flex:none"></div>Kỳ kinh dự đoán</div>
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:14px;height:14px;border-radius:50%;background:rgba(161,230,232,.3);flex:none"></div>Khả năng thụ thai cao</div>
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:14px;height:14px;border-radius:50%;border:2px solid #A1E6E8;box-sizing:border-box;flex:none"></div>Ngày rụng trứng</div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-radius:24px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14)">
+      <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:13px;color:#C9CBE3">Hôm nay</div><div style="font-size:18px;font-weight:600">Ngày 1 · Kỳ kinh</div></div>
+      <div style="padding:10px 20px;border-radius:99px;background:rgba(247,166,180,.2);border:1px solid rgba(247,166,180,.34);color:#FFC4CE;font-weight:600;font-size:15px">Ghi chú</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:4px;padding:6px;border-radius:99px;background:rgba(58,62,98,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.16);box-shadow:0 16px 32px -12px rgba(10,10,30,.5)">
+    <div style="width:88px;padding:8px 0;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:3px;color:#DCDDF0"><div style="font-size:18px">☀</div><div style="font-size:11px;font-weight:500">Hôm nay</div></div>
+    <div style="width:88px;padding:8px 0;border-radius:99px;background:rgba(247,166,180,.22);display:flex;flex-direction:column;align-items:center;gap:3px;color:#FFC4CE"><div style="font-size:18px">▦</div><div style="font-size:11px;font-weight:600">Lịch</div></div>
+    <div style="width:88px;padding:8px 0;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:3px;color:#DCDDF0"><div style="font-size:18px">●</div><div style="font-size:11px;font-weight:500">Cá nhân</div></div>
+  </div>
+</div>
+
+<!-- Cá nhân -->
+<div data-screen-label="Cá nhân" style="width:390px;height:844px;border-radius:52px;overflow:hidden;position:relative;flex:none;background:{{ phoneBg }};box-shadow:0 40px 80px -30px rgba(10,10,30,.6),0 0 0 10px #1C1E33">
+  <div style="position:absolute;top:-120px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(247,166,180,.24),transparent 70%)"></div>
+  <div style="position:relative;padding:58px 20px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:14px;padding-bottom:6px">
+      <div style="width:60px;height:60px;border-radius:50%;background:rgba(247,166,180,.22);border:1px solid rgba(247,166,180,.35);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#FFD3DA">L</div>
+      <div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:24px;font-weight:700;letter-spacing:-.02em">Luna Mom</div><div style="font-size:14px;color:#C9CBE3">Theo dõi chu kỳ</div></div>
+    </div>
+    <div style="padding:16px;border-radius:24px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:15px;font-weight:600">Ngôn ngữ</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);padding:3px;border-radius:99px;background:rgba(20,22,48,.28);font-size:14px;text-align:center">
+        <div style="padding:9px 0;border-radius:99px;background:#F49CAB;color:#3A2340;font-weight:600">Theo máy</div>
+        <div style="padding:9px 0;color:#DCDDF0;font-weight:500">Tiếng Việt</div>
+        <div style="padding:9px 0;color:#DCDDF0;font-weight:500">English</div>
+      </div>
+    </div>
+    <div style="border-radius:24px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column">
+      <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:15px;font-weight:600">Mục tiêu</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);padding:3px;border-radius:99px;background:rgba(20,22,48,.28);font-size:14px;text-align:center">
+          <div style="padding:9px 0;border-radius:99px;background:#F49CAB;color:#3A2340;font-weight:600">Chu kỳ</div>
+          <div style="padding:9px 0;color:#DCDDF0;font-weight:500">Mong con</div>
+          <div style="padding:9px 0;color:#DCDDF0;font-weight:500">Mang thai</div>
+        </div>
+      </div>
+      <div style="padding:15px 16px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;font-size:15px"><div>Chuyển sang chế độ mang thai</div><div style="color:#C9CBE3">›</div></div>
+    </div>
+    <div style="padding:16px;border-radius:24px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:15px;font-weight:600">Chu kỳ</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px"><div>Độ dài chu kỳ: 38 ngày</div><div style="display:flex;border-radius:99px;background:rgba(20,22,48,.28);overflow:hidden"><div style="width:44px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px">−</div><div style="width:1px;background:rgba(255,255,255,.14)"></div><div style="width:44px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px">+</div></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px"><div>Số ngày hành kinh: 5 ngày</div><div style="display:flex;border-radius:99px;background:rgba(20,22,48,.28);overflow:hidden"><div style="width:44px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px">−</div><div style="width:1px;background:rgba(255,255,255,.14)"></div><div style="width:44px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px">+</div></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px"><div>Nhắc chu kỳ</div><div style="width:50px;height:30px;border-radius:99px;background:#F49CAB;position:relative"><div style="position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;background:#fff"></div></div></div>
+      <div style="font-size:13px;line-height:1.5;color:#C9CBE3">Nhắc lúc 9:00: 1 ngày trước kỳ kinh dự kiến và một lần khi trễ kinh 3 ngày.</div>
+      <div style="height:1px;background:rgba(255,255,255,.1)"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px"><div>Biện pháp tránh thai</div><div style="color:#F7A6B4;font-weight:500">Bao cao su ⌄</div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:15px"><div>Hiện que thử rụng trứng</div><div style="width:50px;height:30px;border-radius:99px;background:rgba(20,22,48,.35);position:relative"><div style="position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#DCDDF0"></div></div></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:4px;padding:6px;border-radius:99px;background:rgba(58,62,98,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.16);box-shadow:0 16px 32px -12px rgba(10,10,30,.5)">
+    <div style="width:88px;padding:8px 0;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:3px;color:#DCDDF0"><div style="font-size:18px">☀</div><div style="font-size:11px;font-weight:500">Hôm nay</div></div>
+    <div style="width:88px;padding:8px 0;border-radius:99px;display:flex;flex-direction:column;align-items:center;gap:3px;color:#DCDDF0"><div style="font-size:18px">▦</div><div style="font-size:11px;font-weight:500">Lịch</div></div>
+    <div style="width:88px;padding:8px 0;border-radius:99px;background:rgba(247,166,180,.22);display:flex;flex-direction:column;align-items:center;gap:3px;color:#FFC4CE"><div style="font-size:18px">●</div><div style="font-size:11px;font-weight:600">Cá nhân</div></div>
+  </div>
+</div>
+
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;width:100%;max-width:1250px">
+  <div style="font-size:13px;font-weight:700;letter-spacing:.12em;color:#C9CBE3">BẢNG MÀU DARK MODE</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px">
+    <sc-for list="{{ swatches }}" as="s" hint-placeholder-count="8">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="height:72px;border-radius:18px;background:{{ s.c }};border:1px solid rgba(255,255,255,.16)"></div>
+        <div style="font-size:13px;font-weight:600">{{ s.name }}</div>
+        <div style="font-size:12px;color:#C9CBE3;font-family:ui-monospace,monospace">{{ s.v }}</div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Indigo&quot;,&quot;Lavender&quot;,&quot;Dusk&quot;],&quot;default&quot;:&quot;Indigo&quot;,&quot;tsType&quot;:&quot;'Indigo'|'Lavender'|'Dusk'&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const tone = this.props.tone ?? 'Indigo';
+    const bgs = {
+      Indigo: 'linear-gradient(165deg,#5E6392 0%,#4E5481 45%,#474C72 100%)',
+      Lavender: 'linear-gradient(165deg,#7176A6 0%,#62679A 45%,#585D87 100%)',
+      Dusk: 'linear-gradient(165deg,#5A5E8C 0%,#4B4F7A 55%,#3E4266 100%)'
+    };
+    const lbls = ['T7', 'CN', 'T2', 'T3', 'T4', 'T5', 'NAY'];
+    const week = [3, 4, 5, 6, 7, 8, 9].map((n, i) => ({
+      n, lbl: lbls[i],
+      fg: n === 9 ? '#3A2340' : '#F5F4FB',
+      bg: n === 9 ? '#F49CAB' : 'transparent',
+      bd: n === 9 ? '0' : '0'
+    }));
+    const cal = [];
+    for (let i = 0; i < 3; i++) cal.push({ n: '', fg: 'transparent', bg: 'transparent', bd: '0', sh: 'none', w: 500 });
+    for (let d = 1; d <= 31; d++) {
+      let c = { n: d, fg: '#F5F4FB', bg: 'transparent', bd: '0', sh: 'none', w: 500 };
+      if (d === 9) c = { ...c, fg: '#3A2340', bg: '#F49CAB', sh: '0 0 0 3px rgba(255,255,255,.5)', w: 700 };
+      else if (d >= 10 && d <= 13) c = { ...c, fg: '#FFC4CE', bd: '1.5px dashed #F7A6B4' };
+      cal.push(c);
+    }
+    return {
+      phoneBg: bgs[tone] || bgs.Indigo,
+      week, cal, dows: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+      swatches: [
+        { name: 'Nền trên', v: '#5E6392', c: '#5E6392' },
+        { name: 'Nền dưới', v: '#474C72', c: '#474C72' },
+        { name: 'Thẻ kính', v: 'white 9% · viền 14%', c: 'rgba(255,255,255,.09)' },
+        { name: 'Chữ chính', v: '#F5F4FB', c: '#F5F4FB' },
+        { name: 'Chữ phụ', v: '#C9CBE3', c: '#C9CBE3' },
+        { name: 'Hồng nhấn', v: '#F49CAB', c: '#F49CAB' },
+        { name: 'Hồng chữ', v: '#FFC4CE', c: '#FFC4CE' },
+        { name: 'Xanh ngọc', v: '#A1E6E8', c: '#A1E6E8' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

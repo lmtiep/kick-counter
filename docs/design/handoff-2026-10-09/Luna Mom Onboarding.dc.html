@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EAE3DC;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#3A2A24;-webkit-font-smoothing:antialiased}
+a{color:#B4583A}a:hover{color:#8E3F1F}
+button{font-family:inherit}
+@keyframes mamReveal{from{clip-path:circle(0% at 105% 38%)}to{clip-path:circle(150% at 105% 38%)}}
+@keyframes mamKen{from{transform:scale(1.18) translateX(6%)}to{transform:none}}
+@keyframes mamRise{from{transform:translateY(70px)}to{transform:none}}
+@keyframes mamDrift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mamUp{from{transform:translateY(28px);opacity:0}to{transform:none;opacity:1}}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:20px;padding:36px 20px;box-sizing:border-box">
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="display:flex;padding:3px;border-radius:99px;background:#fff">
+      <div onClick="{{ setVi }}" style="padding:7px 14px;border-radius:99px;font-size:13px;font-weight:500;cursor:pointer;background:{{ viBg }};color:{{ viFg }}">Tiếng Việt</div>
+      <div onClick="{{ setEn }}" style="padding:7px 14px;border-radius:99px;font-size:13px;font-weight:500;cursor:pointer;background:{{ enBg }};color:{{ enFg }}">English</div>
+    </div>
+    <button onClick="{{ replay }}" style="border:0;background:#fff;color:#3A2A24;font-size:13px;font-weight:500;padding:9px 16px;border-radius:99px;cursor:pointer">{{ t.replay }}</button>
+  </div>
+  <div style="display:flex;gap:40px;flex-wrap:wrap;justify-content:center">
+
+    <div data-screen-label="01 Chào mừng" style="width:410px;height:864px;flex:none;border-radius:62px;background:#E9DED3;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px -20px rgba(60,30,15,.3)">
+      <div style="position:relative;width:390px;height:844px;border-radius:52px;overflow:hidden;background:#FFFAF2;display:flex;flex-direction:column;padding:0 24px 34px;box-sizing:border-box">
+        <div style="position:absolute;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;box-sizing:border-box;font-size:15px;font-weight:600;z-index:3"><div>19:24</div><div style="width:24px;height:11px;border:1.5px solid #3A2A24;border-radius:3px;box-sizing:border-box;padding:1px"><div style="width:60%;height:100%;background:#3A2A24;border-radius:1px"></div></div></div>
+        <sc-if value="{{ show }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:96px;left:0;right:0;height:340px"><div style="position:absolute;inset:0;overflow:hidden;animation:mamReveal 1.1s cubic-bezier(.65,0,.35,1) both"><div style="position:absolute;inset:0;animation:mamKen 1.8s cubic-bezier(.2,.8,.2,1) both"><img src="assets/luna-goal-s.png" alt="" style="width:100%;height:100%;object-fit:contain;object-position:50% 0%;display:block"></div><div style="position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(180deg,rgba(255,250,242,0) 0%,#FFFAF2 100%)"></div></div><div style="position:absolute;left:0;right:0;bottom:-1px;height:56px;overflow:hidden;pointer-events:none;animation:mamRise 1s .25s cubic-bezier(.2,.8,.2,1) both"><svg viewBox="0 0 800 64" preserveAspectRatio="none" style="display:block;width:200%;height:100%;animation:mamDrift 9s linear infinite"><path d="M0 34 C100 4 300 4 400 34 C500 64 700 64 800 34 L800 64 L0 64 Z" fill="#FFFAF2"></path></svg></div></div>
+          <div style="flex:1"></div>
+          <div style="position:relative;display:flex;flex-direction:column;gap:14px;padding-bottom:20px;animation:mamUp .8s .45s cubic-bezier(.2,.8,.2,1) both">
+            <div style="font-size:32px;font-weight:400;line-height:1.15;letter-spacing:-.02em;color:#3A2A24;text-wrap:balance">{{ t.welcome }}</div>
+            <div style="font-size:15px;line-height:1.5;color:#7A6B64;text-wrap:pretty">{{ t.welcomeSub }}</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:2px">
+              <div style="display:flex;gap:10px;align-items:center">
+                <div style="width:24px;height:24px;flex:none;border-radius:50%;background:#E6EDE3;display:grid;place-items:center"><div style="width:9px;height:7px;border:1.6px solid #5E7A5A;border-radius:2px;box-sizing:border-box;margin-top:3px;position:relative"><div style="position:absolute;left:0;top:-6px;width:5px;height:5px;border:1.6px solid #5E7A5A;border-bottom:0;border-radius:4px 4px 0 0"></div></div></div>
+                <div style="flex:1;font-size:13px;line-height:1.4;color:#5E504A">{{ t.privS }}</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center">
+                <div style="width:24px;height:24px;flex:none;border-radius:50%;background:#F7E3D7;display:grid;place-items:center;font-size:12px;font-weight:700;color:#B4583A">!</div>
+                <div style="flex:1;font-size:13px;line-height:1.4;color:#5E504A">{{ t.medS }}</div>
+              </div>
+            </div>
+          </div>
+          <button style="position:relative;flex:none;border:0;background:#B4583A;color:#FFFAF2;font-weight:500;font-size:16px;height:58px;border-radius:99px;cursor:pointer;animation:mamUp .8s .6s cubic-bezier(.2,.8,.2,1) both" style-active="transform:scale(.98)">{{ t.start }}</button>
+          <div style="display:flex;justify-content:center;padding-top:14px;animation:mamUp .8s .7s cubic-bezier(.2,.8,.2,1) both"><a href="#" style="font-size:13px;font-weight:500;color:#8E5A43;text-decoration:none">{{ t.restore }}</a></div>
+        </sc-if>
+        <div style="position:absolute;top:56px;left:24px;right:24px;z-index:2;display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;gap:5px;padding:8px 10px;border-radius:99px;background:rgba(255,255,255,.85)"><sc-for list="{{ dots0 }}" as="d" hint-placeholder-count="8"><div style="height:6px;border-radius:3px;width:{{ d.w }}px;background:{{ d.bg }}"></div></sc-for></div>
+          <div style="display:flex;padding:3px;border-radius:99px;background:rgba(255,255,255,.85)">
+            <div onClick="{{ setVi }}" style="padding:6px 11px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;background:{{ viBg }};color:{{ viFg }}">VI</div>
+            <div onClick="{{ setEn }}" style="padding:6px 11px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;background:{{ enBg }};color:{{ enFg }}">EN</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-screen-label="02 Mục tiêu" style="width:410px;height:864px;flex:none;border-radius:62px;background:#E9DED3;padding:10px;box-sizing:border-box;box-shadow:0 30px 60px -20px rgba(60,30,15,.3)">
+      <div style="position:relative;width:390px;height:844px;border-radius:52px;overflow:hidden;background:#FFFAF2;display:flex;flex-direction:column;padding:0 24px 34px;box-sizing:border-box">
+        <div style="position:absolute;top:0;left:0;right:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 34px;box-sizing:border-box;font-size:15px;font-weight:600;z-index:3"><div>19:24</div><div style="width:24px;height:11px;border:1.5px solid #3A2A24;border-radius:3px;box-sizing:border-box;padding:1px"><div style="width:60%;height:100%;background:#3A2A24;border-radius:1px"></div></div></div>
+        <sc-if value="{{ show }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;top:100px;left:0;right:0;height:320px"><div style="position:absolute;inset:0;overflow:hidden;animation:mamReveal 1.1s cubic-bezier(.65,0,.35,1) both"><div style="position:absolute;inset:0;animation:mamKen 1.8s cubic-bezier(.2,.8,.2,1) both"><img src="assets/luna-due-s.png" alt="" style="width:100%;height:100%;object-fit:contain;object-position:50% 0%;display:block"></div><div style="position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(180deg,rgba(255,250,242,0) 0%,#FFFAF2 100%)"></div></div><div style="position:absolute;left:0;right:0;bottom:-1px;height:56px;overflow:hidden;pointer-events:none;animation:mamRise 1s .25s cubic-bezier(.2,.8,.2,1) both"><svg viewBox="0 0 800 64" preserveAspectRatio="none" style="display:block;width:200%;height:100%;animation:mamDrift 9s linear infinite"><path d="M0 34 C100 4 300 4 400 34 C500 64 700 64 800 34 L800 64 L0 64 Z" fill="#FFFAF2"></path></svg></div></div>
+          <div style="flex:1"></div>
+          <div style="position:relative;display:flex;flex-direction:column;gap:8px;padding-bottom:16px;animation:mamUp .8s .45s cubic-bezier(.2,.8,.2,1) both">
+            <div style="font-size:32px;font-weight:400;line-height:1.15;letter-spacing:-.02em;color:#3A2A24;text-wrap:balance;margin-bottom:2px;font-size:26px">{{ t.goalQ }}</div>
+            <sc-for list="{{ goals }}" as="g" hint-placeholder-count="3">
+              <div onClick="{{ g.go }}" style="padding:9px 14px;border-radius:18px;cursor:pointer;display:flex;gap:12px;align-items:center;background:{{ g.bg }};border:1.5px solid {{ g.bd }};transition:all .25s ease">
+                <div style="width:36px;height:36px;flex:none;border-radius:50%;background:{{ g.soft }};display:grid;place-items:center"><div style="width:12px;height:12px;border-radius:50%;background:{{ g.c }}"></div></div>
+                <div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:500">{{ g.title }}</div><div style="font-size:13px;color:#7A6B64;margin-top:2px;line-height:1.4">{{ g.sub }}</div></div>
+                <div style="width:22px;height:22px;flex:none;border-radius:50%;box-sizing:border-box;border:{{ g.radio }};transition:all .25s ease"></div>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ next }}" style="position:relative;flex:none;border:0;background:{{ btnBg }};color:{{ btnFg }};font-weight:500;font-size:16px;height:58px;border-radius:99px;cursor:pointer;transition:all .3s ease;animation:mamUp .8s .6s cubic-bezier(.2,.8,.2,1) both" style-active="transform:scale(.98)">{{ t.cont }}</button>
+        </sc-if>
+        <div style="position:absolute;top:56px;left:24px;right:24px;z-index:2;display:flex;align-items:center;justify-content:space-between">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.85);display:grid;place-items:center;cursor:pointer;font-size:22px;color:#3A2A24;line-height:1">‹</div>
+          <div style="display:flex;gap:5px;padding:8px 10px;border-radius:99px;background:rgba(255,255,255,.85)"><sc-for list="{{ dots1 }}" as="d" hint-placeholder-count="8"><div style="height:6px;border-radius:3px;width:{{ d.w }}px;background:{{ d.bg }}"></div></sc-for></div>
+          <div style="font-size:13px;font-weight:500;color:#3A2A24;cursor:pointer;padding:9px 14px;border-radius:99px;background:rgba(255,255,255,.85)">{{ t.skip }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'vi', pick: null, show: true };
+  renderVals() {
+    const s = this.state, vi = s.lang === 'vi';
+    const t = vi ? {
+      replay: 'Phát lại', welcome: 'Chào mừng đến với Luna Mom',
+      welcomeSub: 'Theo dõi chu kỳ và đồng hành cùng bạn qua từng tuần thai kỳ.',
+      privS: 'Dữ liệu chỉ lưu trên iPhone. Không tài khoản, không quảng cáo.',
+      medS: 'Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay.',
+      start: 'Bắt đầu', restore: 'Khôi phục từ bản sao lưu', goalQ: 'Bạn muốn theo dõi điều gì?', cont: 'Tiếp tục', skip: 'Bỏ qua',
+      g: [['Theo dõi chu kỳ', 'Dự đoán kỳ kinh, hiểu cơ thể mình'], ['Mong con', 'Biết ngày rụng trứng và ngày dễ thụ thai'], ['Đang mang thai', 'Theo dõi từng tuần và cử động của bé']]
+    } : {
+      replay: 'Replay', welcome: 'Welcome to Luna Mom',
+      welcomeSub: 'Track your cycle and get week-by-week support through pregnancy.',
+      privS: 'Data stays on this iPhone. No account, no ads.',
+      medS: 'Not a substitute for a doctor. Fewer kicks than usual? Call your doctor.',
+      start: 'Get started', restore: 'Restore from backup', goalQ: 'What would you like to track?', cont: 'Continue', skip: 'Skip',
+      g: [['Track my cycle', 'Predict periods, understand your body'], ['Trying to conceive', 'Know your ovulation and fertile days'], ['Pregnant', 'Follow each week and baby’s movements']]
+    };
+    const cols = [['#E0566B', '#FBE3E6'], ['#4FA79E', '#DDF0EC'], ['#D9824F', '#F7E3D7']];
+    const goals = t.g.map(([title, sub], i) => {
+      const on = s.pick === i;
+      return { title, sub, c: cols[i][0], soft: cols[i][1], bg: on ? '#fff' : 'rgba(255,255,255,.6)', bd: on ? cols[i][0] : 'transparent', radio: on ? '7px solid ' + cols[i][0] : '1.5px solid #DCCFC6', go: () => this.setState({ pick: i }) };
+    });
+    const dots = a => [...Array(8)].map((_, i) => ({ w: i === a ? 20 : 6, bg: i === a ? '#B4583A' : '#E3D6CC' }));
+    const on = s.pick !== null;
+    return {
+      t, show: s.show, goals, dots0: dots(0), dots1: dots(1),
+      btnBg: on ? '#B4583A' : '#EFE4DA', btnFg: on ? '#FFFAF2' : '#B5A69E', next: () => {},
+      viBg: vi ? '#B4583A' : 'transparent', viFg: vi ? '#fff' : '#3A2A24', enBg: vi ? 'transparent' : '#B4583A', enFg: vi ? '#3A2A24' : '#fff',
+      setVi: () => this.setState({ lang: 'vi' }), setEn: () => this.setState({ lang: 'en' }),
+      replay: () => { this.setState({ show: false }); setTimeout(() => this.setState({ show: true }), 30); }
+    };
+  }
+}
+</script>
+</body>
+</html>
