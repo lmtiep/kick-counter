@@ -17,6 +17,22 @@ final class AppStoreScreenshotTests: XCTestCase {
         Thread.sleep(forTimeInterval: seconds)
     }
 
+    /// Nudges Today up in short, slow drags (no momentum) until the baby size card
+    /// clears the floating tab bar, keeping the fetus hero and the week on screen.
+    @MainActor
+    private func revealBabySizeCard(_ app: XCUIApplication) {
+        let card = app.buttons["babySizeCard"]
+        XCTAssertTrue(card.waitForExistence(timeout: 5))
+        let tabBarTop = app.tabBars.firstMatch.frame.minY
+        var remaining = 8
+        while card.frame.maxY > tabBarTop - 12, remaining > 0 {
+            let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.6))
+            let end = start.withOffset(CGVector(dx: 0, dy: -20))
+            start.press(forDuration: 0.05, thenDragTo: end, withVelocity: .slow, thenHoldForDuration: 0.3)
+            remaining -= 1
+        }
+    }
+
     @MainActor
     private func launchCycle(_ language: String) -> XCUIApplication {
         let app = XCUIApplication.launchPinned(language: language, seedCycles: "fertile", cycleGoal: "conceiving")
@@ -55,6 +71,7 @@ final class AppStoreScreenshotTests: XCTestCase {
             let fetus = app.buttons["fetusHeroButton"]
             XCTAssertTrue(fetus.waitForExistence(timeout: 10))
             XCTAssertTrue(app.descendants(matching: .any)["weekProgressCard"].waitForExistence(timeout: 5))
+            revealBabySizeCard(app)
             settle()
             attachScreenshot(app, "appstore-4-pregnancy-today-\(language)")
 
