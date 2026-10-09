@@ -774,4 +774,52 @@ enum L10n {
     static var addPastErrorOverlapBleed: String { t("addPast.errorOverlapBleed") }
     static var addPastErrorFuture: String { t("addPast.errorFuture") }
     static var addPastErrorSave: String { t("addPast.errorSave") }
+
+    // MARK: - Phase 15: backup and restore by file
+
+    static var backupSection: String { t("backup.section") }
+    static var backupExport: String { t("backup.export") }
+    static var backupExportFootnote: String { t("backup.export.footnote") }
+    static var backupExportFailed: String { t("backup.export.failed") }
+    /// "Lần sao lưu gần nhất: 9 tháng 10".
+    static func backupLastBackup(_ date: String) -> String { String(format: t("backup.lastBackup"), date) }
+    static var backupImport: String { t("backup.import") }
+    static var backupRestoreTitle: String { t("backup.restore.title") }
+    static func backupRestoreCreatedAt(_ date: String) -> String { String(format: t("backup.restore.createdAt"), date) }
+    static func backupRestoreRange(_ from: String, _ to: String) -> String { String(format: t("backup.restore.range"), from, to) }
+    static var backupRestoreEmpty: String { t("backup.restore.empty") }
+    static var backupRestoreWarning: String { t("backup.restore.warning") }
+    static var backupRestoreRunningSession: String { t("backup.restore.runningSession") }
+    static func backupRestoreSkipped(_ count: Int) -> String {
+        count == 1 ? t("backup.restore.skipped.one") : String(format: t("backup.restore.skipped"), count)
+    }
+    static var backupRestoreConfirm: String { t("backup.restore.confirm") }
+    static var backupRestoreFailed: String { t("backup.restore.failed") }
+    static var backupRestored: String { t("backup.restored") }
+    static var backupErrorTitle: String { t("backup.error.title") }
+
+    static func backupError(_ error: BackupError) -> String {
+        switch error {
+        case .notABackup: t("backup.error.notABackup")
+        case .newerVersion: t("backup.error.newerVersion")
+        case .corrupt: t("backup.error.corrupt")
+        }
+    }
+
+    /// "12 lượt đếm cử động, 8 kỳ kinh, …": only the kinds the file has.
+    static func backupCounts(_ summary: BackupSummary) -> String {
+        let parts: [(count: Int, one: String, other: String)] = [
+            (summary.sessions, "backup.count.sessions.one", "backup.count.sessions"),
+            (summary.periods, "backup.count.periods.one", "backup.count.periods"),
+            (summary.cycleLogs, "backup.count.cycleLogs.one", "backup.count.cycleLogs"),
+            (summary.weights, "backup.count.weights.one", "backup.count.weights"),
+            (summary.appointments, "backup.count.appointments.one", "backup.count.appointments"),
+        ]
+        return parts
+            .filter { $0.count > 0 }
+            .map { $0.count == 1 ? t($0.one) : String(format: t($0.other), $0.count) }
+            .joined(separator: ", ")
+    }
+
+    static var onboardingRestore: String { t("onboarding.restore") }
 }

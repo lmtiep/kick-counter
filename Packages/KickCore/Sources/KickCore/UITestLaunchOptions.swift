@@ -16,6 +16,8 @@ import Foundation
 /// - `-uiTestingPartnerUI` keeps the partner UI (share card, partner mode) reachable while
 ///   `AppFeatures.cloudSync` is off, so the partner tests keep their coverage (phase 12).
 /// - `-seedAppMode <mode>` stores that `AppMode` (e.g. `partner`) without any fake sharing.
+/// - `-uiTestingRestoreFile <path>` opens the restore sheet for that backup file at launch,
+///   as opening a `.lunamom` file does (phase 15). A relative path is in the app's tmp folder.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -30,6 +32,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedContraception: Contraception?
     public let forcesPartnerUI: Bool
     public let seedAppMode: AppMode?
+    public let restoreFile: String?
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -51,6 +54,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
             : nil
         forcesPartnerUI = isUITesting && arguments.contains("-uiTestingPartnerUI")
         seedAppMode = isUITesting ? Self.value(after: "-seedAppMode", in: arguments).flatMap(AppMode.init(rawValue:)) : nil
+        restoreFile = isUITesting ? Self.value(after: "-uiTestingRestoreFile", in: arguments) : nil
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {

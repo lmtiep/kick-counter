@@ -20,6 +20,7 @@ struct RootView: View {
     @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
+    @Environment(BackupCenter.self) private var backup
     @Environment(\.partnerSharing) private var sharing
     @Environment(\.partnerPublisher) private var publisher
     @Environment(\.scenePhase) private var scenePhase
@@ -33,6 +34,8 @@ struct RootView: View {
     /// Profile → "Replay the introduction": onboarding without saving anything.
     @State private var replayingOnboarding = false
     @State private var invitationFailed = false
+    /// "Đã khôi phục dữ liệu" after a restore (phase 15).
+    @State private var toastMessage: String?
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
     private var showsOnboarding: Bool { !hasCompletedOnboarding || replayingOnboarding }
@@ -63,6 +66,10 @@ struct RootView: View {
                     // A fresh install opening an invitation is still onboarding:
                     // a failure is shown over the cover, where it can be seen.
                     .partnerAcceptFailedAlert(isPresented: acceptFailedBinding(whileOnboarding: true))
+                    // A backup opened on a new phone, before onboarding is done.
+                    .sheet(item: restoreBinding(whileOnboarding: true)) { request in
+                        restoreSheet(request)
+                    }
             }
             // While she shares, the mother's changes reach the partner (phase 8).
             .background {
@@ -103,6 +110,43 @@ struct RootView: View {
                 Task { await accept(invitation) }
             }
             .partnerAcceptFailedAlert(isPresented: acceptFailedBinding(whileOnboarding: false))
+            .sheet(item: restoreBinding(whileOnboarding: false)) { request in
+                restoreSheet(request)
+            }
+            .toast($toastMessage)
+            // A `.lunamom` file opened from Files, AirDrop or a chat app (phase 15).
+            .onOpenURL { url in
+                guard BackupCenter.isBackupFile(url) else { return }
+                backup.open(url)
+            }
+            .onChange(of: backup.restoreCount) {
+                // A file opened while replaying the introduction ends the replay too.
+                replayingOnboarding = false
+                selectedTab = .today
+                toastMessage = L10n.backupRestored
+                Task { await restoreDailyKickReminder() }
+            }
+            #if DEBUG
+            .task {
+                if let file = AppClock.launchOptions.restoreFile { backup.openUITestFile(file) }
+            }
+            #endif
+    }
+
+    /// The restore sheet is presented by whichever view is on top, as the
+    /// invitation alert: the onboarding cover while it shows, the tabs otherwise.
+    private func restoreBinding(whileOnboarding: Bool) -> Binding<BackupCenter.Request?> {
+        Binding(
+            get: { showsOnboarding == whileOnboarding ? backup.request : nil },
+            set: { if $0 == nil { backup.request = nil } }
+        )
+    }
+
+    private func restoreSheet(_ request: BackupCenter.Request) -> some View {
+        RestoreBackupSheet(request: request)
+            .environment(\.locale, AppLocale.locale)
+            .environment(\.calendar, AppLocale.calendar)
+            .lunaSheetPresentation(detents: [.large])
     }
 
     /// The acceptance-failure alert is presented by whichever view is on top:

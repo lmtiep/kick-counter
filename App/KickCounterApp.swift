@@ -10,6 +10,8 @@ struct KickCounterApp: App {
     /// Hands iCloud share invitations to the app (phase 8).
     @UIApplicationDelegateAdaptor(PartnerAppDelegate.self) private var appDelegate
     private let environment: Result<AppEnvironment, Error>
+    /// A backup file waiting to be restored (phase 15).
+    @State private var backup = BackupCenter()
 
     init() {
         LunaAppearance.configure()
@@ -37,6 +39,7 @@ struct KickCounterApp: App {
                     .environment(env.partnerShare)
                     .environment(\.partnerPublisher, env.partnerPublisher)
                     .environment(env.partnerJourney)
+                    .environment(backup)
                     .environment(\.contentLibrary, env.content)
                     .environment(\.knowledgeLibrary, env.knowledge)
                     .modelContainer(env.container)
