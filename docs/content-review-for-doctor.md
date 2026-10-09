@@ -756,9 +756,10 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         `antenatal-checkup-milestones`: "tuần 15 đến 18" → "tuần 15 đến 20". Bài tuần 15 thêm nguồn Bộ Y tế.
         Nguồn: Bộ Y tế QĐ 1139/QĐ-BYT 2026 (bảng sàng lọc, "Triple test 15 – 20 tuần").
 70. [ ] **Mục 15 — ra máu tuần 4–12, tách theo mức độ** (tuần 4–12, mục cảnh báo). Cũ: "Ra máu âm đạo hoặc đau bụng
-        dữ dội: mẹ hãy liên hệ bác sĩ ngay." → Mới (hai dòng): "Ra máu ít hoặc lấm tấm, không đau hoặc chỉ đau bụng
-        nhẹ: mẹ hãy liên hệ bác sĩ ngay." và "Ra máu nhiều (thấm đẫm băng vệ sinh ngay sau khi thay) hoặc đau bụng
-        dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay." Bài `early-pregnancy-worries` sửa cùng ý: ra máu dù ít
+        dữ dội: mẹ hãy liên hệ bác sĩ ngay." → Mới (hai dòng): "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không
+        dứt: mẹ hãy liên hệ bác sĩ ngay." và "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau
+        bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay." (Vòng rà soát an toàn: dòng 1 nay bao mọi mức ra
+        máu, không để khoảng trống giữa hai dòng, và khớp bài `early-pregnancy-worries`.) Bài `early-pregnancy-worries` sửa cùng ý: ra máu dù ít
         hay nhiều hoặc đau bụng không dứt → liên hệ bác sĩ ngay; ra máu nhiều hoặc đau bụng dữ dội → gọi 115 hoặc đến
         khoa cấp cứu ngay. Nguồn: NHS – Vaginal bleeding in pregnancy (ra máu ít/lấm tấm, không đau hoặc đau nhẹ →
         liên hệ khoa sản; đau bụng dữ dội, đau vai, choáng/ngất, ra máu nhiều "soaking a period pad soon after
@@ -775,8 +776,8 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         khi ra máu). **Câu hỏi:** "gọi 115" khi ra máu nhiều ở tuần 37–42 có phù hợp không?
 72. [ ] **Mục 17 — nghi thai ngoài tử cung, thêm 115** (tuần 4–12). Cũ: "…hoặc choáng váng muốn ngất: mẹ hãy đến
         khoa cấp cứu ngay." → Mới: "…hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều,
-        ngất, hoặc không tự đi được, mẹ hãy gọi 115." Bài `first-trimester-tiredness` thêm: "Nếu ngất, hoặc không tự
-        đi được, mẹ hãy gọi 115." Nguồn: NHS – Ectopic pregnancy (đau bụng đột ngột dữ dội kèm choáng nhiều/ngất,
+        ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay." Bài `first-trimester-tiredness` thêm: "Nếu
+        ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay." Nguồn: NHS – Ectopic pregnancy (đau bụng đột ngột dữ dội kèm choáng nhiều/ngất,
         buồn nôn, xanh tái → gọi 999 hoặc đến A&E).
 73. [ ] **22-c — `medical.ttc.body`.** "chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc rất không đều" → "…dài hơn
         **35** ngày…" (cùng mốc với `onboarding.regularity.irregularNote` và `onboarding.cycleLength.hint` đã có).
@@ -785,11 +786,11 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
 74. [ ] **22-e — `cycle.irregular.body`.** "Chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc thay đổi nhiều — bạn nên
         trao đổi với bác sĩ." → "…dài hơn **35** ngày…". Nguồn như mục 73. Phần "thay đổi nhiều" (chênh > 7 ngày)
         khớp FIGO, giữ nguyên.
-75. [ ] **22-c/22-e — hằng số dự đoán chưa đổi, chờ bác sĩ chọn.** Giai đoạn này **không** đổi thuật toán:
-        `CyclePredictor.usableCycleLengths = 21...45` (chỉ chu kỳ 21–45 ngày được tính vào trung bình; thẻ "Chu kỳ
-        có vẻ không đều" hiện khi chu kỳ gần nhất ngoài 21–45 ngày hoặc ≥ 3 chu kỳ chênh > 7 ngày). Vì vậy hiện tại
-        thẻ chỉ hiện khi chu kỳ > 45 ngày, dù câu chữ đã nói "dài hơn 35 ngày" (câu vẫn đúng, nhưng thẻ hiện muộn hơn
-        mốc trong câu). **Câu hỏi:** đổi cận trên thành 35 (NHS) hay 38 (FIGO), cho cả việc tính trung bình lẫn thẻ
+75. [ ] **22-c/22-e — hằng số dự đoán chưa đổi, chờ bác sĩ chọn.** Cách tính trung bình **không** đổi:
+        `CyclePredictor.usableCycleLengths = 21...45` (chỉ chu kỳ 21–45 ngày được tính vào trung bình và "tính vào
+        trung bình" trong Lịch sử). **Đã đổi (chủ sản phẩm duyệt):** thẻ "Chu kỳ có vẻ không đều" dùng ngưỡng riêng
+        `CyclePredictor.regularCycleLengths = 21...35`: thẻ hiện khi chu kỳ gần nhất < 21 hoặc > 35 ngày (trước đây
+        > 45), hoặc ≥ 3 chu kỳ chênh > 7 ngày (giữ nguyên), khớp câu "dài hơn 35 ngày". **Câu hỏi:** đổi cận trên thành 35 (NHS) hay 38 (FIGO), cho cả việc tính trung bình lẫn thẻ
         cảnh báo, hay tách hai ngưỡng (ví dụ vẫn tính trung bình đến 45 ngày nhưng hiện thẻ từ 36 hoặc 39 ngày)?
         Nguồn: FIGO 2018 (Munro, Critchley, Fraser, Int J Gynaecol Obstet 143:393); PMC11790291 (2025); NHS – Periods;
         ACOG CO 651 (2015); AAFP 2023 (Infertility: Evaluation and Management).
@@ -801,13 +802,16 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
 77. [ ] **31-a — thẻ an toàn "Cơn gò"** (`symptom.safety.contractions`, trả lời câu hỏi ở mục 31). Cũ: "Đi khám ngay
         nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu." → Mới: "Đi khám ngay nếu ra nước, ra máu,
         hoặc có cơn gò đều đặn hay đau trước tuần 37. Từ tuần 37, hãy gọi bệnh viện khi cơn gò đều khoảng 5 phút một
-        lần hoặc dày hơn, hoặc khi mẹ lo lắng." Nguồn: NHS – Signs that labour has begun (dưới 37 tuần nghi chuyển dạ,
+        lần hoặc dày hơn, hoặc khi mẹ lo lắng." (en: "Go now if you leak fluid or bleed, or if contractions come
+        regularly or hurt before week 37. …") Nguồn: NHS – Signs that labour has begun (dưới 37 tuần nghi chuyển dạ,
         vỡ ối, ra máu → gọi ngay; cơn gò đều 5 phút một lần hoặc dày hơn → gọi; mỗi cơn > 2 phút hoặc ≥ 6 cơn trong
         10 phút → gọi ngay); Bộ Y tế QĐ 1139/QĐ-BYT 2026. **Câu hỏi:** có cần nêu thêm ngưỡng "> 2 phút / ≥ 6 cơn
         trong 10 phút" trên thẻ không (hiện bỏ để câu ngắn)?
 78. [ ] **31-b — thẻ an toàn "Phù chân"** (`symptom.safety.swelling`). Cũ: "Đi khám ngay nếu mặt hoặc tay phù đột
         ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị." → Mới: "Đi khám ngay nếu mặt, tay hoặc chân phù đột ngột,
-        hoặc đau đầu dữ dội, nhìn mờ, nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, dù chỉ có một dấu hiệu."
+        hoặc đau đầu dữ dội, nhìn mờ, nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, ợ nóng không đỡ dù đã dùng
+        thuốc trị ợ nóng, dù chỉ có một dấu hiệu." (en thêm "or in your upper belly" và "heartburn that does not ease
+        with heartburn medicine".)
         Nguồn: NHS – Pre-eclampsia ("Any of these symptoms can be serious and need to be checked immediately");
         Bộ Y tế QĐ 1139/QĐ-BYT 2026 (nhức đầu, hoa mắt, đau thượng vị là dấu hiệu tiền sản giật).
 79. [ ] **39-T15-b — chảy máu cam** (bài tuần 15, tab Mẹ). Cũ: "Bóp nhẹ phần mềm của mũi và hơi cúi người về trước
@@ -821,7 +825,8 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         định cuối). Cũ: "Gan và các món từ gan như pa tê chứa rất nhiều vitamin A, có thể gây hại nếu ăn quá nhiều. Vì
         vậy, mẹ không nên ăn thường xuyên hay ăn nhiều một lúc." → Mới: "Mẹ tránh gan và các món làm từ gan, như pa tê
         gan, vì chứa rất nhiều vitamin A có thể gây hại cho bé. Pa tê để ngăn mát còn có thể nhiễm vi khuẩn Listeria.
-        Nếu muốn ăn pa tê, mẹ chọn loại đóng hộp kín, không cần để tủ lạnh trước khi mở." Bài thêm nguồn CDC.
+        Nếu muốn ăn pa tê không làm từ gan, mẹ chọn loại đóng hộp kín, không cần để tủ lạnh trước khi mở." Bài
+        thêm nguồn CDC.
         Nguồn: NHS – Foods to avoid in pregnancy (rà soát 15/6/2026: "Liver and foods containing liver have high levels
         of vitamin A, which can be harmful to your baby"); CDC – Listeria prevention ("Refrigerated pâté or meat
         spreads" → tránh; loại hộp kín không cần để lạnh trước khi mở → an toàn hơn); FDA – Food Safety for
@@ -832,16 +837,17 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         dùng quá liều vitamin A; không có câu "tránh gan". Bác sĩ cân nhắc với thói quen bánh mì pa tê ở Việt Nam.
 81. [ ] **49 — ợ nóng và đau dưới sườn** (bài `sleeping-well-late-pregnancy`, trả lời câu hỏi ở mục 49). Thêm vào
         phần "Những điều cần báo bác sĩ hoặc nữ hộ sinh": "Nếu đau nhiều dưới sườn hoặc vùng thượng vị, hay ợ nóng
-        không đỡ dù đã dùng thuốc, mẹ hãy đến khoa sản ngay. Đó có thể là dấu hiệu tiền sản giật." Để bài không quá
-        500 chữ, bỏ câu "Thở chậm và sâu có thể giúp mẹ thư thái khi đầu óc ngổn ngang." (không phải nội dung an
-        toàn). Nguồn: NHS – Pre-eclampsia ("pain below the ribs", "heartburn that does not go away with heartburn
+        không đỡ dù đã dùng thuốc trị ợ nóng, mẹ hãy đến khoa sản ngay. Đó có thể là dấu hiệu tiền sản giật." Để bài
+        không quá 500 chữ, bỏ câu "Thở chậm và sâu có thể giúp mẹ thư thái khi đầu óc ngổn ngang." và rút "cũng có
+        thể giúp mẹ đỡ hơn" → "cũng có thể giúp mẹ" (không phải nội dung an toàn). Nguồn: NHS – Pre-eclampsia ("pain below the ribs", "heartburn that does not go away with heartburn
         medicines"; mỗi dấu hiệu cần kiểm tra ngay); Bộ Y tế QĐ 1139/QĐ-BYT 2026 (đau thượng vị).
 82. [ ] **56 — nhắc chu kỳ khi dùng tránh thai nội tiết** (trả lời câu hỏi ở mục 56). Với nhóm "có nội tiết"
         (mục 54) khi theo dõi chu kỳ, app không còn nói "kỳ kinh": "Ngày mai có thể đến kỳ kinh" → "Ngày mai có thể
         ra máu" (`cycle.reminder.bleed.*`, thân: "Hãy ghi lại khi bắt đầu ra máu để dự đoán chính xác hơn."); "Kỳ kinh
-        đã trễ 3 ngày / Bạn có thể thử thai." → "Đã trễ 3 ngày so với lần ra máu dự kiến / Nếu lo lắng, bạn có thể thử
-        thai." (`cycle.reminder.bleedLate.*`). Thẻ trễ ở Hôm nay đổi cùng cách: "Đã trễ %d ngày so với lần ra máu dự
-        kiến" / "Nếu lo lắng, bạn có thể thử thai. Nếu que thử dương tính, hãy bấm “Tôi đã có thai”."
+        đã trễ 3 ngày / Bạn có thể thử thai." → "Đã trễ 3 ngày so với lần ra máu dự kiến / Nếu có quên thuốc hoặc lo lắng,
+        bạn có thể thử thai." (`cycle.reminder.bleedLate.*`). Thẻ trễ ở Hôm nay đổi cùng cách: "Đã trễ %d ngày so với
+        lần ra máu dự kiến" / "Nếu có quên thuốc hoặc lo lắng, bạn có thể thử thai. Nếu que thử dương tính, hãy bấm
+        “Tôi đã có thai”."
         (`cycle.lateBleed.*`); chú thích nhắc nhở trong Hồ sơ: "Nhắc lúc 9:00: 1 ngày trước lần ra máu dự kiến và một
         lần khi trễ 3 ngày." (`settings.cycleReminders.hint.bleed`). Người không dùng nội tiết và chế độ Mong con
         giữ câu cũ. Nguồn: NHS Devon Sexual Health – Taking 'the pill'; NHS 111 Wales – Progestogen-only pill; NHS –
@@ -878,3 +884,19 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         CG192 ghi thêm "updated 2020". (7) Mốc baby blues "khoảng hai tuần" (`preparing-for-motherhood`) là của NHS;
         bài đã có nguồn NHS nên không thêm NICE NG194. **Câu hỏi:** bác sĩ có muốn thêm NICE NG194 (chăm sóc sau
         sinh) không?
+89. [ ] **Vòng rà soát an toàn — dấu hiệu tiền sản giật hằng tuần (tuần 20–42).** Cũ: "Đau đầu dữ dội, nhìn mờ hoặc
+        nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay." → Mới: "Đau đầu dữ dội, nhìn mờ hoặc
+        nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện
+        ngay." Bài `signs-of-labour` thêm "đau dưới sườn hay vùng thượng vị" cùng cách. Test
+        `coreDangerSignsAppearEveryWeekOfTheirStage` kiểm tra "ribs"/"thượng vị" ở mọi tuần từ 20. Nguồn: NHS –
+        Pre-eclampsia ("pain below the ribs"); Bộ Y tế QĐ 1139/QĐ-BYT 2026 ("đau thượng vị").
+90. [ ] **Vòng rà soát an toàn — mức cấp cứu ở tuần 13–36** (trước đây mức 115 dừng ở tuần 12). Tuần 13–19: "Ra máu
+        âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: liên hệ bác sĩ hoặc bệnh viện ngay." → hai dòng: "Ra
+        máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay." và "Ra máu
+        nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay." Tuần 20–36: giữ "Ra máu âm đạo dù
+        ít hay nhiều, hoặc đau bụng không dứt: liên hệ bệnh viện ngay" và thêm dòng cấp cứu như trên. Tuần 18: "Ngất
+        xỉu, hoặc chóng mặt không đỡ khi ngồi nghỉ: đi khám bác sĩ" → "Chóng mặt không đỡ khi ngồi nghỉ: mẹ hãy đi
+        khám bác sĩ." (ngất nay thuộc dòng gọi 115). Test kiểm tra "115" (vi) ở mọi tuần, "heavy" (en) ở tuần ≤ 12 và
+        13–36, "115" ở tuần ≥ 37. Nguồn: NHS – Vaginal bleeding in pregnancy (ra máu nhiều, đau dữ dội, ngất → 999).
+        **Lưu ý:** bài `safe-exercise` và `sleep-positions` vẫn viết ngất → "liên hệ bác sĩ hoặc nữ hộ sinh ngay"
+        (câu hỏi mục 48 còn mở); bác sĩ quyết định có thống nhất về "gọi 115" không.

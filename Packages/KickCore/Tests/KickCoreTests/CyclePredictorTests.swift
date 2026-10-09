@@ -203,6 +203,22 @@ struct CyclePredictorTests {
         #expect(result.irregularWarning)
     }
 
+    /// Fact-check 22-c/22-e: the card says "longer than 35 days", so a latest cycle of
+    /// 36–45 days raises the warning too, while it still counts toward the average.
+    @Test(arguments: [(36, true), (45, true), (35, false), (21, false)])
+    func theIrregularWarningUses21To35Days(latest: Int, warns: Bool) throws {
+        let second = try #require(calendar.date(byAdding: .day, value: 28, to: day("2026-05-01")))
+        let third = try #require(calendar.date(byAdding: .day, value: latest, to: second))
+        let records = [day("2026-05-01"), second, third].map {
+            PeriodRecord(startDate: $0, endDate: calendar.date(byAdding: .day, value: 4, to: $0))
+        }
+        let now = try #require(calendar.date(byAdding: .day, value: 2, to: third))
+        let result = try #require(CyclePredictor.forecast(periods: records, logs: [], settings: settings, now: now, calendar: calendar))
+        #expect(result.irregularWarning == warns)
+        #expect(result.usableCycleLengths == [28, latest])
+        #expect(result.averageCycleLength == Int((Double(28 + latest) / 2).rounded()))
+    }
+
     // MARK: - LH tests
 
     @Test func positiveLHTestMovesOvulationToTheNextDay() throws {
