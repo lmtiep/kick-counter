@@ -511,6 +511,550 @@
         }
       }
     },
+    "backup.count.appointments": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld check-ups"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld lịch khám"
+          }
+        }
+      }
+    },
+    "backup.count.appointments.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 check-up"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 lịch khám"
+          }
+        }
+      }
+    },
+    "backup.count.cycleLogs": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld logged days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld ngày ghi chép"
+          }
+        }
+      }
+    },
+    "backup.count.cycleLogs.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 logged day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 ngày ghi chép"
+          }
+        }
+      }
+    },
+    "backup.count.periods": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld periods"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld kỳ kinh"
+          }
+        }
+      }
+    },
+    "backup.count.periods.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 period"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 kỳ kinh"
+          }
+        }
+      }
+    },
+    "backup.count.sessions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld kick counts"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld lượt đếm cử động"
+          }
+        }
+      }
+    },
+    "backup.count.sessions.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 kick count"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 lượt đếm cử động"
+          }
+        }
+      }
+    },
+    "backup.count.weights": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld weigh-ins"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld lần cân"
+          }
+        }
+      }
+    },
+    "backup.count.weights.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 weigh-in"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 lần cân"
+          }
+        }
+      }
+    },
+    "backup.error.corrupt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't read the file."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không đọc được file."
+          }
+        }
+      }
+    },
+    "backup.error.newerVersion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This file was made by a newer version of Luna Mom. Please update the app."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File được tạo bởi phiên bản Luna Mom mới hơn. Hãy cập nhật app."
+          }
+        }
+      }
+    },
+    "backup.error.notABackup": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This file isn't a Luna Mom backup."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File này không phải bản sao lưu của Luna Mom."
+          }
+        }
+      }
+    },
+    "backup.error.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Can't open this file"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không mở được file"
+          }
+        }
+      }
+    },
+    "backup.export": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back up to a file"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sao lưu ra file"
+          }
+        }
+      }
+    },
+    "backup.export.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't create the backup file. Please try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không tạo được file sao lưu. Hãy thử lại."
+          }
+        }
+      }
+    },
+    "backup.export.footnote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The file contains your health data. Keep it somewhere you trust."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File chứa dữ liệu sức khoẻ của bạn. Hãy lưu ở nơi bạn tin tưởng."
+          }
+        }
+      }
+    },
+    "backup.import": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore from a file"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khôi phục từ file"
+          }
+        }
+      }
+    },
+    "backup.lastBackup": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last backup: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lần sao lưu gần nhất: %@"
+          }
+        }
+      }
+    },
+    "backup.restore.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khôi phục"
+          }
+        }
+      }
+    },
+    "backup.restore.createdAt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Backup from %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sao lưu ngày %@"
+          }
+        }
+      }
+    },
+    "backup.restore.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No entries in this file, only settings."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File không có mục ghi nào, chỉ có cài đặt."
+          }
+        }
+      }
+    },
+    "backup.restore.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't restore. Your existing data is unchanged."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không khôi phục được. Dữ liệu cũ vẫn giữ nguyên."
+          }
+        }
+      }
+    },
+    "backup.restore.partnerMode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partner mode: after restoring, you'll go through the introduction again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chế độ Bạn đời: sau khi khôi phục, bạn sẽ đi lại phần giới thiệu."
+          }
+        }
+      }
+    },
+    "backup.restore.range": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data from %@ to %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu từ %@ đến %@"
+          }
+        }
+      }
+    },
+    "backup.restore.runningSession": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The count in progress will be stopped."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lượt đếm đang chạy sẽ bị dừng."
+          }
+        }
+      }
+    },
+    "backup.restore.skipped": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld invalid entries will be skipped."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld mục không hợp lệ sẽ được bỏ qua."
+          }
+        }
+      }
+    },
+    "backup.restore.skipped.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 invalid entry will be skipped."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 mục không hợp lệ sẽ được bỏ qua."
+          }
+        }
+      }
+    },
+    "backup.restore.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore backup"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khôi phục bản sao lưu"
+          }
+        }
+      }
+    },
+    "backup.restore.warning": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All data currently on this iPhone will be replaced with the data in the file."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toàn bộ dữ liệu hiện có trên iPhone này sẽ được thay bằng dữ liệu trong file."
+          }
+        }
+      }
+    },
+    "backup.restored": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data restored"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã khôi phục dữ liệu"
+          }
+        }
+      }
+    },
+    "backup.section": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu"
+          }
+        }
+      }
+    },
     "calendar.a11y.fertile": {
       "extractionState": "manual",
       "localizations": {
@@ -5505,6 +6049,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Không sao, Luna Mom sẽ học dần khi bạn ghi lại"
+          }
+        }
+      }
+    },
+    "onboarding.restore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore from a backup"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khôi phục từ bản sao lưu"
           }
         }
       }

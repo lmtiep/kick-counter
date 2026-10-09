@@ -54,6 +54,8 @@ public enum SettingsKey {
     public static let maternalPreWeightKg = "maternalPreWeightKg"
     /// Height in cm, 120–220; 0 means "not set".
     public static let maternalHeightCm = "maternalHeightCm"
+    /// `Date` of the last backup file shared from Profile (phase 15). Missing means never.
+    public static let lastBackupAt = "lastBackupAt"
 }
 
 public enum SettingsDefault {

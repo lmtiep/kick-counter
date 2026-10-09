@@ -30,6 +30,7 @@ public enum AppDataReset {
         SettingsKey.kickHapticsEnabled,
         SettingsKey.maternalPreWeightKg,
         SettingsKey.maternalHeightCm,
+        SettingsKey.lastBackupAt,
     ]
 
     /// Removes exactly `ownedKeys` from `defaults`; any other key is left as it is.

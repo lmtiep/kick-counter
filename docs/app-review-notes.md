@@ -27,6 +27,10 @@ The app's "App Privacy" declaration is "Data Not Collected": there is no server,
 
 Profile has a "Delete all data" row (destructive, with a confirmation dialog) that permanently removes every kick count, period, cycle log, weight entry, appointment and setting on the device, cancels all pending/delivered local notifications, ends any running Live Activity, and returns the app to onboarding. Deleting the app also removes all of its data.
 
+**Backup to a file**
+
+Profile → "Data" can export all data to a `.lunamom` file (versioned JSON) through the system share sheet, and restore one through the document picker or by opening the file from another app; the user chooses where the file goes, the app uploads nothing and never writes to iCloud itself, and the restore screen asks for confirmation before replacing the data on the device.
+
 **Medical content — sources and disclaimers**
 
 Pregnancy and cycle content (weekly articles, fetal size estimates using the Hadlock formula, due-date and ovulation estimates, maternal weight guidance using IOM 2009 ranges) is for general information only, not diagnosis or medical advice. This disclaimer appears in onboarding and in the in-app "Medical information" screen, and weekly content and the "Trying to conceive" screens repeat that predictions are estimates, not a method of contraception. Sources are listed in the in-app "Medical information → Sources" screen. The content is written from the guidelines and references listed in that screen and is always shown together with these disclaimers.
