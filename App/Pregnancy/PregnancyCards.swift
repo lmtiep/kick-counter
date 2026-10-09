@@ -144,8 +144,7 @@ struct BabySizeCard: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
-            Text(week.size.emoji)
-                .font(.system(size: 44))
+            fruit
                 .frame(width: 84, height: 84)
                 .background(.luna(.surface), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .accessibilityHidden(true)
@@ -166,6 +165,17 @@ struct BabySizeCard: View {
         }
         .lunaCard(padding: 14)
         .accessibilityElement(children: .combine)
+    }
+
+    /// The week's fruit illustration (`WeekArtwork.fruit`), or its emoji while a
+    /// week has none, as in the week article.
+    @ViewBuilder
+    private var fruit: some View {
+        if let image = WeekArtwork.fruit(week.week) {
+            image.resizable().scaledToFit().padding(10)
+        } else {
+            Text(week.size.emoji).font(.system(size: 44))
+        }
     }
 
     /// From week 10 (weeks with a Hadlock weight) the produce is compared by
