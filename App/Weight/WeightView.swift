@@ -83,7 +83,7 @@ struct WeightView: View {
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.interactively)
         .lunaStatusBarBackdrop()
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationBarTitleDisplayMode(.inline)
         .keyboardDoneButton()
         .toast($toast)

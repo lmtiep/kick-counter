@@ -146,7 +146,7 @@ struct ArticleSheet<Header: View, Content: View>: View {
         .frame(maxWidth: .infinity)
         .frame(height: max(0, containerHeight - expandedTop + bottomInset), alignment: .top)
         .background(
-            .luna(.card),
+            .luna(.cardOpaque),
             in: UnevenRoundedRectangle(topLeadingRadius: 24, topTrailingRadius: 24, style: .continuous)
         )
         .offset(y: top)

@@ -90,7 +90,7 @@ struct PregnancySymptomsView: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .lunaStatusBarBackdrop()
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $logDay, onDismiss: openWarningsIfAsked) { selection in
             PregnancySymptomSheet(
@@ -131,7 +131,7 @@ struct PregnancySymptomsView: View {
         return VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(L10n.commonToday)
-                    .lunaLabelStyle(.pregStrong)
+                    .lunaLabelStyle(.pregText)
                 Text(summary ?? L10n.symptomsTodayEmpty)
                     .font(.luna(.cardTitle))
                     .foregroundStyle(.luna(.textPrimary))

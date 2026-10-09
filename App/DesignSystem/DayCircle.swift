@@ -16,7 +16,7 @@ struct DayCircleStyle: Equatable {
     // Calendar (spec §4.3)
     static let period = DayCircleStyle(fill: .cycleStrong, foreground: .onAccent)
     static let predictedPeriod = DayCircleStyle(foreground: .cycleStrong, border: .cycle, dashed: true)
-    static let fertile = DayCircleStyle(fill: .fertileSoft, foreground: .tealStrong)
+    static let fertile = DayCircleStyle(fill: .fertileSoft, foreground: .tealStrong, border: .fertileSoftBorder)
     static let ovulation = DayCircleStyle(fill: .ovulation, foreground: .tealStrong, border: .teal, bold: true)
 
     // 7-day strip on Today (spec §4.2, §4.4)
@@ -46,7 +46,9 @@ struct DayCircleStyle: Equatable {
 }
 
 /// A 40 pt day circle. `raisedToday` draws today as a white disc with a soft
-/// shadow (strip); otherwise today gets a 2 pt `todayRing` (calendar).
+/// shadow (strip) in light mode, and as the filled accent (`raisedAccent`) with
+/// `onAccent` text in dark mode (phase 18); otherwise today gets a 2 pt
+/// `todayRing` (calendar).
 /// The selected day gets a 2 pt `textPrimary` ring (outside the today ring when both).
 struct DayCircle: View {
     let number: String
@@ -56,19 +58,28 @@ struct DayCircle: View {
     var isSelected = false
     var fontSize: CGFloat = 16
     var diameter: CGFloat = 40
+    /// Today's fill on a strip in dark mode: cycleStrong, or pregStrong in pregnancy.
+    var raisedAccent: LunaToken = .cycleStrong
+    @Environment(\.colorScheme) private var colorScheme
+
+    private var isRaised: Bool { raisedToday && isToday }
+
+    private var foreground: LunaToken {
+        isRaised && colorScheme == .dark ? .onAccent : style.foreground
+    }
 
     var body: some View {
         Text(number)
             .font(.luna(size: fontSize, weight: style.bold || isToday ? .bold : .medium, relativeTo: .body))
             .lineLimit(1)
             .minimumScaleFactor(0.5)
-            .foregroundStyle(.luna(style.foreground))
+            .foregroundStyle(.luna(foreground))
             .frame(width: diameter, height: diameter)
             .background {
-                if raisedToday && isToday {
+                if isRaised {
                     Circle()
-                        .fill(.luna(.card))
-                        .shadow(color: Color.luna(.pregOnSoft).opacity(0.18), radius: 7, y: 4)
+                        .fill(.luna(colorScheme == .dark ? raisedAccent : .card))
+                        .shadow(color: Color.luna(colorScheme == .dark ? raisedAccent : .pregOnSoft).opacity(colorScheme == .dark ? 0.35 : 0.18), radius: 7, y: 4)
                 } else if let fill = style.fill {
                     Circle().fill(.luna(fill))
                 }

@@ -49,7 +49,7 @@ struct MedicalInfoView: View {
         }
         // Content scrolled up stays out from under the status bar.
         .lunaStatusBarBackdrop()
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationTitle(L10n.medicalTitle)
         .navigationBarTitleDisplayMode(.inline)
     }

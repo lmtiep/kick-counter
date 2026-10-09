@@ -211,8 +211,8 @@ struct RootView: View {
                     .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
             }
         }
-        // Active tab: cycleStrong / pregnancy (pregOnSoft: pregStrong fails AA at 11 pt).
-        .tint(mode == .tryingToConceive ? Color.luna(.cycleStrong) : Color.luna(.pregOnSoft))
+        // Active tab (pregnancy: pregStrong fails AA at 11 pt, so the darker pregOnSoft value).
+        .tint(mode == .tryingToConceive ? Color.luna(.tabSelectedCycle) : Color.luna(.tabSelectedPreg))
     }
 
     private func accept(_ invitation: PartnerInvitation) async {

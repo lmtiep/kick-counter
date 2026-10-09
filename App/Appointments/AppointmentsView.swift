@@ -100,7 +100,7 @@ struct AppointmentsView: View {
         .scrollContentBackground(.hidden)
         // Content scrolled up stays out from under the status bar.
         .lunaStatusBarBackdrop()
-        .background(.luna(.background))
+        .lunaBackground()
         .tint(.luna(.pregStrong))
         .navigationTitle(L10n.appointmentsTitle)
         .toolbar {

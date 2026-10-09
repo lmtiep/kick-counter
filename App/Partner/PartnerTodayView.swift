@@ -25,7 +25,7 @@ struct PartnerTodayView: View {
         }
         .accessibilityIdentifier("partnerToday")
         .lunaStatusBarBackdrop()
-        .background(.luna(.background))
+        .lunaBackground()
         .refreshable { await journey.refresh() }
         .task { await journey.refresh() }
         .onReceive(NotificationCenter.default.publisher(for: .partnerSnapshotChanged)) { _ in

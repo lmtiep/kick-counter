@@ -114,7 +114,8 @@ struct ContrastTests {
             (.backgroundTop, .background), (.backgroundBottom, .background), (.cardBorder, .card),
             (.cycleSoftBorder, .cycleSoft), (.pregSoftBorder, .pregSoft), (.avatarBorder, .avatar),
             (.onSegmentSelected, .textPrimary), (.cycleText, .cycleStrong), (.pregText, .pregStrong),
-            (.fetusGlowEdge, .background),
+            (.fetusGlowEdge, .background), (.cardOpaque, .card),
+            (.tabSelectedCycle, .cycleStrong), (.tabSelectedPreg, .pregOnSoft), (.fertileSoftBorder, .fertileSoft),
         ]
         for (new, existing) in sameInLight {
             #expect(LunaPalette.pair(new).light == LunaPalette.pair(existing).light, "\(new)")

@@ -85,7 +85,7 @@ struct HistoryView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationBarTitleDisplayMode(.inline)
         .confirmationDialog(
             L10n.historyDeleteConfirmTitle,

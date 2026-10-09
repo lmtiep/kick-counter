@@ -154,7 +154,7 @@ struct CycleRingView<Center: View>: View {
         let angle = CycleRingGeometry.markerAngle(for: forecast)
         let offset = CycleRingGeometry.markerOffset(angle: angle, radius: Double(diameter - thickness) / 2)
         return Circle()
-            .fill(.luna(.card))
+            .fill(.luna(.cardOpaque))
             .overlay(Circle().strokeBorder(.luna(.textPrimary), lineWidth: 3))
             .frame(width: 22, height: 22)
             .offset(x: offset.x, y: offset.y)

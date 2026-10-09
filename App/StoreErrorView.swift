@@ -22,6 +22,6 @@ struct StoreErrorView: View {
         .lunaCard(padding: 24)
         .padding(20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.luna(.background))
+        .lunaBackground()
     }
 }

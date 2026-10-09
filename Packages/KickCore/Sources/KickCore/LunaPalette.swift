@@ -61,7 +61,8 @@ public enum LunaToken: String, Sendable, CaseIterable {
     // so light mode is unchanged.
     case backgroundTop, backgroundBottom
     case cardBorder, cycleSoftBorder, pregSoftBorder, avatarBorder
-    case onSegmentSelected, cycleText, pregText, fetusGlowEdge
+    case onSegmentSelected, cycleText, pregText, fetusGlowEdge, cardOpaque
+    case tabSelectedCycle, tabSelectedPreg, fertileSoftBorder
 }
 
 public enum LunaPalette {
@@ -78,6 +79,9 @@ public enum LunaPalette {
         case .onboardingBackground: pair(0xF4F1EC, 0x1A1412)
         // Glass card: white at 9 % with a 1 pt white border at 14 % (light: invisible).
         case .card: LunaColorPair(light: LunaHex(0xFFFFFF), dark: LunaHex(0xFFFFFF, alpha: 0.09))
+        // A card that must hide what is behind it (the article sheet over the artwork,
+        // chart knockouts): the glass card over the middle of the gradient, opaque.
+        case .cardOpaque: pair(0xFFFFFF, 0x4F5475)
         case .cardBorder: LunaColorPair(light: LunaHex(0xFFFFFF), dark: LunaHex(0xFFFFFF, alpha: 0.14))
         // surfaceSunken of the handoff: segmented tracks, steppers, chips.
         case .surface: LunaColorPair(light: LunaHex(0xF4ECE5), dark: LunaHex(0x141630, alpha: 0.28))
@@ -103,7 +107,9 @@ public enum LunaPalette {
         // Darker than cycleStrong: cycleStrong on cycleSoft is only 4.34:1 (ContrastTests).
         case .cycleOnSoft: pair(0xA82D42, 0xFFF0F3)
         case .fertile: pair(0x8CCFC7, 0xA1E6E8)
-        case .fertileSoft: LunaColorPair(light: LunaHex(0xE3F2F0), dark: LunaHex(0xA1E6E8, alpha: 0.08))
+        case .fertileSoft: LunaColorPair(light: LunaHex(0xE3F2F0), dark: LunaHex(0xA1E6E8, alpha: 0.12))
+        // Fertile days in dark mode: the faint tint (kept low for AA) gets a teal edge.
+        case .fertileSoftBorder: LunaColorPair(light: LunaHex(0xE3F2F0), dark: LunaHex(0xA1E6E8, alpha: 0.4))
         case .ovulation: LunaColorPair(light: LunaHex(0xCBEAE6), dark: LunaHex(0xA1E6E8, alpha: 0.12))
         case .teal: pair(0x2F8C84, 0xA1E6E8)
         case .tealStrong: pair(0x1F6E67, 0xE6FAFA)
@@ -133,6 +139,10 @@ public enum LunaPalette {
         // Dark: indigo at 72 % over the system material (handoff "Tab bar").
         case .tabBar: LunaColorPair(light: LunaHex(0xFBF6F1, alpha: 0.96), dark: LunaHex(0x3A3E62, alpha: 0.72))
         case .tabInactive: pair(0xA89890, 0xDCDDF0)
+        // The selected tab: the handoff's #FFC4CE reads as white on the iOS 26 glass bar,
+        // so the stronger accent (#F7A6B4), with a peach twin in pregnancy.
+        case .tabSelectedCycle: pair(0xC2384F, 0xF7A6B4)
+        case .tabSelectedPreg: pair(0x9C4823, 0xF5B48F)
         case .avatar: LunaColorPair(light: LunaHex(0xF2C9B5), dark: LunaHex(0xF7A6B4, alpha: 0.16))
         case .avatarBorder: LunaColorPair(light: LunaHex(0xF2C9B5), dark: LunaHex(0xF7A6B4, alpha: 0.35))
         case .avatarText: pair(0x8A3F1F, 0xFFF0F3)
@@ -228,6 +238,8 @@ public enum LunaContrast {
         Usage(.articleText, on: .background), Usage(.articleText, on: .card),
         Usage(.articleText, on: .surface), Usage(.articleText, on: .surfaceAlt),
         Usage(.articleText, on: .warningBackground),
+        Usage(.textPrimary, on: .cardOpaque), Usage(.articleText, on: .cardOpaque),
+        Usage(.textSecondary, on: .cardOpaque), Usage(.pregText, on: .cardOpaque),
         Usage(.textOnboarding, on: .onboardingBackground), Usage(.textOnboarding, on: .card),
         // Onboarding last-period step: the title can sit on the pink hero gradient.
         Usage(.textOnboarding, on: .cycleSoft),
@@ -236,7 +248,8 @@ public enum LunaContrast {
         Usage(.articleText, on: .onboardingBackground),
         // cycleStrong: the big ring figure only; smaller pink text is cycleText.
         Usage(.cycleStrong, on: .background, large: true), Usage(.cycleStrong, on: .card, large: true),
-        Usage(.cycleText, on: .background), Usage(.cycleText, on: .card), Usage(.cycleText, on: .tabBar),
+        Usage(.cycleText, on: .background), Usage(.cycleText, on: .card),
+        Usage(.tabSelectedCycle, on: .tabBar), Usage(.tabSelectedPreg, on: .tabBar),
         Usage(.cycleOnSoft, on: .cycleSoft), Usage(.cycleOnSoft, on: .card),
         Usage(.tealStrong, on: .background), Usage(.tealStrong, on: .card),
         Usage(.tealStrong, on: .fertileSoft), Usage(.tealStrong, on: .ovulation),

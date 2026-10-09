@@ -21,7 +21,7 @@ struct PregnancyDateSheet: View {
                 PregnancyDateForm(source: $source, date: $date, now: now)
             }
             .scrollContentBackground(.hidden)
-            .background(.luna(.background))
+            .lunaBackground()
             .navigationTitle(L10n.pregnancyDateTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

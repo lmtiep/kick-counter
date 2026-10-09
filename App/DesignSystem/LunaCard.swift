@@ -3,24 +3,45 @@ import SwiftUI
 
 /// The standard card of the redesign: white (`card`), radius 20, padding 18,
 /// full width. Screens add the 20 pt side margin and 12 pt spacing.
+/// Dark mode (phase 18): glass, a 9 % white fill with a 1 pt `cardBorder`, radius 24;
+/// tinted cards get their tint's border (`cycleSoftBorder`, `pregSoftBorder`).
 struct LunaCard<Content: View>: View {
     var fill: LunaToken = .card
     var border: LunaToken?
     var padding: CGFloat = 18
     var cornerRadius: CGFloat = 20
     @ViewBuilder var content: Content
+    @Environment(\.colorScheme) private var colorScheme
+
+    /// The handoff's radius 24 replaces the standard 20 in dark mode.
+    private var radius: CGFloat {
+        colorScheme == .dark && cornerRadius == 20 ? 24 : cornerRadius
+    }
 
     var body: some View {
+        let shape = RoundedRectangle(cornerRadius: radius, style: .continuous)
         content
             .padding(padding)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.luna(fill), in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .background(.luna(fill), in: shape)
             .overlay {
-                if let border {
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .strokeBorder(.luna(border), lineWidth: 1)
+                if let border = border ?? fill.glassBorder {
+                    shape.strokeBorder(.luna(border), lineWidth: 1)
                 }
             }
+    }
+}
+
+extension LunaToken {
+    /// The 1 pt border a fill carries: invisible in light mode (the light value is
+    /// the fill's own), the glass edge in dark mode.
+    var glassBorder: LunaToken? {
+        switch self {
+        case .card: .cardBorder
+        case .cycleSoft: .cycleSoftBorder
+        case .pregSoft: .pregSoftBorder
+        default: nil
+        }
     }
 }
 
