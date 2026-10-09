@@ -429,3 +429,23 @@ Khi muốn bật lại đồng bộ iCloud và chế độ chia sẻ với bố 
 - [ ] **Trang web:** `site/privacy.html` có đoạn "Sao lưu ra file" / "Backup to a file"; chủ dự án duyệt rồi mới xuất
       bản lại nhánh `gh-pages`.
 - [ ] Ghi chú phát hành: "Sao lưu toàn bộ dữ liệu ra file và khôi phục trên iPhone khác (Cá nhân → Dữ liệu)."
+
+## Giai đoạn 17 — Nhắc uống thuốc tránh thai
+
+Đặc tả: `docs/superpowers/specs/2026-10-09-pill-reminder-design.md`. Làm trên **máy thật** (simulator không có nút
+hành động trên thông báo khi khoá màn hình).
+
+- [ ] Theo dõi chu kỳ, biện pháp "Thuốc tránh thai hằng ngày" → Cá nhân → "Nhắc uống thuốc": bật, cho phép thông báo,
+      vỉ 21 + 7, ngày bắt đầu là hôm nay, giờ nhắc 2–3 phút tới. Hôm nay hiện "Viên 1/21".
+- [ ] Khoá máy, đợi thông báo "Đến giờ uống thuốc" — "Viên 1/21 hôm nay.". Nhấn giữ → "Đã uống" (app không mở ra).
+      Mở app: thẻ ghi "Đã uống lúc …"; **không** có thông báo "Bạn đã uống thuốc hôm nay chưa?" 2 giờ sau.
+- [ ] Hôm sau không đánh dấu: đúng 2 giờ sau giờ nhắc có **một** lần nhắc lại, không có lần thứ ba.
+- [ ] Buộc tắt app (vuốt khỏi đa nhiệm) rồi bấm "Đã uống" trên thông báo: mở app, liều vẫn được ghi.
+- [ ] **Tuần nghỉ:** chọn ngày bắt đầu vỉ là 22 ngày trước. Hôm nay ghi "Tuần nghỉ · vỉ mới bắt đầu ngày …"; trong
+      Cài đặt iOS → Thông báo không có thông báo nào của Luna Mom trong tuần đó; tối ngày đầu vỉ mới có nhắc như
+      thường.
+- [ ] Đổi biện pháp sang "Bao cao su": hàng "Nhắc uống thuốc" và thẻ ở Hôm nay biến mất, không còn thông báo. Đổi lại
+      "Thuốc tránh thai hằng ngày": cài đặt cũ còn nguyên, nhắc nhở quay lại.
+- [ ] Đổi ngôn ngữ sang English: thông báo và nút "Taken" bằng tiếng Anh.
+- [ ] Sao lưu ra file rồi khôi phục trên máy khác: cài đặt nhắc và các ngày đã uống còn nguyên. "Xoá toàn bộ dữ liệu"
+      xoá cả hai.

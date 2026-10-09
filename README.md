@@ -156,6 +156,20 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Đặc tả: `docs/superpowers/specs/2026-10-09-backup-design.md`. Kiểm thử hai máy: `docs/release-checklist.md`
   ("Giai đoạn 15").
 
+## Nhắc uống thuốc tránh thai (giai đoạn 17)
+- Chỉ khi theo dõi chu kỳ với biện pháp "Thuốc tránh thai hằng ngày": Cá nhân → Chu kỳ → "Nhắc uống thuốc" (dưới
+  "Biện pháp tránh thai") mở `PillReminderSheet`: bật/tắt, loại vỉ (21 + 7 ngày nghỉ / 28 viên), ngày bắt đầu vỉ này
+  (60 ngày gần nhất), giờ nhắc và đúng một câu về quên thuốc. Đổi sang biện pháp khác, sang "Mong có thai" hay mang
+  thai thì huỷ nhắc nhở nhưng giữ cài đặt.
+- Logic thuần ở KickCore: `PillPack` (ngày trong vỉ, tuần nghỉ, vỉ kế tiếp), `PillReminderPlan` (14 ngày uống thuốc
+  tới, mỗi ngày `pill-YYYYMMDD` và `pill-YYYYMMDD-followup` sau 2 giờ, tối đa 28 yêu cầu, không có gì trong tuần nghỉ
+  hay ngày đã đánh dấu), `PillCoordinator`. Liều đã uống là model `PillDose` (KickData, một liều mỗi ngày), có trong
+  xoá toàn bộ dữ liệu và trong file sao lưu (mảng `pillDoses` tuỳ chọn, vẫn phiên bản 1).
+- Nút "Đã uống" trên thông báo (category `PILL_REMINDER`, action `PILL_TAKEN`) do `PillNotificationDelegate` — delegate
+  thông báo duy nhất của app — ghi liều rồi bỏ lần nhắc lại. Ở Hôm nay có thẻ "Thuốc tránh thai".
+- UI test: `-seedPill 21+7:<số ngày từ đầu vỉ>`; `PillReminderUITests`, `PillReminderScreenshotTests`. Kiểm thử trên
+  máy thật: `docs/release-checklist.md` ("Giai đoạn 17").
+
 ## Kích thước theo tuần (giai đoạn 11)
 - Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`
   và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá
