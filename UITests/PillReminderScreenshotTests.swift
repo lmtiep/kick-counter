@@ -71,6 +71,10 @@ final class PillReminderScreenshotTests: XCTestCase {
         attachScreenshot(app, "pill-today-taken-vi-ax5")
         openSheet(app)
         attachScreenshot(app, "pill-sheet-vi-ax5")
+        // Nothing (a compact date picker) may widen the sheet past the screen.
+        let title = app.staticTexts["pillSheetTitle"]
+        XCTAssertGreaterThanOrEqual(title.frame.minX, 0)
+        XCTAssertLessThanOrEqual(title.frame.maxX, app.frame.maxX)
         let done = app.buttons["pillReminderDone"]
         app.scrollUntilHittable(done, maxSwipes: 10)
         XCTAssertTrue(done.isHittable)

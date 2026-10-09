@@ -77,16 +77,18 @@ struct PillTodayCard: View {
             ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
             : AnyLayout(HStackLayout(alignment: .center, spacing: 8))
         layout {
-            Label {
-                Text(L10n.pillCardTakenAt(Formatting.time(taken.takenAt)))
-                    .fixedSize(horizontal: false, vertical: true)
-            } icon: {
+            // One element: a `Label` gives its identifier to the icon too, which
+            // VoiceOver read as "Selected".
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
                 Image(systemName: "checkmark.circle.fill")
                     .accessibilityHidden(true)
+                Text(L10n.pillCardTakenAt(Formatting.time(taken.takenAt)))
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .font(.luna(.bodyStrong))
             .foregroundStyle(.luna(.cycleOnSoft))
             .frame(maxWidth: .infinity, alignment: .leading)
+            .accessibilityElement(children: .combine)
             .accessibilityIdentifier("pillTakenLabel")
             Button(L10n.pillCardUndo) { Task { await undo() } }
                 .buttonStyle(.pill(.soft(.surfaceAlt, .textPrimary), fullWidth: false, height: 44))

@@ -155,17 +155,20 @@ struct PillReminderSheet: View {
 
     // MARK: - Pickers
 
-    /// A picker beside its label, or under it at accessibility sizes so neither
-    /// is squeezed.
+    /// A compact picker beside its label; at accessibility sizes a wheel under its
+    /// label, since the compact value ("ngày 21 thg 9, 2026") grows wider than the
+    /// screen and pushes the whole sheet sideways (as `AddPastPeriodSheet`).
     @ViewBuilder
-    private func pickerRow<Picker: View>(_ title: String, identifier: String, @ViewBuilder picker: () -> Picker) -> some View {
+    private func pickerRow(_ title: String, identifier: String, picker: () -> DatePicker<Text>) -> some View {
         Group {
             if dynamicTypeSize.isAccessibilitySize {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(title)
                         .accessibilityHidden(true)
                     picker()
+                        .datePickerStyle(.wheel)
                         .labelsHidden()
+                        .frame(maxWidth: .infinity)
                         .accessibilityLabel(title)
                         .accessibilityIdentifier(identifier)
                 }
