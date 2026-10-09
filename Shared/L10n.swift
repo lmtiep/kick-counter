@@ -880,6 +880,7 @@ enum L10n {
     static var pillSheetKeepOpen: String { t("pill.sheet.keepOpen") }
     static func pillCardReminderAt(_ time: String) -> String { String(format: t("pill.card.reminderAt"), time) }
     static var pillCardTake: String { t("pill.card.take") }
+    static var pillCardTakeYesterday: String { t("pill.card.takeYesterday") }
     static func pillCardTakenAt(_ time: String) -> String { String(format: t("pill.card.takenAt"), time) }
     static var pillCardUndo: String { t("pill.card.undo") }
     static var pillCardUndoA11y: String { t("pill.card.undo.a11y") }

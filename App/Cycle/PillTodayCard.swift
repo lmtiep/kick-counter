@@ -14,11 +14,11 @@ struct PillTodayCard: View {
         if let today = pill.today {
             VStack(alignment: .leading, spacing: 14) {
                 header(today)
-                if case .pillDay(_, _, let day, _, let taken) = today {
+                if case .pillDay(_, _, let day, let isYesterday, let taken) = today {
                     if let taken {
                         takenRow(taken)
                     } else {
-                        Button(L10n.pillCardTake) { Task { await mark(day) } }
+                        Button(isYesterday ? L10n.pillCardTakeYesterday : L10n.pillCardTake) { Task { await mark(day) } }
                             .buttonStyle(.pill(.filled(.cycleStrong), height: 44))
                             .disabled(working)
                             .accessibilityIdentifier("pillTakeToday")

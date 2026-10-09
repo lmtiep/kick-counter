@@ -7073,6 +7073,23 @@
         }
       }
     },
+    "pill.card.takeYesterday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taken yesterday's pill"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã uống viên hôm qua"
+          }
+        }
+      }
+    },
     "pill.card.takenAt": {
       "extractionState": "manual",
       "localizations": {
