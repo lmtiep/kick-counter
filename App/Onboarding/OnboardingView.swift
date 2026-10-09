@@ -20,6 +20,9 @@ struct OnboardingView: View {
 
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(KickCoordinator.self) private var kicks
+    @Environment(BackupCenter.self) private var backup
+    /// "Khôi phục từ bản sao lưu" (phase 15): a new phone is when a backup is needed.
+    @State private var importingBackup = false
     @AppStorage(SettingsKey.appLanguage, store: AppGroup.defaults)
     private var appLanguage = AppLanguage.system.rawValue
     @State private var flow: OnboardingFlow
@@ -245,6 +248,24 @@ struct OnboardingView: View {
             // Hugs its segments but never grows past the screen at large text sizes.
             .fixedSize(horizontal: false, vertical: true)
             .padding(.top, 4)
+            // Restoring replaces everything, so a replay from Profile does not offer it.
+            if !isReplay {
+                Button {
+                    importingBackup = true
+                } label: {
+                    Label(L10n.onboardingRestore, systemImage: "arrow.down.doc")
+                        .font(.luna(.captionStrong))
+                        .underline()
+                        .foregroundStyle(.luna(.textOnboarding))
+                        .frame(minHeight: 44, alignment: .leading)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("onboardingRestore")
+                .fileImporter(isPresented: $importingBackup, allowedContentTypes: [.lunaMomBackup, .json]) { result in
+                    if case .success(let url) = result { backup.open(url) }
+                }
+            }
         }
     }
 

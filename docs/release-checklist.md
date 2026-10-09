@@ -408,3 +408,24 @@ Khi muốn bật lại đồng bộ iCloud và chế độ chia sẻ với bố 
 - [ ] Mang thai, tuần 10 trở đi: thẻ kích thước ở Hôm nay ghi "Bé nặng tương đương …"; tuần 4–9 vẫn "Bé to bằng …".
 - [ ] **Bác sĩ đã duyệt mục 14** của [`content-review-for-doctor.md`](content-review-for-doctor.md).
 - [ ] Ghi chú phát hành: "Thêm kỳ kinh trước đây" trong Lịch sử chu kỳ, để dự đoán dựa trên nhiều chu kỳ hơn.
+
+## Giai đoạn 15 — Sao lưu & khôi phục bằng file
+
+Đặc tả: `docs/superpowers/specs/2026-10-09-backup-design.md`.
+
+- [ ] **Hai máy, qua AirDrop.** Máy A có dữ liệu thật (vài lượt đếm, kỳ kinh, ghi chép, cân nặng, lịch khám). Cá nhân
+      → "Sao lưu ra file" → AirDrop sang máy B. Ghi lại số mục ở các màn hình của máy A.
+- [ ] Máy B (đã cài Luna Mom, mới cài hoặc đang ở onboarding): mở file vừa nhận → Luna Mom mở trang "Khôi phục bản
+      sao lưu", tóm tắt có **đúng số** lượt đếm, kỳ kinh, ngày ghi chép, lần cân, lịch khám và ngày sao lưu.
+- [ ] Bấm "Khôi phục": về Hôm nay của đúng chế độ, thấy "Đã khôi phục dữ liệu". Lịch sử, Lịch, Cân nặng, Lịch khám,
+      cài đặt (độ dài chu kỳ, ngày dự sinh, nhắc nhở, ngôn ngữ) **khớp** máy A. Nhắc lịch khám và nhắc kỳ kinh được
+      lên lịch lại (Cài đặt iOS → Thông báo vẫn bật).
+- [ ] Trên máy A: "Lần sao lưu gần nhất" hiện dưới hàng sao lưu sau khi chia sẻ xong; huỷ bảng chia sẻ thì không đổi.
+- [ ] Mở một file không phải bản sao lưu (đổi tên một file `.json` bất kỳ thành `.lunamom`): hiện "File này không phải
+      bản sao lưu của Luna Mom." hoặc "Không đọc được file.", dữ liệu không đổi.
+- [ ] Đang đếm cử động rồi mở file: trang khôi phục có dòng "Lượt đếm đang chạy sẽ bị dừng."; sau khi khôi phục,
+      Live Activity cũ biến mất.
+- [ ] "Xoá toàn bộ dữ liệu" xoá luôn "Lần sao lưu gần nhất".
+- [ ] **Trang web:** `site/privacy.html` có đoạn "Sao lưu ra file" / "Backup to a file"; chủ dự án duyệt rồi mới xuất
+      bản lại nhánh `gh-pages`.
+- [ ] Ghi chú phát hành: "Sao lưu toàn bộ dữ liệu ra file và khôi phục trên iPhone khác (Cá nhân → Dữ liệu)."

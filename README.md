@@ -141,6 +141,21 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Việc còn lại thuộc về chủ dự án: bác sĩ duyệt nội dung y khoa, icon chính thức, bật GitHub Pages, điền
   thông tin App Store Connect (xem checklist).
 
+## Sao lưu & khôi phục (giai đoạn 15)
+- Cá nhân → "Dữ liệu" (trên "Xoá toàn bộ dữ liệu"): "Sao lưu ra file" tạo `LunaMom-YYYY-MM-DD.lunamom` rồi mở bảng chia
+  sẻ của iOS (Tệp, iCloud Drive, AirDrop, Zalo…); "Lần sao lưu gần nhất" chỉ ghi khi chia sẻ xong (`lastBackupAt`).
+  "Khôi phục từ file" mở trình chọn tệp. App không tự ghi lên iCloud và file không mã hoá (có ghi chú dưới hàng).
+- Mở một file `.lunamom` từ app khác (UTType `com.lmtiep.kickcounter.backup`, khai báo trong `project.yml`) hoặc chọn
+  "Khôi phục từ bản sao lưu" ở bước đầu của onboarding cũng mở trang khôi phục: tóm tắt file, cảnh báo thay toàn bộ
+  dữ liệu, rồi khôi phục **tất cả hoặc không gì cả** (`KickData/BackupStore.replaceAll`, một lần lưu, rollback khi
+  lỗi). File lỗi chỉ hiện thông báo, không đụng tới dữ liệu.
+- Định dạng: JSON có phiên bản (`KickCore/Backup.swift`, `BackupCodec.swift`, `BackupSettings.swift`); bảng cài đặt
+  là `AppDataReset.ownedKeys` trừ khoá chia sẻ với bố bé và `hasCompletedOnboarding` (test buộc khớp). File mẫu cho UI
+  test `UITests/Fixtures/sample.lunamom` do encoder của KickCore tạo:
+  `WRITE_BACKUP_FIXTURE=1 scripts/test-core.sh --filter BackupFixtureTests`.
+- Đặc tả: `docs/superpowers/specs/2026-10-09-backup-design.md`. Kiểm thử hai máy: `docs/release-checklist.md`
+  ("Giai đoạn 15").
+
 ## Kích thước theo tuần (giai đoạn 11)
 - Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`
   và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá

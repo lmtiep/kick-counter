@@ -101,3 +101,19 @@ struct UITestPartnerUIOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedAppMode", "dad"]).seedAppMode == nil)
     }
 }
+
+/// Phase 15: a backup file opened at launch, the way an opened `.lunamom` file is.
+struct UITestRestoreFileOptionTests {
+    @Test func restoreFileIsReadOnlyWithUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingRestoreFile", "sample.lunamom"]).restoreFile == "sample.lunamom")
+        #expect(UITestLaunchOptions(arguments: ["-uiTestingRestoreFile", "sample.lunamom"]).restoreFile == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).restoreFile == nil)
+    }
+}
+
+struct UITestRestoreOnReactivateOptionTests {
+    @Test func reactivationFlagNeedsUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingRestoreOnReactivate"]).restoresFileOnReactivate)
+        #expect(!UITestLaunchOptions(arguments: ["-uiTestingRestoreOnReactivate"]).restoresFileOnReactivate)
+    }
+}

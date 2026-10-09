@@ -20,9 +20,11 @@ struct RootView: View {
     @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
+    @Environment(BackupCenter.self) private var backup
     @Environment(\.partnerSharing) private var sharing
     @Environment(\.partnerPublisher) private var publisher
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.modelContext) private var modelContext
     @AppStorage(SettingsKey.hasCompletedOnboarding, store: AppGroup.defaults)
     private var hasCompletedOnboarding = false
     @AppStorage(SettingsKey.appMode, store: AppGroup.defaults)
@@ -33,6 +35,12 @@ struct RootView: View {
     /// Profile → "Replay the introduction": onboarding without saving anything.
     @State private var replayingOnboarding = false
     @State private var invitationFailed = false
+    /// "Đã khôi phục dữ liệu" after a restore (phase 15).
+    @State private var toastMessage: String?
+    #if DEBUG
+    /// `-uiTestingRestoreOnReactivate`: the app went to the background since launch.
+    @State private var wasInBackground = false
+    #endif
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
     private var showsOnboarding: Bool { !hasCompletedOnboarding || replayingOnboarding }
@@ -103,6 +111,55 @@ struct RootView: View {
                 Task { await accept(invitation) }
             }
             .partnerAcceptFailedAlert(isPresented: acceptFailedBinding(whileOnboarding: false))
+            .toast($toastMessage)
+            // A `.lunamom` file opened from Files, AirDrop or a chat app (phase 15).
+            .onOpenURL { url in
+                guard BackupCenter.isBackupFile(url) else { return }
+                backup.open(url)
+            }
+            // Over whatever is on top (a sheet, onboarding), never blocked by it.
+            .onChange(of: backup.request?.id) {
+                if let request = backup.request {
+                    Task { await RestoreBackupPresenter.shared.present(restoreSheet(request)) { backup.request = nil } }
+                } else {
+                    RestoreBackupPresenter.shared.dismiss()
+                }
+            }
+            .onChange(of: backup.restoreCount) {
+                // A file opened while replaying the introduction ends the replay too.
+                replayingOnboarding = false
+                selectedTab = .today
+                toastMessage = L10n.backupRestored
+            }
+            #if DEBUG
+            .task {
+                let options = AppClock.launchOptions
+                if let file = options.restoreFile, !options.restoresFileOnReactivate { backup.openUITestFile(file) }
+            }
+            .onChange(of: scenePhase) { _, phase in
+                let options = AppClock.launchOptions
+                guard let file = options.restoreFile, options.restoresFileOnReactivate else { return }
+                if phase == .background { wasInBackground = true }
+                if phase == .active, wasInBackground { backup.openUITestFile(file) }
+            }
+            #endif
+    }
+
+    /// The restore sheet with what it needs from the environment: it is hosted by
+    /// `RestoreBackupPresenter`, outside this view's hierarchy.
+    private func restoreSheet(_ request: BackupCenter.Request) -> AnyView {
+        AnyView(
+            RestoreBackupSheet(request: request)
+                .environment(backup)
+                .environment(coordinator)
+                .environment(appointments)
+                .environment(cycle)
+                .environment(weight)
+                .modelContext(modelContext)
+                .environment(\.locale, AppLocale.locale)
+                .environment(\.calendar, AppLocale.calendar)
+                .preferredColorScheme(AppEnvironment.forceDarkMode ? .dark : nil)
+        )
     }
 
     /// The acceptance-failure alert is presented by whichever view is on top:
