@@ -202,7 +202,8 @@ struct WeekDetailView: View {
                             guard !isHeaderDragging else { return }
                             tab = newValue
                         }
-                    )
+                    ),
+                    selectedFill: .segmentSelectedPreg
                 )
                 .padding(.top, 14)
             }

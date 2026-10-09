@@ -18,6 +18,9 @@ struct SegmentedPill<Value: Hashable>: View {
     @Binding var selection: Value
     /// Capsule segments (onboarding) instead of rounded rectangles.
     var capsule = false
+    /// The chosen segment's fill: white in light mode; the pink accent in dark mode,
+    /// or the peach one (`segmentSelectedPreg`) on pregnancy screens.
+    var selectedFill: LunaToken = .segmentSelected
     // Not private: keeps the memberwise init usable from other files.
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
@@ -46,7 +49,7 @@ struct SegmentedPill<Value: Hashable>: View {
                         .frame(maxWidth: capsule ? nil : .infinity, minHeight: 36)
                         .background {
                             if isSelected {
-                                segmentShape.fill(.luna(.segmentSelected))
+                                segmentShape.fill(.luna(selectedFill))
                             }
                         }
                         .contentShape(Rectangle())

@@ -62,7 +62,7 @@ public enum LunaToken: String, Sendable, CaseIterable {
     case backgroundTop, backgroundBottom
     case cardBorder, cycleSoftBorder, pregSoftBorder, avatarBorder
     case onSegmentSelected, cycleText, pregText, fetusGlowEdge, cardOpaque
-    case tabSelectedCycle, tabSelectedPreg, fertileSoftBorder
+    case tabSelectedCycle, tabSelectedPreg, fertileSoftBorder, segmentSelectedPreg
 }
 
 public enum LunaPalette {
@@ -89,6 +89,7 @@ public enum LunaPalette {
         // The chosen segment of a segmented pill: white like a card in light mode,
         // the pink accent in dark mode (handoff: "mục segmented đã chọn").
         case .segmentSelected: pair(0xFFFFFF, 0xF49CAB)
+        case .segmentSelectedPreg: pair(0xFFFFFF, 0xF5B48F)
         case .onSegmentSelected: pair(0x2B201C, 0x3A2340)
         case .textPrimary: pair(0x2B201C, 0xF7F6FC)
         case .textOnboarding: pair(0x141110, 0xF4ECE5)
@@ -121,7 +122,7 @@ public enum LunaPalette {
         case .pregSoft: LunaColorPair(light: LunaHex(0xF7E3D7), dark: LunaHex(0xF5B48F, alpha: 0.12))
         case .pregSoftBorder: LunaColorPair(light: LunaHex(0xF7E3D7), dark: LunaHex(0xF5B48F, alpha: 0.32))
         case .pregOnSoft: pair(0x9C4823, 0xFFF2EA)
-        case .pregBar: LunaColorPair(light: LunaHex(0xE3A584), dark: LunaHex(0xF5B48F, alpha: 0.45))
+        case .pregBar: pair(0xE3A584, 0xD49A86)
         case .track: LunaColorPair(light: LunaHex(0xF1E2D8), dark: LunaHex(0xFFFFFF, alpha: 0.10))
         case .ringTrack: LunaColorPair(light: LunaHex(0xF3E6E0), dark: LunaHex(0xFFFFFF, alpha: 0.12))
         // README §3: today's ring on the calendar (#E8CFC4); dark: white at 50 %.
@@ -243,7 +244,7 @@ public enum LunaContrast {
         Usage(.textOnboarding, on: .onboardingBackground), Usage(.textOnboarding, on: .card),
         // Onboarding last-period step: the title can sit on the pink hero gradient.
         Usage(.textOnboarding, on: .cycleSoft),
-        Usage(.onSegmentSelected, on: .segmentSelected),
+        Usage(.onSegmentSelected, on: .segmentSelected), Usage(.onSegmentSelected, on: .segmentSelectedPreg),
         // Onboarding body and medical note, on the scrim behind the content.
         Usage(.articleText, on: .onboardingBackground),
         // cycleStrong: the big ring figure only; smaller pink text is cycleText.
