@@ -12,8 +12,10 @@ public enum PillFailure: Error, Equatable, Sendable {
 
 /// What Today's pill card shows (phase 17 spec §4.3).
 public enum PillToday: Equatable, Sendable {
-    /// Pill `number` of `count`; `taken` once marked.
-    case pillDay(number: Int, count: Int, taken: PillDoseRecord?)
+    /// Pill `number` of `count` of `day`; `taken` once marked. `isYesterday`:
+    /// just after midnight, yesterday's pill while it is unmarked and its
+    /// follow-up time has not come (a late reminder, phase 17 review).
+    case pillDay(number: Int, count: Int, day: CalendarDay, isYesterday: Bool, taken: PillDoseRecord?)
     /// Days 22–28 of a 21+7 pack.
     case breakWeek(nextPackStart: Date)
 }
@@ -41,6 +43,9 @@ public final class PillCoordinator {
     private let defaults: UserDefaults
     private let calendar: Calendar
     private let now: @MainActor () -> Date
+    /// Bumped by every refresh, so views reading `today` update after a
+    /// reload (e.g. at midnight or after a time-zone change).
+    private var refreshCount = 0
     /// Mode and contraception live in other coordinators' keys: re-read on every
     /// refresh, kept here so SwiftUI observes them.
     private var mode: AppMode
@@ -62,7 +67,7 @@ public final class PillCoordinator {
         self.defaults = defaults
         self.calendar = calendar
         self.now = now
-        settings = PillReminderSettings.load(from: defaults)
+        settings = PillReminderSettings.load(from: defaults, calendar: calendar)
         mode = AppMode.load(from: defaults)
         preferences = CyclePreferences.load(from: defaults)
     }
@@ -75,23 +80,36 @@ public final class PillCoordinator {
     }
 
     /// Reminders and the Today card: available, switched on, with a pack start.
-    public var isActive: Bool { isAvailable && settings.enabled && settings.packStart != nil }
+    public var isActive: Bool { isAvailable && settings.enabled && settings.packStartDay != nil }
 
     public var pack: PillPack? { settings.pack(calendar: calendar) }
 
-    public func dose(on day: Date) -> PillDoseRecord? {
-        let start = calendar.startOfDay(for: day)
-        return doses.first { $0.day == start }
+    public func dose(on day: CalendarDay) -> PillDoseRecord? {
+        doses.first { $0.day == day }
+    }
+
+    public func dose(on date: Date) -> PillDoseRecord? {
+        dose(on: CalendarDay(date, calendar: calendar))
     }
 
     /// Today's card; nil when the reminder is not active.
     public var today: PillToday? {
+        _ = refreshCount
         guard isActive, let pack else { return nil }
         let date = now()
-        guard let number = pack.pillNumber(on: date) else {
+        let today = CalendarDay(date, calendar: calendar)
+        let yesterday = today.adding(days: -1)
+        if let number = pack.pillNumber(on: yesterday), dose(on: yesterday) == nil,
+           let followUp = PillReminderPlan.followUpDate(
+               for: yesterday, pack: pack, hour: settings.hour, minute: settings.minute, calendar: calendar
+           ),
+           date < followUp {
+            return .pillDay(number: number, count: pack.pillCount, day: yesterday, isYesterday: true, taken: nil)
+        }
+        guard let number = pack.pillNumber(on: today) else {
             return .breakWeek(nextPackStart: pack.nextPackStart(after: date))
         }
-        return .pillDay(number: number, count: pack.pillCount, taken: dose(on: date))
+        return .pillDay(number: number, count: pack.pillCount, day: today, isYesterday: false, taken: dose(on: today))
     }
 
     /// Re-reads the settings, mode, contraception and doses, then reconciles the
@@ -118,23 +136,35 @@ public final class PillCoordinator {
     /// stays on and `notificationsDenied` tells the screen.
     @discardableResult
     public func update(_ newSettings: PillReminderSettings) async -> Bool {
-        var stored = newSettings
-        stored.packStart = newSettings.packStart.map(calendar.startOfDay(for:))
-        stored.save(to: defaults)
+        newSettings.save(to: defaults)
         refresh()
         return await syncReminders(generation: bump(), mayPrompt: newSettings.enabled)
     }
 
-    /// Marks the pill of the day of `day` (Today, or the notification's action).
+    /// Marks the pill of `day` (Today's card, or the notification's action) and
+    /// clears that day's delivered notifications.
     @discardableResult
-    public func markTaken(on day: Date) async -> PillFailure? {
-        await write { try store.markTaken(on: day, at: now()) }
+    public func markTaken(on day: CalendarDay) async -> PillFailure? {
+        let failure = await write { try store.markTaken(on: day, at: now()) }
+        if failure == nil { notifications.removeDeliveredPillReminders(for: day) }
+        return failure
+    }
+
+    /// Marks the pill of the local day of `date`.
+    @discardableResult
+    public func markTaken(on date: Date) async -> PillFailure? {
+        await markTaken(on: CalendarDay(date, calendar: calendar))
     }
 
     /// "Bỏ đánh dấu": the day's reminders come back while still ahead.
     @discardableResult
-    public func undo(on day: Date) async -> PillFailure? {
+    public func undo(on day: CalendarDay) async -> PillFailure? {
         await write { try store.unmark(on: day) }
+    }
+
+    @discardableResult
+    public func undo(on date: Date) async -> PillFailure? {
+        await undo(on: CalendarDay(date, calendar: calendar))
     }
 
     /// The contraception, the goal or the mode changed: reminders follow.
@@ -171,7 +201,8 @@ public final class PillCoordinator {
     }
 
     private func refresh() {
-        settings = PillReminderSettings.load(from: defaults)
+        refreshCount += 1
+        settings = PillReminderSettings.load(from: defaults, calendar: calendar)
         mode = AppMode.load(from: defaults)
         preferences = CyclePreferences.load(from: defaults)
         do {

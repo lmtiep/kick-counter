@@ -55,7 +55,7 @@ final class PillReminderUITests: XCTestCase {
         app.openCycleTab(.today)
         let number = app.staticTexts["pillCardNumber"]
         app.scrollUntilHittable(number, maxSwipes: 8)
-        XCTAssertEqual(number.label, "Pill 1/28")
+        XCTAssertEqual(number.label, "Pill 1 of 28")
     }
 
     /// Today shows "Pill 12/21"; marking it shows the time, and undo brings the button back.
@@ -65,7 +65,7 @@ final class PillReminderUITests: XCTestCase {
         let take = app.buttons["pillTakeToday"]
         XCTAssertTrue(take.waitForExistence(timeout: 10))
         app.scrollUntilHittable(take, maxSwipes: 8)
-        XCTAssertEqual(app.staticTexts["pillCardNumber"].label, "Pill 12/21")
+        XCTAssertEqual(app.staticTexts["pillCardNumber"].label, "Pill 12 of 21")
         XCTAssertEqual(take.label, "Taken today")
 
         take.tap()

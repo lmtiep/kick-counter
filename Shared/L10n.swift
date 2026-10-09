@@ -869,6 +869,15 @@ enum L10n {
     static var pillActionTaken: String { t("pill.action.taken") }
     static var pillCardTitle: String { t("pill.card.title") }
     static func pillCardNumber(_ number: Int, _ count: Int) -> String { String(format: t("pill.card.number"), number, count) }
+    static func pillCardNumberYesterday(_ number: Int, _ count: Int) -> String {
+        String(format: t("pill.card.numberYesterday"), number, count)
+    }
+    /// VoiceOver: "Pill 12 of 21" for the visual "12/21".
+    static func pillCardNumberA11y(_ number: Int, _ count: Int, yesterday: Bool) -> String {
+        String(format: t(yesterday ? "pill.card.numberYesterday.a11y" : "pill.card.number.a11y"), number, count)
+    }
+    static var pillNotificationRenewBody: String { t("pill.notification.renew.body") }
+    static var pillSheetKeepOpen: String { t("pill.sheet.keepOpen") }
     static func pillCardReminderAt(_ time: String) -> String { String(format: t("pill.card.reminderAt"), time) }
     static var pillCardTake: String { t("pill.card.take") }
     static func pillCardTakenAt(_ time: String) -> String { String(format: t("pill.card.takenAt"), time) }

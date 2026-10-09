@@ -12,6 +12,8 @@ struct PillReminderSheet: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var draft = PillReminderSettings()
     @State private var loaded = false
+    /// The settings last handed to the coordinator.
+    @State private var saved: PillReminderSettings?
 
     private var today: Date { Calendar.current.startOfDay(for: AppClock.now()) }
 
@@ -28,7 +30,7 @@ struct PillReminderSheet: View {
                         Text(L10n.pillSheetToggle)
                             .font(.luna(.cardTitleSmall))
                             .foregroundStyle(.luna(.textPrimary))
-                        Text(L10n.pillSheetToggleDetail)
+                        Text(L10n.pillSheetToggleDetail + "\n" + L10n.pillSheetKeepOpen)
                             .font(.luna(.small))
                             .foregroundStyle(.luna(.textSecondary))
                             .fixedSize(horizontal: false, vertical: true)
@@ -87,12 +89,27 @@ struct PillReminderSheet: View {
         .onAppear {
             guard !loaded else { return }
             draft = pill.settings
+            saved = draft
             loaded = true
         }
-        .onChange(of: draft) { _, settings in
-            guard loaded else { return }
-            Task { await pill.update(settings) }
+        // Saved half a second after the last change (a time wheel sends many),
+        // or at once when the sheet closes.
+        .task(id: draft) {
+            guard loaded, draft != saved else { return }
+            try? await Task.sleep(for: .milliseconds(500))
+            guard !Task.isCancelled else { return }
+            await save()
         }
+        .onDisappear {
+            Task { await save() }
+        }
+    }
+
+    private func save() async {
+        guard loaded, draft != saved else { return }
+        let settings = draft
+        saved = settings
+        await pill.update(settings)
     }
 
     // MARK: - Pack type
@@ -192,7 +209,7 @@ struct PillReminderSheet: View {
         Binding(
             get: { draft.enabled },
             set: { enabled in
-                if enabled, draft.packStart == nil { draft.packStart = today }
+                if enabled, draft.packStartDay == nil { draft.packStartDay = CalendarDay(today, calendar: .current) }
                 draft.enabled = enabled
             }
         )
@@ -207,7 +224,7 @@ struct PillReminderSheet: View {
                 let current = Calendar.current.date(byAdding: .day, value: -PillPack.length, to: next) ?? pack.start
                 return min(max(max(current, pack.start), startRange.lowerBound), today)
             },
-            set: { draft.packStart = Calendar.current.startOfDay(for: $0) }
+            set: { draft.packStartDay = CalendarDay($0, calendar: .current) }
         )
     }
 

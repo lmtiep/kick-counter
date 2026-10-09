@@ -216,17 +216,27 @@ public final class WeightEntry {
 @Model
 public final class PillDose {
     public var id: UUID = UUID()
-    /// Start of the day the pill belongs to.
+    /// The pill's calendar day, yyyymmdd (`CalendarDay.key`): a date, not an
+    /// instant, so travelling never moves it. 0 on rows written by earlier
+    /// builds of this branch, which only had `day`; `PillDoseStore` fills it in.
+    public var dayKey: Int = 0
+    /// Start of the day in the zone it was marked in. Kept for those older rows.
     public var day: Date = Date()
     public var takenAt: Date = Date()
 
     public init(record: PillDoseRecord) {
         id = record.id
-        day = record.day
+        dayKey = record.day.key
+        day = record.day.date(in: .autoupdatingCurrent) ?? record.takenAt
         takenAt = record.takenAt
     }
 
+    /// The calendar day, from `dayKey`, or for an older row the day of `day` in `calendar`.
+    func calendarDay(in calendar: Calendar) -> CalendarDay {
+        CalendarDay(key: dayKey) ?? CalendarDay(day, calendar: calendar)
+    }
+
     public var record: PillDoseRecord {
-        PillDoseRecord(id: id, day: day, takenAt: takenAt)
+        PillDoseRecord(id: id, day: calendarDay(in: .autoupdatingCurrent), takenAt: takenAt)
     }
 }

@@ -120,7 +120,7 @@ struct AppEnvironment {
         let weight = WeightCoordinator(store: weightStore, defaults: AppGroup.defaults, now: { AppClock.now() })
         #if DEBUG
         if isUITesting, let seed = AppClock.launchOptions.seedPill {
-            seed.settings(today: AppClock.now(), calendar: .current).save(to: AppGroup.defaults)
+            seed.settings(today: AppClock.now(), calendar: .autoupdatingCurrent).save(to: AppGroup.defaults)
         }
         #endif
         let pill = PillCoordinator(
@@ -128,6 +128,8 @@ struct AppEnvironment {
             notifications: notifications,
             texts: ReminderTexts.pill,
             defaults: AppGroup.defaults,
+            // Follows the phone's time zone; pill days themselves are calendar dates.
+            calendar: .autoupdatingCurrent,
             now: { AppClock.now() }
         )
         let sharing = makeSharing()

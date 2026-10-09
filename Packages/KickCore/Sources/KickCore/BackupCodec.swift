@@ -93,7 +93,8 @@ public struct BackupSummary: Equatable, Sendable {
 
 extension BackupDocument {
     public var summary: BackupSummary {
-        var dates: [Date] = sessions.map(\.startedAt) + appointments.map(\.date) + cycleLogs.map(\.day) + weights.map(\.day) + pillDoses.map(\.day)
+        var dates: [Date] = sessions.map(\.startedAt) + appointments.map(\.date) + cycleLogs.map(\.day) + weights.map(\.day)
+        dates += pillDoses.compactMap { $0.calendarDay?.date(in: .autoupdatingCurrent) }
         dates += periods.map(\.startDate) + periods.compactMap(\.endDate)
         let mode: AppMode = if case .string(let raw) = settings[SettingsKey.appMode] {
             AppMode(rawValue: raw) ?? .pregnant
@@ -151,9 +152,14 @@ public enum BackupValidation {
         cleaned.weights = lastPerDay(keep(document.weights, id: \.id) {
             (try? WeightRules.validate($0.record, today: now, calendar: calendar)) != nil
         }, day: \.day)
-        cleaned.pillDoses = lastPerDay(keep(document.pillDoses, id: \.id) {
-            (try? PillDoseRules.dose(on: $0.day, takenAt: now, calendar: calendar)) != nil
-        }, day: \.day)
+        // One dose per calendar day; a day after today or not a real date is skipped.
+        let doses = keep(document.pillDoses, id: \.id) { dto in
+            dto.calendarDay.map { (try? PillDoseRules.dose(on: $0, takenAt: now, calendar: calendar)) != nil } ?? false
+        }
+        var lastDose: [Int: Int] = [:]
+        for (index, dto) in doses.enumerated() { lastDose[dto.dayKey] = index }
+        cleaned.pillDoses = doses.enumerated().filter { lastDose[$0.element.dayKey] == $0.offset }.map(\.element)
+        skipped += doses.count - cleaned.pillDoses.count
         cleaned.appointments = keep(document.appointments, id: \.id) {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }

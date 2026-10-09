@@ -235,19 +235,48 @@ public struct WeightDTO: Equatable, Sendable, Codable {
     }
 }
 
+/// A marked pill. Written with `dayKey` (yyyymmdd, a calendar date); files
+/// from earlier builds of this branch carry `day` (an instant) instead, read
+/// as its local day.
 public struct PillDoseDTO: Equatable, Sendable, Codable {
     public var id: UUID
-    public var day: Date
+    public var dayKey: Int
     public var takenAt: Date
 
     public init(_ record: PillDoseRecord) {
         id = record.id
-        day = record.day
+        dayKey = record.day.key
         takenAt = record.takenAt
     }
 
+    /// Nil when `dayKey` is not a real date (validation skips it).
+    public var calendarDay: CalendarDay? { CalendarDay(key: dayKey) }
+
     public var record: PillDoseRecord {
-        PillDoseRecord(id: id, day: day, takenAt: takenAt)
+        PillDoseRecord(id: id, day: calendarDay ?? CalendarDay(takenAt, calendar: .autoupdatingCurrent), takenAt: takenAt)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id, dayKey, day, takenAt
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        takenAt = try container.decode(Date.self, forKey: .takenAt)
+        if let key = try container.decodeIfPresent(Int.self, forKey: .dayKey) {
+            dayKey = key
+        } else {
+            let day = try container.decode(Date.self, forKey: .day)
+            dayKey = CalendarDay(day, calendar: .autoupdatingCurrent).key
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(dayKey, forKey: .dayKey)
+        try container.encode(takenAt, forKey: .takenAt)
     }
 }
 

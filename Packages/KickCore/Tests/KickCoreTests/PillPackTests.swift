@@ -132,26 +132,46 @@ struct PillPackTests {
 struct PillReminderSettingsTests {
     @Test func defaultsWhenNothingIsStored() {
         let settings = PillReminderSettings.load(from: makeTestDefaults())
-        #expect(settings == PillReminderSettings(enabled: false, packType: .withBreak, packStart: nil, hour: 21, minute: 0))
+        #expect(settings == PillReminderSettings(enabled: false, packType: .withBreak, packStartDay: nil, hour: 21, minute: 0))
     }
 
     @Test func saveThenLoadRoundTrips() {
         let defaults = makeTestDefaults()
         let settings = PillReminderSettings(
-            enabled: true, packType: .continuous, packStart: date("2026-10-01T00:00:00Z"), hour: 7, minute: 45
+            enabled: true, packType: .continuous, packStartDay: CalendarDay(year: 2026, month: 10, day: 1), hour: 7, minute: 45
         )
         settings.save(to: defaults)
         #expect(PillReminderSettings.load(from: defaults) == settings)
         #expect(defaults.string(forKey: SettingsKey.pillPackType) == "28")
-        #expect(defaults.double(forKey: SettingsKey.pillPackStart) == date("2026-10-01T00:00:00Z").timeIntervalSince1970)
+        #expect(defaults.integer(forKey: SettingsKey.pillPackStart) == 20261001)
         #expect(defaults.integer(forKey: SettingsKey.pillReminderHour) == 7)
+    }
+
+    /// Earlier builds of this branch stored the start as an instant: it reads
+    /// as its local calendar day.
+    @Test func anOlderInstantStartReadsAsItsLocalDay() throws {
+        let defaults = makeTestDefaults()
+        let local = try #require(Calendar.current.date(from: DateComponents(year: 2026, month: 10, day: 1)))
+        defaults.set(local.timeIntervalSince1970, forKey: SettingsKey.pillPackStart)
+        #expect(PillReminderSettings.load(from: defaults).packStartDay == CalendarDay(year: 2026, month: 10, day: 1))
+    }
+
+    @Test func calendarDayArithmetic() {
+        let day = CalendarDay(year: 2026, month: 10, day: 31)
+        #expect(day.key == 20261031)
+        #expect(day.adding(days: 1) == CalendarDay(year: 2026, month: 11, day: 1))
+        #expect(day.adding(days: 1).days(since: day) == 1)
+        #expect(CalendarDay(year: 2027, month: 3, day: 1).days(since: CalendarDay(year: 2027, month: 2, day: 28)) == 1)
+        #expect(CalendarDay(key: 20261332) == nil)
+        #expect(CalendarDay(key: 20261001) == CalendarDay(year: 2026, month: 10, day: 1))
+        #expect(CalendarDay(date("2026-10-01T23:30:00Z"), calendar: utcCalendar).key == 20261001)
     }
 
     @Test func clearingTheStartRemovesTheKey() {
         let defaults = makeTestDefaults()
-        PillReminderSettings(enabled: true, packType: .withBreak, packStart: date("2026-10-01T00:00:00Z"), hour: 21, minute: 0)
+        PillReminderSettings(enabled: true, packType: .withBreak, packStartDay: CalendarDay(year: 2026, month: 10, day: 1), hour: 21, minute: 0)
             .save(to: defaults)
-        PillReminderSettings(enabled: true, packType: .withBreak, packStart: nil, hour: 21, minute: 0).save(to: defaults)
+        PillReminderSettings(enabled: true, packType: .withBreak, packStartDay: nil, hour: 21, minute: 0).save(to: defaults)
         #expect(defaults.object(forKey: SettingsKey.pillPackStart) == nil)
     }
 
@@ -169,7 +189,7 @@ struct PillReminderSettingsTests {
     @Test func thePackNeedsAStart() {
         var settings = PillReminderSettings()
         #expect(settings.pack(calendar: utcCalendar) == nil)
-        settings.packStart = date("2026-10-01T09:00:00Z")
+        settings.packStartDay = CalendarDay(year: 2026, month: 10, day: 1)
         #expect(settings.pack(calendar: utcCalendar)?.start == date("2026-10-01T00:00:00Z"))
     }
 
@@ -183,14 +203,14 @@ struct PillReminderSettingsTests {
         }
         #expect(BackupSettings.table[SettingsKey.pillReminderEnabled] == .bool)
         #expect(BackupSettings.table[SettingsKey.pillPackType] == .string)
-        #expect(BackupSettings.table[SettingsKey.pillPackStart] == .double)
+        #expect(BackupSettings.table[SettingsKey.pillPackStart] == .int)
         #expect(BackupSettings.table[SettingsKey.pillReminderHour] == .int)
         #expect(BackupSettings.table[SettingsKey.pillReminderMinute] == .int)
     }
 
     @Test func backupRoundTripsThePillSettings() {
         let source = makeTestDefaults()
-        PillReminderSettings(enabled: true, packType: .continuous, packStart: date("2026-10-01T00:00:00Z"), hour: 8, minute: 30)
+        PillReminderSettings(enabled: true, packType: .continuous, packStartDay: CalendarDay(year: 2026, month: 10, day: 1), hour: 8, minute: 30)
             .save(to: source)
         let target = makeTestDefaults()
         BackupSettings.restore(BackupSettings.read(from: source), backupCreatedAt: date("2026-10-09T00:00:00Z"), to: target)

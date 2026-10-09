@@ -446,6 +446,12 @@ hành động trên thông báo khi khoá màn hình).
       thường.
 - [ ] Đổi biện pháp sang "Bao cao su": hàng "Nhắc uống thuốc" và thẻ ở Hôm nay biến mất, không còn thông báo. Đổi lại
       "Thuốc tránh thai hằng ngày": cài đặt cũ còn nguyên, nhắc nhở quay lại.
+- [ ] **Giờ nhắc muộn:** đặt giờ nhắc 23:00, không đánh dấu. Sau nửa đêm (trước 01:00), thẻ ở Hôm nay ghi "Viên n/21
+      (hôm qua)"; bấm "Đã uống hôm nay" ghi cho hôm qua, nhắc tối nay vẫn còn.
+- [ ] **Đổi múi giờ:** đặt vỉ ở Việt Nam, rồi Cài đặt → Chung → Ngày & Giờ → chọn múi giờ khác (ví dụ New York): mở
+      app, cùng một ngày lịch vẫn là cùng một viên; viên đã uống vẫn nằm đúng ngày.
+- [ ] **Không mở app 2 tuần:** sau ngày nhắc cuối cùng có một thông báo "Mở Luna Mom để tiếp tục nhắc uống thuốc." vào giờ
+      nhắc; mở app thì nhắc nhở được lên lịch lại.
 - [ ] Đổi ngôn ngữ sang English: thông báo và nút "Taken" bằng tiếng Anh.
 - [ ] Sao lưu ra file rồi khôi phục trên máy khác: cài đặt nhắc và các ngày đã uống còn nguyên. "Xoá toàn bộ dữ liệu"
       xoá cả hai.

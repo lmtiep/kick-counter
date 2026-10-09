@@ -27,7 +27,7 @@ struct BackupStoreTests {
         context.insert(PeriodEntry(record: PeriodRecord(startDate: day)))
         context.insert(CycleLog(record: CycleLogRecord(day: day, note: "cũ")))
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 50)))
-        context.insert(PillDose(record: PillDoseRecord(day: day, takenAt: day.addingTimeInterval(75_600))))
+        context.insert(PillDose(record: PillDoseRecord(day: CalendarDay(year: 2026, month: 9, day: 1), takenAt: day.addingTimeInterval(75_600))))
         try context.save()
     }
 
@@ -54,8 +54,8 @@ struct BackupStoreTests {
             ))],
             weights: [WeightRecord(day: date("2026-10-03T00:00:00Z"), kg: 56.2)],
             pillDoses: [
-                PillDoseRecord(day: date("2026-10-07T00:00:00Z"), takenAt: date("2026-10-07T21:04:00Z")),
-                PillDoseRecord(day: date("2026-10-08T00:00:00Z"), takenAt: date("2026-10-08T21:10:00Z")),
+                PillDoseRecord(day: CalendarDay(year: 2026, month: 10, day: 7), takenAt: date("2026-10-07T21:04:00Z")),
+                PillDoseRecord(day: CalendarDay(year: 2026, month: 10, day: 8), takenAt: date("2026-10-08T21:10:00Z")),
             ]
         )
     }
@@ -80,7 +80,7 @@ struct BackupStoreTests {
         #expect(exported.periods.count == 1)
         #expect(exported.logs.map(\.note) == ["cũ"])
         #expect(exported.weights.map(\.kg) == [50])
-        #expect(exported.pillDoses.map(\.day) == [date("2026-09-01T00:00:00Z")])
+        #expect(exported.pillDoses.map(\.day) == [CalendarDay(year: 2026, month: 9, day: 1)])
     }
 
     @Test func replaceAllSwapsEverythingForTheFileRecords() throws {

@@ -162,8 +162,11 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   (60 ngày gần nhất), giờ nhắc và đúng một câu về quên thuốc. Đổi sang biện pháp khác, sang "Mong có thai" hay mang
   thai thì huỷ nhắc nhở nhưng giữ cài đặt.
 - Logic thuần ở KickCore: `PillPack` (ngày trong vỉ, tuần nghỉ, vỉ kế tiếp), `PillReminderPlan` (14 ngày uống thuốc
-  tới, mỗi ngày `pill-YYYYMMDD` và `pill-YYYYMMDD-followup` sau 2 giờ, tối đa 28 yêu cầu, không có gì trong tuần nghỉ
-  hay ngày đã đánh dấu), `PillCoordinator`. Liều đã uống là model `PillDose` (KickData, một liều mỗi ngày), có trong
+  tới, mỗi ngày `pill-YYYYMMDD` và `pill-YYYYMMDD-followup` sau 2 giờ, rồi `pill-renew` nhắc mở app; tối đa 29 yêu
+  cầu, không có gì trong tuần nghỉ hay ngày đã đánh dấu), `PillCoordinator`. Ngày bắt đầu vỉ và ngày uống là **ngày
+  lịch** (`CalendarDay`, yyyymmdd), nên đổi múi giờ không làm lệch viên. Sau nửa đêm, nếu viên hôm qua chưa đánh dấu
+  và chưa tới giờ nhắc lại, thẻ Hôm nay hiện "Viên n/21 (hôm qua)". Nhắc lịch khám chỉ lên lịch 20 lịch gần nhất để
+  tổng số thông báo chờ luôn dưới 64. Liều đã uống là model `PillDose` (KickData, một liều mỗi ngày), có trong
   xoá toàn bộ dữ liệu và trong file sao lưu (mảng `pillDoses` tuỳ chọn, vẫn phiên bản 1).
 - Nút "Đã uống" trên thông báo (category `PILL_REMINDER`, action `PILL_TAKEN`) do `PillNotificationDelegate` — delegate
   thông báo duy nhất của app — ghi liều rồi bỏ lần nhắc lại. Ở Hôm nay có thẻ "Thuốc tránh thai".

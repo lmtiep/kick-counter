@@ -90,7 +90,7 @@ public enum BackupSettings {
         SettingsKey.lastBackupAt: .date,
         SettingsKey.pillReminderEnabled: .bool,
         SettingsKey.pillPackType: .string,
-        SettingsKey.pillPackStart: .double,
+        SettingsKey.pillPackStart: .int,
         SettingsKey.pillReminderHour: .int,
         SettingsKey.pillReminderMinute: .int,
     ]

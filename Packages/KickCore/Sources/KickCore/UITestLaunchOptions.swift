@@ -91,7 +91,7 @@ public struct PillSeed: Equatable, Sendable {
 
     /// Switched on at 21:00 with the pack starting `offsetDays` before `today`.
     public func settings(today: Date, calendar: Calendar) -> PillReminderSettings {
-        let start = calendar.date(byAdding: .day, value: -offsetDays, to: calendar.startOfDay(for: today))
-        return PillReminderSettings(enabled: true, packType: type, packStart: start, hour: 21, minute: 0)
+        let start = CalendarDay(today, calendar: calendar).adding(days: -offsetDays)
+        return PillReminderSettings(enabled: true, packType: type, packStartDay: start, hour: 21, minute: 0)
     }
 }

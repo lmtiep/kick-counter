@@ -14,11 +14,11 @@ struct PillTodayCard: View {
         if let today = pill.today {
             VStack(alignment: .leading, spacing: 14) {
                 header(today)
-                if case .pillDay(_, _, let taken) = today {
+                if case .pillDay(_, _, let day, _, let taken) = today {
                     if let taken {
                         takenRow(taken)
                     } else {
-                        Button(L10n.pillCardTake) { Task { await mark() } }
+                        Button(L10n.pillCardTake) { Task { await mark(day) } }
                             .buttonStyle(.pill(.filled(.cycleStrong), height: 44))
                             .disabled(working)
                             .accessibilityIdentifier("pillTakeToday")
@@ -51,10 +51,13 @@ struct PillTodayCard: View {
                     .foregroundStyle(.luna(.textPrimary))
                     .accessibilityAddTraits(.isHeader)
                 switch today {
-                case .pillDay(let number, let count, _):
-                    Text(L10n.pillCardNumber(number, count))
+                case .pillDay(let number, let count, _, let isYesterday, _):
+                    // Just after midnight, yesterday's pill while it is still due.
+                    Text(isYesterday ? L10n.pillCardNumberYesterday(number, count) : L10n.pillCardNumber(number, count))
                         .font(.luna(.statFigure))
                         .foregroundStyle(.luna(.cycleStrong))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityLabel(L10n.pillCardNumberA11y(number, count, yesterday: isYesterday))
                         .accessibilityIdentifier("pillCardNumber")
                     Text(L10n.pillCardReminderAt(Formatting.clockTime(hour: pill.settings.hour, minute: pill.settings.minute)))
                         .font(.luna(.caption))
@@ -90,7 +93,7 @@ struct PillTodayCard: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .accessibilityElement(children: .combine)
             .accessibilityIdentifier("pillTakenLabel")
-            Button(L10n.pillCardUndo) { Task { await undo() } }
+            Button(L10n.pillCardUndo) { Task { await undo(taken.day) } }
                 .buttonStyle(.pill(.soft(.surfaceAlt, .textPrimary), fullWidth: false, height: 44))
                 .disabled(working)
                 .accessibilityLabel(L10n.pillCardUndoA11y)
@@ -98,15 +101,15 @@ struct PillTodayCard: View {
         }
     }
 
-    private func mark() async {
+    private func mark(_ day: CalendarDay) async {
         working = true
         defer { working = false }
-        failure = await pill.markTaken(on: AppClock.now())
+        failure = await pill.markTaken(on: day)
     }
 
-    private func undo() async {
+    private func undo(_ day: CalendarDay) async {
         working = true
         defer { working = false }
-        failure = await pill.undo(on: AppClock.now())
+        failure = await pill.undo(on: day)
     }
 }

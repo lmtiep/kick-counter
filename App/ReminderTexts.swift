@@ -35,7 +35,8 @@ enum ReminderTexts {
             },
             followUp: { number, count in
                 NotificationText(title: followUpTitle, body: L10n.pillNotificationFollowUpBody(number, count))
-            }
+            },
+            renew: NotificationText(title: reminderTitle, body: L10n.pillNotificationRenewBody)
         )
     }
 }

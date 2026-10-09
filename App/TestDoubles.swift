@@ -7,6 +7,7 @@ import KickCore
 final class DisabledNotificationCenter: NotificationCenterClient {
     func add(_ request: UNNotificationRequest) async throws {}
     func removePending(ids: [String]) {}
+    func removeDelivered(ids: [String]) {}
     func requestAuthorization() async throws -> Bool { false }
     func authorizationStatus() async -> UNAuthorizationStatus { .denied }
     func pendingRequestIDs() async -> [String] { [] }

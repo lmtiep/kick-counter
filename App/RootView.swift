@@ -104,6 +104,17 @@ struct RootView: View {
             .onChange(of: appLanguage) {
                 Task { await relocalizeReminders() }
             }
+            // A new day, a new time zone or a clock change: Today's pill card and
+            // the pill reminders follow (phase 17 review).
+            .onReceive(NotificationCenter.default.publisher(for: .NSSystemTimeZoneDidChange)) { _ in
+                Task { await pill.load() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                Task { await pill.load() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                Task { await pill.load() }
+            }
             // The contraception or the goal changed (Profile, onboarding): the pill
             // reminders follow, their settings are kept (phase 17 spec §2).
             .onChange(of: cycle.preferences) {

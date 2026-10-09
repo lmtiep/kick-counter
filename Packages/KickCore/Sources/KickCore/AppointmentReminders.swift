@@ -5,6 +5,9 @@ import Foundation
 extension NotificationScheduler {
     public static let appointmentReminderPrefix = "appointment-"
     public static let appointmentReminderHour = 9
+    /// At most this many appointment reminders are pending at once (the soonest),
+    /// so with the cycle, kick and pill reminders the total stays under iOS's 64.
+    public nonisolated static let maxAppointmentReminders = 20
 
     public static func appointmentReminderID(for id: UUID) -> String {
         "\(appointmentReminderPrefix)\(id.uuidString)"

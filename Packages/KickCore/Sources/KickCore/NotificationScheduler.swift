@@ -27,6 +27,7 @@ public struct NotificationText: Equatable, Sendable {
 public protocol NotificationCenterClient: AnyObject {
     func add(_ request: UNNotificationRequest) async throws
     func removePending(ids: [String])
+    func removeDelivered(ids: [String])
     func requestAuthorization() async throws -> Bool
     func authorizationStatus() async -> UNAuthorizationStatus
     func pendingRequestIDs() async -> [String]
@@ -44,6 +45,10 @@ public final class SystemNotificationCenter: NotificationCenterClient {
 
     public func removePending(ids: [String]) {
         center.removePendingNotificationRequests(withIdentifiers: ids)
+    }
+
+    public func removeDelivered(ids: [String]) {
+        center.removeDeliveredNotifications(withIdentifiers: ids)
     }
 
     public func requestAuthorization() async throws -> Bool {

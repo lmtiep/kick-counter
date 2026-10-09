@@ -26,6 +26,8 @@ final class PillNotificationDelegate: NSObject, UNUserNotificationCenterDelegate
     }
 
     /// The "Đã uống" action in the current language; called again when it changes.
+    /// Merged into the registered categories rather than replacing them, so a
+    /// category another part of the app (or a later phase) registers survives.
     func registerCategory() {
         let taken = UNNotificationAction(
             identifier: PillReminderPlan.takenActionIdentifier,
@@ -38,7 +40,13 @@ final class PillNotificationDelegate: NSObject, UNUserNotificationCenterDelegate
             intentIdentifiers: [],
             options: []
         )
-        UNUserNotificationCenter.current().setNotificationCategories([category])
+        let center = UNUserNotificationCenter.current()
+        Task {
+            var categories = await center.notificationCategories()
+            categories = categories.filter { $0.identifier != PillReminderPlan.categoryIdentifier }
+            categories.insert(category)
+            center.setNotificationCategories(categories)
+        }
     }
 
     nonisolated func userNotificationCenter(
@@ -48,13 +56,13 @@ final class PillNotificationDelegate: NSObject, UNUserNotificationCenterDelegate
         guard response.actionIdentifier == PillReminderPlan.takenActionIdentifier else { return }
         let content = response.notification.request.content
         guard content.categoryIdentifier == PillReminderPlan.categoryIdentifier,
-              let seconds = content.userInfo[PillReminderPlan.dayUserInfoKey] as? Double
+              let key = content.userInfo[PillReminderPlan.dayUserInfoKey] as? Int,
+              let day = CalendarDay(key: key)
         else { return }
-        let day = Date(timeIntervalSince1970: seconds)
         await markTaken(on: day)
     }
 
-    private func markTaken(on day: Date) async {
+    private func markTaken(on day: CalendarDay) async {
         guard let pill else {
             logger.error("A pill action arrived before the app was ready")
             return

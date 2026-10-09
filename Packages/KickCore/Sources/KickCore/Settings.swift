@@ -60,7 +60,7 @@ public enum SettingsKey {
     public static let pillReminderEnabled = "pillReminderEnabled"
     /// `PillPackType` raw value (`"21+7"` or `"28"`). Missing means `"21+7"`.
     public static let pillPackType = "pillPackType"
-    /// First day of the current pack, start of day, `timeIntervalSince1970`; 0 or missing means not set.
+    /// First day of the current pack as a calendar date, yyyymmdd (`CalendarDay.key`); missing means not set.
     public static let pillPackStart = "pillPackStart"
     /// Missing means 21.
     public static let pillReminderHour = "pillReminderHour"
