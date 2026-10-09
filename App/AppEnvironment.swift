@@ -81,6 +81,9 @@ struct AppEnvironment {
         if isUITesting, AppClock.launchOptions.seedOverdueSession {
             try seedOverdueSession(into: kickStore)
         }
+        if isUITesting, arguments.contains("-seedActiveSession") {
+            try seedActiveSession(into: kickStore)
+        }
         #endif
         let coordinator = KickCoordinator(
             store: kickStore,
@@ -186,6 +189,15 @@ struct AppEnvironment {
     private static func seedOverdueSession(into store: KickStore) throws {
         let start = Date().addingTimeInterval(-125 * 60)
         for minutes in [0.0, 15, 45, 80] {
+            _ = try store.addKick(at: start.addingTimeInterval(minutes * 60))
+        }
+    }
+
+    /// `-uiTesting -seedActiveSession` (App Store screenshots): a session started
+    /// 22 min ago on the real clock with 6 movements, well inside the 2-hour window.
+    private static func seedActiveSession(into store: KickStore) throws {
+        let start = Date().addingTimeInterval(-22 * 60)
+        for minutes in [0.0, 3, 7, 11, 16, 20] {
             _ = try store.addKick(at: start.addingTimeInterval(minutes * 60))
         }
     }
