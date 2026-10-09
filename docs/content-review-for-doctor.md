@@ -586,7 +586,7 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
 | `cycle.withdrawalBleed` | Nhãn "Ra máu dự kiến" thay cho "Kỳ kinh tiếp theo" / "Kỳ kinh dự đoán" khi dùng biện pháp có nội tiết |
 | `onboarding.regularity.irregularNote` | Hiện khi chọn "Không đều": "Chu kỳ dao động một chút là chuyện thường gặp, nhất là sau sinh, khi đang cho con bú hoặc lúc căng thẳng. Bạn ghi càng nhiều kỳ kinh, dự đoán thường càng sát hơn. Nếu chu kỳ hay ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền, bạn nên trao đổi với bác sĩ." |
 | `onboarding.cycleLength.hint` | "Tính từ ngày đầu của một kỳ kinh đến hết ngày trước kỳ kinh sau. Nhiều người có chu kỳ từ 21 đến 35 ngày, của bạn có thể khác." |
-| `onboarding.privacy` | Câu chào mừng: "Dữ liệu chỉ được lưu trên iPhone này. Không cần tài khoản, không quảng cáo, không bán dữ liệu." (giai đoạn 12: không còn iCloud) |
+| `onboarding.privacy` | Câu chào mừng: "Dữ liệu chỉ lưu trên iPhone. Không tài khoản, không quảng cáo." (giai đoạn 12: không còn iCloud; giai đoạn 18: câu ngắn hơn theo thiết kế mới) |
 | `onboarding.regularity.*`, `onboarding.result.late`, `profile.showFertilityTests(.hint)` | Đều / Không đều / Không rõ và mô tả; "Theo ngày bạn nhập, kỳ kinh có thể đã trễ khoảng %@."; "Hiện que thử rụng trứng & nhiệt độ" |
 | `settings.cycleReminders.hint.tracking` | Chú thích dưới công tắc "Nhắc chu kỳ" trong Hồ sơ khi theo dõi chu kỳ (không nhắc trước cửa sổ thụ thai, xem mục 56): "Nhắc lúc 9:00: 1 ngày trước kỳ kinh dự kiến và một lần khi trễ kinh 3 ngày." (chế độ Mong con vẫn dùng `settings.cycle.remindersHint`, có nhắc 2 ngày trước cửa sổ thụ thai) |
 
@@ -900,3 +900,9 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         13–36, "115" ở tuần ≥ 37. Nguồn: NHS – Vaginal bleeding in pregnancy (ra máu nhiều, đau dữ dội, ngất → 999).
         **Lưu ý:** bài `safe-exercise` và `sleep-positions` vẫn viết ngất → "liên hệ bác sĩ hoặc nữ hộ sinh ngay"
         (câu hỏi mục 48 còn mở); bác sĩ quyết định có thống nhất về "gọi 115" không.
+91. [ ] **Giai đoạn 18 — lưu ý y khoa ở màn chào mừng.** Onboarding mới gộp lưu ý y khoa thành một dòng ngắn cạnh
+        biểu tượng "!". Cũ (`onboarding.3.title` + `onboarding.3.body`): "Không thay thế tư vấn y tế. Nếu thấy bé cử động
+        ít hơn bình thường, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế. Đừng chờ kết quả từ app." → Mới (`onboarding.medical`):
+        "Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay." (en: "Not a substitute for a doctor. Fewer
+        kicks than usual? Call your doctor."). Câu mới bỏ "hoặc cơ sở y tế" và "Đừng chờ kết quả từ app". **Câu hỏi:**
+        bác sĩ xác nhận câu ngắn này đủ an toàn, hay cần giữ "bác sĩ hoặc cơ sở y tế"?

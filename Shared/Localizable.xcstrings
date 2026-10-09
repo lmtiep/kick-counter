@@ -5458,40 +5458,6 @@
         }
       }
     },
-    "onboarding.3.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "If your baby is moving less than usual, contact your doctor or maternity unit right away. Don't wait for the app."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nếu thấy bé cử động ít hơn bình thường, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế. Đừng chờ kết quả từ app."
-          }
-        }
-      }
-    },
-    "onboarding.3.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Not a substitute for medical advice"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Không thay thế tư vấn y tế"
-          }
-        }
-      }
-    },
     "onboarding.back": {
       "extractionState": "manual",
       "localizations": {
@@ -5719,13 +5685,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "See your fertile days and ovulation"
+            "value": "Know your ovulation and fertile days"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Biết những ngày dễ thụ thai và ngày rụng trứng"
+            "value": "Biết ngày rụng trứng và ngày dễ thụ thai"
           }
         }
       }
@@ -5753,7 +5719,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Follow each week and your baby's movements"
+            "value": "Follow each week and baby’s movements"
           }
         },
         "vi": {
@@ -5787,13 +5753,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Understand your body and know when your period is coming"
+            "value": "Predict periods, understand your body"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hiểu cơ thể, biết trước kỳ kinh"
+            "value": "Dự đoán kỳ kinh, hiểu cơ thể mình"
           }
         }
       }
@@ -5811,6 +5777,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Để sau"
+          }
+        }
+      }
+    },
+    "onboarding.medical": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not a substitute for a doctor. Fewer kicks than usual? Call your doctor."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay."
           }
         }
       }
@@ -5906,13 +5889,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your data stays on this iPhone. No account, no ads, no selling data."
+            "value": "Data stays on this iPhone. No account, no ads."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dữ liệu chỉ được lưu trên iPhone này. Không cần tài khoản, không quảng cáo, không bán dữ liệu."
+            "value": "Dữ liệu chỉ lưu trên iPhone. Không tài khoản, không quảng cáo."
           }
         }
       }
@@ -6059,7 +6042,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Restore from a backup"
+            "value": "Restore from backup"
           }
         },
         "vi": {
@@ -6206,6 +6189,23 @@
         }
       }
     },
+    "onboarding.start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get started"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu"
+          }
+        }
+      }
+    },
     "onboarding.step": {
       "extractionState": "manual",
       "localizations": {
@@ -6229,13 +6229,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Track your cycle every month, and follow along week by week when a baby is on the way."
+            "value": "Track your cycle and get week-by-week support through pregnancy."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Theo dõi chu kỳ mỗi tháng, và đồng hành cùng bạn qua từng tuần khi có em bé."
+            "value": "Theo dõi chu kỳ và đồng hành cùng bạn qua từng tuần thai kỳ."
           }
         }
       }

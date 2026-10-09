@@ -120,7 +120,13 @@ struct RootView: View {
             // Over whatever is on top (a sheet, onboarding), never blocked by it.
             .onChange(of: backup.request?.id) {
                 if let request = backup.request {
-                    Task { await RestoreBackupPresenter.shared.present(restoreSheet(request)) { backup.request = nil } }
+                    let overOnboarding = showsOnboarding
+                    Task {
+                        await RestoreBackupPresenter.shared.present(
+                            restoreSheet(request, overOnboarding: overOnboarding),
+                            style: overOnboarding ? .light : AppEnvironment.forceDarkMode ? .dark : .unspecified
+                        ) { backup.request = nil }
+                    }
                 } else {
                     RestoreBackupPresenter.shared.dismiss()
                 }
@@ -146,8 +152,9 @@ struct RootView: View {
     }
 
     /// The restore sheet with what it needs from the environment: it is hosted by
-    /// `RestoreBackupPresenter`, outside this view's hierarchy.
-    private func restoreSheet(_ request: BackupCenter.Request) -> AnyView {
+    /// `RestoreBackupPresenter`, outside this view's hierarchy. Over onboarding
+    /// it is light, as onboarding is (phase 18).
+    private func restoreSheet(_ request: BackupCenter.Request, overOnboarding: Bool) -> AnyView {
         AnyView(
             RestoreBackupSheet(request: request)
                 .environment(backup)
@@ -158,7 +165,7 @@ struct RootView: View {
                 .modelContext(modelContext)
                 .environment(\.locale, AppLocale.locale)
                 .environment(\.calendar, AppLocale.calendar)
-                .preferredColorScheme(AppEnvironment.forceDarkMode ? .dark : nil)
+                .preferredColorScheme(overOnboarding ? .light : AppEnvironment.forceDarkMode ? .dark : nil)
         )
     }
 

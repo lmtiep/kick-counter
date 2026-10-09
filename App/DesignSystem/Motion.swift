@@ -11,6 +11,9 @@ enum LunaMotion {
     static let kenBurns = Animation.timingCurve(0.2, 0.8, 0.2, 1, duration: 1.8)
     static let waveRise = Animation.timingCurve(0.2, 0.8, 0.2, 1, duration: 1).delay(0.25)
     static let contentUp = Animation.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8).delay(0.45)
+    /// Onboarding's primary button and restore link follow the text (phase 18 handoff §1).
+    static let buttonUp = Animation.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8).delay(0.6)
+    static let linkUp = Animation.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.8).delay(0.7)
     static let dots = Animation.timingCurve(0.65, 0, 0.35, 1, duration: 0.5)
     static let overlay = Animation.easeOut(duration: 0.28)
     static let fade = Animation.easeOut(duration: 0.2)
@@ -32,6 +35,10 @@ enum LunaEntrance {
     case waveRise
     /// Text and controls rise 28 pt and fade in, 0.8 s after 0.45 s.
     case contentUp
+    /// As `contentUp`, after 0.6 s (the onboarding button).
+    case buttonUp
+    /// As `contentUp`, after 0.7 s (the restore link).
+    case linkUp
 
     var animation: Animation {
         switch self {
@@ -39,6 +46,8 @@ enum LunaEntrance {
         case .kenBurns: LunaMotion.kenBurns
         case .waveRise: LunaMotion.waveRise
         case .contentUp: LunaMotion.contentUp
+        case .buttonUp: LunaMotion.buttonUp
+        case .linkUp: LunaMotion.linkUp
         }
     }
 }
@@ -61,7 +70,7 @@ private struct EntranceModifier: ViewModifier {
                     content.scaleEffect(shown ? 1 : 1.18, anchor: UnitPoint(x: 1.0 / 6, y: 0.5))
                 case .waveRise:
                     content.offset(y: shown ? 0 : 70)
-                case .contentUp:
+                case .contentUp, .buttonUp, .linkUp:
                     content.offset(y: shown ? 0 : 28).opacity(shown ? 1 : 0)
                 }
             }

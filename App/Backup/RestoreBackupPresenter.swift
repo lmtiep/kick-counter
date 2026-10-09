@@ -14,11 +14,13 @@ final class RestoreBackupPresenter: NSObject, UIAdaptivePresentationControllerDe
     private weak var controller: UIHostingController<AnyView>?
     private var onSwipeDown: (() -> Void)?
 
-    /// Shows `content`, or swaps it into the sheet already shown.
-    func present(_ content: AnyView, onSwipeDown: @escaping () -> Void) async {
+    /// Shows `content`, or swaps it into the sheet already shown. `style` is
+    /// `.light` over onboarding (phase 18: onboarding is light only).
+    func present(_ content: AnyView, style: UIUserInterfaceStyle, onSwipeDown: @escaping () -> Void) async {
         self.onSwipeDown = onSwipeDown
         if let controller, controller.presentingViewController != nil {
             controller.rootView = content
+            controller.overrideUserInterfaceStyle = style
             return
         }
         // Up to 10 s for an appearing cover or a closing sheet to settle.
@@ -28,7 +30,7 @@ final class RestoreBackupPresenter: NSObject, UIAdaptivePresentationControllerDe
                 let controller = UIHostingController(rootView: content)
                 controller.modalPresentationStyle = .pageSheet
                 controller.view.backgroundColor = .luna(.background)
-                if AppEnvironment.forceDarkMode { controller.overrideUserInterfaceStyle = .dark }
+                controller.overrideUserInterfaceStyle = style
                 if let sheet = controller.sheetPresentationController {
                     sheet.detents = [.large()]
                     sheet.preferredCornerRadius = 28

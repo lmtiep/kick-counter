@@ -142,7 +142,7 @@ final class BackupUITests: XCTestCase {
         XCTAssertTrue(restore.waitForExistence(timeout: 10))
         app.scrollUntilHittable(restore)
         XCTAssertTrue(restore.isHittable)
-        XCTAssertTrue(restore.label.contains("Restore from a backup"), restore.label)
+        XCTAssertTrue(restore.label.contains("Restore from backup"), restore.label)
     }
 
     /// A new phone: the file opens above onboarding, and restoring finishes it.
