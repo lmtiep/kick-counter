@@ -45,7 +45,8 @@ extension XCUIApplication {
         contraception: String? = nil,
         skipOnboarding: Bool = true,
         largestText: Bool = false,
-        extraArguments: [String] = []
+        extraArguments: [String] = [],
+        environment: [String: String] = [:]
     ) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = ["-uiTesting"] + (skipOnboarding ? ["-skipOnboarding"] : []) + [
@@ -62,6 +63,7 @@ extension XCUIApplication {
             app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         }
         app.launchArguments += extraArguments
+        app.launchEnvironment.merge(environment) { _, new in new }
         app.launch()
         return app
     }

@@ -29,6 +29,7 @@ struct ProfileView: View {
     @Environment(WeightCoordinator.self) private var weight
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(\.modelContext) private var modelContext
+    @Environment(BackupCenter.self) private var backup
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -52,6 +53,11 @@ struct ProfileView: View {
     @State private var confirmingDeleteAll = false
     @State private var deletingAll = false
     @State private var deleteAllFailed = false
+    @State private var exportingBackup = false
+    @State private var exportFailed = false
+    @State private var importingBackup = false
+    /// `SettingsKey.lastBackupAt`, read again whenever Profile appears.
+    @State private var lastBackupAt: Date?
 
     private var mode: AppMode { AppMode(rawValue: appMode) ?? .pregnant }
 
@@ -96,6 +102,7 @@ struct ProfileView: View {
                     }
                     permissionsCard
                     aboutCard
+                    dataCard
                     deleteAllCard
                 }
                 .padding(.horizontal, 20)
@@ -141,6 +148,13 @@ struct ProfileView: View {
             .alert(L10n.settingsDeleteAllFailed, isPresented: $deleteAllFailed) {
                 Button(L10n.commonOK) {}
             }
+            .alert(L10n.backupExportFailed, isPresented: $exportFailed) {
+                Button(L10n.commonOK) {}
+            }
+            .fileImporter(isPresented: $importingBackup, allowedContentTypes: [.lunaMomBackup, .json]) { result in
+                if case .success(let url) = result { backup.open(url) }
+            }
+            .onAppear { refreshLastBackup() }
             .task { await refreshPermissions() }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active { Task { await refreshPermissions() } }
@@ -491,6 +505,107 @@ struct ProfileView: View {
         .accessibilityIdentifier(identifier)
     }
 
+    /// "Dữ liệu" (phase 15 spec §4.1), above "Xoá toàn bộ dữ liệu": back up to a file
+    /// the user shares where she wants, or restore one.
+    private var dataCard: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(L10n.backupSection)
+                .font(.luna(.bodyStrong))
+                .foregroundStyle(.luna(.textPrimary))
+                .accessibilityAddTraits(.isHeader)
+                .padding(.horizontal, 18)
+                .padding(.top, 16)
+                .padding(.bottom, 2)
+            Button(action: exportBackup) {
+                dataRow(
+                    L10n.backupExport,
+                    systemImage: "square.and.arrow.up",
+                    detail: lastBackupAt.map { L10n.backupLastBackup(Formatting.shortDay($0)) },
+                    busy: exportingBackup
+                )
+            }
+            .buttonStyle(.plain)
+            .disabled(exportingBackup)
+            .accessibilityIdentifier("profileBackupExport")
+            Text(L10n.backupExportFootnote)
+                .font(.luna(.caption))
+                .foregroundStyle(.luna(.textSecondary))
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.horizontal, 18)
+                .padding(.bottom, 14)
+                .accessibilityIdentifier("profileBackupFootnote")
+            LunaDivider()
+            Button { importingBackup = true } label: {
+                dataRow(L10n.backupImport, systemImage: "arrow.down.doc", detail: nil, busy: false)
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("profileBackupImport")
+        }
+        // No identifier on the card: it would replace the rows' own identifiers.
+        .lunaCard(padding: 0)
+    }
+
+    private func dataRow(_ title: String, systemImage: String, detail: String?, busy: Bool) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: systemImage)
+                .font(.luna(.body))
+                .foregroundStyle(.luna(.textPrimary))
+                .frame(width: 22)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.luna(.body))
+                    .foregroundStyle(.luna(.textPrimary))
+                if let detail {
+                    Text(detail)
+                        .font(.luna(.caption))
+                        .foregroundStyle(.luna(.textSecondary))
+                }
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            if busy {
+                ProgressView()
+            } else {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.luna(.chevron))
+                    .accessibilityHidden(true)
+            }
+        }
+        .padding(.vertical, 14)
+        .padding(.horizontal, 18)
+        .frame(minHeight: 44)
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+    }
+
+    private func refreshLastBackup() {
+        lastBackupAt = AppGroup.defaults.object(forKey: SettingsKey.lastBackupAt) as? Date
+    }
+
+    /// Writes the file, then opens the share sheet; "Last backup" is recorded only
+    /// when the share completed. The file says nothing is encrypted (footnote).
+    private func exportBackup() {
+        guard !exportingBackup else { return }
+        exportingBackup = true
+        let url: URL
+        do {
+            url = try BackupCenter.makeExportFile(container: modelContext.container, now: AppClock.now())
+        } catch {
+            profileLogger.error("Creating the backup file failed: \(error.localizedDescription)")
+            exportingBackup = false
+            exportFailed = true
+            return
+        }
+        BackupSharePresenter.present(url) { completed in
+            exportingBackup = false
+            guard completed else { return }
+            AppGroup.defaults.set(AppClock.now(), forKey: SettingsKey.lastBackupAt)
+            refreshLastBackup()
+        }
+    }
+
     /// The last card (phase 12 spec §3.4): a destructive row, confirmed by an alert.
     private var deleteAllCard: some View {
         Button(role: .destructive) {
@@ -537,21 +652,10 @@ struct ProfileView: View {
             return
         }
         AppDataReset.clearDefaults(AppGroup.defaults)
-        // Forgets the deleted session and its completion card; stops the daily
-        // reminder, the 2-hour alerts and every kick Live Activity.
-        await coordinator.resetAfterDataDeletion()
-        if !AppEnvironment.isUITesting {
-            let center = UNUserNotificationCenter.current()
-            center.removeAllPendingNotificationRequests()
-            center.removeAllDeliveredNotifications()
-            for activity in Activity<KickActivityAttributes>.activities {
-                await activity.end(nil, dismissalPolicy: .immediate)
-            }
-        }
-        await coordinator.load()
-        await appointments.load()
-        await cycle.load()
-        await weight.load()
+        // Backup copies inside the app hold the same health data (phase 15).
+        BackupCenter.removeLeftovers()
+        refreshLastBackup()
+        await AppDataReload.afterReplacingAllData(kicks: coordinator, appointments: appointments, cycle: cycle, weight: weight)
         profileLogger.info("Deleted all data")
     }
 

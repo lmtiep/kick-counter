@@ -41,6 +41,19 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSSupportsLiveActivities: true
         LunaContentPreview: $(LUNA_CONTENT_PREVIEW)
+        # Phase 15: the .lunamom backup file. iOS copies an opened file into the app.
+        LSSupportsOpeningDocumentsInPlace: false
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Luna Mom Backup
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Owner
+            LSItemContentTypes: [com.lmtiep.kickcounter.backup]
+        UTExportedTypeDeclarations:
+          - UTTypeIdentifier: com.lmtiep.kickcounter.backup
+            UTTypeDescription: Luna Mom Backup
+            UTTypeConformsTo: [public.json, public.data]
+            UTTypeTagSpecification:
+              public.filename-extension: [lunamom]
         UIAppFonts:
           - BeVietnamPro-Light.ttf
           - BeVietnamPro-Regular.ttf
