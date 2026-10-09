@@ -96,7 +96,7 @@ struct WeekDetailView: View {
                 stops: [
                     .init(color: .luna(.heroTop), location: 0),
                     .init(color: .luna(.heroMiddle), location: 0.45),
-                    .init(color: .luna(.background), location: 1),
+                    .init(color: .luna(.backgroundBottom), location: 1),
                 ],
                 startPoint: .top,
                 endPoint: .bottom
@@ -202,7 +202,8 @@ struct WeekDetailView: View {
                             guard !isHeaderDragging else { return }
                             tab = newValue
                         }
-                    )
+                    ),
+                    selectedFill: .segmentSelectedPreg
                 )
                 .padding(.top, 14)
             }

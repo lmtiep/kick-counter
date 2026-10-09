@@ -70,7 +70,7 @@ struct PregnancyTodayView: View {
             }
             // Content scrolled up stays out from under the status bar.
             .lunaStatusBarBackdrop()
-            .background(.luna(.background))
+            .lunaBackground()
             .toolbar(.hidden, for: .navigationBar)
             // Slides up over everything (spec §4.5).
             .fullScreenCover(item: $detailWeek) { selection in
@@ -191,10 +191,10 @@ struct PregnancyTodayView: View {
                 .fill(.luna(.preg))
                 .overlay(
                     Circle()
-                        .fill(.luna(.card))
+                        .fill(.luna(.onAccent))
                         .frame(width: 16, height: 16)
                         .padding(6)
-                        .background(Circle().fill(Color.luna(.card).opacity(0.3)))
+                        .background(Circle().fill(Color.luna(.onAccent).opacity(0.3)))
                 )
         }
         let symptoms = shortcut(L10n.pregnancyShortcutSymptoms, identifier: "shortcutSymptoms", action: { route = .symptoms }) {
@@ -277,7 +277,7 @@ struct PregnancyTodayView: View {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(L10n.pregnancyKicksTodayTitle)
-                        .lunaLabelStyle(.pregStrong)
+                        .lunaLabelStyle(.pregText)
                     Text(latest.map { L10n.pregnancyKicksTodayDone($0.count, Formatting.minutes(($0.duration ?? 0) / 60)) }
                         ?? L10n.pregnancyKicksTodayNone)
                         .font(.luna(.cardTitle))

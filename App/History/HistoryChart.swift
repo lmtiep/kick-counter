@@ -40,7 +40,7 @@ struct HistoryChart: View {
                         .font(.luna(size: 11, weight: .semibold, relativeTo: .caption2))
                         .foregroundStyle(.luna(.textSecondary))
                         .padding(.horizontal, 3)
-                        .background(.luna(.card)) // hides the 30′ line behind a value near it
+                        .background(.luna(.cardOpaque)) // hides the 30′ line behind a value near it
                 }
                 .accessibilityLabel(item.label)
                 .accessibilityValue(item.minutes.map(Formatting.minutes) ?? L10n.historyNoSession)

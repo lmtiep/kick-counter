@@ -39,7 +39,7 @@ struct CycleCalendarView: View {
             }
             // Content scrolled up stays out from under the status bar.
             .lunaStatusBarBackdrop()
-            .background(.luna(.background))
+            .lunaBackground()
             .toolbar(.hidden, for: .navigationBar)
             .simultaneousGesture(
                 DragGesture(minimumDistance: 30).onEnded { value in
@@ -155,6 +155,7 @@ struct CycleCalendarView: View {
         .padding(.vertical, 14)
         .padding(.horizontal, 8)
         .background(.luna(.card), in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).strokeBorder(.luna(.cardBorder), lineWidth: 1))
         .padding(.horizontal, 14)
     }
 
@@ -260,7 +261,7 @@ struct CycleLegend: View {
             }
             if policy.showsFertileWindow {
                 item(CycleTexts.fertileTitle(policy)) {
-                    Circle().fill(.luna(.fertileSoft))
+                    Circle().fill(.luna(.fertileSoft)).overlay(Circle().strokeBorder(.luna(.fertileSoftBorder), lineWidth: 1.5))
                 }
             }
             if policy.showsOvulation {

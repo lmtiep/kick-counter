@@ -85,7 +85,7 @@ struct PregnancySymptomSheet: View {
                 .disabled(saving)
                 .padding(.horizontal, 22)
                 .padding(.vertical, 10)
-                .background(.luna(.background))
+                .background(.luna(.backgroundBottom))
                 .accessibilityIdentifier("symptomSave")
         }
         .lunaSheetPresentation()

@@ -41,12 +41,18 @@ enum LunaAppearance {
         ]
 
         let segmented = UISegmentedControl.appearance()
-        segmented.selectedSegmentTintColor = .luna(.card)
+        // Light: a white segment on the tinted track; dark: the pink accent with plum text.
+        segmented.selectedSegmentTintColor = .luna(.segmentSelected)
         segmented.backgroundColor = .luna(.surfaceAlt)
+        // Capped: segments share one line, so accessibility sizes would truncate every label.
+        let segmentFont = UIFont.luna(size: 13, weight: .semibold, textStyle: .footnote, maximumPointSize: 21)
         segmented.setTitleTextAttributes([
-            // Capped: segments share one line, so accessibility sizes would truncate every label.
-            .font: UIFont.luna(size: 13, weight: .semibold, textStyle: .footnote, maximumPointSize: 21),
+            .font: segmentFont,
             .foregroundColor: UIColor.luna(.textPrimary),
         ], for: .normal)
+        segmented.setTitleTextAttributes([
+            .font: segmentFont,
+            .foregroundColor: UIColor.luna(.onSegmentSelected),
+        ], for: .selected)
     }
 }

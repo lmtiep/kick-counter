@@ -56,7 +56,7 @@ struct KnowledgeLibraryView: View {
         }
         // Content scrolled up stays out from under the status bar.
         .lunaStatusBarBackdrop()
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationTitle(L10n.knowledgeTitle)
         .fullScreenCover(item: $reading) { selection in
             KnowledgeArticleView(articleID: selection.id)

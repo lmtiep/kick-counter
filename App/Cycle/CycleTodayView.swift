@@ -76,7 +76,7 @@ struct CycleTodayView: View {
             }
             // Content scrolled up stays out from under the status bar.
             .lunaStatusBarBackdrop()
-            .background(.luna(.background))
+            .lunaBackground()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: CycleHistoryRoute.self) { route in
                 switch route {
@@ -371,7 +371,7 @@ struct CycleTodayView: View {
                 Circle()
                     .fill(.luna(.preg))
                     .frame(width: 44, height: 44)
-                    .overlay(Circle().fill(.luna(.card)).frame(width: 16, height: 16))
+                    .overlay(Circle().fill(.luna(.onAccent)).frame(width: 16, height: 16))
                 VStack(alignment: .leading, spacing: 2) {
                     Text(L10n.cycleMaybePregnantTitle)
                         .font(.luna(.cardTitleSmall))

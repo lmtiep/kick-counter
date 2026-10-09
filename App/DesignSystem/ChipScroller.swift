@@ -34,6 +34,12 @@ struct ChipScroller<Value: Hashable>: View {
                                 .background(
                                     Capsule().fill(isSelected ? Color.luna(selectedFill) : Color.luna(.card).opacity(0.35))
                                 )
+                                .overlay {
+                                    // The chosen chip's dark-mode edge (invisible in light mode).
+                                    if isSelected, let border = selectedFill.glassBorder {
+                                        Capsule().strokeBorder(.luna(border), lineWidth: 1)
+                                    }
+                                }
                         }
                         .buttonStyle(.plain)
                         .accessibilityLabel(accessibilityTitle?(value) ?? title(value))

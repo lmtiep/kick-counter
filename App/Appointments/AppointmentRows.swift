@@ -44,7 +44,7 @@ struct MilestoneRow: View {
                     .foregroundStyle(.luna(.textPrimary))
                 Text(L10n.milestoneWeeks(milestone.fromWeek, milestone.toWeek))
                     .font(.luna(.label))
-                    .foregroundStyle(.luna(.pregStrong))
+                    .foregroundStyle(.luna(.pregText))
                 Text(milestone.detail.text(language))
                     .font(.luna(.small))
                     .foregroundStyle(.luna(.textSecondary))

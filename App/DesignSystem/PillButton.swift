@@ -69,6 +69,12 @@ private struct PillButtonLabel: View {
                     Capsule().fill(.luna(fill))
                 }
             }
+            .overlay {
+                // Glass and tinted pills carry their dark-mode edge (invisible in light mode).
+                if let border = kind.fill?.glassBorder {
+                    Capsule().strokeBorder(.luna(border), lineWidth: 1)
+                }
+            }
             .contentShape(Capsule())
             .scaleEffect(animates && configuration.isPressed ? 0.98 : 1)
             .opacity(isEnabled ? 1 : 0.35)

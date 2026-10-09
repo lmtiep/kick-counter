@@ -44,8 +44,9 @@ struct KickDial: View {
                 }
                 Circle()
                     .fill(.luna(coreFill))
-                    // A warm drop shadow in light mode; in dark mode it would glow.
-                    .shadow(color: colorScheme == .dark ? Color.black.opacity(0.35) : Color.luna(.pregOnSoft).opacity(0.45), radius: 15, y: 14)
+                    // A warm drop shadow in light mode; a soft glow of the core in the
+                    // indigo dark mode (as the handoff's accent buttons).
+                    .shadow(color: colorScheme == .dark ? Color.luna(coreFill).opacity(0.4) : Color.luna(.pregOnSoft).opacity(0.45), radius: 15, y: 14)
                     .overlay { RippleRing(trigger: tapPulse) }
                     .overlay {
                         coreContent

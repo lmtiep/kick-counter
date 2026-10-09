@@ -9,7 +9,8 @@ struct SegmentedOption<Value: Hashable>: Identifiable {
     var id: Value { value }
 }
 
-/// Two or three segments on a tinted track; the chosen one is a light pill (`segmentSelected`)
+/// Two or three segments on a tinted track; the chosen one is a light pill (`segmentSelected`,
+/// the pink accent with plum text in dark mode)
 /// (History 7 days / 4 weeks, onboarding language, "I'm pregnant" date type).
 /// Each segment is a button with the `.isSelected` trait for VoiceOver.
 struct SegmentedPill<Value: Hashable>: View {
@@ -17,6 +18,9 @@ struct SegmentedPill<Value: Hashable>: View {
     @Binding var selection: Value
     /// Capsule segments (onboarding) instead of rounded rectangles.
     var capsule = false
+    /// The chosen segment's fill: white in light mode; the pink accent in dark mode,
+    /// or the peach one (`segmentSelectedPreg`) on pregnancy screens.
+    var selectedFill: LunaToken = .segmentSelected
     // Not private: keeps the memberwise init usable from other files.
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
@@ -37,7 +41,7 @@ struct SegmentedPill<Value: Hashable>: View {
                 } label: {
                     Text(option.title)
                         .font(.luna(.captionStrong))
-                        .foregroundStyle(.luna(.textPrimary))
+                        .foregroundStyle(.luna(isSelected ? .onSegmentSelected : .textPrimary))
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 12)
@@ -45,7 +49,7 @@ struct SegmentedPill<Value: Hashable>: View {
                         .frame(maxWidth: capsule ? nil : .infinity, minHeight: 36)
                         .background {
                             if isSelected {
-                                segmentShape.fill(.luna(.segmentSelected))
+                                segmentShape.fill(.luna(selectedFill))
                             }
                         }
                         .contentShape(Rectangle())
