@@ -76,8 +76,20 @@ final class PillReminderScreenshotTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(title.frame.minX, 0)
         XCTAssertLessThanOrEqual(title.frame.maxX, app.frame.maxX)
         let done = app.buttons["pillReminderDone"]
-        app.scrollUntilHittable(done, maxSwipes: 10)
+        scrollSheetUntilHittable(app, done)
         XCTAssertTrue(done.isHittable)
         attachScreenshot(app, "pill-sheet-vi-ax5-bottom")
+    }
+
+    /// Swipes along the sheet's left edge, outside the card: at AX5 the centre
+    /// of the screen is often a date wheel, which a swipe would spin instead.
+    @MainActor
+    private func scrollSheetUntilHittable(_ app: XCUIApplication, _ element: XCUIElement, maxSwipes: Int = 12) {
+        var remaining = maxSwipes
+        while !(element.exists && element.isHittable), remaining > 0 {
+            let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.03, dy: 0.8))
+            start.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.03, dy: 0.3)))
+            remaining -= 1
+        }
     }
 }
