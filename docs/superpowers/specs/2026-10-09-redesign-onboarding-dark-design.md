@@ -42,6 +42,33 @@ The source of truth is the owner's handoff, copied to `docs/design/handoff-2026-
 - **Widgets and Live Activity.** They follow the same dark tokens wherever they read Luna tokens. A gradient is not required in widgets.
 - **Scope.** Every main screen, sheet and overlay follows the tokens: Today (cycle and pregnancy), Calendar, History, Kicks, Weight, Knowledge, Profile, every sheet, alerts and toasts. No hard-coded colours.
 
+### 2.1 Dark-mode values as built
+
+The handoff's own values miss AA once translucent surfaces are composited
+(`LunaContrast.surfaces`): on a 9 % glass card over `#5E6392`, `#F5F4FB` is
+4.3:1 and `#C9CBE3` 2.9:1, and no text colour passes on a soft tint inside a
+card. So, keeping the hue, the glass card (9 % / 14 % border) and the layout:
+
+- **Gradient** darkened about 20 %: `#4B4F75 → #3E4367 (45 %) → #393D5B`
+  (`backgroundTop`, `background`, `backgroundBottom`). No decorative glows: they
+  lighten the top, where contrast is tightest.
+- **Text:** primary `#F7F6FC`, secondary `#DCDDF0` (the handoff's tertiary),
+  article `#ECEDF7`, chevron `#C9CBE3`.
+- **Cycle:** fill `#F49CAB` (`cycle`), filled buttons and the ring figure
+  `#F7A6B4` (`cycleStrong`), small text `#FFDCE2` (`cycleText`), on-tint text
+  `#FFF0F3`; tint `#F7A6B4` at 12 % with a 32 % border.
+- **Pregnancy:** fill `#F5B48F`, small text `#FDE3D3` (`pregText`), on-tint
+  text `#FFF2EA`, tint `#F5B48F` at 12 % with a 32 % border, bars `#D49A86`.
+- **Fertile:** `#A1E6E8`; fertile days 12 % with a 40 % edge, ovulation 12 % with
+  the solid ring; text `#E6FAFA`.
+- **Text on fills:** plum `#3A2340` (`onAccent`, `onSegmentSelected`).
+- **Tab bar:** the system bar (a floating glass pill on iOS 26+) tinted
+  `rgba(58,62,98,.72)`; selected `#F7A6B4` / `#F5B48F` (the handoff's `#FFC4CE`
+  reads as white on the glass).
+- Segmented pills: pink accent, peach on pregnancy screens
+  (`segmentSelectedPreg`). Opaque glass `#4F5475` (`cardOpaque`) where a card
+  must hide what is behind it.
+
 ## 3. Testing
 
 - **KickCore:** `ContrastTests` updated, plus tests for any new tokens.
