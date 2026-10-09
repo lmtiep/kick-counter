@@ -64,7 +64,7 @@ final class PregnancySymptomsUITests: XCTestCase {
         swollen.tap()
         let card = app.descendants(matching: .any)["symptomSafetyCard"]
         XCTAssertTrue(card.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'face or hands'")).firstMatch.exists)
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'face, hands or feet swell suddenly'")).firstMatch.exists)
         XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'before week 37'")).firstMatch.exists)
         swollen.tap()
         let gone = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: card)

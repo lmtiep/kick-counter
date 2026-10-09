@@ -3,8 +3,8 @@
   "sources": [
     "WHO recommendations on antenatal care for a positive pregnancy experience (World Health Organization, 2016)",
     "ACOG patient education: Your Pregnancy and Childbirth: Month to Month, and pregnancy FAQs (American College of Obstetricians and Gynecologists)",
-    "NHS: Your pregnancy and baby guide (National Health Service, UK)",
-    "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về các dịch vụ chăm sóc sức khỏe sinh sản",
+    "NHS: Pregnancy pages on nhs.uk (National Health Service, UK)",
+    "Bộ Y tế Việt Nam: Hướng dẫn quốc gia các dịch vụ chăm sóc sức khỏe sinh sản về nội dung Chăm sóc trước khi có thai và trước khi sinh (Quyết định 1139/QĐ-BYT, 23/4/2026; thay phần tương ứng của Quyết định 4128/QĐ-BYT, 2016)",
     "Hadlock FP, Harrist RB, Martinez-Poyer J. In utero analysis of fetal growth: a sonographic weight standard. Radiology. 1991;181(1):129–133. doi:10.1148/radiology.181.1.1887021 — estimated fetal weight, 10th/50th/90th percentiles, weeks 10–40.",
     "Hadlock FP, Shah YP, Kanon DJ, Lindsey JV. Fetal crown-rump length: reevaluation of relation to menstrual age (5–18 weeks) with high-resolution real-time US. Radiology. 1992;182(2):501–505. doi:10.1148/radiology.182.2.1732970 — crown–rump length at weeks 7–13, calculated from this paper's regression equation."
   ],
@@ -218,13 +218,15 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
       },
@@ -322,13 +324,15 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
       },
@@ -428,14 +432,16 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "Vomiting so often you cannot keep fluids down: see your doctor the same day.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Nôn nhiều đến mức không giữ được nước: mẹ hãy đi khám bác sĩ ngay trong ngày.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -533,14 +539,16 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "Pain or burning when you pee: see your doctor.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -641,14 +649,16 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "Vomiting everything, with dizziness or very dark urine: see your doctor today.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Nôn hết mọi thứ, kèm chóng mặt hoặc nước tiểu sẫm màu: mẹ hãy đi khám bác sĩ trong ngày.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -747,13 +757,15 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
       },
@@ -856,14 +868,16 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "Pain or burning when you pee: see your doctor.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -968,14 +982,16 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "Itchy, smelly or green discharge: see your doctor.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Khí hư ngứa, có mùi hôi hoặc màu xanh: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -1080,13 +1096,15 @@
       },
       "warnings": {
         "en": [
-          "Vaginal bleeding or severe belly pain: contact your doctor straight away.",
-          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away.",
+          "Any vaginal bleeding, even light spotting, or belly pain that does not go away: contact your doctor straight away.",
+          "Heavy bleeding (soaking a pad within a short time of changing it) or severe belly pain: call 115 or go to the emergency department straight away.",
+          "Sharp pain on one side, pain at the tip of your shoulder, or feeling faint: go to the emergency department straight away. If you feel very faint, pass out or cannot get there on your own, you or someone with you should call 115.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo hoặc đau bụng dữ dội: mẹ hãy liên hệ bác sĩ ngay.",
-          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay.",
+          "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ ngay.",
+          "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau nhói một bên bụng, đau ở đầu vai, hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều, ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
       },
@@ -1190,12 +1208,14 @@
       },
       "warnings": {
         "en": [
-          "Any vaginal bleeding, severe belly pain, or feeling faint: contact your doctor or maternity unit straight away.",
+          "Any vaginal bleeding, or belly pain that does not go away: contact your doctor or maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
           "Pain or burning when you pee: see your doctor.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -1299,11 +1319,13 @@
       },
       "warnings": {
         "en": [
-          "Any vaginal bleeding, severe belly pain, or feeling faint: contact your doctor or maternity unit straight away.",
+          "Any vaginal bleeding, or belly pain that does not go away: contact your doctor or maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
       },
@@ -1395,22 +1417,24 @@
       },
       "tips": {
         "en": [
-          "Ask your doctor whether you need the triple test, usually done in weeks 15 to 18.",
+          "Ask your doctor whether you need the triple test, usually done between weeks 15 and 20.",
           "Use a soft toothbrush and keep up regular brushing and flossing."
         ],
         "vi": [
-          "Hỏi bác sĩ xem mẹ có cần làm triple test không, thường làm vào tuần 15 đến 18.",
+          "Hỏi bác sĩ xem mẹ có cần làm triple test không, thường làm trong khoảng tuần 15 đến 20.",
           "Dùng bàn chải lông mềm, đánh răng và dùng chỉ nha khoa đều đặn."
         ]
       },
       "warnings": {
         "en": [
-          "Any vaginal bleeding, severe belly pain, or feeling faint: contact your doctor or maternity unit straight away.",
+          "Any vaginal bleeding, or belly pain that does not go away: contact your doctor or maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
           "Fluid leaking or gushing from your vagina: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
           "Ra nước âm đạo, rỉ rả hay ồ ạt: mẹ hãy đến khoa sản của bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -1442,21 +1466,21 @@
         },
         "body": {
           "en": [
-            "Pregnancy increases the amount of blood in your body, and hormones make the lining of your nose swell. You may have a stuffy nose, or small nosebleeds now and then. Pinching the soft part of your nose and leaning forward usually stops a nosebleed. Tell your doctor or midwife if nosebleeds are frequent or heavy.",
+            "Pregnancy increases the amount of blood in your body, and hormones make the lining of your nose swell. You may have a stuffy nose, or small nosebleeds now and then. For a nosebleed, sit down, lean forward, pinch the soft part of your nose firmly for 10 to 15 minutes, and breathe through your mouth. Go to the emergency department if it has not stopped after 10 to 15 minutes, if it is very heavy, or if you feel weak, dizzy or short of breath. Tell your doctor or midwife if nosebleeds keep coming back.",
             "Your gums may also be softer and bleed a little when you brush. This is common and usually settles after birth. Many women feel more energetic this month, so it is a good time to plan ahead for the months to come."
           ],
           "vi": [
-            "Khi mang thai, lượng máu trong cơ thể mẹ tăng lên, còn nội tiết thai kỳ làm niêm mạc mũi sưng nhẹ. Vì vậy mẹ có thể bị nghẹt mũi, hoặc thỉnh thoảng chảy chút máu cam. Bóp nhẹ phần mềm của mũi và hơi cúi người về trước thường giúp cầm máu. Nếu chảy máu cam thường xuyên hoặc nhiều, mẹ hãy báo bác sĩ hoặc nữ hộ sinh.",
+            "Khi mang thai, lượng máu trong cơ thể mẹ tăng lên, còn nội tiết thai kỳ làm niêm mạc mũi sưng nhẹ. Vì vậy mẹ có thể bị nghẹt mũi, hoặc thỉnh thoảng chảy chút máu cam. Khi chảy máu cam, mẹ ngồi xuống, cúi người về trước, bóp chặt phần mềm của mũi liên tục 10 đến 15 phút và thở bằng miệng. Nếu máu không cầm sau 10 đến 15 phút, chảy rất nhiều, hoặc mẹ thấy mệt lả, choáng hay khó thở, mẹ hãy đến khoa cấp cứu. Nếu chảy máu cam hay tái lại, mẹ hãy báo bác sĩ hoặc nữ hộ sinh.",
             "Lợi cũng có thể mềm hơn và chảy chút máu khi đánh răng. Điều này khá thường gặp và thường hết sau sinh. Nhiều mẹ thấy khỏe hơn trong tháng này, nên đây là lúc thuận tiện để lên kế hoạch cho những tháng tới."
           ]
         },
         "todo": {
           "en": [
-            "Some clinics offer a blood test called the triple test, usually between weeks 15 and 18. It screens for some chromosomal conditions and neural tube defects. Ask your doctor or midwife whether you need it. They can also explain what a screening result can and cannot tell you.",
+            "Some clinics offer a blood test called the triple test, usually between weeks 15 and 20. It screens for some chromosomal conditions and neural tube defects. Ask your doctor or midwife whether you need it. They can also explain what a screening result can and cannot tell you.",
             "For your gums, use a soft toothbrush, brush gently twice a day and floss every day. Rinsing your mouth with water after meals may also help. The warning signs below show when to contact your doctor or midwife."
           ],
           "vi": [
-            "Một số cơ sở y tế làm xét nghiệm máu triple test, thường trong khoảng tuần 15 đến 18. Xét nghiệm này sàng lọc một số bất thường nhiễm sắc thể và dị tật ống thần kinh. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem mình có cần làm không. Bác sĩ hoặc nữ hộ sinh cũng có thể giải thích kết quả sàng lọc nói lên điều gì và chưa nói được điều gì.",
+            "Một số cơ sở y tế làm xét nghiệm máu triple test, thường trong khoảng tuần 15 đến 20. Xét nghiệm này sàng lọc một số bất thường nhiễm sắc thể và dị tật ống thần kinh. Mẹ hãy hỏi bác sĩ hoặc nữ hộ sinh xem mình có cần làm không. Bác sĩ hoặc nữ hộ sinh cũng có thể giải thích kết quả sàng lọc nói lên điều gì và chưa nói được điều gì.",
             "Để chăm sóc lợi, mẹ hãy dùng bàn chải lông mềm, chải răng nhẹ nhàng hai lần mỗi ngày và dùng chỉ nha khoa mỗi ngày. Súc miệng bằng nước sau bữa ăn cũng có thể giúp ích. Khi nào cần gặp bác sĩ, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới."
           ]
         },
@@ -1464,6 +1488,7 @@
           0,
           1,
           2,
+          3,
           4
         ]
       }
@@ -1513,12 +1538,14 @@
       },
       "warnings": {
         "en": [
-          "Any vaginal bleeding, severe belly pain, or feeling faint: contact your doctor or maternity unit straight away.",
+          "Any vaginal bleeding, or belly pain that does not go away: contact your doctor or maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
           "Pain or burning when you pee: see your doctor.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
           "Đau rát khi đi tiểu: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -1621,12 +1648,14 @@
       },
       "warnings": {
         "en": [
-          "Any vaginal bleeding, severe belly pain, or feeling faint: contact your doctor or maternity unit straight away.",
+          "Any vaginal bleeding, or belly pain that does not go away: contact your doctor or maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
           "Pain that is severe or does not go away with rest: contact your doctor.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
           "Đau dữ dội hoặc không đỡ khi nghỉ ngơi: mẹ hãy liên hệ bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -1729,13 +1758,15 @@
       },
       "warnings": {
         "en": [
-          "Any vaginal bleeding, severe belly pain, or feeling faint: contact your doctor or maternity unit straight away.",
-          "Fainting, or dizziness that does not pass when you sit: see your doctor.",
+          "Any vaginal bleeding, or belly pain that does not go away: contact your doctor or maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Dizziness that does not pass when you sit down: see your doctor.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
-          "Ngất xỉu, hoặc chóng mặt không đỡ khi ngồi nghỉ: mẹ hãy đi khám bác sĩ.",
+          "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Chóng mặt không đỡ khi ngồi nghỉ: mẹ hãy đi khám bác sĩ.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
       },
@@ -1756,12 +1787,12 @@
           "en": [
             "The ears have moved into their final place on the sides of the head. The tiny bones of the middle ear are hardening, and the nerves that link the ear to the brain are developing. Your baby may begin to hear muffled sounds, such as your heartbeat and the gurgling of your stomach.",
             "Your baby is busy practising movements. Yawning and stretching can often be seen on scans around this time. Some babies bring a hand to the mouth and suck a thumb or finger. You may feel some of this activity as flutters, though many women do not notice it yet.",
-            "A fatty coating called myelin is beginning to form around the nerves. It helps messages travel quickly between the brain and the body, and it keeps developing for years after birth."
+            "A fatty coating called myelin is forming around more and more of the nerves. It helps messages travel quickly between the brain and the body, and it keeps developing for many years after birth, into the teenage years."
           ],
           "vi": [
             "Đôi tai đã dịch về đúng vị trí ở hai bên đầu. Các xương nhỏ ở tai giữa đang cứng dần, và dây thần kinh nối tai với não cũng đang phát triển. Bé có thể bắt đầu nghe được những âm thanh còn lùng bùng, như tiếng tim mẹ đập hay tiếng ọc ọc trong bụng mẹ.",
             "Lúc này bé tập rất nhiều động tác. Trên siêu âm vào thời gian này, thường có thể thấy bé ngáp hay vươn vai. Có bé còn đưa tay lên miệng và mút ngón tay. Mẹ có thể thấy một phần những cử động này như những rung động nhẹ, dù nhiều mẹ chưa nhận ra.",
-            "Một lớp vỏ chứa chất béo gọi là myelin đang bắt đầu bao quanh các dây thần kinh. Lớp vỏ này giúp tín hiệu truyền nhanh giữa não và cơ thể, và còn tiếp tục phát triển nhiều năm sau sinh."
+            "Lớp vỏ chứa chất béo gọi là myelin đang hình thành ngày càng nhiều quanh các dây thần kinh. Lớp vỏ này giúp tín hiệu truyền nhanh giữa não và cơ thể, và còn tiếp tục phát triển nhiều năm sau sinh, đến tận tuổi thiếu niên."
           ]
         },
         "body": {
@@ -1837,12 +1868,14 @@
       },
       "warnings": {
         "en": [
-          "Any vaginal bleeding, severe belly pain, or feeling faint: contact your doctor or maternity unit straight away.",
+          "Any vaginal bleeding, or belly pain that does not go away: contact your doctor or maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
           "Fluid leaking or gushing from your vagina: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
-          "Ra máu âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
           "Ra nước âm đạo, rỉ rả hay ồ ạt: mẹ hãy đến khoa sản của bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
         ]
@@ -1874,11 +1907,11 @@
         },
         "body": {
           "en": [
-            "Pregnancy hormones can make your skin produce more pigment. A dark line, called the linea nigra, may appear down the middle of your belly. You may also notice darker patches on your cheeks, forehead or upper lip. Both are common and usually fade in the months after birth. Some women also find their nails grow faster but break more easily.",
+            "Pregnancy hormones can make your skin produce more pigment. A dark line, called the linea nigra, may appear down the middle of your belly. You may also notice darker patches on your cheeks, forehead or upper lip. Both are common and usually fade after birth, though the patches on the face can last longer for some women. Protecting your skin from the sun helps stop them getting darker. Some women also find their nails grow faster but break more easily.",
             "Your skin may burn or darken more easily in the sun. As your bump grows, it may also be harder to get comfortable in bed. Lying on your side is often easier now than lying flat on your back."
           ],
           "vi": [
-            "Nội tiết thai kỳ có thể khiến da tạo ra nhiều sắc tố hơn. Một đường sẫm màu, gọi là đường linea nigra, có thể xuất hiện dọc giữa bụng. Mẹ cũng có thể thấy những mảng sẫm màu trên gò má, trán hoặc môi trên. Cả hai đều khá thường gặp và thường mờ dần trong vài tháng sau sinh. Một số mẹ còn thấy móng tay mọc nhanh hơn nhưng dễ gãy hơn.",
+            "Nội tiết thai kỳ có thể khiến da tạo ra nhiều sắc tố hơn. Một đường sẫm màu, gọi là đường linea nigra, có thể xuất hiện dọc giữa bụng. Mẹ cũng có thể thấy những mảng sẫm màu trên gò má, trán hoặc môi trên. Cả hai đều khá thường gặp và thường nhạt dần sau sinh, nhưng mảng sẫm ở mặt có thể kéo dài ở một số mẹ. Che nắng kỹ giúp hạn chế sạm thêm. Một số mẹ còn thấy móng tay mọc nhanh hơn nhưng dễ gãy hơn.",
             "Da mẹ cũng dễ bị bắt nắng và sạm màu hơn. Khi bụng lớn dần, mẹ có thể thấy khó tìm được tư thế nằm thoải mái. Lúc này, nằm nghiêng thường dễ chịu hơn nằm ngửa."
           ]
         },
@@ -1946,14 +1979,16 @@
       "warnings": {
         "en": [
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -2058,7 +2093,8 @@
       "warnings": {
         "en": [
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A painful, red or swollen area in one leg: see a doctor straight away.",
@@ -2066,7 +2102,8 @@
         ],
         "vi": [
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Một bên chân đau, đỏ hoặc sưng: mẹ hãy đi khám bác sĩ ngay.",
@@ -2172,14 +2209,16 @@
       "warnings": {
         "en": [
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -2284,14 +2323,16 @@
       "warnings": {
         "en": [
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
         ],
         "vi": [
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -2398,7 +2439,8 @@
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "If you have not felt your baby move by now, contact your doctor or maternity unit.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -2407,7 +2449,8 @@
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Nếu đến giờ mẹ vẫn chưa cảm nhận được thai máy, hãy liên hệ bác sĩ hoặc bệnh viện.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -2514,7 +2557,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -2522,7 +2566,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -2630,7 +2675,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -2638,7 +2684,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -2744,7 +2791,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -2752,7 +2800,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -2773,12 +2822,12 @@
         },
         "development": {
           "en": [
-            "Your baby's brain is very active and growing fast. Its surface is starting to fold, which makes room for more brain cells. Your baby now has clearer cycles of sleep and waking, and spends much of the day asleep. Many babies are more active at certain times of day, often in the evening.",
+            "Your baby's brain is very active and growing fast. Its surface is folding more and more, which makes room for more brain cells. Your baby now has clearer cycles of sleep and waking, and spends much of the day asleep. Many babies are more active at certain times of day, often in the evening.",
             "Now and then, you may feel small, rhythmic jolts, a few seconds apart, that go on for several minutes. These may be hiccups. Hiccups are very common in babies before birth and are usually harmless.",
             "The eyes can open and close, and the lungs, liver and immune system keep maturing. Your baby is also practising sucking and swallowing, skills that are needed for feeding after birth."
           ],
           "vi": [
-            "Não bộ của bé hoạt động mạnh và lớn rất nhanh. Bề mặt não bắt đầu có các nếp gấp, tạo thêm chỗ cho nhiều tế bào não hơn. Bé có chu kỳ ngủ và thức rõ ràng hơn, và ngủ khá nhiều trong ngày. Nhiều bé hiếu động hơn vào những giờ nhất định, thường là buổi tối.",
+            "Não bộ của bé hoạt động mạnh và lớn rất nhanh. Bề mặt não ngày càng có nhiều nếp gấp, tạo thêm chỗ cho nhiều tế bào não hơn. Bé có chu kỳ ngủ và thức rõ ràng hơn, và ngủ khá nhiều trong ngày. Nhiều bé hiếu động hơn vào những giờ nhất định, thường là buổi tối.",
             "Thỉnh thoảng, mẹ có thể thấy những cú giật nhỏ, đều đặn, cách nhau vài giây và kéo dài vài phút. Đó có thể là lúc bé nấc cụt. Bé nấc cụt trong bụng mẹ là chuyện rất phổ biến và thường vô hại.",
             "Mắt bé đã có thể mở và nhắm, còn phổi, gan và hệ miễn dịch tiếp tục trưởng thành. Bé cũng đang tập mút và nuốt, những kỹ năng cần cho việc bú sau khi chào đời."
           ]
@@ -2861,7 +2910,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -2870,7 +2920,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -2977,7 +3028,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -2986,7 +3038,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3061,11 +3114,11 @@
       "weightP90G": 1824,
       "baby": {
         "en": [
-          "Bone marrow is now making red blood cells.",
+          "Bone marrow is now the main place red blood cells are made.",
           "The soft lanugo hair is starting to disappear."
         ],
         "vi": [
-          "Tủy xương đã bắt đầu tạo hồng cầu.",
+          "Tủy xương giờ là nơi tạo hồng cầu chính.",
           "Lớp lông tơ mềm bắt đầu rụng dần."
         ]
       },
@@ -3093,7 +3146,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -3102,7 +3156,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3209,7 +3264,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -3218,7 +3274,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3325,7 +3382,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -3334,7 +3392,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3443,7 +3502,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -3452,7 +3512,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3559,7 +3620,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -3568,7 +3630,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3675,7 +3738,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -3684,7 +3748,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3791,7 +3856,8 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Any vaginal bleeding, or belly pain that does not go away: contact your maternity unit straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Heavy bleeding, severe belly pain, or fainting: call 115 or go to the emergency department straight away.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Fluid leaking from your vagina, regular tightenings or period-like cramps before 37 weeks: go to the maternity unit straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
@@ -3800,7 +3866,8 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ra nước âm đạo, gò bụng đều đặn hoặc đau như đau bụng kinh trước tuần 37: mẹ hãy đến bệnh viện ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
@@ -3907,8 +3974,9 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Your waters break, whether the fluid is clear, green or brown: contact your maternity unit straight away.",
-          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Any vaginal bleeding, other than a little pink or brown mucus as labour nears: contact your maternity unit straight away, day or night.",
+          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away or call 115.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -3916,8 +3984,9 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Vỡ ối, dù nước ối trong, xanh hay nâu: mẹ hãy liên hệ bệnh viện ngay.",
-          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
+          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -3951,12 +4020,12 @@
         "body": {
           "en": [
             "From now on, check-ups usually happen every week. Your doctor or midwife checks your blood pressure, your baby's heartbeat and which way your baby is lying.",
-            "As your cervix gets ready for labour, you may notice a show. This is a plug of sticky mucus, sometimes pink or streaked with a little blood. A show can come days before labour, or as it begins. Heavy or bright red bleeding is different, so see the warning signs below.",
+            "As your cervix gets ready for labour, you may notice a show. This is a plug of sticky mucus, sometimes pink or streaked with a little blood. A show can come days before labour, or as it begins. Bleeding that is more than a little blood in the mucus is different, so see the warning signs below.",
             "You may feel heavy and tired, and sleep may be broken. Rest is important now."
           ],
           "vi": [
             "Từ nay, mẹ thường đi khám thai mỗi tuần. Bác sĩ hoặc nữ hộ sinh kiểm tra huyết áp của mẹ, tim thai và tư thế nằm của bé.",
-            "Khi cổ tử cung chuẩn bị cho chuyển dạ, mẹ có thể thấy ra nhầy. Đó là một nút chất nhầy dính, đôi khi có màu hồng hoặc lẫn ít tia máu. Ra nhầy có thể xảy ra vài ngày trước chuyển dạ, hoặc ngay khi chuyển dạ bắt đầu. Ra máu nhiều hoặc máu đỏ tươi thì lại khác, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
+            "Khi cổ tử cung chuẩn bị cho chuyển dạ, mẹ có thể thấy ra nhầy. Đó là một nút chất nhầy dính, đôi khi có màu hồng hoặc lẫn ít tia máu. Ra nhầy có thể xảy ra vài ngày trước chuyển dạ, hoặc ngay khi chuyển dạ bắt đầu. Ra máu, không chỉ là chút máu lẫn trong nhầy, thì lại khác, mẹ hãy xem phần dấu hiệu cần đi khám bên dưới.",
             "Mẹ có thể thấy nặng nề, mệt mỏi và ngủ không sâu giấc. Lúc này, nghỉ ngơi là điều rất quan trọng."
           ]
         },
@@ -4025,8 +4094,9 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Your waters break, whether the fluid is clear, green or brown: contact your maternity unit straight away.",
-          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Any vaginal bleeding, other than a little pink or brown mucus as labour nears: contact your maternity unit straight away, day or night.",
+          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away or call 115.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -4034,8 +4104,9 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Vỡ ối, dù nước ối trong, xanh hay nâu: mẹ hãy liên hệ bệnh viện ngay.",
-          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
+          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -4057,12 +4128,12 @@
         "development": {
           "en": [
             "Your baby's grasp is now firm. In the womb, your baby may hold on to the umbilical cord or their own hands. After birth, babies usually curl their fingers tightly around anything placed in their palm. This is called the grasp reflex.",
-            "Your baby's organs are ready to work outside the womb. The lungs and brain keep maturing, even after birth. The gut holds meconium, the first stool, which usually passes in the first days after birth.",
+            "Your baby's organs are ready to work outside the womb. The lungs and brain keep maturing, even after birth. The gut holds meconium, the first stool. Your baby usually passes it within 24 to 48 hours after birth.",
             "Your baby keeps moving every day, though there is little room. You may feel pushes, stretches and rolls more than kicks. Babies usually keep moving right up to labour, so any slowing down or change matters."
           ],
           "vi": [
             "Bé đã biết nắm tay rất chắc. Trong bụng mẹ, bé có thể nắm lấy dây rốn hoặc tay của chính mình. Sau khi chào đời, các bé thường nắm chặt bất cứ thứ gì đặt vào lòng bàn tay. Đây gọi là phản xạ nắm.",
-            "Các cơ quan của bé đã sẵn sàng hoạt động bên ngoài bụng mẹ. Phổi và não bộ vẫn tiếp tục trưởng thành, kể cả sau khi sinh. Trong ruột bé có phân su, tức phân đầu tiên, thường được thải ra trong vài ngày đầu sau sinh.",
+            "Các cơ quan của bé đã sẵn sàng hoạt động bên ngoài bụng mẹ. Phổi và não bộ vẫn tiếp tục trưởng thành, kể cả sau khi sinh. Trong ruột bé có phân su, tức phân đầu tiên. Bé thường đi phân su lần đầu trong 24 đến 48 giờ sau sinh.",
             "Bé vẫn cử động mỗi ngày, dù chỗ đã rất chật. Mẹ có thể thấy bé đẩy, vươn mình hay xoay người nhiều hơn là đạp. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ, nên mọi sự chậm lại hay thay đổi đều đáng lưu ý."
           ]
         },
@@ -4141,8 +4212,9 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Your waters break, whether the fluid is clear, green or brown: contact your maternity unit straight away.",
-          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Any vaginal bleeding, other than a little pink or brown mucus as labour nears: contact your maternity unit straight away, day or night.",
+          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away or call 115.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -4150,8 +4222,9 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Vỡ ối, dù nước ối trong, xanh hay nâu: mẹ hãy liên hệ bệnh viện ngay.",
-          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
+          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -4257,8 +4330,9 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Your waters break, whether the fluid is clear, green or brown: contact your maternity unit straight away.",
-          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Any vaginal bleeding, other than a little pink or brown mucus as labour nears: contact your maternity unit straight away, day or night.",
+          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away or call 115.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -4266,8 +4340,9 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Vỡ ối, dù nước ối trong, xanh hay nâu: mẹ hãy liên hệ bệnh viện ngay.",
-          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
+          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -4373,8 +4448,9 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Your waters break, whether the fluid is clear, green or brown: contact your maternity unit straight away.",
-          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Any vaginal bleeding, other than a little pink or brown mucus as labour nears: contact your maternity unit straight away, day or night.",
+          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away or call 115.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -4382,8 +4458,9 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Vỡ ối, dù nước ối trong, xanh hay nâu: mẹ hãy liên hệ bệnh viện ngay.",
-          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
+          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -4489,8 +4566,9 @@
         "en": [
           "Your baby moving less than usual, or a change in the pattern: contact your maternity unit straight away, day or night.",
           "Your waters break, whether the fluid is clear, green or brown: contact your maternity unit straight away.",
-          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away.",
-          "Severe headache, blurred vision or flashing lights, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
+          "Any vaginal bleeding, other than a little pink or brown mucus as labour nears: contact your maternity unit straight away, day or night.",
+          "Heavy or bright red bleeding, or constant belly pain that does not ease: go to hospital straight away or call 115.",
+          "Severe headache, blurred vision or flashing lights, pain just below your ribs or in your upper belly, or sudden swelling of face, hands or feet: go to the maternity unit straight away.",
           "Fits, or trouble breathing: call an emergency ambulance (115) straight away.",
           "Intense itching, especially on your palms and soles: tell your doctor promptly.",
           "A fever of 38°C or higher, or feeling hot and shivery: call your doctor."
@@ -4498,8 +4576,9 @@
         "vi": [
           "Bé cử động ít hơn mọi ngày hoặc khác thường: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
           "Vỡ ối, dù nước ối trong, xanh hay nâu: mẹ hãy liên hệ bệnh viện ngay.",
-          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay.",
-          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
+          "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ hãy liên hệ bệnh viện ngay, dù ngày hay đêm.",
+          "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115.",
+          "Đau đầu dữ dội, nhìn mờ hoặc nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay.",
           "Co giật hoặc khó thở: gọi cấp cứu 115 ngay.",
           "Ngứa nhiều, nhất là ở lòng bàn tay, bàn chân: mẹ hãy báo bác sĩ sớm.",
           "Sốt từ 38°C trở lên, hoặc thấy nóng lạnh, run người: mẹ hãy gọi cho bác sĩ."
@@ -4591,7 +4670,7 @@
     {
       "id": "triple-test",
       "fromWeek": 15,
-      "toWeek": 18,
+      "toWeek": 20,
       "title": {
         "en": "Triple test",
         "vi": "Xét nghiệm triple test"

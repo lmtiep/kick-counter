@@ -328,6 +328,9 @@ struct CycleTodayView: View {
         .accessibilityIdentifier("cycleLogTodayButton")
     }
 
+    /// Hormonal contraception: the late card speaks of the expected bleed, not a period.
+    private var isBleed: Bool { cycle.policy.predictedBleedLabel == .withdrawalBleed }
+
     @ViewBuilder
     private func notices(_ forecast: CycleForecast) -> some View {
         if forecast.isLongOpenPeriod {
@@ -340,8 +343,8 @@ struct CycleTodayView: View {
         }
         if forecast.isNoticeablyLate {
             CycleNoticeCard(
-                title: L10n.cycleLateTitle(forecast.daysLate),
-                message: L10n.cycleLateBody,
+                title: isBleed ? L10n.cycleLateBleedTitle(forecast.daysLate) : L10n.cycleLateTitle(forecast.daysLate),
+                message: isBleed ? L10n.cycleLateBleedBody : L10n.cycleLateBody,
                 style: .warning,
                 identifier: "cycleLateCard"
             ) {

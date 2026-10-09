@@ -51,6 +51,8 @@ final class ProfileGoalUITests: XCTestCase {
         // The menu reads as "Contraception, The pill": the label, then the value.
         XCTAssertEqual(contraception.label, "Contraception")
         waitForValue(contraception, containing: "The pill")
+        // Hormonal contraception: the reminders name the expected bleed, not a period.
+        waitForLabel(hint, containing: "the day before your expected bleed")
 
         app.openCycleTab(.today)
         XCTAssertTrue(status.waitForExistence(timeout: 5))

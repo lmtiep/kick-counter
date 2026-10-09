@@ -16,11 +16,29 @@ public struct CycleReminderTexts: Sendable {
     public let fertile: NotificationText
     public let period: NotificationText
     public let late: NotificationText
+    /// "Bleed" wording for `.period` / `.late` on hormonal contraception, where
+    /// the bleed is not a period (fact-check row 56). Nil: the period texts.
+    public let bleed: NotificationText?
+    public let bleedLate: NotificationText?
 
-    public init(fertile: NotificationText, period: NotificationText, late: NotificationText) {
+    public init(
+        fertile: NotificationText,
+        period: NotificationText,
+        late: NotificationText,
+        bleed: NotificationText? = nil,
+        bleedLate: NotificationText? = nil
+    ) {
         self.fertile = fertile
         self.period = period
         self.late = late
+        self.bleed = bleed
+        self.bleedLate = bleedLate
+    }
+
+    /// The texts to schedule for `label`: a withdrawal bleed swaps in the bleed texts.
+    func forBleedLabel(_ label: CycleDisplayPolicy.BleedLabel) -> CycleReminderTexts {
+        guard label == .withdrawalBleed else { return self }
+        return CycleReminderTexts(fertile: fertile, period: bleed ?? period, late: bleedLate ?? late)
     }
 
     func text(for kind: CycleReminderKind) -> NotificationText {

@@ -38,7 +38,7 @@ cần bác sĩ quyết định. Tích vào ô vuông khi đã xong.
 6. [ ] **Xét nghiệm GBS (liên cầu khuẩn nhóm B)**: app ghi khoảng tuần 35–37.
        ACOG hiện khuyến nghị 36+0 đến 37+6; NHS (Anh) không sàng lọc thường quy.
        Xác nhận khoảng tuần theo thực hành của Bộ Y tế.
-7. [ ] **Triple test (tuần 15–18) và đo độ mờ da gáy/double test (tuần 11–14)**: app viết
+7. [ ] **Triple test (tuần 15–20, xem mục 69) và đo độ mờ da gáy/double test (tuần 11–14)**: app viết
        theo hướng "hỏi bác sĩ xem có cần làm không". Xác nhận cách diễn đạt này.
 8. [ ] **Tiêm uốn ván / ho gà**: lịch tiêm uốn ván (TT/VAT) theo chương trình tiêm chủng
        Việt Nam khác với lịch Tdap 27–36 tuần của ACOG. App chỉ viết "theo lịch của cơ sở
@@ -110,7 +110,7 @@ Xin bác sĩ xác nhận từng mốc còn đúng với phác đồ/khuyến cá
 |---|---|---|
 | `confirm-pregnancy` | 6–8 | Khám thai lần đầu |
 | `nt-scan` | 11–14 | Siêu âm đo độ mờ da gáy |
-| `triple-test` | 15–18 | Xét nghiệm triple test |
+| `triple-test` | 15–20 | Xét nghiệm triple test |
 | `anomaly-scan` | 18–22 | Siêu âm hình thái |
 | `gdm-screening` | 24–28 | Tầm soát tiểu đường thai kỳ |
 | `tetanus-pertussis` | 27–36 | Tiêm phòng uốn ván, ho gà |
@@ -137,7 +137,7 @@ thai kỳ, nên **phải được duyệt trước khi gửi App Store**). Xem c
 
 | Khóa | Nội dung (vi) cần duyệt |
 |---|---|
-| `medical.ttc.body` | Không dùng để tránh thai; dự đoán chỉ là ước tính; khi nào nên gặp bác sĩ (12 tháng, 6 tháng nếu ≥ 35 tuổi; chu kỳ < 21 hoặc > 45 ngày hay rất không đều; ra máu bất thường giữa kỳ) |
+| `medical.ttc.body` | Không dùng để tránh thai; dự đoán chỉ là ước tính; khi nào nên gặp bác sĩ (12 tháng, 6 tháng nếu ≥ 35 tuổi; chu kỳ < 21 hoặc > 35 ngày hay rất không đều — xem mục 73 và 75; ra máu bất thường giữa kỳ) |
 | `cycle.irregular.title`, `cycle.irregular.body` | Cảnh báo chu kỳ bất thường → gợi ý gặp bác sĩ |
 | `cycle.late.title`, `cycle.late.body`, `cycle.reminder.late.*` | Gợi ý thử thai khi trễ kinh từ ngày thứ 3 |
 | `cycle.longPeriod.title`, `cycle.longPeriod.body` | Kỳ kinh chưa kết thúc > 10 ngày → ghi ngày kết thúc / đi khám nếu ra máu kéo dài |
@@ -206,8 +206,8 @@ hiện nhóm, dải hay trạng thái.
 | `weight.setup.body`, `weight.noHeight` | Giải thích dải IOM 2009 và việc chiều cao không bắt buộc |
 | `weight.category.*` | "Thiếu cân / Bình thường / Thừa cân / Béo phì" (tên nhóm BMI hiển thị cho mẹ) |
 | `symptom.safety.title` | "Khi nào cần đi khám ngay" (cùng câu với `week.warnings` đã có) |
-| `symptom.safety.contractions` | "Đi khám ngay nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu." |
-| `symptom.safety.swelling` | "Đi khám ngay nếu mặt hoặc tay phù đột ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị." |
+| `symptom.safety.contractions` | "Đi khám ngay nếu ra nước, ra máu, hoặc có cơn gò đều đặn hay đau trước tuần 37. Từ tuần 37, hãy gọi bệnh viện khi cơn gò đều khoảng 5 phút một lần hoặc dày hơn, hoặc khi mẹ lo lắng." (sửa ở mục 77) |
+| `symptom.safety.swelling` | "Đi khám ngay nếu mặt, tay hoặc chân phù đột ngột, hoặc đau đầu dữ dội, nhìn mờ, nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, dù chỉ có một dấu hiệu." (sửa ở mục 78) |
 | `symptom.safety.note`, `symptom.safety.action` | "Luna Mom không chẩn đoán. Khi không chắc, hãy gọi bác sĩ." / "Xem dấu hiệu cần đi khám" (mở Chi tiết tuần tại mục cảnh báo, trong bản chính thức chỉ khi tuần đó đã duyệt — xem mục 33) |
 | `symptom.flow.*` | Lượng kinh: Không / Ít / Vừa / Nhiều |
 | `symptom.mood.*` | Tâm trạng: Vui vẻ / Bình thường / Nhạy cảm / Lo âu / Mệt mỏi |
@@ -737,3 +737,166 @@ Người dùng có thể ghi thêm các kỳ kinh cũ, để trung bình 6 chu k
 68. [ ] **"Bé nặng tương đương …"** (`pregnancy.baby.sizeWeight`, "Your baby weighs about as much as …"): thẻ kích
         thước ở Hôm nay, từ tuần 10 (các tuần có cân nặng Hadlock), dùng cùng cách so sánh theo cân nặng như bài viết
         theo tuần (mục 13); tuần 4–9 vẫn là "Bé to bằng …". **Câu hỏi:** như mục 13 — "tương đương" có quá mạnh không?
+
+## 15. Sửa theo đối chiếu nguồn (giai đoạn 16)
+
+Bảng đối chiếu y khoa (`Luna Mom - doi chieu y khoa.xlsx`, trang "Đối chiếu") có 21 dòng "Lệch – nên sửa". Mỗi mục
+dưới đây ghi mã dòng trong bảng, câu cũ → câu mới (vi; bản en sửa cùng ý) và nguồn. Mọi tuần, mốc khám và bài viết
+có câu bị sửa vẫn là `"reviewed": false`; các chuỗi trong `Localizable.xcstrings` vẫn cần bác sĩ duyệt như mục 6,
+8 và 11. Bác sĩ duyệt từng mục (hoặc sửa lại câu chữ).
+
+**Về QĐ 1139/QĐ-BYT:** văn bản đã được mở và đọc trực tiếp (bản PDF trên trang của Bộ Y tế:
+https://vnpa.moh.gov.vn/wp-content/uploads/2026/05/QD-1139-Tai-lieu-huong-dan-cham-soc-SKSS.pdf, ký ngày 23/4/2026,
+thay các nội dung chăm sóc trước khi có thai và trước khi sinh của QĐ 4128/QĐ-BYT 2016). Các câu được dùng: bảng
+sàng lọc lệch bội ghi "Triple test 15 – 20 tuần"; dặn khám lại ngay khi "đau bụng, ra máu, ra nước âm đạo, cử động
+thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu, hoa mắt, đau thượng vị, nôn mửa".
+
+69. [ ] **§4-triple-test — mốc triple test.** Mốc `triple-test`: 15–18 → **15–20 tuần**. Gạch đầu dòng tuần 15:
+        "…thường làm vào tuần 15 đến 18." → "…thường làm trong khoảng tuần 15 đến 20."; bài tuần 15 và bài
+        `antenatal-checkup-milestones`: "tuần 15 đến 18" → "tuần 15 đến 20". Bài tuần 15 thêm nguồn Bộ Y tế.
+        Nguồn: Bộ Y tế QĐ 1139/QĐ-BYT 2026 (bảng sàng lọc, "Triple test 15 – 20 tuần").
+70. [ ] **Mục 15 — ra máu tuần 4–12, tách theo mức độ** (tuần 4–12, mục cảnh báo). Cũ: "Ra máu âm đạo hoặc đau bụng
+        dữ dội: mẹ hãy liên hệ bác sĩ ngay." → Mới (hai dòng): "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không
+        dứt: mẹ hãy liên hệ bác sĩ ngay." và "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau
+        bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay." (Vòng rà soát an toàn: dòng 1 nay bao mọi mức ra
+        máu, không để khoảng trống giữa hai dòng, và khớp bài `early-pregnancy-worries`.) Bài `early-pregnancy-worries` sửa cùng ý: ra máu dù ít
+        hay nhiều hoặc đau bụng không dứt → liên hệ bác sĩ ngay; ra máu nhiều hoặc đau bụng dữ dội → gọi 115 hoặc đến
+        khoa cấp cứu ngay. Nguồn: NHS – Vaginal bleeding in pregnancy (ra máu ít/lấm tấm, không đau hoặc đau nhẹ →
+        liên hệ khoa sản; đau bụng dữ dội, đau vai, choáng/ngất, ra máu nhiều "soaking a period pad soon after
+        putting it on" → gọi 999).
+71. [ ] **Mục 16 — ra máu tuần 37–42.** Cũ: "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ
+        hãy đến bệnh viện ngay." → Mới (hai dòng): "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ
+        hãy liên hệ bệnh viện ngay, dù ngày hay đêm." và "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không
+        dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115." Bài tuần 37: "Ra máu nhiều hoặc máu đỏ tươi thì lại khác…" →
+        "Ra máu, không chỉ là chút máu lẫn trong nhầy, thì lại khác…". Bài `signs-of-labour`: "Từ tuần 37, nếu ra
+        máu nhiều hoặc máu đỏ tươi… đến bệnh viện ngay." → "Từ tuần 37, nếu ra máu âm đạo, không chỉ là chút máu
+        lẫn trong nhầy, mẹ hãy liên hệ bệnh viện ngay. Nếu ra máu nhiều, máu đỏ tươi, hay đau bụng liên tục không
+        dịu, mẹ hãy đến bệnh viện ngay hoặc gọi 115." Nguồn: NHS – Signs that labour has begun ("you have vaginal
+        bleeding" → gọi ngay); NHS – Vaginal bleeding in pregnancy (show); Bộ Y tế QĐ 1139/QĐ-BYT 2026 (khám lại ngay
+        khi ra máu). **Câu hỏi:** "gọi 115" khi ra máu nhiều ở tuần 37–42 có phù hợp không?
+72. [ ] **Mục 17 — nghi thai ngoài tử cung, thêm 115** (tuần 4–12). Cũ: "…hoặc choáng váng muốn ngất: mẹ hãy đến
+        khoa cấp cứu ngay." → Mới: "…hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều,
+        ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay." Bài `first-trimester-tiredness` thêm: "Nếu
+        ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay." Nguồn: NHS – Ectopic pregnancy (đau bụng đột ngột dữ dội kèm choáng nhiều/ngất,
+        buồn nôn, xanh tái → gọi 999 hoặc đến A&E).
+73. [ ] **22-c — `medical.ttc.body`.** "chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc rất không đều" → "…dài hơn
+        **35** ngày…" (cùng mốc với `onboarding.regularity.irregularNote` và `onboarding.cycleLength.hint` đã có).
+        Nguồn: NHS – Periods (21–35 ngày); FIGO 2018 (bình thường 24–38 ngày); ACOG CO 651 (21–45 ngày là khoảng của
+        trẻ vị thành niên). **Câu hỏi:** bác sĩ chọn mốc 35 (NHS) hay 38 (FIGO) để dùng chung cho mọi chuỗi.
+74. [ ] **22-e — `cycle.irregular.body`.** "Chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc thay đổi nhiều — bạn nên
+        trao đổi với bác sĩ." → "…dài hơn **35** ngày…". Nguồn như mục 73. Phần "thay đổi nhiều" (chênh > 7 ngày)
+        khớp FIGO, giữ nguyên.
+75. [ ] **22-c/22-e — hằng số dự đoán chưa đổi, chờ bác sĩ chọn.** Cách tính trung bình **không** đổi:
+        `CyclePredictor.usableCycleLengths = 21...45` (chỉ chu kỳ 21–45 ngày được tính vào trung bình và "tính vào
+        trung bình" trong Lịch sử). **Đã đổi (chủ sản phẩm duyệt):** thẻ "Chu kỳ có vẻ không đều" dùng ngưỡng riêng
+        `CyclePredictor.regularCycleLengths = 21...35`: thẻ hiện khi chu kỳ gần nhất < 21 hoặc > 35 ngày (trước đây
+        > 45), hoặc ≥ 3 chu kỳ chênh > 7 ngày (giữ nguyên), khớp câu "dài hơn 35 ngày". **Câu hỏi:** đổi cận trên thành 35 (NHS) hay 38 (FIGO), cho cả việc tính trung bình lẫn thẻ
+        cảnh báo, hay tách hai ngưỡng (ví dụ vẫn tính trung bình đến 45 ngày nhưng hiện thẻ từ 36 hoặc 39 ngày)?
+        Nguồn: FIGO 2018 (Munro, Critchley, Fraser, Int J Gynaecol Obstet 143:393); PMC11790291 (2025); NHS – Periods;
+        ACOG CO 651 (2015); AAFP 2023 (Infertility: Evaluation and Management).
+76. [ ] **24-b — ngưỡng "kỳ kinh kéo dài" chưa đổi, chờ bác sĩ chọn.** `CycleRules.longPeriodDays = 10` (thẻ hiện
+        khi kỳ kinh chưa kết thúc > 10 ngày; giới hạn ghi 10 ngày). Không có câu nào cho người dùng nêu khoảng "bình
+        thường" sai, nên **không đổi câu chữ** (`cycle.longPeriod.*` chỉ nói số ngày đã kéo dài và gợi ý đi khám).
+        **Câu hỏi:** bật thẻ từ ngày thứ 9 (> 8 ngày, FIGO) hay ngày thứ 8 (> 7 ngày, NHS – Heavy periods), và có giữ
+        giới hạn ghi 10 ngày không? Nguồn: FIGO 2018; PMC11790291; NHS – Heavy periods; NHS – Periods.
+77. [ ] **31-a — thẻ an toàn "Cơn gò"** (`symptom.safety.contractions`, trả lời câu hỏi ở mục 31). Cũ: "Đi khám ngay
+        nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu." → Mới: "Đi khám ngay nếu ra nước, ra máu,
+        hoặc có cơn gò đều đặn hay đau trước tuần 37. Từ tuần 37, hãy gọi bệnh viện khi cơn gò đều khoảng 5 phút một
+        lần hoặc dày hơn, hoặc khi mẹ lo lắng." (en: "Go now if you leak fluid or bleed, or if contractions come
+        regularly or hurt before week 37. …") Nguồn: NHS – Signs that labour has begun (dưới 37 tuần nghi chuyển dạ,
+        vỡ ối, ra máu → gọi ngay; cơn gò đều 5 phút một lần hoặc dày hơn → gọi; mỗi cơn > 2 phút hoặc ≥ 6 cơn trong
+        10 phút → gọi ngay); Bộ Y tế QĐ 1139/QĐ-BYT 2026. **Câu hỏi:** có cần nêu thêm ngưỡng "> 2 phút / ≥ 6 cơn
+        trong 10 phút" trên thẻ không (hiện bỏ để câu ngắn)?
+78. [ ] **31-b — thẻ an toàn "Phù chân"** (`symptom.safety.swelling`). Cũ: "Đi khám ngay nếu mặt hoặc tay phù đột
+        ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị." → Mới: "Đi khám ngay nếu mặt, tay hoặc chân phù đột ngột,
+        hoặc đau đầu dữ dội, nhìn mờ, nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, ợ nóng không đỡ dù đã dùng
+        thuốc trị ợ nóng, dù chỉ có một dấu hiệu." (en thêm "or in your upper belly" và "heartburn that does not ease
+        with heartburn medicine".)
+        Nguồn: NHS – Pre-eclampsia ("Any of these symptoms can be serious and need to be checked immediately");
+        Bộ Y tế QĐ 1139/QĐ-BYT 2026 (nhức đầu, hoa mắt, đau thượng vị là dấu hiệu tiền sản giật).
+79. [ ] **39-T15-b — chảy máu cam** (bài tuần 15, tab Mẹ). Cũ: "Bóp nhẹ phần mềm của mũi và hơi cúi người về trước
+        thường giúp cầm máu. Nếu chảy máu cam thường xuyên hoặc nhiều, mẹ hãy báo bác sĩ hoặc nữ hộ sinh." → Mới:
+        "Khi chảy máu cam, mẹ ngồi xuống, cúi người về trước, bóp chặt phần mềm của mũi liên tục 10 đến 15 phút và thở
+        bằng miệng. Nếu máu không cầm sau 10 đến 15 phút, chảy rất nhiều, hoặc mẹ thấy mệt lả, choáng hay khó thở, mẹ
+        hãy đến khoa cấp cứu. Nếu chảy máu cam hay tái lại, mẹ hãy báo bác sĩ hoặc nữ hộ sinh." Nguồn: NHS – Nosebleed
+        ("pinch your nose just above your nostrils for 10 to 15 minutes"; đến A&E khi kéo dài > 10–15 phút, chảy
+        nhiều, thấy yếu, choáng hoặc khó thở).
+80. [ ] **40-1, 45-03a, 47 — gan và pa tê** (bài `food-safety`, trả lời câu hỏi ở mục 47 theo nguồn; bác sĩ quyết
+        định cuối). Cũ: "Gan và các món từ gan như pa tê chứa rất nhiều vitamin A, có thể gây hại nếu ăn quá nhiều. Vì
+        vậy, mẹ không nên ăn thường xuyên hay ăn nhiều một lúc." → Mới: "Mẹ tránh gan và các món làm từ gan, như pa tê
+        gan, vì chứa rất nhiều vitamin A có thể gây hại cho bé. Pa tê để ngăn mát còn có thể nhiễm vi khuẩn Listeria.
+        Nếu muốn ăn pa tê không làm từ gan, mẹ chọn loại đóng hộp kín, không cần để tủ lạnh trước khi mở." Bài
+        thêm nguồn CDC.
+        Nguồn: NHS – Foods to avoid in pregnancy (rà soát 15/6/2026: "Liver and foods containing liver have high levels
+        of vitamin A, which can be harmful to your baby"); CDC – Listeria prevention ("Refrigerated pâté or meat
+        spreads" → tránh; loại hộp kín không cần để lạnh trước khi mở → an toàn hơn); FDA – Food Safety for
+        Moms-to-Be. **Lưu ý cho bác sĩ:** (1) NHS 2026 với pa tê thịt không làm từ gan chỉ dặn "keep chilled and eat
+        before the use-by date", nhẹ hơn CDC; app theo CDC (chặt hơn). (2) Đề xuất trong bảng có "hoặc hâm thật
+        nóng"; trang CDC đã mở chỉ nói hâm nóng cho thịt nguội/xúc xích, không nói cho pa tê, nên app **không** ghi
+        câu này. (3) Hướng dẫn dinh dưỡng của Bộ Y tế (QĐ 776/QĐ-BYT 2017) liệt kê gan là nguồn vitamin A và dặn không
+        dùng quá liều vitamin A; không có câu "tránh gan". Bác sĩ cân nhắc với thói quen bánh mì pa tê ở Việt Nam.
+81. [ ] **49 — ợ nóng và đau dưới sườn** (bài `sleeping-well-late-pregnancy`, trả lời câu hỏi ở mục 49). Thêm vào
+        phần "Những điều cần báo bác sĩ hoặc nữ hộ sinh": "Nếu đau nhiều dưới sườn hoặc vùng thượng vị, hay ợ nóng
+        không đỡ dù đã dùng thuốc trị ợ nóng, mẹ hãy đến khoa sản ngay. Đó có thể là dấu hiệu tiền sản giật." Để bài
+        không quá 500 chữ, bỏ câu "Thở chậm và sâu có thể giúp mẹ thư thái khi đầu óc ngổn ngang." và rút "cũng có
+        thể giúp mẹ đỡ hơn" → "cũng có thể giúp mẹ" (không phải nội dung an toàn). Nguồn: NHS – Pre-eclampsia ("pain below the ribs", "heartburn that does not go away with heartburn
+        medicines"; mỗi dấu hiệu cần kiểm tra ngay); Bộ Y tế QĐ 1139/QĐ-BYT 2026 (đau thượng vị).
+82. [ ] **56 — nhắc chu kỳ khi dùng tránh thai nội tiết** (trả lời câu hỏi ở mục 56). Với nhóm "có nội tiết"
+        (mục 54) khi theo dõi chu kỳ, app không còn nói "kỳ kinh": "Ngày mai có thể đến kỳ kinh" → "Ngày mai có thể
+        ra máu" (`cycle.reminder.bleed.*`, thân: "Hãy ghi lại khi bắt đầu ra máu để dự đoán chính xác hơn."); "Kỳ kinh
+        đã trễ 3 ngày / Bạn có thể thử thai." → "Đã trễ 3 ngày so với lần ra máu dự kiến / Nếu có quên thuốc hoặc lo lắng,
+        bạn có thể thử thai." (`cycle.reminder.bleedLate.*`). Thẻ trễ ở Hôm nay đổi cùng cách: "Đã trễ %d ngày so với
+        lần ra máu dự kiến" / "Nếu có quên thuốc hoặc lo lắng, bạn có thể thử thai. Nếu que thử dương tính, hãy bấm
+        “Tôi đã có thai”."
+        (`cycle.lateBleed.*`); chú thích nhắc nhở trong Hồ sơ: "Nhắc lúc 9:00: 1 ngày trước lần ra máu dự kiến và một
+        lần khi trễ 3 ngày." (`settings.cycleReminders.hint.bleed`). Người không dùng nội tiết và chế độ Mong con
+        giữ câu cũ. Nguồn: NHS Devon Sexual Health – Taking 'the pill'; NHS 111 Wales – Progestogen-only pill; NHS –
+        IUS (hormonal coil). **Câu hỏi:** với que cấy, thuốc tiêm, vòng nội tiết và thuốc chỉ có progestin (ra máu
+        thường không đều hoặc mất hẳn), có nên **tắt** nhắc "trễ" để tránh lo lắng không cần thiết không? (Chưa đổi.)
+83. [ ] **35-T30 — tủy xương** (gạch đầu dòng tuần 30). "Tủy xương đã bắt đầu tạo hồng cầu." → "Tủy xương giờ là
+        nơi tạo hồng cầu chính." (khớp bài tuần 21 và 30). Nguồn: PMC8707658 (Extramedullary hematopoiesis);
+        MedlinePlus – Fetal development.
+84. [ ] **39-T18-b — myelin** (bài tuần 18). "Một lớp vỏ chứa chất béo gọi là myelin đang bắt đầu bao quanh các dây
+        thần kinh. … còn tiếp tục phát triển nhiều năm sau sinh." → "Lớp vỏ chứa chất béo gọi là myelin đang hình
+        thành ngày càng nhiều quanh các dây thần kinh. … còn tiếp tục phát triển nhiều năm sau sinh, đến tận tuổi
+        thiếu niên." Nguồn: National Research Council & IOM (NCBI Bookshelf NBK32785, 2009); các nghiên cứu myelin
+        tủy sống thai nhi trên PubMed.
+85. [ ] **39-T19-b — nám da** (bài tuần 19). "Cả hai đều khá thường gặp và thường mờ dần trong vài tháng sau sinh."
+        → "Cả hai đều khá thường gặp và thường nhạt dần sau sinh, nhưng mảng sẫm ở mặt có thể kéo dài ở một số mẹ.
+        Che nắng kỹ giúp hạn chế sạm thêm." Nguồn: NHS – 19 weeks pregnant (chloasma); StatPearls – Melasma (2026).
+86. [ ] **39-T27-a — nếp gấp của não** (bài tuần 27). "Bề mặt não bắt đầu có các nếp gấp…" → "Bề mặt não ngày càng
+        có nhiều nếp gấp…". Nguồn: Adventures in Neuropathology – Fetal gyral development (2019); J Neurosurg Pediatr
+        11(1), 2013.
+87. [ ] **39-T38-b — phân su** (bài tuần 38). "Trong ruột bé có phân su, tức phân đầu tiên, thường được thải ra
+        trong vài ngày đầu sau sinh." → "Trong ruột bé có phân su, tức phân đầu tiên. Bé thường đi phân su lần đầu
+        trong 24 đến 48 giờ sau sinh." Nguồn: Cleveland Clinic – Meconium ("within 24 to 48 hours after birth").
+88. [ ] **44 — danh sách nguồn** (`sources` trong `knowledge-content.json`; trả lời mục 44). (1) Mục Bộ Y tế:
+        "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về các dịch vụ chăm sóc sức khỏe sinh sản" → "Bộ Y tế Việt Nam: Hướng
+        dẫn quốc gia các dịch vụ chăm sóc sức khỏe sinh sản về nội dung Chăm sóc trước khi có thai và trước khi sinh
+        (Quyết định 1139/QĐ-BYT, 23/4/2026; thay phần tương ứng của Quyết định 4128/QĐ-BYT, 2016)" (cùng câu này
+        thay mục Bộ Y tế trong `pregnancy-content.json`). (2) Thêm "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về dinh
+        dưỡng cho phụ nữ có thai và bà mẹ cho con bú (Quyết định 776/QĐ-BYT, 2017)" cho câu muối i-ốt
+        (`iron-calcium-balanced-meals`; văn bản có câu "phụ nữ có thai nên sử dụng muối, bột canh có tăng cường
+        iốt" — đọc từ bản PDF đăng lại trên cvdvn.net, chưa tìm được bản trên trang của Bộ). (3) Thêm "WHO guideline:
+        Delayed umbilical cord clamping… (2014)" cho `birth-plan-breastfeeding`. (4) Thêm "CDC: Preventing Listeria
+        infection, advice for pregnant people" cho `food-safety` (mục 80). (5) NHS: "NHS: Your pregnancy and baby
+        guide" → "NHS: Pregnancy pages on nhs.uk" (cả hai file). (6) ACOG CO 804 ghi thêm "reaffirmed 2023"; NICE
+        CG192 ghi thêm "updated 2020". (7) Mốc baby blues "khoảng hai tuần" (`preparing-for-motherhood`) là của NHS;
+        bài đã có nguồn NHS nên không thêm NICE NG194. **Câu hỏi:** bác sĩ có muốn thêm NICE NG194 (chăm sóc sau
+        sinh) không?
+89. [ ] **Vòng rà soát an toàn — dấu hiệu tiền sản giật hằng tuần (tuần 20–42).** Cũ: "Đau đầu dữ dội, nhìn mờ hoặc
+        nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay." → Mới: "Đau đầu dữ dội, nhìn mờ hoặc
+        nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện
+        ngay." Bài `signs-of-labour` thêm "đau dưới sườn hay vùng thượng vị" cùng cách. Test
+        `coreDangerSignsAppearEveryWeekOfTheirStage` kiểm tra "ribs"/"thượng vị" ở mọi tuần từ 20. Nguồn: NHS –
+        Pre-eclampsia ("pain below the ribs"); Bộ Y tế QĐ 1139/QĐ-BYT 2026 ("đau thượng vị").
+90. [ ] **Vòng rà soát an toàn — mức cấp cứu ở tuần 13–36** (trước đây mức 115 dừng ở tuần 12). Tuần 13–19: "Ra máu
+        âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: liên hệ bác sĩ hoặc bệnh viện ngay." → hai dòng: "Ra
+        máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay." và "Ra máu
+        nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay." Tuần 20–36: giữ "Ra máu âm đạo dù
+        ít hay nhiều, hoặc đau bụng không dứt: liên hệ bệnh viện ngay" và thêm dòng cấp cứu như trên. Tuần 18: "Ngất
+        xỉu, hoặc chóng mặt không đỡ khi ngồi nghỉ: đi khám bác sĩ" → "Chóng mặt không đỡ khi ngồi nghỉ: mẹ hãy đi
+        khám bác sĩ." (ngất nay thuộc dòng gọi 115). Test kiểm tra "115" (vi) ở mọi tuần, "heavy" (en) ở tuần ≤ 12 và
+        13–36, "115" ở tuần ≥ 37. Nguồn: NHS – Vaginal bleeding in pregnancy (ra máu nhiều, đau dữ dội, ngất → 999).
+        **Lưu ý:** bài `safe-exercise` và `sleep-positions` vẫn viết ngất → "liên hệ bác sĩ hoặc nữ hộ sinh ngay"
+        (câu hỏi mục 48 còn mở); bác sĩ quyết định có thống nhất về "gọi 115" không.

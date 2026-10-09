@@ -19,7 +19,9 @@ enum ReminderTexts {
         CycleReminderTexts(
             fertile: NotificationText(title: L10n.cycleReminderFertileTitle, body: L10n.cycleReminderFertileBody),
             period: NotificationText(title: L10n.cycleReminderPeriodTitle, body: L10n.cycleReminderPeriodBody),
-            late: NotificationText(title: L10n.cycleReminderLateTitle, body: L10n.cycleReminderLateBody)
+            late: NotificationText(title: L10n.cycleReminderLateTitle, body: L10n.cycleReminderLateBody),
+            bleed: NotificationText(title: L10n.cycleReminderBleedTitle, body: L10n.cycleReminderBleedBody),
+            bleedLate: NotificationText(title: L10n.cycleReminderBleedLateTitle, body: L10n.cycleReminderBleedLateBody)
         )
     }
 }

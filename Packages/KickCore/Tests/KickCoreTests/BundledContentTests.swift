@@ -7,7 +7,7 @@ struct BundledContentTests {
     static let requiredMilestones: [String: ClosedRange<Int>] = [
         "confirm-pregnancy": 6...8,
         "nt-scan": 11...14,
-        "triple-test": 15...18,
+        "triple-test": 15...20,
         "anomaly-scan": 18...22,
         "gdm-screening": 24...28,
         "tetanus-pertussis": 27...36,
@@ -102,12 +102,26 @@ struct BundledContentTests {
             }
             if week.week <= 12 {
                 #expect(mentions(en, ["shoulder"]), "week \(week.week): shoulder-tip pain")
+                // Fact-check row 15: heavy bleeding or severe pain is an emergency (115).
+                #expect(mentions(en, ["heavy"]), "week \(week.week): heavy bleeding")
+                #expect(mentions(vi, ["115"]), "week \(week.week): 115")
+            }
+            if (13...36).contains(week.week) {
+                #expect(mentions(vi, ["115"]), "week \(week.week): 115")
+                #expect(mentions(en, ["heavy bleeding"]), "week \(week.week): heavy bleeding")
+            }
+            if week.week >= 37 {
+                #expect(mentions(en, ["115"]), "week \(week.week): 115")
+                #expect(mentions(vi, ["115"]), "week \(week.week): 115")
             }
             if week.week >= 20 {
                 #expect(mentions(en, ["bleeding"]), "week \(week.week): bleeding")
                 #expect(mentions(vi, ["ra máu"]), "week \(week.week): ra máu")
                 #expect(mentions(en, ["headache"]), "week \(week.week): headache")
                 #expect(mentions(en, ["vision"]), "week \(week.week): vision")
+                // Pre-eclampsia: pain below the ribs / epigastric pain (NHS; Bộ Y tế QĐ 1139/QĐ-BYT).
+                #expect(mentions(en, ["ribs"]), "week \(week.week): ribs")
+                #expect(mentions(vi, ["thượng vị"]), "week \(week.week): thượng vị")
                 #expect(mentions(en, ["leaking", "waters"]), "week \(week.week): leaking fluid")
                 #expect(mentions(en, ["ambulance"]), "week \(week.week): ambulance")
                 #expect(mentions(vi, ["115"]), "week \(week.week): 115")

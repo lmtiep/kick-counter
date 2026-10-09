@@ -117,7 +117,11 @@ public enum CyclePredictor {
     static let daysBeforeOvulation = 5
     static let daysAfterOvulation = 1
     static let maxCyclesAveraged = 6
+    /// Cycles that count toward the average (and the history's "counts toward average").
     static let usableCycleLengths = 21...45
+    /// A latest cycle outside this range shows "Your cycle looks irregular", matching its
+    /// text ("shorter than 21 days, longer than 35 days"; NHS). Fact-check rows 22-c/22-e.
+    static let regularCycleLengths = 21...35
     static let maxStandardDeviation = 4.0
     static let maxSpread = 7
     static let maxWidening = 3
@@ -177,7 +181,7 @@ public enum CyclePredictor {
             ?? ovulation...ovulation
 
         let lastLength = allLengths.last
-        let irregular = (lastLength.map { !usableCycleLengths.contains($0) } ?? false) || (usable.count >= 3 && spread > maxSpread)
+        let irregular = (lastLength.map { !regularCycleLengths.contains($0) } ?? false) || (usable.count >= 3 && spread > maxSpread)
 
         return CycleForecast(
             today: today,

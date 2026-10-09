@@ -4,13 +4,16 @@
     "WHO recommendations on antenatal care for a positive pregnancy experience (World Health Organization, 2016)",
     "WHO guidelines on physical activity and sedentary behaviour (World Health Organization, 2020)",
     "ACOG patient education: Your Pregnancy and Childbirth: Month to Month, and pregnancy FAQs (American College of Obstetricians and Gynecologists)",
-    "ACOG Committee Opinion No. 804: Physical Activity and Exercise During Pregnancy and the Postpartum Period (American College of Obstetricians and Gynecologists, 2020)",
+    "ACOG Committee Opinion No. 804: Physical Activity and Exercise During Pregnancy and the Postpartum Period (American College of Obstetricians and Gynecologists, 2020; reaffirmed 2023)",
     "ACOG Committee Opinion No. 462: Moderate Caffeine Consumption During Pregnancy (American College of Obstetricians and Gynecologists, 2010)",
-    "NHS: Your pregnancy and baby guide (National Health Service, UK)",
+    "NHS: Pregnancy pages on nhs.uk (National Health Service, UK)",
     "NICE guideline NG201: Antenatal care (National Institute for Health and Care Excellence, 2021)",
-    "NICE guideline CG192: Antenatal and postnatal mental health (National Institute for Health and Care Excellence, 2014)",
+    "NICE guideline CG192: Antenatal and postnatal mental health (National Institute for Health and Care Excellence, 2014; updated 2020)",
     "WHO and UNICEF: Implementation guidance on protecting, promoting and supporting breastfeeding in facilities providing maternity and newborn services, the revised Baby-friendly Hospital Initiative (2018)",
-    "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về các dịch vụ chăm sóc sức khỏe sinh sản"
+    "Bộ Y tế Việt Nam: Hướng dẫn quốc gia các dịch vụ chăm sóc sức khỏe sinh sản về nội dung Chăm sóc trước khi có thai và trước khi sinh (Quyết định 1139/QĐ-BYT, 23/4/2026; thay phần tương ứng của Quyết định 4128/QĐ-BYT, 2016)",
+    "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về dinh dưỡng cho phụ nữ có thai và bà mẹ cho con bú (Quyết định 776/QĐ-BYT, 2017)",
+    "WHO guideline: Delayed umbilical cord clamping for improved maternal and infant health and nutrition outcomes (World Health Organization, 2014)",
+    "CDC: Preventing Listeria infection, advice for pregnant people (Centers for Disease Control and Prevention, USA)"
   ],
   "topics": [
     {
@@ -165,12 +168,12 @@
           "paragraphs": {
             "en": [
               "A few foods can carry germs or other things that are more harmful in pregnancy. Avoid raw or undercooked meat and eggs, and cook eggs until both the white and the yolk are firm. Skip raw fish and shellfish, such as sushi or raw fish salad, as well as tiết canh and raw fermented meat such as nem chua.",
-              "Choose milk and cheese that have been pasteurised, and avoid cheeses made from unpasteurised milk. Liver and foods made from it, such as pâté, hold a lot of vitamin A, which can be harmful in large amounts. So do not eat them often or in large portions.",
+              "Choose milk and cheese that have been pasteurised, and avoid cheeses made from unpasteurised milk. Avoid liver and foods made from it, such as liver pâté, because they hold a lot of vitamin A, which can harm your baby. Pâté kept in the fridge can also carry Listeria bacteria. If you want a pâté that is not made from liver, choose one in a sealed can or jar that does not need the fridge before opening.",
               "Fish is a good food in pregnancy, but a few large fish carry more mercury. Avoid shark, swordfish and king mackerel, and enjoy other kinds of well-cooked fish instead."
             ],
             "vi": [
               "Một số thực phẩm có thể mang vi khuẩn hoặc chất gây hại nhiều hơn khi mang thai. Mẹ tránh thịt và trứng sống hoặc chưa chín kỹ; trứng cần nấu đến khi cả lòng trắng và lòng đỏ đều đông lại. Mẹ cũng nên tránh cá và hải sản sống như sushi hay gỏi cá, tiết canh và các món thịt lên men sống như nem chua.",
-              "Mẹ chọn sữa và pho mát đã thanh trùng, tránh pho mát làm từ sữa chưa thanh trùng. Gan và các món từ gan như pa tê chứa rất nhiều vitamin A, có thể gây hại nếu ăn quá nhiều. Vì vậy, mẹ không nên ăn thường xuyên hay ăn nhiều một lúc.",
+              "Mẹ chọn sữa và pho mát đã thanh trùng, tránh pho mát làm từ sữa chưa thanh trùng. Mẹ tránh gan và các món làm từ gan, như pa tê gan, vì chứa rất nhiều vitamin A có thể gây hại cho bé. Pa tê để ngăn mát còn có thể nhiễm vi khuẩn Listeria. Nếu muốn ăn pa tê không làm từ gan, mẹ chọn loại đóng hộp kín, không cần để tủ lạnh trước khi mở.",
               "Cá là thực phẩm tốt khi mang thai, nhưng một vài loại cá lớn chứa nhiều thủy ngân hơn. Mẹ tránh cá mập, cá kiếm và cá thu vua, và thay bằng các loại cá khác đã nấu chín kỹ."
             ]
           }
@@ -215,7 +218,8 @@
         2,
         4,
         5,
-        9
+        9,
+        12
       ]
     },
     {
@@ -292,7 +296,8 @@
         0,
         2,
         5,
-        9
+        9,
+        10
       ]
     },
     {
@@ -583,12 +588,12 @@
           "paragraphs": {
             "en": [
               "Tiredness is usually part of early pregnancy, but sometimes it has another cause, such as anaemia from low iron. If you are very tired and also get out of breath easily, notice your heart racing or look pale, tell your doctor or midwife. A simple blood test can check for anaemia.",
-              "If you feel faint, especially with sharp pain on one side or at the tip of your shoulder, go to the emergency department straight away.",
+              "If you feel faint, especially with sharp pain on one side or at the tip of your shoulder, go to the emergency department straight away. If you pass out or cannot get there on your own, you or someone with you should call 115.",
               "Tiredness can also come with low mood. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family."
             ],
             "vi": [
               "Mệt mỏi thường là một phần của những tuần đầu mang thai, nhưng đôi khi có nguyên nhân khác, chẳng hạn thiếu máu do cơ thể thiếu sắt. Nếu mẹ mệt nhiều và kèm theo dễ hụt hơi, thấy tim đập nhanh hoặc da xanh xao, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Một xét nghiệm máu đơn giản có thể cho biết mẹ có bị thiếu máu không.",
-              "Nếu choáng váng muốn ngất, nhất là khi kèm đau nhói một bên bụng hoặc đau ở đầu vai, mẹ hãy đến khoa cấp cứu ngay.",
+              "Nếu choáng váng muốn ngất, nhất là khi kèm đau nhói một bên bụng hoặc đau ở đầu vai, mẹ hãy đến khoa cấp cứu ngay. Nếu ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay.",
               "Mệt mỏi đôi khi đi kèm tâm trạng buồn chán. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình."
             ]
           }
@@ -713,12 +718,12 @@
             "en": [
               "Try to keep a regular routine, going to bed and getting up at about the same times. Wind down for a while before bed with a warm shower, quiet music or a book. Switch off screens a little earlier, and keep your bedroom cool, dark and quiet.",
               "Drink most of your fluids earlier in the day so you need to get up less at night, but still drink enough overall. For heartburn, have a smaller evening meal a few hours before bed. Raising the head of your bed a little may also help, for example with a pillow under the mattress.",
-              "Gently stretching your calves before bed may help with cramps. Slow, deep breathing can help you relax when your mind is racing. Go to sleep on your side with pillows for support, and rest during the day when you can."
+              "Gently stretching your calves before bed may help with cramps. Go to sleep on your side with pillows for support, and rest during the day when you can."
             ],
             "vi": [
               "Mẹ cố giữ nếp sinh hoạt đều đặn, đi ngủ và thức dậy vào khoảng cùng một giờ. Trước khi ngủ, mẹ dành một lúc thư giãn như tắm nước ấm, nghe nhạc nhẹ hay đọc sách. Mẹ tắt điện thoại, máy tính sớm hơn một chút, và giữ phòng ngủ mát mẻ, tối và yên tĩnh.",
-              "Mẹ uống phần lớn lượng nước vào ban ngày để đêm đỡ phải dậy đi tiểu, nhưng vẫn uống đủ nước. Nếu bị ợ nóng, mẹ ăn bữa tối ít hơn, xong trước giờ ngủ vài tiếng. Kê cao đầu giường một chút, chẳng hạn chèn gối dưới đệm, cũng có thể giúp mẹ đỡ hơn.",
-              "Giãn nhẹ bắp chân trước khi ngủ có thể giúp mẹ đỡ chuột rút. Thở chậm và sâu có thể giúp mẹ thư thái khi đầu óc ngổn ngang. Mẹ nằm nghiêng khi đi ngủ, kê gối đỡ quanh người, và tranh thủ nghỉ ngơi ban ngày khi có thể."
+              "Mẹ uống phần lớn lượng nước vào ban ngày để đêm đỡ phải dậy đi tiểu, nhưng vẫn uống đủ nước. Nếu bị ợ nóng, mẹ ăn bữa tối ít hơn, xong trước giờ ngủ vài tiếng. Kê cao đầu giường một chút, chẳng hạn chèn gối dưới đệm, cũng có thể giúp mẹ.",
+              "Giãn nhẹ bắp chân trước khi ngủ có thể giúp mẹ đỡ chuột rút. Mẹ nằm nghiêng khi đi ngủ, kê gối đỡ quanh người, và tranh thủ nghỉ ngơi ban ngày khi có thể."
             ]
           }
         },
@@ -729,11 +734,13 @@
           },
           "paragraphs": {
             "en": [
+              "If you have strong pain just below your ribs or in the upper belly, or heartburn that does not ease even with heartburn medicine, go to your maternity unit straight away. It can be a sign of pre-eclampsia.",
               "A cramp usually passes within a few minutes. If one leg has a painful, red or swollen area, see a doctor straight away. If restless legs disturb your sleep on most nights, tell your doctor or midwife. If you have intense itching, especially on your palms and soles, tell your doctor promptly.",
               "Get to know your baby's usual pattern of movements, including in the evening and at night. If your baby moves less than usual, or the pattern changes, contact your maternity unit straight away, day or night. Do not wait until the morning.",
               "If worry or low mood keeps you awake, talk with someone you trust. If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family."
             ],
             "vi": [
+              "Nếu đau nhiều dưới sườn hoặc vùng thượng vị, hay ợ nóng không đỡ dù đã dùng thuốc trị ợ nóng, mẹ hãy đến khoa sản ngay. Đó có thể là dấu hiệu tiền sản giật.",
               "Chuột rút thường hết sau vài phút. Nếu một bên chân có chỗ đau, đỏ hoặc sưng, mẹ hãy đi khám bác sĩ ngay. Nếu chứng chân không yên làm mẹ mất ngủ gần như mỗi đêm, mẹ hãy báo bác sĩ hoặc nữ hộ sinh. Nếu bị ngứa nhiều, nhất là ở lòng bàn tay, bàn chân, mẹ hãy báo bác sĩ sớm.",
               "Mẹ hãy để ý nhịp cử động quen thuộc của bé, kể cả buổi tối và ban đêm. Nếu bé cử động ít hơn mọi ngày hoặc khác thường, mẹ hãy liên hệ khoa sản ngay, dù ngày hay đêm. Đừng đợi đến sáng.",
               "Nếu lo lắng hay buồn chán khiến mẹ mất ngủ, mẹ hãy tâm sự với người mình tin tưởng. Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình."
@@ -804,12 +811,12 @@
           },
           "paragraphs": {
             "en": [
-              "Some worries are about your body. If you have any bleeding from your vagina, however light, or belly pain that is severe or does not go away, contact your doctor straight away.",
+              "Some worries are about your body. If you have any bleeding from your vagina, however light, or belly pain that does not go away, contact your doctor straight away. For heavy bleeding or severe belly pain, call 115 or go to the emergency department straight away.",
               "If you feel low or worried most days for two weeks or more, tell your doctor or midwife, or someone in your family. Support is available, and asking for it is a sensible step.",
               "If you ever have thoughts of harming yourself, tell someone you trust and get help straight away. Call an emergency ambulance (115) or go to the nearest hospital."
             ],
             "vi": [
-              "Có những nỗi lo liên quan đến cơ thể. Nếu ra máu âm đạo, dù ít hay nhiều, hoặc đau bụng dữ dội hay không dứt, mẹ hãy liên hệ bác sĩ ngay.",
+              "Có những nỗi lo liên quan đến cơ thể. Nếu ra máu âm đạo, dù ít hay nhiều, hoặc đau bụng không dứt, mẹ hãy liên hệ bác sĩ ngay. Nếu ra máu nhiều hoặc đau bụng dữ dội, mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay.",
               "Nếu mẹ thấy buồn chán hoặc lo âu gần như mỗi ngày, kéo dài từ hai tuần trở lên, mẹ hãy nói với bác sĩ hoặc nữ hộ sinh, hoặc với người thân trong gia đình. Mẹ có thể được hỗ trợ, và tìm đến sự giúp đỡ là việc nên làm.",
               "Nếu có lúc mẹ nghĩ đến việc làm hại bản thân, mẹ hãy nói với người mình tin tưởng và tìm trợ giúp ngay. Mẹ hãy gọi cấp cứu 115 hoặc đến bệnh viện gần nhất."
             ]
@@ -1011,12 +1018,12 @@
           "paragraphs": {
             "en": [
               "In the first trimester, the first check-up usually takes place between weeks 6 and 8. It confirms the pregnancy and includes the first blood tests. Between weeks 11 and 14, many women choose to have a nuchal translucency scan with the double test.",
-              "In the second trimester, a triple test may be offered between weeks 15 and 18. The detailed anomaly scan usually falls between weeks 18 and 22, and the test for gestational diabetes between weeks 24 and 28.",
+              "In the second trimester, a triple test may be offered between weeks 15 and 20. The detailed anomaly scan usually falls between weeks 18 and 22, and the test for gestational diabetes between weeks 24 and 28.",
               "In the third trimester, tetanus and whooping cough vaccines are usually given between weeks 27 and 36. A growth scan may also be done between weeks 30 and 32. A group B strep test is often offered between weeks 35 and 37. From week 37, check-ups usually become weekly until the birth. If you go past your due date, your doctor or midwife usually checks on you and your baby more closely between weeks 40 and 42."
             ],
             "vi": [
               "Ở tam cá nguyệt đầu, lần khám thai đầu tiên thường vào khoảng tuần 6 đến 8. Lần khám này xác nhận có thai và làm các xét nghiệm máu ban đầu. Trong khoảng tuần 11 đến 14, nhiều mẹ chọn siêu âm đo độ mờ da gáy kèm xét nghiệm double test.",
-              "Ở tam cá nguyệt thứ hai, mẹ có thể được đề nghị làm xét nghiệm triple test trong khoảng tuần 15 đến 18. Siêu âm hình thái thường làm trong khoảng tuần 18 đến 22, còn xét nghiệm tầm soát tiểu đường thai kỳ trong khoảng tuần 24 đến 28.",
+              "Ở tam cá nguyệt thứ hai, mẹ có thể được đề nghị làm xét nghiệm triple test trong khoảng tuần 15 đến 20. Siêu âm hình thái thường làm trong khoảng tuần 18 đến 22, còn xét nghiệm tầm soát tiểu đường thai kỳ trong khoảng tuần 24 đến 28.",
               "Ở tam cá nguyệt thứ ba, mẹ thường được tiêm phòng uốn ván, ho gà trong khoảng tuần 27 đến 36. Mẹ cũng có thể siêu âm đánh giá tăng trưởng trong khoảng tuần 30 đến 32. Xét nghiệm cấy liên cầu khuẩn nhóm B thường làm trong khoảng tuần 35 đến 37. Từ tuần 37, mẹ thường đi khám mỗi tuần cho đến khi sinh. Nếu đã qua ngày dự sinh, bác sĩ hoặc nữ hộ sinh thường theo dõi mẹ và bé sát hơn trong khoảng tuần 40 đến 42."
             ]
           }
@@ -1252,13 +1259,13 @@
           "paragraphs": {
             "en": [
               "If your waters break, call your maternity unit straight away, whether the fluid is clear, green or brown. If your baby moves less than usual, or the pattern of movements changes, call your maternity unit straight away, day or night. Do not wait to see if things change.",
-              "Before 37 weeks, if you have signs of labour, such as regular tightenings or period-like cramps, go to your maternity unit straight away. Do the same for fluid leaking from your vagina, any bleeding, or belly pain that does not go away. From 37 weeks, if you have heavy or bright red bleeding, or constant belly pain that does not ease, go to hospital straight away.",
-              "For a severe headache, blurred vision or sudden swelling of your face, hands or feet, go to your maternity unit straight away. For fits or trouble breathing, call an emergency ambulance (115) straight away."
+              "Before 37 weeks, if you have signs of labour, such as regular tightenings or period-like cramps, go to your maternity unit straight away. Do the same for fluid leaking from your vagina, any bleeding, or belly pain that does not go away. From 37 weeks, contact your maternity unit straight away for any bleeding that is more than a little blood in the mucus. For heavy or bright red bleeding, or constant belly pain that does not ease, go to hospital straight away or call 115.",
+              "For a severe headache, blurred vision, pain just below your ribs or in your upper belly, or sudden swelling of your face, hands or feet, go to your maternity unit straight away. For fits or trouble breathing, call an emergency ambulance (115) straight away."
             ],
             "vi": [
               "Khi vỡ ối, mẹ hãy gọi ngay cho khoa sản, dù nước ối trong, xanh hay nâu. Nếu bé cử động ít hơn mọi ngày hoặc khác thường, mẹ hãy gọi ngay cho khoa sản, dù ngày hay đêm. Đừng chờ xem tình hình có thay đổi không.",
-              "Trước tuần 37, nếu có dấu hiệu chuyển dạ như gò bụng đều đặn hay đau như đau bụng kinh, mẹ hãy đến khoa sản ngay. Nếu ra nước âm đạo, ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt, mẹ cũng hãy đến khoa sản ngay. Từ tuần 37, nếu ra máu nhiều hoặc máu đỏ tươi, hay đau bụng liên tục không dịu, mẹ hãy đến bệnh viện ngay.",
-              "Nếu đau đầu dữ dội, nhìn mờ hoặc phù mặt, tay, chân đột ngột, mẹ hãy đến khoa sản ngay. Nếu co giật hoặc khó thở, hãy gọi cấp cứu 115 ngay."
+              "Trước tuần 37, nếu có dấu hiệu chuyển dạ như gò bụng đều đặn hay đau như đau bụng kinh, mẹ hãy đến khoa sản ngay. Nếu ra nước âm đạo, ra máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt, mẹ cũng hãy đến khoa sản ngay. Từ tuần 37, nếu ra máu âm đạo, không chỉ là chút máu lẫn trong nhầy, mẹ hãy liên hệ bệnh viện ngay. Nếu ra máu nhiều, máu đỏ tươi, hay đau bụng liên tục không dịu, mẹ hãy đến bệnh viện ngay hoặc gọi 115.",
+              "Nếu đau đầu dữ dội, nhìn mờ, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột, mẹ hãy đến khoa sản ngay. Nếu co giật hoặc khó thở, hãy gọi cấp cứu 115 ngay."
             ]
           }
         }
@@ -1418,7 +1425,8 @@
       "sources": [
         0,
         2,
-        8
+        8,
+        11
       ]
     }
   ]
