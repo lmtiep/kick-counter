@@ -18,6 +18,8 @@ import Foundation
 /// - `-seedAppMode <mode>` stores that `AppMode` (e.g. `partner`) without any fake sharing.
 /// - `-uiTestingRestoreFile <path>` opens the restore sheet for that backup file at launch,
 ///   as opening a `.lunamom` file does (phase 15). A relative path is in the app's tmp folder.
+/// - `-seedPill <type>:<offsetDays>` (e.g. `21+7:11`) turns the pill reminder on at 21:00
+///   with a pack of that type that started `offsetDays` days before the pinned today (phase 17).
 /// - `-uiTestingRestoreOnReactivate` opens that file each time the app comes back to the
 ///   foreground instead of at launch, so a test can open it while a sheet is up.
 public struct UITestLaunchOptions: Equatable, Sendable {
@@ -36,6 +38,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedAppMode: AppMode?
     public let restoreFile: String?
     public let restoresFileOnReactivate: Bool
+    public let seedPill: PillSeed?
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -59,6 +62,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         seedAppMode = isUITesting ? Self.value(after: "-seedAppMode", in: arguments).flatMap(AppMode.init(rawValue:)) : nil
         restoreFile = isUITesting ? Self.value(after: "-uiTestingRestoreFile", in: arguments) : nil
         restoresFileOnReactivate = isUITesting && arguments.contains("-uiTestingRestoreOnReactivate")
+        seedPill = isUITesting ? Self.value(after: "-seedPill", in: arguments).flatMap(PillSeed.init(argument:)) : nil
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {
@@ -68,5 +72,26 @@ public struct UITestLaunchOptions: Equatable, Sendable {
 
     private static func date(after flag: String, in arguments: [String]) -> Date? {
         value(after: flag, in: arguments).flatMap { try? Date($0, strategy: .iso8601) }
+    }
+}
+
+/// `-seedPill <type>:<offsetDays>`: a pill pack for UI tests and screenshots.
+public struct PillSeed: Equatable, Sendable {
+    public let type: PillPackType
+    /// Days from the pack's first day to today (0: today is day 1).
+    public let offsetDays: Int
+
+    public init?(argument: String) {
+        let parts = argument.split(separator: ":")
+        guard parts.count == 2, let type = PillPackType(rawValue: String(parts[0])),
+              let offset = Int(parts[1]), offset >= 0 else { return nil }
+        self.type = type
+        offsetDays = offset
+    }
+
+    /// Switched on at 21:00 with the pack starting `offsetDays` before `today`.
+    public func settings(today: Date, calendar: Calendar) -> PillReminderSettings {
+        let start = calendar.date(byAdding: .day, value: -offsetDays, to: calendar.startOfDay(for: today))
+        return PillReminderSettings(enabled: true, packType: type, packStart: start, hour: 21, minute: 0)
     }
 }

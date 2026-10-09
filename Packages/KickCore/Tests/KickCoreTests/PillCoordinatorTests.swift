@@ -193,6 +193,15 @@ struct PillCoordinatorTests {
         #expect(pendingIDs.contains("pill-20261012"))
     }
 
+    @Test func tryingToConceiveIgnoresTheStoredPill() async {
+        let pill = makeCoordinator()
+        await pill.update(onSettings)
+        CyclePreferences(goal: .conceiving, contraception: .pill).save(to: defaults)
+        await pill.contraceptionChanged()
+        #expect(!pill.isAvailable)
+        #expect(pendingIDs.isEmpty)
+    }
+
     @Test func pregnancyModeHidesAndCancels() async {
         let pill = makeCoordinator()
         await pill.update(onSettings)

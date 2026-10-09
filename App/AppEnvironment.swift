@@ -13,6 +13,7 @@ struct AppEnvironment {
     let appointments: AppointmentCoordinator
     let cycle: CycleCoordinator
     let weight: WeightCoordinator
+    let pill: PillCoordinator
     let content: WeeklyContentLibrary?
     let knowledge: KnowledgeLibrary?
     let sharing: any PartnerSharing
@@ -117,6 +118,18 @@ struct AppEnvironment {
         }
         #endif
         let weight = WeightCoordinator(store: weightStore, defaults: AppGroup.defaults, now: { AppClock.now() })
+        #if DEBUG
+        if isUITesting, let seed = AppClock.launchOptions.seedPill {
+            seed.settings(today: AppClock.now(), calendar: .current).save(to: AppGroup.defaults)
+        }
+        #endif
+        let pill = PillCoordinator(
+            store: PillDoseStore(context: container.mainContext),
+            notifications: notifications,
+            texts: ReminderTexts.pill,
+            defaults: AppGroup.defaults,
+            now: { AppClock.now() }
+        )
         let sharing = makeSharing()
         let partnerShare = PartnerShareCoordinator(sharing: sharing, defaults: AppGroup.defaults)
         // The real clock, not AppClock: the publisher waits 5 s on it.
@@ -131,6 +144,7 @@ struct AppEnvironment {
             appointments: appointments,
             cycle: cycle,
             weight: weight,
+            pill: pill,
             content: WeeklyContentLibrary.loadBundled(),
             knowledge: KnowledgeLibrary.loadBundled(),
             sharing: sharing,

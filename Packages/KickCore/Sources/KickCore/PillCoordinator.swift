@@ -44,7 +44,7 @@ public final class PillCoordinator {
     /// Mode and contraception live in other coordinators' keys: re-read on every
     /// refresh, kept here so SwiftUI observes them.
     private var mode: AppMode
-    private var contraception: Contraception?
+    private var preferences: CyclePreferences
     private var generation = 0
     private var loadTask: Task<Void, Never>?
 
@@ -64,11 +64,15 @@ public final class PillCoordinator {
         self.now = now
         settings = PillReminderSettings.load(from: defaults)
         mode = AppMode.load(from: defaults)
-        contraception = CyclePreferences.load(from: defaults).contraception
+        preferences = CyclePreferences.load(from: defaults)
     }
 
-    /// The setting shows only in the cycle mode with the pill.
-    public var isAvailable: Bool { mode == .tryingToConceive && contraception == .pill }
+    /// The setting shows only in the cycle mode with the pill. Like
+    /// `CycleDisplayPolicy`, only while tracking: trying to conceive ignores a
+    /// stored contraception (and Profile hides it).
+    public var isAvailable: Bool {
+        mode == .tryingToConceive && preferences.goal == .tracking && preferences.contraception == .pill
+    }
 
     /// Reminders and the Today card: available, switched on, with a pack start.
     public var isActive: Bool { isAvailable && settings.enabled && settings.packStart != nil }
@@ -133,7 +137,7 @@ public final class PillCoordinator {
         await write { try store.unmark(on: day) }
     }
 
-    /// Profile changed the contraception (or the mode changed): reminders follow.
+    /// The contraception, the goal or the mode changed: reminders follow.
     public func contraceptionChanged() async {
         refresh()
         await syncReminders(generation: bump(), mayPrompt: false)
@@ -169,7 +173,7 @@ public final class PillCoordinator {
     private func refresh() {
         settings = PillReminderSettings.load(from: defaults)
         mode = AppMode.load(from: defaults)
-        contraception = CyclePreferences.load(from: defaults).contraception
+        preferences = CyclePreferences.load(from: defaults)
         do {
             doses = try store.doses()
             if failure == .loadFailed { failure = nil }

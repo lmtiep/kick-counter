@@ -833,4 +833,52 @@ enum L10n {
     }
 
     static var onboardingRestore: String { t("onboarding.restore") }
+
+    // MARK: - Pill reminder (phase 17)
+
+    static var pillRow: String { t("pill.row") }
+    static var pillSheetTitle: String { t("pill.sheet.title") }
+    static var pillSheetToggle: String { t("pill.sheet.toggle") }
+    static var pillSheetToggleDetail: String { t("pill.sheet.toggle.detail") }
+    static var pillSheetPackType: String { t("pill.sheet.packType") }
+    static func pillPack(_ type: PillPackType) -> String {
+        switch type {
+        case .withBreak: t("pill.pack.withBreak")
+        case .continuous: t("pill.pack.continuous")
+        }
+    }
+    static func pillPackDetail(_ type: PillPackType) -> String {
+        switch type {
+        case .withBreak: t("pill.pack.withBreak.detail")
+        case .continuous: t("pill.pack.continuous.detail")
+        }
+    }
+    static var pillSheetPackStart: String { t("pill.sheet.packStart") }
+    static var pillSheetTime: String { t("pill.sheet.time") }
+    /// The only missed-pill wording allowed (phase 17 spec §2): no clinical instructions.
+    static var pillSheetMissed: String { t("pill.sheet.missed") }
+    static var pillSheetNotificationsOff: String { t("pill.sheet.notificationsOff") }
+    static var pillNotificationTitle: String { t("pill.notification.title") }
+    static func pillNotificationBody(_ number: Int, _ count: Int) -> String {
+        String(format: t("pill.notification.body"), number, count)
+    }
+    static var pillNotificationFollowUpTitle: String { t("pill.notification.followUp.title") }
+    static func pillNotificationFollowUpBody(_ number: Int, _ count: Int) -> String {
+        String(format: t("pill.notification.followUp.body"), number, count)
+    }
+    static var pillActionTaken: String { t("pill.action.taken") }
+    static var pillCardTitle: String { t("pill.card.title") }
+    static func pillCardNumber(_ number: Int, _ count: Int) -> String { String(format: t("pill.card.number"), number, count) }
+    static func pillCardReminderAt(_ time: String) -> String { String(format: t("pill.card.reminderAt"), time) }
+    static var pillCardTake: String { t("pill.card.take") }
+    static func pillCardTakenAt(_ time: String) -> String { String(format: t("pill.card.takenAt"), time) }
+    static var pillCardUndo: String { t("pill.card.undo") }
+    static var pillCardUndoA11y: String { t("pill.card.undo.a11y") }
+    static func pillCardBreakWeek(_ date: String) -> String { String(format: t("pill.card.breakWeek"), date) }
+    static func pillFailure(_ failure: PillFailure) -> String {
+        switch failure {
+        case .loadFailed: t("pill.failure.load")
+        case .saveFailed, .futureDate: t("pill.failure.save")
+        }
+    }
 }

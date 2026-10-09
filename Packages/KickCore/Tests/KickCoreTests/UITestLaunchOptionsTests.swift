@@ -116,4 +116,17 @@ struct UITestRestoreOnReactivateOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingRestoreOnReactivate"]).restoresFileOnReactivate)
         #expect(!UITestLaunchOptions(arguments: ["-uiTestingRestoreOnReactivate"]).restoresFileOnReactivate)
     }
+
+    @Test func seedPillParsesTypeAndOffset() {
+        let options = UITestLaunchOptions(arguments: ["-uiTesting", "-seedPill", "21+7:11"])
+        #expect(options.seedPill?.type == .withBreak)
+        #expect(options.seedPill?.offsetDays == 11)
+        #expect(UITestLaunchOptions(arguments: ["-seedPill", "28:3"]).seedPill == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedPill", "35:3"]).seedPill == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedPill", "28:-1"]).seedPill == nil)
+        let settings = options.seedPill?.settings(today: date("2026-10-12T12:00:00Z"), calendar: utcCalendar)
+        #expect(settings?.packStart == date("2026-10-01T00:00:00Z"))
+        #expect(settings?.enabled == true)
+        #expect(settings?.pack(calendar: utcCalendar)?.pillNumber(on: date("2026-10-12T12:00:00Z")) == 12)
+    }
 }
