@@ -5260,13 +5260,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your data is kept on your iPhone and in your iCloud. You choose what to share. No ads, no selling data."
+            "value": "Your data stays on this iPhone. No account, no ads, no selling data."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dữ liệu được lưu trên iPhone và iCloud của bạn. Bạn tự chọn chia sẻ những gì. Không quảng cáo, không bán dữ liệu."
+            "value": "Dữ liệu chỉ được lưu trên iPhone này. Không cần tài khoản, không quảng cáo, không bán dữ liệu."
           }
         }
       }
