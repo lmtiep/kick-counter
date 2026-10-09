@@ -62,8 +62,16 @@ struct OnboardingView: View {
         case .welcome: .welcome
         case .goal: .goal
         case .dueDate: .dueDate
-        case .result: isPregnancyBranch ? .dueDate : .lastPeriod
-        case .lastPeriod, .periodLength, .cycleLength, .regularity, .contraception: .lastPeriod
+        case .result: isPregnancyBranch ? .dueDate : cycleHero
+        case .lastPeriod, .periodLength, .cycleLength, .regularity, .contraception: cycleHero
+        }
+    }
+
+    /// The cycle branch's picture follows the chosen goal (trying to conceive or tracking).
+    private var cycleHero: OnboardingHeroKind {
+        switch flow.goal {
+        case .some(.conceiving): .cycleConceiving
+        default: .cycleTracking
         }
     }
 
@@ -733,15 +741,18 @@ private struct ContentScrim: View {
 enum OnboardingHeroKind: Hashable {
     case welcome
     case goal
-    /// No photo yet (spec §4.1): a pink gradient with the same wave.
-    case lastPeriod
+    /// The cycle branch's steps: a woman at ease (tracking) or planning with a
+    /// calendar (trying to conceive).
+    case cycleTracking
+    case cycleConceiving
     case dueDate
 
     var imageName: String? {
         switch self {
         case .welcome: "OnboardingWelcome"
         case .goal: "OnboardingGoal"
-        case .lastPeriod: nil
+        case .cycleTracking: "OnboardingTrack"
+        case .cycleConceiving: "OnboardingConceive"
         case .dueDate: "OnboardingDue"
         }
     }
@@ -750,7 +761,7 @@ enum OnboardingHeroKind: Hashable {
         switch self {
         case .welcome: 0.78
         case .goal: 0.58
-        case .lastPeriod: 0.46
+        case .cycleTracking, .cycleConceiving: 0.5
         case .dueDate: 0.62
         }
     }
@@ -758,8 +769,8 @@ enum OnboardingHeroKind: Hashable {
     /// Which part of the photo stays visible (object-position 30–40 % in the design).
     var focus: Alignment {
         switch self {
-        case .welcome, .goal: .top
-        case .lastPeriod, .dueDate: .center
+        case .welcome, .goal, .cycleTracking, .cycleConceiving: .top
+        case .dueDate: .center
         }
     }
 }
