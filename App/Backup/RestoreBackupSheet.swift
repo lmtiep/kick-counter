@@ -88,11 +88,9 @@ struct RestoreBackupSheet: View {
             Text(L10n.backupRestoreCreatedAt(Formatting.dayMonthYear(summary.createdAt)))
                 .font(.luna(.cardTitle))
                 .foregroundStyle(.luna(.textPrimary))
-                .accessibilityIdentifier("restoreBackupDate")
             Text(summary.isEmpty ? L10n.backupRestoreEmpty : L10n.backupCounts(summary))
                 .font(.luna(.body))
                 .foregroundStyle(.luna(.articleText))
-                .accessibilityIdentifier("restoreBackupCounts")
             if let range = summary.dateRange {
                 Text(L10n.backupRestoreRange(
                     Formatting.dayMonthYear(range.lowerBound), Formatting.dayMonthYear(range.upperBound)
@@ -103,7 +101,6 @@ struct RestoreBackupSheet: View {
             Text(summary.mode == .tryingToConceive ? L10n.profileModeCycle : L10n.profileModePregnant)
                 .font(.luna(.caption))
                 .foregroundStyle(.luna(.textSecondary))
-                .accessibilityIdentifier("restoreBackupMode")
         }
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -126,13 +123,11 @@ struct RestoreBackupSheet: View {
                     Text(L10n.backupRestoreRunningSession)
                         .font(.luna(.body))
                         .foregroundStyle(.luna(.textPrimary))
-                        .accessibilityIdentifier("restoreBackupRunningSession")
                 }
                 if skipped > 0 {
                     Text(L10n.backupRestoreSkipped(skipped))
                         .font(.luna(.caption))
                         .foregroundStyle(.luna(.articleText))
-                        .accessibilityIdentifier("restoreBackupSkipped")
                 }
             }
             .fixedSize(horizontal: false, vertical: true)

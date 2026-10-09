@@ -31,7 +31,8 @@ final class BackupScreenshotTests: XCTestCase {
                 extraArguments: ["-seedActiveSession"], dueDate: UITestDates.dueAtWeek24
             )
             XCTAssertTrue(restore.buttons["restoreBackupConfirm"].waitForExistence(timeout: 10))
-            XCTAssertTrue(restore.descendants(matching: .any)["restoreBackupRunningSession"].exists)
+            let warning = restore.descendants(matching: .any)["restoreBackupWarning"]
+            XCTAssertTrue(warning.label.contains("Lượt đếm đang chạy sẽ bị dừng."), warning.label)
             attachScreenshot(restore, "backup-restore-\(suffix)")
             restore.terminate()
 

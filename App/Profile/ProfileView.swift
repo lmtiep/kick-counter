@@ -541,8 +541,8 @@ struct ProfileView: View {
             .buttonStyle(.plain)
             .accessibilityIdentifier("profileBackupImport")
         }
+        // No identifier on the card: it would replace the rows' own identifiers.
         .lunaCard(padding: 0)
-        .accessibilityIdentifier("profileDataSection")
     }
 
     private func dataRow(_ title: String, systemImage: String, detail: String?, busy: Bool) -> some View {
