@@ -27,6 +27,7 @@ struct BackupStoreTests {
         context.insert(PeriodEntry(record: PeriodRecord(startDate: day)))
         context.insert(CycleLog(record: CycleLogRecord(day: day, note: "cũ")))
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 50)))
+        context.insert(PillDose(record: PillDoseRecord(day: day, takenAt: day.addingTimeInterval(75_600))))
         try context.save()
     }
 
@@ -51,7 +52,11 @@ struct BackupStoreTests {
                 day: date("2026-10-02T00:00:00Z"), lh: .positive, note: "mới", moods: [.happy],
                 unknownMoodsRaw: ["dreamy"], unknownSymptomsRaw: ["futureSymptom"]
             ))],
-            weights: [WeightRecord(day: date("2026-10-03T00:00:00Z"), kg: 56.2)]
+            weights: [WeightRecord(day: date("2026-10-03T00:00:00Z"), kg: 56.2)],
+            pillDoses: [
+                PillDoseRecord(day: date("2026-10-07T00:00:00Z"), takenAt: date("2026-10-07T21:04:00Z")),
+                PillDoseRecord(day: date("2026-10-08T00:00:00Z"), takenAt: date("2026-10-08T21:10:00Z")),
+            ]
         )
     }
 
@@ -61,7 +66,8 @@ struct BackupStoreTests {
             appointments: records.appointments.sorted { $0.date < $1.date },
             periods: records.periods.sorted { $0.startDate < $1.startDate },
             logs: records.logs.sorted { $0.day < $1.day },
-            weights: records.weights.sorted { $0.day < $1.day }
+            weights: records.weights.sorted { $0.day < $1.day },
+            pillDoses: records.pillDoses.sorted { $0.day < $1.day }
         )
     }
 
@@ -74,6 +80,7 @@ struct BackupStoreTests {
         #expect(exported.periods.count == 1)
         #expect(exported.logs.map(\.note) == ["cũ"])
         #expect(exported.weights.map(\.kg) == [50])
+        #expect(exported.pillDoses.map(\.day) == [date("2026-09-01T00:00:00Z")])
     }
 
     @Test func replaceAllSwapsEverythingForTheFileRecords() throws {
@@ -86,6 +93,7 @@ struct BackupStoreTests {
         let context = container.mainContext
         #expect(try context.fetchCount(FetchDescriptor<Kick>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 2)
+        #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 2)
     }
 
     @Test func replaceAllThenExportRoundTripsThroughTheCodec() throws {
@@ -98,6 +106,7 @@ struct BackupStoreTests {
         let decoded = try BackupCodec.decode(BackupCodec.encode(document))
         #expect(decoded == document)
         #expect(decoded.cycleLogs.first?.record.unknownMoodsRaw == ["dreamy"])
+        #expect(decoded.records.pillDoses.count == 2)
     }
 
     /// The safety proof: a save that fails leaves every old record in place and
@@ -114,6 +123,7 @@ struct BackupStoreTests {
         let context = container.mainContext
         #expect(try context.fetchCount(FetchDescriptor<Kick>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 1)
+        #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 1)
         #expect(!context.hasChanges)
         // A later save does not resurrect the abandoned replace.
         try context.save()
@@ -125,7 +135,7 @@ struct BackupStoreTests {
         try BackupStore.replaceAll(in: container, with: BackupRecords(sessions: [], appointments: [], periods: [], logs: [], weights: []))
         let exported = try BackupStore.export(from: container)
         #expect(exported.sessions.isEmpty && exported.appointments.isEmpty && exported.periods.isEmpty)
-        #expect(exported.logs.isEmpty && exported.weights.isEmpty)
+        #expect(exported.logs.isEmpty && exported.weights.isEmpty && exported.pillDoses.isEmpty)
         #expect(try container.mainContext.fetchCount(FetchDescriptor<Kick>()) == 0)
     }
 

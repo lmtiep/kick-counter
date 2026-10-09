@@ -21,6 +21,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     public var periods: [PeriodDTO]
     public var cycleLogs: [CycleLogDTO]
     public var weights: [WeightDTO]
+    /// Marked pills (phase 17). Optional in the file: missing means none, and an
+    /// empty list is not written, so version 1 files stay as they were.
+    public var pillDoses: [PillDoseDTO] = []
     /// Typed by `BackupSettings.table`; keys outside the table are dropped on decode.
     public var settings: [String: BackupValue]
 
@@ -54,7 +57,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, settings
+        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, settings
     }
 
     public init(from decoder: Decoder) throws {
@@ -68,6 +71,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         periods = try container.decode([PeriodDTO].self, forKey: .periods)
         cycleLogs = try container.decode([CycleLogDTO].self, forKey: .cycleLogs)
         weights = try container.decode([WeightDTO].self, forKey: .weights)
+        pillDoses = try container.decodeIfPresent([PillDoseDTO].self, forKey: .pillDoses) ?? []
         let raw = try container.decode([String: BackupJSONScalar].self, forKey: .settings)
         settings = BackupSettings.typed(raw)
     }
@@ -83,6 +87,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         try container.encode(periods, forKey: .periods)
         try container.encode(cycleLogs, forKey: .cycleLogs)
         try container.encode(weights, forKey: .weights)
+        if !pillDoses.isEmpty {
+            try container.encode(pillDoses, forKey: .pillDoses)
+        }
         try container.encode(settings, forKey: .settings)
     }
 }
@@ -228,6 +235,22 @@ public struct WeightDTO: Equatable, Sendable, Codable {
     }
 }
 
+public struct PillDoseDTO: Equatable, Sendable, Codable {
+    public var id: UUID
+    public var day: Date
+    public var takenAt: Date
+
+    public init(_ record: PillDoseRecord) {
+        id = record.id
+        day = record.day
+        takenAt = record.takenAt
+    }
+
+    public var record: PillDoseRecord {
+        PillDoseRecord(id: id, day: day, takenAt: takenAt)
+    }
+}
+
 // MARK: - Records
 
 /// Every record a backup carries, as the stores hold them (`BackupStore` in KickData).
@@ -238,19 +261,22 @@ public struct BackupRecords: Equatable, Sendable {
     public var periods: [PeriodRecord]
     public var logs: [CycleLogDTO]
     public var weights: [WeightRecord]
+    public var pillDoses: [PillDoseRecord]
 
     public init(
         sessions: [SessionRecord],
         appointments: [AppointmentRecord],
         periods: [PeriodRecord],
         logs: [CycleLogDTO],
-        weights: [WeightRecord]
+        weights: [WeightRecord],
+        pillDoses: [PillDoseRecord] = []
     ) {
         self.sessions = sessions
         self.appointments = appointments
         self.periods = periods
         self.logs = logs
         self.weights = weights
+        self.pillDoses = pillDoses
     }
 }
 
@@ -262,6 +288,7 @@ extension BackupDocument {
             cycleLogs: [], weights: records.weights, settings: settings
         )
         cycleLogs = records.logs
+        pillDoses = records.pillDoses.map(PillDoseDTO.init)
     }
 
     public var records: BackupRecords {
@@ -270,7 +297,8 @@ extension BackupDocument {
             appointments: appointments.map(\.record),
             periods: periods.map(\.record),
             logs: cycleLogs,
-            weights: weights.map(\.record)
+            weights: weights.map(\.record),
+            pillDoses: pillDoses.map(\.record)
         )
     }
 }

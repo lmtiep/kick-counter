@@ -211,3 +211,22 @@ public final class WeightEntry {
         kg = record.kg
     }
 }
+
+/// One pill marked as taken (phase 17). At most one per day (kept so by `PillDoseStore`).
+@Model
+public final class PillDose {
+    public var id: UUID = UUID()
+    /// Start of the day the pill belongs to.
+    public var day: Date = Date()
+    public var takenAt: Date = Date()
+
+    public init(record: PillDoseRecord) {
+        id = record.id
+        day = record.day
+        takenAt = record.takenAt
+    }
+
+    public var record: PillDoseRecord {
+        PillDoseRecord(id: id, day: day, takenAt: takenAt)
+    }
+}

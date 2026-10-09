@@ -56,6 +56,16 @@ public enum SettingsKey {
     public static let maternalHeightCm = "maternalHeightCm"
     /// `Date` of the last backup file shared from Profile (phase 15). Missing means never.
     public static let lastBackupAt = "lastBackupAt"
+    /// The daily pill reminder (phase 17). Missing means off.
+    public static let pillReminderEnabled = "pillReminderEnabled"
+    /// `PillPackType` raw value (`"21+7"` or `"28"`). Missing means `"21+7"`.
+    public static let pillPackType = "pillPackType"
+    /// First day of the current pack, start of day, `timeIntervalSince1970`; 0 or missing means not set.
+    public static let pillPackStart = "pillPackStart"
+    /// Missing means 21.
+    public static let pillReminderHour = "pillReminderHour"
+    /// Missing means 0.
+    public static let pillReminderMinute = "pillReminderMinute"
 }
 
 public enum SettingsDefault {
