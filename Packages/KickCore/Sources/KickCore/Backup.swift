@@ -159,6 +159,7 @@ public struct PeriodDTO: Equatable, Sendable, Codable {
 public struct CycleLogDTO: Equatable, Sendable, Codable {
     public var id: UUID
     public var day: Date
+    /// Raw values, as stored: one this build does not know is kept and written back.
     public var lh: String?
     public var bbtCelsius: Double?
     public var mucus: String?
@@ -182,6 +183,15 @@ public struct CycleLogDTO: Equatable, Sendable, Codable {
         symptoms = record.symptoms.map(\.rawValue)
         unknownMoods = record.unknownMoodsRaw
         unknownSymptoms = record.unknownSymptomsRaw
+    }
+
+    /// The record with the stored raw LH, mucus and flow values, which may be
+    /// values this build cannot read (the record drops them).
+    public init(_ record: CycleLogRecord, lhRaw: String?, mucusRaw: String?, flowRaw: String?) {
+        self.init(record)
+        lh = lhRaw
+        mucus = mucusRaw
+        flow = flowRaw
     }
 
     /// A mood or symptom this build cannot read joins the unknown list.
@@ -221,18 +231,19 @@ public struct WeightDTO: Equatable, Sendable, Codable {
 // MARK: - Records
 
 /// Every record a backup carries, as the stores hold them (`BackupStore` in KickData).
+/// Day logs stay DTOs so raw values this build cannot read travel unchanged.
 public struct BackupRecords: Equatable, Sendable {
     public var sessions: [SessionRecord]
     public var appointments: [AppointmentRecord]
     public var periods: [PeriodRecord]
-    public var logs: [CycleLogRecord]
+    public var logs: [CycleLogDTO]
     public var weights: [WeightRecord]
 
     public init(
         sessions: [SessionRecord],
         appointments: [AppointmentRecord],
         periods: [PeriodRecord],
-        logs: [CycleLogRecord],
+        logs: [CycleLogDTO],
         weights: [WeightRecord]
     ) {
         self.sessions = sessions
@@ -248,8 +259,9 @@ extension BackupDocument {
         self.init(
             createdAt: createdAt, appVersion: appVersion,
             sessions: records.sessions, appointments: records.appointments, periods: records.periods,
-            cycleLogs: records.logs, weights: records.weights, settings: settings
+            cycleLogs: [], weights: records.weights, settings: settings
         )
+        cycleLogs = records.logs
     }
 
     public var records: BackupRecords {
@@ -257,7 +269,7 @@ extension BackupDocument {
             sessions: sessions.map(\.record),
             appointments: appointments.map(\.record),
             periods: periods.map(\.record),
-            logs: cycleLogs.map(\.record),
+            logs: cycleLogs,
             weights: weights.map(\.record)
         )
     }

@@ -22,18 +22,14 @@ public enum BackupCodec {
         return try encoder.encode(document)
     }
 
-    /// Never touches any data: it only reads `data`. Unknown extra fields are ignored.
-    public static func decode(_ data: Data) throws -> BackupDocument {
-        let header: Header
-        do {
-            header = try JSONDecoder().decode(Header.self, from: data)
-        } catch {
-            throw BackupError.corrupt
-        }
-        guard header.format == BackupFormat.name else { throw BackupError.notABackup }
-        guard let version = header.version, version >= 1 else { throw BackupError.corrupt }
-        guard version <= BackupFormat.version else { throw BackupError.newerVersion(version) }
+    /// Larger files are refused before they are parsed (a real backup is far smaller).
+    public static let maxFileSize = 20 * 1024 * 1024
 
+    /// Never touches any data: it only reads `data`. Unknown extra fields are ignored.
+    /// A valid file is parsed once; only a file that fails is read again, for its
+    /// header, to say why.
+    public static func decode(_ data: Data) throws -> BackupDocument {
+        guard data.count <= maxFileSize else { throw BackupError.corrupt }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .custom { decoder in
             let container = try decoder.singleValueContainer()
@@ -43,11 +39,19 @@ public enum BackupCodec {
             }
             return date
         }
-        do {
-            return try decoder.decode(BackupDocument.self, from: data)
-        } catch {
-            throw BackupError.corrupt
+        if let document = try? decoder.decode(BackupDocument.self, from: data) {
+            try check(format: document.format, version: document.version)
+            return document
         }
+        guard let header = try? JSONDecoder().decode(Header.self, from: data) else { throw BackupError.corrupt }
+        try check(format: header.format, version: header.version)
+        throw BackupError.corrupt
+    }
+
+    private static func check(format: String?, version: Int?) throws {
+        guard format == BackupFormat.name else { throw BackupError.notABackup }
+        guard let version, version >= 1 else { throw BackupError.corrupt }
+        guard version <= BackupFormat.version else { throw BackupError.newerVersion(version) }
     }
 
     static func formatDate(_ date: Date) -> String {
@@ -129,16 +133,35 @@ public enum BackupValidation {
         cleaned.periods = keep(document.periods, id: \.id) {
             (try? CycleRules.validate($0.record, existing: [], today: now, calendar: calendar)) != nil
         }
-        cleaned.cycleLogs = keep(document.cycleLogs, id: \.id) {
+        // One log and one weight per day, as the stores keep them: the last in the file wins.
+        func lastPerDay<DTO>(_ items: [DTO], day: (DTO) -> Date) -> [DTO] {
+            var lastIndex: [Date: Int] = [:]
+            for (index, item) in items.enumerated() {
+                lastIndex[calendar.startOfDay(for: day(item))] = index
+            }
+            let kept = items.enumerated().filter { lastIndex[calendar.startOfDay(for: day($0.element))] == $0.offset }
+            skipped += items.count - kept.count
+            return kept.map(\.element)
+        }
+        cleaned.cycleLogs = lastPerDay(keep(document.cycleLogs, id: \.id) {
             (try? CycleRules.validate($0.record, today: now, calendar: calendar)) != nil
-        }
-        cleaned.weights = keep(document.weights, id: \.id) {
+        }, day: \.day)
+        cleaned.weights = lastPerDay(keep(document.weights, id: \.id) {
             (try? WeightRules.validate($0.record, today: now, calendar: calendar)) != nil
-        }
+        }, day: \.day)
         cleaned.appointments = keep(document.appointments, id: \.id) {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
-        let sessions = keep(document.sessions, id: \.id) { $0.startedAt <= now }
+        // A session cannot start in the future or end before it starts; kicks
+        // after now cannot have happened and are dropped.
+        let sessions = keep(document.sessions, id: \.id) { dto in
+            dto.startedAt <= now && (dto.endedAt.map { $0 >= dto.startedAt } ?? true)
+        }.map { dto in
+            guard dto.kicks.contains(where: { $0 > now }) else { return dto }
+            var trimmed = dto
+            trimmed.kicks = dto.kicks.filter { $0 <= now }
+            return trimmed
+        }
         cleaned.sessions = closingStaleActiveSessions(sessions, now: now)
         return (cleaned, skipped)
     }

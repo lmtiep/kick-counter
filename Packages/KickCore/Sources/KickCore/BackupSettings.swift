@@ -120,10 +120,14 @@ public enum BackupSettings {
 
     /// The preferences half of a restore (spec §4.2 step 2), run only after the
     /// store was replaced: clears every owned key, writes the file's settings and
-    /// completes onboarding.
-    public static func restore(_ values: [String: BackupValue], to defaults: UserDefaults) {
+    /// completes onboarding. The phone's last backup is now the restored file
+    /// (`backupCreatedAt`), not the date the file itself remembers.
+    public static func restore(_ values: [String: BackupValue], backupCreatedAt: Date, to defaults: UserDefaults) {
         AppDataReset.clearDefaults(defaults)
-        write(values, to: defaults)
+        var restored = values
+        restored[SettingsKey.lastBackupAt] = nil
+        write(restored, to: defaults)
+        defaults.set(backupCreatedAt, forKey: SettingsKey.lastBackupAt)
         defaults.set(true, forKey: SettingsKey.hasCompletedOnboarding)
     }
 

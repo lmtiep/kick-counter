@@ -12,7 +12,9 @@ public enum BackupStore {
             sessions: try context.fetch(FetchDescriptor<KickSession>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record),
             appointments: try context.fetch(FetchDescriptor<Appointment>(sortBy: [SortDescriptor(\.date)])).map(\.record),
             periods: try context.fetch(FetchDescriptor<PeriodEntry>(sortBy: [SortDescriptor(\.startDate)])).map(\.record),
-            logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map(\.record),
+            logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map {
+                CycleLogDTO($0.record, lhRaw: $0.lhRaw, mucusRaw: $0.mucusRaw, flowRaw: $0.flowRaw)
+            },
             weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record)
         )
     }
@@ -44,8 +46,13 @@ public enum BackupStore {
             for record in records.periods {
                 context.insert(PeriodEntry(record: record))
             }
-            for record in records.logs {
-                context.insert(CycleLog(record: record))
+            for dto in records.logs {
+                let log = CycleLog(record: dto.record)
+                // Raw values this build cannot read are written back as they were.
+                log.lhRaw = dto.lh
+                log.mucusRaw = dto.mucus
+                log.flowRaw = dto.flow
+                context.insert(log)
             }
             for record in records.weights {
                 context.insert(WeightEntry(record: record))

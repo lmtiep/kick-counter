@@ -47,10 +47,10 @@ struct BackupStoreTests {
                 PeriodRecord(startDate: date("2026-09-10T00:00:00Z"), endDate: date("2026-09-14T00:00:00Z")),
                 PeriodRecord(startDate: date("2026-10-07T00:00:00Z")),
             ],
-            logs: [CycleLogRecord(
+            logs: [CycleLogDTO(CycleLogRecord(
                 day: date("2026-10-02T00:00:00Z"), lh: .positive, note: "mới", moods: [.happy],
                 unknownMoodsRaw: ["dreamy"], unknownSymptomsRaw: ["futureSymptom"]
-            )],
+            ))],
             weights: [WeightRecord(day: date("2026-10-03T00:00:00Z"), kg: 56.2)]
         )
     }
@@ -93,9 +93,7 @@ struct BackupStoreTests {
         try BackupStore.replaceAll(in: container, with: records)
         let exported = try BackupStore.export(from: container)
         let document = BackupDocument(
-            createdAt: date("2026-10-09T09:00:00Z"), appVersion: "test",
-            sessions: exported.sessions, appointments: exported.appointments, periods: exported.periods,
-            cycleLogs: exported.logs, weights: exported.weights, settings: [:]
+            createdAt: date("2026-10-09T09:00:00Z"), appVersion: "test", records: exported, settings: [:]
         )
         let decoded = try BackupCodec.decode(BackupCodec.encode(document))
         #expect(decoded == document)
@@ -138,5 +136,24 @@ struct BackupStoreTests {
         let cycleStore = CycleStore(context: container.mainContext)
         #expect(try cycleStore.periods().count == 2)
         #expect(try cycleStore.logs().first?.unknownSymptomsRaw == ["futureSymptom"])
+    }
+
+    /// LH, mucus and flow values this build cannot read survive export and restore.
+    @Test func unknownRawLogValuesSurviveExportAndRestore() throws {
+        let context = container.mainContext
+        let log = CycleLog(record: CycleLogRecord(day: date("2026-10-02T00:00:00Z")))
+        log.lhRaw = "faint"
+        log.mucusRaw = "watery"
+        log.flowRaw = "spotting"
+        context.insert(log)
+        try context.save()
+
+        let exported = try BackupStore.export(from: container)
+        let dto = try #require(exported.logs.first)
+        #expect(dto.lh == "faint" && dto.mucus == "watery" && dto.flow == "spotting")
+
+        try BackupStore.replaceAll(in: container, with: exported)
+        let stored = try #require(try context.fetch(FetchDescriptor<CycleLog>()).first)
+        #expect(stored.lhRaw == "faint" && stored.mucusRaw == "watery" && stored.flowRaw == "spotting")
     }
 }

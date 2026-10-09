@@ -652,6 +652,8 @@ struct ProfileView: View {
             return
         }
         AppDataReset.clearDefaults(AppGroup.defaults)
+        // Backup copies inside the app hold the same health data (phase 15).
+        BackupCenter.removeLeftovers()
         refreshLastBackup()
         await AppDataReload.afterReplacingAllData(kicks: coordinator, appointments: appointments, cycle: cycle, weight: weight)
         profileLogger.info("Deleted all data")

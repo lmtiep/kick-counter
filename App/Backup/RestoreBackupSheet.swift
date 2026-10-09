@@ -98,7 +98,7 @@ struct RestoreBackupSheet: View {
                 .font(.luna(.caption))
                 .foregroundStyle(.luna(.textSecondary))
             }
-            Text(summary.mode == .tryingToConceive ? L10n.profileModeCycle : L10n.profileModePregnant)
+            Text(modeText(summary.mode))
                 .font(.luna(.caption))
                 .foregroundStyle(.luna(.textSecondary))
         }
@@ -107,6 +107,14 @@ struct RestoreBackupSheet: View {
         .lunaCard()
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("restoreBackupSummary")
+    }
+
+    private func modeText(_ mode: AppMode) -> String {
+        switch mode {
+        case .tryingToConceive: L10n.profileModeCycle
+        case .pregnant: L10n.profileModePregnant
+        case .partner: AppEnvironment.showsPartnerUI ? L10n.partnerModeName : L10n.backupRestorePartnerMode
+        }
     }
 
     private func warningCard(skipped: Int) -> some View {
@@ -138,28 +146,33 @@ struct RestoreBackupSheet: View {
         .accessibilityIdentifier("restoreBackupWarning")
     }
 
-    /// Spec §4.2: the store first, in one save that rolls back on failure (then
-    /// nothing else is touched); only then the preferences, the notifications and
-    /// Live Activities, and the coordinators. RootView then shows Today and a toast.
+    /// Spec §4.2. The kick session, its Live Activity and every notification stop
+    /// first, so nothing from the old data (a "+1" from the Lock Screen) lands in
+    /// the restored store. Then the store, in one save that rolls back on failure:
+    /// the old data is then reloaded as it was and nothing else is touched. Only
+    /// after it succeeded: the preferences, the coordinators, Today and a toast.
     private func restore(_ document: BackupDocument) async {
         guard !working else { return }
         working = true
         failed = false
         defer { working = false }
+        await AppDataReload.stopEverything(kicks: kicks)
         do {
             try BackupStore.replaceAll(in: modelContext.container, with: document.records)
         } catch {
             logger.error("Restoring a backup failed: \(error.localizedDescription)")
+            await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight)
             failed = true
             AccessibilityNotification.Announcement(L10n.backupRestoreFailed).post()
             return
         }
-        BackupSettings.restore(document.settings, to: AppGroup.defaults)
+        BackupSettings.restore(document.settings, backupCreatedAt: document.createdAt, to: AppGroup.defaults)
         // Partner mode is hidden in 1.0 (phase 12): such a file goes through onboarding.
         if !AppEnvironment.showsPartnerUI, AppMode.hidePartnerMode(in: AppGroup.defaults) {
             logger.info("Restored partner mode hidden: onboarding again")
         }
-        await AppDataReload.afterReplacingAllData(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight)
+        await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight)
+        BackupCenter.removeLeftovers()
         logger.info("Restored a backup")
         backup.didRestore()
     }

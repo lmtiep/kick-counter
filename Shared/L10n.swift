@@ -790,6 +790,8 @@ enum L10n {
     static var backupRestoreEmpty: String { t("backup.restore.empty") }
     static var backupRestoreWarning: String { t("backup.restore.warning") }
     static var backupRestoreRunningSession: String { t("backup.restore.runningSession") }
+    /// A file in partner mode while partner mode is hidden (phase 12): onboarding follows.
+    static var backupRestorePartnerMode: String { t("backup.restore.partnerMode") }
     static func backupRestoreSkipped(_ count: Int) -> String {
         count == 1 ? t("backup.restore.skipped.one") : String(format: t("backup.restore.skipped"), count)
     }

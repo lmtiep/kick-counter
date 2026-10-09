@@ -28,12 +28,24 @@ final class BackupCenter {
     /// Changes after every successful restore, so RootView can land on Today.
     private(set) var restoreCount = 0
 
-    /// Reads the file (security-scoped when it comes from the document picker or
-    /// another app), decodes and validates it. Nothing is written.
+    /// Reads the file (security-scoped when it comes from the document picker),
+    /// decodes and validates it; no app data is written. A copy inside the app
+    /// (`Documents/Inbox`, where iOS puts a file opened from another app, or tmp)
+    /// is deleted once read: it holds unencrypted health data.
     func open(_ url: URL) {
         let scoped = url.startAccessingSecurityScopedResource()
-        defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+        defer {
+            if scoped { url.stopAccessingSecurityScopedResource() }
+            if BackupLeftovers.isInside(url, directory: URL(fileURLWithPath: NSHomeDirectory())) {
+                try? FileManager.default.removeItem(at: url)
+            }
+        }
         do {
+            let size = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
+            guard size <= BackupCodec.maxFileSize else {
+                request = Request(result: .failure(.corrupt))
+                return
+            }
             open(data: try Data(contentsOf: url))
         } catch {
             logger.error("Reading a backup file failed: \(error.localizedDescription)")
@@ -58,6 +70,14 @@ final class BackupCenter {
         restoreCount += 1
     }
 
+    /// Deletes every backup copy inside the app (`BackupLeftovers`): after "Xoá toàn
+    /// bộ dữ liệu" and after a restore.
+    static func removeLeftovers() {
+        let fileManager = FileManager.default
+        guard let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        BackupLeftovers.removeAll(documents: documents, temporary: fileManager.temporaryDirectory)
+    }
+
     /// Whether `url` is a backup this app should open (`onOpenURL`).
     static func isBackupFile(_ url: URL) -> Bool {
         url.isFileURL && url.pathExtension.lowercased() == BackupFormat.fileExtension
@@ -73,7 +93,7 @@ final class BackupCenter {
             settings: BackupSettings.read(from: AppGroup.defaults)
         )
         let folder = FileManager.default.temporaryDirectory
-            .appendingPathComponent("Backup-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("\(BackupLeftovers.exportFolderPrefix)\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let url = folder.appendingPathComponent(BackupDocument.fileName(for: now, calendar: AppLocale.calendar))
         try BackupCodec.encode(document).write(to: url, options: [.atomic, .completeFileProtection])

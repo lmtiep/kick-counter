@@ -137,3 +137,59 @@ struct BackupValidationTests {
         #expect(byID[older.id]?.endedAt == date("2026-10-09T08:01:00Z"))
     }
 }
+
+/// Final review: the stores' one-per-day invariants and impossible sessions.
+struct BackupValidationReviewTests {
+    let now = date("2026-10-09T12:00:00Z")
+
+    private func clean(sessions: [SessionRecord] = [], logs: [CycleLogRecord] = [], weights: [WeightRecord] = []) -> (BackupDocument, skipped: Int) {
+        BackupValidation.clean(
+            BackupDocument(
+                createdAt: now, appVersion: "1.0", sessions: sessions, appointments: [], periods: [],
+                cycleLogs: logs, weights: weights, settings: [:]
+            ),
+            now: now, calendar: utcCalendar
+        )
+    }
+
+    @Test func twoLogsOnOneDayKeepTheLast() {
+        let (cleaned, skipped) = clean(logs: [
+            CycleLogRecord(day: date("2026-10-02T00:00:00Z"), note: "first"),
+            CycleLogRecord(day: date("2026-10-02T15:00:00Z"), note: "second"),
+            CycleLogRecord(day: date("2026-10-03T00:00:00Z"), note: "other day"),
+        ])
+        #expect(skipped == 1)
+        #expect(cleaned.cycleLogs.map(\.note) == ["second", "other day"])
+    }
+
+    @Test func twoWeightsOnOneDayKeepTheLast() {
+        let (cleaned, skipped) = clean(weights: [
+            WeightRecord(day: date("2026-10-02T00:00:00Z"), kg: 55),
+            WeightRecord(day: date("2026-10-02T08:00:00Z"), kg: 56),
+        ])
+        #expect(skipped == 1)
+        #expect(cleaned.weights.map(\.kg) == [56])
+    }
+
+    @Test func aSessionEndingBeforeItStartsIsSkipped() {
+        let (cleaned, skipped) = clean(sessions: [
+            SessionRecord(id: UUID(), state: SessionState(
+                startedAt: date("2026-10-08T20:00:00Z"), status: .cancelled, endedAt: date("2026-10-08T19:00:00Z")
+            )),
+        ])
+        #expect(skipped == 1)
+        #expect(cleaned.sessions.isEmpty)
+    }
+
+    @Test func futureKicksAreDropped() throws {
+        let (cleaned, skipped) = clean(sessions: [
+            SessionRecord(id: UUID(), state: SessionState(
+                startedAt: date("2026-10-09T11:00:00Z"),
+                kicks: [date("2026-10-09T11:01:00Z"), date("2026-10-09T13:00:00Z")]
+            )),
+        ])
+        #expect(skipped == 0)
+        let state = try #require(cleaned.sessions.first?.record.state)
+        #expect(state.kicks == [date("2026-10-09T11:01:00Z")])
+    }
+}

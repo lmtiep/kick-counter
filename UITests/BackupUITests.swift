@@ -107,6 +107,32 @@ final class BackupUITests: XCTestCase {
         XCTAssertTrue(error.label.contains("newer version of Luna Mom"), error.label)
     }
 
+    /// Final review: a file opened while another sheet is up still shows the restore
+    /// sheet, over it. The file opens when the app comes back to the foreground.
+    @MainActor
+    func testAFileOpenedOverASheetShowsTheRestoreSheet() {
+        let app = BackupFiles.launch(
+            BackupFiles.sample(), extraArguments: ["-uiTestingRestoreOnReactivate"], dueDate: UITestDates.dueAtWeek38
+        )
+        app.openTab(.profile)
+        let reminder = app.buttons["profileKickReminder"]
+        XCTAssertTrue(reminder.waitForExistence(timeout: 10))
+        reminder.tap()
+        XCTAssertTrue(app.buttons["kickSettingsDone"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["restoreBackupConfirm"].exists)
+
+        XCUIDevice.shared.press(.home)
+        app.activate()
+
+        let confirm = app.buttons["restoreBackupConfirm"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 15))
+        let summary = app.descendants(matching: .any)["restoreBackupSummary"]
+        XCTAssertTrue(summary.label.contains("3 kick counts"), summary.label)
+        app.buttons["restoreBackupCancel"].tap()
+        XCTAssertTrue(app.buttons["kickSettingsDone"].waitForExistence(timeout: 5))
+        XCTAssertFalse(confirm.waitForExistence(timeout: 2))
+    }
+
     // MARK: - Onboarding
 
     @MainActor

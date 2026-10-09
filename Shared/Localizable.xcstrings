@@ -902,6 +902,23 @@
         }
       }
     },
+    "backup.restore.partnerMode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partner mode: after restoring, you'll go through the introduction again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chế độ Bạn đời: sau khi khôi phục, bạn sẽ đi lại phần giới thiệu."
+          }
+        }
+      }
+    },
     "backup.restore.range": {
       "extractionState": "manual",
       "localizations": {

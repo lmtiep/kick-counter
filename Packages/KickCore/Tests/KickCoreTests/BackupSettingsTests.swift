@@ -73,7 +73,7 @@ struct BackupSettingsTests {
             "someOtherAppKey": .string("overwritten"),
             // Wrong type for the key: never written.
             SettingsKey.reminderHour: .string("late"),
-        ], to: defaults)
+        ], backupCreatedAt: date("2026-10-01T10:00:00Z"), to: defaults)
 
         #expect(defaults.bool(forKey: SettingsKey.reminderEnabled))
         #expect(defaults.integer(forKey: SettingsKey.reminderMinute) == 30)
@@ -96,9 +96,11 @@ struct BackupSettingsTests {
         source.set(165.0, forKey: SettingsKey.maternalHeightCm)
         let target = makeTestDefaults()
 
-        BackupSettings.restore(BackupSettings.read(from: source), to: target)
+        BackupSettings.restore(BackupSettings.read(from: source), backupCreatedAt: date("2026-10-01T10:00:00Z"), to: target)
 
-        #expect(BackupSettings.read(from: target) == BackupSettings.read(from: source))
+        var restored = BackupSettings.read(from: target)
+        #expect(restored.removeValue(forKey: SettingsKey.lastBackupAt) == .date(date("2026-10-01T10:00:00Z")))
+        #expect(restored == BackupSettings.read(from: source))
         #expect(target.object(forKey: SettingsKey.kickHapticsEnabled) as? Bool == false)
     }
 }
@@ -135,5 +137,20 @@ struct BackupSummaryTests {
             settings: [SettingsKey.appMode: .string("tryingToConceive")]
         )
         #expect(document.summary.mode == .tryingToConceive)
+    }
+}
+
+struct BackupSettingsLastBackupTests {
+    /// The file's own "last backup" is not restored: the restored phone's last
+    /// backup is the file it was restored from.
+    @Test func restoreSetsLastBackupToTheFileDate() {
+        let defaults = makeTestDefaults()
+        BackupSettings.restore(
+            [SettingsKey.lastBackupAt: .date(date("2026-01-01T00:00:00Z")), SettingsKey.reminderEnabled: .bool(true)],
+            backupCreatedAt: date("2026-10-01T09:41:00Z"),
+            to: defaults
+        )
+        #expect(defaults.object(forKey: SettingsKey.lastBackupAt) as? Date == date("2026-10-01T09:41:00Z"))
+        #expect(defaults.bool(forKey: SettingsKey.reminderEnabled))
     }
 }

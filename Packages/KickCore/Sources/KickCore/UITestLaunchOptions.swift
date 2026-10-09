@@ -18,6 +18,8 @@ import Foundation
 /// - `-seedAppMode <mode>` stores that `AppMode` (e.g. `partner`) without any fake sharing.
 /// - `-uiTestingRestoreFile <path>` opens the restore sheet for that backup file at launch,
 ///   as opening a `.lunamom` file does (phase 15). A relative path is in the app's tmp folder.
+/// - `-uiTestingRestoreOnReactivate` opens that file each time the app comes back to the
+///   foreground instead of at launch, so a test can open it while a sheet is up.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -33,6 +35,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let forcesPartnerUI: Bool
     public let seedAppMode: AppMode?
     public let restoreFile: String?
+    public let restoresFileOnReactivate: Bool
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -55,6 +58,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         forcesPartnerUI = isUITesting && arguments.contains("-uiTestingPartnerUI")
         seedAppMode = isUITesting ? Self.value(after: "-seedAppMode", in: arguments).flatMap(AppMode.init(rawValue:)) : nil
         restoreFile = isUITesting ? Self.value(after: "-uiTestingRestoreFile", in: arguments) : nil
+        restoresFileOnReactivate = isUITesting && arguments.contains("-uiTestingRestoreOnReactivate")
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {

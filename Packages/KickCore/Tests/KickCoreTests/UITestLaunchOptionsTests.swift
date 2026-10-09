@@ -110,3 +110,10 @@ struct UITestRestoreFileOptionTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).restoreFile == nil)
     }
 }
+
+struct UITestRestoreOnReactivateOptionTests {
+    @Test func reactivationFlagNeedsUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingRestoreOnReactivate"]).restoresFileOnReactivate)
+        #expect(!UITestLaunchOptions(arguments: ["-uiTestingRestoreOnReactivate"]).restoresFileOnReactivate)
+    }
+}

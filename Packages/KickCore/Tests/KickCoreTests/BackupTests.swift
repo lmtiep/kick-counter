@@ -151,3 +151,49 @@ struct BackupCodecTests {
         #expect(BackupFormat.typeIdentifier == "com.lmtiep.kickcounter.backup")
     }
 }
+
+/// Final review fixes: one decode on the happy path, a size limit, raw values kept.
+struct BackupCodecReviewTests {
+    @Test func aWholeFileFromANewerVersionIsStillNewer() throws {
+        var document = BackupCodecTests.sampleDocument()
+        document.version = 2
+        #expect(throws: BackupError.newerVersion(2)) { try BackupCodec.decode(BackupCodec.encode(document)) }
+    }
+
+    @Test func aWholeFileWithAnotherFormatIsNotABackup() throws {
+        var document = BackupCodecTests.sampleDocument()
+        document.format = "other-app"
+        #expect(throws: BackupError.notABackup) { try BackupCodec.decode(BackupCodec.encode(document)) }
+    }
+
+    @Test func aFileOverTheSizeLimitIsCorruptWithoutReadingIt() {
+        let big = Data(count: BackupCodec.maxFileSize + 1)
+        #expect(throws: BackupError.corrupt) { try BackupCodec.decode(big) }
+        #expect(BackupCodec.maxFileSize == 20 * 1024 * 1024)
+    }
+
+    @Test func unknownLHMucusAndFlowValuesSurvive() throws {
+        let json = """
+        {"format":"luna-mom-backup","version":1,"createdAt":"2026-10-09T09:41:00Z","appVersion":"2.0",
+         "sessions":[],"appointments":[],"periods":[],"weights":[],"settings":{},
+         "cycleLogs":[{"id":"00000000-0000-0000-0000-0000000000AB","day":"2026-10-02T00:00:00Z",
+           "lh":"faint","mucus":"watery","flow":"spotting","note":"","moods":[],"symptoms":[],
+           "unknownMoods":[],"unknownSymptoms":[]}]}
+        """
+        let document = try BackupCodec.decode(Data(json.utf8))
+        let log = try #require(document.records.logs.first)
+        #expect(log.lh == "faint" && log.mucus == "watery" && log.flow == "spotting")
+        #expect(log.record.lh == nil && log.record.flow == nil)
+        let again = try BackupCodec.decode(BackupCodec.encode(document))
+        #expect(again.records.logs.first?.flow == "spotting")
+    }
+
+    @Test func partnerModeIsReportedAsPartner() {
+        let document = BackupDocument(
+            createdAt: BackupCodecTests.created, appVersion: "1.0",
+            sessions: [], appointments: [], periods: [], cycleLogs: [], weights: [],
+            settings: [SettingsKey.appMode: .string("partner")]
+        )
+        #expect(document.summary.mode == .partner)
+    }
+}
