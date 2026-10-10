@@ -5,5 +5,6 @@ import WidgetKit
 struct KickCounterWidgetsBundle: WidgetBundle {
     var body: some Widget {
         KickLiveActivityWidget()
+        ContractionLiveActivityWidget()
     }
 }

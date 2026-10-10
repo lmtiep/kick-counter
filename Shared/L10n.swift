@@ -188,6 +188,11 @@ enum L10n {
     static var laOverdue: String { t("la.overdue") }
     static var laCompleted: String { t("la.completed") }
     static var laAdd: String { t("la.add") }
+    /// The contraction Live Activity's button (phase 20).
+    static var laContractionStart: String { t("la.contraction.start") }
+    static var laContractionStop: String { t("la.contraction.stop") }
+    static func laContractionLastInterval(_ interval: String) -> String { String(format: t("la.contraction.lastInterval"), interval) }
+    static func laContractionLastDuration(_ duration: String) -> String { String(format: t("la.contraction.lastDuration"), duration) }
 
     static var cycleEmptyTitle: String { t("cycle.empty.title") }
     static var cycleEmptyBody: String { t("cycle.empty.body") }

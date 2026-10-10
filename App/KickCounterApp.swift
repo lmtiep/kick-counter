@@ -20,6 +20,9 @@ struct KickCounterApp: App {
         case .success(let env):
             let coordinator = env.coordinator
             KickIntentBridge.recordKick = { _ = await coordinator.recordKick() }
+            // The contraction Live Activity's Start/Stop button (phase 20).
+            let contractions = env.contractions
+            ContractionIntentBridge.toggle = { _ = await contractions.toggle() }
             // "Đã uống" on a pill notification (phase 17), even when it launches the app.
             PillNotificationDelegate.shared.install(pill: env.pill)
         case .failure(let error):

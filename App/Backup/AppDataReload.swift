@@ -23,6 +23,9 @@ enum AppDataReload {
         for activity in Activity<KickActivityAttributes>.activities {
             await activity.end(nil, dismissalPolicy: .immediate)
         }
+        for activity in Activity<ContractionActivityAttributes>.activities {
+            await activity.end(nil, dismissalPolicy: .immediate)
+        }
     }
 
     /// Loads every coordinator from the store and the preferences as they are now

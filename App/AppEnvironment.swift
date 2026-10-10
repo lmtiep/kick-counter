@@ -146,7 +146,7 @@ struct AppEnvironment {
         // drop every stop as a mis-tap.
         let contractions = ContractionCoordinator(
             store: contractionStore,
-            liveActivities: NoopContractionLiveActivityManager(),
+            liveActivities: isUITesting ? NoopContractionLiveActivityManager() : SystemContractionLiveActivityManager(),
             defaults: AppGroup.defaults
         )
         let sharing = makeSharing()
