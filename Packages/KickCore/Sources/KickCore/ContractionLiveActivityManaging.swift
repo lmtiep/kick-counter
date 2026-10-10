@@ -11,12 +11,19 @@ public struct ContractionActivityState: Equatable, Sendable {
     public var lastInterval: TimeInterval?
     /// The newest completed contraction's duration.
     public var lastDuration: TimeInterval?
+    /// The timer screen's alert, for the real gestational week: a mother who
+    /// only looks at the Lock Screen sees it too.
+    public var alert: ContractionAlert
 
-    public init(runningSince: Date?, count: Int, lastInterval: TimeInterval?, lastDuration: TimeInterval?) {
+    public init(
+        runningSince: Date?, count: Int, lastInterval: TimeInterval?, lastDuration: TimeInterval?,
+        alert: ContractionAlert = .none
+    ) {
         self.runningSince = runningSince
         self.count = count
         self.lastInterval = lastInterval
         self.lastDuration = lastDuration
+        self.alert = alert
     }
 }
 

@@ -1922,6 +1922,40 @@
         }
       }
     },
+    "contraction.endEpisode.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End this tracking session?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc lần theo dõi này?"
+          }
+        }
+      }
+    },
+    "contraction.endEpisode.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The next contraction starts a new session."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơn gò tiếp theo sẽ bắt đầu một lần theo dõi mới."
+          }
+        }
+      }
+    },
     "contraction.history": {
       "extractionState": "manual",
       "localizations": {
@@ -2122,6 +2156,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lần theo dõi này"
+          }
+        }
+      }
+    },
+    "contraction.notification.fiveOneOne.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time to call your doctor"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đến lúc gọi bác sĩ"
+          }
+        }
+      }
+    },
+    "contraction.notification.preterm.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call your doctor now"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy gọi bác sĩ ngay"
           }
         }
       }
@@ -2377,6 +2445,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hoàn tác"
+          }
+        }
+      }
+    },
+    "contraction.undo.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't undo"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không hoàn tác được"
           }
         }
       }
@@ -5492,6 +5577,23 @@
         }
       }
     },
+    "intent.toggleContraction.action": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Action"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thao tác"
+          }
+        }
+      }
+    },
     "intent.toggleContraction.title": {
       "extractionState": "manual",
       "localizations": {
@@ -5777,6 +5879,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Xong!"
+          }
+        }
+      }
+    },
+    "la.contraction.alert.fiveOneOne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contractions 5 min apart for 1 hour: call your doctor or go to the hospital."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơn gò đều 5 phút một lần trong 1 giờ: gọi bác sĩ hoặc đến bệnh viện."
+          }
+        }
+      }
+    },
+    "la.contraction.alert.preterm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regular contractions before week 37: call your doctor or go to the hospital now."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơn gò đều trước tuần 37: gọi bác sĩ hoặc đến bệnh viện ngay."
           }
         }
       }

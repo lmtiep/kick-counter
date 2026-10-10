@@ -13,10 +13,12 @@ struct ContractionTimerView: View {
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     /// Bumped on every tap of the big button that changed something (the haptic).
     @State private var tapFeedback = 0
-    /// "Hoàn tác" shows for `ContractionRules.undoWindow` after a tap.
+    /// "Hoàn tác" shows until the coordinator's `undoDeadline` after a tap.
     @State private var showsUndo = false
     @State private var undoToken = 0
     @State private var pendingDelete: ContractionEntry?
+    /// "Kết thúc theo dõi" asks first: a mis-tap would split the episode.
+    @State private var confirmsEndEpisode = false
 
     /// The pregnancy week on the app's (pinnable) clock; nil when unknown.
     private var week: GestationalWeek? {
@@ -30,7 +32,9 @@ struct ContractionTimerView: View {
             // ends after 2 hours. The coordinator's own clock is "now": the
             // timeline's date may be older than a contraction just started.
             TimelineView(.periodic(from: .now, by: 15)) { _ in
-                content(contractions.stats(week: week))
+                let stats = contractions.stats(week: week)
+                content(stats)
+                    .onChange(of: stats.alert) { old, new in announceAlert(from: old, to: new) }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 24)
@@ -42,11 +46,29 @@ struct ContractionTimerView: View {
         .lunaBackground()
         .navigationBarTitleDisplayMode(.inline)
         .sensoryFeedback(.impact(weight: .medium), trigger: tapFeedback)
+        // Hidden at the coordinator's deadline, so "Hoàn tác" never shows once
+        // the coordinator would refuse it.
         .task(id: undoToken) {
             guard showsUndo else { return }
-            try? await Task.sleep(for: .seconds(ContractionRules.undoWindow))
+            if let deadline = contractions.undoDeadline {
+                let remaining = deadline.timeIntervalSinceNow
+                if remaining > 0 { try? await Task.sleep(for: .seconds(remaining)) }
+            }
             guard !Task.isCancelled else { return }
             showsUndo = false
+        }
+        .confirmationDialog(
+            L10n.contractionEndEpisodeConfirm,
+            isPresented: $confirmsEndEpisode,
+            titleVisibility: .visible
+        ) {
+            Button(L10n.contractionEndEpisode, role: .destructive) {
+                showsUndo = false
+                Task { await contractions.endEpisode() }
+            }
+            Button(L10n.commonCancel, role: .cancel) {}
+        } message: {
+            Text(L10n.contractionEndEpisodeMessage)
         }
         .confirmationDialog(
             L10n.contractionDeleteConfirm,
@@ -130,7 +152,11 @@ struct ContractionTimerView: View {
         if undo {
             Button {
                 showsUndo = false
-                Task { await contractions.undoLast() }
+                Task {
+                    if await !contractions.undoLast() {
+                        AccessibilityNotification.Announcement(L10n.contractionUndoFailed).post()
+                    }
+                }
             } label: {
                 Label(L10n.contractionUndo, systemImage: "arrow.uturn.backward")
                     .lineLimit(stacked ? nil : 1)
@@ -141,8 +167,7 @@ struct ContractionTimerView: View {
         }
         if hasEpisode {
             Button {
-                showsUndo = false
-                Task { await contractions.endEpisode() }
+                confirmsEndEpisode = true
             } label: {
                 Text(L10n.contractionEndEpisode)
                     .lineLimit(stacked ? nil : 1)
@@ -192,6 +217,17 @@ struct ContractionTimerView: View {
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("contractionHistory")
+    }
+
+    /// VoiceOver hears the alert once, when it turns on while the screen is open.
+    private func announceAlert(from old: ContractionAlert, to new: ContractionAlert) {
+        guard old == .none else { return }
+        let text: String? = switch new {
+        case .none: nil
+        case .fiveOneOne: L10n.contractionAlertFiveOneOne
+        case .pretermRegular: L10n.contractionAlertPreterm
+        }
+        if let text { AccessibilityNotification.Announcement(text).post() }
     }
 
     private func toggle() async {

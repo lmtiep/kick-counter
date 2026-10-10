@@ -23,6 +23,8 @@ import Foundation
 /// - `-uiTestingRestoreOnReactivate` opens that file each time the app comes back to the
 ///   foreground instead of at launch, so a test can open it while a sheet is up.
 /// - `-seedContractions <scenario>` stores that `ContractionSeed` (`511`, `preterm`) (phase 20).
+/// - `-contractionUndoWindow <seconds>` offers the contraction timer's "Hoàn tác" that long
+///   instead of `ContractionRules.undoWindow`, so a slow CI simulator can still tap it.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -41,6 +43,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let restoresFileOnReactivate: Bool
     public let seedPill: PillSeed?
     public let seedContractions: ContractionSeed?
+    public let contractionUndoWindow: TimeInterval?
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -67,6 +70,9 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         seedPill = isUITesting ? Self.value(after: "-seedPill", in: arguments).flatMap(PillSeed.init(argument:)) : nil
         seedContractions = isUITesting
             ? Self.value(after: "-seedContractions", in: arguments).flatMap(ContractionSeed.init(rawValue:))
+            : nil
+        contractionUndoWindow = isUITesting
+            ? Self.value(after: "-contractionUndoWindow", in: arguments).flatMap(TimeInterval.init).flatMap { $0 > 0 ? $0 : nil }
             : nil
     }
 

@@ -945,8 +945,9 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
         (b) khoảng cách trung bình giữa hai lần bắt đầu **≤ 5 phút 30 giây** (`fiveOneOneMaxAverageInterval` = 5:30;
         tính bằng khoảng từ lần bắt đầu đầu tiên đến lần cuối chia cho số cơn − 1);
         (c) mỗi cơn dài trung bình **≥ 45 giây** (`fiveOneOneMinAverageDuration` = 45 s);
-        (d) lần theo dõi hiện tại đã kéo dài **≥ 60 phút** tính từ lần bắt đầu cơn đầu tiên đến lần bắt đầu cơn gần nhất
-        (`fiveOneOneMinSpan` = 60 phút).
+        (d) chuỗi cơn gò liên tiếp gần nhất (hai lần bắt đầu cách nhau không quá 2 giờ) đã kéo dài **≥ 60 phút** tính
+        từ lần bắt đầu cơn đầu tiên đến lần bắt đầu cơn gần nhất (`fiveOneOneMinSpan` = 60 phút). Chuỗi này **không**
+        bị cắt khi mẹ bấm "Kết thúc theo dõi" (nút đó nay hỏi xác nhận trước), để một lần bấm nhầm không làm mất cảnh báo.
         Như vậy app nới quy tắc "5 phút – 1 phút – 1 giờ" thành 5:30 và 45 giây để không bỏ sót khi mẹ bấm hơi trễ hay
         hơi sớm. Đối chiếu: NHS dặn gọi khoa sản khi cơn gò đều "khoảng 5 phút một lần hoặc dày hơn" (không có điều kiện
         1 giờ) và gọi **gấp** nếu có cơn dài trên 2 phút hoặc từ 6 cơn trở lên trong 10 phút; app **không** có hai ngưỡng
@@ -975,7 +976,8 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
         hay chỉ nên để ở thẻ trước tuần 37? Câu an toàn có cần thêm "gọi 115" như các câu cảnh báo ở mục 15–17 không?
 99. [ ] **Tự đóng cơn gò quên bấm, bỏ lần bấm nhầm, và "lần theo dõi".**
         - Cơn gò chạy quá **5 phút** (`maxDuration` = 5 phút) được coi là quên bấm "Hết cơn gò": app đóng nó ở mốc bắt
-          đầu + 5 phút. Vì thế app không bao giờ ghi một cơn dài trên 5 phút.
+          đầu + 5 phút. Vì thế app không bao giờ ghi một cơn dài trên 5 phút. Lúc đó nút đã hiện lại "Bắt đầu cơn gò",
+          nên lần bấm tiếp theo vừa đóng cơn cũ ở 5:00 vừa bắt đầu cơn mới.
         - Cơn gò ngắn dưới **3 giây** (`minDuration` = 3 s) là bấm nhầm và bị bỏ, không tính vào thống kê.
         - Hai cơn gò bắt đầu cách nhau quá **2 giờ** (`episodeGap` = 2 giờ) thuộc hai "lần theo dõi" khác nhau; lần cũ vào
           "Lịch sử cơn gò". Live Activity trên màn hình khoá cũng tự kết thúc sau 2 giờ không có cơn gò mới. Mẹ có thể
@@ -988,3 +990,15 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
          đi **sớm hơn**; trang NHS đã đối chiếu không phân biệt các trường hợp này. Câu 5-1-1 hiện tại không nhắc điều
          này. **Câu hỏi:** có cần thêm một câu như "Nếu đã từng sinh, sinh nhanh hoặc nhà xa bệnh viện, hãy hỏi bác sĩ
          khi nào nên đi" vào màn hình, hay thêm lựa chọn để app đổi ngưỡng?
+101. [ ] **Cảnh báo trên màn hình khoá và thông báo một lần.** Khi thẻ 5-1-1 hoặc thẻ trước tuần 37 đang hiện, Live
+         Activity cơn gò (màn hình khoá, Dynamic Island) có thêm một dòng ngắn kèm dấu cảnh báo, tính theo tuần thai thật:
+         - 5-1-1 (`la.contraction.alert.fiveOneOne`): "Cơn gò đều 5 phút một lần trong 1 giờ: gọi bác sĩ hoặc đến bệnh
+           viện." / "Contractions 5 min apart for 1 hour: call your doctor or go to the hospital."
+         - Trước tuần 37 (`la.contraction.alert.preterm`): "Cơn gò đều trước tuần 37: gọi bác sĩ hoặc đến bệnh viện
+           ngay." / "Regular contractions before week 37: call your doctor or go to the hospital now."
+         Ngoài ra, ngay khi cảnh báo bật lên sau một lần bấm (trong app hoặc trên màn hình khoá), app gửi **một** thông báo
+         (không gửi lại cho cùng cảnh báo trong cùng chuỗi cơn gò; không hỏi quyền — nếu mẹ chưa cho phép thông báo thì
+         không gửi). Tiêu đề: "Đến lúc gọi bác sĩ" / "Time to call your doctor" (5-1-1) hoặc "Hãy gọi bác sĩ ngay" /
+         "Call your doctor now" (trước tuần 37); nội dung là nguyên câu của thẻ tương ứng (mục 98).
+         **Câu hỏi:** câu rút gọn và tiêu đề thông báo có đúng mức khẩn không? Có nên nhắc "115" trong thông báo trước
+         tuần 37 không?

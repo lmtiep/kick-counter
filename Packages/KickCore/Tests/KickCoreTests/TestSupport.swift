@@ -59,7 +59,11 @@ final class FakeNotificationCenter: NotificationCenterClient {
         }
         added.removeAll { $0.identifier == request.identifier }
         added.append(request)
+        addCount += 1
     }
+
+    /// Every successful `add(_:)`, re-posts of the same id included.
+    private(set) var addCount = 0
 
     /// One-shot gate: the next `add(_:)` call suspends until `releaseAdd()` is
     /// called, simulating a scheduling request still in flight.

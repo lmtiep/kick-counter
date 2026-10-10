@@ -24,7 +24,7 @@ public enum ContractionError: Error, Equatable, Sendable {
 }
 
 /// What the timer screen shows above the list (spec §3.2, §4.3).
-public enum ContractionAlert: Equatable, Sendable {
+public enum ContractionAlert: String, Codable, Equatable, Sendable {
     case none
     /// Week 37 or later (or unknown): regular contractions about 5 minutes
     /// apart, about 1 minute long, for an hour.
@@ -72,7 +72,8 @@ public enum ContractionRules {
     public static let maxDuration: TimeInterval = 5 * 60
     /// A contraction shorter than this is a mis-tap and is dropped (item 99).
     public static let minDuration: TimeInterval = 3
-    /// "Hoàn tác" is offered this long after a tap (spec §4.2).
+    /// "Hoàn tác" is offered this long after a tap (spec §4.2). UI tests may
+    /// lengthen it (`-contractionUndoWindow`).
     public static let undoWindow: TimeInterval = 5
 
     /// The store's rules, shared by `ContractionStore` and the test fake.

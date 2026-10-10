@@ -77,6 +77,11 @@ public struct ContractionStats: Equatable, Sendable {
     /// Completed contractions that started within the last `window` (edge included),
     /// in any episode.
     public let lastHour: ContractionSummary
+    /// The newest run of consecutive contractions (starts at most `episodeGap`
+    /// apart), whatever the episode-ended mark: the 5-1-1 span is measured over
+    /// it, so a mis-tapped "Kết thúc theo dõi" never hides the alert. The mark
+    /// only decides what the list and the Live Activity show.
+    public let alertRun: ContractionEpisode?
     public let alert: ContractionAlert
 
     /// `week` is nil when the pregnancy week is unknown. `episodeEndedAt` is
@@ -105,7 +110,9 @@ public struct ContractionStats: Equatable, Sendable {
                 : inWindow[inWindow.count - 1].startedAt.timeIntervalSince(inWindow[0].startedAt) / Double(inWindow.count - 1)
         )
         self.lastHour = lastHour
-        alert = Self.alert(lastHour: lastHour, current: currentEpisode, week: week)
+        let alertRun = episodeEndedAt == nil ? episodes.last : Self.episodes(records, now: now, endedAt: nil).last
+        self.alertRun = alertRun
+        alert = Self.alert(lastHour: lastHour, run: alertRun, week: week)
     }
 
     /// Every episode except the current one, newest first.
@@ -145,11 +152,11 @@ public struct ContractionStats: Equatable, Sendable {
         return episodes.map { ContractionEpisode(entries: $0) }
     }
 
-    private static func alert(lastHour: ContractionSummary, current: ContractionEpisode?, week: GestationalWeek?) -> ContractionAlert {
+    private static func alert(lastHour: ContractionSummary, run: ContractionEpisode?, week: GestationalWeek?) -> ContractionAlert {
         if let week, week.weeks < ContractionRules.termWeek {
             return lastHour.count >= ContractionRules.pretermMinCount ? .pretermRegular : .none
         }
-        guard let current, current.span >= ContractionRules.fiveOneOneMinSpan,
+        guard let run, run.span >= ContractionRules.fiveOneOneMinSpan,
               lastHour.count >= ContractionRules.fiveOneOneMinCount,
               let interval = lastHour.averageInterval, interval <= ContractionRules.fiveOneOneMaxAverageInterval,
               let duration = lastHour.averageDuration, duration >= ContractionRules.fiveOneOneMinAverageDuration

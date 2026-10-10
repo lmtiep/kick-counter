@@ -183,9 +183,28 @@ struct ContractionStatsTests {
         #expect(stats(series(12, every: 300, lastAgo: 360) + [running(30)], week: term).alert == .none)
     }
 
-    @Test func endingTheEpisodeResetsTheSpan() {
+    /// A mis-tapped "Kết thúc theo dõi" must not hide 5-1-1 for an hour: the span
+    /// runs over consecutive contractions (gaps ≤ 2 h) whatever the episode mark.
+    @Test func endingTheEpisodeDoesNotResetTheSpan() throws {
         let pattern = series(14, every: 300)
-        #expect(stats(pattern, week: term, endedAt: now.addingTimeInterval(-30)).alert == .none)
+        // Ended after the last contraction: no current episode, still 5-1-1.
+        let after = stats(pattern, week: term, endedAt: now.addingTimeInterval(-30))
+        #expect(after.currentEpisode == nil)
+        #expect(after.alert == .fiveOneOne)
+        // Ended mid-run: the list shows only the new episode, the span is the whole run.
+        let midRun = stats(pattern, week: term, endedAt: pattern[6].startedAt.addingTimeInterval(120))
+        #expect(midRun.currentEpisode?.count == 7)
+        #expect(midRun.alertRun.map { abs($0.span - 13 * 300) < 0.001 } == true)
+        #expect(midRun.alertRun?.id == pattern[0].id)
+        #expect(midRun.alert == .fiveOneOne)
+    }
+
+    @Test func theAlertRunStillBreaksAtAGapOverTwoHours() {
+        let old = series(6, every: 300, lastAgo: 3 * 3600)
+        let recent = series(12, every: 300)
+        let result = stats(old + recent, week: term, endedAt: now.addingTimeInterval(-4 * 3600))
+        #expect(result.alertRun?.id == recent[0].id)
+        #expect(result.alert == .none)
     }
 
     @Test func fiveOneOneWhenTheWeekIsUnknown() {

@@ -8,22 +8,27 @@ import WidgetKit
 /// spec §4.4): "Đang gò" with the running time or "Đang nghỉ", the count and
 /// the last interval, and a Start/Stop button (`ToggleContractionIntent`) that
 /// works without opening the app. Laid out like `KickLiveActivityWidget`, in
-/// the pregnancy Luna tokens.
+/// the pregnancy Luna tokens. When the timer screen's alert is on, a short
+/// urgent line shows it to a mother who only looks at the Lock Screen.
+///
+/// The running time stops at `ContractionRules.maxDuration` (the app closes a
+/// longer one there), and a stale activity (2 hours without a new contraction)
+/// shows the resting state.
 struct ContractionLiveActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: ContractionActivityAttributes.self) { context in
-            ContractionLockScreenView(state: context.state)
+            ContractionLockScreenView(state: context.shownState)
                 .padding(16)
                 .activityBackgroundTint(Color(.systemBackground).opacity(0.85))
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    StatusLabel(state: context.state, scheme: .dark)
+                    StatusLabel(state: context.shownState, scheme: .dark)
                         .font(.subheadline.weight(.semibold))
                         .padding(.leading, 4)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text(L10n.contractionHistoryCount(context.state.count))
+                    Text(L10n.contractionHistoryCount(context.shownState.count))
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Color.luna(.textPrimary, .dark))
                         .padding(.trailing, 4)
@@ -31,33 +36,33 @@ struct ContractionLiveActivityWidget: Widget {
                 DynamicIslandExpandedRegion(.bottom) {
                     HStack(spacing: 12) {
                         VStack(alignment: .leading, spacing: 2) {
-                            MainFigure(state: context.state, scheme: .dark)
+                            MainFigure(state: context.shownState, scheme: .dark)
                                 .font(.title.bold())
-                            DetailLine(state: context.state, showsCount: false)
+                            DetailLine(state: context.shownState, showsCount: false)
                                 .font(.caption)
                                 .foregroundStyle(Color.luna(.textSecondary, .dark))
+                            AlertLine(alert: context.shownState.alert, scheme: .dark)
+                                .font(.caption.weight(.semibold))
                         }
                         Spacer(minLength: 8)
-                        ToggleButton(state: context.state, scheme: .dark)
+                        ToggleButton(state: context.shownState, scheme: .dark)
                     }
                     .padding(.horizontal, 4)
                 }
             } compactLeading: {
-                Image(systemName: context.state.runningSince == nil ? "stopwatch" : "stopwatch.fill")
-                    .foregroundStyle(Color.luna(.pregStrong, .dark))
+                CompactIcon(state: context.shownState)
             } compactTrailing: {
-                if let since = context.state.runningSince {
-                    Text(timerInterval: since...Date.distantFuture, countsDown: false)
+                if let since = context.shownState.runningSince {
+                    Text(timerInterval: ContractionClockRange.running(since), countsDown: false)
                         .monospacedDigit()
                         .frame(maxWidth: 52)
                         .foregroundStyle(Color.luna(.pregStrong, .dark))
                 } else {
-                    Text(context.state.count, format: .number)
+                    Text(context.shownState.count, format: .number)
                         .foregroundStyle(Color.luna(.pregStrong, .dark))
                 }
             } minimal: {
-                Image(systemName: context.state.runningSince == nil ? "stopwatch" : "stopwatch.fill")
-                    .foregroundStyle(Color.luna(.pregStrong, .dark))
+                CompactIcon(state: context.shownState)
             }
         }
     }
@@ -77,6 +82,8 @@ private struct ContractionLockScreenView: View {
                 DetailLine(state: state, showsCount: state.runningSince != nil)
                     .font(.subheadline)
                     .foregroundStyle(Color.luna(.textSecondary, scheme))
+                AlertLine(alert: state.alert, scheme: scheme)
+                    .font(.subheadline.weight(.semibold))
             }
             Spacer(minLength: 8)
             ToggleButton(state: state, scheme: scheme)
@@ -106,7 +113,7 @@ private struct MainFigure: View {
     var body: some View {
         Group {
             if let since = state.runningSince {
-                Text(timerInterval: since...Date.distantFuture, countsDown: false)
+                Text(timerInterval: ContractionClockRange.running(since), countsDown: false)
                     .monospacedDigit()
             } else {
                 Text(L10n.contractionHistoryCount(state.count))
@@ -144,7 +151,8 @@ private struct ToggleButton: View {
     private var isRunning: Bool { state.runningSince != nil }
 
     var body: some View {
-        Button(intent: ToggleContractionIntent()) {
+        // The action it shows: a tap on an out-of-date state does nothing.
+        Button(intent: ToggleContractionIntent(action: isRunning ? .stop : .start)) {
             Label(
                 isRunning ? L10n.laContractionStop : L10n.laContractionStart,
                 systemImage: isRunning ? "stop.fill" : "play.fill"
@@ -158,6 +166,64 @@ private struct ToggleButton: View {
         .buttonBorderShape(.capsule)
         .tint(Color.luna(isRunning ? .pregOnSoft : .pregStrong, scheme))
         .accessibilityLabel(isRunning ? L10n.contractionStop : L10n.contractionStart)
+    }
+}
+
+/// The 5-1-1 or preterm alert, shortened from the timer screen's card.
+private struct AlertLine: View {
+    let alert: ContractionAlert
+    let scheme: ColorScheme
+
+    var body: some View {
+        if let text {
+            Label(text, systemImage: "exclamationmark.triangle.fill")
+                .foregroundStyle(Color.luna(.warningText, scheme))
+                .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var text: String? {
+        switch alert {
+        case .none: nil
+        case .fiveOneOne: L10n.laContractionAlertFiveOneOne
+        case .pretermRegular: L10n.laContractionAlertPreterm
+        }
+    }
+}
+
+/// The stopwatch, or the warning sign while the alert is on.
+private struct CompactIcon: View {
+    let state: ContractionActivityAttributes.ContentState
+
+    var body: some View {
+        if state.alert != .none {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(Color.luna(.warningText, .dark))
+        } else {
+            Image(systemName: state.runningSince == nil ? "stopwatch" : "stopwatch.fill")
+                .foregroundStyle(Color.luna(.pregStrong, .dark))
+        }
+    }
+}
+
+private enum ContractionClockRange {
+    /// From the start to start + `maxDuration`: the timer stops at 5:00, where
+    /// the app closes a forgotten contraction.
+    static func running(_ since: Date) -> ClosedRange<Date> {
+        since...since.addingTimeInterval(ContractionRules.maxDuration)
+    }
+}
+
+private extension ActivityViewContext where Attributes == ContractionActivityAttributes {
+    /// A stale activity (2 hours after the last start) shows the resting state:
+    /// nothing runs any more and its last hour holds no contraction.
+    var shownState: ContractionActivityAttributes.ContentState {
+        guard isStale else { return state }
+        var resting = state
+        resting.runningSince = nil
+        resting.alert = .none
+        return resting
     }
 }
 

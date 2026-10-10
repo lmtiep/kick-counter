@@ -26,7 +26,10 @@ final class ContractionTimerUITests: XCTestCase {
 
     @MainActor
     func testTimesContractionsThenDeletesAndUndoes() {
-        let app = XCUIApplication.launchPinned(dueDate: UITestDates.dueAtWeek38)
+        // "Hoàn tác" for 30 s, not 5: a slow CI simulator may not tap it in time.
+        let app = XCUIApplication.launchPinned(
+            dueDate: UITestDates.dueAtWeek38, extraArguments: ["-contractionUndoWindow", "30"]
+        )
         app.openContractionTimer()
         let toggle = app.buttons["contractionToggle"]
         for _ in 0..<3 {
@@ -54,6 +57,17 @@ final class ContractionTimerUITests: XCTestCase {
         undo.tap()
         waitForLabel(toggle, containing: "Start contraction")
         waitForCount(app, 2)
+
+        // "End tracking" asks first: cancelling keeps the session.
+        let endEpisode = app.buttons["contractionEndEpisode"]
+        app.scrollUntilHittable(endEpisode)
+        endEpisode.tap()
+        app.confirmDialog("Cancel")
+        waitForCount(app, 2)
+        app.scrollUntilHittable(endEpisode)
+        endEpisode.tap()
+        app.confirmDialog("End tracking")
+        XCTAssertTrue(app.descendants(matching: .any)["contractionListEmpty"].waitForExistence(timeout: 5))
     }
 
     @MainActor

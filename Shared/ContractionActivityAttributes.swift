@@ -1,5 +1,6 @@
 import ActivityKit
 import Foundation
+import KickCore
 
 /// The contraction Live Activity (phase 20 spec §4.4), one per episode; it runs
 /// alongside the kick one (`KickActivityAttributes`).
@@ -13,6 +14,9 @@ struct ContractionActivityAttributes: ActivityAttributes, Sendable {
         var lastInterval: TimeInterval?
         /// The newest completed contraction's length.
         var lastDuration: TimeInterval?
+        /// The timer screen's alert for the real week: a short urgent line on
+        /// the Lock Screen for a mother who never opens the app.
+        var alert: ContractionAlert
     }
 
     var episodeID: UUID

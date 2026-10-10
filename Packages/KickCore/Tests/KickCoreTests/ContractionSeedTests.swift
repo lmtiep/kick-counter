@@ -62,4 +62,12 @@ struct ContractionSeedTests {
         #expect(UITestLaunchOptions(arguments: ["-seedContractions", "511"]).seedContractions == nil)
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedContractions", "twins"]).seedContractions == nil)
     }
+
+    @Test func undoWindowLaunchOptionParsesOnlyWhenUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-contractionUndoWindow", "30"]).contractionUndoWindow == 30)
+        #expect(UITestLaunchOptions(arguments: ["-contractionUndoWindow", "30"]).contractionUndoWindow == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-contractionUndoWindow", "soon"]).contractionUndoWindow == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-contractionUndoWindow", "0"]).contractionUndoWindow == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting"]).contractionUndoWindow == nil)
+    }
 }

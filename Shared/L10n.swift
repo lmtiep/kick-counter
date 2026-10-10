@@ -193,6 +193,9 @@ enum L10n {
     static var laContractionStop: String { t("la.contraction.stop") }
     static func laContractionLastInterval(_ interval: String) -> String { String(format: t("la.contraction.lastInterval"), interval) }
     static func laContractionLastDuration(_ duration: String) -> String { String(format: t("la.contraction.lastDuration"), duration) }
+    /// The short urgent line under the timer when the screen's alert is on.
+    static var laContractionAlertFiveOneOne: String { t("la.contraction.alert.fiveOneOne") }
+    static var laContractionAlertPreterm: String { t("la.contraction.alert.preterm") }
 
     static var cycleEmptyTitle: String { t("cycle.empty.title") }
     static var cycleEmptyBody: String { t("cycle.empty.body") }
@@ -869,6 +872,11 @@ enum L10n {
     static func contractionA11yRunning(_ elapsed: String) -> String { String(format: t("contraction.a11y.running"), elapsed) }
     static var contractionUndo: String { t("contraction.undo") }
     static var contractionEndEpisode: String { t("contraction.endEpisode") }
+    static var contractionEndEpisodeConfirm: String { t("contraction.endEpisode.confirm") }
+    static var contractionEndEpisodeMessage: String { t("contraction.endEpisode.message") }
+    static var contractionUndoFailed: String { t("contraction.undo.failed") }
+    static var contractionNotificationFiveOneOneTitle: String { t("contraction.notification.fiveOneOne.title") }
+    static var contractionNotificationPretermTitle: String { t("contraction.notification.preterm.title") }
     static var contractionStatsTitle: String { t("contraction.stats.title") }
     static var contractionStatsCount: String { t("contraction.stats.count") }
     static var contractionStatsDuration: String { t("contraction.stats.duration") }

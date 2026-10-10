@@ -53,6 +53,8 @@ struct ContractionToggleButton: View {
         .accessibilityLabel(isRunning ? L10n.contractionStop : L10n.contractionStart)
         .accessibilityValue(value(now: now))
         .accessibilityAddTraits(.isButton)
+        // VoiceOver re-reads the running time as it changes.
+        .accessibilityAddTraits(isRunning ? .updatesFrequently : [])
         .accessibilityIdentifier("contractionToggle")
     }
 

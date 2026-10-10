@@ -11,6 +11,18 @@ enum ReminderTexts {
         NotificationText(title: L10n.reminderTitle, body: L10n.reminderBody)
     }
 
+    /// The contraction alert's one-time notification (phase 20): the alert
+    /// card's text under a short title.
+    static func contractionAlert(_ alert: ContractionAlert) -> NotificationText? {
+        switch alert {
+        case .none: nil
+        case .fiveOneOne:
+            NotificationText(title: L10n.contractionNotificationFiveOneOneTitle, body: L10n.contractionAlertFiveOneOne)
+        case .pretermRegular:
+            NotificationText(title: L10n.contractionNotificationPretermTitle, body: L10n.contractionAlertPreterm)
+        }
+    }
+
     static var appointment: NotificationText {
         NotificationText(title: L10n.appointmentsReminderTitle, body: L10n.appointmentsReminderBody)
     }

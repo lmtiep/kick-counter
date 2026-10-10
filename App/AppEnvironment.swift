@@ -144,10 +144,19 @@ struct AppEnvironment {
         #endif
         // The real clock, not AppClock, as KickCoordinator: a pinned clock would
         // drop every stop as a mis-tap.
+        // The alert on the Lock Screen and in the notification uses the real week,
+        // read as the timer screen does (the pinnable AppClock).
         let contractions = ContractionCoordinator(
             store: contractionStore,
             liveActivities: isUITesting ? NoopContractionLiveActivityManager() : SystemContractionLiveActivityManager(),
-            defaults: AppGroup.defaults
+            notifications: notifications,
+            alertText: { ReminderTexts.contractionAlert($0) },
+            defaults: AppGroup.defaults,
+            week: {
+                PregnancyProfile.load(from: AppGroup.defaults).dueDate
+                    .flatMap { PregnancyTimeline(dueDate: $0, now: AppClock.now())?.week }
+            },
+            undoWindow: contractionUndoWindow
         )
         let sharing = makeSharing()
         let partnerShare = PartnerShareCoordinator(sharing: sharing, defaults: AppGroup.defaults)
@@ -172,6 +181,14 @@ struct AppEnvironment {
             partnerPublisher: partnerPublisher,
             partnerJourney: PartnerJourneyModel(sharing: sharing, defaults: AppGroup.defaults)
         )
+    }
+
+    /// `ContractionRules.undoWindow`, or `-contractionUndoWindow` in DEBUG UI tests.
+    private static var contractionUndoWindow: TimeInterval {
+        #if DEBUG
+        if isUITesting, let window = AppClock.launchOptions.contractionUndoWindow { return window }
+        #endif
+        return ContractionRules.undoWindow
     }
 
     /// CloudKit when `AppFeatures.cloudSync` is on, `DisabledPartnerSharing` (never
