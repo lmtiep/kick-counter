@@ -165,16 +165,8 @@ public final class CycleCoordinator {
     /// The open period that has run past `CycleRules.longPeriodDays` by `day`,
     /// closed at the typical period length; nil when there is none.
     private func staleOpenPeriod(before day: Date) -> PeriodRecord? {
-        guard let open = periods.first(where: { $0.isOpen && $0.startDate < day }),
-              let length = calendar.dateComponents([.day], from: open.startDate, to: day).day,
-              length >= CycleRules.longPeriodDays
-        else { return nil }
-        let assumed = CycleRules.assumedPeriod(
-            startingOn: open.startDate, typicalLength: settings.typicalPeriodLength, today: day, calendar: calendar
-        )
-        var closed = open
-        closed.endDate = assumed.endDate
-        return closed.endDate == nil ? nil : closed
+        guard let open = periods.first(where: { $0.isOpen && $0.startDate < day }) else { return nil }
+        return CycleRules.closingStale(open, before: day, typicalLength: settings.typicalPeriodLength, calendar: calendar)
     }
 
     /// Stores the last period from its first day alone (onboarding, empty Cycle
@@ -208,6 +200,16 @@ public final class CycleCoordinator {
     @discardableResult
     public func deletePeriod(id: UUID) async -> CycleFailure? {
         await write { try store.deletePeriod(id: id) }
+    }
+
+    /// Saves the calendar's period edit (phase 19 spec §2.2) in one write, then
+    /// refreshes the forecast and reminders. On any error nothing is saved.
+    @discardableResult
+    public func applyPeriodEdits(_ plan: PeriodEditPlan) async -> CycleFailure? {
+        guard !plan.isEmpty else { return nil }
+        return await write {
+            try store.applyPeriodChanges(deletes: plan.deletes, updates: plan.updates, adds: plan.adds, today: now())
+        }
     }
 
     // MARK: - Day logs

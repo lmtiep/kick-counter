@@ -86,6 +86,41 @@ public final class CycleStore: CycleRepository {
         try save()
     }
 
+    public func applyPeriodChanges(deletes: [UUID], updates: [PeriodRecord], adds: [PeriodRecord], today: Date) throws {
+        let deleted = Set(deletes)
+        var final = try periods().filter { !deleted.contains($0.id) }
+        let normalizedUpdates = updates.map { CycleRules.normalized($0, calendar: calendar) }
+        let normalizedAdds = adds.map { CycleRules.normalized($0, calendar: calendar) }
+        for update in normalizedUpdates {
+            guard let index = final.firstIndex(where: { $0.id == update.id }) else {
+                throw CycleRepositoryError.notFound
+            }
+            final[index] = update
+        }
+        final += normalizedAdds
+        for record in normalizedUpdates + normalizedAdds {
+            try CycleRules.validate(record, existing: final, today: today, calendar: calendar)
+        }
+        do {
+            for id in deleted {
+                for model in try context.fetch(FetchDescriptor<PeriodEntry>(predicate: #Predicate { $0.id == id })) {
+                    context.delete(model)
+                }
+            }
+            for update in normalizedUpdates {
+                guard let model = try periodModel(id: update.id) else { throw CycleRepositoryError.notFound }
+                model.apply(update)
+            }
+            for add in normalizedAdds {
+                context.insert(PeriodEntry(record: add))
+            }
+        } catch {
+            context.rollback()
+            throw error
+        }
+        try save()
+    }
+
     public func saveLog(_ log: CycleLogRecord, today: Date) throws {
         let normalized = CycleRules.normalized(log, calendar: calendar)
         try CycleRules.validate(normalized, today: today, calendar: calendar)

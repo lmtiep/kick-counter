@@ -455,3 +455,19 @@ hành động trên thông báo khi khoá màn hình).
 - [ ] Đổi ngôn ngữ sang English: thông báo và nút "Taken" bằng tiếng Anh.
 - [ ] Sao lưu ra file rồi khôi phục trên máy khác: cài đặt nhắc và các ngày đã uống còn nguyên. "Xoá toàn bộ dữ liệu"
       xoá cả hai.
+
+## Giai đoạn 19 — Sửa kỳ kinh trên lịch
+
+Đặc tả: `docs/superpowers/specs/2026-10-10-calendar-period-edit-design.md`.
+
+- [ ] Lịch → "Sửa kỳ kinh": các ngày của kỳ kinh đã ghi hiện dấu tích; ngày tương lai mờ và không chạm được; nút
+      "Lưu" mờ cho tới khi có thay đổi.
+- [ ] Tích vài ngày ở **hai tháng khác nhau** (lùi tháng bằng mũi tên, các dấu tích vẫn giữ) rồi "Lưu": về lại lịch
+      bình thường, VoiceOver đọc "Đã lưu kỳ kinh". Mở Hôm nay → "Lịch sử chu kỳ": có đủ các kỳ vừa thêm; dự đoán kỳ
+      tới ở Hôm nay được tính lại.
+- [ ] Bỏ tích một ngày giữa một kỳ kinh rồi lưu: kỳ đó tách thành hai trong Lịch sử.
+- [ ] Tích hơn 10 ngày liền: "Mỗi kỳ kinh tối đa 10 ngày. Hãy bỏ bớt ngày." hiện ngay dưới tiêu đề, không lưu gì.
+- [ ] Thay đổi rồi "Hủy": hỏi "Bỏ các thay đổi?"; chọn "Bỏ thay đổi" thì không có gì được lưu.
+- [ ] Bật VoiceOver: mỗi ngày đọc ngày tháng, thêm "ngày có kinh" khi được tích. Cỡ chữ lớn nhất (AX5) và chế độ tối:
+      dấu tích thẳng hàng, chữ không bị cắt.
+- [ ] Biện pháp "Thuốc tránh thai hằng ngày": nút đọc "Sửa ngày ra máu".

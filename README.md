@@ -120,6 +120,10 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Giai đoạn 13: nút "Thêm kỳ kinh trước đây" (`App/Cycle/AddPastPeriodSheet.swift`,
   `CycleCoordinator.addPastPeriod`) ghi bù kỳ kinh cũ; bắt đầu kỳ kinh ở một ngày đã qua đủ lâu thì kỳ đó được đóng ở
   độ dài thường gặp. Đặc tả: `docs/superpowers/specs/2026-10-08-past-periods-design.md`.
+- Giai đoạn 19: nút "Sửa kỳ kinh" trên Lịch (`App/Cycle/CalendarPeriodEditor.swift`) cho tích những ngày có kinh đã
+  qua, qua nhiều tháng, rồi lưu một lần. `PeriodEditPlan` (`KickCore`, thuần, có test) so các ngày đã tích với kỳ kinh
+  đã ghi thành xoá/sửa/thêm; `CycleCoordinator.applyPeriodEdits` lưu tất cả trong một lần (lỗi thì không lưu gì).
+  Đặc tả: `docs/superpowers/specs/2026-10-10-calendar-period-edit-design.md`.
 
 ## Sẵn sàng lên App Store (giai đoạn 12)
 - Bản 1.0 giữ toàn bộ dữ liệu trên máy: `KickCore/AppFeatures.swift` (`cloudSync = false`),

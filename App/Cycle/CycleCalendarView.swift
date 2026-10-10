@@ -1,16 +1,25 @@
+import Accessibility
 import KickCore
 import SwiftUI
 
 /// Trying-to-conceive mode, Calendar tab (spec §4.3): month grid in the app
 /// language's week order (Monday first in Vietnamese), legend, and the selected
 /// day with a "Log" button. Swipe or use the arrows to change month; future
-/// days can be selected but not logged.
+/// days can be selected but not logged. Phase 19: "Sửa kỳ kinh" turns the grid
+/// into tick circles for past period days, saved all at once
+/// (`CalendarPeriodEditor.swift`).
 struct CycleCalendarView: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.scenePhase) private var scenePhase
     @State private var month = CycleCalendarGrid.startOfMonth(AppClock.now(), calendar: AppLocale.calendar)
     @State private var selected = AppLocale.calendar.startOfDay(for: AppClock.now())
     @State private var logDay: CycleDaySelection?
+    /// Non-nil while editing period days (phase 19).
+    @State private var edit: CalendarPeriodEdit?
+    @State private var editError: String?
+    @State private var saving = false
+    @State private var confirmingDiscard = false
 
     /// The app language's calendar (Monday first in Vietnamese), not the device's.
     private var calendar: Calendar { AppLocale.calendar }
@@ -18,24 +27,49 @@ struct CycleCalendarView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    header
-                    grid
-                        .padding(.top, 18)
-                    CycleLegend(policy: cycle.policy)
-                        .padding(.top, 14)
-                    selectedDayCard
-                        .padding(.top, 16)
-                    if cycle.forecast == nil {
-                        Text(L10n.calendarEmptyHint)
-                            .font(.luna(.caption))
-                            .foregroundStyle(.luna(.textSecondary))
-                            .padding(.horizontal, 20)
-                            .padding(.top, 12)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        if edit != nil {
+                            PeriodEditBar(canSave: (edit?.hasChanges ?? false) && !saving, onCancel: cancelEdit, onSave: startSave)
+                        }
+                        header
+                        if edit == nil {
+                            PeriodEditButton(title: isBleed ? L10n.periodEditButtonBleed : L10n.periodEditButton, action: startEdit)
+                                .padding(.top, 10)
+                        } else if let editError {
+                            PeriodEditError(message: editError)
+                                .padding(.top, 12)
+                                .id(Self.editErrorAnchor)
+                        }
+                        grid
+                            .padding(.top, 18)
+                        if edit != nil {
+                            PeriodEditHint(text: isBleed ? L10n.periodEditHintBleed : L10n.periodEditHint)
+                                .padding(.top, 14)
+                        } else {
+                            CycleLegend(policy: cycle.policy)
+                                .padding(.top, 14)
+                            selectedDayCard
+                                .padding(.top, 16)
+                            if cycle.forecast == nil {
+                                Text(L10n.calendarEmptyHint)
+                                    .font(.luna(.caption))
+                                    .foregroundStyle(.luna(.textSecondary))
+                                    .padding(.horizontal, 20)
+                                    .padding(.top, 12)
+                            }
+                        }
+                    }
+                    .padding(.bottom, 24)
+                }
+                // The error sits under the title; at large text it is scrolled into view.
+                .onChange(of: editError) { _, new in
+                    guard new != nil else { return }
+                    withAnimation(LunaMotion.isEnabled && !reduceMotion ? .easeOut(duration: 0.2) : nil) {
+                        proxy.scrollTo(Self.editErrorAnchor, anchor: .center)
                     }
                 }
-                .padding(.bottom, 24)
             }
             // Content scrolled up stays out from under the status bar.
             .lunaStatusBarBackdrop()
@@ -50,7 +84,91 @@ struct CycleCalendarView: View {
             .sheet(item: $logDay) { selection in
                 CycleDayLogSheet(day: selection.date, existing: cycle.log(on: selection.date))
             }
+            .confirmationDialog(L10n.periodEditDiscardTitle, isPresented: $confirmingDiscard, titleVisibility: .visible) {
+                Button(L10n.periodEditDiscardConfirm, role: .destructive) { leaveEdit() }
+                Button(L10n.periodEditDiscardKeep, role: .cancel) {}
+            }
+            .onChange(of: edit?.ticked) { editError = nil }
+            // The periods or the day changed under an open edit: keep the user's changes on top.
+            .onChange(of: cycle.periods) { rebaseEdit() }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { rebaseEdit() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                rebaseEdit()
+            }
         }
+    }
+
+    // MARK: - Phase 19: edit period days
+
+    private static let editErrorAnchor = "periodEditErrorAnchor"
+
+    private var isBleed: Bool { cycle.policy.predictedBleedLabel == .withdrawalBleed }
+
+    private func startEdit() {
+        editError = nil
+        withAnimation(editAnimation) {
+            edit = CalendarPeriodEdit(periods: cycle.periods, now: AppClock.now(), calendar: calendar)
+        }
+    }
+
+    private func cancelEdit() {
+        if edit?.hasChanges == true {
+            confirmingDiscard = true
+        } else {
+            leaveEdit()
+        }
+    }
+
+    private func leaveEdit() {
+        editError = nil
+        withAnimation(editAnimation) { edit = nil }
+    }
+
+    private var editAnimation: Animation? {
+        LunaMotion.isEnabled ? LunaMotion.fade : nil
+    }
+
+    private func rebaseEdit() {
+        guard edit != nil, !saving else { return }
+        edit?.rebase(periods: cycle.periods, now: AppClock.now(), calendar: calendar)
+    }
+
+    /// One save at a time: `saving` is set before the task starts.
+    private func startSave() {
+        guard !saving, edit != nil else { return }
+        saving = true
+        Task {
+            await saveEdit()
+            saving = false
+        }
+    }
+
+    private func saveEdit() async {
+        guard let edit else { return }
+        let plan = PeriodEditPlan.make(
+            initial: edit.initial, ticked: edit.ticked, periods: cycle.periods, now: AppClock.now(),
+            typicalPeriodLength: cycle.settings.typicalPeriodLength, calendar: calendar
+        )
+        switch plan {
+        case .failure(.periodTooLong):
+            showEditError(isBleed ? L10n.periodEditTooLongBleed(CycleRules.longPeriodDays) : L10n.periodEditTooLong(CycleRules.longPeriodDays))
+        case .success(let plan):
+            if let failure = await cycle.applyPeriodEdits(plan) {
+                // Shown here, not in the Today tab's alert.
+                cycle.clearFailure()
+                showEditError(L10n.cycleFailure(failure))
+            } else {
+                leaveEdit()
+                AccessibilityNotification.Announcement(isBleed ? L10n.periodEditSavedBleed : L10n.periodEditSaved).post()
+            }
+        }
+    }
+
+    private func showEditError(_ message: String) {
+        editError = message
+        AccessibilityNotification.Announcement(message).post()
     }
 
     private var header: some View {
@@ -70,7 +188,7 @@ struct CycleCalendarView: View {
     }
 
     private var title: some View {
-        Text(L10n.calendarTitle)
+        Text(edit == nil ? L10n.calendarTitle : (isBleed ? L10n.periodEditButtonBleed : L10n.periodEditButton))
             .font(.luna(.screenTitle))
             .tracking(-0.56)
             .foregroundStyle(.luna(.textPrimary))
@@ -133,7 +251,20 @@ struct CycleCalendarView: View {
             .accessibilityHidden(true)
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 0), count: 7), spacing: 4) {
                 ForEach(Array(days.enumerated()), id: \.offset) { _, day in
-                    if let day {
+                    if let day, let edit {
+                        let ticked = edit.ticked.contains(day)
+                        PeriodEditDayCell(
+                            day: day,
+                            isTicked: ticked,
+                            isToday: day == today,
+                            showsTick: edit.window.contains(day),
+                            isEnabled: edit.canToggle(day),
+                            label: CycleAccessibility.editDayLabel(day: day, isToday: day == today, isTicked: ticked, policy: cycle.policy),
+                            identifier: CalendarPeriodEdit.identifier(for: day, calendar: calendar)
+                        ) {
+                            self.edit?.toggle(day)
+                        }
+                    } else if let day {
                         CalendarDayCell(
                             day: day,
                             status: cycle.forecast.map { cycle.policy.visibleStatus($0.dayStatus(for: day)) },

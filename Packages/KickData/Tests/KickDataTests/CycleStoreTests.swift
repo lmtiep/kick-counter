@@ -110,6 +110,90 @@ struct CycleStoreTests {
         #expect(try count(PeriodEntry.self) == 2)
     }
 
+    // MARK: - Period changes (phase 19)
+
+    @Test func periodChangesApplyDeletesUpdatesAndAddsTogether() throws {
+        let kept = PeriodRecord(startDate: day("2026-09-01"), endDate: day("2026-09-03"))
+        let merged = PeriodRecord(startDate: day("2026-09-05"), endDate: day("2026-09-07"))
+        try store.addPeriod(kept, today: today)
+        try store.addPeriod(merged, today: today)
+        let added = PeriodRecord(startDate: date("2026-08-01T15:00:00Z"), endDate: day("2026-08-04"))
+        let grown = PeriodRecord(id: kept.id, startDate: day("2026-09-01"), endDate: day("2026-09-07"))
+
+        try store.applyPeriodChanges(deletes: [merged.id], updates: [grown], adds: [added], today: today)
+
+        #expect(try store.periods() == [
+            PeriodRecord(id: added.id, startDate: day("2026-08-01"), endDate: day("2026-08-04")),
+            grown,
+        ])
+        #expect(try count(PeriodEntry.self) == 2)
+    }
+
+    @Test func periodChangesAreCheckedAgainstTheFinalSet() throws {
+        // Shrinking a period and adding one right after it: each is only valid
+        // with the other change already applied.
+        let stored = PeriodRecord(startDate: day("2026-09-01"), endDate: day("2026-09-06"))
+        try store.addPeriod(stored, today: today)
+        let shrunk = PeriodRecord(id: stored.id, startDate: day("2026-09-01"), endDate: day("2026-09-02"))
+        let added = PeriodRecord(startDate: day("2026-09-04"), endDate: day("2026-09-06"))
+
+        try store.applyPeriodChanges(deletes: [], updates: [shrunk], adds: [added], today: today)
+
+        #expect(try store.periods() == [shrunk, added])
+    }
+
+    @Test func aDeletedPeriodMakesRoomForAnAdd() throws {
+        let stored = PeriodRecord(startDate: day("2026-09-01"), endDate: day("2026-09-05"))
+        try store.addPeriod(stored, today: today)
+        let added = PeriodRecord(startDate: day("2026-09-03"), endDate: day("2026-09-04"))
+
+        try store.applyPeriodChanges(deletes: [stored.id], updates: [], adds: [added], today: today)
+
+        #expect(try store.periods() == [added])
+    }
+
+    @Test func anInvalidPeriodChangeWritesNothing() throws {
+        let first = PeriodRecord(startDate: day("2026-08-01"), endDate: day("2026-08-04"))
+        let second = PeriodRecord(startDate: day("2026-09-01"), endDate: day("2026-09-05"))
+        try store.addPeriod(first, today: today)
+        try store.addPeriod(second, today: today)
+        let moved = PeriodRecord(id: first.id, startDate: day("2026-07-01"), endDate: day("2026-07-03"))
+        let overlapping = PeriodRecord(startDate: day("2026-09-05"), endDate: day("2026-09-06"))
+
+        #expect(throws: CycleRepositoryError.overlapsExistingPeriod) {
+            try store.applyPeriodChanges(deletes: [], updates: [moved], adds: [overlapping], today: today)
+        }
+        #expect(throws: CycleRepositoryError.futureDate) {
+            try store.applyPeriodChanges(
+                deletes: [second.id], updates: [], adds: [PeriodRecord(startDate: day("2026-10-03"))], today: today
+            )
+        }
+        #expect(throws: CycleRepositoryError.notFound) {
+            try store.applyPeriodChanges(
+                deletes: [second.id], updates: [PeriodRecord(startDate: day("2026-09-20"))], adds: [], today: today
+            )
+        }
+        #expect(try store.periods() == [first, second])
+        #expect(try count(PeriodEntry.self) == 2)
+    }
+
+    @Test func failedPeriodChangesRollBack() throws {
+        let first = PeriodRecord(startDate: day("2026-08-01"), endDate: day("2026-08-04"))
+        let second = PeriodRecord(startDate: day("2026-09-01"), endDate: day("2026-09-05"))
+        try store.addPeriod(first, today: today)
+        try store.addPeriod(second, today: today)
+        let moved = PeriodRecord(id: first.id, startDate: day("2026-07-01"), endDate: day("2026-07-03"))
+
+        #expect(throws: SaveFailed.self) {
+            try failingStore().applyPeriodChanges(
+                deletes: [second.id], updates: [moved],
+                adds: [PeriodRecord(startDate: day("2026-09-20"), endDate: day("2026-09-22"))], today: today
+            )
+        }
+        #expect(try store.periods() == [first, second])
+        #expect(try count(PeriodEntry.self) == 2)
+    }
+
     // MARK: - Day logs
 
     @Test func logRoundTripsEveryField() throws {
