@@ -177,6 +177,26 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - UI test: `-seedPill 21+7:<số ngày từ đầu vỉ>`; `PillReminderUITests`, `PillReminderScreenshotTests`. Kiểm thử trên
   máy thật: `docs/release-checklist.md` ("Giai đoạn 17").
 
+## Đếm cơn gò (giai đoạn 20)
+- Màn "Cơn gò" (`App/Contractions/ContractionTimerView.swift`): lối tắt "Cơn gò" ở Hôm nay từ tuần 28, và hàng "Đếm cơn
+  gò" ở tab Đếm cử động (mọi tuần). Một nút lớn "Bắt đầu cơn gò" / "Hết cơn gò" có "Hoàn tác" trong 5 giây; thẻ "Trong 1
+  giờ qua" (số cơn, dài TB, cách nhau TB); danh sách "Lần theo dõi này" (nút xoá từng cơn, có hỏi lại), "Kết thúc theo dõi" và
+  "Lịch sử cơn gò" theo ngày (vuốt để xoá cả lần theo dõi). Câu an toàn luôn hiện.
+- Logic thuần ở KickCore: `ContractionRules` (mọi ngưỡng), `ContractionStats` (lần theo dõi, giờ qua, cảnh báo),
+  `ContractionCoordinator`. Từ tuần 37 (hoặc chưa biết tuần) là thẻ 5-1-1: ≥ 6 cơn trong giờ qua, cách nhau TB ≤ 5:30,
+  dài TB ≥ 45 s, lần theo dõi đã ≥ 60 phút. Trước tuần 37 là thẻ khẩn: ≥ 4 cơn bắt đầu trong giờ qua, đếm cả sau khi
+  "Kết thúc theo dõi". Cả hai thẻ có nút "Gọi cấp cứu 115" (`EmergencyCallButton`, dùng chung với thẻ 2 giờ khi đếm cử
+  động). Cơn chạy quá 5 phút được đóng ở mốc 5 phút; cơn dưới 3 giây là bấm nhầm và bị bỏ; hai cơn cách nhau quá 2 giờ
+  là hai lần theo dõi. Model `Contraction` (KickData) có trong xoá toàn bộ dữ liệu và file sao lưu (mảng `contractions`
+  tuỳ chọn).
+- Live Activity riêng (`Widgets/ContractionLiveActivityWidget.swift`, `Shared/ContractionActivityAttributes.swift`)
+  chạy song song với Live Activity đếm cử động: nút "Bắt đầu" / "Hết cơn" trên màn hình khoá và Dynamic Island gọi
+  `ToggleContractionIntent`, không mở app. `staleDate` = lần bắt đầu cuối + 2 giờ: hệ thống đánh dấu cũ, app kết thúc
+  activity khi mở lại hoặc quay lại foreground.
+- UI test: `-seedContractions 511|preterm`; `ContractionTimerUITests`, `ContractionTimerScreenshotTests`. Bác sĩ duyệt:
+  `docs/content-review-for-doctor.md` mục 18 (96–100). Kiểm thử trên máy thật: `docs/release-checklist.md` ("Giai đoạn
+  20").
+
 ## Kích thước theo tuần (giai đoạn 11)
 - Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`
   và `produceSources` trong `pregnancy-content.json` (phiên bản 4); `ContentValidator` buộc có nguồn và lệch không quá

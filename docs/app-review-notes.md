@@ -53,6 +53,8 @@ All notifications are local (scheduled on-device), not push notifications: a dai
 
 Starting a kick-counting session shows a Live Activity on the Lock Screen / Dynamic Island with a "+1" button and a running count out of 10. To test it: open the app, start counting kicks, then lock the phone — the Live Activity should appear and let you add kicks from the Lock Screen. It automatically ends shortly after 10 kicks are reached, or is marked as abandoned after about 12 hours of inactivity.
 
+**Contraction timer:** from the pregnancy Today screen (week 28+) or the Kicks tab, "Contractions" times each contraction with one start/stop button, and a second Live Activity (next to the kick one) has a Start/Stop button that works from the Lock Screen without opening the app and ends on its own after 2 hours without a new contraction; it only advises calling a doctor or going to the hospital (with a "Call 115" button that opens the dialer) and does not diagnose labor.
+
 **Background modes / capabilities**
 
 The app declares only the App Group entitlement, used to share data between the app and its widget extension. No background modes, CloudKit entitlements or remote-notification capability are declared in this version, since none of them are used while `cloudSync` is off.
