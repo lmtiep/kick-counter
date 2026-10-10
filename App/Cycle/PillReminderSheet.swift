@@ -196,7 +196,7 @@ struct PillReminderSheet: View {
         }
         .font(.luna(.body))
         .foregroundStyle(.luna(.textPrimary))
-        .tint(.luna(.cycleStrong))
+        .tint(.luna(.cycleText))
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
         .frame(minHeight: 44)

@@ -96,7 +96,7 @@ struct CycleDayLogSheet: View {
                 .lineLimit(2...5)
                 .font(.luna(.body))
                 .padding(14)
-                .background(.luna(.card), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .lunaGlass(in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .accessibilityIdentifier("dayLogNoteField")
 
             Button(L10n.commonCancel) { dismiss() }
@@ -110,7 +110,7 @@ struct CycleDayLogSheet: View {
                 .disabled(saving)
                 .padding(.horizontal, 22)
                 .padding(.vertical, 10)
-                .background(.luna(.background))
+                .background(.luna(.backgroundBottom))
                 .accessibilityIdentifier("dayLogSave")
         }
         .lunaSheetPresentation()
@@ -149,7 +149,7 @@ struct CycleDayLogSheet: View {
                 .keyboardType(.decimalPad)
                 .font(.luna(.body))
                 .padding(14)
-                .background(.luna(.card), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .lunaGlass(in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .accessibilityLabel(L10n.dayLogBBT)
                 .accessibilityIdentifier("dayLogBBTField")
                 .onChange(of: temperatureText) { temperatureInvalid = false }

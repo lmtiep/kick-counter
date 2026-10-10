@@ -75,7 +75,7 @@ struct AddPastPeriodSheet: View {
             LunaSheetSectionTitle(title: L10n.addPastStart)
             startPicker
                 .labelsHidden()
-                .tint(.luna(.cycleStrong))
+                .tint(.luna(.cycleText))
                 .frame(maxWidth: .infinity)
                 .lunaCard(padding: 8)
                 .accessibilityLabel(L10n.addPastStart)

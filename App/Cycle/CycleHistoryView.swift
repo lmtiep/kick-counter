@@ -70,7 +70,7 @@ struct CycleHistoryView: View {
             }
             .padding(20)
         }
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationTitle(L10n.cycleHistoryTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.visible, for: .navigationBar)
@@ -274,7 +274,7 @@ struct CycleDetailView: View {
             .lunaCard(padding: 0)
             .padding(20)
         }
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationTitle(past.map(title) ?? L10n.cycleHistoryTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.visible, for: .navigationBar)

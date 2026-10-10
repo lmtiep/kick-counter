@@ -57,7 +57,7 @@ struct PartnerProfileView: View {
                 .padding(.bottom, 24)
             }
             .lunaStatusBarBackdrop()
-            .background(.luna(.background))
+            .lunaBackground()
             .toolbar(.hidden, for: .navigationBar)
             .confirmationDialog(L10n.partnerLeaveConfirm, isPresented: $confirmingLeave, titleVisibility: .visible) {
                 Button(L10n.partnerLeave, role: .destructive, action: onLeave)

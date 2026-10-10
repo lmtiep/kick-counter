@@ -91,7 +91,7 @@ struct KicksView: View {
             }
             // Content scrolled up stays out from under the status bar.
             .lunaStatusBarBackdrop()
-            .background(.luna(.background))
+            .lunaBackground()
             .toolbar(.hidden, for: .navigationBar)
             // A light tap for every counted movement, when turned on (spec §4.6).
             .sensoryFeedback(.impact(weight: .light), trigger: tapFeedback)
@@ -223,7 +223,7 @@ struct KicksView: View {
                     Spacer()
                     Text(L10n.historyTitle + " ›")
                         .font(.luna(.captionStrong))
-                        .foregroundStyle(.luna(.pregStrong))
+                        .foregroundStyle(.luna(.pregText))
                 }
                 HStack(alignment: .bottom, spacing: 8) {
                     ForEach(bars) { bar in

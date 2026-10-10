@@ -15,8 +15,6 @@ struct PillButtonStyle: ButtonStyle {
         case soft(LunaToken, LunaToken)
         /// Text only ("Not now", "Later").
         case text(LunaToken)
-        /// Onboarding: 60 pt, `buttonOnboarding`, 16/400.
-        case onboarding
 
         var fill: LunaToken? {
             switch self {
@@ -25,7 +23,6 @@ struct PillButtonStyle: ButtonStyle {
             case .light: .card
             case .soft(let background, _): background
             case .text: nil
-            case .onboarding: .buttonOnboarding
             }
         }
 
@@ -35,7 +32,6 @@ struct PillButtonStyle: ButtonStyle {
             case .light: .textPrimary
             case .soft(_, let text): text
             case .text(let text): text
-            case .onboarding: .onButtonOnboarding
             }
         }
     }
@@ -60,22 +56,23 @@ private struct PillButtonLabel: View {
     /// The 98 % press shrink; not with Reduce Motion or in UI tests (as KickDial).
     private var animates: Bool { !reduceMotion && LunaMotion.isEnabled }
 
-    private var isOnboarding: Bool {
-        if case .onboarding = kind { return true }
-        return false
-    }
-
     var body: some View {
         configuration.label
-            .font(.luna(isOnboarding ? .onboardingButton : .button))
+            .font(.luna(.button))
             .multilineTextAlignment(.center)
             .foregroundStyle(.luna(kind.foreground))
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
-            .frame(maxWidth: fullWidth ? .infinity : nil, minHeight: isOnboarding ? 60 : height)
+            .frame(maxWidth: fullWidth ? .infinity : nil, minHeight: height)
             .background {
                 if let fill = kind.fill {
                     Capsule().fill(.luna(fill))
+                }
+            }
+            .overlay {
+                // Glass and tinted pills carry their dark-mode edge (invisible in light mode).
+                if let border = kind.fill?.glassBorder {
+                    Capsule().strokeBorder(.luna(border), lineWidth: 1)
                 }
             }
             .contentShape(Capsule())
@@ -98,7 +95,6 @@ extension ButtonStyle where Self == PillButtonStyle {
         Button {} label: { Text(verbatim: "Hoàn tác") }.buttonStyle(.pill(.light, fullWidth: false, height: 44))
         Button {} label: { Text(verbatim: "Ghi chú") }.buttonStyle(.pill(.soft(.cycleSoft, .cycleOnSoft), fullWidth: false, height: 36))
         Button {} label: { Text(verbatim: "Để sau") }.buttonStyle(.pill(.text(.textSecondary)))
-        Button {} label: { Text(verbatim: "Tiếp tục") }.buttonStyle(.pill(.onboarding)).disabled(true)
     }
     .padding(24)
     .background(.luna(.background))

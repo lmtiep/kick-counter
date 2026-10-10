@@ -162,8 +162,6 @@ enum L10n {
     static var medicalSourcesTitle: String { t("medical.sources.title") }
     static var medicalSourcesNote: String { t("medical.sources.note") }
 
-    static var onboarding3Title: String { t("onboarding.3.title") }
-    static var onboarding3Body: String { t("onboarding.3.body") }
     static var onboardingLater: String { t("onboarding.later") }
     static var onboardingModeTitle: String { t("onboarding.mode.title") }
     static var modeTryingToConceive: String { t("mode.tryingToConceive") }
@@ -691,6 +689,9 @@ enum L10n {
     // MARK: - Phase 9: onboarding
 
     static var onboardingPrivacy: String { t("onboarding.privacy") }
+    /// Phase 18: the welcome step's one-line medical note (doctor doc item 91).
+    static var onboardingMedical: String { t("onboarding.medical") }
+    static var onboardingStart: String { t("onboarding.start") }
     static var onboardingBack: String { t("onboarding.back") }
     static var onboardingNotSure: String { t("onboarding.notSure") }
     static var onboardingGoalTracking: String { t("onboarding.goal.tracking") }

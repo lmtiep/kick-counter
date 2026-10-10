@@ -21,6 +21,7 @@ struct ScreenHeader: View {
                     .foregroundStyle(.luna(.avatarText))
                     .frame(width: 38, height: 38)
                     .background(Circle().fill(.luna(.avatar)))
+                    .overlay(Circle().strokeBorder(.luna(.avatarBorder), lineWidth: 1))
                     .frame(minWidth: 44, minHeight: 44)
                     .contentShape(Rectangle())
             }

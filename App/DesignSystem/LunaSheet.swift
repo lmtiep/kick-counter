@@ -1,7 +1,7 @@
 import KickCore
 import SwiftUI
 
-/// Bottom-sheet content of the redesign: `background` page, 40×5 handle,
+/// Bottom-sheet content of the redesign: `LunaBackground` page, 40×5 handle,
 /// 22/700 title, 22 pt side padding. Present it with `.sheet` and
 /// `.lunaSheetPresentation()` (radius 28; the system dims what is behind).
 struct LunaSheet<Content: View>: View {
@@ -31,7 +31,7 @@ struct LunaSheet<Content: View>: View {
             .padding(.bottom, 34)
         }
         .scrollBounceBehavior(.basedOnSize)
-        .background(.luna(.background))
+        .lunaBackground()
     }
 }
 
@@ -52,7 +52,7 @@ struct LunaSheetSectionTitle: View {
 extension View {
     func lunaSheetPresentation(detents: Set<PresentationDetent> = [.large]) -> some View {
         presentationDetents(detents)
-            .presentationBackground(.luna(.background))
+            .presentationBackground { LunaBackground() }
             .presentationCornerRadius(28)
             .presentationDragIndicator(.hidden)
     }

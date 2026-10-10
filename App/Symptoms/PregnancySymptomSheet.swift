@@ -69,7 +69,7 @@ struct PregnancySymptomSheet: View {
                 .lineLimit(2...5)
                 .font(.luna(.body))
                 .padding(14)
-                .background(.luna(.card), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .lunaGlass(in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                 .accessibilityIdentifier("symptomNoteField")
 
             Button(L10n.commonCancel) { dismiss() }
@@ -85,7 +85,7 @@ struct PregnancySymptomSheet: View {
                 .disabled(saving)
                 .padding(.horizontal, 22)
                 .padding(.vertical, 10)
-                .background(.luna(.background))
+                .background(.luna(.backgroundBottom))
                 .accessibilityIdentifier("symptomSave")
         }
         .lunaSheetPresentation()

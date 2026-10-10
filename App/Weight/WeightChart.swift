@@ -48,7 +48,7 @@ struct WeightChart: View {
                 )
                 .symbol {
                     Circle()
-                        .fill(.luna(.card))
+                        .fill(.luna(.cardOpaque))
                         .overlay(Circle().strokeBorder(.luna(.pregStrong), lineWidth: 2))
                         .frame(width: 8, height: 8)
                 }

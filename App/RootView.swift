@@ -139,7 +139,13 @@ struct RootView: View {
             // Over whatever is on top (a sheet, onboarding), never blocked by it.
             .onChange(of: backup.request?.id) {
                 if let request = backup.request {
-                    Task { await RestoreBackupPresenter.shared.present(restoreSheet(request)) { backup.request = nil } }
+                    let overOnboarding = showsOnboarding
+                    Task {
+                        await RestoreBackupPresenter.shared.present(
+                            restoreSheet(request, overOnboarding: overOnboarding),
+                            style: overOnboarding ? .light : AppEnvironment.forceDarkMode ? .dark : .unspecified
+                        ) { backup.request = nil }
+                    }
                 } else {
                     RestoreBackupPresenter.shared.dismiss()
                 }
@@ -165,8 +171,9 @@ struct RootView: View {
     }
 
     /// The restore sheet with what it needs from the environment: it is hosted by
-    /// `RestoreBackupPresenter`, outside this view's hierarchy.
-    private func restoreSheet(_ request: BackupCenter.Request) -> AnyView {
+    /// `RestoreBackupPresenter`, outside this view's hierarchy. Over onboarding
+    /// it is light, as onboarding is (phase 18).
+    private func restoreSheet(_ request: BackupCenter.Request, overOnboarding: Bool) -> AnyView {
         AnyView(
             RestoreBackupSheet(request: request)
                 .environment(backup)
@@ -178,7 +185,7 @@ struct RootView: View {
                 .modelContext(modelContext)
                 .environment(\.locale, AppLocale.locale)
                 .environment(\.calendar, AppLocale.calendar)
-                .preferredColorScheme(AppEnvironment.forceDarkMode ? .dark : nil)
+                .preferredColorScheme(overOnboarding ? .light : AppEnvironment.forceDarkMode ? .dark : nil)
         )
     }
 
@@ -191,6 +198,10 @@ struct RootView: View {
         )
     }
 
+    /// Tint of each tab's content: the light values are the tab accents of before phase 18
+    /// (#C2384F / #9C4823); the dark values are the pale text tokens.
+    private var contentTint: LunaToken { mode == .tryingToConceive ? .cycleText : .pregOnSoft }
+
     private var tabs: some View {
         TabView(selection: $selectedTab) {
             switch mode {
@@ -199,20 +210,20 @@ struct RootView: View {
                     onOpenProfile: { selectedTab = .profile },
                     onOpenCalendar: { selectedTab = .calendar }
                 )
-                .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
+                .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today, tint: contentTint)
                 CycleCalendarView()
-                    .lunaTab(L10n.tabCalendar, systemImage: "calendar", tag: .calendar)
+                    .lunaTab(L10n.tabCalendar, systemImage: "calendar", tag: .calendar, tint: contentTint)
             case .pregnant:
                 PregnancyTodayView(
                     onOpenKicks: { selectedTab = .kicks },
                     onOpenProfile: { selectedTab = .profile }
                 )
-                .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
+                .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today, tint: contentTint)
                 KicksView()
-                    .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks)
+                    .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks, tint: contentTint)
             case .partner:
                 PartnerTodayView(onLeave: leavePartnerMode)
-                    .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today)
+                    .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today, tint: contentTint)
                 let trimester = partnerJourney.trimester(now: AppClock.now())
                 NavigationStack {
                     KnowledgeLibraryView(initialTrimester: trimester)
@@ -221,18 +232,20 @@ struct RootView: View {
                 // shared due date arrives or the trimester changes. Transient
                 // states (an error, no iCloud) keep the last known trimester.
                 .id(trimester)
-                .lunaTab(L10n.knowledgeTitle, systemImage: "book.fill", tag: .knowledge)
+                .lunaTab(L10n.knowledgeTitle, systemImage: "book.fill", tag: .knowledge, tint: contentTint)
             }
             if mode == .partner {
                 PartnerProfileView(onLeave: leavePartnerMode)
-                    .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
+                    .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile, tint: contentTint)
             } else {
                 ProfileView(onReplayOnboarding: { replayingOnboarding = true })
-                    .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile)
+                    .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile, tint: contentTint)
             }
         }
-        // Active tab: cycleStrong / pregnancy (pregOnSoft: pregStrong fails AA at 11 pt).
-        .tint(mode == .tryingToConceive ? Color.luna(.cycleStrong) : Color.luna(.pregOnSoft))
+        // The selected tab (pregnancy: pregStrong fails AA at 11 pt, so the darker value).
+        // Each tab's content gets its own text-safe tint in `lunaTab`: this accent is
+        // too light for text on a dark-mode card.
+        .tint(mode == .tryingToConceive ? Color.luna(.tabSelectedCycle) : Color.luna(.tabSelectedPreg))
     }
 
     private func accept(_ invitation: PartnerInvitation) async {
@@ -307,8 +320,10 @@ struct RootView: View {
 }
 
 private extension View {
-    func lunaTab(_ title: String, systemImage: String, tag: AppTab) -> some View {
-        tabItem { Label(title, systemImage: systemImage) }
+    /// `tint`: the content's tint (buttons, pickers, toolbar items), text-safe in both modes.
+    func lunaTab(_ title: String, systemImage: String, tag: AppTab, tint: LunaToken) -> some View {
+        self.tint(Color.luna(tint))
+            .tabItem { Label(title, systemImage: systemImage) }
             .tag(tag)
             .toolbarBackground(Color.luna(.tabBar), for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)

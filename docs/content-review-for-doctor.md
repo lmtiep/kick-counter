@@ -586,7 +586,7 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
 | `cycle.withdrawalBleed` | Nhãn "Ra máu dự kiến" thay cho "Kỳ kinh tiếp theo" / "Kỳ kinh dự đoán" khi dùng biện pháp có nội tiết |
 | `onboarding.regularity.irregularNote` | Hiện khi chọn "Không đều": "Chu kỳ dao động một chút là chuyện thường gặp, nhất là sau sinh, khi đang cho con bú hoặc lúc căng thẳng. Bạn ghi càng nhiều kỳ kinh, dự đoán thường càng sát hơn. Nếu chu kỳ hay ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền, bạn nên trao đổi với bác sĩ." |
 | `onboarding.cycleLength.hint` | "Tính từ ngày đầu của một kỳ kinh đến hết ngày trước kỳ kinh sau. Nhiều người có chu kỳ từ 21 đến 35 ngày, của bạn có thể khác." |
-| `onboarding.privacy` | Câu chào mừng: "Dữ liệu chỉ được lưu trên iPhone này. Không cần tài khoản, không quảng cáo, không bán dữ liệu." (giai đoạn 12: không còn iCloud) |
+| `onboarding.privacy` | Câu chào mừng: "Dữ liệu chỉ lưu trên iPhone. Không tài khoản, không quảng cáo." (giai đoạn 12: không còn iCloud; giai đoạn 18: câu ngắn hơn theo thiết kế mới) |
 | `onboarding.regularity.*`, `onboarding.result.late`, `profile.showFertilityTests(.hint)` | Đều / Không đều / Không rõ và mô tả; "Theo ngày bạn nhập, kỳ kinh có thể đã trễ khoảng %@."; "Hiện que thử rụng trứng & nhiệt độ" |
 | `settings.cycleReminders.hint.tracking` | Chú thích dưới công tắc "Nhắc chu kỳ" trong Hồ sơ khi theo dõi chu kỳ (không nhắc trước cửa sổ thụ thai, xem mục 56): "Nhắc lúc 9:00: 1 ngày trước kỳ kinh dự kiến và một lần khi trễ kinh 3 ngày." (chế độ Mong con vẫn dùng `settings.cycle.remindersHint`, có nhắc 2 ngày trước cửa sổ thụ thai) |
 
@@ -913,10 +913,19 @@ nhắc (mặc định 21:00). Thông báo: "Đến giờ uống thuốc" — "Vi
         theo tờ hướng dẫn trong hộp thuốc hoặc hỏi bác sĩ, dược sĩ." / "If you miss a pill, follow the leaflet in the
         pack or ask a doctor or pharmacist." App **không** đưa hướng dẫn lâm sàng nào khác (uống bù, dùng thêm bao cao
         su…). **Câu hỏi:** câu này có đủ và đúng không?
-92. [ ] **Nhắc lại sau 2 giờ.** Nếu chưa đánh dấu "Đã uống", app nhắc lại **một lần** sau 2 giờ: "Bạn đã uống thuốc
-        hôm nay chưa?" — "Viên 12/21. Bấm Đã uống sau khi uống." Không nhắc thêm. **Câu hỏi:** 2 giờ có hợp lý không?
+92. [ ] **Nhắc lại sau 2 giờ.** Nếu chưa đánh dấu "Đã uống", app nhắc lại **một lần** sau 2 giờ: "Bạn đã uống viên thuốc
+        chưa?" — "Viên 12/21. Bấm Đã uống sau khi uống." Không nhắc thêm. **Câu hỏi:** 2 giờ có hợp lý không?
 93. [ ] **Tuần nghỉ của vỉ 21 + 7.** Ngày 22–28 của vỉ không có nhắc nhở; thẻ ở Hôm nay ghi "Tuần nghỉ · vỉ mới bắt
         đầu ngày 18 thg 10". Tối ngày đầu vỉ mới, nhắc lại như bình thường. Vỉ "28 viên" nhắc mỗi ngày. **Câu hỏi:**
         cách gọi "tuần nghỉ" và việc không nhắc trong 7 ngày đó có ổn không?
 94. [ ] **Thuốc chỉ chứa progestin** (cửa sổ khoảng 3 giờ) đang dùng chung lựa chọn "28 viên" và cùng lần nhắc lại sau 2
         giờ. **Câu hỏi:** loại thuốc này có cần cách nhắc khác (ví dụ nhắc lại sớm hơn, hoặc một lựa chọn riêng) không?
+
+## 17. Onboarding mới (giai đoạn 18)
+
+95. [ ] **Giai đoạn 18 — lưu ý y khoa ở màn chào mừng.** Onboarding mới gộp lưu ý y khoa thành một dòng ngắn cạnh
+        biểu tượng "!". Cũ (`onboarding.3.title` + `onboarding.3.body`): "Không thay thế tư vấn y tế. Nếu thấy bé cử động
+        ít hơn bình thường, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế. Đừng chờ kết quả từ app." → Mới (`onboarding.medical`):
+        "Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay." (en: "Not a substitute for a doctor. Fewer
+        kicks than usual? Call your doctor."). Câu mới bỏ "hoặc cơ sở y tế" và "Đừng chờ kết quả từ app". **Câu hỏi:**
+        bác sĩ xác nhận câu ngắn này đủ an toàn, hay cần giữ "bác sĩ hoặc cơ sở y tế"?

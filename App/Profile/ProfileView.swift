@@ -113,7 +113,7 @@ struct ProfileView: View {
             }
             // Content scrolled up stays out from under the status bar.
             .lunaStatusBarBackdrop()
-            .background(.luna(.background))
+            .lunaBackground()
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showingPregnancyDates) { PregnancyDateSheet() }
             .sheet(isPresented: $showingMaternal) { MaternalProfileSheet() }
@@ -177,6 +177,7 @@ struct ProfileView: View {
                 .foregroundStyle(.luna(.avatarText))
                 .frame(width: 60, height: 60)
                 .background(Circle().fill(.luna(.avatar)))
+                .overlay(Circle().strokeBorder(.luna(.avatarBorder), lineWidth: 1))
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
                 Text(L10n.appName)
@@ -908,7 +909,7 @@ struct FontLicenseView: View {
                 .padding(20)
                 .accessibilityIdentifier("fontLicenseText")
         }
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationTitle(L10n.profileFontLicense)
         .navigationBarTitleDisplayMode(.inline)
     }

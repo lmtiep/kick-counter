@@ -11,6 +11,10 @@ import SwiftUI
 /// goal, lengths, period and due date, and finishing only closes it: no mode,
 /// settings, period, answers or pregnancy dates are saved. The language choice
 /// still applies, as a view preference.
+///
+/// Phase 18: the owner's handoff (`docs/design/handoff-2026-10-09`, README §1):
+/// light only, cream background, the illustration whole at the top with the
+/// wave band, the text at the bottom and the terracotta button.
 struct OnboardingView: View {
     /// Captured once, when the view first appears: RootView recomputes the
     /// `replay` argument while the cover is being dismissed, and a second tap
@@ -33,6 +37,10 @@ struct OnboardingView: View {
     @State private var showingLMPForm = false
     @State private var saving = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    /// The welcome lines' round icons and the goal cards' icons grow with the text.
+    @ScaledMetric(relativeTo: .footnote) private var commitmentIcon: CGFloat = 24
+    @ScaledMetric(relativeTo: .footnote) private var lockSize: CGFloat = 11
+    @ScaledMetric(relativeTo: .headline) private var goalIcon: CGFloat = 36
     private let now: Date
 
     init(replay: Bool = false, onFinish: @escaping () -> Void) {
@@ -80,11 +88,11 @@ struct OnboardingView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            Color.luna(.onboardingBackground).ignoresSafeArea()
+            OnboardingPalette.background.ignoresSafeArea()
             GeometryReader { proxy in
                 OnboardingHero(kind: hero)
-                    .frame(width: proxy.size.width, height: (proxy.size.height + proxy.safeAreaInsets.top) * hero.heightFraction)
-                    .offset(y: -proxy.safeAreaInsets.top)
+                    .frame(width: proxy.size.width, height: proxy.size.height * hero.heightFraction)
+                    .offset(y: hero.top)
             }
             // A new id runs the entrance animations again for every picture.
             .id(hero)
@@ -96,8 +104,9 @@ struct OnboardingView: View {
                             stepContent
                         }
                         .padding(.horizontal, 24)
+                        .padding(.bottom, flow.step == .welcome ? 20 : 16)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        // Tied to the content's top edge, so text never sits on the photo
+                        // Tied to the content's top edge, so text never sits on the picture
                         // at any Dynamic Type size or screen height.
                         .background(alignment: .top) { ContentScrim() }
                         .frame(maxWidth: .infinity, minHeight: proxy.size.height, alignment: .bottomLeading)
@@ -110,9 +119,10 @@ struct OnboardingView: View {
                 buttons
                     .padding(.horizontal, 24)
             }
-            .padding(.bottom, 12)
+            .padding(.bottom, 4)
         }
         .environment(\.locale, AppLocale.locale)
+        .onboardingLight()
         .interactiveDismissDisabled()
         .onAppear(perform: startFromCurrentValues)
         .sheet(isPresented: $showingOtherDay) { otherDaySheet }
@@ -120,48 +130,71 @@ struct OnboardingView: View {
         .sheet(isPresented: $showingLMPForm) { lmpFormSheet }
     }
 
+    private var animates: Bool { LunaMotion.isEnabled && !reduceMotion }
+
     // MARK: - Top bar
 
+    /// Handoff README §1: the progress pill with the VI / EN segment on step 1;
+    /// from step 2 on, back on the left, the dots in the middle, Skip on the right.
     private var topBar: some View {
         HStack(spacing: 8) {
             if flow.canGoBack {
-                Button { change { $0.back() } } label: {
-                    Image(systemName: "chevron.backward")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundStyle(.luna(.textOnboarding))
-                        .frame(width: 32, height: 32)
-                        .background(Circle().fill(Color.luna(.card).opacity(0.7)))
-                        .frame(minWidth: 44, minHeight: 44)
-                        .contentShape(Rectangle())
+                TopBarLayout {
+                    backButton
+                    progressDots
+                    skipButton
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel(L10n.onboardingBack)
-                .accessibilityIdentifier("onboardingBack")
-            }
-            progressDots
-            Spacer()
-            if flow.isQuestion {
-                Button(skipTitle) { change { $0.skip() } }
-                    .font(.luna(.captionMedium))
-                    // One line at every text size. The bar is capped at AX2 (below); the
-                    // scale factor stays as a safety net for narrow (375 pt) phones, where
-                    // it shrinks the label a little rather than truncating it.
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-                    .foregroundStyle(.luna(.textOnboarding))
-                    .padding(.horizontal, 14)
-                    .frame(minHeight: 32)
-                    .background(Capsule().fill(Color.luna(.card).opacity(0.7)))
-                    .frame(minHeight: 44)
-                    .accessibilityIdentifier("onboardingSkip")
+            } else {
+                progressDots
+                Spacer(minLength: 8)
+                languageSegment
             }
         }
-        .padding(.top, 8)
+        .frame(minHeight: 44)
+        .padding(.top, 6)
         .padding(.horizontal, 24)
         // Phase 9 final fix: past AX2 the Skip pill truncated to "Không…". The bar's
         // controls are short labels and decorative dots, so they stop growing at AX2
         // (as system bars do); the question text below keeps the full size.
         .dynamicTypeSize(...DynamicTypeSize.accessibility2)
+    }
+
+    private var backButton: some View {
+        Button { change { $0.back() } } label: {
+            Image(systemName: "chevron.backward")
+                .font(.system(size: 17, weight: .medium))
+                .foregroundStyle(OnboardingPalette.ink)
+                .frame(width: 40, height: 40)
+                .background(Circle().fill(OnboardingPalette.pill))
+                .frame(minWidth: 44, minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(L10n.onboardingBack)
+        .accessibilityIdentifier("onboardingBack")
+    }
+
+    @ViewBuilder
+    private var skipButton: some View {
+        if flow.isQuestion {
+            Button(skipTitle) { change { $0.skip() } }
+                .font(.luna(.captionMedium))
+                // One line at every text size. The bar is capped at AX2 (above); the
+                // scale factor stays as a safety net for narrow (375 pt) phones, where
+                // it shrinks the label a little rather than truncating it.
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+                .foregroundStyle(OnboardingPalette.ink)
+                .padding(.horizontal, 14)
+                .frame(minHeight: 36)
+                .background(Capsule().fill(OnboardingPalette.pill))
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+                .accessibilityIdentifier("onboardingSkip")
+        } else {
+            // Keeps TopBarLayout's three slots on the result step.
+            Color.clear.frame(width: 0, height: 0)
+        }
     }
 
     /// "Not sure" where the answer is a number or a pattern, "Skip" elsewhere.
@@ -173,20 +206,53 @@ struct OnboardingView: View {
     }
 
     private var progressDots: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 5) {
             ForEach(Array(flow.steps.enumerated()), id: \.offset) { index, _ in
+                let isCurrent = index + 1 == flow.stepNumber
                 Capsule()
-                    .fill(Color.luna(.textOnboarding).opacity(index < flow.stepNumber ? 1 : 0.2))
-                    .frame(width: index + 1 == flow.stepNumber ? 22 : 6, height: 6)
+                    .fill(isCurrent ? OnboardingPalette.accent : OnboardingPalette.dot)
+                    .frame(width: isCurrent ? 20 : 6, height: 6)
             }
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 10)
-        .background(Capsule().fill(Color.luna(.card).opacity(0.7)))
-        .animation(LunaMotion.isEnabled && !reduceMotion ? LunaMotion.dots : nil, value: flow.step)
+        .background(Capsule().fill(OnboardingPalette.pill))
+        .animation(animates ? LunaMotion.dots : nil, value: flow.step)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(L10n.onboardingStep(flow.stepNumber, flow.stepCount))
         .accessibilityIdentifier("onboardingProgress")
+    }
+
+    /// VI / EN (12/600, the chosen one on `accent`); VoiceOver reads the
+    /// language's name.
+    private var languageSegment: some View {
+        HStack(spacing: 0) {
+            languageButton(.vi, short: "VI", name: L10n.languageVietnamese, identifier: "onboardingLanguageVi")
+            languageButton(.en, short: "EN", name: L10n.languageEnglish, identifier: "onboardingLanguageEn")
+        }
+        .padding(3)
+        .background(Capsule().fill(OnboardingPalette.pill))
+        .frame(minHeight: 44)
+    }
+
+    private func languageButton(_ language: ContentLanguage, short: String, name: String, identifier: String) -> some View {
+        let isSelected = AppLocale.language == language
+        return Button {
+            appLanguage = language.rawValue
+        } label: {
+            Text(verbatim: short)
+                .font(.luna(size: 12, weight: .semibold, relativeTo: .caption))
+                .foregroundStyle(isSelected ? Color.white : OnboardingPalette.ink)
+                .padding(.vertical, 6)
+                .padding(.horizontal, 11)
+                .background(Capsule().fill(isSelected ? OnboardingPalette.accent : Color.clear))
+                // A 44 pt tall touch area around the 28 pt pill.
+                .contentShape(Rectangle().inset(by: -8))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(name)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityIdentifier(identifier)
     }
 
     // MARK: - Steps
@@ -206,146 +272,149 @@ struct OnboardingView: View {
         }
     }
 
-    private func title(_ text: String) -> some View {
-        Text(text)
-            .font(.luna(.onboardingTitle))
-            .tracking(-0.68)
-            .lineSpacing(2)
-            .foregroundStyle(.luna(.textOnboarding))
-            .fixedSize(horizontal: false, vertical: true)
-            .accessibilityAddTraits(.isHeader)
+    /// 32/400 on the welcome step, 26/400 on the others; tracking −0.02 em,
+    /// lines balanced (`text-wrap: balance`).
+    private func title(_ text: String, size: CGFloat = 26, identifier: String? = nil) -> some View {
+        BalancedText {
+            Text(text)
+                .font(.luna(size: size, weight: .regular, relativeTo: .largeTitle))
+                .tracking(-0.02 * size)
+                .foregroundStyle(OnboardingPalette.ink)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
+                .optionalAccessibilityIdentifier(identifier)
+        }
     }
 
     private func note(_ text: String, identifier: String) -> some View {
         Text(text)
             .font(.luna(.caption))
-            .foregroundStyle(.luna(.articleText))
+            .lineSpacing(2)
+            .foregroundStyle(OnboardingPalette.secondary)
             .fixedSize(horizontal: false, vertical: true)
             .accessibilityIdentifier(identifier)
     }
 
     private var welcomeStep: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            title(L10n.onboardingWelcomeTitle)
-                .accessibilityIdentifier("onboardingWelcomeTitle")
+        VStack(alignment: .leading, spacing: 14) {
+            title(L10n.onboardingWelcomeTitle, size: 32, identifier: "onboardingWelcomeTitle")
             Text(L10n.onboardingWelcomeBody)
-                .font(.luna(.body))
-                .lineSpacing(4)
-                .foregroundStyle(.luna(.articleText))
-                .frame(maxWidth: 300, alignment: .leading)
-            // The medical note of the old onboarding: always on the first step, never skipped.
-            (Text(L10n.onboarding3Title).font(.luna(.captionStrong))
-                + Text(verbatim: "\n")
-                + Text(L10n.onboarding3Body).font(.luna(.caption)))
-                .foregroundStyle(.luna(.articleText))
+                .font(.luna(size: 15, weight: .regular, relativeTo: .body))
+                .lineSpacing(3)
+                .foregroundStyle(OnboardingPalette.secondary)
                 .fixedSize(horizontal: false, vertical: true)
-                .accessibilityIdentifier("onboardingMedicalNote")
-            note(L10n.onboardingPrivacy, identifier: "onboardingPrivacyNote")
-            SegmentedPill(options: [
-                SegmentedOption(value: ContentLanguage.vi, title: L10n.languageVietnamese, identifier: "onboardingLanguageVi"),
-                SegmentedOption(value: ContentLanguage.en, title: L10n.languageEnglish, identifier: "onboardingLanguageEn"),
-            ], selection: languageBinding, capsule: true)
-            // Hugs its segments but never grows past the screen at large text sizes.
-            .fixedSize(horizontal: false, vertical: true)
-            .padding(.top, 4)
-            // Restoring replaces everything, so a replay from Profile does not offer it.
-            if !isReplay {
-                Button {
-                    importingBackup = true
-                } label: {
-                    Label(L10n.onboardingRestore, systemImage: "arrow.down.doc")
-                        .font(.luna(.captionStrong))
-                        .underline()
-                        .foregroundStyle(.luna(.textOnboarding))
-                        .frame(minHeight: 44, alignment: .leading)
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("onboardingRestore")
-                .fileImporter(isPresented: $importingBackup, allowedContentTypes: [.lunaMomBackup, .json]) { result in
-                    if case .success(let url) = result { backup.open(url) }
-                }
+            VStack(alignment: .leading, spacing: 8) {
+                // Always on the first step, never skipped.
+                commitment(L10n.onboardingPrivacy, identifier: "onboardingPrivacyNote") {
+                    Image(systemName: "lock")
+                        .font(.system(size: lockSize, weight: .semibold))
+                        .foregroundStyle(OnboardingPalette.privacyIcon)
+                } background: { OnboardingPalette.privacyIconBackground }
+                commitment(L10n.onboardingMedical, identifier: "onboardingMedicalNote") {
+                    Text(verbatim: "!")
+                        .font(.luna(size: 12, weight: .bold, relativeTo: .footnote))
+                        .foregroundStyle(OnboardingPalette.accent)
+                } background: { OnboardingPalette.warmSoft }
             }
+            .padding(.top, 2)
         }
     }
 
-    /// Shows the language in use; choosing one stores it for the whole app at once.
-    private var languageBinding: Binding<ContentLanguage> {
-        Binding(
-            get: { AppLocale.language },
-            set: { appLanguage = $0.rawValue }
-        )
+    /// A privacy or medical line: a 24 pt round icon and 13/1.4 text.
+    private func commitment(
+        _ text: String,
+        identifier: String,
+        @ViewBuilder icon: () -> some View,
+        background: () -> Color
+    ) -> some View {
+        HStack(spacing: 10) {
+            icon()
+                .frame(width: commitmentIcon, height: commitmentIcon)
+                .background(Circle().fill(background()))
+                .accessibilityHidden(true)
+            Text(text)
+                .font(.luna(.caption))
+                .lineSpacing(2)
+                .foregroundStyle(OnboardingPalette.commitment)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityIdentifier(identifier)
+        }
     }
 
     private var goalStep: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
             title(L10n.onboardingModeTitle)
-                .padding(.bottom, 6)
-            choiceCard(
-                title: L10n.onboardingGoalTracking,
-                detail: L10n.onboardingGoalTrackingDetail,
-                dot: .cycle,
-                isSelected: flow.goal == .tracking,
-                identifier: "onboardingGoal-tracking"
-            ) { flow.goal = .tracking }
-            choiceCard(
-                title: L10n.onboardingGoalConceiving,
-                detail: L10n.onboardingGoalConceivingDetail,
-                dot: .fertile,
-                isSelected: flow.goal == .conceiving,
-                identifier: "onboardingGoal-conceiving"
-            ) { flow.goal = .conceiving }
-            choiceCard(
-                title: L10n.onboardingGoalPregnant,
-                detail: L10n.onboardingGoalPregnantDetail,
-                dot: .preg,
-                isSelected: flow.goal == .pregnant,
-                identifier: "onboardingGoal-pregnant"
-            ) { flow.goal = .pregnant }
+                .padding(.bottom, 2)
+            goalCard(.tracking, title: L10n.onboardingGoalTracking, detail: L10n.onboardingGoalTrackingDetail)
+            goalCard(.conceiving, title: L10n.onboardingGoalConceiving, detail: L10n.onboardingGoalConceivingDetail)
+            goalCard(.pregnant, title: L10n.onboardingGoalPregnant, detail: L10n.onboardingGoalPregnantDetail)
         }
     }
 
-    /// A large tappable card: the goal, regularity and contraception choices.
+    private func goalCard(_ goal: OnboardingGoal, title: String, detail: String) -> some View {
+        choiceCard(
+            title: title,
+            detail: detail,
+            colors: OnboardingPalette.goal(goal),
+            showsIcon: true,
+            isSelected: flow.goal == goal,
+            identifier: "onboardingGoal-\(goal.rawValue)"
+        ) { flow.goal = goal }
+    }
+
+    /// A large tappable card with a radio (handoff README §1, "Màn 2"): the goal,
+    /// regularity and contraception choices. Unselected: white at 60 %, no
+    /// border; selected: white with a 1.5 pt border and a 7 pt radio ring in
+    /// the card's colour (`accent` outside the goal step).
     private func choiceCard(
         title: String,
         detail: String? = nil,
-        dot: LunaToken? = nil,
+        colors: (main: Color, soft: Color) = (OnboardingPalette.accent, OnboardingPalette.warmSoft),
+        showsIcon: Bool = false,
         isSelected: Bool,
         identifier: String,
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
-            HStack(spacing: 14) {
-                if let dot {
-                    Circle().fill(.luna(dot)).frame(width: 12, height: 12)
+            HStack(spacing: 12) {
+                if showsIcon {
+                    Circle().fill(colors.main).frame(width: 12, height: 12)
+                        .frame(width: goalIcon, height: goalIcon)
+                        .background(Circle().fill(colors.soft))
+                        .accessibilityHidden(true)
                 }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
                         .font(.luna(size: 16, weight: .medium, relativeTo: .headline))
-                        .foregroundStyle(.luna(.textOnboarding))
+                        .foregroundStyle(OnboardingPalette.ink)
                     if let detail {
                         Text(detail)
                             .font(.luna(.caption))
-                            .foregroundStyle(.luna(.textSecondary))
+                            .lineSpacing(2)
+                            .foregroundStyle(OnboardingPalette.secondary)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                // Always laid out, so selecting a card never re-wraps its text.
-                Image(systemName: "checkmark")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundStyle(.luna(.textOnboarding))
-                    .opacity(isSelected ? 1 : 0)
+                .fixedSize(horizontal: false, vertical: true)
+                Circle()
+                    .strokeBorder(isSelected ? colors.main : OnboardingPalette.radio, lineWidth: isSelected ? 7 : 1.5)
+                    .frame(width: 22, height: 22)
                     .accessibilityHidden(true)
             }
-            .padding(.vertical, detail == nil ? 13 : 16)
-            .padding(.horizontal, 18)
+            .padding(.vertical, detail == nil ? 12 : 9)
+            .padding(.horizontal, 14)
             .frame(minHeight: 48)
-            .background(.luna(.card), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .background(
+                isSelected ? OnboardingPalette.card : OnboardingPalette.cardUnselected,
+                in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+            )
             .overlay {
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .strokeBorder(isSelected ? Color.luna(.textOnboarding) : Color.clear, lineWidth: 1.5)
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .strokeBorder(isSelected ? colors.main : Color.clear, lineWidth: 1.5)
             }
-            .contentShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .animation(animates ? .easeOut(duration: 0.25) : nil, value: isSelected)
         }
         .buttonStyle(.plain)
         .accessibilityAddTraits(isSelected ? .isSelected : [])
@@ -370,19 +439,27 @@ struct OnboardingView: View {
                     showingOtherDay = true
                 } label: {
                     Text(isOtherDay ? L10n.onboardingOtherDayValue(Formatting.shortDay(flow.lastPeriodStart ?? now)) : L10n.onboardingOtherDay)
+                        .font(.luna(size: 15, weight: .medium, relativeTo: .body))
+                        .foregroundStyle(isOtherDay ? OnboardingPalette.onAccent : OnboardingPalette.ink)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                        .background(Capsule().fill(isOtherDay ? OnboardingPalette.accent : OnboardingPalette.soft))
+                        .contentShape(Capsule())
                 }
-                .buttonStyle(.pill(isOtherDay ? .filled(.cycleStrong) : .soft(.surfaceAlt, .textPrimary), height: 40))
+                .buttonStyle(.plain)
                 .accessibilityAddTraits(isOtherDay ? .isSelected : [])
                 .accessibilityIdentifier("onboardingOtherDay")
             }
-            .lunaCard(padding: 10)
+            .onboardingCard(padding: 10)
             Button(L10n.onboardingDontRemember) {
                 change {
                     $0.lastPeriodStart = nil
                     $0.next()
                 }
             }
-            .buttonStyle(.pill(.text(.textOnboarding), height: 44))
+            .buttonStyle(.onboarding(.text))
             .accessibilityIdentifier("onboardingDontRemember")
         }
     }
@@ -400,11 +477,11 @@ struct OnboardingView: View {
             }
             .lineLimit(1)
             .minimumScaleFactor(0.6)
-            .foregroundStyle(.luna(isSelected ? .onAccent : .textOnboarding))
+            .foregroundStyle(isSelected ? OnboardingPalette.onAccent : OnboardingPalette.ink)
             .frame(maxWidth: .infinity, minHeight: 48)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(isSelected ? Color.luna(.cycleStrong) : Color.clear)
+                    .fill(isSelected ? OnboardingPalette.accent : Color.clear)
             )
             .contentShape(Rectangle())
         }
@@ -439,13 +516,13 @@ struct OnboardingView: View {
         }
         .pickerStyle(.wheel)
         .frame(maxWidth: .infinity)
-        .lunaCard(padding: 4)
+        .onboardingCard(padding: 4)
     }
 
     private var regularityStep: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 8) {
             title(L10n.onboardingRegularityTitle)
-                .padding(.bottom, 6)
+                .padding(.bottom, 2)
             ForEach(CycleRegularity.allCases, id: \.self) { value in
                 choiceCard(
                     title: L10n.onboardingRegularity(value),
@@ -489,7 +566,7 @@ struct OnboardingView: View {
                     } label: {
                         Text(Formatting.dayMonthYear(dueDate))
                             .font(.luna(size: 22, weight: .medium, relativeTo: .title2))
-                            .foregroundStyle(.luna(.textOnboarding))
+                            .foregroundStyle(OnboardingPalette.ink)
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                             .frame(minWidth: 150, minHeight: 44)
@@ -503,16 +580,16 @@ struct OnboardingView: View {
                 }
                 Text(weekLabel(dueDate))
                     .font(.luna(.captionStrong))
-                    .foregroundStyle(.luna(.pregOnSoft))
+                    .foregroundStyle(OnboardingPalette.link)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(Capsule().fill(.luna(.pregSoft)))
+                    .background(Capsule().fill(OnboardingPalette.warmSoft))
                     .accessibilityIdentifier("onboardingDueWeeks")
             }
             .frame(maxWidth: .infinity)
-            .lunaCard(padding: 16)
+            .onboardingCard(padding: 16)
             Button(L10n.onboardingDueFromLMP) { showingLMPForm = true }
-                .buttonStyle(.pill(.text(.textOnboarding), height: 44))
+                .buttonStyle(.onboarding(.text))
                 .accessibilityIdentifier("onboardingFromLMP")
         }
     }
@@ -526,11 +603,11 @@ struct OnboardingView: View {
             title(L10n.onboardingResultTitle)
             Text(resultText)
                 .font(.luna(size: 18, weight: .medium, relativeTo: .title3))
-                .foregroundStyle(.luna(.textOnboarding))
+                .foregroundStyle(OnboardingPalette.ink)
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityIdentifier("onboardingResultText")
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .lunaCard(padding: 16)
+                .onboardingCard(padding: 16)
             note(L10n.onboardingResultReminders, identifier: "onboardingResultReminders")
         }
     }
@@ -553,9 +630,9 @@ struct OnboardingView: View {
         Button(action: action) {
             Image(systemName: symbol)
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(.luna(.textOnboarding))
+                .foregroundStyle(OnboardingPalette.ink)
                 .frame(width: 42, height: 42)
-                .background(Circle().fill(.luna(.onboardingBackground)))
+                .background(Circle().fill(OnboardingPalette.soft))
                 .frame(minWidth: 44, minHeight: 44)
                 .contentShape(Rectangle())
         }
@@ -568,23 +645,53 @@ struct OnboardingView: View {
 
     private var buttons: some View {
         VStack(spacing: 2) {
-            if flow.step == .result {
+            switch flow.step {
+            case .result:
                 Button(L10n.onboardingEnableReminders) { startFinishing(requestingNotifications: true) }
-                    .buttonStyle(.pill(.onboarding))
+                    .buttonStyle(.onboarding())
                     .disabled(saving)
                     .accessibilityIdentifier("onboardingEnableReminders")
                 Button(L10n.onboardingLater) { startFinishing(requestingNotifications: false) }
-                    .buttonStyle(.pill(.text(.textOnboarding), height: 44))
+                    .buttonStyle(.onboarding(.text))
                     .disabled(saving)
                     .accessibilityIdentifier("onboardingFinishLater")
-            } else {
+            case .welcome:
+                Button(L10n.onboardingStart) { continueTapped() }
+                    .buttonStyle(.onboarding())
+                    .accessibilityIdentifier("onboardingNext")
+                    .lunaEntrance(.buttonUp)
+                // Restoring replaces everything, so a replay from Profile does not offer it.
+                if !isReplay {
+                    restoreLink
+                        .lunaEntrance(.linkUp)
+                }
+            default:
                 Button(L10n.onboardingContinue) { continueTapped() }
-                    .buttonStyle(.pill(.onboarding))
+                    .buttonStyle(.onboarding())
                     .disabled(!flow.canContinue)
                     .accessibilityIdentifier("onboardingNext")
+                    .lunaEntrance(.buttonUp)
             }
         }
-        .padding(.top, 12)
+    }
+
+    /// "Khôi phục từ bản sao lưu" (phase 15): 13/500 `link`, centred under the button.
+    private var restoreLink: some View {
+        Button {
+            importingBackup = true
+        } label: {
+            Text(L10n.onboardingRestore)
+                .font(.luna(.captionMedium))
+                .foregroundStyle(OnboardingPalette.link)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("onboardingRestore")
+        .fileImporter(isPresented: $importingBackup, allowedContentTypes: [.lunaMomBackup, .json]) { result in
+            if case .success(let url) = result { backup.open(url) }
+        }
     }
 
     // MARK: - Sheets
@@ -598,7 +705,7 @@ struct OnboardingView: View {
                 ), now: now)
             }
             .scrollContentBackground(.hidden)
-            .background(.luna(.background))
+            .background(OnboardingPalette.background)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L10n.completionDone) { showingOtherDay = false }
@@ -608,6 +715,7 @@ struct OnboardingView: View {
         }
         .lunaSheetPresentation(detents: [.medium, .large])
         .environment(\.locale, AppLocale.locale)
+        .onboardingLight()
     }
 
     private var duePickerSheet: some View {
@@ -622,7 +730,7 @@ struct OnboardingView: View {
                 displayedComponents: .date
             )
             .datePickerStyle(.graphical)
-            .tint(.luna(.pregStrong))
+            .tint(OnboardingPalette.accent)
             .padding(.horizontal)
             .accessibilityIdentifier("onboardingDuePicker")
             .toolbar {
@@ -634,6 +742,7 @@ struct OnboardingView: View {
         }
         .lunaSheetPresentation(detents: [.medium, .large])
         .environment(\.locale, AppLocale.locale)
+        .onboardingLight()
     }
 
     private var lmpFormSheet: some View {
@@ -642,7 +751,7 @@ struct OnboardingView: View {
                 PregnancyDateForm(source: $dateSelection.source, date: $dateSelection.date, now: now)
             }
             .scrollContentBackground(.hidden)
-            .background(.luna(.background))
+            .background(OnboardingPalette.background)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(L10n.completionDone) { showingLMPForm = false }
@@ -652,6 +761,7 @@ struct OnboardingView: View {
         }
         .lunaSheetPresentation(detents: [.large])
         .environment(\.locale, AppLocale.locale)
+        .onboardingLight()
         .onAppear {
             if dateSelection.source == .dueDate {
                 dateSelection = PregnancyDateSelection(
@@ -737,19 +847,84 @@ struct OnboardingView: View {
     }
 }
 
+/// The top bar from step 2 on: back on the left, Skip on the right at their
+/// own sizes, the progress dots centred on the screen when they fit between
+/// them, otherwise centred in the space that is left.
+private struct TopBarLayout: Layout {
+    var spacing: CGFloat = 8
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let height = subviews.map { $0.sizeThatFits(.unspecified).height }.max() ?? 0
+        return CGSize(width: proposal.width ?? subviews.reduce(0) { $0 + $1.sizeThatFits(.unspecified).width }, height: height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard subviews.count == 3 else { return }
+        let left = subviews[0].sizeThatFits(.unspecified)
+        let center = subviews[1].sizeThatFits(.unspecified)
+        // Skip may shrink (minimumScaleFactor) when the bar is too narrow.
+        let rightWidth = min(subviews[2].sizeThatFits(.unspecified).width, bounds.width - left.width - center.width - 2 * spacing)
+        subviews[0].place(at: CGPoint(x: bounds.minX, y: bounds.midY), anchor: .leading, proposal: ProposedViewSize(left))
+        subviews[2].place(
+            at: CGPoint(x: bounds.maxX, y: bounds.midY), anchor: .trailing,
+            proposal: ProposedViewSize(width: max(rightWidth, 0), height: nil)
+        )
+        let minX = bounds.minX + left.width + spacing
+        let maxX = bounds.maxX - max(rightWidth, 0) - spacing
+        var x = bounds.midX
+        if x - center.width / 2 < minX || x + center.width / 2 > maxX {
+            x = (minX + maxX) / 2
+        }
+        subviews[1].place(at: CGPoint(x: x, y: bounds.midY), anchor: .center, proposal: ProposedViewSize(center))
+    }
+}
+
+/// CSS `text-wrap: balance` for a title: the narrowest width that keeps the
+/// line count of the full width, so a two-line title splits evenly instead of
+/// leaving one word on the second line. The view still takes the full width.
+private struct BalancedText: Layout {
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard let text = subviews.first else { return .zero }
+        guard let width = proposal.width else { return text.sizeThatFits(proposal) }
+        let height = text.sizeThatFits(ProposedViewSize(width: balancedWidth(text, in: width), height: nil)).height
+        return CGSize(width: width, height: height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard let text = subviews.first else { return }
+        text.place(at: bounds.origin, proposal: ProposedViewSize(width: balancedWidth(text, in: bounds.width), height: nil))
+    }
+
+    private func balancedWidth(_ text: LayoutSubview, in width: CGFloat) -> CGFloat {
+        guard width.isFinite, text.sizeThatFits(.unspecified).width > width else { return width }
+        let height = text.sizeThatFits(ProposedViewSize(width: width, height: nil)).height
+        var low = width * 0.4
+        var high = width
+        for _ in 0..<10 {
+            let mid = (low + high) / 2
+            if text.sizeThatFits(ProposedViewSize(width: mid, height: nil)).height <= height + 0.5 {
+                high = mid
+            } else {
+                low = mid
+            }
+        }
+        return high.rounded(.up)
+    }
+}
+
 /// The background behind the step's text: clear 56 pt above the content's top
 /// edge, opaque 16 pt below it (inside the title's first line), then solid to
-/// the bottom, so the title, body and medical note never sit on the photo.
+/// the bottom, so the title, body and notes never sit on the picture.
 private struct ContentScrim: View {
     var body: some View {
         VStack(spacing: 0) {
             LinearGradient(
-                colors: [Color.luna(.onboardingBackground).opacity(0), Color.luna(.onboardingBackground)],
+                colors: [OnboardingPalette.background.opacity(0), OnboardingPalette.background],
                 startPoint: .top,
                 endPoint: .bottom
             )
             .frame(height: 72)
-            Color.luna(.onboardingBackground)
+            OnboardingPalette.background
         }
         .padding(.top, -56)
         .padding(.bottom, -200)
@@ -758,7 +933,7 @@ private struct ContentScrim: View {
     }
 }
 
-/// The picture at the top of each step (README §1).
+/// The picture at the top of each step (phase 18 handoff §1).
 enum OnboardingHeroKind: Hashable {
     case welcome
     case goal
@@ -768,7 +943,7 @@ enum OnboardingHeroKind: Hashable {
     case cycleConceiving
     case dueDate
 
-    var imageName: String? {
+    var imageName: String {
         switch self {
         case .welcome: "OnboardingWelcome"
         case .goal: "OnboardingGoal"
@@ -778,26 +953,35 @@ enum OnboardingHeroKind: Hashable {
         }
     }
 
+    /// The picture's top, below the safe area (the handoff's 96 / 100 px on an
+    /// 844 px screen with a 50 px status bar).
+    var top: CGFloat {
+        switch self {
+        case .welcome: 46
+        default: 50
+        }
+    }
+
+    /// The picture's height as a share of the safe area's height (340 / 760 on
+    /// the welcome step, 320 / 760 on the goal step); the question steps keep
+    /// more room for their cards, wheels and day grid.
     var heightFraction: CGFloat {
         switch self {
-        case .welcome: 0.78
-        case .goal: 0.58
-        case .cycleTracking, .cycleConceiving: 0.5
-        case .dueDate: 0.62
+        case .welcome: 0.45
+        case .goal: 0.42
+        case .cycleTracking, .cycleConceiving: 0.36
+        case .dueDate: 0.36
         }
     }
 
-    /// Which part of the photo stays visible (object-position 30–40 % in the design).
-    var focus: Alignment {
-        switch self {
-        case .welcome, .goal, .cycleTracking, .cycleConceiving: .top
-        case .dueDate: .center
-        }
-    }
+    /// The due date step still uses a photo (until its illustration arrives),
+    /// which is not on the cream background: it gets rounded corners.
+    var isPhoto: Bool { self == .dueDate }
 }
 
-/// Photo (or gradient) fading into the background, with the wave band at the
-/// bottom; reveal, Ken Burns and wave-rise run when it appears.
+/// The illustration, whole and top-aligned (`object-fit: contain`,
+/// `object-position: 50% 0%`), with a 16 % fade at the bottom and the wave
+/// band; reveal, Ken Burns and wave-rise run when it appears.
 private struct OnboardingHero: View {
     let kind: OnboardingHeroKind
 
@@ -806,25 +990,20 @@ private struct OnboardingHero: View {
             ZStack(alignment: .bottom) {
                 ZStack(alignment: .bottom) {
                     picture
-                        .frame(width: proxy.size.width, height: proxy.size.height, alignment: kind.focus)
-                        .clipped()
+                        .frame(width: proxy.size.width, height: proxy.size.height, alignment: .top)
                         .lunaEntrance(.kenBurns)
                     LinearGradient(
-                        stops: [
-                            .init(color: Color.luna(.onboardingBackground).opacity(0), location: 0),
-                            .init(color: Color.luna(.onboardingBackground).opacity(0.85), location: 0.6),
-                            .init(color: Color.luna(.onboardingBackground), location: 1),
-                        ],
+                        colors: [OnboardingPalette.background.opacity(0), OnboardingPalette.background],
                         startPoint: .top,
                         endPoint: .bottom
                     )
-                    .frame(height: proxy.size.height * 0.45)
+                    .frame(height: proxy.size.height * 0.16)
                 }
                 .frame(width: proxy.size.width, height: proxy.size.height)
                 .clipped()
                 .lunaEntrance(.reveal)
                 WaveBand()
-                    .frame(height: 64)
+                    .frame(height: 56)
                     .offset(y: 1)
                     .lunaEntrance(.waveRise)
             }
@@ -836,14 +1015,11 @@ private struct OnboardingHero: View {
 
     @ViewBuilder
     private var picture: some View {
-        if let name = kind.imageName {
-            Image(name).resizable().scaledToFill()
+        let image = Image(kind.imageName).resizable().scaledToFit()
+        if kind.isPhoto {
+            image.clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         } else {
-            LinearGradient(
-                colors: [Color.luna(.cycleSoft), Color.luna(.onboardingBackground)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            image
         }
     }
 }
@@ -851,6 +1027,7 @@ private struct OnboardingHero: View {
 /// The background-coloured wave (README: path `M0 34 C100 4 300 4 400 34 C500 64
 /// 700 64 800 34 L800 64 L0 64 Z`, one period over twice the width) drifting
 /// left at one width per 9 s. Two periods are drawn so the loop is seamless.
+/// Still under Reduce Motion and in UI tests.
 private struct WaveBand: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -862,7 +1039,7 @@ private struct WaveBand: View {
             TimelineView(.animation(paused: !drifts)) { context in
                 let phase = drifts ? context.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: 18) / 18 : 0
                 WaveShape()
-                    .fill(.luna(.onboardingBackground))
+                    .fill(OnboardingPalette.background)
                     .frame(width: width * 4, height: proxy.size.height)
                     .offset(x: -width * 2 * phase)
             }

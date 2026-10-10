@@ -2,11 +2,9 @@ import KickCore
 import SwiftUI
 
 /// The 7 days under the header in pregnancy mode (spec §4.4): day numbers only,
-/// today raised. In dark mode the raised white disc (`card`) barely stands out
-/// from the background, so today also gets a `preg` ring there.
+/// today raised (a peach disc in dark mode).
 struct PregnancyWeekStrip: View {
     let today: Date
-    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         HStack(spacing: 0) {
@@ -18,12 +16,10 @@ struct PregnancyWeekStrip: View {
                         .foregroundStyle(.luna(.textSecondary))
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
-                    DayCircle(number: Formatting.dayNumber(day.date), style: .pregnancyStrip, isToday: day.isToday, raisedToday: true)
-                        .overlay {
-                            if day.isToday && colorScheme == .dark {
-                                Circle().strokeBorder(.luna(.preg), lineWidth: 1.5)
-                            }
-                        }
+                    DayCircle(
+                        number: Formatting.dayNumber(day.date), style: .pregnancyStrip,
+                        isToday: day.isToday, raisedToday: true, raisedAccent: .pregStrong
+                    )
                 }
                 .frame(maxWidth: .infinity)
                 .accessibilityElement(children: .ignore)
@@ -58,7 +54,7 @@ struct FetusHero: View {
                         stops: [
                             .init(color: .luna(.fetusGlowInner), location: 0),
                             .init(color: .luna(.fetusGlowOuter), location: 0.6),
-                            .init(color: .luna(.background), location: 0.71),
+                            .init(color: .luna(.fetusGlowEdge), location: 0.71),
                         ],
                         center: .center,
                         startRadius: 0,
@@ -123,13 +119,16 @@ struct PregnancyProgressBar: View {
             ZStack(alignment: .leading) {
                 Capsule().fill(.luna(.track))
                 Capsule().fill(.luna(.preg)).frame(width: proxy.size.width * fraction)
+                // Trimester notches: real gaps that show the page behind (the gradient in
+                // dark mode), not bars painted in the page colour.
                 ForEach(PregnancyProgress.trimesterMarks, id: \.self) { mark in
                     Rectangle()
-                        .fill(.luna(.background))
                         .frame(width: 3, height: 14)
                         .offset(x: proxy.size.width * mark - 1.5)
+                        .blendMode(.destinationOut)
                 }
             }
+            .compositingGroup()
         }
         .frame(height: 8)
         .accessibilityHidden(true)
@@ -282,7 +281,7 @@ struct WeekTipsCard: View {
             }
             Text(L10n.pregnancySeeWeek)
                 .font(.luna(.captionStrong))
-                .foregroundStyle(.luna(.pregStrong))
+                .foregroundStyle(.luna(.pregText))
         }
         .lunaCard(padding: 16)
         .accessibilityElement(children: .combine)
@@ -315,7 +314,7 @@ struct NextAppointmentCard: View {
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 4) {
                 Text(L10n.pregnancyAppointmentTitle)
-                    .lunaLabelStyle(.pregStrong)
+                    .lunaLabelStyle(.pregText)
                 if let appointment {
                     Text(appointment.title)
                         .font(.luna(.cardTitleSmall))

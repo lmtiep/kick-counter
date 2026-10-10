@@ -39,7 +39,7 @@ struct HistoryView: View {
                 SegmentedPill(options: [
                     SegmentedOption(value: Span.week, title: L10n.historyRangeWeek, identifier: "historyRange7"),
                     SegmentedOption(value: Span.month, title: L10n.historyRangeMonth, identifier: "historyRange28"),
-                ], selection: $range)
+                ], selection: $range, selectedFill: .segmentSelectedPreg)
                 averageCard(states)
             }
             .listRowBackground(Color.clear)
@@ -85,7 +85,7 @@ struct HistoryView: View {
         }
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
-        .background(.luna(.background))
+        .lunaBackground()
         .navigationBarTitleDisplayMode(.inline)
         .confirmationDialog(
             L10n.historyDeleteConfirmTitle,

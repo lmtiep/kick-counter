@@ -73,8 +73,8 @@ struct AppointmentEditorSheet: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(.luna(.background))
-            .tint(.luna(.pregStrong))
+            .lunaBackground()
+            .tint(.luna(.pregText))
             .navigationTitle(editedRecord == nil ? L10n.appointmentsAdd : L10n.appointmentsEdit)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
