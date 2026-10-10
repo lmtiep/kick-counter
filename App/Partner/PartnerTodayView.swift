@@ -110,9 +110,9 @@ struct PartnerTodayView: View {
     @ViewBuilder
     private func babySize(week: Int) -> some View {
         switch library?.display(forWeek: week, visibility: BuildFlags.contentVisibility) {
-        case .content(let content, let pendingReview)?:
+        case .content(let content, _)?:
             Button { detailWeek = WeekSelection(week: week) } label: {
-                BabySizeCard(week: content, language: language, pendingReview: pendingReview)
+                BabySizeCard(week: content, language: language)
             }
             .buttonStyle(.plain)
             .accessibilityIdentifier("partnerBabySize")

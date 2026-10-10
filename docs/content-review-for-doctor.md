@@ -56,9 +56,9 @@ cần bác sĩ quyết định. Tích vào ô vuông khi đã xong.
         sinh). Tên các loại quả so sánh kích thước thai dùng từ miền Bắc (vừng, dưa chuột,
         dứa, ngô) — độc giả miền Nam có thể quen với mè, dưa leo, thơm, bắp hơn.
         Xác nhận thuật ngữ và xem thêm mục 4 bên dưới về tên món ăn/trái cây.
-14. [ ] **So sánh kích thước sau tuần 34**: một số so sánh mang tính minh họa và dựa theo
-        cân nặng ("hai quả dừa", "một bắp cải lớn", "một quả bí đỏ lớn"). Có thể đổi sang
-        loại quả khác nếu bác sĩ/nhóm sản phẩm thấy chưa phù hợp.
+14. [x] **So sánh kích thước sau tuần 34** — *không cần bác sĩ duyệt (10/10/2026)*: từ giai đoạn 11
+        mọi so sánh quả đều chọn theo cân nặng Hadlock 1991 đối chiếu cân nặng quả theo USDA
+        (bảng §11). Đây là số liệu nghiên cứu, việc chọn quả là việc của nhóm sản phẩm.
 
 ## 3. Điểm phát sinh thêm từ các vòng rà soát nội dung (xem `progress.md`)
 
@@ -86,7 +86,9 @@ cần bác sĩ quyết định. Tích vào ô vuông khi đã xong.
         dưa chuột, dứa, ngô — xem thêm mục 13). Xác nhận giữ nguyên (và có thể ghi chú từ
         đồng nghĩa miền Nam trong mô tả) hay đổi sang từ trung lập/phổ biến hơn cho cả nước.
 
-21. [ ] **Cân nặng và chiều dài thai theo Hadlock** (thay bảng số liệu cũ không rõ nguồn;
+21. [x] **Cân nặng và chiều dài thai theo Hadlock** — *không cần bác sĩ duyệt (10/10/2026)*: số liệu
+        lấy nguyên từ nghiên cứu đã công bố; thẻ "Bé nặng tương đương…" ở Hôm nay ghi nguồn
+        "theo chuẩn Hadlock" thay cho nhãn "đang chờ bác sĩ duyệt" (thay bảng số liệu cũ không rõ nguồn;
         chi tiết và nguồn: `docs/research/2026-10-03-hadlock-fetal-growth.md`):
         - Tuần 10–40: cân nặng ước tính bách phân vị 50 kèm khoảng bách phân vị 10–90 theo
           Hadlock 1991 (Bảng 1), hiển thị "Khoảng 331 g (thường 275–387 g)", kèm dòng
