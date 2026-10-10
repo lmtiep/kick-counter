@@ -125,9 +125,9 @@ struct PregnancyTodayView: View {
                     .padding(.top, 12)
             }
             switch display {
-            case .content(let week, let pendingReview)?:
+            case .content(let week, _)?:
                 Button { detailWeek = WeekSelection(week: contentWeek) } label: {
-                    BabySizeCard(week: week, language: language, pendingReview: pendingReview)
+                    BabySizeCard(week: week, language: language)
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("babySizeCard")

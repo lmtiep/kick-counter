@@ -10184,6 +10184,23 @@
         }
       }
     },
+    "week.sizeSource": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Size and weight: Hadlock standard"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kích thước, cân nặng: theo chuẩn Hadlock"
+          }
+        }
+      }
+    },
     "week.tips": {
       "extractionState": "manual",
       "localizations": {

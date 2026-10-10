@@ -70,6 +70,8 @@ enum L10n {
     static var weekWarnings: String { t("week.warnings") }
     static var weekUnderReview: String { t("week.underReview") }
     static var weekPendingReview: String { t("week.pendingReview") }
+    /// The Today size card's source line: the figures are Hadlock's, not doctor-reviewed text.
+    static var weekSizeSource: String { t("week.sizeSource") }
 
     static var counterTitle: String { t("counter.title") }
     static var counterTapHint: String { t("counter.tapHint") }
