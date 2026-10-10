@@ -785,6 +785,23 @@ enum L10n {
     static var addPastErrorFuture: String { t("addPast.errorFuture") }
     static var addPastErrorSave: String { t("addPast.errorSave") }
 
+    // MARK: - Phase 19: edit period days on the calendar
+
+    static var periodEditButton: String { t("periodEdit.button") }
+    static var periodEditButtonBleed: String { t("periodEdit.buttonBleed") }
+    static var periodEditHint: String { t("periodEdit.hint") }
+    static var periodEditHintBleed: String { t("periodEdit.hintBleed") }
+    static var periodEditA11yTicked: String { t("periodEdit.a11y.ticked") }
+    static var periodEditA11yTickedBleed: String { t("periodEdit.a11y.tickedBleed") }
+    /// "A period can last at most 10 days. Untick some days."
+    static func periodEditTooLong(_ days: Int) -> String { String(format: t("periodEdit.tooLong"), days) }
+    static func periodEditTooLongBleed(_ days: Int) -> String { String(format: t("periodEdit.tooLongBleed"), days) }
+    static var periodEditDiscardTitle: String { t("periodEdit.discard.title") }
+    static var periodEditDiscardConfirm: String { t("periodEdit.discard.confirm") }
+    static var periodEditDiscardKeep: String { t("periodEdit.discard.keep") }
+    static var periodEditSaved: String { t("periodEdit.saved") }
+    static var periodEditSavedBleed: String { t("periodEdit.savedBleed") }
+
     // MARK: - Phase 15: backup and restore by file
 
     static var backupSection: String { t("backup.section") }

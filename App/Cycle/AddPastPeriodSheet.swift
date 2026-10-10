@@ -28,11 +28,10 @@ struct AddPastPeriodSheet: View {
         _length = State(initialValue: min(max(typicalLength, CycleSettings.periodLengthRange.lowerBound), CycleSettings.periodLengthRange.upperBound))
     }
 
-    /// Starts the picker allows: the past two years up to today.
+    /// Starts the picker allows: the past two years up to today, the same
+    /// window as the calendar's period edit (phase 19).
     static func startRange(now: Date, calendar: Calendar) -> ClosedRange<Date> {
-        let today = calendar.startOfDay(for: now)
-        let earliest = calendar.date(byAdding: .year, value: -2, to: today) ?? today
-        return earliest...today
+        PeriodEditPlan.window(now: now, calendar: calendar)
     }
 
     /// The start shown when the sheet opens (spec §3.2).
