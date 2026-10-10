@@ -172,7 +172,7 @@ public enum CycleRules {
             end = calendar.startOfDay(for: endDate)
         } else {
             let cap = calendar.date(byAdding: .day, value: longPeriodDays - 1, to: start) ?? start
-            end = min(calendar.startOfDay(for: today), cap)
+            end = min(calendar.startOfDay(for: today), calendar.startOfDay(for: cap))
         }
         return start...max(start, end)
     }
@@ -221,6 +221,34 @@ public enum CycleRules {
         let first = calendar.startOfDay(for: start)
         let last = calendar.date(byAdding: .day, value: typicalLength - 1, to: first) ?? first
         return PeriodRecord(startDate: first, endDate: last < calendar.startOfDay(for: today) ? last : nil)
+    }
+
+    /// An open period that has run past `longPeriodDays` by `day`, closed at the
+    /// typical period length; nil when it is closed, starts on or after `day`,
+    /// or is still within its first `longPeriodDays` days. Starting or adding a
+    /// later period closes it this way, so two open records never exist.
+    public static func closingStale(_ period: PeriodRecord, before day: Date, typicalLength: Int, calendar: Calendar) -> PeriodRecord? {
+        guard period.isOpen else { return nil }
+        let start = calendar.startOfDay(for: period.startDate)
+        let target = calendar.startOfDay(for: day)
+        guard start < target,
+              let length = calendar.dateComponents([.day], from: start, to: target).day,
+              length >= longPeriodDays
+        else { return nil }
+        let assumed = assumedPeriod(startingOn: start, typicalLength: typicalLength, today: target, calendar: calendar)
+        guard let end = assumed.endDate else { return nil }
+        var closed = period
+        closed.endDate = end
+        return closed
+    }
+
+    /// The start of the day after `day`. Steps from noon, so a daylight-saving
+    /// change at midnight (America/Santiago) cannot skip or repeat a day.
+    public static func nextDay(after day: Date, calendar: Calendar) -> Date {
+        let start = calendar.startOfDay(for: day)
+        let noon = calendar.date(byAdding: .hour, value: 12, to: start) ?? start
+        let next = calendar.date(byAdding: .day, value: 1, to: noon) ?? noon.addingTimeInterval(86_400)
+        return calendar.startOfDay(for: next)
     }
 
     /// What the "first day of your last period" picker allows: the past year up to today.

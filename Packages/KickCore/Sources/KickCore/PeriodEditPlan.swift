@@ -4,7 +4,7 @@ import Foundation
 /// §2.2): the ticked days, compared with the stored periods, as deletes,
 /// updates and adds that `CycleCoordinator.applyPeriodEdits` saves at once.
 public struct PeriodEditPlan: Equatable, Sendable {
-    /// Stored periods no ticked run overlaps, or merged into an earlier one.
+    /// Touched stored periods no run overlaps, or merged into an earlier one.
     public var deletes: [UUID]
     /// Stored periods whose days changed, keeping their id. Oldest first.
     public var updates: [PeriodRecord]
@@ -30,13 +30,7 @@ public struct PeriodEditPlan: Equatable, Sendable {
     public static func initialDays(periods: [PeriodRecord], today: Date, calendar: Calendar) -> Set<Date> {
         var result: Set<Date> = []
         for period in periods {
-            let range = CycleRules.dayRange(of: period, today: today, calendar: calendar)
-            var current = range.lowerBound
-            while current <= range.upperBound {
-                result.insert(current)
-                guard let next = calendar.date(byAdding: .day, value: 1, to: current) else { break }
-                current = next
-            }
+            result.formUnion(days(in: CycleRules.dayRange(of: period, today: today, calendar: calendar), calendar: calendar))
         }
         return result
     }
@@ -48,13 +42,30 @@ public struct PeriodEditPlan: Equatable, Sendable {
         return earliest...today
     }
 
-    /// Compares the ticked days with the stored periods. Consecutive ticked days
-    /// form a run; each run keeps the id of the earliest stored period it
-    /// overlaps (the others it overlaps are deleted), or is added. A run ending
-    /// today is stored open. Periods starting before the window, their days and
-    /// ticked days outside the window are left out; unchanged periods are not
-    /// written.
-    public static func make(ticked: Set<Date>, periods: [PeriodRecord], now: Date, calendar: Calendar) -> Result<PeriodEditPlan, Failure> {
+    /// Turns an edit into writes; only what the user touched changes (spec §2.2).
+    ///
+    /// - `initial`: the ticked days the edit started from; `ticked`: the ticked
+    ///   days now. Days the user added or removed (inside the window, up to
+    ///   today as of `now`, outside periods that start before the window) are
+    ///   the *toggled* days. No toggled day gives an empty plan.
+    /// - A stored period is *touched* when a toggled day is one of its days or
+    ///   the day right before or after it, or when a run built from touched days
+    ///   meets or overlaps it. Untouched periods are never written or deleted,
+    ///   and their length is not checked.
+    /// - The touched periods' days, plus added days, minus removed days, form
+    ///   runs of consecutive days. Each run keeps the id of the earliest touched
+    ///   period it overlaps (the others it overlaps are deleted), or is added; a
+    ///   touched period no run overlaps is deleted. A run ending today is stored
+    ///   open; when one is, any other open period that has run past
+    ///   `CycleRules.longPeriodDays` closes at `typicalPeriodLength`.
+    public static func make(
+        initial: Set<Date>,
+        ticked: Set<Date>,
+        periods: [PeriodRecord],
+        now: Date,
+        typicalPeriodLength: Int,
+        calendar: Calendar
+    ) -> Result<PeriodEditPlan, Failure> {
         let window = window(now: now, calendar: calendar)
         let today = window.upperBound
         let normalized = periods.map { CycleRules.normalized($0, calendar: calendar) }
@@ -63,58 +74,99 @@ public struct PeriodEditPlan: Equatable, Sendable {
             .filter { $0.startDate >= window.lowerBound }
             .sorted { ($0.startDate, $0.id.uuidString) < ($1.startDate, $1.id.uuidString) }
         let lockedDays = initialDays(periods: outside, today: now, calendar: calendar)
+        let editableDay = { (day: Date) in window.contains(day) && !lockedDays.contains(day) }
 
-        let days = Set(ticked.map { calendar.startOfDay(for: $0) })
-            .filter { window.contains($0) && !lockedDays.contains($0) }
-            .sorted()
-        let runs = runs(of: days, calendar: calendar)
-        if runs.contains(where: { $0.count > CycleRules.longPeriodDays }) {
+        let start = Set(initial.map { calendar.startOfDay(for: $0) })
+        let end = Set(ticked.map { calendar.startOfDay(for: $0) })
+        let added = end.subtracting(start).filter(editableDay)
+        let removed = start.subtracting(end).filter(editableDay)
+        let toggled = added.union(removed)
+        guard !toggled.isEmpty else { return .success(PeriodEditPlan()) }
+
+        let ranges = Dictionary(uniqueKeysWithValues: editable.map {
+            ($0.id, CycleRules.dayRange(of: $0, today: now, calendar: calendar))
+        })
+        /// A period's days with the day before and after: what touching it means.
+        func reach(_ period: PeriodRecord) -> ClosedRange<Date> {
+            let range = ranges[period.id]!
+            let before = calendar.date(byAdding: .day, value: -1, to: range.lowerBound) ?? range.lowerBound
+            return calendar.startOfDay(for: before)...CycleRules.nextDay(after: range.upperBound, calendar: calendar)
+        }
+
+        var touched = Set(editable.filter { period in toggled.contains { reach(period).contains($0) } }.map(\.id))
+        var runs: [ClosedRange<Date>] = []
+        while true {
+            var days = added
+            for period in editable where touched.contains(period.id) {
+                days.formUnion(Self.days(in: ranges[period.id]!, calendar: calendar))
+            }
+            runs = Self.runs(of: days.subtracting(removed).filter(editableDay).sorted(), calendar: calendar)
+            // A run that now meets or overlaps another stored period touches it too.
+            let reached = editable.filter { period in
+                !touched.contains(period.id) && runs.contains { $0.overlaps(reach(period)) }
+            }
+            if reached.isEmpty { break }
+            touched.formUnion(reached.map(\.id))
+        }
+        let length = { (run: ClosedRange<Date>) in
+            (calendar.dateComponents([.day], from: run.lowerBound, to: run.upperBound).day ?? 0) + 1
+        }
+        if runs.contains(where: { length($0) > CycleRules.longPeriodDays }) {
             return .failure(.periodTooLong)
         }
 
         var plan = PeriodEditPlan()
         var claimed: Set<UUID> = []
-        /// Untouched open periods whose ticks stop before today (past day 10).
-        var staleOpen: [PeriodRecord] = []
+        /// Open periods the plan leaves as they are.
+        var keptOpen = normalized.filter { $0.isOpen && !touched.contains($0.id) }
         for run in runs {
-            guard let first = run.first, let last = run.last else { continue }
-            let range = first...last
             let owner = editable.first { period in
-                !claimed.contains(period.id)
-                    && CycleRules.dayRange(of: period, today: now, calendar: calendar).overlaps(range)
+                touched.contains(period.id) && !claimed.contains(period.id) && ranges[period.id]!.overlaps(run)
             }
-            let endDate = last == today ? nil : last
+            let endDate = run.upperBound == today ? nil : run.upperBound
             guard let owner else {
-                plan.adds.append(PeriodRecord(startDate: first, endDate: endDate))
+                plan.adds.append(PeriodRecord(startDate: run.lowerBound, endDate: endDate))
                 continue
             }
             claimed.insert(owner.id)
             // Same days as stored (e.g. an open period past day 10): leave it be.
-            if CycleRules.dayRange(of: owner, today: now, calendar: calendar) == range {
-                if owner.isOpen, last != today {
-                    staleOpen.append(PeriodRecord(id: owner.id, startDate: first, endDate: last))
-                }
+            if ranges[owner.id] == run {
+                if owner.isOpen { keptOpen.append(owner) }
                 continue
             }
-            plan.updates.append(PeriodRecord(id: owner.id, startDate: first, endDate: endDate))
+            plan.updates.append(PeriodRecord(id: owner.id, startDate: run.lowerBound, endDate: endDate))
         }
-        // Never leave two open periods (as `CycleCoordinator.addPastPeriod`): when
-        // the edit opens a period through today, a stale one closes on its last tick.
-        if (plan.adds + plan.updates).contains(where: \.isOpen) {
-            plan.updates = (plan.updates + staleOpen).sorted { $0.startDate < $1.startDate }
+        // Never leave two open periods (as `CycleCoordinator.startPeriod`): when the
+        // edit opens one through today, a stale one closes at the typical length.
+        if let opened = (plan.adds + plan.updates).first(where: \.isOpen) {
+            let closed = keptOpen.compactMap {
+                CycleRules.closingStale($0, before: opened.startDate, typicalLength: typicalPeriodLength, calendar: calendar)
+            }
+            plan.updates = (plan.updates + closed).sorted { $0.startDate < $1.startDate }
         }
-        plan.deletes = editable.filter { !claimed.contains($0.id) }.map(\.id)
+        plan.deletes = editable.filter { touched.contains($0.id) && !claimed.contains($0.id) }.map(\.id)
         return .success(plan)
     }
 
+    /// Every day of `range`, start-of-day.
+    private static func days(in range: ClosedRange<Date>, calendar: Calendar) -> Set<Date> {
+        var result: Set<Date> = []
+        var current = calendar.startOfDay(for: range.lowerBound)
+        while current <= range.upperBound {
+            result.insert(current)
+            current = CycleRules.nextDay(after: current, calendar: calendar)
+        }
+        return result
+    }
+
     /// Splits sorted, distinct days into maximal runs of consecutive days.
-    private static func runs(of days: [Date], calendar: Calendar) -> [[Date]] {
-        var runs: [[Date]] = []
+    private static func runs(of days: [Date], calendar: Calendar) -> [ClosedRange<Date>] {
+        var runs: [ClosedRange<Date>] = []
         for day in days {
-            if let last = runs.last?.last, calendar.date(byAdding: .day, value: 1, to: last) == day {
-                runs[runs.count - 1].append(day)
+            if let last = runs.last, CycleRules.nextDay(after: last.upperBound, calendar: calendar) == day {
+                runs[runs.count - 1] = last.lowerBound...day
             } else {
-                runs.append([day])
+                runs.append(day...day)
             }
         }
         return runs

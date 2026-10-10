@@ -15,11 +15,15 @@ final class CalendarPeriodEditScreenshotTests: XCTestCase {
         CalendarPeriodEditUITests.startEditing(app)
         let previous = app.buttons["calendarPrevious"]
         let september = CalendarPeriodEditUITests.day(app, "20260915")
+        // Back at most three months, waiting for each month title to change.
+        let title = app.staticTexts["calendarMonthTitle"]
         for _ in 0..<3 where !september.exists {
+            let shown = title.label
             previous.tap()
-            _ = september.waitForExistence(timeout: 2)
+            let changed = NSPredicate(format: "label != %@", shown)
+            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: changed, object: title)], timeout: 5), .completed)
         }
-        XCTAssertTrue(september.exists)
+        XCTAssertTrue(september.waitForExistence(timeout: 5))
     }
 
     @MainActor

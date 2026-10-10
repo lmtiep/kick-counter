@@ -6,11 +6,12 @@ import SwiftUI
 struct CalendarPeriodEdit: Equatable {
     /// Ticked days, start-of-day; kept across months until Save or Cancel.
     var ticked: Set<Date>
-    /// What the edit started from, to tell whether anything changed.
-    let initial: Set<Date>
+    /// The stored periods' days the edit is based on; `ticked` minus this is
+    /// what the user added, this minus `ticked` what they removed.
+    private(set) var initial: Set<Date>
     /// Days of periods that start before the window: shown ticked, never changed.
-    let locked: Set<Date>
-    let window: ClosedRange<Date>
+    private(set) var locked: Set<Date>
+    private(set) var window: ClosedRange<Date>
 
     init(periods: [PeriodRecord], now: Date, calendar: Calendar) {
         let window = PeriodEditPlan.window(now: now, calendar: calendar)
@@ -23,6 +24,17 @@ struct CalendarPeriodEdit: Equatable {
     }
 
     var hasChanges: Bool { ticked != initial }
+
+    /// Keeps the user's changes on top of the periods as they are now (a period
+    /// started from Today, deleted elsewhere, or an open one growing past
+    /// midnight), with the window moved to today.
+    mutating func rebase(periods: [PeriodRecord], now: Date, calendar: Calendar) {
+        let added = ticked.subtracting(initial)
+        let removed = initial.subtracting(ticked)
+        var fresh = CalendarPeriodEdit(periods: periods, now: now, calendar: calendar)
+        fresh.ticked = fresh.initial.union(added).subtracting(removed)
+        self = fresh
+    }
 
     /// Days from the window start up to today, outside a locked period.
     func canToggle(_ day: Date) -> Bool {

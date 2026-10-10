@@ -32,8 +32,17 @@ struct PeriodEditPlanTests {
         return result
     }
 
-    private func plan(_ ticked: Set<Date>, _ periods: [PeriodRecord]) throws -> PeriodEditPlan {
-        try PeriodEditPlan.make(ticked: ticked, periods: periods, now: now, calendar: calendar).get()
+    /// The plan for an edit that started from `start` (by default, the stored
+    /// periods' days) and ended with `ticked`.
+    private func plan(_ ticked: Set<Date>, _ periods: [PeriodRecord], from start: Set<Date>? = nil, typicalLength: Int = 5) throws -> PeriodEditPlan {
+        try make(ticked, periods, from: start, typicalLength: typicalLength).get()
+    }
+
+    private func make(_ ticked: Set<Date>, _ periods: [PeriodRecord], from start: Set<Date>? = nil, typicalLength: Int = 5) -> Result<PeriodEditPlan, PeriodEditPlan.Failure> {
+        PeriodEditPlan.make(
+            initial: start ?? initial(periods), ticked: ticked, periods: periods,
+            now: now, typicalPeriodLength: typicalLength, calendar: calendar
+        )
     }
 
     private func initial(_ periods: [PeriodRecord]) -> Set<Date> {
@@ -77,12 +86,24 @@ struct PeriodEditPlanTests {
         #expect(try plan(initial(periods), periods).isEmpty)
     }
 
-    @Test func anOpenPeriodPastTenDaysClosesWhenANewOneRunsThroughToday() throws {
+    @Test func anOpenPeriodPastTenDaysClosesAtTheTypicalLengthWhenANewOneRunsThroughToday() throws {
+        // As `CycleCoordinator.startPeriod`: closed at the typical length (6 days here).
         let stale = PeriodRecord(startDate: day(9, 20))
         let ticked = initial([stale]).union(days(day(10, 9), day(10, 10)))
-        let result = try plan(ticked, [stale])
-        #expect(result.updates == [PeriodRecord(id: stale.id, startDate: day(9, 20), endDate: day(9, 29))])
+        let result = try plan(ticked, [stale], typicalLength: 6)
+        #expect(result.updates == [PeriodRecord(id: stale.id, startDate: day(9, 20), endDate: day(9, 25))])
         #expect(result.adds.count == 1)
+        #expect(result.adds.first?.endDate == nil)
+        #expect(result.deletes.isEmpty)
+    }
+
+    @Test func aStaleOpenPeriodBeforeTheWindowAlsoCloses() throws {
+        // Never two open records, even when the stale one is out of reach.
+        let stale = PeriodRecord(startDate: day(10, 1, year: 2024))
+        let ticked = initial([stale]).union([day(10, 10)])
+        let result = try plan(ticked, [stale], typicalLength: 4)
+        #expect(result.updates == [PeriodRecord(id: stale.id, startDate: day(10, 1, year: 2024), endDate: day(10, 4, year: 2024))])
+        #expect(result.adds.map(\.startDate) == [day(10, 10)])
         #expect(result.adds.first?.endDate == nil)
     }
 
@@ -217,8 +238,7 @@ struct PeriodEditPlanTests {
 
     @Test func aRunLongerThanTenDaysFails() {
         let ticked = days(day(9, 1), day(9, 11))
-        let result = PeriodEditPlan.make(ticked: ticked, periods: [], now: now, calendar: calendar)
-        #expect(result == .failure(.periodTooLong))
+        #expect(make(ticked, []) == .failure(.periodTooLong))
     }
 
     @Test func aTenDayRunIsAllowed() throws {
@@ -235,9 +255,117 @@ struct PeriodEditPlanTests {
         // Clocks go forward on 8 March and back on 1 November 2026.
         let spring = days(day(3, 6, in: newYork), day(3, 10, in: newYork), in: newYork)
         let autumn = days(day(10, 30, in: newYork), day(11, 3, in: newYork), in: newYork)
-        let result = try PeriodEditPlan.make(ticked: spring.union(autumn), periods: [], now: now, calendar: newYork).get()
+        let result = try PeriodEditPlan.make(
+            initial: [], ticked: spring.union(autumn), periods: [], now: now, typicalPeriodLength: 5, calendar: newYork
+        ).get()
         #expect(result.adds.map(\.startDate) == [day(3, 6, in: newYork), day(10, 30, in: newYork)])
         #expect(result.adds.map(\.endDate) == [day(3, 10, in: newYork), day(11, 3, in: newYork)])
+    }
+
+    @Test func runsSpanAMidnightDaylightSavingChange() throws {
+        // In Santiago clocks jump from 00:00 to 01:00 on 6 September 2026, so that
+        // day starts at 01:00 and stepping from midnight would drift.
+        var santiago = Calendar(identifier: .gregorian)
+        santiago.timeZone = TimeZone(identifier: "America/Santiago")!
+        let now = santiago.date(from: DateComponents(year: 2026, month: 10, day: 10, hour: 9))!
+        let dayIn = { (d: Int) in santiago.startOfDay(for: santiago.date(from: DateComponents(year: 2026, month: 9, day: d, hour: 12))!) }
+        let ticked: Set<Date> = Set((3...9).map(dayIn))
+        let result = try PeriodEditPlan.make(
+            initial: [], ticked: ticked, periods: [], now: now, typicalPeriodLength: 5, calendar: santiago
+        ).get()
+        #expect(result.adds.map(\.startDate) == [dayIn(3)])
+        #expect(result.adds.map(\.endDate) == [dayIn(9)])
+
+        let stored = PeriodRecord(startDate: dayIn(4), endDate: dayIn(8))
+        let initial = PeriodEditPlan.initialDays(periods: [stored], today: now, calendar: santiago)
+        #expect(initial == Set((4...8).map(dayIn)))
+    }
+
+    // MARK: - Only what the user touched changes
+
+    @Test func aPeriodAddedUnderneathIsKept() throws {
+        // Started from Today while the edit was open: not in the edit's start.
+        let added = PeriodRecord(startDate: day(10, 9))
+        let ticked: Set<Date> = [day(8, 1)]
+        let result = try plan(ticked, [added], from: [])
+        #expect(result.deletes.isEmpty)
+        #expect(result.updates.isEmpty)
+        #expect(result.adds.map(\.startDate) == [day(8, 1)])
+    }
+
+    @Test func anEditAcrossMidnightKeepsAnOpenPeriodOpen() throws {
+        // The edit started yesterday, when the open period covered 8–9 October.
+        let open = PeriodRecord(startDate: day(10, 8))
+        let start = days(day(10, 8), day(10, 9))
+        let result = try plan(start.union([day(8, 1)]), [open], from: start)
+        #expect(result.updates.isEmpty)
+        #expect(result.deletes.isEmpty)
+        #expect(result.adds.map(\.startDate) == [day(8, 1)])
+        #expect(result.adds.map(\.endDate) == [day(8, 1)])
+    }
+
+    @Test func aPeriodDeletedUnderneathIsNotReAdded() throws {
+        let start = days(day(9, 1), day(9, 5))
+        let result = try plan(start.union([day(8, 1)]), [], from: start)
+        #expect(result.adds.map(\.startDate) == [day(8, 1)])
+        #expect(result.adds.map(\.endDate) == [day(8, 1)])
+        #expect(result.updates.isEmpty)
+    }
+
+    @Test func adjacentPeriodsStaySeparateWhenAnotherMonthIsEdited() throws {
+        let first = PeriodRecord(startDate: day(9, 1), endDate: day(9, 3))
+        let second = PeriodRecord(startDate: day(9, 4), endDate: day(9, 6))
+        let ticked = initial([first, second]).union([day(7, 1)])
+        let result = try plan(ticked, [first, second])
+        #expect(result.deletes.isEmpty)
+        #expect(result.updates.isEmpty)
+        #expect(result.adds.map(\.startDate) == [day(7, 1)])
+    }
+
+    @Test func aLongStoredPeriodDoesNotBlockOtherEdits() throws {
+        let long = PeriodRecord(startDate: day(9, 1), endDate: day(9, 14))
+        let ticked = initial([long]).union([day(7, 1)])
+        let result = try plan(ticked, [long])
+        #expect(result.deletes.isEmpty)
+        #expect(result.updates.isEmpty)
+        #expect(result.adds.map(\.startDate) == [day(7, 1)])
+    }
+
+    @Test func aLongStoredPeriodStillFailsWhenTouched() {
+        let long = PeriodRecord(startDate: day(9, 1), endDate: day(9, 14))
+        var ticked = initial([long])
+        ticked.remove(day(9, 14))
+        #expect(make(ticked, [long]) == .failure(.periodTooLong))
+    }
+
+    @Test func overlappingDuplicatesAreLeftAloneWhenUntouched() throws {
+        let open = PeriodRecord(startDate: day(6, 1))
+        let closed = PeriodRecord(startDate: day(6, 4), endDate: day(6, 6))
+        let ticked = initial([open, closed]).union([day(8, 1)])
+        let result = try plan(ticked, [open, closed])
+        #expect(result.deletes.isEmpty)
+        #expect(result.updates.isEmpty)
+        #expect(result.adds.map(\.startDate) == [day(8, 1)])
+    }
+
+    @Test func tickingTheGapBetweenTwoPeriodsMergesThem() throws {
+        // Ticking 9/4 touches the first period; its run now meets the second.
+        let first = PeriodRecord(startDate: day(9, 1), endDate: day(9, 3))
+        let second = PeriodRecord(startDate: day(9, 5), endDate: day(9, 7))
+        let ticked = initial([first, second]).union([day(9, 4)])
+        let result = try plan(ticked, [first, second], from: initial([first, second]))
+        #expect(result.updates == [PeriodRecord(id: first.id, startDate: day(9, 1), endDate: day(9, 7))])
+        #expect(result.deletes == [second.id])
+    }
+
+    @Test func tickingTheDayAfterAPeriodExtendsIt() throws {
+        let stored = PeriodRecord(startDate: day(9, 1), endDate: day(9, 3))
+        let third = PeriodRecord(startDate: day(9, 20), endDate: day(9, 22))
+        let ticked = initial([stored, third]).union([day(9, 4)])
+        let result = try plan(ticked, [stored, third])
+        #expect(result.updates == [PeriodRecord(id: stored.id, startDate: day(9, 1), endDate: day(9, 4))])
+        #expect(result.deletes.isEmpty)
+        #expect(result.adds.isEmpty)
     }
 }
 
@@ -272,7 +400,12 @@ struct PeriodEditCoordinatorTests {
     private func day(_ iso: String) -> Date { date("\(iso)T00:00:00Z") }
 
     private func plan(_ ticked: Set<Date>) throws -> PeriodEditPlan {
-        try PeriodEditPlan.make(ticked: ticked, periods: coordinator.periods, now: clock.now, calendar: utcCalendar).get()
+        let periods = coordinator.periods
+        return try PeriodEditPlan.make(
+            initial: PeriodEditPlan.initialDays(periods: periods, today: clock.now, calendar: utcCalendar),
+            ticked: ticked, periods: periods, now: clock.now,
+            typicalPeriodLength: coordinator.settings.typicalPeriodLength, calendar: utcCalendar
+        ).get()
     }
 
     @Test func appliesEveryChangeInOneCall() async throws {

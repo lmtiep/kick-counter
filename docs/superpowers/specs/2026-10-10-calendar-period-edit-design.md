@@ -36,22 +36,46 @@ stay as they are.
   hint takes their place: "Chạm vào những ngày bạn có kinh."
 
 ### 2.2 Saving
-The pure function `PeriodEditPlan.make(...)` (KickCore) compares the ticked days
-with the stored periods. The ticked set includes the days already covered by
-stored periods.
+The pure function `PeriodEditPlan.make(initial:ticked:periods:now:typicalPeriodLength:calendar:)`
+(KickCore) turns the edit into writes. The rule is **only what the user
+touched changes**.
 
-- **Runs.** Consecutive ticked days form a *run*. A gap of one day makes two
-  runs.
-- **Keeping ids.** Each run keeps the id of the earliest stored period it
-  overlaps, and updates its start and end. Other stored periods that overlap
+- **Toggled days.** `initial` is the ticked set the edit started from (the
+  stored periods' days), `ticked` the set now. Added days are `ticked − initial`,
+  removed days `initial − ticked`; both are kept only inside the window, up to
+  today (as of `now` at Save) and outside periods that start before the window.
+  No toggled day gives an empty plan.
+- **Touched periods.** A stored period (the list at Save time) is touched when
+  a toggled day is one of its days (`CycleRules.dayRange`) or the day right
+  before or after it. This repeats: a run built from touched days that meets or
+  overlaps another stored period touches it too, so ticking the gap day between
+  two periods merges them.
+- **Untouched periods are left alone.** They are never written, deleted or
+  length-checked, and their days are not part of any run. So adjacent periods,
+  overlapping duplicates and a stored period longer than 10 days stay as they
+  are while another month is edited, and a period started or deleted elsewhere
+  while edit mode is open is neither deleted nor re-added.
+- **Runs.** The touched periods' days, plus added days, minus removed days,
+  form runs of consecutive days. A gap of one day makes two runs.
+- **Keeping ids.** Each run keeps the id of the earliest touched period it
+  overlaps, and updates its start and end. Other touched periods that overlap
   the same run are deleted, as a merge. A run that overlaps no stored period is
-  added as a new record. A stored period that overlaps no run is deleted.
+  added as a new record. A touched period that overlaps no run is deleted.
 - **End date.** A run whose last day is today is stored open (`endDate == nil`),
   like starting a period today. Any other run is closed on its last day.
-- **Unchanged periods.** A stored period whose start and end are unchanged is
-  not written.
-- **Periods outside the window**, which start before it, are left out of the
-  plan entirely.
+- **Unchanged periods.** A touched period whose days are unchanged is not
+  written.
+- **Never two open periods.** When the plan stores an open run, any other open
+  period that has run past `CycleRules.longPeriodDays` (including one that
+  starts before the window) is closed at the typical period length, through
+  `CycleRules.closingStale`, the same helper `CycleCoordinator` uses when a
+  period is started.
+- **Periods outside the window**, which start before it, are never touched by
+  the user's ticks; only the rule above can close one.
+- **While editing.** When the stored periods change, the app returns to the
+  foreground or the day changes, the edit is rebased: its start becomes the
+  current periods' days and the user's added and removed days are applied on
+  top; the window moves to today.
 - **Length limit.** A run longer than `CycleRules.longPeriodDays` (10) makes
   the plan fail with `.periodTooLong`, shown inline above the buttons in vi and
   en: "Mỗi kỳ kinh tối đa 10 ngày. Hãy bỏ bớt ngày." Nothing is saved, and edit
@@ -88,8 +112,12 @@ stored periods.
   - an open period kept open or closed;
   - a run ending today;
   - a period before the window left alone;
+  - only touched periods change: a period added or deleted underneath, an
+    edit across midnight with an open period, adjacent periods, a long stored
+    period, overlapping duplicates, ticking the gap between two periods;
+  - a stale open period closes at the typical length, also before the window;
   - a run longer than 10 days fails;
-  - DST and month boundaries.
+  - DST and month boundaries, including a change at midnight (America/Santiago).
 - **KickCore** coordinator tests: one save; a failure leaves the periods
   unchanged; the forecast refreshes.
 - **KickData:** `applyPeriodChanges` writes everything or nothing, and is

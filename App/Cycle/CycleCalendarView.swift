@@ -11,6 +11,7 @@ import SwiftUI
 struct CycleCalendarView: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.scenePhase) private var scenePhase
     @State private var month = CycleCalendarGrid.startOfMonth(AppClock.now(), calendar: AppLocale.calendar)
     @State private var selected = AppLocale.calendar.startOfDay(for: AppClock.now())
     @State private var logDay: CycleDaySelection?
@@ -30,9 +31,7 @@ struct CycleCalendarView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         if edit != nil {
-                            PeriodEditBar(canSave: (edit?.hasChanges ?? false) && !saving, onCancel: cancelEdit) {
-                                Task { await saveEdit() }
-                            }
+                            PeriodEditBar(canSave: (edit?.hasChanges ?? false) && !saving, onCancel: cancelEdit, onSave: startSave)
                         }
                         header
                         if edit == nil {
@@ -90,6 +89,14 @@ struct CycleCalendarView: View {
                 Button(L10n.periodEditDiscardKeep, role: .cancel) {}
             }
             .onChange(of: edit?.ticked) { editError = nil }
+            // The periods or the day changed under an open edit: keep the user's changes on top.
+            .onChange(of: cycle.periods) { rebaseEdit() }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { rebaseEdit() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                rebaseEdit()
+            }
         }
     }
 
@@ -123,14 +130,31 @@ struct CycleCalendarView: View {
         LunaMotion.isEnabled ? LunaMotion.fade : nil
     }
 
+    private func rebaseEdit() {
+        guard edit != nil, !saving else { return }
+        edit?.rebase(periods: cycle.periods, now: AppClock.now(), calendar: calendar)
+    }
+
+    /// One save at a time: `saving` is set before the task starts.
+    private func startSave() {
+        guard !saving, edit != nil else { return }
+        saving = true
+        Task {
+            await saveEdit()
+            saving = false
+        }
+    }
+
     private func saveEdit() async {
         guard let edit else { return }
-        switch PeriodEditPlan.make(ticked: edit.ticked, periods: cycle.periods, now: AppClock.now(), calendar: calendar) {
+        let plan = PeriodEditPlan.make(
+            initial: edit.initial, ticked: edit.ticked, periods: cycle.periods, now: AppClock.now(),
+            typicalPeriodLength: cycle.settings.typicalPeriodLength, calendar: calendar
+        )
+        switch plan {
         case .failure(.periodTooLong):
             showEditError(isBleed ? L10n.periodEditTooLongBleed(CycleRules.longPeriodDays) : L10n.periodEditTooLong(CycleRules.longPeriodDays))
         case .success(let plan):
-            saving = true
-            defer { saving = false }
             if let failure = await cycle.applyPeriodEdits(plan) {
                 // Shown here, not in the Today tab's alert.
                 cycle.clearFailure()
