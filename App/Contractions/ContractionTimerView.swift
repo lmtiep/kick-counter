@@ -34,6 +34,9 @@ struct ContractionTimerView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 24)
+            // Exactly the screen's width, as Today: nothing measured wider at
+            // large text sizes may widen the content past the screen's edges.
+            .containerRelativeFrame(.horizontal)
         }
         .lunaStatusBarBackdrop()
         .lunaBackground()
@@ -114,25 +117,26 @@ struct ContractionTimerView: View {
         let undo = showsUndo && contractions.lastToggle != nil
         if undo || hasEpisode {
             ViewThatFits(in: .horizontal) {
-                HStack(spacing: 10) { controlButtons(undo: undo, hasEpisode: hasEpisode) }
-                VStack(spacing: 10) { controlButtons(undo: undo, hasEpisode: hasEpisode) }
+                HStack(spacing: 10) { controlButtons(undo: undo, hasEpisode: hasEpisode, stacked: false) }
+                VStack(spacing: 10) { controlButtons(undo: undo, hasEpisode: hasEpisode, stacked: true) }
             }
             .frame(maxWidth: .infinity)
         }
     }
 
     @ViewBuilder
-    private func controlButtons(undo: Bool, hasEpisode: Bool) -> some View {
+    /// `stacked`: one per row, full width, wrapping at the largest text sizes.
+    private func controlButtons(undo: Bool, hasEpisode: Bool, stacked: Bool) -> some View {
         if undo {
             Button {
                 showsUndo = false
                 Task { await contractions.undoLast() }
             } label: {
                 Label(L10n.contractionUndo, systemImage: "arrow.uturn.backward")
-                    .lineLimit(1)
-                    .fixedSize(horizontal: true, vertical: false)
+                    .lineLimit(stacked ? nil : 1)
+                    .fixedSize(horizontal: !stacked, vertical: stacked)
             }
-            .buttonStyle(.pill(.light, fullWidth: false, height: 44))
+            .buttonStyle(.pill(.light, fullWidth: stacked, height: 44))
             .accessibilityIdentifier("contractionUndo")
         }
         if hasEpisode {
@@ -141,10 +145,10 @@ struct ContractionTimerView: View {
                 Task { await contractions.endEpisode() }
             } label: {
                 Text(L10n.contractionEndEpisode)
-                    .lineLimit(1)
-                    .fixedSize(horizontal: true, vertical: false)
+                    .lineLimit(stacked ? nil : 1)
+                    .fixedSize(horizontal: !stacked, vertical: stacked)
             }
-            .buttonStyle(.pill(.dark, fullWidth: false, height: 44))
+            .buttonStyle(.pill(.dark, fullWidth: stacked, height: 44))
             .accessibilityIdentifier("contractionEndEpisode")
         }
     }

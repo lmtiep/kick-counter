@@ -268,7 +268,7 @@ struct ContractionEpisodeCard: View {
                         Text(start)
                             .font(.luna(.bodyStrong))
                             .foregroundStyle(.luna(.textPrimary))
-                        Text(L10n.contractionListDuration + " " + duration)
+                        Text(entry.isRunning ? duration : L10n.contractionListDuration + " " + duration)
                             .foregroundStyle(.luna(entry.isRunning ? .pregText : .articleText))
                         Text(L10n.contractionListInterval + " " + interval)
                             .foregroundStyle(.luna(.articleText))
