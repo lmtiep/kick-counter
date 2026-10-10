@@ -17,6 +17,7 @@ struct RestoreBackupSheet: View {
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
+    @Environment(PillCoordinator.self) private var pill
     @Environment(\.modelContext) private var modelContext
     @State private var working = false
     @State private var failed = false
@@ -161,7 +162,7 @@ struct RestoreBackupSheet: View {
             try BackupStore.replaceAll(in: modelContext.container, with: document.records)
         } catch {
             logger.error("Restoring a backup failed: \(error.localizedDescription)")
-            await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight)
+            await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill)
             failed = true
             AccessibilityNotification.Announcement(L10n.backupRestoreFailed).post()
             return
@@ -171,7 +172,7 @@ struct RestoreBackupSheet: View {
         if !AppEnvironment.showsPartnerUI, AppMode.hidePartnerMode(in: AppGroup.defaults) {
             logger.info("Restored partner mode hidden: onboarding again")
         }
-        await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight)
+        await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill)
         BackupCenter.removeLeftovers()
         logger.info("Restored a backup")
         backup.didRestore()

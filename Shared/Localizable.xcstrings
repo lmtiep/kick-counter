@@ -6937,6 +6937,584 @@
         }
       }
     },
+    "pill.action.taken": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taken"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã uống"
+          }
+        }
+      }
+    },
+    "pill.card.breakWeek": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Break week · new pack starts %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần nghỉ · vỉ mới bắt đầu ngày %@"
+          }
+        }
+      }
+    },
+    "pill.card.number": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill %1$d/%2$d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viên %1$d/%2$d"
+          }
+        }
+      }
+    },
+    "pill.card.number.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill %1$d of %2$d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viên %1$d trên %2$d"
+          }
+        }
+      }
+    },
+    "pill.card.numberYesterday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill %1$d/%2$d (yesterday)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viên %1$d/%2$d (hôm qua)"
+          }
+        }
+      }
+    },
+    "pill.card.numberYesterday.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill %1$d of %2$d, yesterday's"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viên %1$d trên %2$d, của hôm qua"
+          }
+        }
+      }
+    },
+    "pill.card.reminderAt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminder at %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc lúc %@"
+          }
+        }
+      }
+    },
+    "pill.card.take": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taken today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã uống hôm nay"
+          }
+        }
+      }
+    },
+    "pill.card.takeYesterday": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taken yesterday's pill"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã uống viên hôm qua"
+          }
+        }
+      }
+    },
+    "pill.card.takenAt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taken at %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã uống lúc %@"
+          }
+        }
+      }
+    },
+    "pill.card.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birth control pill"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thuốc tránh thai"
+          }
+        }
+      }
+    },
+    "pill.card.undo": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unmark"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ đánh dấu"
+          }
+        }
+      }
+    },
+    "pill.card.undo.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unmark today's pill"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ đánh dấu viên hôm nay"
+          }
+        }
+      }
+    },
+    "pill.failure.load": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load your pills. Please try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa tải được dữ liệu thuốc. Bạn thử lại nhé."
+          }
+        }
+      }
+    },
+    "pill.failure.save": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't save. Please try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa lưu được. Bạn thử lại nhé."
+          }
+        }
+      }
+    },
+    "pill.notification.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill %1$d/%2$d today."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viên %1$d/%2$d hôm nay."
+          }
+        }
+      }
+    },
+    "pill.notification.followUp.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill %1$d/%2$d. Tap Taken once you have."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viên %1$d/%2$d. Bấm Đã uống sau khi uống."
+          }
+        }
+      }
+    },
+    "pill.notification.followUp.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Have you taken your pill?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn đã uống viên thuốc chưa?"
+          }
+        }
+      }
+    },
+    "pill.notification.renew.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Luna Mom to keep your pill reminders going."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở Luna Mom để tiếp tục nhắc uống thuốc."
+          }
+        }
+      }
+    },
+    "pill.notification.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time for your pill"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đến giờ uống thuốc"
+          }
+        }
+      }
+    },
+    "pill.pack.continuous": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "28 pills"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "28 viên"
+          }
+        }
+      }
+    },
+    "pill.pack.continuous.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A pill every day, including 24 + 4 and progestin-only packs."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uống mỗi ngày một viên, gồm cả vỉ 24 + 4 và thuốc chỉ chứa progestin."
+          }
+        }
+      }
+    },
+    "pill.pack.withBreak": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "21 pills + 7-day break"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "21 viên + 7 ngày nghỉ"
+          }
+        }
+      }
+    },
+    "pill.pack.withBreak.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No pills and no reminders during the 7-day break."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 ngày nghỉ không uống thuốc và không có nhắc nhở."
+          }
+        }
+      }
+    },
+    "pill.row": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill reminder"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc uống thuốc"
+          }
+        }
+      }
+    },
+    "pill.sheet.keepOpen": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the app at least once every 2 weeks so the reminders don't stop."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở app ít nhất 2 tuần một lần để nhắc nhở không bị dừng."
+          }
+        }
+      }
+    },
+    "pill.sheet.missed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you miss a pill, follow the leaflet in the pack or ask a doctor or pharmacist."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nếu quên uống, hãy làm theo tờ hướng dẫn trong hộp thuốc hoặc hỏi bác sĩ, dược sĩ."
+          }
+        }
+      }
+    },
+    "pill.sheet.notificationsOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are off, so the reminder can't appear. You can turn them on in Settings."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thông báo đang tắt nên lời nhắc không hiện được. Bạn có thể bật lại trong Cài đặt."
+          }
+        }
+      }
+    },
+    "pill.sheet.packStart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start date of this pack"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày bắt đầu vỉ này"
+          }
+        }
+      }
+    },
+    "pill.sheet.packType": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pack type"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loại vỉ thuốc"
+          }
+        }
+      }
+    },
+    "pill.sheet.time": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminder time"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giờ nhắc"
+          }
+        }
+      }
+    },
+    "pill.sheet.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pill reminder"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc uống thuốc"
+          }
+        }
+      }
+    },
+    "pill.sheet.toggle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remind me every day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc mỗi ngày"
+          }
+        }
+      }
+    },
+    "pill.sheet.toggle.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At the time you choose, and once more 2 hours later if you haven't marked it."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vào giờ bạn chọn, và nhắc lại một lần sau 2 giờ nếu bạn chưa đánh dấu."
+          }
+        }
+      }
+    },
     "pregnancy.appointment.none": {
       "extractionState": "manual",
       "localizations": {

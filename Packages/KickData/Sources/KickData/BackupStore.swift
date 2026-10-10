@@ -15,7 +15,8 @@ public enum BackupStore {
             logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map {
                 CycleLogDTO($0.record, lhRaw: $0.lhRaw, mucusRaw: $0.mucusRaw, flowRaw: $0.flowRaw)
             },
-            weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record)
+            weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
+            pillDoses: try context.fetch(FetchDescriptor<PillDose>(sortBy: [SortDescriptor(\.day)])).map(\.record)
         )
     }
 
@@ -37,6 +38,7 @@ public enum BackupStore {
             try deleteEvery(PeriodEntry.self, in: context)
             try deleteEvery(CycleLog.self, in: context)
             try deleteEvery(WeightEntry.self, in: context)
+            try deleteEvery(PillDose.self, in: context)
             for record in records.sessions {
                 insert(record, into: context)
             }
@@ -56,6 +58,9 @@ public enum BackupStore {
             }
             for record in records.weights {
                 context.insert(WeightEntry(record: record))
+            }
+            for record in records.pillDoses {
+                context.insert(PillDose(record: record))
             }
             try save(context)
         } catch {

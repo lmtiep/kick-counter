@@ -31,6 +31,10 @@ Profile has a "Delete all data" row (destructive, with a confirmation dialog) th
 
 Profile → "Data" can export all data to a `.lunamom` file (versioned JSON) through the system share sheet, and restore one through the document picker or by opening the file from another app; the user chooses where the file goes, the app uploads nothing and never writes to iCloud itself, and the restore screen asks for confirmation before replacing the data on the device.
 
+**Daily pill reminder**
+
+When cycle tracking with "The pill" as the contraception, Profile → "Cycle" → "Pill reminder" schedules a local notification at a time the user picks (with one follow-up two hours later if not marked, none during the 7-day break of a 21 + 7 pack); its "Taken" action records the day on the device only. The app gives no missed-pill medical instructions: it only says to follow the pack leaflet or ask a doctor or pharmacist.
+
 **Medical content — sources and disclaimers**
 
 Pregnancy and cycle content (weekly articles, fetal size estimates using the Hadlock formula, due-date and ovulation estimates, maternal weight guidance using IOM 2009 ranges) is for general information only, not diagnosis or medical advice. This disclaimer appears in onboarding and in the in-app "Medical information" screen, and weekly content and the "Trying to conceive" screens repeat that predictions are estimates, not a method of contraception. Sources are listed in the in-app "Medical information → Sources" screen. The content is written from the guidelines and references listed in that screen and is always shown together with these disclaimers.

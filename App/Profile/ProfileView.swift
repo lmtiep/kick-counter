@@ -28,6 +28,7 @@ struct ProfileView: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
     @Environment(AppointmentCoordinator.self) private var appointments
+    @Environment(PillCoordinator.self) private var pill
     @Environment(\.modelContext) private var modelContext
     @Environment(BackupCenter.self) private var backup
     @Environment(\.openURL) private var openURL
@@ -50,6 +51,7 @@ struct ProfileView: View {
     @State private var showingEndPregnancy = false
     @State private var showingKickSettings = false
     @State private var showingMaternal = false
+    @State private var showingPillReminder = false
     @State private var confirmingDeleteAll = false
     @State private var deletingAll = false
     @State private var deleteAllFailed = false
@@ -115,6 +117,10 @@ struct ProfileView: View {
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showingPregnancyDates) { PregnancyDateSheet() }
             .sheet(isPresented: $showingMaternal) { MaternalProfileSheet() }
+            .sheet(isPresented: $showingPillReminder) {
+                PillReminderSheet()
+                    .lunaSheetPresentation(detents: [.large])
+            }
             .sheet(isPresented: $showingImPregnant) {
                 ImPregnantSheet(lastPeriodStart: cycle.forecast?.currentPeriodStart)
             }
@@ -381,6 +387,10 @@ struct ProfileView: View {
                 contraceptionPicker
             }
         }
+        // Phase 17: only with the pill; hidden otherwise, its settings kept.
+        if cycle.preferences.contraception == .pill {
+            pillReminderRow
+        }
         Toggle(L10n.profileShowFertilityTests, isOn: fertilityTestsBinding)
             .tint(.luna(.cycleStrong))
             .accessibilityIdentifier("profileShowFertilityTests")
@@ -422,6 +432,34 @@ struct ProfileView: View {
         .accessibilityLabel(L10n.profileContraception)
         .accessibilityValue(contraceptionText)
         .accessibilityIdentifier("profileContraception")
+    }
+
+    /// "Nhắc uống thuốc", under the contraception: its time, or off.
+    private var pillReminderRow: some View {
+        let value = pill.isActive
+            ? Formatting.clockTime(hour: pill.settings.hour, minute: pill.settings.minute)
+            : L10n.profileReminderOff
+        return Button { showingPillReminder = true } label: {
+            HStack(spacing: 8) {
+                Text(L10n.pillRow)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text(value)
+                    .foregroundStyle(.luna(.textSecondary))
+                    .multilineTextAlignment(.trailing)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.luna(.chevron))
+                    .accessibilityHidden(true)
+            }
+            .font(.luna(.body))
+            .foregroundStyle(.luna(.textPrimary))
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityIdentifier("profilePillReminder")
     }
 
     private var contraceptionText: String {
@@ -657,7 +695,9 @@ struct ProfileView: View {
         // Backup copies inside the app hold the same health data (phase 15).
         BackupCenter.removeLeftovers()
         refreshLastBackup()
-        await AppDataReload.afterReplacingAllData(kicks: coordinator, appointments: appointments, cycle: cycle, weight: weight)
+        await AppDataReload.afterReplacingAllData(
+            kicks: coordinator, appointments: appointments, cycle: cycle, weight: weight, pill: pill
+        )
         profileLogger.info("Deleted all data")
     }
 

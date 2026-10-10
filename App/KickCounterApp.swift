@@ -20,6 +20,8 @@ struct KickCounterApp: App {
         case .success(let env):
             let coordinator = env.coordinator
             KickIntentBridge.recordKick = { _ = await coordinator.recordKick() }
+            // "Đã uống" on a pill notification (phase 17), even when it launches the app.
+            PillNotificationDelegate.shared.install(pill: env.pill)
         case .failure(let error):
             logger.fault("Could not open the data store: \(error.localizedDescription)")
         }
@@ -34,6 +36,7 @@ struct KickCounterApp: App {
                     .environment(env.appointments)
                     .environment(env.cycle)
                     .environment(env.weight)
+                    .environment(env.pill)
                     .environment(PartnerInvitationInbox.shared)
                     .environment(\.partnerSharing, env.sharing)
                     .environment(env.partnerShare)

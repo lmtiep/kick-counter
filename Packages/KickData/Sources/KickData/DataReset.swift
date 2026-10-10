@@ -17,6 +17,7 @@ public enum DataReset {
             try deleteEvery(PeriodEntry.self, in: context)
             try deleteEvery(CycleLog.self, in: context)
             try deleteEvery(WeightEntry.self, in: context)
+            try deleteEvery(PillDose.self, in: context)
             try context.save()
         } catch {
             context.rollback()

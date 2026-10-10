@@ -57,6 +57,11 @@ enum Formatting {
         return text.prefix(1).uppercased() + text.dropFirst()
     }
 
+    /// "18 thg 10" / "Oct 18" (the pill card's break week).
+    static func dayShortMonth(_ date: Date) -> String {
+        date.formatted(.dateTime.day().month(.abbreviated).locale(locale))
+    }
+
     /// "20:05" / "8:05 PM".
     static func time(_ date: Date) -> String {
         date.formatted(.dateTime.hour().minute().locale(locale))
