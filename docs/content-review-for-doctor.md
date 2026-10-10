@@ -900,7 +900,30 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         13–36, "115" ở tuần ≥ 37. Nguồn: NHS – Vaginal bleeding in pregnancy (ra máu nhiều, đau dữ dội, ngất → 999).
         **Lưu ý:** bài `safe-exercise` và `sleep-positions` vẫn viết ngất → "liên hệ bác sĩ hoặc nữ hộ sinh ngay"
         (câu hỏi mục 48 còn mở); bác sĩ quyết định có thống nhất về "gọi 115" không.
-91. [ ] **Giai đoạn 18 — lưu ý y khoa ở màn chào mừng.** Onboarding mới gộp lưu ý y khoa thành một dòng ngắn cạnh
+
+## 16. Nhắc uống thuốc tránh thai hằng ngày (giai đoạn 17)
+
+Chỉ có khi đang theo dõi chu kỳ và biện pháp tránh thai là "Thuốc tránh thai hằng ngày". Người dùng chọn loại vỉ ("21
+viên + 7 ngày nghỉ" hoặc "28 viên" — gồm cả vỉ 24 + 4 và thuốc chỉ chứa progestin), ngày bắt đầu vỉ đang dùng và giờ
+nhắc (mặc định 21:00). Thông báo: "Đến giờ uống thuốc" — "Viên 12/21 hôm nay.", có nút "Đã uống". Ở Hôm nay có thẻ
+"Thuốc tránh thai" với nút "Đã uống hôm nay" và "Bỏ đánh dấu". Đặc tả:
+`docs/superpowers/specs/2026-10-09-pill-reminder-design.md`.
+
+91. [ ] **Câu duy nhất về quên thuốc** (chú thích dưới trang cài đặt, `pill.sheet.missed`): "Nếu quên uống, hãy làm
+        theo tờ hướng dẫn trong hộp thuốc hoặc hỏi bác sĩ, dược sĩ." / "If you miss a pill, follow the leaflet in the
+        pack or ask a doctor or pharmacist." App **không** đưa hướng dẫn lâm sàng nào khác (uống bù, dùng thêm bao cao
+        su…). **Câu hỏi:** câu này có đủ và đúng không?
+92. [ ] **Nhắc lại sau 2 giờ.** Nếu chưa đánh dấu "Đã uống", app nhắc lại **một lần** sau 2 giờ: "Bạn đã uống viên thuốc
+        hôm nay chưa?" — "Viên 12/21. Bấm Đã uống sau khi uống." Không nhắc thêm. **Câu hỏi:** 2 giờ có hợp lý không?
+93. [ ] **Tuần nghỉ của vỉ 21 + 7.** Ngày 22–28 của vỉ không có nhắc nhở; thẻ ở Hôm nay ghi "Tuần nghỉ · vỉ mới bắt
+        đầu ngày 18 thg 10". Tối ngày đầu vỉ mới, nhắc lại như bình thường. Vỉ "28 viên" nhắc mỗi ngày. **Câu hỏi:**
+        cách gọi "tuần nghỉ" và việc không nhắc trong 7 ngày đó có ổn không?
+94. [ ] **Thuốc chỉ chứa progestin** (cửa sổ khoảng 3 giờ) đang dùng chung lựa chọn "28 viên" và cùng lần nhắc lại sau 2
+        giờ. **Câu hỏi:** loại thuốc này có cần cách nhắc khác (ví dụ nhắc lại sớm hơn, hoặc một lựa chọn riêng) không?
+
+## 17. Onboarding mới (giai đoạn 18)
+
+95. [ ] **Giai đoạn 18 — lưu ý y khoa ở màn chào mừng.** Onboarding mới gộp lưu ý y khoa thành một dòng ngắn cạnh
         biểu tượng "!". Cũ (`onboarding.3.title` + `onboarding.3.body`): "Không thay thế tư vấn y tế. Nếu thấy bé cử động
         ít hơn bình thường, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế. Đừng chờ kết quả từ app." → Mới (`onboarding.medical`):
         "Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay." (en: "Not a substitute for a doctor. Fewer

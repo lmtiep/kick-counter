@@ -24,4 +24,19 @@ enum ReminderTexts {
             bleedLate: NotificationText(title: L10n.cycleReminderBleedLateTitle, body: L10n.cycleReminderBleedLateBody)
         )
     }
+
+    static var pill: PillReminderTexts {
+        let reminderTitle = L10n.pillNotificationTitle
+        let followUpTitle = L10n.pillNotificationFollowUpTitle
+        // Bodies are formatted when scheduled, in the language of that moment.
+        return PillReminderTexts(
+            reminder: { number, count in
+                NotificationText(title: reminderTitle, body: L10n.pillNotificationBody(number, count))
+            },
+            followUp: { number, count in
+                NotificationText(title: followUpTitle, body: L10n.pillNotificationFollowUpBody(number, count))
+            },
+            renew: NotificationText(title: reminderTitle, body: L10n.pillNotificationRenewBody)
+        )
+    }
 }

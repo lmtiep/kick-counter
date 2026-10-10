@@ -17,6 +17,7 @@ struct RootView: View {
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
+    @Environment(PillCoordinator.self) private var pill
     @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
@@ -84,6 +85,8 @@ struct RootView: View {
                 // Profile stays open after switching mode there; anywhere else
                 // (e.g. "I'm pregnant" on Today) lands on the new mode's Today.
                 if selectedTab != .profile { selectedTab = .today }
+                // Pill reminders exist only in the cycle mode (phase 17).
+                Task { await pill.contraceptionChanged() }
                 // Ending pregnancy tracking or switching to trying to conceive
                 // (Profile, onboarding, any other path) stops the share: the
                 // partner must not keep seeing the last snapshot. Accepting an
@@ -100,6 +103,22 @@ struct RootView: View {
             }
             .onChange(of: appLanguage) {
                 Task { await relocalizeReminders() }
+            }
+            // A new day, a new time zone or a clock change: Today's pill card and
+            // the pill reminders follow (phase 17 review).
+            .onReceive(NotificationCenter.default.publisher(for: .NSSystemTimeZoneDidChange)) { _ in
+                Task { await pill.load() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                Task { await pill.load() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+                Task { await pill.load() }
+            }
+            // The contraception or the goal changed (Profile, onboarding): the pill
+            // reminders follow, their settings are kept (phase 17 spec §2).
+            .onChange(of: cycle.preferences) {
+                Task { await pill.contraceptionChanged() }
             }
             // An iCloud invitation opened from Messages or Mail (phase 8 spec §5.2).
             // Not `.task(id:)`: taking the invitation changes the id, which would
@@ -162,6 +181,7 @@ struct RootView: View {
                 .environment(appointments)
                 .environment(cycle)
                 .environment(weight)
+                .environment(pill)
                 .modelContext(modelContext)
                 .environment(\.locale, AppLocale.locale)
                 .environment(\.calendar, AppLocale.calendar)
@@ -247,6 +267,7 @@ struct RootView: View {
         await appointments.load()
         await cycle.load()
         await weight.load()
+        await pill.load()
         // Partner sharing is off with iCloud (phase 12): nothing to refresh.
         guard AppEnvironment.showsPartnerUI else { return }
         switch mode {
@@ -275,6 +296,8 @@ struct RootView: View {
         if mode != .partner { await coordinator.updateOverdueText(ReminderTexts.overdue) }
         await cycle.updateReminderTexts(ReminderTexts.cycle)
         await appointments.updateReminderText(ReminderTexts.appointment)
+        PillNotificationDelegate.shared.registerCategory()
+        await pill.updateTexts(ReminderTexts.pill)
         await restoreDailyKickReminder()
     }
 

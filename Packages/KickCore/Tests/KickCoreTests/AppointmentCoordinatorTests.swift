@@ -227,4 +227,20 @@ struct AppointmentCoordinatorTests {
         #expect(center.added.isEmpty)
         #expect(coordinator.past.first?.isDone == true)
     }
+
+    /// Only the soonest appointments get a reminder at once, so the pill
+    /// reminders always fit under iOS's 64 pending requests.
+    @Test func onlyTheSoonestAppointmentsAreScheduled() async throws {
+        let cap = NotificationScheduler.maxAppointmentReminders
+        for offset in (2...(cap + 6)).reversed() {
+            _ = await coordinator.add(date: days(offset), title: "Visit \(offset)")
+        }
+        let pending = center.added.filter { $0.identifier.hasPrefix(NotificationScheduler.appointmentReminderPrefix) }
+        #expect(pending.count == cap)
+        await coordinator.load()
+        let afterLoad = center.added.filter { $0.identifier.hasPrefix(NotificationScheduler.appointmentReminderPrefix) }
+        #expect(afterLoad.count == cap)
+        let soonest = Set(coordinator.upcoming.prefix(cap).map { NotificationScheduler.appointmentReminderID(for: $0.id) })
+        #expect(Set(afterLoad.map(\.identifier)) == soonest)
+    }
 }

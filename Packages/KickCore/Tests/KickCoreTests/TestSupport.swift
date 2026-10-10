@@ -73,6 +73,12 @@ final class FakeNotificationCenter: NotificationCenterClient {
         for continuation in continuations { continuation.resume() }
     }
 
+    var removedDelivered: [String] = []
+
+    func removeDelivered(ids: [String]) {
+        removedDelivered.append(contentsOf: ids)
+    }
+
     func removePending(ids: [String]) {
         removed.append(contentsOf: ids)
         added.removeAll { ids.contains($0.identifier) }

@@ -29,12 +29,14 @@ enum AppDataReload {
         kicks: KickCoordinator,
         appointments: AppointmentCoordinator,
         cycle: CycleCoordinator,
-        weight: WeightCoordinator
+        weight: WeightCoordinator,
+        pill: PillCoordinator
     ) async {
         await kicks.load()
         await appointments.load()
         await cycle.load()
         await weight.load()
+        await pill.load()
         // Never prompting, and never in partner mode (as RootView after a language change).
         let reminder = DailyKickReminder.stored
         if reminder.enabled, AppMode.load(from: AppGroup.defaults) != .partner, await kicks.notificationsAuthorized() {
@@ -46,9 +48,10 @@ enum AppDataReload {
         kicks: KickCoordinator,
         appointments: AppointmentCoordinator,
         cycle: CycleCoordinator,
-        weight: WeightCoordinator
+        weight: WeightCoordinator,
+        pill: PillCoordinator
     ) async {
         await stopEverything(kicks: kicks)
-        await reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight)
+        await reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill)
     }
 }

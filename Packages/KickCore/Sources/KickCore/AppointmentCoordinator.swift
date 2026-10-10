@@ -73,8 +73,7 @@ public final class AppointmentCoordinator {
         // appointment added meanwhile is never treated as an orphan.
         let wanted: [UUID]
         do {
-            let time = now()
-            wanted = try store.upcoming(now: time).filter { AppointmentRules.wantsReminder($0, now: time) }.map(\.id)
+            wanted = try soonestReminderIDs()
         } catch {
             logger.error("Reading appointments for reminders failed: \(error.localizedDescription)")
             return
@@ -101,6 +100,7 @@ public final class AppointmentCoordinator {
         }
         refresh()
         await syncReminder(id: record.id, generation: bump(record.id), mayPrompt: true)
+        await dropRemindersBeyondTheCap()
         return record
     }
 
@@ -118,6 +118,7 @@ public final class AppointmentCoordinator {
         }
         refresh()
         await syncReminder(id: record.id, generation: bump(record.id), mayPrompt: true)
+        await dropRemindersBeyondTheCap()
         return true
     }
 
@@ -170,7 +171,9 @@ public final class AppointmentCoordinator {
             logger.error("Reading appointment failed: \(error.localizedDescription)")
             return
         }
-        guard let record, AppointmentRules.wantsReminder(record, now: now()) else {
+        guard let record, AppointmentRules.wantsReminder(record, now: now()),
+              (try? soonestReminderIDs().contains(id)) == true
+        else {
             notifications.cancelAppointmentReminder(id: id)
             return
         }
@@ -196,6 +199,26 @@ public final class AppointmentCoordinator {
         // have landed last, so re-apply whatever the store holds now.
         if self.generation(of: id) != generation {
             await syncReminder(id: id, generation: self.generation(of: id), mayPrompt: false)
+        }
+    }
+
+    /// The appointments that get a reminder: the soonest
+    /// `NotificationScheduler.maxAppointmentReminders` still ahead. Later ones
+    /// are scheduled by a later `load()`, once they are among the soonest.
+    private func soonestReminderIDs() throws -> [UUID] {
+        let time = now()
+        return try store.upcoming(now: time)
+            .filter { AppointmentRules.wantsReminder($0, now: time) }
+            .sorted { $0.date < $1.date }
+            .prefix(NotificationScheduler.maxAppointmentReminders)
+            .map(\.id)
+    }
+
+    /// A new or moved appointment may push another out of the soonest ones.
+    private func dropRemindersBeyondTheCap() async {
+        guard let keep = try? Set(soonestReminderIDs()) else { return }
+        for id in await notifications.pendingAppointmentReminderIDs().subtracting(keep) {
+            notifications.cancelAppointmentReminder(id: id)
         }
     }
 

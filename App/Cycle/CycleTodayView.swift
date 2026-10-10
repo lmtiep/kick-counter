@@ -121,6 +121,7 @@ struct CycleTodayView: View {
             phasePill(forecast)
             logCard
                 .padding(.top, 10)
+            PillTodayCard()
             notices(forecast)
             ComingUpCard(forecast: forecast, typicalPeriodLength: cycle.settings.typicalPeriodLength, policy: cycle.policy)
             maybePregnantCard
@@ -421,6 +422,7 @@ struct CycleTodayView: View {
                     .accessibilityIdentifier("cycleAddPeriodButton")
             }
             .lunaCard()
+            PillTodayCard()
             maybePregnantCard
             footnotes
         }
