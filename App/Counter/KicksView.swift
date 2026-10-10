@@ -8,7 +8,6 @@ import SwiftUI
 /// 2-hour alert, the last 7 days (→ History) and the Cardiff method.
 struct KicksView: View {
     @Environment(KickCoordinator.self) private var coordinator
-    @Environment(\.openURL) private var openURL
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
     @AppStorage(SettingsKey.reminderHour, store: AppGroup.defaults) private var reminderHour = SettingsDefault.reminderHour
@@ -75,14 +74,14 @@ struct KicksView: View {
                     }
                     TimelineView(.periodic(from: .now, by: 30)) { context in
                         if coordinator.isOverdue(at: context.date) {
-                            OverdueCard(showsCallButton: AppLocale.language == .vi) {
-                                if let url = URL(string: "tel:115") { openURL(url) }
-                            }
-                            .padding(.top, 16)
+                            OverdueCard()
+                                .padding(.top, 16)
                         }
                     }
                     lastSevenDays
                         .padding(.top, 16)
+                    contractionsLink
+                        .padding(.top, 12)
                     cardiffCard
                         .padding(.top, 12)
                 }
@@ -250,6 +249,40 @@ struct KicksView: View {
         .accessibilityIdentifier("kicksHistoryButton")
     }
 
+    /// "Đếm cơn gò" (phase 20 spec §4.1): the contraction timer, in any week.
+    private var contractionsLink: some View {
+        NavigationLink {
+            ContractionTimerView()
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "stopwatch")
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundStyle(.luna(.pregOnSoft))
+                    .frame(width: 44, height: 44)
+                    .background(Circle().fill(.luna(.pregSoft)))
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(L10n.kicksContractionsLink)
+                        .font(.luna(.cardTitleSmall))
+                        .foregroundStyle(.luna(.textPrimary))
+                    Text(L10n.kicksContractionsLinkDetail)
+                        .font(.luna(.caption))
+                        .foregroundStyle(.luna(.textSecondary))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.luna(.chevron))
+                    .accessibilityHidden(true)
+            }
+            .lunaCard(padding: 16)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("kicksContractionsLink")
+    }
+
     private func barColor(_ bar: HistoryBar) -> Color {
         guard bar.minutes != nil else { return .luna(.track) }
         return bar.isCurrent ? .luna(.pregStrong) : .luna(.pregBar)
@@ -298,9 +331,6 @@ struct KicksView: View {
 /// Vietnamese it offers the emergency number 115; English has no single number,
 /// so only the text (the push notification at 2 hours stays as it was).
 struct OverdueCard: View {
-    let showsCallButton: Bool
-    let onCall: () -> Void
-
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             VStack(alignment: .leading, spacing: 6) {
@@ -315,13 +345,7 @@ struct OverdueCard: View {
             }
             .accessibilityElement(children: .combine)
             .accessibilityIdentifier("overdueCard")
-            if showsCallButton {
-                Button(action: onCall) {
-                    Label(L10n.counterCall115, systemImage: "phone.fill")
-                }
-                .buttonStyle(.pill(.filled(.warningButton), fullWidth: false, height: 44))
-                .accessibilityIdentifier("overdueCallButton")
-            }
+            EmergencyCallButton(identifier: "overdueCallButton")
         }
         .lunaCard(.warningBackground, border: .warningBorder, padding: 16)
     }

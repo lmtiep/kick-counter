@@ -14,6 +14,7 @@ struct AppEnvironment {
     let cycle: CycleCoordinator
     let weight: WeightCoordinator
     let pill: PillCoordinator
+    let contractions: ContractionCoordinator
     let content: WeeklyContentLibrary?
     let knowledge: KnowledgeLibrary?
     let sharing: any PartnerSharing
@@ -132,6 +133,22 @@ struct AppEnvironment {
             calendar: .autoupdatingCurrent,
             now: { AppClock.now() }
         )
+        let contractionStore = ContractionStore(context: container.mainContext)
+        #if DEBUG
+        if isUITesting, let seed = AppClock.launchOptions.seedContractions {
+            // The real clock: the timer never uses the pinned one.
+            for record in seed.records(now: Date()) {
+                try contractionStore.save(record)
+            }
+        }
+        #endif
+        // The real clock, not AppClock, as KickCoordinator: a pinned clock would
+        // drop every stop as a mis-tap.
+        let contractions = ContractionCoordinator(
+            store: contractionStore,
+            liveActivities: NoopContractionLiveActivityManager(),
+            defaults: AppGroup.defaults
+        )
         let sharing = makeSharing()
         let partnerShare = PartnerShareCoordinator(sharing: sharing, defaults: AppGroup.defaults)
         // The real clock, not AppClock: the publisher waits 5 s on it.
@@ -147,6 +164,7 @@ struct AppEnvironment {
             cycle: cycle,
             weight: weight,
             pill: pill,
+            contractions: contractions,
             content: WeeklyContentLibrary.loadBundled(),
             knowledge: KnowledgeLibrary.loadBundled(),
             sharing: sharing,

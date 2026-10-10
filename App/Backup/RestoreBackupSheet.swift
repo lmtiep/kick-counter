@@ -18,6 +18,7 @@ struct RestoreBackupSheet: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
     @Environment(PillCoordinator.self) private var pill
+    @Environment(ContractionCoordinator.self) private var contractions
     @Environment(\.modelContext) private var modelContext
     @State private var working = false
     @State private var failed = false
@@ -157,12 +158,14 @@ struct RestoreBackupSheet: View {
         working = true
         failed = false
         defer { working = false }
-        await AppDataReload.stopEverything(kicks: kicks)
+        await AppDataReload.stopEverything(kicks: kicks, contractions: contractions)
         do {
             try BackupStore.replaceAll(in: modelContext.container, with: document.records)
         } catch {
             logger.error("Restoring a backup failed: \(error.localizedDescription)")
-            await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill)
+            await AppDataReload.reload(
+                kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill, contractions: contractions
+            )
             failed = true
             AccessibilityNotification.Announcement(L10n.backupRestoreFailed).post()
             return
@@ -172,7 +175,9 @@ struct RestoreBackupSheet: View {
         if !AppEnvironment.showsPartnerUI, AppMode.hidePartnerMode(in: AppGroup.defaults) {
             logger.info("Restored partner mode hidden: onboarding again")
         }
-        await AppDataReload.reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill)
+        await AppDataReload.reload(
+            kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill, contractions: contractions
+        )
         BackupCenter.removeLeftovers()
         logger.info("Restored a backup")
         backup.didRestore()

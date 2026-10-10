@@ -18,6 +18,7 @@ struct RootView: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
     @Environment(PillCoordinator.self) private var pill
+    @Environment(ContractionCoordinator.self) private var contractions
     @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
@@ -182,6 +183,7 @@ struct RootView: View {
                 .environment(cycle)
                 .environment(weight)
                 .environment(pill)
+                .environment(contractions)
                 .modelContext(modelContext)
                 .environment(\.locale, AppLocale.locale)
                 .environment(\.calendar, AppLocale.calendar)
@@ -269,6 +271,8 @@ struct RootView: View {
             await coordinator.silenceForPartnerMode()
         } else {
             await coordinator.load()
+            // Closes a forgotten contraction; ends the Live Activity after 2 h idle.
+            await contractions.load()
         }
         await appointments.load()
         await cycle.load()

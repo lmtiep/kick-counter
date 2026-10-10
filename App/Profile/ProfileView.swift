@@ -29,6 +29,7 @@ struct ProfileView: View {
     @Environment(WeightCoordinator.self) private var weight
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(PillCoordinator.self) private var pill
+    @Environment(ContractionCoordinator.self) private var contractions
     @Environment(\.modelContext) private var modelContext
     @Environment(BackupCenter.self) private var backup
     @Environment(\.openURL) private var openURL
@@ -697,7 +698,8 @@ struct ProfileView: View {
         BackupCenter.removeLeftovers()
         refreshLastBackup()
         await AppDataReload.afterReplacingAllData(
-            kicks: coordinator, appointments: appointments, cycle: cycle, weight: weight, pill: pill
+            kicks: coordinator, appointments: appointments, cycle: cycle, weight: weight, pill: pill,
+            contractions: contractions
         )
         profileLogger.info("Deleted all data")
     }
