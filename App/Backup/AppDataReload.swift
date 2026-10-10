@@ -12,13 +12,18 @@ enum AppDataReload {
     /// reminder, the 2-hour alerts, every notification and every kick Live
     /// Activity. A restore calls it before replacing the store, so a "+1" from
     /// the Lock Screen cannot land in the restored data.
-    static func stopEverything(kicks: KickCoordinator) async {
+    static func stopEverything(kicks: KickCoordinator, contractions: ContractionCoordinator) async {
         await kicks.resetAfterDataDeletion()
+        // Forgets the timer and ends its Live Activity (phase 20).
+        await contractions.resetAfterDataDeletion()
         guard !AppEnvironment.isUITesting else { return }
         let center = UNUserNotificationCenter.current()
         center.removeAllPendingNotificationRequests()
         center.removeAllDeliveredNotifications()
         for activity in Activity<KickActivityAttributes>.activities {
+            await activity.end(nil, dismissalPolicy: .immediate)
+        }
+        for activity in Activity<ContractionActivityAttributes>.activities {
             await activity.end(nil, dismissalPolicy: .immediate)
         }
     }
@@ -30,13 +35,15 @@ enum AppDataReload {
         appointments: AppointmentCoordinator,
         cycle: CycleCoordinator,
         weight: WeightCoordinator,
-        pill: PillCoordinator
+        pill: PillCoordinator,
+        contractions: ContractionCoordinator
     ) async {
         await kicks.load()
         await appointments.load()
         await cycle.load()
         await weight.load()
         await pill.load()
+        await contractions.load()
         // Never prompting, and never in partner mode (as RootView after a language change).
         let reminder = DailyKickReminder.stored
         if reminder.enabled, AppMode.load(from: AppGroup.defaults) != .partner, await kicks.notificationsAuthorized() {
@@ -49,9 +56,12 @@ enum AppDataReload {
         appointments: AppointmentCoordinator,
         cycle: CycleCoordinator,
         weight: WeightCoordinator,
-        pill: PillCoordinator
+        pill: PillCoordinator,
+        contractions: ContractionCoordinator
     ) async {
-        await stopEverything(kicks: kicks)
-        await reload(kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill)
+        await stopEverything(kicks: kicks, contractions: contractions)
+        await reload(
+            kicks: kicks, appointments: appointments, cycle: cycle, weight: weight, pill: pill, contractions: contractions
+        )
     }
 }

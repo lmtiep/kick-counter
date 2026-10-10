@@ -10,6 +10,12 @@ enum UITestDates {
     static let dueAtWeek12 = "2027-04-16T12:00:00Z"
     /// 24w3d at `fixedNow`, 109 days to go (the spec's example).
     static let dueAtWeek24 = "2027-01-19T12:00:00Z"
+    /// 20w0d at `fixedNow` (phase 20: before the Today contraction shortcut).
+    static let dueAtWeek20 = "2027-02-19T12:00:00Z"
+    /// 30w0d at `fixedNow` (phase 20: the Today contraction shortcut shows).
+    static let dueAtWeek30 = "2026-12-11T12:00:00Z"
+    /// 33w0d at `fixedNow` (phase 20: preterm contractions).
+    static let dueAtWeek33 = "2026-11-20T12:00:00Z"
     /// 38w0d at `fixedNow`.
     static let dueAtWeek38 = "2026-10-16T12:00:00Z"
     /// 41w0d at `fixedNow`: 7 days past the due date.
@@ -203,6 +209,16 @@ extension XCUIApplication {
         scrollUntilHittable(shortcut)
         shortcut.tap()
         XCTAssertTrue(descendants(matching: .any)["symptomsTodayCard"].waitForExistence(timeout: 5))
+    }
+
+    /// Phase 20: Kicks tab → "Time contractions", in any week.
+    func openContractionTimer() {
+        openTab(.kicks)
+        let row = buttons["kicksContractionsLink"]
+        XCTAssertTrue(row.waitForExistence(timeout: 10))
+        scrollUntilHittable(row)
+        row.tap()
+        XCTAssertTrue(buttons["contractionToggle"].waitForExistence(timeout: 5))
     }
 
     /// History lives inside the Kicks tab (spec §2.3).

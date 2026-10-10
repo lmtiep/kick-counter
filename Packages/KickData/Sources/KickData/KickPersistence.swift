@@ -4,7 +4,7 @@ import SwiftData
 
 public enum KickPersistence {
     public static let schema = Schema([
-        KickSession.self, Kick.self, Appointment.self, PeriodEntry.self, CycleLog.self, WeightEntry.self, PillDose.self,
+        KickSession.self, Kick.self, Appointment.self, PeriodEntry.self, CycleLog.self, WeightEntry.self, PillDose.self, Contraction.self,
     ])
 
     /// On-device store in the App Group. It is mirrored to the user's private iCloud

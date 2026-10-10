@@ -28,6 +28,7 @@ struct BackupStoreTests {
         context.insert(CycleLog(record: CycleLogRecord(day: day, note: "cũ")))
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 50)))
         context.insert(PillDose(record: PillDoseRecord(day: CalendarDay(year: 2026, month: 9, day: 1), takenAt: day.addingTimeInterval(75_600))))
+        context.insert(Contraction(record: ContractionRecord(startedAt: day, endedAt: day.addingTimeInterval(60))))
         try context.save()
     }
 
@@ -56,6 +57,10 @@ struct BackupStoreTests {
             pillDoses: [
                 PillDoseRecord(day: CalendarDay(year: 2026, month: 10, day: 7), takenAt: date("2026-10-07T21:04:00Z")),
                 PillDoseRecord(day: CalendarDay(year: 2026, month: 10, day: 8), takenAt: date("2026-10-08T21:10:00Z")),
+            ],
+            contractions: [
+                ContractionRecord(startedAt: date("2026-10-08T21:00:00Z"), endedAt: date("2026-10-08T21:00:50Z")),
+                ContractionRecord(startedAt: date("2026-10-08T21:06:00Z")),
             ]
         )
     }
@@ -67,7 +72,8 @@ struct BackupStoreTests {
             periods: records.periods.sorted { $0.startDate < $1.startDate },
             logs: records.logs.sorted { $0.day < $1.day },
             weights: records.weights.sorted { $0.day < $1.day },
-            pillDoses: records.pillDoses.sorted { $0.day < $1.day }
+            pillDoses: records.pillDoses.sorted { $0.day < $1.day },
+            contractions: records.contractions.sorted { $0.startedAt < $1.startedAt }
         )
     }
 
@@ -81,6 +87,7 @@ struct BackupStoreTests {
         #expect(exported.logs.map(\.note) == ["cũ"])
         #expect(exported.weights.map(\.kg) == [50])
         #expect(exported.pillDoses.map(\.day) == [CalendarDay(year: 2026, month: 9, day: 1)])
+        #expect(exported.contractions.map(\.startedAt) == [date("2026-09-01T00:00:00Z")])
     }
 
     @Test func replaceAllSwapsEverythingForTheFileRecords() throws {
@@ -94,6 +101,7 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<Kick>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 2)
+        #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 2)
     }
 
     @Test func replaceAllThenExportRoundTripsThroughTheCodec() throws {
@@ -107,6 +115,7 @@ struct BackupStoreTests {
         #expect(decoded == document)
         #expect(decoded.cycleLogs.first?.record.unknownMoodsRaw == ["dreamy"])
         #expect(decoded.records.pillDoses.count == 2)
+        #expect(decoded.records.contractions.count == 2)
     }
 
     /// The safety proof: a save that fails leaves every old record in place and
@@ -124,6 +133,7 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<Kick>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 1)
+        #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 1)
         #expect(!context.hasChanges)
         // A later save does not resurrect the abandoned replace.
         try context.save()
@@ -136,6 +146,7 @@ struct BackupStoreTests {
         let exported = try BackupStore.export(from: container)
         #expect(exported.sessions.isEmpty && exported.appointments.isEmpty && exported.periods.isEmpty)
         #expect(exported.logs.isEmpty && exported.weights.isEmpty && exported.pillDoses.isEmpty)
+        #expect(exported.contractions.isEmpty)
         #expect(try container.mainContext.fetchCount(FetchDescriptor<Kick>()) == 0)
     }
 
@@ -146,6 +157,8 @@ struct BackupStoreTests {
         let cycleStore = CycleStore(context: container.mainContext)
         #expect(try cycleStore.periods().count == 2)
         #expect(try cycleStore.logs().first?.unknownSymptomsRaw == ["futureSymptom"])
+        let contractionStore = ContractionStore(context: container.mainContext)
+        #expect(try contractionStore.contractions().map(\.isRunning) == [false, true])
     }
 
     /// LH, mucus and flow values this build cannot read survive export and restore.

@@ -18,6 +18,7 @@ struct RootView: View {
     @Environment(CycleCoordinator.self) private var cycle
     @Environment(WeightCoordinator.self) private var weight
     @Environment(PillCoordinator.self) private var pill
+    @Environment(ContractionCoordinator.self) private var contractions
     @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
@@ -87,6 +88,11 @@ struct RootView: View {
                 if selectedTab != .profile { selectedTab = .today }
                 // Pill reminders exist only in the cycle mode (phase 17).
                 Task { await pill.contraceptionChanged() }
+                // The contraction timer is pregnancy only: leaving it (partner mode,
+                // trying to conceive) ends its Live Activity; the contractions stay.
+                if AppMode(rawValue: oldMode) == .pregnant, AppMode(rawValue: newMode) != .pregnant {
+                    Task { await contractions.endLiveActivity() }
+                }
                 // Ending pregnancy tracking or switching to trying to conceive
                 // (Profile, onboarding, any other path) stops the share: the
                 // partner must not keep seeing the last snapshot. Accepting an
@@ -182,6 +188,7 @@ struct RootView: View {
                 .environment(cycle)
                 .environment(weight)
                 .environment(pill)
+                .environment(contractions)
                 .modelContext(modelContext)
                 .environment(\.locale, AppLocale.locale)
                 .environment(\.calendar, AppLocale.calendar)
@@ -252,8 +259,10 @@ struct RootView: View {
         switch await PartnerAcceptance.accept(invitation, sharing: sharing, defaults: AppGroup.defaults) {
         case .accepted:
             selectedTab = .today
-            // Partner mode now: the kick reminders and Live Activity stop.
+            // Partner mode now: the kick reminders and Live Activity stop, and
+            // the contraction Live Activity ends.
             await coordinator.silenceForPartnerMode()
+            await contractions.endLiveActivity()
             // Already in partner mode (a new invitation): Today does not appear again.
             await partnerJourney.refresh()
         case .ignoredOwnInvitation:
@@ -269,6 +278,13 @@ struct RootView: View {
             await coordinator.silenceForPartnerMode()
         } else {
             await coordinator.load()
+        }
+        if mode == .pregnant {
+            // Closes a forgotten contraction; ends the Live Activity after 2 h idle.
+            await contractions.load()
+        } else {
+            // The contraction timer is pregnancy only (partner mode, trying to conceive).
+            await contractions.endLiveActivity()
         }
         await appointments.load()
         await cycle.load()
@@ -292,6 +308,7 @@ struct RootView: View {
         // 2-hour alert through `load()`, the daily reminder from its stored setting.
         Task {
             await coordinator.load()
+            await contractions.load()
             await restoreDailyKickReminder()
         }
     }

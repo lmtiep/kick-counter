@@ -931,3 +931,76 @@ nhắc (mặc định 21:00). Thông báo: "Đến giờ uống thuốc" — "Vi
         "Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay." (en: "Not a substitute for a doctor. Fewer
         kicks than usual? Call your doctor."). Câu mới bỏ "hoặc cơ sở y tế" và "Đừng chờ kết quả từ app". **Câu hỏi:**
         bác sĩ xác nhận câu ngắn này đủ an toàn, hay cần giữ "bác sĩ hoặc cơ sở y tế"?
+
+## 18. Đếm cơn gò (giai đoạn 20)
+
+Màn "Cơn gò" mở từ Hôm nay (lối tắt "Cơn gò", từ tuần 28) hoặc từ tab Đếm cử động (hàng "Đếm cơn gò" — "Mỗi cơn dài
+bao lâu, cách nhau bao lâu", mọi tuần). Mẹ bấm "Bắt đầu cơn gò" khi cơn gò bắt đầu và "Hết cơn gò" khi hết cơn; màn
+hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Live Activity trên màn hình khoá với nút "Bắt đầu" /
+"Hết cơn". Câu an toàn luôn hiện trên màn (`contraction.safety`): "Vỡ ối, ra máu, đau dữ dội liên tục hoặc thai cử động
+ít đi: đến bệnh viện ngay." Mọi ngưỡng nằm ở `Packages/KickCore/Sources/KickCore/ContractionRules.swift`. Đặc tả:
+`docs/superpowers/specs/2026-10-10-contraction-timer-design.md`.
+
+96. [ ] **Quy tắc 5-1-1 (từ tuần 37, hoặc khi app chưa biết tuần thai).** Thẻ 5-1-1 hiện khi **đủ cả bốn** điều kiện,
+        tính trên các cơn gò **đã kết thúc** bắt đầu trong 60 phút qua (`window` = 60 phút):
+        (a) ít nhất **6 cơn** (`fiveOneOneMinCount` = 6);
+        (b) khoảng cách trung bình giữa hai lần bắt đầu **≤ 5 phút 30 giây** (`fiveOneOneMaxAverageInterval` = 5:30;
+        tính bằng khoảng từ lần bắt đầu đầu tiên đến lần cuối chia cho số cơn − 1);
+        (c) mỗi cơn dài trung bình **≥ 45 giây** (`fiveOneOneMinAverageDuration` = 45 s);
+        (d) chuỗi cơn gò liên tiếp gần nhất (hai lần bắt đầu cách nhau không quá 2 giờ) đã kéo dài **≥ 60 phút** tính
+        từ lần bắt đầu cơn đầu tiên đến lần bắt đầu cơn gần nhất (`fiveOneOneMinSpan` = 60 phút). Chuỗi này **không**
+        bị cắt khi mẹ bấm "Kết thúc theo dõi" (nút đó nay hỏi xác nhận trước), để một lần bấm nhầm không làm mất cảnh báo.
+        Như vậy app nới quy tắc "5 phút – 1 phút – 1 giờ" thành 5:30 và 45 giây để không bỏ sót khi mẹ bấm hơi trễ hay
+        hơi sớm. Đối chiếu: NHS dặn gọi khoa sản khi cơn gò đều "khoảng 5 phút một lần hoặc dày hơn" (không có điều kiện
+        1 giờ) và gọi **gấp** nếu có cơn dài trên 2 phút hoặc từ 6 cơn trở lên trong 10 phút; app **không** có hai ngưỡng
+        gấp này. **Câu hỏi:** bác sĩ giữ 5-1-1 với dung sai 5:30 / 45 s / 6 cơn / 60 phút, hay dùng ngưỡng khác (ví dụ
+        như NHS, không chờ đủ 1 giờ)? Có cần thêm cảnh báo khi một cơn kéo dài trên 2 phút không?
+97. [ ] **Cơn gò đều trước tuần 37.** Khi tuần thai < 37 (`termWeek` = 37; tuần 36+6 vẫn là "trước 37"), thẻ khẩn hiện
+        khi có **từ 4 cơn gò đã kết thúc trở lên bắt đầu trong 60 phút qua** (`pretermMinCount` = 4), không xét độ dài
+        hay khoảng cách. Thẻ này đếm **mọi** cơn gò trong giờ qua, kể cả sau khi mẹ bấm "Kết thúc theo dõi" hay khi
+        các cơn thuộc hai lần theo dõi khác nhau, để mẹ không thể vô tình làm mất cảnh báo. Đối chiếu: các nguồn khác
+        nhau — có nơi ghi "từ 4 cơn trong 1 giờ", có nơi "cơn gò 10 phút một lần hoặc dày hơn" (tức 6 cơn/giờ), NHS
+        thì dặn gọi gấp khi "dưới 37 tuần và nghĩ mình chuyển dạ" (không có số cơn). **Câu hỏi:** ngưỡng 4 cơn/giờ có
+        phù hợp không? Có nên thêm điều kiện (cơn đau, đều) hay tính từ một mốc tuần nào đó (app hiện áp dụng cho mọi
+        tuần dưới 37, kể cả trước tuần 28 nếu mẹ mở màn từ tab Đếm cử động)?
+98. [ ] **Câu cảnh báo và câu an toàn.**
+        Thẻ 5-1-1 (`contraction.alert.fiveOneOne`): "Cơn gò đều khoảng 5 phút một lần, mỗi cơn khoảng 1 phút, trong 1
+        giờ: đến lúc gọi bác sĩ hoặc đến bệnh viện." / "Contractions about 5 minutes apart, each about 1 minute long,
+        for 1 hour: time to call your doctor or go to the hospital."
+        Thẻ trước tuần 37 (`contraction.alert.preterm`, nền cảnh báo): "Bạn đang có cơn gò đều trước tuần 37. Hãy gọi
+        bác sĩ hoặc đến bệnh viện ngay." / "You are having regular contractions before week 37. Call your doctor or go
+        to the hospital now."
+        Câu an toàn (`contraction.safety`, luôn hiện): "Vỡ ối, ra máu, đau dữ dội liên tục hoặc thai cử động ít đi: đến
+        bệnh viện ngay." / "Waters breaking, bleeding, constant severe pain or the baby moving less: go to the hospital
+        now."
+        **Cả hai thẻ** đều có nút "Gọi cấp cứu 115" (giống thẻ cảnh báo 2 giờ khi đếm cử động). **Câu hỏi:** câu chữ có
+        đúng và đủ không? Nút 115 trên thẻ 5-1-1 (chuyển dạ đủ tháng, thường chỉ cần gọi bác sĩ/đến viện) có hợp lý,
+        hay chỉ nên để ở thẻ trước tuần 37? Câu an toàn có cần thêm "gọi 115" như các câu cảnh báo ở mục 15–17 không?
+99. [ ] **Tự đóng cơn gò quên bấm, bỏ lần bấm nhầm, và "lần theo dõi".**
+        - Cơn gò chạy quá **5 phút** (`maxDuration` = 5 phút) được coi là quên bấm "Hết cơn gò": app đóng nó ở mốc bắt
+          đầu + 5 phút. Vì thế app không bao giờ ghi một cơn dài trên 5 phút. Lúc đó nút đã hiện lại "Bắt đầu cơn gò",
+          nên lần bấm tiếp theo vừa đóng cơn cũ ở 5:00 vừa bắt đầu cơn mới.
+        - Cơn gò ngắn dưới **3 giây** (`minDuration` = 3 s) là bấm nhầm và bị bỏ, không tính vào thống kê.
+        - Hai cơn gò bắt đầu cách nhau quá **2 giờ** (`episodeGap` = 2 giờ) thuộc hai "lần theo dõi" khác nhau; lần cũ vào
+          "Lịch sử cơn gò". Live Activity trên màn hình khoá cũng tự kết thúc sau 2 giờ không có cơn gò mới. Mẹ có thể
+          bấm "Kết thúc theo dõi" để bắt đầu lần mới sớm hơn.
+        **Câu hỏi:** 5 phút và 3 giây có hợp lý không? Một cơn gò thật kéo dài trên 2 phút đã là dấu hiệu cần gọi gấp
+        (NHS) — có nên báo cho mẹ thay vì chỉ lặng lẽ đóng cơn ở 5 phút? Khoảng nghỉ 2 giờ để tách lần theo dõi có ổn
+        không?
+100. [ ] **Một quy tắc cho mọi người.** App dùng cùng ngưỡng cho mẹ sinh con so và con rạ, và không hỏi khoảng cách
+         từ nhà đến bệnh viện. Một số nơi khuyên mẹ sinh con rạ, có tiền sử sinh nhanh hoặc ở xa bệnh viện nên gọi hoặc
+         đi **sớm hơn**; trang NHS đã đối chiếu không phân biệt các trường hợp này. Câu 5-1-1 hiện tại không nhắc điều
+         này. **Câu hỏi:** có cần thêm một câu như "Nếu đã từng sinh, sinh nhanh hoặc nhà xa bệnh viện, hãy hỏi bác sĩ
+         khi nào nên đi" vào màn hình, hay thêm lựa chọn để app đổi ngưỡng?
+101. [ ] **Cảnh báo trên màn hình khoá và thông báo một lần.** Khi thẻ 5-1-1 hoặc thẻ trước tuần 37 đang hiện, Live
+         Activity cơn gò (màn hình khoá, Dynamic Island) có thêm một dòng ngắn kèm dấu cảnh báo, tính theo tuần thai thật:
+         - 5-1-1 (`la.contraction.alert.fiveOneOne`): "Cơn gò đều 5 phút một lần trong 1 giờ: gọi bác sĩ hoặc đến bệnh
+           viện." / "Contractions 5 min apart for 1 hour: call your doctor or go to the hospital."
+         - Trước tuần 37 (`la.contraction.alert.preterm`): "Cơn gò đều trước tuần 37: gọi bác sĩ hoặc đến bệnh viện
+           ngay." / "Regular contractions before week 37: call your doctor or go to the hospital now."
+         Ngoài ra, ngay khi cảnh báo bật lên sau một lần bấm (trong app hoặc trên màn hình khoá), app gửi **một** thông báo
+         (không gửi lại cho cùng cảnh báo trong cùng chuỗi cơn gò; không hỏi quyền — nếu mẹ chưa cho phép thông báo thì
+         không gửi). Tiêu đề: "Đến lúc gọi bác sĩ" / "Time to call your doctor" (5-1-1) hoặc "Hãy gọi bác sĩ ngay" /
+         "Call your doctor now" (trước tuần 37); nội dung là nguyên câu của thẻ tương ứng (mục 98).
+         **Câu hỏi:** câu rút gọn và tiêu đề thông báo có đúng mức khẩn không? Có nên nhắc "115" trong thông báo trước
+         tuần 37 không?

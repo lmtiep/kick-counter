@@ -81,13 +81,14 @@ public struct BackupSummary: Equatable, Sendable {
     public var cycleLogs: Int
     public var weights: Int
     public var pillDoses: Int = 0
+    public var contractions: Int = 0
     /// The file's `appMode`; missing means pregnant, as in `AppMode.load`.
     public var mode: AppMode
     /// From the earliest to the latest date in the records; nil without records.
     public var dateRange: ClosedRange<Date>?
 
     public var isEmpty: Bool {
-        sessions + appointments + periods + cycleLogs + weights + pillDoses == 0
+        sessions + appointments + periods + cycleLogs + weights + pillDoses + contractions == 0
     }
 }
 
@@ -95,6 +96,7 @@ extension BackupDocument {
     public var summary: BackupSummary {
         var dates: [Date] = sessions.map(\.startedAt) + appointments.map(\.date) + cycleLogs.map(\.day) + weights.map(\.day)
         dates += pillDoses.compactMap { $0.calendarDay?.date(in: .autoupdatingCurrent) }
+        dates += contractions.map(\.startedAt)
         dates += periods.map(\.startDate) + periods.compactMap(\.endDate)
         let mode: AppMode = if case .string(let raw) = settings[SettingsKey.appMode] {
             AppMode(rawValue: raw) ?? .pregnant
@@ -109,6 +111,7 @@ extension BackupDocument {
             cycleLogs: cycleLogs.count,
             weights: weights.count,
             pillDoses: pillDoses.count,
+            contractions: contractions.count,
             mode: mode,
             dateRange: dates.min().flatMap { first in dates.max().map { first...$0 } }
         )
@@ -160,6 +163,17 @@ public enum BackupValidation {
         for (index, dto) in doses.enumerated() { lastDose[dto.dayKey] = index }
         cleaned.pillDoses = doses.enumerated().filter { lastDose[$0.element.dayKey] == $0.offset }.map(\.element)
         skipped += doses.count - cleaned.pillDoses.count
+        // A contraction cannot start in the future, end before it starts or be
+        // a mis-tap; only the newest may still run (`ContractionRules`).
+        let contractions = keep(document.contractions, id: \.id) { dto in
+            dto.startedAt <= now && (dto.endedAt.map { $0 >= dto.startedAt } ?? true) && !ContractionRules.isMisTap(dto.record)
+        }
+        let newestRunning = contractions.filter { $0.endedAt == nil }.max { $0.startedAt < $1.startedAt }
+        let newestStart = contractions.map(\.startedAt).max()
+        cleaned.contractions = contractions.map { dto in
+            guard dto.endedAt == nil, dto.id != newestRunning?.id || dto.startedAt != newestStart else { return dto }
+            return ContractionDTO(ContractionRules.closingForgotten(dto.record))
+        }
         cleaned.appointments = keep(document.appointments, id: \.id) {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }

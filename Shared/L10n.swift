@@ -190,6 +190,14 @@ enum L10n {
     static var laOverdue: String { t("la.overdue") }
     static var laCompleted: String { t("la.completed") }
     static var laAdd: String { t("la.add") }
+    /// The contraction Live Activity's button (phase 20).
+    static var laContractionStart: String { t("la.contraction.start") }
+    static var laContractionStop: String { t("la.contraction.stop") }
+    static func laContractionLastInterval(_ interval: String) -> String { String(format: t("la.contraction.lastInterval"), interval) }
+    static func laContractionLastDuration(_ duration: String) -> String { String(format: t("la.contraction.lastDuration"), duration) }
+    /// The short urgent line under the timer when the screen's alert is on.
+    static var laContractionAlertFiveOneOne: String { t("la.contraction.alert.fiveOneOne") }
+    static var laContractionAlertPreterm: String { t("la.contraction.alert.preterm") }
 
     static var cycleEmptyTitle: String { t("cycle.empty.title") }
     static var cycleEmptyBody: String { t("cycle.empty.body") }
@@ -845,6 +853,7 @@ enum L10n {
             (summary.cycleLogs, "backup.count.cycleLogs.one", "backup.count.cycleLogs"),
             (summary.weights, "backup.count.weights.one", "backup.count.weights"),
             (summary.appointments, "backup.count.appointments.one", "backup.count.appointments"),
+            (summary.contractions, "backup.count.contractions.one", "backup.count.contractions"),
         ]
         return parts
             .filter { $0.count > 0 }
@@ -853,6 +862,58 @@ enum L10n {
     }
 
     static var onboardingRestore: String { t("onboarding.restore") }
+
+    // MARK: - Contraction timer (phase 20)
+
+    static var contractionTitle: String { t("contraction.title") }
+    static var contractionSubtitle: String { t("contraction.subtitle") }
+    static var contractionStart: String { t("contraction.start") }
+    static var contractionStop: String { t("contraction.stop") }
+    static var contractionRunning: String { t("contraction.running") }
+    static var contractionResting: String { t("contraction.resting") }
+    static func contractionA11yRunning(_ elapsed: String) -> String { String(format: t("contraction.a11y.running"), elapsed) }
+    static var contractionUndo: String { t("contraction.undo") }
+    static var contractionEndEpisode: String { t("contraction.endEpisode") }
+    static var contractionEndEpisodeConfirm: String { t("contraction.endEpisode.confirm") }
+    static var contractionEndEpisodeMessage: String { t("contraction.endEpisode.message") }
+    static var contractionUndoFailed: String { t("contraction.undo.failed") }
+    static var contractionNotificationFiveOneOneTitle: String { t("contraction.notification.fiveOneOne.title") }
+    static var contractionNotificationPretermTitle: String { t("contraction.notification.preterm.title") }
+    static var contractionStatsTitle: String { t("contraction.stats.title") }
+    static var contractionStatsCount: String { t("contraction.stats.count") }
+    static var contractionStatsDuration: String { t("contraction.stats.duration") }
+    static var contractionStatsInterval: String { t("contraction.stats.interval") }
+    static var contractionListTitle: String { t("contraction.list.title") }
+    static var contractionListEmpty: String { t("contraction.list.empty") }
+    static var contractionListStart: String { t("contraction.list.start") }
+    static var contractionListDuration: String { t("contraction.list.duration") }
+    static var contractionListInterval: String { t("contraction.list.interval") }
+    /// VoiceOver for a row: start, length and interval; nil interval for the first.
+    static func contractionRowA11y(start: String, duration: String, interval: String?) -> String {
+        if let interval { return String(format: t("contraction.row.a11y"), start, duration, interval) }
+        return String(format: t("contraction.row.a11y.first"), start, duration)
+    }
+    static func contractionRowA11yRunning(_ start: String) -> String { String(format: t("contraction.row.a11y.running"), start) }
+    /// A missing average or interval.
+    static var contractionValueNone: String { t("contraction.value.none") }
+    static var contractionDeleteA11y: String { t("contraction.delete.a11y") }
+    static var contractionDeleteConfirm: String { t("contraction.delete.confirm") }
+    static var contractionAlertFiveOneOne: String { t("contraction.alert.fiveOneOne") }
+    static var contractionAlertPreterm: String { t("contraction.alert.preterm") }
+    static var contractionSafety: String { t("contraction.safety") }
+    static var contractionHistory: String { t("contraction.history") }
+    static var contractionHistoryEmpty: String { t("contraction.history.empty") }
+    static func contractionHistoryCount(_ count: Int) -> String {
+        count == 1 ? t("contraction.history.count.one") : String(format: t("contraction.history.count"), count)
+    }
+    static func contractionHistoryAverages(duration: String, interval: String) -> String {
+        String(format: t("contraction.history.averages"), duration, interval)
+    }
+    static var contractionHistoryDeleteConfirm: String { t("contraction.history.delete.confirm") }
+    static var contractionHistoryDeleteMessage: String { t("contraction.history.delete.message") }
+    static var kicksContractionsLink: String { t("kicks.contractionsLink") }
+    static var kicksContractionsLinkDetail: String { t("kicks.contractionsLink.detail") }
+    static var pregnancyShortcutContractions: String { t("pregnancy.shortcut.contractions") }
 
     // MARK: - Pill reminder (phase 17)
 

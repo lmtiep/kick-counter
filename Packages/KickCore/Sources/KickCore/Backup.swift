@@ -24,6 +24,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     /// Marked pills (phase 17). Optional in the file: missing means none, and an
     /// empty list is not written, so version 1 files stay as they were.
     public var pillDoses: [PillDoseDTO] = []
+    /// Timed contractions (phase 20). Optional in the file like `pillDoses`:
+    /// missing means none, and an empty list is not written.
+    public var contractions: [ContractionDTO] = []
     /// Typed by `BackupSettings.table`; keys outside the table are dropped on decode.
     public var settings: [String: BackupValue]
 
@@ -57,7 +60,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, settings
+        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, settings
     }
 
     public init(from decoder: Decoder) throws {
@@ -72,6 +75,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         cycleLogs = try container.decode([CycleLogDTO].self, forKey: .cycleLogs)
         weights = try container.decode([WeightDTO].self, forKey: .weights)
         pillDoses = try container.decodeIfPresent([PillDoseDTO].self, forKey: .pillDoses) ?? []
+        contractions = try container.decodeIfPresent([ContractionDTO].self, forKey: .contractions) ?? []
         let raw = try container.decode([String: BackupJSONScalar].self, forKey: .settings)
         settings = BackupSettings.typed(raw)
     }
@@ -89,6 +93,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         try container.encode(weights, forKey: .weights)
         if !pillDoses.isEmpty {
             try container.encode(pillDoses, forKey: .pillDoses)
+        }
+        if !contractions.isEmpty {
+            try container.encode(contractions, forKey: .contractions)
         }
         try container.encode(settings, forKey: .settings)
     }
@@ -280,6 +287,23 @@ public struct PillDoseDTO: Equatable, Sendable, Codable {
     }
 }
 
+/// A timed contraction; `endedAt` is missing while it runs.
+public struct ContractionDTO: Equatable, Sendable, Codable {
+    public var id: UUID
+    public var startedAt: Date
+    public var endedAt: Date?
+
+    public init(_ record: ContractionRecord) {
+        id = record.id
+        startedAt = record.startedAt
+        endedAt = record.endedAt
+    }
+
+    public var record: ContractionRecord {
+        ContractionRecord(id: id, startedAt: startedAt, endedAt: endedAt)
+    }
+}
+
 // MARK: - Records
 
 /// Every record a backup carries, as the stores hold them (`BackupStore` in KickData).
@@ -291,6 +315,7 @@ public struct BackupRecords: Equatable, Sendable {
     public var logs: [CycleLogDTO]
     public var weights: [WeightRecord]
     public var pillDoses: [PillDoseRecord]
+    public var contractions: [ContractionRecord]
 
     public init(
         sessions: [SessionRecord],
@@ -298,7 +323,8 @@ public struct BackupRecords: Equatable, Sendable {
         periods: [PeriodRecord],
         logs: [CycleLogDTO],
         weights: [WeightRecord],
-        pillDoses: [PillDoseRecord] = []
+        pillDoses: [PillDoseRecord] = [],
+        contractions: [ContractionRecord] = []
     ) {
         self.sessions = sessions
         self.appointments = appointments
@@ -306,6 +332,7 @@ public struct BackupRecords: Equatable, Sendable {
         self.logs = logs
         self.weights = weights
         self.pillDoses = pillDoses
+        self.contractions = contractions
     }
 }
 
@@ -318,6 +345,7 @@ extension BackupDocument {
         )
         cycleLogs = records.logs
         pillDoses = records.pillDoses.map(PillDoseDTO.init)
+        contractions = records.contractions.map(ContractionDTO.init)
     }
 
     public var records: BackupRecords {
@@ -327,7 +355,8 @@ extension BackupDocument {
             periods: periods.map(\.record),
             logs: cycleLogs,
             weights: weights.map(\.record),
-            pillDoses: pillDoses.map(\.record)
+            pillDoses: pillDoses.map(\.record),
+            contractions: contractions.map(\.record)
         )
     }
 }

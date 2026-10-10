@@ -72,6 +72,12 @@ public final class NotificationScheduler {
         "overdue-\(sessionID.uuidString)"
     }
 
+    /// The contraction alert's one-time notification for a run of contractions
+    /// (`ContractionStats.alertRun`), or for the alert type when there is none.
+    public static func contractionAlertID(_ key: String) -> String {
+        "contraction-alert-\(key)"
+    }
+
     let center: NotificationCenterClient
 
     public init(center: NotificationCenterClient) {
@@ -109,6 +115,12 @@ public final class NotificationScheduler {
         components.minute = minute
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         try await center.add(UNNotificationRequest(identifier: Self.dailyReminderID, content: text.makeContent(), trigger: trigger))
+    }
+
+    /// Delivers `text` right away (no trigger), replacing a pending or delivered
+    /// one with the same id. Never prompts: the caller checks `isAuthorized()`.
+    public func postNow(id: String, text: NotificationText) async throws {
+        try await center.add(UNNotificationRequest(identifier: id, content: text.makeContent(), trigger: nil))
     }
 
     public func cancelDailyReminder() {

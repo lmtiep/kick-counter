@@ -240,3 +240,23 @@ public final class PillDose {
         PillDoseRecord(id: id, day: calendarDay(in: .autoupdatingCurrent), takenAt: takenAt)
     }
 }
+
+/// One timed contraction (phase 20). `endedAt` is nil while it runs; at most
+/// one runs (kept so by `ContractionStore`). Like every model it stays on the
+/// device while `AppFeatures.cloudSync` is off.
+@Model
+public final class Contraction {
+    public var id: UUID = UUID()
+    public var startedAt: Date = Date()
+    public var endedAt: Date?
+
+    public init(record: ContractionRecord) {
+        id = record.id
+        startedAt = record.startedAt
+        endedAt = record.endedAt
+    }
+
+    public var record: ContractionRecord {
+        ContractionRecord(id: id, startedAt: startedAt, endedAt: endedAt)
+    }
+}
