@@ -58,14 +58,12 @@ final class ContractionTimerUITests: XCTestCase {
         waitForLabel(toggle, containing: "Start contraction")
         waitForCount(app, 2)
 
-        // "End tracking" asks first: cancelling keeps the session.
+        // "End tracking" asks first (iOS 26 shows the dialog without a Cancel
+        // button): nothing ends until it is confirmed.
         let endEpisode = app.buttons["contractionEndEpisode"]
         app.scrollUntilHittable(endEpisode)
         endEpisode.tap()
-        app.confirmDialog("Cancel")
-        waitForCount(app, 2)
-        app.scrollUntilHittable(endEpisode)
-        endEpisode.tap()
+        XCTAssertEqual(rows(app).count, 2)
         app.confirmDialog("End tracking")
         XCTAssertTrue(app.descendants(matching: .any)["contractionListEmpty"].waitForExistence(timeout: 5))
     }
