@@ -36,6 +36,8 @@ public enum AppDataReset {
         SettingsKey.pillPackStart,
         SettingsKey.pillReminderHour,
         SettingsKey.pillReminderMinute,
+        SettingsKey.contractionEpisodeEndedAt,
+        SettingsKey.contractionAlertNotified,
     ]
 
     /// Removes exactly `ownedKeys` from `defaults`; any other key is left as it is.

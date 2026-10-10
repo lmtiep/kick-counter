@@ -93,6 +93,8 @@ public enum BackupSettings {
         SettingsKey.pillPackStart: .int,
         SettingsKey.pillReminderHour: .int,
         SettingsKey.pillReminderMinute: .int,
+        SettingsKey.contractionEpisodeEndedAt: .date,
+        SettingsKey.contractionAlertNotified: .string,
     ]
 
     /// The table's keys that `defaults` holds, read with their table type.

@@ -7,6 +7,8 @@ import SwiftUI
 enum PregnancyRoute: Hashable {
     case symptoms
     case weight
+    /// The contraction timer (phase 20 spec §4.1), from week 28.
+    case contractions
     /// The knowledge library, opened on this trimester (phase 7 spec §4.2).
     case knowledge(trimester: Int)
 }
@@ -83,6 +85,7 @@ struct PregnancyTodayView: View {
                 switch route {
                 case .symptoms: PregnancySymptomsView()
                 case .weight: WeightView()
+                case .contractions: ContractionTimerView()
                 case .knowledge(let trimester): KnowledgeLibraryView(initialTrimester: trimester)
                 }
             }
@@ -125,9 +128,9 @@ struct PregnancyTodayView: View {
                     .padding(.top, 12)
             }
             switch display {
-            case .content(let week, let pendingReview)?:
+            case .content(let week, _)?:
                 Button { detailWeek = WeekSelection(week: contentWeek) } label: {
-                    BabySizeCard(week: week, language: language, pendingReview: pendingReview)
+                    BabySizeCard(week: week, language: language)
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("babySizeCard")
@@ -183,8 +186,8 @@ struct PregnancyTodayView: View {
         }
     }
 
-    /// Round shortcuts (phase 5 spec §3.4); two per row at accessibility text
-    /// sizes so no label is cut.
+    /// Round shortcuts (phase 5 spec §3.4), with "Cơn gò" from week 28 (phase 20
+    /// spec §4.1); two per row at accessibility text sizes so no label is cut.
     private func shortcuts(week: Int, contentWeek: Int) -> some View {
         let kicks = shortcut(L10n.pregnancyShortcutKicks, identifier: "shortcutKicks", action: onOpenKicks) {
             Circle()
@@ -212,14 +215,26 @@ struct PregnancyTodayView: View {
                         .foregroundStyle(.luna(.textPrimary))
                 )
         }
+        let showsContractions = week >= ContractionTimerView.shortcutFromWeek
+        let contractions = shortcut(
+            L10n.pregnancyShortcutContractions, identifier: "shortcutContractions", action: { route = .contractions }
+        ) {
+            symbolIcon("stopwatch")
+        }
         return Group {
             if dynamicTypeSize.isAccessibilitySize {
                 Grid(horizontalSpacing: 8, verticalSpacing: 18) {
                     GridRow { kicks; symptoms }
                     GridRow { weight; weekShortcut }
+                    if showsContractions {
+                        GridRow { contractions; Color.clear.gridCellUnsizedAxes([.horizontal, .vertical]) }
+                    }
                 }
             } else {
-                HStack(alignment: .top, spacing: 8) { kicks; symptoms; weight; weekShortcut }
+                HStack(alignment: .top, spacing: 8) {
+                    kicks; symptoms; weight; weekShortcut
+                    if showsContractions { contractions }
+                }
             }
         }
         .padding(.top, 22)

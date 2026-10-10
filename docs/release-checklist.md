@@ -471,3 +471,35 @@ hành động trên thông báo khi khoá màn hình).
 - [ ] Bật VoiceOver: mỗi ngày đọc ngày tháng, thêm "ngày có kinh" khi được tích. Cỡ chữ lớn nhất (AX5) và chế độ tối:
       dấu tích thẳng hàng, chữ không bị cắt.
 - [ ] Biện pháp "Thuốc tránh thai hằng ngày": nút đọc "Sửa ngày ra máu".
+
+## Giai đoạn 20 — Đếm cơn gò
+
+Đặc tả: `docs/superpowers/specs/2026-10-10-contraction-timer-design.md`. Làm trên **máy thật** có Dynamic Island
+(simulator không bấm được nút của Live Activity trên màn hình khoá).
+
+- [ ] Thai kỳ tuần ≥ 28: Hôm nay có lối tắt "Cơn gò"; tuần 20 thì không, nhưng tab Đếm cử động vẫn có hàng "Đếm cơn gò".
+- [ ] Bấm "Bắt đầu cơn gò", khoá máy: Live Activity hiện trên màn hình khoá với đồng hồ đang chạy và nút "Hết cơn".
+      Bấm "Hết cơn" **không mở app**: nút đổi thành "Bắt đầu", hiện "Dài …". Bấm "Bắt đầu" rồi "Hết cơn" thêm một lần:
+      hiện "Cách nhau …". Mở app: danh sách có đủ các cơn vừa bấm trên màn hình khoá.
+- [ ] **Dynamic Island:** dạng thu gọn (compact) hiện biểu tượng đồng hồ bấm giờ và thời gian đang gò (hoặc số cơn khi
+      đang nghỉ); nhấn giữ để mở dạng mở rộng
+      (expanded) có nút "Bắt đầu" / "Hết cơn" bấm được; dạng tối giản (minimal) khi có app khác dùng Dynamic Island.
+- [ ] **Chạy song song với đếm cử động:** đang đếm cử động (Live Activity "+1"), bắt đầu một cơn gò: cả hai Live
+      Activity cùng hiện trên màn hình khoá, nút của mỗi cái chỉ tác động lên đúng phần của nó.
+- [ ] **Tự kết thúc sau 2 giờ:** để yên hơn 2 giờ sau cơn gò cuối: Live Activity được đánh dấu cũ; mở app thì nó biến
+      mất, và lần bấm tiếp theo bắt đầu một "Lần theo dõi" mới (lần cũ nằm trong "Lịch sử cơn gò").
+- [ ] Quên bấm "Hết cơn gò" hơn 5 phút: nút hiện lại "Bắt đầu cơn gò", bấm thì cơn cũ được ghi dài 5:00 và một cơn
+      mới bắt đầu; bấm rồi bấm lại ngay (dưới 3 giây): không có cơn nào được ghi.
+- [ ] "Kết thúc theo dõi" hỏi xác nhận; bấm Huỷ thì lần theo dõi vẫn còn.
+- [ ] **Nút 115:** với `-seedContractions 511` (tuần ≥ 37) và `preterm` (tuần 33), thẻ hiện nút "Gọi cấp cứu 115"; bấm
+      thì iOS hỏi gọi 115 (bấm Huỷ, không gọi thật).
+- [ ] **Chế độ tối:** màn "Cơn gò", hai thẻ cảnh báo, "Lịch sử cơn gò" và Live Activity (màn hình khoá và Dynamic
+      Island) đọc rõ, không có chữ chìm vào nền. Cỡ chữ lớn nhất (AX5): nút lớn và thẻ không bị cắt.
+- [ ] Bật VoiceOver: nút đọc "Bắt đầu cơn gò" / "Hết cơn gò", trạng thái đọc "Đang gò được …"; mỗi hàng đọc giờ bắt đầu, độ dài, khoảng cách.
+- [ ] **Cảnh báo trên màn hình khoá:** với `-seedContractions 511` (tuần ≥ 37), bấm một cơn: Live Activity có dòng
+      cảnh báo ngắn màu đỏ (dấu tam giác ở Dynamic Island thu gọn); `preterm` (tuần 33) thì dòng "trước tuần 37".
+- [ ] **Thông báo một lần:** đã cho phép thông báo, tuần ≥ 37, bấm đủ cơn gò đến khi thẻ 5-1-1 bật lên (hoặc chỉnh
+      đồng hồ): đúng **một** thông báo "Đến lúc gọi bác sĩ"; bấm thêm cơn không có thông báo mới. Chưa cho phép thông
+      báo: không có hộp thoại xin quyền.
+- [ ] Sao lưu ra file rồi khôi phục: các cơn gò còn nguyên. "Xoá toàn bộ dữ liệu" xoá cả cơn gò và kết thúc Live
+      Activity cơn gò.

@@ -135,11 +135,12 @@ struct PregnancyProgressBar: View {
     }
 }
 
-/// The baby this week: fruit, size and Hadlock figures (spec §4.4).
+/// The baby this week: fruit, size and Hadlock figures (spec §4.4). The figures
+/// come from Hadlock's published standard, not from the doctor-reviewed text,
+/// so the card names that source instead of the "pending review" badge.
 struct BabySizeCard: View {
     let week: WeekContent
     let language: ContentLanguage
-    let pendingReview: Bool
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
@@ -153,9 +154,11 @@ struct BabySizeCard: View {
                     .foregroundStyle(.luna(.textPrimary))
                     .fixedSize(horizontal: false, vertical: true)
                 BabyMeasurements(week: week)
-                if pendingReview {
-                    PendingReviewBadge()
-                }
+                Label(L10n.weekSizeSource, systemImage: "chart.line.uptrend.xyaxis")
+                    .font(.luna(.small))
+                    .foregroundStyle(.luna(.textSecondary))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityIdentifier("babySizeSource")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Image(systemName: "chevron.right")
