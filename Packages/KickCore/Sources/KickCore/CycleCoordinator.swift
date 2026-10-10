@@ -210,6 +210,16 @@ public final class CycleCoordinator {
         await write { try store.deletePeriod(id: id) }
     }
 
+    /// Saves the calendar's period edit (phase 19 spec §2.2) in one write, then
+    /// refreshes the forecast and reminders. On any error nothing is saved.
+    @discardableResult
+    public func applyPeriodEdits(_ plan: PeriodEditPlan) async -> CycleFailure? {
+        guard !plan.isEmpty else { return nil }
+        return await write {
+            try store.applyPeriodChanges(deletes: plan.deletes, updates: plan.updates, adds: plan.adds, today: now())
+        }
+    }
+
     // MARK: - Day logs
 
     /// Saves the day's log (an empty log removes it). Temperatures outside

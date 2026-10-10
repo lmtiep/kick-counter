@@ -128,6 +128,12 @@ public protocol CycleRepository: AnyObject {
     func updatePeriod(_ period: PeriodRecord, today: Date) throws
     /// No-op when no period has that id (it may already be gone via iCloud).
     func deletePeriod(id: UUID) throws
+    /// Deletes, updates and adds periods in one save (phase 19's calendar edit).
+    /// Every update and add is checked with `CycleRules.validate` against the
+    /// final set, so a shrink next to an add passes. Unknown delete ids are
+    /// skipped; an unknown update id throws `.notFound`. On any error nothing
+    /// is written.
+    func applyPeriodChanges(deletes: [UUID], updates: [PeriodRecord], adds: [PeriodRecord], today: Date) throws
     /// Inserts or replaces the log for `log.day` (keeping the stored id); an empty
     /// log removes it. Throws `.futureDate` or `.invalidTemperature`.
     func saveLog(_ log: CycleLogRecord, today: Date) throws

@@ -480,6 +480,25 @@ final class FakeCycleRepository: CycleRepository {
         storedPeriods.removeAll { $0.id == id }
     }
 
+    private(set) var periodChangeCalls = 0
+
+    func applyPeriodChanges(deletes: [UUID], updates: [PeriodRecord], adds: [PeriodRecord], today: Date) throws {
+        periodChangeCalls += 1
+        var final = storedPeriods.filter { !deletes.contains($0.id) }
+        for update in updates {
+            guard let index = final.firstIndex(where: { $0.id == update.id }) else {
+                throw CycleRepositoryError.notFound
+            }
+            final[index] = CycleRules.normalized(update, calendar: calendar)
+        }
+        final += adds.map { CycleRules.normalized($0, calendar: calendar) }
+        for record in updates + adds {
+            try CycleRules.validate(record, existing: final, today: today, calendar: calendar)
+        }
+        try checkWrite()
+        storedPeriods = final
+    }
+
     func saveLog(_ log: CycleLogRecord, today: Date) throws {
         let normalized = CycleRules.normalized(log, calendar: calendar)
         try CycleRules.validate(normalized, today: today, calendar: calendar)
