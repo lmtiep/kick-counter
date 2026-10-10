@@ -66,6 +66,9 @@ public enum SettingsKey {
     public static let pillReminderHour = "pillReminderHour"
     /// Missing means 0.
     public static let pillReminderMinute = "pillReminderMinute"
+    /// `Date` "Kết thúc theo dõi" was last tapped on the contraction timer (phase 20):
+    /// contractions after it begin a new episode. Missing means never.
+    public static let contractionEpisodeEndedAt = "contractionEpisodeEndedAt"
 }
 
 public enum SettingsDefault {
