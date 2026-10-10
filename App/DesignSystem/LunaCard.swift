@@ -55,6 +55,20 @@ extension View {
         LunaCard(fill: fill, border: border, padding: padding, cornerRadius: cornerRadius) { self }
     }
 
+    /// A raw `card` fill in any shape (fields, round shortcuts) with the glass edge of
+    /// dark mode (`cardBorder`, invisible in light mode).
+    func lunaGlass<S: InsettableShape>(in shape: S) -> some View {
+        background(.luna(.card), in: shape)
+            .overlay(shape.strokeBorder(.luna(.cardBorder), lineWidth: 1))
+    }
+
+    /// An accessibility identifier only when there is one (an empty identifier
+    /// would still be set, and match queries for "").
+    @ViewBuilder
+    func optionalAccessibilityIdentifier(_ identifier: String?) -> some View {
+        if let identifier { accessibilityIdentifier(identifier) } else { self }
+    }
+
     /// Uppercase 12/600 label with letter spacing, e.g. "MOVEMENTS TODAY".
     func lunaLabelStyle(_ color: LunaToken = .textSecondary) -> some View {
         font(.luna(.label))

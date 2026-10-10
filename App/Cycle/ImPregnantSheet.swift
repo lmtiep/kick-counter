@@ -123,7 +123,7 @@ struct ImPregnantSheet: View {
                     displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
-                .tint(.luna(.pregStrong))
+                .tint(.luna(.pregText))
                 .padding(.horizontal)
                 .accessibilityIdentifier("imPregnantPicker")
                 .toolbar {

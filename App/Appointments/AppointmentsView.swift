@@ -40,7 +40,7 @@ struct AppointmentsView: View {
                             if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
                         }
                         .font(.luna(.captionStrong))
-                        .tint(.luna(.pregStrong))
+                        .tint(.luna(.pregText))
                     }
                     .listRowBackground(Color.luna(.card))
                 }
@@ -101,7 +101,7 @@ struct AppointmentsView: View {
         // Content scrolled up stays out from under the status bar.
         .lunaStatusBarBackdrop()
         .lunaBackground()
-        .tint(.luna(.pregStrong))
+        .tint(.luna(.pregText))
         .navigationTitle(L10n.appointmentsTitle)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -159,7 +159,7 @@ struct AppointmentsView: View {
                 } label: {
                     Label(L10n.appointmentsMarkDone, systemImage: "checkmark")
                 }
-                .tint(.luna(.tealStrong))
+                .tint(.luna(.swipeAction))
             }
         }
     }

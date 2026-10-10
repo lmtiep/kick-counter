@@ -914,7 +914,7 @@ nhắc (mặc định 21:00). Thông báo: "Đến giờ uống thuốc" — "Vi
         pack or ask a doctor or pharmacist." App **không** đưa hướng dẫn lâm sàng nào khác (uống bù, dùng thêm bao cao
         su…). **Câu hỏi:** câu này có đủ và đúng không?
 92. [ ] **Nhắc lại sau 2 giờ.** Nếu chưa đánh dấu "Đã uống", app nhắc lại **một lần** sau 2 giờ: "Bạn đã uống viên thuốc
-        hôm nay chưa?" — "Viên 12/21. Bấm Đã uống sau khi uống." Không nhắc thêm. **Câu hỏi:** 2 giờ có hợp lý không?
+        chưa?" — "Viên 12/21. Bấm Đã uống sau khi uống." Không nhắc thêm. **Câu hỏi:** 2 giờ có hợp lý không?
 93. [ ] **Tuần nghỉ của vỉ 21 + 7.** Ngày 22–28 của vỉ không có nhắc nhở; thẻ ở Hôm nay ghi "Tuần nghỉ · vỉ mới bắt
         đầu ngày 18 thg 10". Tối ngày đầu vỉ mới, nhắc lại như bình thường. Vỉ "28 viên" nhắc mỗi ngày. **Câu hỏi:**
         cách gọi "tuần nghỉ" và việc không nhắc trong 7 ngày đó có ổn không?

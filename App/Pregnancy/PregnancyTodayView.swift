@@ -204,8 +204,8 @@ struct PregnancyTodayView: View {
             symbolIcon("scalemass")
         }
         let weekShortcut = shortcut(L10n.pregnancyShortcutWeek, identifier: "shortcutWeek", action: { detailWeek = WeekSelection(week: contentWeek) }) {
-            Circle()
-                .fill(.luna(.card))
+            Color.clear
+                .lunaGlass(in: Circle())
                 .overlay(
                     Text(week, format: .number)
                         .font(.luna(size: 15, weight: .bold))
@@ -227,8 +227,8 @@ struct PregnancyTodayView: View {
 
     /// A white 58 pt circle with a symbol, like the design's "+".
     private func symbolIcon(_ name: String) -> some View {
-        Circle()
-            .fill(.luna(.card))
+        Color.clear
+            .lunaGlass(in: Circle())
             .overlay(
                 Image(systemName: name)
                     .font(.system(size: 22, weight: .light))

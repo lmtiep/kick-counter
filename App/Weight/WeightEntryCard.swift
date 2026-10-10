@@ -90,7 +90,7 @@ struct WeightEntryCard: View {
         )
         .font(.luna(.body))
         .foregroundStyle(.luna(.textPrimary))
-        .tint(.luna(.pregStrong))
+        .tint(.luna(.pregText))
         .accessibilityLabel(L10n.weightAddDate)
         .accessibilityIdentifier("weightDatePicker")
     }

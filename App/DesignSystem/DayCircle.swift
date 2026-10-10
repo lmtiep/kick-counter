@@ -15,7 +15,7 @@ struct DayCircleStyle: Equatable {
 
     // Calendar (spec §4.3)
     static let period = DayCircleStyle(fill: .cycleStrong, foreground: .onAccent)
-    static let predictedPeriod = DayCircleStyle(foreground: .cycleStrong, border: .cycle, dashed: true)
+    static let predictedPeriod = DayCircleStyle(foreground: .cycleText, border: .cycle, dashed: true)
     static let fertile = DayCircleStyle(fill: .fertileSoft, foreground: .tealStrong, border: .fertileSoftBorder)
     static let ovulation = DayCircleStyle(fill: .ovulation, foreground: .tealStrong, border: .teal, bold: true)
 

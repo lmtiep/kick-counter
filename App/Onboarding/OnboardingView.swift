@@ -282,7 +282,7 @@ struct OnboardingView: View {
                 .foregroundStyle(OnboardingPalette.ink)
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader)
-                .accessibilityIdentifier(identifier ?? "")
+                .optionalAccessibilityIdentifier(identifier)
         }
     }
 

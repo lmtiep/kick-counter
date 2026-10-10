@@ -47,14 +47,14 @@ public struct LunaColorPair: Equatable, Sendable {
 /// Colour roles of the redesign. Views never use raw hex values: the app wraps
 /// these as adaptive `Color`s (`App/DesignSystem/LunaColor.swift`).
 public enum LunaToken: String, Sendable, CaseIterable {
-    case background, onboardingBackground, card, surface, surfaceAlt, segmentSelected
-    case textPrimary, textOnboarding, textSecondary, textMuted, chevron, articleText
+    case background, card, surface, surfaceAlt, segmentSelected
+    case textPrimary, textSecondary, chevron, articleText
     case cycle, cycleStrong, cycleSoft, cycleOnSoft
     case fertile, fertileSoft, ovulation, teal, tealStrong
     case preg, pregStrong, pregSoft, pregOnSoft, pregBar
     case track, ringTrack, todayRing
     case warningBackground, warningBorder, warningText, warningButton
-    case buttonDark, buttonOnboarding, onAccent, onButtonOnboarding
+    case buttonDark, onAccent
     case tabBar, tabInactive, avatar, avatarText
     case divider, heroTop, heroMiddle, fetusGlowInner, fetusGlowOuter
     // Phase 18 (the indigo dark mode). Each one equals an existing light value,
@@ -63,6 +63,7 @@ public enum LunaToken: String, Sendable, CaseIterable {
     case cardBorder, cycleSoftBorder, pregSoftBorder, avatarBorder
     case onSegmentSelected, cycleText, pregText, fetusGlowEdge, cardOpaque
     case tabSelectedCycle, tabSelectedPreg, fertileSoftBorder, segmentSelectedPreg
+    case swipeAction, onSwipeAction
 }
 
 public enum LunaPalette {
@@ -76,7 +77,6 @@ public enum LunaPalette {
         case .background: pair(0xFBF6F1, 0x3E4367)
         case .backgroundTop: pair(0xFBF6F1, 0x4B4F75)
         case .backgroundBottom: pair(0xFBF6F1, 0x393D5B)
-        case .onboardingBackground: pair(0xF4F1EC, 0x1A1412)
         // Glass card: white at 9 % with a 1 pt white border at 14 % (light: invisible).
         case .card: LunaColorPair(light: LunaHex(0xFFFFFF), dark: LunaHex(0xFFFFFF, alpha: 0.09))
         // A card that must hide what is behind it (the article sheet over the artwork,
@@ -92,10 +92,8 @@ public enum LunaPalette {
         case .segmentSelectedPreg: pair(0xFFFFFF, 0xF5B48F)
         case .onSegmentSelected: pair(0x2B201C, 0x3A2340)
         case .textPrimary: pair(0x2B201C, 0xF7F6FC)
-        case .textOnboarding: pair(0x141110, 0xF4ECE5)
         // Handoff #C9CBE3 is 3.6:1 on a glass card: the lighter #DCDDF0 instead.
         case .textSecondary: pair(0x7A6B64, 0xDCDDF0)
-        case .textMuted: pair(0x9A8A82, 0xDCDDF0)
         case .chevron: pair(0xB5A69E, 0xC9CBE3)
         case .articleText: pair(0x544640, 0xECEDF7)
         // Ring and calendar segments; the filled accent (buttons, period days) and the
@@ -132,13 +130,15 @@ public enum LunaPalette {
         case .warningText: pair(0xA3301F, 0xFFECE8)
         case .warningButton: pair(0xC23A26, 0xFFA494)
         case .buttonDark: pair(0x2B201C, 0xF7F6FC)
-        case .buttonOnboarding: pair(0x0F0D0C, 0xF4ECE5)
         // Text on every filled accent (buttons, kick dial, calendar period days):
         // white in light mode, the handoff's deep plum on the light dark-mode accents.
         case .onAccent: pair(0xFFFFFF, 0x3A2340)
-        case .onButtonOnboarding: pair(0xFFFFFF, 0x141110)
         // Dark: indigo at 72 % over the system material (handoff "Tab bar").
         case .tabBar: LunaColorPair(light: LunaHex(0xFBF6F1, alpha: 0.96), dark: LunaHex(0x3A3E62, alpha: 0.72))
+        // The leading "Mark done" swipe action: system white label on a teal fill
+        // (tealStrong in light; tealStrong's pale dark value would hide the label).
+        case .swipeAction: pair(0x1F6E67, 0x2E716C)
+        case .onSwipeAction: pair(0xFFFFFF, 0xFFFFFF)
         case .tabInactive: pair(0xA89890, 0xDCDDF0)
         // The selected tab: the handoff's #FFC4CE reads as white on the iOS 26 glass bar,
         // so the stronger accent (#F7A6B4), with a peach twin in pregnancy.
@@ -171,11 +171,16 @@ public enum LunaContrast {
         public let background: LunaToken
         /// ≥ 18 pt, or ≥ 14 pt bold (700): 3:1 is enough; otherwise 4.5:1.
         public let isLargeText: Bool
+        /// False for a pair drawn in light mode too but only checked in dark mode: a
+        /// light-mode value that predates phase 18 and must stay unchanged (see the
+        /// pair's comment, and `ContrastTests.knownLightModeExceptions`).
+        public let checksLight: Bool
 
-        public init(_ text: LunaToken, on background: LunaToken, large: Bool = false) {
+        public init(_ text: LunaToken, on background: LunaToken, large: Bool = false, checksLight: Bool = true) {
             self.text = text
             self.background = background
             isLargeText = large
+            self.checksLight = checksLight
         }
 
         public var requiredRatio: Double { isLargeText ? 3 : 4.5 }
@@ -235,21 +240,21 @@ public enum LunaContrast {
         Usage(.textPrimary, on: .warningBackground), Usage(.textPrimary, on: .track),
         Usage(.textPrimary, on: .heroTop), Usage(.textPrimary, on: .heroMiddle),
         Usage(.textSecondary, on: .background), Usage(.textSecondary, on: .card),
-        Usage(.textSecondary, on: .onboardingBackground), Usage(.textSecondary, on: .tabBar),
+        Usage(.textSecondary, on: .tabBar),
         Usage(.articleText, on: .background), Usage(.articleText, on: .card),
         Usage(.articleText, on: .surface), Usage(.articleText, on: .surfaceAlt),
         Usage(.articleText, on: .warningBackground),
         Usage(.textPrimary, on: .cardOpaque), Usage(.articleText, on: .cardOpaque),
         Usage(.textSecondary, on: .cardOpaque), Usage(.pregText, on: .cardOpaque),
-        Usage(.textOnboarding, on: .onboardingBackground), Usage(.textOnboarding, on: .card),
-        // Onboarding last-period step: the title can sit on the pink hero gradient.
-        Usage(.textOnboarding, on: .cycleSoft),
         Usage(.onSegmentSelected, on: .segmentSelected), Usage(.onSegmentSelected, on: .segmentSelectedPreg),
-        // Onboarding body and medical note, on the scrim behind the content.
-        Usage(.articleText, on: .onboardingBackground),
         // cycleStrong: the big ring figure only; smaller pink text is cycleText.
         Usage(.cycleStrong, on: .background, large: true), Usage(.cycleStrong, on: .card, large: true),
         Usage(.cycleText, on: .background), Usage(.cycleText, on: .card),
+        // Content tints (buttons, menu pickers, date pickers, toolbar items): cycleText
+        // and pregText for the explicit tints, cycleText / pregOnSoft for a tab's content.
+        // pregText on the page is 4.4:1 in light mode (the light value predates phase 18).
+        Usage(.pregText, on: .background, checksLight: false),
+        Usage(.onSwipeAction, on: .swipeAction),
         Usage(.tabSelectedCycle, on: .tabBar), Usage(.tabSelectedPreg, on: .tabBar),
         Usage(.cycleOnSoft, on: .cycleSoft), Usage(.cycleOnSoft, on: .card),
         Usage(.tealStrong, on: .background), Usage(.tealStrong, on: .card),
@@ -262,7 +267,6 @@ public enum LunaContrast {
         Usage(.warningText, on: .warningBackground), Usage(.warningText, on: .card), Usage(.warningText, on: .background),
         Usage(.onAccent, on: .cycleStrong), Usage(.onAccent, on: .pregStrong), Usage(.onAccent, on: .pregOnSoft),
         Usage(.onAccent, on: .tealStrong), Usage(.onAccent, on: .warningButton), Usage(.onAccent, on: .buttonDark),
-        Usage(.onButtonOnboarding, on: .buttonOnboarding),
         Usage(.avatarText, on: .avatar),
     ]
 }

@@ -120,7 +120,7 @@ struct ArticleCloseButton: View {
                 .frame(width: 40, height: 40)
                 .background(
                     Circle()
-                        .fill(.luna(.card))
+                        .fill(.luna(.cardOpaque))
                         .overlay(Circle().strokeBorder(.luna(.divider), lineWidth: 1))
                 )
                 .frame(minWidth: 44, minHeight: 44)

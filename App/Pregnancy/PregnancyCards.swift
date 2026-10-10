@@ -119,13 +119,16 @@ struct PregnancyProgressBar: View {
             ZStack(alignment: .leading) {
                 Capsule().fill(.luna(.track))
                 Capsule().fill(.luna(.preg)).frame(width: proxy.size.width * fraction)
+                // Trimester notches: real gaps that show the page behind (the gradient in
+                // dark mode), not bars painted in the page colour.
                 ForEach(PregnancyProgress.trimesterMarks, id: \.self) { mark in
                     Rectangle()
-                        .fill(.luna(.background))
                         .frame(width: 3, height: 14)
                         .offset(x: proxy.size.width * mark - 1.5)
+                        .blendMode(.destinationOut)
                 }
             }
+            .compositingGroup()
         }
         .frame(height: 8)
         .accessibilityHidden(true)
