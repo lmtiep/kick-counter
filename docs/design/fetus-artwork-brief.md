@@ -44,7 +44,7 @@ Weeks 4–8 are embryonic, not yet fetal. Keep these **gentle, non-graphic, and 
 |---|---|---|---|---|
 | 4 | Just-implanted, dividing cluster of cells; no body plan yet | n/a — no figure yet | Abstract soft dot/cluster shape, not a figure | Any face, limbs, or recognisable baby form |
 | 5 | Neural tube and earliest heart forming | n/a — pre-figurative | Simple curved bud/comma shape | Face, eyes, limbs, fingers |
-| 6 | First flickering heartbeat (on scan); tiny limb buds; earliest dark eye spots | Head dominates almost the whole form (verify) | Curled comma/C shape with small bumps for limb buds | Detailed face, open eyes, hands, feet |
+| 6 | Heart activity often seen on scan (depends on exact age and scan); tiny limb buds; earliest dark eye spots | Head dominates almost the whole form (verify) | Curled comma/C shape with small bumps for limb buds | Detailed face, open eyes, hands, feet |
 | 7 | Brain growing fast, head visibly large for body; arm buds flattening into paddle shapes | Head ~ as large as rest of body (verify) | Curled "C", paddle-shaped arm stubs, no legs detail yet | Fingers, visible eyes, facial features, legs |
 | 8 | Fingers/toes just beginning, still webbed; faint tiny movements | Head still clearly dominant (verify) | Curled "C", paddle hands/feet with faint webbing lines | Separated fingers/toes, open eyes, hair |
 | 9 | All main organs begun; muscles developing; limbs now bend at the elbow | Head large but body lengthening (verify) | Curled, elbows slightly bent, knees tucked | Visible organs, detailed face, hair, nails |
@@ -73,7 +73,7 @@ Weeks 4–8 are embryonic, not yet fetal. Keep these **gentle, non-graphic, and 
 | 32 | Practises breathing movements; finger/toe nails now fully grown in | ~1:4 (verify) | Calm curl, chest subtly implied as "breathing" (static image — a gentle pose is enough) | Visible nail detail beyond a soft rounded tip |
 | 33 | Bones hardening but skull staying soft; antibodies passing from mother | ~1:4 (verify) | Relaxed curl, head slightly rounded/soft-looking | Visible skull/bone anatomy |
 | 34 | Nervous system and lungs maturing; a fat layer filling out the body | ~1:4, body visibly rounder (verify) | Relaxed curl, fuller limbs/body | Visible internal anatomy |
-| 35 | Kidneys now fully developed; less room to move, still active daily | ~1:4 (verify) | Curled, tucked (less room implied by tighter curl) | Visible kidney/internal anatomy |
+| 35 | Kidney filtering units nearly all formed (kidneys keep maturing after birth); less room to move, still active daily | ~1:4 (verify) | Curled, tucked (less room implied by tighter curl) | Visible kidney/internal anatomy |
 | 36 | May drop lower in the pelvis (especially a first pregnancy); most lanugo now gone | ~1:4, close to newborn proportion (verify) | Head-down curl is a reasonable cue, but not required | Visible lanugo texture, exaggerated head-down "falling" pose |
 | 37 | Early term; practises sucking, blinking, breathing | ~1:4 (verify) | Calm curl, relaxed face | Open mouth mid-"suck", wide eyes |
 | 38 | Grasp is now firm; organs ready to work outside the womb | ~1:4 (verify) | Relaxed curl, hand gently closed | Visible internal organ readiness cues (keep it a calm pose, not anatomical) |

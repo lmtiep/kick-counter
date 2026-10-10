@@ -26,11 +26,12 @@ cần bác sĩ quyết định. Tích vào ô vuông khi đã xong.
        Bộ Y tế còn khuyến nghị thêm sắt) hay giữ nguyên "hỏi bác sĩ"?
 2. [ ] **Tuần 5 "tim bắt đầu đập khoảng thời gian này"**: mốc này là ước lượng (hoạt
        động tim thường thấy rõ trên siêu âm đầu dò âm đạo từ khoảng tuần 6). Tuần 6 viết
-       "siêu âm có thể thấy tim thai đập nhấp nháy". Xác nhận cách diễn đạt này có ổn không.
+       "siêu âm có thể thấy tim thai đập nhấp nháy". Xác nhận cách diễn đạt này có ổn không. **Đã thay bởi §19 (mục 102).**
 3. [ ] **Các mốc phát triển của thai** (cảm nhận ánh sáng ở tuần 15, cử động mắt tuần 16,
        nghe được âm thanh tuần 18, cảm nhận vị tuần 21, surfactant tuần 24, mở mắt tuần 26,
        đủ 5 giác quan tuần 31, thận hoàn thiện tuần 35): các nguồn khác nhau lệch nhau
-       khoảng ±1 tuần. Xác nhận các mốc này phù hợp thực hành tại Việt Nam.
+       khoảng ±1 tuần. Xác nhận các mốc này phù hợp thực hành tại Việt Nam. **Tuần 15 (ánh sáng) và tuần 35 (thận):
+       đã thay bởi §19 (mục 103, 104).**
 4. [ ] **Thai máy (quickening)**: app viết "đa số cảm nhận được vào khoảng tuần 20".
        Với người mang thai lần đầu có thể muộn hơn, khoảng 20–22 tuần — xác nhận cách viết.
 5. [ ] **Cảnh báo giảm cử động thai**: bắt đầu từ tuần 24 ("nếu cử động chậm lại hoặc
@@ -137,7 +138,7 @@ thai kỳ, nên **phải được duyệt trước khi gửi App Store**). Xem c
 
 | Khóa | Nội dung (vi) cần duyệt |
 |---|---|
-| `medical.ttc.body` | Không dùng để tránh thai; dự đoán chỉ là ước tính; khi nào nên gặp bác sĩ (12 tháng, 6 tháng nếu ≥ 35 tuổi; chu kỳ < 21 hoặc > 35 ngày hay rất không đều — xem mục 73 và 75; ra máu bất thường giữa kỳ) |
+| `medical.ttc.body` | Không dùng để tránh thai; dự đoán chỉ là ước tính; khi nào nên gặp bác sĩ (12 tháng, 6 tháng nếu ≥ 35 tuổi; chu kỳ < 24 hoặc > 38 ngày hay rất không đều — đã thay bởi §19 (mục 106), trước đây < 21 hoặc > 35 — xem mục 73 và 75; ra máu giữa hai kỳ kinh) |
 | `cycle.irregular.title`, `cycle.irregular.body` | Cảnh báo chu kỳ bất thường → gợi ý gặp bác sĩ |
 | `cycle.late.title`, `cycle.late.body`, `cycle.reminder.late.*` | Gợi ý thử thai khi trễ kinh từ ngày thứ 3 |
 | `cycle.longPeriod.title`, `cycle.longPeriod.body` | Kỳ kinh chưa kết thúc > 10 ngày → ghi ngày kết thúc / đi khám nếu ra máu kéo dài |
@@ -163,8 +164,8 @@ trong `ci-artifacts/screenshots/`.
 
 | Khóa | Nội dung (vi) cần duyệt |
 |---|---|
-| `kicks.cardiff.title`, `kicks.cardiff.body` | Phương pháp Cardiff: đếm tới 10, cùng khung giờ mỗi ngày, quá 2 giờ hoặc ít hơn mọi ngày → gọi bác sĩ |
-| `history.guide.title`, `history.guide.body` | Khi nào cần gặp bác sĩ: quá 2 giờ chưa đủ 10, cử động yếu hơn/khác thường, hoặc lo lắng — không chờ hôm sau |
+| `kicks.cardiff.title`, `kicks.cardiff.body` | Phương pháp Cardiff: đếm tới 10, cùng khung giờ mỗi ngày, quá 2 giờ hoặc ít hơn mọi ngày → gọi bác sĩ. **Đã thay bởi §19 (mục 105).** |
+| `history.guide.title`, `history.guide.body` | Khi nào cần gặp bác sĩ: quá 2 giờ chưa đủ 10, cử động yếu hơn/khác thường, hoặc lo lắng — không chờ hôm sau. **Đã thay bởi §19 (mục 105).** |
 | `counter.call115` | Nút "Gọi cấp cứu 115" trên thẻ cảnh báo 2 giờ (chỉ tiếng Việt; tiếng Anh không có số chung nên chỉ có chữ) |
 | `kickSettings.reminder.detail` | "Đếm cùng một khung giờ mỗi ngày, khi bé thường hoạt động" |
 | `common.underOneMinute` | "<1 phút" — chữ hiển thị khi một lượt đếm hoàn thành dưới một phút (biểu đồ lịch sử, thẻ lượt đếm) |
@@ -176,7 +177,8 @@ trong `ci-artifacts/screenshots/`.
 27. [ ] Xác nhận hiển thị nút gọi 115 ở thẻ cảnh báo 2 giờ (tiếng Việt) là phù hợp, hay nên gọi số của
         cơ sở sản khoa của mẹ.
 28. [ ] Thẻ cảnh báo 2 giờ, thông báo đẩy 2 giờ và "Thông tin y tế" giữ nội dung đã duyệt ở giai đoạn 1
-        (`overdue.*`, `medical.body`) — chỉ đổi giao diện.
+        (`overdue.*`, `medical.body`) — chỉ đổi giao diện. **`medical.body`: đã thay bởi §19 (mục 105);** thẻ và
+        thông báo 2 giờ (`overdue.*`) giữ nguyên.
 
 ## 8. Ghi triệu chứng & cân nặng mẹ (giai đoạn 5)
 
@@ -608,7 +610,8 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
 57. [ ] **Ngưỡng chu kỳ:** lời giải thích độ dài chu kỳ (`onboarding.cycleLength.hint`) nói "từ 21 đến 35 ngày", và
         lời trấn an chu kỳ không đều (`onboarding.regularity.irregularNote`) nói nên trao đổi với bác sĩ nếu chu kỳ
         "ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền". **Câu hỏi:** các ngưỡng 21/35 ngày và
-        mốc "mất kinh 3 tháng" có đúng với người lớn không, hay cần điều chỉnh?
+        mốc "mất kinh 3 tháng" có đúng với người lớn không, hay cần điều chỉnh? **Ngưỡng 21/35: đã thay bởi §19
+        (mục 106).**
 58. [ ] **Thuốc tránh thai chỉ có progestin (progestin-only pill, "thuốc tránh thai đơn thuần")** hiện không có lựa chọn
         riêng: người dùng sẽ chọn "Thuốc tránh thai hằng ngày" (`contraception.pill`), và app xử lý như thuốc phối hợp
         (ẩn cửa sổ thụ thai và ngày rụng trứng, gọi lần ra máu là "Ra máu dự kiến"). **Câu hỏi:** thuốc chỉ có
@@ -782,10 +785,10 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
 73. [ ] **22-c — `medical.ttc.body`.** "chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc rất không đều" → "…dài hơn
         **35** ngày…" (cùng mốc với `onboarding.regularity.irregularNote` và `onboarding.cycleLength.hint` đã có).
         Nguồn: NHS – Periods (21–35 ngày); FIGO 2018 (bình thường 24–38 ngày); ACOG CO 651 (21–45 ngày là khoảng của
-        trẻ vị thành niên). **Câu hỏi:** bác sĩ chọn mốc 35 (NHS) hay 38 (FIGO) để dùng chung cho mọi chuỗi.
+        trẻ vị thành niên). **Câu hỏi:** bác sĩ chọn mốc 35 (NHS) hay 38 (FIGO) để dùng chung cho mọi chuỗi. **Đã thay bởi §19 (mục 106).**
 74. [ ] **22-e — `cycle.irregular.body`.** "Chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc thay đổi nhiều — bạn nên
         trao đổi với bác sĩ." → "…dài hơn **35** ngày…". Nguồn như mục 73. Phần "thay đổi nhiều" (chênh > 7 ngày)
-        khớp FIGO, giữ nguyên.
+        khớp FIGO, giữ nguyên. **Đã thay bởi §19 (mục 106).**
 75. [ ] **22-c/22-e — hằng số dự đoán chưa đổi, chờ bác sĩ chọn.** Cách tính trung bình **không** đổi:
         `CyclePredictor.usableCycleLengths = 21...45` (chỉ chu kỳ 21–45 ngày được tính vào trung bình và "tính vào
         trung bình" trong Lịch sử). **Đã đổi (chủ sản phẩm duyệt):** thẻ "Chu kỳ có vẻ không đều" dùng ngưỡng riêng
@@ -793,7 +796,7 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         > 45), hoặc ≥ 3 chu kỳ chênh > 7 ngày (giữ nguyên), khớp câu "dài hơn 35 ngày". **Câu hỏi:** đổi cận trên thành 35 (NHS) hay 38 (FIGO), cho cả việc tính trung bình lẫn thẻ
         cảnh báo, hay tách hai ngưỡng (ví dụ vẫn tính trung bình đến 45 ngày nhưng hiện thẻ từ 36 hoặc 39 ngày)?
         Nguồn: FIGO 2018 (Munro, Critchley, Fraser, Int J Gynaecol Obstet 143:393); PMC11790291 (2025); NHS – Periods;
-        ACOG CO 651 (2015); AAFP 2023 (Infertility: Evaluation and Management).
+        ACOG CO 651 (2015); AAFP 2023 (Infertility: Evaluation and Management). **Đã thay bởi §19 (mục 106).**
 76. [ ] **24-b — ngưỡng "kỳ kinh kéo dài" chưa đổi, chờ bác sĩ chọn.** `CycleRules.longPeriodDays = 10` (thẻ hiện
         khi kỳ kinh chưa kết thúc > 10 ngày; giới hạn ghi 10 ngày). Không có câu nào cho người dùng nêu khoảng "bình
         thường" sai, nên **không đổi câu chữ** (`cycle.longPeriod.*` chỉ nói số ngày đã kéo dài và gợi ý đi khám).
@@ -929,3 +932,63 @@ nhắc (mặc định 21:00). Thông báo: "Đến giờ uống thuốc" — "Vi
         "Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay." (en: "Not a substitute for a doctor. Fewer
         kicks than usual? Call your doctor."). Câu mới bỏ "hoặc cơ sở y tế" và "Đừng chờ kết quả từ app". **Câu hỏi:**
         bác sĩ xác nhận câu ngắn này đủ an toàn, hay cần giữ "bác sĩ hoặc cơ sở y tế"?
+
+## 19. Đối chiếu bằng chứng bổ sung (10/10/2026)
+
+Chủ sản phẩm đã duyệt; bác sĩ xác nhận lại câu chữ. Các mục cũ nói về cùng nội dung (§2 điểm 2–3, §6, §7, mục
+28, 57, 73–75) được thay bởi phần này.
+
+102. [ ] **Tuần 6 — tim thai** (`pregnancy-content.json`, tuần 6, ý "Bé" đầu tiên). Cũ: "Lúc này siêu âm có thể thấy
+        tim thai đập." → Mới: "Khoảng thời gian này, siêu âm thường thấy được hoạt động tim thai, tùy tuổi thai chính
+        xác và cách siêu âm. Nếu lần đầu chưa thấy, bác sĩ có thể hẹn mẹ siêu âm lại." Bài viết tuần 6 vốn đã nói "có
+        thể sẽ thấy"; thêm cho đồng bộ: "Thấy được hay chưa còn tùy tuổi thai chính xác và cách siêu âm, nên việc chưa
+        thấy tim thai lúc này cũng khá thường gặp…". Bản en sửa song song. Nguồn: NHS – Week-by-week guide to
+        pregnancy (tuần 6); ACOG – How Your Fetus Grows During Pregnancy.
+103. [ ] **Tuần 15 — ánh sáng** (ý "Bé" thứ hai). Cũ: "Dù mí mắt còn khép, bé đã cảm nhận được ánh sáng." → Mới:
+        "Dù mí mắt còn khép, bé có thể đã bắt đầu cảm nhận được ánh sáng." (khớp phần mở đầu và bài viết, vốn đã viết
+        "có thể"). Nguồn: NHS – Week-by-week guide to pregnancy; ACOG – How Your Fetus Grows During Pregnancy.
+104. [ ] **Tuần 35 — thận** (ý "Bé" đầu tiên, phần mở đầu và đoạn phát triển đầu tiên của bài viết). Cũ: "Thận của bé
+        đã phát triển hoàn chỉnh." → Mới: "Các đơn vị lọc nhỏ của thận bé gần như đã hình thành đủ; thận vẫn tiếp tục
+        trưởng thành sau sinh." Phần mở đầu: "Các đơn vị lọc của thận bé gần như đã hình thành đủ, và dù chỗ trong bụng
+        ngày càng chật, mẹ vẫn cần cảm nhận được bé cử động mỗi ngày." Bài viết: "Thận của bé giờ đã có gần đủ các đơn
+        vị lọc nhỏ, vốn hoàn tất hình thành vào khoảng tuần 34 đến 36. Thận tạo ra nước tiểu, góp phần vào lượng nước
+        ối, và vẫn tiếp tục trưởng thành sau khi bé chào đời." (việc tạo nephron kết thúc khoảng tuần 34–36). Nguồn:
+        NHS – Week-by-week guide to pregnancy; ACOG – How Your Fetus Grows During Pregnancy.
+105. [ ] **Hướng dẫn đếm cử động** (`kicks.cardiff.body`, `history.guide.body`, `medical.body`). Theo RCOG, không
+        dùng một ngưỡng đếm cố định để báo động; điều quan trọng nhất là cử động thay đổi so với nhịp quen thuộc của bé.
+        Tính năng đếm tới 10, thẻ cảnh báo 2 giờ và thông báo 2 giờ (`overdue.*`, `la.overdue`,
+        `completion.exceeded`) giữ nguyên. Các câu nay mở đầu bằng "ít hơn, yếu hơn hoặc khác nhịp quen thuộc → gọi
+        ngay", sau đó mới đến mốc 10 cử động trong 2 giờ, và thêm "kể cả khi đã đủ 10".
+        - `kicks.cardiff.body` — Cũ: "Đếm đến khi đủ 10 cử động và xem mất bao lâu. Mỗi ngày đếm vào cùng khung giờ để
+          biết nhịp bình thường của bé. Nếu quá 2 giờ chưa đủ 10, hoặc bé cử động ít hơn mọi ngày, hãy gọi bác sĩ." →
+          Mới: "Mỗi ngày đếm vào cùng khung giờ để biết nhịp cử động quen thuộc của bé, và xem mất bao lâu để đủ 10 cử
+          động. Nếu bé cử động ít hơn, yếu hơn hoặc khác với nhịp quen thuộc, hãy gọi bác sĩ ngay. Cũng hãy gọi nếu quá
+          2 giờ chưa đủ 10 cử động. Kể cả khi đã đủ 10, nếu thấy cử động khác mọi ngày, hãy gọi bác sĩ."
+        - `history.guide.body` — Cũ: "Liên hệ ngay nếu sau 2 giờ chưa đủ 10 cử động, nếu bé cử động yếu hơn hoặc khác
+          hẳn thường ngày, hoặc nếu bạn thấy lo lắng. Đừng chờ đến lượt đếm hôm sau." → Mới: "Liên hệ ngay nếu bé cử
+          động ít hơn, yếu hơn hoặc khác với nhịp quen thuộc, hoặc nếu bạn thấy lo lắng. Cũng hãy liên hệ nếu sau 2
+          giờ chưa đủ 10 cử động. Kể cả khi đã đủ 10, nếu thấy cử động khác mọi ngày, hãy liên hệ bác sĩ. Đừng chờ đến
+          lượt đếm hôm sau."
+        - `medical.body` (đoạn 2–3) — Cũ: "…Phần lớn các bé có 10 cử động trong vòng 2 giờ, thường nhanh hơn nhiều.
+          Nếu thấy bé cử động ít hơn bình thường, hoặc chưa cảm nhận đủ 10 cử động trong 2 giờ, hãy liên hệ ngay…" →
+          Mới: "…Không có một con số chung đúng cho mọi bé; điều quan trọng nhất là sự thay đổi so với nhịp quen thuộc
+          của bé. Nếu bé cử động ít hơn, yếu hơn hoặc khác với nhịp quen thuộc, hãy liên hệ ngay bác sĩ hoặc cơ sở y
+          tế, dù ngày hay đêm. Cũng hãy liên hệ nếu chưa cảm nhận đủ 10 cử động trong 2 giờ. Kể cả khi đã đủ 10, nếu
+          thấy cử động khác mọi ngày, hãy liên hệ bác sĩ. Đừng chờ đến hôm sau…"
+        Bản en sửa song song. Nguồn: RCOG Green-top Guideline No. 57 – Reduced Fetal Movements (Royal College of
+        Obstetricians and Gynaecologists).
+106. [ ] **Ngưỡng độ dài chu kỳ → FIGO 24–38 ngày (người trưởng thành).** `CyclePredictor.regularCycleLengths`:
+        `21...35` → `24...38` (thẻ "Chu kỳ có vẻ không đều" hiện khi chu kỳ gần nhất < 24 hoặc > 38 ngày, hoặc ≥ 3 chu
+        kỳ chênh > 7 ngày như cũ). Cách tính trung bình (`usableCycleLengths = 21...45`) và khoảng nhập trong Cài đặt
+        **không đổi**. Câu chữ:
+        - `cycle.irregular.body` — "Chu kỳ ngắn hơn 21 ngày, dài hơn 35 ngày…" → "Chu kỳ ngắn hơn 24 ngày, dài hơn 38
+          ngày hoặc thay đổi nhiều — bạn nên trao đổi với bác sĩ."
+        - `onboarding.cycleLength.hint` — "Nhiều người có chu kỳ từ 21 đến 35 ngày, của bạn có thể khác." → "Ở người
+          trưởng thành, chu kỳ thường dài từ 24 đến 38 ngày, của bạn có thể khác."
+        - `onboarding.regularity.irregularNote` — "…ngắn hơn 21 ngày hoặc dài hơn 35 ngày…" → "…ngắn hơn 24 ngày hoặc
+          dài hơn 38 ngày…".
+        - `medical.ttc.body` — "chu kỳ ngắn hơn 21 ngày, dài hơn 35 ngày hoặc rất không đều" → "chu kỳ ngắn hơn 24
+          ngày, dài hơn 38 ngày hoặc rất không đều"; dòng ra máu giữa kỳ viết lại thành "ra máu giữa hai kỳ kinh" (en:
+          "you have bleeding between periods").
+        Bản en sửa song song. Nguồn: FIGO 2018 – revision of the AUB System 1 (Munro và cộng sự, International Journal
+        of Gynecology & Obstetrics, 2018).
