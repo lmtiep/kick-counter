@@ -398,12 +398,12 @@
       },
       "baby": {
         "en": [
-          "A scan may now show a flickering heartbeat.",
+          "Heart activity is often seen on a scan around now, depending on the exact pregnancy age and the scan. If it is not seen at the first scan, your doctor may arrange another.",
           "Small buds appear that will grow into arms and legs.",
           "The face is starting to form, with dark spots where the eyes will be."
         ],
         "vi": [
-          "Lúc này siêu âm có thể thấy tim thai đập.",
+          "Khoảng thời gian này, siêu âm thường thấy được hoạt động tim thai, tùy tuổi thai chính xác và cách siêu âm. Nếu lần đầu chưa thấy, bác sĩ có thể hẹn mẹ siêu âm lại.",
           "Những mầm nhỏ xuất hiện, sau này sẽ thành tay và chân.",
           "Khuôn mặt bắt đầu hình thành, có những chấm sẫm màu ở vị trí mắt."
         ]
@@ -462,12 +462,12 @@
         "development": {
           "en": [
             "The neural tube, which will become the brain and spinal cord, usually closes around now. Folic acid taken in these early weeks helps support this important step.",
-            "By now, the heart is usually beating steadily. If you have an internal scan through the vagina this week, it may show the heartbeat as a tiny flicker. It is also common for the heartbeat not to be seen yet, especially early in the week. If so, your doctor or midwife may suggest another scan a little later.",
+            "By now, the heart is usually beating steadily. If you have an internal scan through the vagina this week, it may show the heartbeat as a tiny flicker. Whether it shows yet depends on the exact age of the pregnancy and the scan, so it is also common for the heartbeat not to be seen yet, especially early in the week. If so, your doctor or midwife may suggest another scan a little later.",
             "Small buds have appeared on each side of the body, and they will grow into arms and legs. The face is starting to form, and dark spots now mark where the eyes will be."
           ],
           "vi": [
             "Ống thần kinh, sau này thành não và tủy sống, thường khép kín vào khoảng thời gian này. Axit folic mẹ bổ sung trong những tuần đầu giúp hỗ trợ bước phát triển quan trọng này.",
-            "Lúc này tim bé thường đã đập đều đặn. Nếu mẹ được siêu âm đầu dò âm đạo trong tuần này, có thể sẽ thấy tim thai như một đốm nhấp nháy nhỏ. Việc chưa thấy tim thai lúc này cũng khá thường gặp, nhất là vào đầu tuần. Khi đó, bác sĩ hoặc nữ hộ sinh có thể hẹn mẹ siêu âm lại sau ít ngày.",
+            "Lúc này tim bé thường đã đập đều đặn. Nếu mẹ được siêu âm đầu dò âm đạo trong tuần này, có thể sẽ thấy tim thai như một đốm nhấp nháy nhỏ. Thấy được hay chưa còn tùy tuổi thai chính xác và cách siêu âm, nên việc chưa thấy tim thai lúc này cũng khá thường gặp, nhất là vào đầu tuần. Khi đó, bác sĩ hoặc nữ hộ sinh có thể hẹn mẹ siêu âm lại sau ít ngày.",
             "Hai bên cơ thể đã nhú lên những mầm nhỏ, sau này sẽ thành tay và chân. Khuôn mặt bé bắt đầu hình thành, với những chấm sẫm màu đánh dấu vị trí đôi mắt sau này."
           ]
         },
@@ -1398,11 +1398,11 @@
       "baby": {
         "en": [
           "The skeleton keeps hardening, and the bones show up on a scan.",
-          "Even with closed eyelids, your baby can sense light."
+          "Even with closed eyelids, your baby may be starting to sense light."
         ],
         "vi": [
           "Bộ xương tiếp tục cứng dần và đã thấy rõ trên siêu âm.",
-          "Dù mí mắt còn khép, bé đã cảm nhận được ánh sáng."
+          "Dù mí mắt còn khép, bé có thể đã bắt đầu cảm nhận được ánh sáng."
         ]
       },
       "mom": {
@@ -3706,11 +3706,11 @@
       "weightP90G": 3036,
       "baby": {
         "en": [
-          "The kidneys are fully developed.",
+          "The kidneys' tiny filtering units are nearly all formed; the kidneys keep maturing after birth.",
           "There is less room to move, but you should still feel movements every day."
         ],
         "vi": [
-          "Thận của bé đã phát triển hoàn chỉnh.",
+          "Các đơn vị lọc nhỏ của thận bé gần như đã hình thành đủ; thận vẫn tiếp tục trưởng thành sau sinh.",
           "Bé có ít chỗ hơn để xoay trở, nhưng mẹ vẫn cảm nhận được cử động mỗi ngày."
         ]
       },
@@ -3758,8 +3758,8 @@
       },
       "article": {
         "lead": {
-          "en": "The kidneys are now fully developed, and although space is getting tight, you should still feel your baby moving every day.",
-          "vi": "Thận của bé đã phát triển hoàn chỉnh, và dù chỗ trong bụng ngày càng chật, mẹ vẫn cần cảm nhận được bé cử động mỗi ngày."
+          "en": "Your baby's kidney filtering units are nearly all formed, and although space is getting tight, you should still feel your baby moving every day.",
+          "vi": "Các đơn vị lọc của thận bé gần như đã hình thành đủ, và dù chỗ trong bụng ngày càng chật, mẹ vẫn cần cảm nhận được bé cử động mỗi ngày."
         },
         "sizeNote": {
           "en": [
@@ -3771,12 +3771,12 @@
         },
         "development": {
           "en": [
-            "Your baby's kidneys are now fully developed. They make urine, which becomes part of the amniotic fluid. Most other organs are well developed too, though the lungs and brain are still maturing.",
+            "Your baby's kidneys now have nearly all of their tiny filtering units, which finish forming at around 34 to 36 weeks. The kidneys make urine, which becomes part of the amniotic fluid, and they keep maturing after birth. Most other organs are well developed too, though the lungs and brain are still maturing.",
             "With less room in the womb, your baby's movements may feel different. You may notice more rolls, squirms and pushes than sharp kicks. But the movements should not become fewer. Babies usually keep moving right up to labour.",
             "Your baby spends much of the day asleep, with active times in between. Sucking, swallowing and breathing movements are still practised every day. You may notice that your baby's active times follow a familiar pattern. Any change in that pattern matters, even if the movements only feel weaker."
           ],
           "vi": [
-            "Thận của bé giờ đã phát triển hoàn chỉnh. Thận tạo ra nước tiểu, góp phần vào lượng nước ối. Phần lớn các cơ quan khác cũng đã phát triển khá đầy đủ, dù phổi và não bộ vẫn đang tiếp tục trưởng thành.",
+            "Thận của bé giờ đã có gần đủ các đơn vị lọc nhỏ, vốn hoàn tất hình thành vào khoảng tuần 34 đến 36. Thận tạo ra nước tiểu, góp phần vào lượng nước ối, và vẫn tiếp tục trưởng thành sau khi bé chào đời. Phần lớn các cơ quan khác cũng đã phát triển khá đầy đủ, dù phổi và não bộ vẫn đang tiếp tục trưởng thành.",
             "Vì trong tử cung ít chỗ hơn, cử động của bé có thể mang cảm giác khác trước. Mẹ có thể thấy bé xoay, uốn mình hay đẩy nhiều hơn là những cú đạp mạnh. Nhưng số lần cử động không nên ít đi. Các bé thường vẫn cử động cho đến tận lúc chuyển dạ.",
             "Bé ngủ khá nhiều trong ngày, xen giữa là những lúc hiếu động. Bé vẫn tập mút, nuốt và các động tác thở mỗi ngày. Mẹ có thể nhận ra những lúc bé hiếu động thường lặp lại theo một nhịp quen thuộc. Mọi thay đổi trong nhịp đó đều đáng lưu ý, kể cả khi cử động chỉ yếu đi."
           ]
