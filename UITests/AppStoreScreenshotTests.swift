@@ -3,6 +3,7 @@ import XCTest
 /// Raw App Store screenshots (iPhone 6.9", light mode), vi and en. Each screen is
 /// attached as `appstore-<n>-<slug>-<lang>`; run on the 6.9" simulator with a
 /// clean status bar (`xcrun simctl status_bar … override --time 9:41 …`).
+/// 8 is the contraction timer (5-1-1 seed at 38 weeks), 9 the calendar's period edit mode.
 final class AppStoreScreenshotTests: XCTestCase {
     /// 26w0d at `UITestDates.fixedNow`: the fetus, the fruit and the Hadlock weight all show.
     private static let dueAtWeek26 = "2027-01-08T12:00:00Z"
@@ -109,6 +110,43 @@ final class AppStoreScreenshotTests: XCTestCase {
             XCTAssertTrue(app.descendants(matching: .any)["kickTimes"].waitForExistence(timeout: 5))
             settle()
             attachScreenshot(app, "appstore-6-kick-counter-\(language)")
+            app.terminate()
+        }
+    }
+
+    @MainActor
+    func testContractionTimerScreens() {
+        for language in Self.languages {
+            let app = XCUIApplication.launchPinned(
+                language: language, dueDate: UITestDates.dueAtWeek38, extraArguments: ["-seedContractions", "511"]
+            )
+            app.openContractionTimer()
+            XCTAssertTrue(app.descendants(matching: .any)["contractionFiveOneOneCard"].waitForExistence(timeout: 5))
+            settle()
+            attachScreenshot(app, "appstore-8-contraction-timer-\(language)")
+            app.terminate()
+        }
+    }
+
+    @MainActor
+    func testCalendarPeriodEditScreens() {
+        for language in Self.languages {
+            let app = launchCycle(language)
+            app.openCycleTab(.calendar)
+            XCTAssertTrue(app.staticTexts["calendarMonthTitle"].waitForExistence(timeout: 10))
+            CalendarPeriodEditUITests.startEditing(app)
+            // Back to September, where the seeded period (Sep 20–24) shows as ticked days.
+            let title = app.staticTexts["calendarMonthTitle"]
+            let september = CalendarPeriodEditUITests.day(app, "20260915")
+            for _ in 0..<3 where !september.exists {
+                let shown = title.label
+                app.buttons["calendarPrevious"].tap()
+                let changed = NSPredicate(format: "label != %@", shown)
+                XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: changed, object: title)], timeout: 5), .completed)
+            }
+            XCTAssertTrue(september.waitForExistence(timeout: 5))
+            settle()
+            attachScreenshot(app, "appstore-9-period-edit-\(language)")
             app.terminate()
         }
     }
