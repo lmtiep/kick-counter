@@ -481,6 +481,14 @@ hành động trên thông báo khi khoá màn hình).
 - [ ] Bấm "Bắt đầu cơn gò", khoá máy: Live Activity hiện trên màn hình khoá với đồng hồ đang chạy và nút "Hết cơn".
       Bấm "Hết cơn" **không mở app**: nút đổi thành "Bắt đầu", hiện "Dài …". Bấm "Bắt đầu" rồi "Hết cơn" thêm một lần:
       hiện "Cách nhau …". Mở app: danh sách có đủ các cơn vừa bấm trên màn hình khoá.
+- [ ] **Đang nghỉ trên màn hình khoá:** bấm "Hết cơn": Live Activity hiện "Đang nghỉ" và "Nghỉ 0:05" đếm lên từng giây
+      tính từ lúc hết cơn, dòng dưới "1 cơn · Dài …" (từ cơn thứ hai thêm "Cách nhau …"). Bấm "Bắt đầu" thì chữ
+      "Nghỉ …" biến mất và đồng hồ cơn gò chạy lại; nút "Kết thúc" chỉ hiện khi đang nghỉ, không hiện cạnh "Hết cơn".
+- [ ] **Nút "Kết thúc" trên màn hình khoá:** đang nghỉ, bấm "Kết thúc" (VoiceOver đọc "Kết thúc theo dõi cơn gò")
+      **không mở app**: Live Activity biến mất ngay. Mở app: các cơn vừa bấm vẫn còn trong "Lịch sử cơn gò", lần bấm
+      tiếp theo bắt đầu một "Lần theo dõi" mới; nếu thẻ 5-1-1 đang bật thì vẫn bật (kết thúc không làm mất cảnh báo).
+      Dynamic Island mở rộng khi đang nghỉ cũng có "Bắt đầu" và "Kết thúc", không bị cắt. Kiểm tra cả tiếng Việt và
+      tiếng Anh ("Rest 0:05", "End"), chế độ sáng/tối, cỡ chữ mặc định và lớn.
 - [ ] **Dynamic Island:** dạng thu gọn (compact) hiện biểu tượng đồng hồ bấm giờ và thời gian đang gò (hoặc số cơn khi
       đang nghỉ); nhấn giữ để mở dạng mở rộng
       (expanded) có nút "Bắt đầu" / "Hết cơn" bấm được; dạng tối giản (minimal) khi có app khác dùng Dynamic Island.

@@ -472,14 +472,85 @@ struct ContractionCoordinatorTests {
 
         clock.advance(70)
         await coordinator.toggle()
-        #expect(live.updates.last?.state == ContractionActivityState(runningSince: nil, count: 2, lastInterval: 300, lastDuration: 70))
+        #expect(live.updates.last?.state == ContractionActivityState(
+            runningSince: nil, count: 2, lastInterval: 300, lastDuration: 70, restingSince: clock.now
+        ))
     }
 
     @Test func undoUpdatesTheActivity() async {
         await time(50, rest: 250)
+        let firstEnd = clock.now.addingTimeInterval(-250)
         await coordinator.toggle()
         await coordinator.undoLast()
-        #expect(live.updates.last?.state == ContractionActivityState(runningSince: nil, count: 1, lastInterval: nil, lastDuration: 50))
+        #expect(live.updates.last?.state == ContractionActivityState(
+            runningSince: nil, count: 1, lastInterval: nil, lastDuration: 50, restingSince: firstEnd
+        ))
+    }
+
+    // MARK: Resting count-up
+
+    @Test func noRestingSinceWhileAContractionRuns() async throws {
+        await time(60, rest: 240)
+        await coordinator.toggle()
+        let state = try #require(live.updates.last?.state)
+        #expect(state.runningSince != nil)
+        #expect(state.restingSince == nil)
+    }
+
+    @Test func restingSinceIsTheEndOfTheLastCompletedContraction() async throws {
+        await coordinator.toggle()
+        clock.advance(60)
+        await coordinator.toggle()
+        let end = clock.now
+        let state = try #require(live.updates.last?.state)
+        #expect(state.runningSince == nil)
+        #expect(state.restingSince == end)
+
+        clock.advance(300)
+        await coordinator.load()
+        #expect(live.updates.last?.state.restingSince == end, "it counts from the end, not from the last refresh")
+    }
+
+    @Test func aDiscardedFirstContractionLeavesNoRestingState() async {
+        await coordinator.toggle()
+        clock.advance(1)
+        await coordinator.toggle()
+        #expect(live.activeEpisode == nil)
+        #expect(live.updates.allSatisfy { $0.state.restingSince == nil })
+        #expect(live.started.allSatisfy { $0.state.restingSince == nil })
+    }
+
+    @Test func aDiscardedLaterContractionRestsFromThePreviousEnd() async throws {
+        await coordinator.toggle()
+        clock.advance(60)
+        await coordinator.toggle()
+        let end = clock.now
+        clock.advance(240)
+        await coordinator.toggle()
+        clock.advance(1)
+        await coordinator.toggle()
+        let state = try #require(live.updates.last?.state)
+        #expect(state.count == 1)
+        #expect(state.restingSince == end)
+    }
+
+    /// The Lock Screen's "Kết thúc" (`EndContractionTrackingIntent`) calls
+    /// `endEpisode()` while resting: the activity ends, the data stays and the
+    /// 5-1-1 alert still counts the whole run.
+    @Test func endingFromTheLockScreenWhileRestingEndsTheActivityAndKeepsTheData() async {
+        let center = FakeNotificationCenter()
+        let coordinator = alertingCoordinator(center)
+        await timeFiveOneOne(coordinator)
+        #expect(live.activeEpisode != nil)
+        #expect(coordinator.running == nil)
+        let kept = store.stored
+        let endsBefore = live.endAllCount
+
+        #expect(await coordinator.endEpisode())
+        #expect(live.activeEpisode == nil)
+        #expect(live.endAllCount == endsBefore + 1)
+        #expect(store.stored == kept)
+        #expect(coordinator.stats(week: GestationalWeek(weeks: 38, days: 0)).alert == .fiveOneOne)
     }
 
     @Test func undoingTheOnlyStartEndsTheActivity() async {

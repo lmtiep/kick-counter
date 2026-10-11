@@ -59,6 +59,7 @@ final class SystemContractionLiveActivityManager: ContractionLiveActivityManagin
                 count: state.count,
                 lastInterval: state.lastInterval,
                 lastDuration: state.lastDuration,
+                restingSince: state.restingSince,
                 alert: state.alert
             ),
             staleDate: staleDate

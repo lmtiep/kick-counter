@@ -213,6 +213,10 @@ public final class ContractionCoordinator {
 
     /// "Kết thúc theo dõi": stops the running contraction, ends the episode
     /// (the next contraction starts a new one) and ends the Live Activity.
+    /// Every contraction is kept. Also run by the Lock Screen's "Kết thúc"
+    /// (`EndContractionTrackingIntent`), which cannot ask for confirmation:
+    /// that is safe because nothing is lost and the 5-1-1 alert's run
+    /// (`ContractionStats.alertRun`) ignores the end mark.
     /// Changes nothing and returns false when the store cannot be read or the
     /// running contraction cannot be stopped.
     @discardableResult
@@ -361,6 +365,7 @@ public final class ContractionCoordinator {
             count: episode.count,
             lastInterval: last.interval,
             lastDuration: episode.completed.last?.duration,
+            restingSince: last.isRunning ? nil : last.record.endedAt,
             alert: alert
         )
     }
