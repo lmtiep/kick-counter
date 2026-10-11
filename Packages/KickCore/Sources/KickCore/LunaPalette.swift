@@ -89,7 +89,7 @@ public enum LunaPalette {
         // The chosen segment of a segmented pill: white like a card in light mode,
         // the pink accent in dark mode (handoff: "mục segmented đã chọn").
         case .segmentSelected: pair(0xFFFFFF, 0xF49CAB)
-        case .segmentSelectedPreg: pair(0xFFFFFF, 0xF5B48F)
+        case .segmentSelectedPreg: pair(0xFFFFFF, 0xF49CAB)
         case .onSegmentSelected: pair(0x2B201C, 0x3A2340)
         case .textPrimary: pair(0x2B201C, 0xF7F6FC)
         // Handoff #C9CBE3 is 3.6:1 on a glass card: the lighter #DCDDF0 instead.
@@ -112,15 +112,16 @@ public enum LunaPalette {
         case .ovulation: LunaColorPair(light: LunaHex(0xCBEAE6), dark: LunaHex(0xA1E6E8, alpha: 0.12))
         case .teal: pair(0x2F8C84, 0xA1E6E8)
         case .tealStrong: pair(0x1F6E67, 0xE6FAFA)
-        // Pregnancy in dark mode: the warm peach/terracotta family lightened for the
-        // indigo, like the pink cycle accents (fill #F5B48F, small text #FDE3D3).
-        case .preg: pair(0xC9673E, 0xF5B48F)
-        case .pregStrong: pair(0xB8572F, 0xF5B48F)
-        case .pregText: pair(0xB8572F, 0xFDE3D3)
-        case .pregSoft: LunaColorPair(light: LunaHex(0xF7E3D7), dark: LunaHex(0xF5B48F, alpha: 0.12))
-        case .pregSoftBorder: LunaColorPair(light: LunaHex(0xF7E3D7), dark: LunaHex(0xF5B48F, alpha: 0.32))
-        case .pregOnSoft: pair(0x9C4823, 0xFFF2EA)
-        case .pregBar: pair(0xE3A584, 0xD49A86)
+        // Pregnancy in dark mode uses the same pink as the cycle accents (owner,
+        // 11/10/2026: the peach read as yellow on the indigo). Light mode keeps the
+        // warm terracotta family.
+        case .preg: pair(0xC9673E, 0xF49CAB)
+        case .pregStrong: pair(0xB8572F, 0xF7A6B4)
+        case .pregText: pair(0xB8572F, 0xFFDCE2)
+        case .pregSoft: LunaColorPair(light: LunaHex(0xF7E3D7), dark: LunaHex(0xF7A6B4, alpha: 0.12))
+        case .pregSoftBorder: LunaColorPair(light: LunaHex(0xF7E3D7), dark: LunaHex(0xF7A6B4, alpha: 0.32))
+        case .pregOnSoft: pair(0x9C4823, 0xFFF0F3)
+        case .pregBar: pair(0xE3A584, 0xD98C9C)
         case .track: LunaColorPair(light: LunaHex(0xF1E2D8), dark: LunaHex(0xFFFFFF, alpha: 0.10))
         case .ringTrack: LunaColorPair(light: LunaHex(0xF3E6E0), dark: LunaHex(0xFFFFFF, alpha: 0.12))
         // README §3: today's ring on the calendar (#E8CFC4); dark: white at 50 %.
@@ -141,9 +142,9 @@ public enum LunaPalette {
         case .onSwipeAction: pair(0xFFFFFF, 0xFFFFFF)
         case .tabInactive: pair(0xA89890, 0xDCDDF0)
         // The selected tab: the handoff's #FFC4CE reads as white on the iOS 26 glass bar,
-        // so the stronger accent (#F7A6B4), with a peach twin in pregnancy.
+        // so the stronger accent (#F7A6B4), the same in pregnancy in dark mode.
         case .tabSelectedCycle: pair(0xC2384F, 0xF7A6B4)
-        case .tabSelectedPreg: pair(0x9C4823, 0xF5B48F)
+        case .tabSelectedPreg: pair(0x9C4823, 0xF7A6B4)
         case .avatar: LunaColorPair(light: LunaHex(0xF2C9B5), dark: LunaHex(0xF7A6B4, alpha: 0.16))
         case .avatarBorder: LunaColorPair(light: LunaHex(0xF2C9B5), dark: LunaHex(0xF7A6B4, alpha: 0.35))
         case .avatarText: pair(0x8A3F1F, 0xFFF0F3)

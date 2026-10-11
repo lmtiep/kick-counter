@@ -57,8 +57,10 @@ card. So, keeping the hue, the glass card (9 % / 14 % border) and the layout:
 - **Cycle:** fill `#F49CAB` (`cycle`), filled buttons and the ring figure
   `#F7A6B4` (`cycleStrong`), small text `#FFDCE2` (`cycleText`), on-tint text
   `#FFF0F3`; tint `#F7A6B4` at 12 % with a 32 % border.
-- **Pregnancy:** fill `#F5B48F`, small text `#FDE3D3` (`pregText`), on-tint
-  text `#FFF2EA`, tint `#F5B48F` at 12 % with a 32 % border, bars `#D49A86`.
+- **Pregnancy:** since 11/10/2026 (owner: the peach read as yellow) the same pink
+  as the cycle accents in dark mode: fill `#F49CAB`, strong `#F7A6B4`, small text
+  `#FFDCE2` (`pregText`), on-tint text `#FFF0F3`, tint `#F7A6B4` at 12 % with a
+  32 % border, bars `#D98C9C`. Light mode keeps the terracotta family.
 - **Fertile:** `#A1E6E8`; fertile days 12 % with a 40 % edge, ovulation 12 % with
   the solid ring; text `#E6FAFA`.
 - **Text on fills:** plum `#3A2340` (`onAccent`, `onSegmentSelected`).
