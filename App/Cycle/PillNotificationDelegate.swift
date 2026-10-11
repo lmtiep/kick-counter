@@ -49,17 +49,32 @@ final class PillNotificationDelegate: NSObject, UNUserNotificationCenterDelegate
         }
     }
 
+    /// The completion-handler form, finished on the main actor. The `async` form
+    /// ran on Swift's cooperative pool and returned there, so iOS's completion
+    /// handler (which makes UIKit update the app snapshot) was called off the
+    /// main thread and UIKit aborted: a tap on any notification crashed the
+    /// app (TestFlight build 28, `_updateSnapshotAndStateRestorationWithAction`).
     nonisolated func userNotificationCenter(
         _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse
-    ) async {
-        guard response.actionIdentifier == PillReminderPlan.takenActionIdentifier else { return }
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let day = Self.takenDay(from: response)
+        nonisolated(unsafe) let finish = completionHandler
+        Task { @MainActor in
+            if let day { await self.markTaken(on: day) }
+            finish()
+        }
+    }
+
+    /// The pill day of a "Đã uống" action; nil for any other tap or notification.
+    nonisolated static func takenDay(from response: UNNotificationResponse) -> CalendarDay? {
+        guard response.actionIdentifier == PillReminderPlan.takenActionIdentifier else { return nil }
         let content = response.notification.request.content
         guard content.categoryIdentifier == PillReminderPlan.categoryIdentifier,
-              let key = content.userInfo[PillReminderPlan.dayUserInfoKey] as? Int,
-              let day = CalendarDay(key: key)
-        else { return }
-        await markTaken(on: day)
+              let key = content.userInfo[PillReminderPlan.dayUserInfoKey] as? Int
+        else { return nil }
+        return CalendarDay(key: key)
     }
 
     private func markTaken(on day: CalendarDay) async {
