@@ -2160,6 +2160,23 @@
         }
       }
     },
+    "contraction.liveActivityOff": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live Activities are off for Luna Mom. Turn them on to start and stop contractions from the Lock Screen: Settings → Luna Mom → Live Activities."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoạt động trực tiếp của Luna Mom đang tắt. Bật lên để bấm đếm cơn gò ngay trên màn hình khoá: Cài đặt → Luna Mom → Hoạt động trực tiếp."
+          }
+        }
+      }
+    },
     "contraction.notification.fiveOneOne.title": {
       "extractionState": "manual",
       "localizations": {

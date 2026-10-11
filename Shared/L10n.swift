@@ -866,6 +866,8 @@ enum L10n {
     // MARK: - Contraction timer (phase 20)
 
     static var contractionTitle: String { t("contraction.title") }
+    /// The timer screen's hint while Live Activities are off for the app.
+    static var contractionLiveActivityOff: String { t("contraction.liveActivityOff") }
     static var contractionSubtitle: String { t("contraction.subtitle") }
     static var contractionStart: String { t("contraction.start") }
     static var contractionStop: String { t("contraction.stop") }

@@ -10,6 +10,9 @@ struct ContractionTimerView: View {
     static let shortcutFromWeek = 28
 
     @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(\.openURL) private var openURL
+    /// Re-reads whether Live Activities are allowed on return from Settings.
+    @Environment(\.scenePhase) private var scenePhase
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     /// Bumped on every tap of the big button that changed something (the haptic).
     @State private var tapFeedback = 0
@@ -106,6 +109,10 @@ struct ContractionTimerView: View {
             .padding(.top, 20)
             controls(hasEpisode: stats.currentEpisode != nil)
                 .padding(.top, 14)
+            if scenePhase == .active, !contractions.liveActivitiesAvailable {
+                liveActivityHint
+                    .padding(.top, 16)
+            }
             ContractionStatsCard(summary: stats.lastHour)
                 .padding(.top, 20)
             ContractionEpisodeCard(episode: stats.currentEpisode) { pendingDelete = $0 }
@@ -115,6 +122,26 @@ struct ContractionTimerView: View {
             historyLink
                 .padding(.top, 12)
         }
+    }
+
+    /// Live Activities are off for Luna Mom (Settings, or "Don't Allow" on the
+    /// system prompt): the Lock Screen button can't show, so say how to turn it on.
+    private var liveActivityHint: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label(L10n.contractionLiveActivityOff, systemImage: "lock.iphone")
+                .font(.luna(.caption))
+                .foregroundStyle(.luna(.textSecondary))
+                .fixedSize(horizontal: false, vertical: true)
+            Button(L10n.settingsOpenSettings) {
+                if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
+            }
+            .buttonStyle(.pill(.soft(.surfaceAlt, .textPrimary), fullWidth: false, height: 44))
+            .accessibilityIdentifier("contractionOpenSettings")
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .lunaCard()
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("contractionLiveActivityHint")
     }
 
     private var header: some View {

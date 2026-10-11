@@ -81,6 +81,25 @@ final class ContractionTimerUITests: XCTestCase {
     }
 
     @MainActor
+    func testLiveActivitiesOffShowsTheHintWithSettingsButton() {
+        let app = XCUIApplication.launchPinned(
+            language: "vi", dueDate: UITestDates.dueAtWeek38, extraArguments: ["-contractionLiveActivitiesOff"]
+        )
+        app.openContractionTimer()
+        let hint = app.descendants(matching: .any)["contractionLiveActivityHint"]
+        XCTAssertTrue(hint.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["contractionOpenSettings"].exists)
+        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "Hoạt động trực tiếp")).firstMatch.exists)
+    }
+
+    @MainActor
+    func testLiveActivitiesOnShowsNoHint() {
+        let app = XCUIApplication.launchPinned(language: "vi", dueDate: UITestDates.dueAtWeek38)
+        app.openContractionTimer()
+        XCTAssertFalse(app.descendants(matching: .any)["contractionLiveActivityHint"].exists)
+    }
+
+    @MainActor
     func testPretermSeedAtWeek33ShowsTheUrgentCard() {
         let app = XCUIApplication.launchPinned(
             dueDate: UITestDates.dueAtWeek33, extraArguments: ["-seedContractions", "preterm"]
