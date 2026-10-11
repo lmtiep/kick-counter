@@ -193,6 +193,12 @@ enum L10n {
     /// The contraction Live Activity's button (phase 20).
     static var laContractionStart: String { t("la.contraction.start") }
     static var laContractionStop: String { t("la.contraction.stop") }
+    /// "Kết thúc" while resting (`EndContractionTrackingIntent`), and its VoiceOver label.
+    static var laContractionEnd: String { t("la.contraction.end") }
+    static var laContractionEndA11y: String { t("la.contraction.end.a11y") }
+    /// "Nghỉ %@": the count-up since the last contraction ended. The widget
+    /// splits it around `%@` to put a live timer there.
+    static var laContractionRestingFor: String { t("la.contraction.restingFor") }
     static func laContractionLastInterval(_ interval: String) -> String { String(format: t("la.contraction.lastInterval"), interval) }
     static func laContractionLastDuration(_ duration: String) -> String { String(format: t("la.contraction.lastDuration"), duration) }
     /// The short urgent line under the timer when the screen's alert is on.

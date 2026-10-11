@@ -5594,6 +5594,23 @@
         }
       }
     },
+    "intent.endContractionTracking.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End contraction tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc theo dõi cơn gò"
+          }
+        }
+      }
+    },
     "intent.toggleContraction.action": {
       "extractionState": "manual",
       "localizations": {
@@ -5934,6 +5951,40 @@
         }
       }
     },
+    "la.contraction.end": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc"
+          }
+        }
+      }
+    },
+    "la.contraction.end.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End contraction tracking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc theo dõi cơn gò"
+          }
+        }
+      }
+    },
     "la.contraction.lastDuration": {
       "extractionState": "manual",
       "localizations": {
@@ -5964,6 +6015,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cách nhau %@"
+          }
+        }
+      }
+    },
+    "la.contraction.restingFor": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nghỉ %@"
           }
         }
       }

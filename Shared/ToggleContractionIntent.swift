@@ -7,6 +7,8 @@ import KickCore
 @MainActor
 enum ContractionIntentBridge {
     static var toggle: (@MainActor (ContractionToggleAction) async -> Void)?
+    /// `ContractionCoordinator.endEpisode()`, for `EndContractionTrackingIntent`.
+    static var endTracking: (@MainActor () async -> Void)?
 }
 
 /// What the Lock Screen's button showed when it was tapped.
@@ -48,6 +50,28 @@ struct ToggleContractionIntent: LiveActivityIntent {
     @MainActor
     func perform() async throws -> some IntentResult {
         await ContractionIntentBridge.toggle?(action.toggleAction)
+        return .result()
+    }
+}
+
+/// The contraction Live Activity's "Kết thúc" button, shown only while resting:
+/// `ContractionCoordinator.endEpisode()` without opening the app, which keeps
+/// every contraction and ends the activity.
+///
+/// The Lock Screen cannot ask "Kết thúc theo dõi?" as the timer screen does.
+/// That is accepted: nothing is deleted, and ending no longer changes the 5-1-1
+/// alert (its run, `ContractionStats.alertRun`, ignores the end mark), so a
+/// mistaken tap only ends the activity; the next "Bắt đầu" in the app starts
+/// a new tracking session.
+struct EndContractionTrackingIntent: LiveActivityIntent {
+    static let title: LocalizedStringResource = "intent.endContractionTracking.title"
+    static let isDiscoverable = false
+
+    init() {}
+
+    @MainActor
+    func perform() async throws -> some IntentResult {
+        await ContractionIntentBridge.endTracking?()
         return .result()
     }
 }

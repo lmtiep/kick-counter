@@ -5,15 +5,18 @@ import SwiftUI
 import WidgetKit
 
 /// The contraction timer on the Lock Screen and in the Dynamic Island (phase 20
-/// spec §4.4): "Đang gò" with the running time or "Đang nghỉ", the count and
-/// the last interval, and a Start/Stop button (`ToggleContractionIntent`) that
-/// works without opening the app. Laid out like `KickLiveActivityWidget`, in
+/// spec §4.4): "Đang gò" with the running time, or "Đang nghỉ" with a count-up
+/// since the last contraction ended ("Nghỉ 3:12"), the count and the last
+/// interval, and a Start/Stop button (`ToggleContractionIntent`) that works
+/// without opening the app. While resting, "Kết thúc"
+/// (`EndContractionTrackingIntent`) ends the tracking session from there too. Laid out like `KickLiveActivityWidget`, in
 /// the pregnancy Luna tokens. When the timer screen's alert is on, a short
 /// urgent line shows it to a mother who only looks at the Lock Screen.
 ///
 /// The running time stops at `ContractionRules.maxDuration` (the app closes a
-/// longer one there), and a stale activity (2 hours without a new contraction)
-/// shows the resting state.
+/// longer one there), the resting count-up at `ContractionRules.episodeGap`,
+/// and a stale activity (2 hours without a new contraction) shows the resting
+/// state with the count instead of the count-up.
 struct ContractionLiveActivityWidget: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: ContractionActivityAttributes.self) { context in
@@ -45,7 +48,7 @@ struct ContractionLiveActivityWidget: Widget {
                                 .font(.caption.weight(.semibold))
                         }
                         Spacer(minLength: 8)
-                        ToggleButton(state: context.shownState, scheme: .dark)
+                        Buttons(state: context.shownState, scheme: .dark, compact: true)
                     }
                     .padding(.horizontal, 4)
                 }
@@ -79,14 +82,15 @@ private struct ContractionLockScreenView: View {
                     .font(.subheadline.weight(.semibold))
                 MainFigure(state: state, scheme: scheme)
                     .font(.largeTitle.bold())
-                DetailLine(state: state, showsCount: state.runningSince != nil)
+                // The count moves here when the main figure is a clock.
+                DetailLine(state: state, showsCount: state.runningSince != nil || state.restingSince != nil)
                     .font(.subheadline)
                     .foregroundStyle(Color.luna(.textSecondary, scheme))
                 AlertLine(alert: state.alert, scheme: scheme)
                     .font(.subheadline.weight(.semibold))
             }
             Spacer(minLength: 8)
-            ToggleButton(state: state, scheme: scheme)
+            Buttons(state: state, scheme: scheme, compact: false)
         }
     }
 }
@@ -105,7 +109,8 @@ private struct StatusLabel: View {
     }
 }
 
-/// The running time, or the episode's count while resting.
+/// The running time, the count-up since the last contraction ended while
+/// resting ("Nghỉ 3:12"), or the episode's count (a stale or older state).
 private struct MainFigure: View {
     let state: ContractionActivityAttributes.ContentState
     let scheme: ColorScheme
@@ -115,6 +120,8 @@ private struct MainFigure: View {
             if let since = state.runningSince {
                 Text(timerInterval: ContractionClockRange.running(since), countsDown: false)
                     .monospacedDigit()
+            } else if let since = state.restingSince {
+                RestingClock(since: since)
             } else {
                 Text(L10n.contractionHistoryCount(state.count))
             }
@@ -122,6 +129,19 @@ private struct MainFigure: View {
         .foregroundStyle(Color.luna(.pregStrong, scheme))
         .lineLimit(1)
         .minimumScaleFactor(0.6)
+    }
+}
+
+/// "Nghỉ 3:12": the localized "Nghỉ %@" around a live count-up, so the words
+/// stay in the catalogue's order.
+private struct RestingClock: View {
+    let since: Date
+
+    var body: some View {
+        let parts = L10n.laContractionRestingFor.components(separatedBy: "%@")
+        let prefix = parts.first ?? ""
+        let suffix = parts.count > 1 ? parts[1] : ""
+        Text(prefix) + Text(timerInterval: ContractionClockRange.resting(since), countsDown: false).monospacedDigit() + Text(suffix)
     }
 }
 
@@ -144,9 +164,31 @@ private struct DetailLine: View {
     }
 }
 
+/// Start/Stop, with "Kết thúc" under it while resting (never while a
+/// contraction runs: then only "Hết cơn"). `compact` in the expanded Dynamic
+/// Island, whose height fits the two only when both are shorter.
+private struct Buttons: View {
+    let state: ContractionActivityAttributes.ContentState
+    let scheme: ColorScheme
+    let compact: Bool
+
+    private var resting: Bool { state.runningSince == nil }
+
+    var body: some View {
+        VStack(spacing: compact ? 6 : 8) {
+            ToggleButton(state: state, scheme: scheme, height: compact && resting ? 30 : 44)
+            if resting {
+                EndButton(scheme: scheme, height: compact ? 26 : 32)
+            }
+        }
+        .fixedSize()
+    }
+}
+
 private struct ToggleButton: View {
     let state: ContractionActivityAttributes.ContentState
     let scheme: ColorScheme
+    let height: CGFloat
 
     private var isRunning: Bool { state.runningSince != nil }
 
@@ -160,12 +202,34 @@ private struct ToggleButton: View {
             .font(.headline)
             .foregroundStyle(Color.luna(.onAccent, scheme))
             .lineLimit(1)
-            .frame(minWidth: 64, minHeight: 44)
+            .frame(minWidth: 64, minHeight: height)
         }
         .buttonStyle(.borderedProminent)
         .buttonBorderShape(.capsule)
         .tint(Color.luna(isRunning ? .pregOnSoft : .pregStrong, scheme))
         .accessibilityLabel(isRunning ? L10n.contractionStop : L10n.contractionStart)
+    }
+}
+
+/// "Kết thúc": ends the tracking session (`EndContractionTrackingIntent`),
+/// keeping every contraction. No confirmation is possible on the Lock Screen;
+/// see the intent for why that is accepted.
+private struct EndButton: View {
+    let scheme: ColorScheme
+    let height: CGFloat
+
+    var body: some View {
+        Button(intent: EndContractionTrackingIntent()) {
+            Label(L10n.laContractionEnd, systemImage: "xmark")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Color.luna(.pregText, scheme))
+                .lineLimit(1)
+                .frame(minWidth: 64, minHeight: height)
+        }
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.capsule)
+        .tint(Color.luna(.pregText, scheme))
+        .accessibilityLabel(L10n.laContractionEndA11y)
     }
 }
 
@@ -213,6 +277,12 @@ private enum ContractionClockRange {
     static func running(_ since: Date) -> ClosedRange<Date> {
         since...since.addingTimeInterval(ContractionRules.maxDuration)
     }
+
+    /// From the last end to 2 hours later (`ContractionRules.episodeGap`): by
+    /// then the activity is stale and shows the count instead.
+    static func resting(_ since: Date) -> ClosedRange<Date> {
+        since...since.addingTimeInterval(ContractionRules.episodeGap)
+    }
 }
 
 private extension ActivityViewContext where Attributes == ContractionActivityAttributes {
@@ -222,6 +292,7 @@ private extension ActivityViewContext where Attributes == ContractionActivityAtt
         guard isStale else { return state }
         var resting = state
         resting.runningSince = nil
+        resting.restingSince = nil
         resting.alert = .none
         return resting
     }

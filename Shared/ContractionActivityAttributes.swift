@@ -14,6 +14,10 @@ struct ContractionActivityAttributes: ActivityAttributes, Sendable {
         var lastInterval: TimeInterval?
         /// The newest completed contraction's length.
         var lastDuration: TimeInterval?
+        /// While resting: the end of the newest completed contraction, for the
+        /// "Nghỉ 3:12" count-up. Nil while one runs, and in states from before
+        /// it existed (optional, so they still decode).
+        var restingSince: Date?
         /// The timer screen's alert for the real week: a short urgent line on
         /// the Lock Screen for a mother who never opens the app.
         var alert: ContractionAlert
