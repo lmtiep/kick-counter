@@ -23,10 +23,13 @@ final class NoopLiveActivityManager: LiveActivityManaging {
     func endAll() async {}
 }
 
-/// The contraction Live Activity off (UI tests): no system prompt or activity.
+/// The contraction Live Activity in UI tests: no system prompt or activity.
+/// Reported as allowed, so the timer screen's "turn on Live Activities" hint
+/// shows only with `-contractionLiveActivitiesOff`.
 @MainActor
 final class NoopContractionLiveActivityManager: ContractionLiveActivityManaging {
-    var isAvailable: Bool { false }
+    let isAvailable: Bool
+    init(isAvailable: Bool) { self.isAvailable = isAvailable }
     func hasActivity(for episodeID: UUID) -> Bool { false }
     func start(episodeID: UUID, startedAt: Date, state: ContractionActivityState, staleDate: Date) async {}
     func update(episodeID: UUID, state: ContractionActivityState, staleDate: Date) async {}
