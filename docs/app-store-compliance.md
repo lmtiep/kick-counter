@@ -11,6 +11,11 @@ thêm manifest quyền riêng tư cho widget, và gỡ các capability không c�
 "Đạt (giai đoạn 12)"; mọi dòng còn "Cần kiểm tra"/"Thiếu" khác (icon thật, bác sĩ duyệt nội dung, age rating,
 DSA trader, ảnh chụp, deploy schema CloudKit nếu bật lại…) vẫn là việc của chủ dự án trước khi gửi duyệt.
 
+**Cập nhật 2026-10-11 (chuẩn bị gửi 1.0.0):** icon thật đã có (commit `c39893d`), ảnh chụp App Store đã xong (9 khung
+mỗi ngôn ngữ, ở `~/Downloads/Luna Mom - anh App Store`), câu trả lời Age rating đã soạn (dự kiến 16+), DSA đã quyết
+(không phải trader). Ảnh do chủ dự án tạo bằng AI: chủ dự án phải xác nhận điều khoản của công cụ AI cho phép dùng
+thương mại. **Việc còn chặn gửi duyệt: nội dung y khoa còn chờ bác sĩ duyệt.**
+
 Nguồn chính:
 - [G] App Review Guidelines — https://developer.apple.com/app-store/review/guidelines/
 - [P] App Privacy Details — https://developer.apple.com/app-store/app-privacy-details/
@@ -37,10 +42,10 @@ Nguồn chính:
 | Nhắc người dùng hỏi bác sĩ: "remind users to check with a doctor" | [G] 1.4.1 | Đạt | Có ở `medical.body` (onboarding bước 1, luôn hiện) và `medical.sources.note`. Nên thêm một dòng ngắn "Không thay thế lời khuyên của bác sĩ" ở cuối mỗi bài tuần và bài kiến thức (hiện chỉ có trong Thông tin y tế). |
 | Nội dung y khoa chính xác, có nguồn | [G] 1.4.1 | **Thiếu** | Nội dung còn chờ bác sĩ duyệt (`reviewed: false`; xem `docs/content-review-for-doctor.md`). Phải duyệt xong và gửi bản build với `LunaContentPreview = NO`. |
 | Không dùng làm biện pháp tránh thai | [G] 1.4 / 1.4.1 | Đạt | Đã có `cycle.disclaimer`, `cycle.notContraception`, `medical.ttc.body`. Đưa câu này vào mô tả App Store (checklist đã ghi). |
-| Gửi bản hoàn chỉnh, URL hoạt động, không có nội dung tạm | [G] 2.1(a) | **Thiếu** | Icon vẫn là icon tạm (release-checklist). Nội dung chờ duyệt. Không cần tài khoản demo vì app không có đăng nhập. |
+| Gửi bản hoàn chỉnh, URL hoạt động, không có nội dung tạm | [G] 2.1(a) | **Thiếu** — chỉ còn nội dung chờ bác sĩ duyệt | Icon thật đã thay icon tạm (commit `c39893d`). URL privacy/support hoạt động. Còn lại: nội dung y khoa chờ bác sĩ duyệt (xem dòng 1.4.1). Không cần tài khoản demo vì app không có đăng nhập. |
 | Ghi rõ tính năng trong Notes for Review, không có tính năng ẩn | [G] 2.3.1(a) | **Đạt (giai đoạn 12)** | `docs/app-review-notes.md` có nội dung sẵn để dán vào ASC: 3 chế độ, Live Activity, dữ liệu chỉ nằm trên máy (không còn iCloud), không có chế độ chia sẻ cho bố bé ở bản này (đã ẩn cùng với `cloudSync = false`). Vẫn cần chủ dự án tự xác nhận cờ `LunaContentPreview` và tham số launch UI test không bật trong bản release trước khi gửi. |
-| Ảnh chụp cho thấy app đang dùng; metadata phù hợp 4+ | [G] 2.3.3, 2.3.8 | Cần kiểm tra | Có ảnh vi/en trong `ci-artifacts/screenshots/`. Ảnh thai nhi giữ ở mức minh họa. Không dùng cụm "For Kids". |
-| Tên ≤ 30 ký tự, từ khóa đúng nội dung | [G] 2.3.7 | Đạt | "Luna Mom". Không nhồi tên app khác vào từ khóa. |
+| Ảnh chụp cho thấy app đang dùng; metadata phù hợp độ tuổi | [G] 2.3.3, 2.3.8 | **Đạt (2026-10-11)** | Đã xong 9 khung mỗi ngôn ngữ (vi, en), cỡ 6.9" và 6.5", ở `~/Downloads/Luna Mom - anh App Store`: Hôm nay (chu kỳ), Lịch, Lịch sử chu kỳ, Hôm nay (thai kỳ), theo tuần, đếm cử động, Kiến thức, đếm cơn gò, sửa kỳ kinh. Ảnh chụp từ app thật (UI test `AppStoreScreenshotTests`). Ảnh thai nhi giữ ở mức minh họa. Không dùng cụm "For Kids". |
+| Tên ≤ 30 ký tự, từ khóa đúng nội dung | [G] 2.3.7 | Đạt | "Luna Mom - Chu kỳ & Thai kỳ" (27) / "Luna Mom - Cycle & Pregnancy" (28); từ khoá ≤ 100 byte, không nhồi tên app khác (xem `docs/app-store-listing.md`). |
 | Chế độ nền chỉ dùng đúng mục đích | [G] 2.5.4 | **Đạt (giai đoạn 12)** | `UIBackgroundModes: [remote-notification]` và `CKSharingSupported` đã gỡ khỏi `project.yml`/Info.plist, cùng các entitlement `aps-environment`, `com.apple.developer.icloud-container-identifiers`, `com.apple.developer.icloud-services` (chỉ giữ App Group). Bản 1.0 không còn khai báo capability nào không dùng. |
 | App tự chứa, không tải code | [G] 2.5.2 | Đạt | Nội dung JSON được đóng gói sẵn trong bundle. |
 | Business (miễn phí, không IAP) | [G] 3 | Đạt | Không có IAP hay quảng cáo. |
@@ -59,14 +64,14 @@ Nguồn chính:
 | App Privacy "Data Not Collected" | [P] | Đạt (theo cách hiểu) | "Collect" là gửi dữ liệu ra khỏi máy để "you and/or your third-party partners" truy cập được. Dữ liệu trong iCloud riêng/`CKShare` thì developer không truy cập được. Apple không có câu nào nói riêng về CloudKit; đây là cách hiểu phổ biến. Privacy policy phải viết nhất quán với nhãn này. |
 | Privacy manifest của app | [R] | Đạt | `App/PrivacyInfo.xcprivacy` khai UserDefaults `CA92.1` (dữ liệu chỉ app đọc được) và `1C8F.1` (App Group) — đúng mã. grep không thấy API về timestamp file, boot time, dung lượng đĩa hay bàn phím. |
 | **Privacy manifest của widget extension** | [R]: mỗi bundle chứa executable dùng API cần lý do phải có manifest riêng | **Đạt (giai đoạn 12)** | `Widgets/PrivacyInfo.xcprivacy` đã thêm (cùng cấu trúc với `App/PrivacyInfo.xcprivacy`: `NSPrivacyTracking` false, không có collected data types, UserDefaults `1C8F.1`) và được đóng gói vào target widget (XcodeGen lấy từ thư mục nguồn `Widgets`; đã kiểm tra có trong `KickCounterWidgets.appex`). |
-| Age rating — bộ câu hỏi mới (2025) | [A] | Cần kiểm tra | Mục "Medical or Treatment Information": Infrequent → 13+, Frequent → 16+; "Health and wellness topics" → 9+. Nội dung tuần, cảnh báo và hướng dẫn đếm cử động gần như chắc là **Frequent → 16+** (hợp với người dùng trưởng thành). Không có UGC, chat, quảng cáo, web view. Trả lời trung thực. Hạn trả lời câu hỏi mới là 31/1/2026 (đã qua), nên app mới bắt buộc trả lời đủ. |
+| Age rating — bộ câu hỏi mới (2025) | [A] | **Đã soạn câu trả lời (2026-10-11)** — còn điền vào ASC | Câu trả lời ở sheet "Độ tuổi" của file hướng dẫn ASC: Medical or Treatment Information = **Frequent → dự kiến 16+**; Health or Wellness Topics = Frequent; Alcohol/Tobacco/Drug references = Infrequent; Mature/Suggestive Themes = Infrequent; không UGC, chat, quảng cáo, web view; không chọn Made for Kids. Trả lời trung thực. |
 | Mã hóa xuất khẩu | [E] | Đạt | `ITSAppUsesNonExemptEncryption = false`. Bản 1.0 không kết nối mạng (không CloudKit, không server); chỉ dùng mã hóa có sẵn của hệ điều hành, thuộc loại miễn trừ. |
 | Privacy Policy URL trong ASC: "Required for iOS and macOS apps" | [I] | **Đạt (giai đoạn 12)** — còn điền vào ASC | URL đã hoạt động: https://lmtiep.github.io/kick-counter/privacy.html. Chủ dự án điền vào App Information. |
 | Support URL (bắt buộc, phải có thông tin liên hệ thật) | [V] | **Đạt (giai đoạn 12)** — còn điền vào ASC | `site/support.html` (vi + en, email lmtiep@gmail.com, FAQ, lưu ý y tế), URL đã hoạt động: https://lmtiep.github.io/kick-counter/support.html; cũng có dòng "Hỗ trợ" trong app. Chủ dự án điền URL, Copyright và liên hệ App Review trong ASC. |
-| DSA trader status (EU) | [D] | Cần kiểm tra | Bắt buộc khai, kể cả khi không bán ở EU. App miễn phí của cá nhân thường khai "not a trader". Nếu khai trader, địa chỉ, SĐT và email sẽ hiện công khai. |
+| DSA trader status (EU) | [D] | **Đã quyết (2026-10-11)** — còn khai trong ASC | Chủ dự án chọn **"This is not a trader account"** (cá nhân, app miễn phí, không IAP, không quảng cáo). Hệ quả: khách EU được báo quyền lợi người tiêu dùng theo luật EU không áp dụng giữa developer và họ; app vẫn có trên App Store EU. |
 | Deploy schema CloudKit lên Production. Apple viết: "Apps in the App Store can access only the production environment." | [C] | Không áp dụng (giai đoạn 12) | Bản 1.0 không dùng CloudKit (`cloudSync = false`), nên không cần deploy schema để gửi duyệt. Việc này quay lại làm nếu bật `cloudSync = true` ở phiên bản sau — xem `docs/release-checklist.md`, "Giai đoạn 12". |
 | `aps-environment` = production trong bản phát hành | [C] (CloudKit push) | Không áp dụng (giai đoạn 12) | Entitlement `aps-environment` đã gỡ khỏi bản 1.0 cùng với các entitlement iCloud khác (không còn dùng push CloudKit). Cần thêm lại khi bật `cloudSync = true`. |
-| Quyền dùng hình ảnh (ảnh tạo bằng AI, ảnh thai nhi) | [G] 5.2 (sở hữu trí tuệ) | Cần kiểm tra | Checklist giai đoạn 4 đã ghi: xác nhận được phép dùng thương mại. |
+| Quyền dùng hình ảnh (ảnh tạo bằng AI, ảnh thai nhi) | [G] 5.2 (sở hữu trí tuệ) | Cần chủ dự án xác nhận | Chủ dự án đã tự tạo ảnh minh hoạ, ảnh thai nhi và ảnh onboarding bằng AI. Trước khi tích "I have the necessary rights" ở Content Rights, chủ dự án phải xác nhận điều khoản của công cụ AI đã dùng cho phép dùng thương mại (nhiều công cụ chỉ cho phép ở gói trả phí). Font Be Vietnam Pro dùng giấy phép SIL OFL. |
 | Yêu cầu riêng cho Việt Nam | [VN], [A] | Không áp dụng / Đạt | Apple chỉ ghi nhận giấy phép **game** (Bộ TT&TT) và ánh xạ rating Việt Nam (00+/12+/16+/18+, tự sinh từ bảng câu hỏi). Không thấy yêu cầu riêng cho app sức khỏe. Luật bảo vệ dữ liệu cá nhân Việt Nam nằm ngoài tài liệu Apple; nên hỏi luật sư nếu cần. |
 
 ---
@@ -83,14 +88,17 @@ Nguồn chính:
 3. ✅ **Xong (giai đoạn 12)** — https://lmtiep.github.io/kick-counter/support.html; còn điền vào ASC. **Support URL** có email liên hệ thật ([V]).
 4. ✅ **Xong (giai đoạn 12).** **Thêm `Widgets/PrivacyInfo.xcprivacy`** khai UserDefaults `1C8F.1`, rồi khai trong `project.yml` cho target widget ([R]).
 5. **Bác sĩ duyệt xong toàn bộ nội dung y khoa.** Không còn `reviewed: false`, và build gửi duyệt có `LunaContentPreview = NO` ([G] 1.4.1, 2.1).
-6. **Icon thật 1024×1024** thay icon tạm ([G] 2.1).
+6. ✅ **Xong (commit `c39893d`).** **Icon thật 1024×1024** thay icon tạm ([G] 2.1).
 7. ➖ **Không cần cho bản 1.0 (không dùng CloudKit); làm lại nếu bật iCloud.** **Deploy schema CloudKit lên Production** cho đủ record type và field (nếu vẫn giữ CloudKit) ([C]).
 8. ✅ **Xong (giai đoạn 12)** — chỉ xoá trên máy (bản 1.0 không còn iCloud; bản sao cũ trong iCloud của người thử TestFlight xoá qua Cài đặt → [tên] → iCloud → Quản lý dung lượng). **Thêm "Xóa toàn bộ dữ liệu"** trong Cá nhân.
-9. **Trả lời bảng câu hỏi Age rating mới.** Medical/Treatment: Frequent, dự kiến ra 16+ ([A]).
-10. **Khai DSA trader status** ([D]), điền Copyright và thông tin liên hệ App Review.
+9. ✅ **Đã soạn (2026-10-11), còn điền vào ASC.** **Trả lời bảng câu hỏi Age rating mới.** Medical/Treatment: Frequent, dự kiến ra 16+ ([A]).
+10. ✅ **Đã quyết (2026-10-11), còn điền vào ASC.** **Khai DSA trader status** ([D]): not a trader. Copyright `2026 Lê Minh Tiệp`; thông tin liên hệ App Review trong sheet "Khác".
 11. ✅ **Xong (giai đoạn 12)** — `docs/app-review-notes.md` (không còn chế độ bố bé hay `remote-notification` ở bản 1.0). **Notes for Review cụ thể:** cách thử Live Activity, chế độ bố bé (cần 2 Apple ID, kèm video), lý do dùng `remote-notification`, dữ liệu không rời iCloud của người dùng, và app không phải thiết bị y tế ([G] 2.3.1).
 12. Thêm một dòng "không thay thế lời khuyên của bác sĩ" ở cuối bài tuần và bài kiến thức (không bắt buộc, nhưng giúp an toàn hơn với 1.4.1).
-13. Xác nhận quyền thương mại của ảnh AI; kiểm tra `aps-environment` trên IPA phát hành.
+13. Chủ dự án xác nhận điều khoản công cụ AI đã dùng cho phép dùng thương mại ảnh do mình tạo; kiểm tra `aps-environment` trên IPA phát hành.
+14. ✅ **Xong (2026-10-11).** Ảnh chụp App Store: 9 khung mỗi ngôn ngữ, cỡ 6.9" và 6.5".
+
+**Còn chặn gửi duyệt:** việc số 5 (nội dung y khoa chờ bác sĩ duyệt).
 
 ---
 
