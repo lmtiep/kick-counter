@@ -120,8 +120,9 @@ public enum CyclePredictor {
     /// Cycles that count toward the average (and the history's "counts toward average").
     static let usableCycleLengths = 21...45
     /// A latest cycle outside this range shows "Your cycle looks irregular", matching its
-    /// text ("shorter than 21 days, longer than 35 days"; NHS). Fact-check rows 22-c/22-e.
-    static let regularCycleLengths = 21...35
+    /// text ("shorter than 24 days, longer than 38 days"): the FIGO 2018 normal range for
+    /// adults. Content review §19 (supersedes fact-check rows 22-c/22-e).
+    static let regularCycleLengths = 24...38
     static let maxStandardDeviation = 4.0
     static let maxSpread = 7
     static let maxWidening = 3

@@ -189,7 +189,7 @@ struct CyclePredictorTests {
         #expect(result.irregularWarning == false)
     }
 
-    @Test func aLatestCycleShorterThan21DaysRaisesTheIrregularWarning() throws {
+    @Test func aLatestCycleShorterThan24DaysRaisesTheIrregularWarning() throws {
         let result = try forecast(periods("2026-08-01", "2026-08-29", "2026-09-12"), now: "2026-09-15")
         #expect(result.usableCycleLengths == [28])
         #expect(result.averageCycleLength == 28)
@@ -203,10 +203,11 @@ struct CyclePredictorTests {
         #expect(result.irregularWarning)
     }
 
-    /// Fact-check 22-c/22-e: the card says "longer than 35 days", so a latest cycle of
-    /// 36–45 days raises the warning too, while it still counts toward the average.
-    @Test(arguments: [(36, true), (45, true), (35, false), (21, false)])
-    func theIrregularWarningUses21To35Days(latest: Int, warns: Bool) throws {
+    /// FIGO 2018 (content review §19): a normal adult cycle is 24–38 days, so a latest
+    /// cycle of 21–23 or 39–45 days raises the warning, while it still counts toward
+    /// the average (21–45).
+    @Test(arguments: [(21, true), (23, true), (24, false), (38, false), (39, true), (45, true)])
+    func theIrregularWarningUses24To38Days(latest: Int, warns: Bool) throws {
         let second = try #require(calendar.date(byAdding: .day, value: 28, to: day("2026-05-01")))
         let third = try #require(calendar.date(byAdding: .day, value: latest, to: second))
         let records = [day("2026-05-01"), second, third].map {

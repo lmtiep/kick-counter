@@ -3101,13 +3101,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cycles shorter than 21 days, longer than 35 days, or that vary a lot are worth talking over with a doctor."
+            "value": "Cycles shorter than 24 days, longer than 38 days, or that vary a lot are worth talking over with a doctor."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ ngắn hơn 21 ngày, dài hơn 35 ngày hoặc thay đổi nhiều — bạn nên trao đổi với bác sĩ."
+            "value": "Chu kỳ ngắn hơn 24 ngày, dài hơn 38 ngày hoặc thay đổi nhiều — bạn nên trao đổi với bác sĩ."
           }
         }
       }
@@ -5175,13 +5175,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Call right away if 10 movements take longer than 2 hours, if movements feel weaker or different from usual, or if you're worried. Don't wait for tomorrow's session."
+            "value": "Call right away if movements are fewer, weaker or different from your baby's usual pattern, or if you're worried. Also call if 10 movements take longer than 2 hours. Even if you reach 10, call if movements feel different from usual. Don't wait for tomorrow's session."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Liên hệ ngay nếu sau 2 giờ chưa đủ 10 cử động, nếu bé cử động yếu hơn hoặc khác hẳn thường ngày, hoặc nếu bạn thấy lo lắng. Đừng chờ đến lượt đếm hôm sau."
+            "value": "Liên hệ ngay nếu bé cử động ít hơn, yếu hơn hoặc khác với nhịp quen thuộc, hoặc nếu bạn thấy lo lắng. Cũng hãy liên hệ nếu sau 2 giờ chưa đủ 10 cử động. Kể cả khi đã đủ 10, nếu thấy cử động khác mọi ngày, hãy liên hệ bác sĩ. Đừng chờ đến lượt đếm hôm sau."
           }
         }
       }
@@ -5702,13 +5702,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Count until you reach 10 movements and note how long it takes. Count at the same time each day to learn your baby's normal pattern. If 10 takes over 2 hours, or movements drop, call your doctor."
+            "value": "Count at the same time each day to learn your baby's usual pattern, and note how long 10 movements take. If movements are fewer, weaker or different from your baby's usual pattern, call your doctor now. Also call if 10 movements take over 2 hours. Even if you reach 10, call if movements feel different from usual."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đếm đến khi đủ 10 cử động và xem mất bao lâu. Mỗi ngày đếm vào cùng khung giờ để biết nhịp bình thường của bé. Nếu quá 2 giờ chưa đủ 10, hoặc bé cử động ít hơn mọi ngày, hãy gọi bác sĩ."
+            "value": "Mỗi ngày đếm vào cùng khung giờ để biết nhịp cử động quen thuộc của bé, và xem mất bao lâu để đủ 10 cử động. Nếu bé cử động ít hơn, yếu hơn hoặc khác với nhịp quen thuộc, hãy gọi bác sĩ ngay. Cũng hãy gọi nếu quá 2 giờ chưa đủ 10 cử động. Kể cả khi đã đủ 10, nếu thấy cử động khác mọi ngày, hãy gọi bác sĩ."
           }
         }
       }
@@ -6144,13 +6144,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Luna Mom helps you keep track of your baby's movements. It is not a medical device and does not replace advice from your doctor or midwife.\n\nFrom around week 28, get to know your baby's usual pattern of movements. Most babies make 10 movements within 2 hours, often much sooner.\n\nIf you notice your baby is moving less than usual, or you have not felt 10 movements within 2 hours, contact your doctor or maternity unit straight away — day or night. Do not wait until the next day, and do not rely on this app or a home heartbeat monitor to reassure you.\n\nIn an emergency, call your local emergency number."
+            "value": "Luna Mom helps you keep track of your baby's movements. It is not a medical device and does not replace advice from your doctor or midwife.\n\nFrom around week 28, get to know your baby's usual pattern of movements. There is no set number that is right for every baby; what matters most is a change from your baby's usual pattern.\n\nIf your baby's movements are fewer, weaker or different from their usual pattern, contact your doctor or maternity unit straight away — day or night. Also call if you have not felt 10 movements within 2 hours. Even if you reach 10, call if movements feel different from usual. Do not wait until the next day, and do not rely on this app or a home heartbeat monitor to reassure you.\n\nIn an emergency, call your local emergency number."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Luna Mom giúp mẹ theo dõi cử động của bé. App không phải thiết bị y tế và không thay thế lời khuyên của bác sĩ hay nữ hộ sinh.\n\nTừ khoảng tuần 28, mẹ hãy làm quen với nhịp cử động thường ngày của bé. Phần lớn các bé có 10 cử động trong vòng 2 giờ, thường nhanh hơn nhiều.\n\nNếu thấy bé cử động ít hơn bình thường, hoặc chưa cảm nhận đủ 10 cử động trong 2 giờ, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế, dù ngày hay đêm. Đừng chờ đến hôm sau, và đừng dựa vào app này hay máy nghe tim thai tại nhà để yên tâm.\n\nTrong trường hợp khẩn cấp, hãy gọi 115."
+            "value": "Luna Mom giúp mẹ theo dõi cử động của bé. App không phải thiết bị y tế và không thay thế lời khuyên của bác sĩ hay nữ hộ sinh.\n\nTừ khoảng tuần 28, mẹ hãy làm quen với nhịp cử động thường ngày của bé. Không có một con số chung đúng cho mọi bé; điều quan trọng nhất là sự thay đổi so với nhịp quen thuộc của bé.\n\nNếu bé cử động ít hơn, yếu hơn hoặc khác với nhịp quen thuộc, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế, dù ngày hay đêm. Cũng hãy liên hệ nếu chưa cảm nhận đủ 10 cử động trong 2 giờ. Kể cả khi đã đủ 10, nếu thấy cử động khác mọi ngày, hãy liên hệ bác sĩ. Đừng chờ đến hôm sau, và đừng dựa vào app này hay máy nghe tim thai tại nhà để yên tâm.\n\nTrong trường hợp khẩn cấp, hãy gọi 115."
           }
         }
       }
@@ -6212,13 +6212,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trying-to-conceive mode only helps you track your cycle. It is not a method of contraception and must not be used to avoid pregnancy. Ovulation, the fertile window and the next period are estimates based on what you log.\n\nSee a doctor if:\n• you have been trying for 12 months without getting pregnant (6 months if you are 35 or older);\n• your cycles are shorter than 21 days, longer than 35 days, or very irregular;\n• you have unusual bleeding between periods."
+            "value": "Trying-to-conceive mode only helps you track your cycle. It is not a method of contraception and must not be used to avoid pregnancy. Ovulation, the fertile window and the next period are estimates based on what you log.\n\nSee a doctor if:\n• you have been trying for 12 months without getting pregnant (6 months if you are 35 or older);\n• your cycles are shorter than 24 days, longer than 38 days, or very irregular;\n• you have bleeding between periods."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chế độ Mong con chỉ giúp bạn theo dõi chu kỳ. Đây không phải là biện pháp tránh thai và không được dùng để tránh thai. Ngày rụng trứng, cửa sổ thụ thai và kỳ kinh tiếp theo chỉ là ước tính dựa trên những gì bạn ghi.\n\nHãy đi khám bác sĩ nếu:\n• đã cố gắng có thai 12 tháng mà chưa có (6 tháng nếu từ 35 tuổi trở lên);\n• chu kỳ ngắn hơn 21 ngày, dài hơn 35 ngày hoặc rất không đều;\n• ra máu bất thường giữa hai kỳ kinh."
+            "value": "Chế độ Mong con chỉ giúp bạn theo dõi chu kỳ. Đây không phải là biện pháp tránh thai và không được dùng để tránh thai. Ngày rụng trứng, cửa sổ thụ thai và kỳ kinh tiếp theo chỉ là ước tính dựa trên những gì bạn ghi.\n\nHãy đi khám bác sĩ nếu:\n• đã cố gắng có thai 12 tháng mà chưa có (6 tháng nếu từ 35 tuổi trở lên);\n• chu kỳ ngắn hơn 24 ngày, dài hơn 38 ngày hoặc rất không đều;\n• ra máu giữa hai kỳ kinh."
           }
         }
       }
@@ -6399,13 +6399,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Count from the first day of one period to the day before the next one starts. Many cycles are 21 to 35 days long; yours may differ."
+            "value": "Count from the first day of one period to the day before the next one starts. In adults, cycles are usually 24 to 38 days long; yours may differ."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tính từ ngày đầu của một kỳ kinh đến hết ngày trước kỳ kinh sau. Nhiều người có chu kỳ từ 21 đến 35 ngày, của bạn có thể khác."
+            "value": "Tính từ ngày đầu của một kỳ kinh đến hết ngày trước kỳ kinh sau. Ở người trưởng thành, chu kỳ thường dài từ 24 đến 38 ngày, của bạn có thể khác."
           }
         }
       }
@@ -6807,13 +6807,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cycles that vary a little are common, especially after giving birth, while breastfeeding or at stressful times. Predictions usually get closer as you log more periods. If your cycles are often shorter than 21 days or longer than 35 days, or your period stops for 3 months, it is worth talking to a doctor."
+            "value": "Cycles that vary a little are common, especially after giving birth, while breastfeeding or at stressful times. Predictions usually get closer as you log more periods. If your cycles are often shorter than 24 days or longer than 38 days, or your period stops for 3 months, it is worth talking to a doctor."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chu kỳ dao động một chút là chuyện thường gặp, nhất là sau sinh, khi đang cho con bú hoặc lúc căng thẳng. Bạn ghi càng nhiều kỳ kinh, dự đoán thường càng sát hơn. Nếu chu kỳ hay ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền, bạn nên trao đổi với bác sĩ."
+            "value": "Chu kỳ dao động một chút là chuyện thường gặp, nhất là sau sinh, khi đang cho con bú hoặc lúc căng thẳng. Bạn ghi càng nhiều kỳ kinh, dự đoán thường càng sát hơn. Nếu chu kỳ hay ngắn hơn 24 ngày hoặc dài hơn 38 ngày, hoặc mất kinh 3 tháng liền, bạn nên trao đổi với bác sĩ."
           }
         }
       }
