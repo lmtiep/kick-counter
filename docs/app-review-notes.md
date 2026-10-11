@@ -1,71 +1,30 @@
 # App Review notes (ready to paste into App Store Connect)
 
-Written in English for the "Notes for Review" field. Updated for version 1.0 (phase 12, App Store readiness).
+Paste the text between the lines into App Store Connect → App Review Information → Notes. It matches the sheet "Khác",
+row "Notes", of `Luna Mom - huong dan App Store Connect.xlsx` (11/10/2026): 3166 bytes UTF-8, limit 4000.
+
+Before pasting, handle the `[OWNER: …]` sentence: add the obstetrician's name and review date only if the review is
+really done, otherwise delete the bracket.
 
 ---
 
-**What the app does**
+Luna Mom is a free, offline app for women who track their cycle, are trying to conceive, or are pregnant. There is no sign-in, no account, no server, no ads, no analytics and no third-party SDK. All data is stored only on the device (SwiftData in the app's App Group container; CloudKit/iCloud sync is off, so no health data is stored in iCloud - Guideline 5.1.3(ii)). App Privacy: Data Not Collected.
 
-Luna Mom is a free app for pregnant women and women trying to conceive. It has three modes, chosen during onboarding:
-- Cycle tracking (period and fertility window, with optional ovulation test / basal body temperature logging);
-- Pregnancy (week-by-week content, a fetal kick counter with a Live Activity on the Lock Screen, appointment reminders, weight tracking);
-- "Trying to conceive" is the same cycle-tracking mode with a different framing.
+HOW TO TEST
+1. First launch: choose "Track my cycle", "Trying to conceive" or "Pregnant". Switch at any time in Profile > Goal.
+2. Pregnancy: choose "Pregnant" and enter a due date about 10 weeks from today (about week 30) to see every pregnancy feature: Today (week, baby size, weekly article), Knowledge, Weight, Appointments.
+3. Kick counter (Kicks tab): tap to count, then lock the phone. A Live Activity on the Lock Screen / Dynamic Island has a "+1" button. It ends after 10 kicks or after about 12 hours without activity.
+4. Contraction timer (Today shortcut from week 28, or Kicks tab > "Time contractions"): one Start/Stop button. A second Live Activity has a Start/Stop button that works from the Lock Screen without opening the app and ends 2 hours after the last contraction. When contractions match the common 5-1-1 guidance (week 37+), or occur before week 37, the app only advises contacting a doctor or hospital and shows a "Call 115" button (115 is the emergency ambulance number in Vietnam) that opens the system dialer. It never diagnoses labor.
+5. Cycle tracking: Calendar > "Edit period" to tick period days. Today shows predictions, labelled as estimates and not contraception.
+6. Pill reminder: Profile > Contraception = "The pill", then Profile > "Pill reminder". A local notification has a "Taken" action. The app gives no missed-pill medical instructions; it says to follow the pack leaflet or ask a doctor or pharmacist.
+7. Data: Profile > Data > "Back up to a file" exports a .lunamom file through the system share sheet (the user chooses where it goes; the app uploads nothing) and "Restore from a file" imports one after confirmation. Profile > "Delete all data" erases everything on the device, cancels notifications and ends Live Activities.
 
-There is a short pregnancy-journey switch in Profile to move between "trying to conceive" and "pregnant" at any time.
+NOTIFICATIONS: all local, none are push. Permission is requested in context (first kick count, first period, or turning on a reminder), never at launch; declining never blocks a feature. No background modes; the only entitlement is the App Group shared with the widget extension.
 
-**No login, no accounts**
+MEDICAL CONTENT: general information only, not diagnosis. A disclaimer appears in onboarding and in Profile > Medical information, which lists the sources (WHO, ACOG, NHS, Vietnam Ministry of Health, Hadlock fetal weight formula, IOM 2009 weight ranges). Due date = 280 days from the last period; all predictions are labelled as estimates. The app is not a medical device. [OWNER: add one sentence here naming the obstetrician who reviewed the content and the date - only if true - then delete this bracket.]
 
-The app has no sign-in of any kind and no server-side account. It can be used fully offline, immediately after onboarding. There is nothing to test with a demo account because none exists.
-
-**All data stays on the device (no iCloud) — Guideline 5.1.3(ii)**
-
-In this version, all user data (kick counts, periods, cycle logs, weight entries, appointments, settings) is stored only in the app's local App Group container on the device, using SwiftData with CloudKit syncing turned off (`AppFeatures.cloudSync = false`). No data is mirrored to iCloud and no data leaves the device. This also means the previous "share with partner" mode (which depended on CloudKit sharing) is not available in this version; the mode picker and onboarding do not offer it, and any UI that referenced it has been removed or hidden.
-
-The app's "App Privacy" declaration is "Data Not Collected": there is no server, no analytics SDK, no advertising SDK, and no third party receiving any data.
-
-**Deleting data**
-
-Profile has a "Delete all data" row (destructive, with a confirmation dialog) that permanently removes every kick count, period, cycle log, weight entry, appointment and setting on the device, cancels all pending/delivered local notifications, ends any running Live Activity, and returns the app to onboarding. Deleting the app also removes all of its data.
-
-**Backup to a file**
-
-Profile → "Data" can export all data to a `.lunamom` file (versioned JSON) through the system share sheet, and restore one through the document picker or by opening the file from another app; the user chooses where the file goes, the app uploads nothing and never writes to iCloud itself, and the restore screen asks for confirmation before replacing the data on the device.
-
-**Daily pill reminder**
-
-When cycle tracking with "The pill" as the contraception, Profile → "Cycle" → "Pill reminder" schedules a local notification at a time the user picks (with one follow-up two hours later if not marked, none during the 7-day break of a 21 + 7 pack); its "Taken" action records the day on the device only. The app gives no missed-pill medical instructions: it only says to follow the pack leaflet or ask a doctor or pharmacist.
-
-**Medical content — sources and disclaimers**
-
-Pregnancy and cycle content (weekly articles, fetal size estimates using the Hadlock formula, due-date and ovulation estimates, maternal weight guidance using IOM 2009 ranges) is for general information only, not diagnosis or medical advice. This disclaimer appears in onboarding and in the in-app "Medical information" screen, and weekly content and the "Trying to conceive" screens repeat that predictions are estimates, not a method of contraception. Sources are listed in the in-app "Medical information → Sources" screen. The content is written from the guidelines and references listed in that screen and is always shown together with these disclaimers.
-
-<!-- TODO (owner): before submitting, confirm the doctor review of the medical content (`docs/content-review-for-doctor.md`) is complete, and only then add a sentence saying so here. Do not paste this comment into App Store Connect. -->
-
-**How to reach each mode / onboarding choices**
-
-On first launch, onboarding asks whether the user wants to track their cycle, is trying to conceive, or is already pregnant, and sets up the corresponding mode. The mode (and the underlying goal, for cycle tracking) can be changed later from Profile → "Goal". There is no partner/"share with dad" entry anywhere in onboarding or the mode picker in this version.
-
-**Notifications**
-
-All notifications are local (scheduled on-device), not push notifications: a daily kick-count reminder, a warning if a kick session runs past two hours, period/ovulation reminders for cycle tracking, and appointment reminders one day ahead. Notification permission is requested contextually (first kick-count tap, first period entry, or when the user turns on a reminder), not at first launch. Declining notifications never blocks any app feature.
-
-**Live Activity**
-
-Starting a kick-counting session shows a Live Activity on the Lock Screen / Dynamic Island with a "+1" button and a running count out of 10. To test it: open the app, start counting kicks, then lock the phone — the Live Activity should appear and let you add kicks from the Lock Screen. It automatically ends shortly after 10 kicks are reached, or is marked as abandoned after about 12 hours of inactivity.
-
-**Contraction timer:** from the pregnancy Today screen (week 28+) or the Kicks tab, "Contractions" times each contraction with one start/stop button, and a second Live Activity (next to the kick one) has a Start/Stop button that works from the Lock Screen without opening the app and ends on its own after 2 hours without a new contraction; it only advises calling a doctor or going to the hospital (with a "Call 115" button that opens the dialer) and does not diagnose labor.
-
-**Background modes / capabilities**
-
-The app declares only the App Group entitlement, used to share data between the app and its widget extension. No background modes, CloudKit entitlements or remote-notification capability are declared in this version, since none of them are used while `cloudSync` is off.
-
-**Age rating**
-
-The medical/treatment-information questionnaire answer should reflect that pregnancy, fertility and weekly medical content appears frequently throughout the app (not infrequently), consistent with a 16+ outcome. There is no user-generated content, chat, advertising or web view.
-
-**Privacy policy and support**
-
-Privacy Policy: https://lmtiep.github.io/kick-counter/privacy.html
+Privacy policy: https://lmtiep.github.io/kick-counter/privacy.html
 Support: https://lmtiep.github.io/kick-counter/support.html
+Both are also linked in the app: Profile, under "Medical information".
 
-Both pages are also linked in-app: near the bottom of Profile, under "Medical information" ("Privacy policy" and "Support", which open in Safari).
+---
