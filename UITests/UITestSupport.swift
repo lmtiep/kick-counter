@@ -84,6 +84,34 @@ extension XCUIApplication {
         }
     }
 
+    /// Taps `element` until `target` matches `predicate`, at most `attempts` times.
+    /// On slow CI simulators a synthesized tap is sometimes swallowed (the glass
+    /// tab bar only shows its press effect; a button never fires), so the tap is
+    /// repeated — but only while `element` is still hittable, i.e. nothing has
+    /// covered it yet, so a late-arriving result is never tapped twice.
+    @discardableResult
+    func tap(
+        _ element: XCUIElement,
+        until predicate: NSPredicate,
+        on target: XCUIElement,
+        timeout: TimeInterval = 5,
+        attempts: Int = 3
+    ) -> Bool {
+        for _ in 0..<attempts {
+            element.tap()
+            let expectation = XCTNSPredicateExpectation(predicate: predicate, object: target)
+            if XCTWaiter().wait(for: [expectation], timeout: timeout) == .completed { return true }
+            guard element.exists, element.isHittable else { return false }
+        }
+        return false
+    }
+
+    /// Taps `element` until `target` exists (see `tap(_:until:on:)`).
+    @discardableResult
+    func tap(_ element: XCUIElement, untilExists target: XCUIElement, timeout: TimeInterval = 5) -> Bool {
+        tap(element, until: NSPredicate(format: "exists == true"), on: target, timeout: timeout)
+    }
+
     /// Swipes down until `element` is hittable: onboarding's steps are anchored
     /// to the bottom, so a long list starts scrolled to its end.
     func scrollDownUntilHittable(_ element: XCUIElement, maxSwipes: Int = 4) {
@@ -145,7 +173,7 @@ extension XCTestCase {
     func waitForLabel(
         _ element: XCUIElement,
         containing text: String,
-        timeout: TimeInterval = 5,
+        timeout: TimeInterval = 10,
         file: StaticString = #filePath,
         line: UInt = #line
     ) {
@@ -217,8 +245,7 @@ extension XCUIApplication {
         let row = buttons["kicksContractionsLink"]
         XCTAssertTrue(row.waitForExistence(timeout: 10))
         scrollUntilHittable(row)
-        row.tap()
-        XCTAssertTrue(buttons["contractionToggle"].waitForExistence(timeout: 5))
+        XCTAssertTrue(tap(row, untilExists: buttons["contractionToggle"]))
     }
 
     /// History lives inside the Kicks tab (spec §2.3).
@@ -233,6 +260,6 @@ extension XCUIApplication {
     private func openTab(at index: Int) {
         let button = tabBars.buttons.element(boundBy: index)
         XCTAssertTrue(button.waitForExistence(timeout: 10))
-        button.tap()
+        XCTAssertTrue(tap(button, until: NSPredicate(format: "selected == true"), on: button), "tab \(index) was not selected")
     }
 }
