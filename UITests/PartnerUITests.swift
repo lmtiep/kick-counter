@@ -1,5 +1,8 @@
 import XCTest
 
+// The partner UI is compiled only with the CLOUD_SYNC flag (not set for 1.0, App Review
+// 2.5.19): see `AppFeatures.cloudSync`.
+#if CLOUD_SYNC
 /// Phase 8 spec §5.2 and §6: partner mode with `FakePartnerSharing`
 /// (`-uiTestingPartner`): the seeded week-24 snapshot, the stopped and error
 /// states, leaving, and tabs without a kick counter.
@@ -132,3 +135,12 @@ final class PartnerUITests: XCTestCase {
         XCTAssertTrue(state.label.contains("Sign in to iCloud"), state.label)
     }
 }
+#else
+/// Stands in for the partner tests while CLOUD_SYNC is off, so a CI shard or a
+/// `-only-testing` filter that names this class still finds a test.
+final class PartnerUITests: XCTestCase {
+    func testPartnerUIIsCompiledOut() throws {
+        throw XCTSkip("Partner sharing is compiled out of this build (no CLOUD_SYNC)")
+    }
+}
+#endif

@@ -91,7 +91,9 @@ final class PregnancyTodayUITests: XCTestCase {
         XCTAssertTrue(app.buttons["weekChip-24"].isSelected)
         XCTAssertTrue(app.buttons["weekChip-24"].isHittable) // scrolled to the current week
         let reviewer = app.descendants(matching: .any)["weekReviewer"]
-        XCTAssertTrue(reviewer.label.contains("Content pending doctor review"), reviewer.label)
+        // All content is reviewed (17/10/2026); the pending label is covered in KickCore with fixtures.
+        XCTAssertTrue(reviewer.label.contains("An obstetrician has reviewed this week"), reviewer.label)
+        XCTAssertFalse(reviewer.label.contains("Content pending doctor review"), reviewer.label)
 
         app.buttons["weekChip-25"].tap()
         waitForLabel(title, containing: "Week 25")

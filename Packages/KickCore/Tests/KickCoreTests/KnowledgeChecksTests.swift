@@ -184,10 +184,10 @@ struct KnowledgeChecksTests {
         #expect(issues(article) == [.missingDiacritics(article: "safe-exercise", field: "section 1 heading")])
     }
 
-    @Test func reviewedArticlesAreReported() {
-        #expect(
-            issues(knowledgeArticle("safe-exercise", topic: "movement", trimesters: [1, 2, 3], reviewed: true))
-                == [.reviewed(article: "safe-exercise")]
-        )
+    /// The obstetrician's sign-off (17/10/2026) is not a content issue: a reviewed
+    /// article passes the same checks as an unreviewed one.
+    @Test func reviewDoesNotChangeTheChecks() {
+        #expect(issues(knowledgeArticle("safe-exercise", topic: "movement", trimesters: [1, 2, 3], reviewed: true)).isEmpty)
+        #expect(issues(knowledgeArticle("safe-exercise", topic: "movement", trimesters: [1, 2, 3], reviewed: false)).isEmpty)
     }
 }

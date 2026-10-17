@@ -76,7 +76,7 @@ struct RootView: View {
             }
             // While she shares, the mother's changes reach the partner (phase 8).
             .background {
-                if mode == .pregnant, AppEnvironment.showsPartnerUI { PartnerPublishObserver() }
+                if mode == .pregnant, AppEnvironment.showsPartnerUI { partnerPublishObserver }
             }
             .task { await reload() }
             .onChange(of: scenePhase) { _, phase in
@@ -229,7 +229,7 @@ struct RootView: View {
                 KicksView()
                     .lunaTab(L10n.tabKicks, systemImage: "hand.tap.fill", tag: .kicks, tint: contentTint)
             case .partner:
-                PartnerTodayView(onLeave: leavePartnerMode)
+                partnerToday
                     .lunaTab(L10n.tabToday, systemImage: "sun.max.fill", tag: .today, tint: contentTint)
                 let trimester = partnerJourney.trimester(now: AppClock.now())
                 NavigationStack {
@@ -242,7 +242,7 @@ struct RootView: View {
                 .lunaTab(L10n.knowledgeTitle, systemImage: "book.fill", tag: .knowledge, tint: contentTint)
             }
             if mode == .partner {
-                PartnerProfileView(onLeave: leavePartnerMode)
+                partnerProfile
                     .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile, tint: contentTint)
             } else {
                 ProfileView(onReplayOnboarding: { replayingOnboarding = true })
@@ -254,6 +254,18 @@ struct RootView: View {
         // too light for text on a dark-mode card.
         .tint(mode == .tryingToConceive ? Color.luna(.tabSelectedCycle) : Color.luna(.tabSelectedPreg))
     }
+
+    #if CLOUD_SYNC
+    private var partnerPublishObserver: some View { PartnerPublishObserver() }
+    private var partnerToday: some View { PartnerTodayView(onLeave: leavePartnerMode) }
+    private var partnerProfile: some View { PartnerProfileView(onLeave: leavePartnerMode) }
+    #else
+    // Partner mode is compiled out of 1.0 (no CLOUD_SYNC): a stored partner mode is
+    // hidden at launch and after a restore, so these never show.
+    private var partnerPublishObserver: some View { EmptyView() }
+    private var partnerToday: some View { EmptyView() }
+    private var partnerProfile: some View { EmptyView() }
+    #endif
 
     private func accept(_ invitation: PartnerInvitation) async {
         switch await PartnerAcceptance.accept(invitation, sharing: sharing, defaults: AppGroup.defaults) {

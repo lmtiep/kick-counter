@@ -187,6 +187,14 @@ final class PregnancyScreenshotTests: XCTestCase {
                 let doneRow = app.buttons.matching(
                     NSPredicate(format: "identifier == 'appointmentRow' AND label CONTAINS 'Đã khám'")
                 ).firstMatch
+                // "Đã qua" can be realized just below the screen while its row is
+                // not yet (List builds cells near the viewport): scroll, bounded,
+                // until the done row exists.
+                var remainingRevealSwipes = 6
+                while !doneRow.waitForExistence(timeout: 1), remainingRevealSwipes > 0 {
+                    app.swipeUp()
+                    remainingRevealSwipes -= 1
+                }
                 XCTAssertTrue(doneRow.waitForExistence(timeout: 5))
                 let tabBarTop = app.tabBars.firstMatch.frame.minY
                 var remainingClearingSwipes = 10

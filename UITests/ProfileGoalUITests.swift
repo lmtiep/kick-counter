@@ -84,8 +84,10 @@ final class ProfileGoalUITests: XCTestCase {
         XCTAssertTrue(app.segmentedControls["dayLogLHPicker"].waitForExistence(timeout: 5))
     }
 
+    #if CLOUD_SYNC
     /// From pregnancy, "Track cycle" switches mode at once (three cycle tabs,
     /// tracking rows) and, like "Trying to conceive", stops partner sharing.
+    /// Partner sharing is compiled only with CLOUD_SYNC (not in 1.0).
     @MainActor
     func testTrackCycleFromPregnancyStopsSharing() {
         let app = XCUIApplication.launchPinned(
@@ -116,6 +118,7 @@ final class ProfileGoalUITests: XCTestCase {
         app.scrollUntilHittable(row)
         waitForLabel(row, containing: "Invite baby's dad to follow the journey", timeout: 10)
     }
+    #endif
 
     @MainActor
     func testProfileGoalScreens() {

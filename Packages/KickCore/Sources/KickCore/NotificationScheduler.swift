@@ -37,6 +37,9 @@ public protocol NotificationCenterClient: AnyObject {
 public final class SystemNotificationCenter: NotificationCenterClient {
     private let center = UNUserNotificationCenter.current()
 
+    /// Alerts and sounds only: the app never sets a badge, so it does not ask for one.
+    public static let authorizationOptions: UNAuthorizationOptions = [.alert, .sound]
+
     public init() {}
 
     public func add(_ request: UNNotificationRequest) async throws {
@@ -52,7 +55,7 @@ public final class SystemNotificationCenter: NotificationCenterClient {
     }
 
     public func requestAuthorization() async throws -> Bool {
-        try await center.requestAuthorization(options: [.alert, .sound, .badge])
+        try await center.requestAuthorization(options: Self.authorizationOptions)
     }
 
     public func authorizationStatus() async -> UNAuthorizationStatus {

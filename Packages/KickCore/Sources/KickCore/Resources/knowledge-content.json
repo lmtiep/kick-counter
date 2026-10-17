@@ -72,7 +72,7 @@
       "trimesters": [
         1
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Eating well in the first trimester",
         "vi": "Ăn uống trong tam cá nguyệt đầu"
@@ -150,7 +150,7 @@
         2,
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Food safety in pregnancy",
         "vi": "An toàn thực phẩm khi mang thai"
@@ -229,7 +229,7 @@
         2,
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Iron, calcium and balanced meals",
         "vi": "Sắt, canxi và bữa ăn cân đối"
@@ -308,7 +308,7 @@
         2,
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Staying active safely in pregnancy",
         "vi": "Vận động an toàn khi mang thai"
@@ -383,7 +383,7 @@
       "trimesters": [
         2
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Gentle exercise in the second trimester",
         "vi": "Vận động nhẹ nhàng ở tam cá nguyệt thứ hai"
@@ -459,7 +459,7 @@
         2,
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Pelvic floor and everyday posture",
         "vi": "Cơ sàn chậu và tư thế hằng ngày"
@@ -536,7 +536,7 @@
       "trimesters": [
         1
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Tiredness in the first trimester",
         "vi": "Mệt mỏi trong tam cá nguyệt đầu"
@@ -612,7 +612,7 @@
         2,
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Sleep positions in pregnancy",
         "vi": "Tư thế ngủ khi mang thai"
@@ -683,7 +683,7 @@
       "trimesters": [
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Sleeping well in late pregnancy",
         "vi": "Ngủ ngon hơn ở những tháng cuối"
@@ -760,7 +760,7 @@
       "trimesters": [
         1
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Worries in early pregnancy",
         "vi": "Lo lắng khi mới mang thai"
@@ -835,7 +835,7 @@
       "trimesters": [
         2
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Your changing body and feelings",
         "vi": "Cơ thể thay đổi và cảm xúc của mẹ"
@@ -908,7 +908,7 @@
       "trimesters": [
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Getting ready for motherhood",
         "vi": "Chuẩn bị làm mẹ"
@@ -984,7 +984,7 @@
         2,
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Your antenatal check-ups, step by step",
         "vi": "Lịch khám thai qua từng giai đoạn"
@@ -1059,7 +1059,7 @@
       "trimesters": [
         1
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Tests and screening in early pregnancy",
         "vi": "Xét nghiệm và sàng lọc đầu thai kỳ"
@@ -1133,7 +1133,7 @@
       "trimesters": [
         2
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "The anomaly scan and diabetes test",
         "vi": "Siêu âm hình thái và xét nghiệm tiểu đường"
@@ -1207,7 +1207,7 @@
       "trimesters": [
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Recognising the signs of labour",
         "vi": "Nhận biết dấu hiệu chuyển dạ"
@@ -1282,7 +1282,7 @@
       "trimesters": [
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Packing your hospital bag",
         "vi": "Chuẩn bị túi đồ đi sinh"
@@ -1359,7 +1359,7 @@
       "trimesters": [
         3
       ],
-      "reviewed": false,
+      "reviewed": true,
       "title": {
         "en": "Birth plan and first feeds",
         "vi": "Kế hoạch sinh và những cữ bú đầu"

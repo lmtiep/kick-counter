@@ -58,6 +58,22 @@ struct BundledContentTests {
         #expect(issues.isEmpty, "\(issues)")
     }
 
+    /// The obstetrician reviewed all content (owner's confirmation, 17/10/2026): an App
+    /// Store build (`.reviewedOnly`) shows every week and every milestone. The unreviewed
+    /// path is covered with fixtures (`WeeklyContentLibraryTests`).
+    @Test func everyWeekAndMilestoneIsReviewed() {
+        #expect(library.document.weeks.filter { !$0.reviewed }.map(\.week) == [])
+        #expect(library.document.milestones.filter { !$0.reviewed }.map(\.id) == [])
+        for week in WeeklyContentLibrary.weekRange {
+            guard case .content(_, let pendingReview)? = library.display(forWeek: week, visibility: .reviewedOnly) else {
+                Issue.record("week \(week) is hidden in App Store builds")
+                continue
+            }
+            #expect(pendingReview == false)
+        }
+        #expect(library.upcomingMilestones(atWeek: 4, visibility: .reviewedOnly) == library.upcomingMilestones(atWeek: 4))
+    }
+
     @Test func coversEveryWeekFrom4To42() {
         #expect(library.document.weeks.map(\.week) == Array(4...42))
     }
