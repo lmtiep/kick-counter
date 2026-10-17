@@ -7,8 +7,10 @@ private let logger = Logger(subsystem: "com.lmtiep.kickcounter", category: "app"
 
 @main
 struct KickCounterApp: App {
-    /// Hands iCloud share invitations to the app (phase 8).
+    #if CLOUD_SYNC
+    /// Hands iCloud share invitations to the app (phase 8). Not in 1.0 (no CLOUD_SYNC).
     @UIApplicationDelegateAdaptor(PartnerAppDelegate.self) private var appDelegate
+    #endif
     private let environment: Result<AppEnvironment, Error>
     /// A backup file waiting to be restored (phase 15).
     @State private var backup = BackupCenter()

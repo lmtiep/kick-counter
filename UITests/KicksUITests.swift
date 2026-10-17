@@ -68,9 +68,11 @@ final class KicksUITests: XCTestCase {
         XCTAssertFalse(haptics.exists)
     }
 
-    /// Spec §4.6: over 2 hours without 10 — the warning card; "Call 115" only in Vietnamese.
+    /// Spec §4.6: over 2 hours without 10 — the warning card; "Call 115" only on a device
+    /// whose region is Vietnam (the vi launch uses vi_VN, the en launch en_US), elsewhere a
+    /// line asking to call the local emergency number.
     @MainActor
-    func testOverdueCardOffersTheEmergencyNumberOnlyInVietnamese() {
+    func testOverdueCardOffersTheEmergencyNumberOnlyInVietnam() {
         let vietnamese = XCUIApplication.launchPinned(
             language: "vi", dueDate: UITestDates.dueAtWeek38, extraArguments: ["-seedOverdueSession"]
         )
@@ -79,6 +81,7 @@ final class KicksUITests: XCTestCase {
         let call = vietnamese.buttons["overdueCallButton"]
         vietnamese.scrollUntilHittable(call)
         XCTAssertEqual(call.label, "Gọi cấp cứu 115")
+        XCTAssertFalse(vietnamese.descendants(matching: .any)["overdueCallButtonLocal"].exists)
         vietnamese.terminate()
 
         let english = XCUIApplication.launchPinned(
@@ -87,6 +90,9 @@ final class KicksUITests: XCTestCase {
         english.openTab(.kicks)
         XCTAssertTrue(english.descendants(matching: .any)["overdueCard"].waitForExistence(timeout: 10))
         XCTAssertFalse(english.buttons["overdueCallButton"].exists)
+        let local = english.descendants(matching: .any)["overdueCallButtonLocal"]
+        english.scrollUntilHittable(local)
+        XCTAssertTrue(local.label.contains("Call your local emergency number."), local.label)
         XCTAssertEqual(english.buttons["kickButton"].value as? String, "4 of 10 movements")
     }
 

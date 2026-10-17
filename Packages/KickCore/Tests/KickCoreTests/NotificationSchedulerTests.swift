@@ -9,6 +9,12 @@ struct NotificationSchedulerTests {
     let text = NotificationText(title: "T", body: "B")
     var scheduler: NotificationScheduler { NotificationScheduler(center: center) }
 
+    /// Only what the app uses: alerts and sounds, never a badge.
+    @Test func permissionAsksForAlertsAndSoundsOnly() {
+        #expect(SystemNotificationCenter.authorizationOptions == [.alert, .sound])
+        #expect(!SystemNotificationCenter.authorizationOptions.contains(.badge))
+    }
+
     @Test func dailyReminderRepeatsAtChosenTime() async throws {
         try await scheduler.scheduleDailyReminder(hour: 20, minute: 30, text: text)
         let request = try #require(center.added.first)

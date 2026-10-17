@@ -107,8 +107,11 @@ final class ContractionTimerUITests: XCTestCase {
         app.openContractionTimer()
         XCTAssertTrue(app.descendants(matching: .any)["contractionPretermCard"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.descendants(matching: .any)["contractionFiveOneOneCard"].exists)
-        // English has no single emergency number, as the kick alert.
+        // Outside Vietnam (en_US) no 115 button, as the kick alert: the local-number line.
         XCTAssertFalse(app.buttons["contractionCallButton"].exists)
+        let local = app.descendants(matching: .any)["contractionCallButtonLocal"]
+        XCTAssertTrue(local.exists)
+        XCTAssertTrue(local.label.contains("Call your local emergency number."), local.label)
     }
 
     @MainActor

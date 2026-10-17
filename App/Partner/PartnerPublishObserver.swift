@@ -1,3 +1,6 @@
+// Compiled only with the CLOUD_SYNC flag (not set for 1.0, App Review 2.5.19 / 5.1.3(ii)):
+// see `AppFeatures.cloudSync`.
+#if CLOUD_SYNC
 import KickCore
 import KickData
 import SwiftData
@@ -56,3 +59,4 @@ struct PartnerPublishObserver: View {
         )
     }
 }
+#endif

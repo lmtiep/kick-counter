@@ -24,6 +24,14 @@ struct BundledKnowledgeTests {
         #expect(issues.isEmpty, "\(issues)")
     }
 
+    /// The obstetrician reviewed every article (owner's confirmation, 17/10/2026): App Store
+    /// builds (`.reviewedOnly`) show them all. The unreviewed path is covered with fixtures
+    /// (`KnowledgeLibraryTests`).
+    @Test func everyArticleIsReviewed() {
+        #expect(library.document.articles.filter { !$0.reviewed }.map(\.id) == [])
+        #expect(library.articles(visibility: .reviewedOnly).map(\.id) == library.articles(visibility: .all).map(\.id))
+    }
+
     @Test func articlesAreInCatalogueOrder() {
         let order = KnowledgeChecks.catalogue.map(\.id)
         let written = library.document.articles.map(\.id)

@@ -34,7 +34,13 @@ struct AppEnvironment {
     /// The partner UI (Profile's share card, partner mode, invitations) exists only with
     /// iCloud (`AppFeatures.cloudSync`, off in 1.0). UI tests of the partner flows force it
     /// with `-uiTestingPartnerUI` so they keep covering it for when the switch comes back.
+    /// Without the CLOUD_SYNC compilation flag (version 1.0) the partner code is not in
+    /// the binary at all (App Review 2.5.19), so the UI never shows.
+    #if CLOUD_SYNC
     static let showsPartnerUI = AppFeatures.cloudSync || AppClock.launchOptions.forcesPartnerUI
+    #else
+    static let showsPartnerUI = false
+    #endif
 
     static func make() throws -> AppEnvironment {
         #if DEBUG
@@ -207,8 +213,12 @@ struct AppEnvironment {
             return FakePartnerSharing(mother: options.sharing ?? .notShared)
         }
         #endif
+        #if CLOUD_SYNC
         guard AppFeatures.cloudSync else { return DisabledPartnerSharing() }
         return CloudPartnerSharing()
+        #else
+        return DisabledPartnerSharing()
+        #endif
     }
 
     #if DEBUG

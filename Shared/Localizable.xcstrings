@@ -2551,6 +2551,23 @@
         }
       }
     },
+    "counter.callLocalEmergency": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call your local emergency number."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hãy gọi số cấp cứu tại nơi bạn ở."
+          }
+        }
+      }
+    },
     "counter.cancel": {
       "extractionState": "manual",
       "localizations": {
@@ -6246,13 +6263,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "The week-by-week pregnancy content is general information based on public guidance from these organisations, checked by an obstetrician before release. It does not replace advice from your own doctor or midwife."
+            "value": "The week-by-week pregnancy content is general information based on public guidance from these organisations, and has been reviewed by an obstetrician. It does not replace advice from your own doctor or midwife."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nội dung thai kỳ theo tuần là thông tin chung, dựa trên khuyến nghị công khai của các tổ chức dưới đây và được bác sĩ sản khoa kiểm tra trước khi phát hành. Nội dung không thay thế lời khuyên của bác sĩ hay nữ hộ sinh theo dõi mẹ."
+            "value": "Nội dung thai kỳ theo tuần là thông tin chung, dựa trên khuyến nghị công khai của các tổ chức dưới đây, và đã được bác sĩ sản khoa xem xét. Nội dung không thay thế lời khuyên của bác sĩ hay nữ hộ sinh theo dõi mẹ."
           }
         }
       }

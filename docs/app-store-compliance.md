@@ -14,7 +14,14 @@ DSA trader, ảnh chụp, deploy schema CloudKit nếu bật lại…) vẫn là
 **Cập nhật 2026-10-11 (chuẩn bị gửi 1.0.0):** icon thật đã có (commit `c39893d`), ảnh chụp App Store đã xong (9 khung
 mỗi ngôn ngữ, ở `~/Downloads/Luna Mom - anh App Store`), câu trả lời Age rating đã soạn (dự kiến 16+), DSA đã quyết
 (không phải trader). Ảnh do chủ dự án tạo bằng AI: chủ dự án phải xác nhận điều khoản của công cụ AI cho phép dùng
-thương mại. **Việc còn chặn gửi duyệt: nội dung y khoa còn chờ bác sĩ duyệt.**
+thương mại. ~~Việc còn chặn gửi duyệt: nội dung y khoa còn chờ bác sĩ duyệt.~~
+
+**Cập nhật 2026-10-17 (trước khi gửi 1.0.0):** nội dung y khoa **duyệt xong 17/10/2026 (chủ dự án xác nhận)**: mọi tuần,
+mốc khám và bài kiến thức có `reviewed: true`, nên bản App Store hiện đủ nội dung. Cùng đợt: mã chế độ bố bé / iCloud
+(`App/Partner`, đăng ký remote notification, xử lý CKShare, mọi `import CloudKit` của target app) chỉ được biên dịch khi
+có cờ `CLOUD_SYNC` (không đặt trong `project.yml`), nên không còn trong binary 1.0 ([G] 2.5.19, không có tính năng ẩn);
+nút "Gọi cấp cứu 115" chỉ hiện khi vùng của máy là Việt Nam, nơi khác hiện một dòng "Hãy gọi số cấp cứu tại nơi bạn ở.";
+quyền thông báo chỉ xin `[.alert, .sound]` (bỏ `.badge`).
 
 Nguồn chính:
 - [G] App Review Guidelines — https://developer.apple.com/app-store/review/guidelines/
@@ -40,10 +47,10 @@ Nguồn chính:
 | **Không lưu thông tin sức khỏe cá nhân trong iCloud.** Apple viết: "may not store personal health information in iCloud." | [G] 5.1.3(ii) | **Đạt (giai đoạn 12)** | Hướng (a) của mục 2 đã chọn: `AppFeatures.cloudSync = false`, `KickPersistence` dùng `cloudKitDatabase: .none`. Mọi dữ liệu (kick, kỳ kinh, LH/BBT, triệu chứng, cân nặng, lịch khám) chỉ nằm trong App Group trên máy, không đồng bộ iCloud. `AppEnvironment.makeSharing()` trả về `DisabledPartnerSharing`, không còn tạo `CloudPartnerSharing`. Mã CloudKit vẫn còn trong repo, sau switch, để bật lại ở phiên bản sau (xem `docs/release-checklist.md`, "Giai đoạn 12"). |
 | Ứng dụng y tế: nêu rõ dữ liệu và phương pháp khi đưa ra con số sức khỏe | [G] 1.4.1 | Đạt | Cân nặng thai theo Hadlock có ghi chú sai số (`pregnancy.baby.estimateNote`, `standardEnds`). Ngày dự sinh ghi rõ "280 ngày". Dự đoán chu kỳ ghi "chỉ là ước tính". Giữ nguyên như vậy. |
 | Nhắc người dùng hỏi bác sĩ: "remind users to check with a doctor" | [G] 1.4.1 | Đạt | Có ở `medical.body` (onboarding bước 1, luôn hiện) và `medical.sources.note`. Nên thêm một dòng ngắn "Không thay thế lời khuyên của bác sĩ" ở cuối mỗi bài tuần và bài kiến thức (hiện chỉ có trong Thông tin y tế). |
-| Nội dung y khoa chính xác, có nguồn | [G] 1.4.1 | **Thiếu** | Nội dung còn chờ bác sĩ duyệt (`reviewed: false`; xem `docs/content-review-for-doctor.md`). Phải duyệt xong và gửi bản build với `LunaContentPreview = NO`. |
+| Nội dung y khoa chính xác, có nguồn | [G] 1.4.1 | **Đạt (2026-10-17)** | Duyệt xong 17/10/2026 (chủ dự án xác nhận): mọi mục `reviewed: true` (xem `docs/content-review-for-doctor.md`). Vẫn gửi bản build với `LunaContentPreview = NO`. |
 | Không dùng làm biện pháp tránh thai | [G] 1.4 / 1.4.1 | Đạt | Đã có `cycle.disclaimer`, `cycle.notContraception`, `medical.ttc.body`. Đưa câu này vào mô tả App Store (checklist đã ghi). |
-| Gửi bản hoàn chỉnh, URL hoạt động, không có nội dung tạm | [G] 2.1(a) | **Thiếu** — chỉ còn nội dung chờ bác sĩ duyệt | Icon thật đã thay icon tạm (commit `c39893d`). URL privacy/support hoạt động. Còn lại: nội dung y khoa chờ bác sĩ duyệt (xem dòng 1.4.1). Không cần tài khoản demo vì app không có đăng nhập. |
-| Ghi rõ tính năng trong Notes for Review, không có tính năng ẩn | [G] 2.3.1(a) | **Đạt (giai đoạn 12)** | `docs/app-review-notes.md` có nội dung sẵn để dán vào ASC: 3 chế độ, Live Activity, dữ liệu chỉ nằm trên máy (không còn iCloud), không có chế độ chia sẻ cho bố bé ở bản này (đã ẩn cùng với `cloudSync = false`). Vẫn cần chủ dự án tự xác nhận cờ `LunaContentPreview` và tham số launch UI test không bật trong bản release trước khi gửi. |
+| Gửi bản hoàn chỉnh, URL hoạt động, không có nội dung tạm | [G] 2.1(a) | **Đạt (2026-10-17)** | Icon thật đã thay icon tạm (commit `c39893d`). URL privacy/support hoạt động. Nội dung y khoa duyệt xong 17/10/2026 (chủ dự án xác nhận; xem dòng 1.4.1). Không cần tài khoản demo vì app không có đăng nhập. |
+| Ghi rõ tính năng trong Notes for Review, không có tính năng ẩn | [G] 2.3.1(a) | **Đạt (giai đoạn 12)** | `docs/app-review-notes.md` có nội dung sẵn để dán vào ASC: 3 chế độ, Live Activity, dữ liệu chỉ nằm trên máy (không còn iCloud), không có chế độ chia sẻ cho bố bé ở bản này (từ 17/10/2026 mã của nó không được biên dịch vào bản 1.0: cờ `CLOUD_SYNC`, [G] 2.5.19). Vẫn cần chủ dự án tự xác nhận cờ `LunaContentPreview` và tham số launch UI test không bật trong bản release trước khi gửi. |
 | Ảnh chụp cho thấy app đang dùng; metadata phù hợp độ tuổi | [G] 2.3.3, 2.3.8 | **Đạt (2026-10-11)** | Đã xong 9 khung mỗi ngôn ngữ (vi, en), cỡ 6.9" và 6.5", ở `~/Downloads/Luna Mom - anh App Store`: Hôm nay (chu kỳ), Lịch, Lịch sử chu kỳ, Hôm nay (thai kỳ), theo tuần, đếm cử động, Kiến thức, đếm cơn gò, sửa kỳ kinh. Ảnh chụp từ app thật (UI test `AppStoreScreenshotTests`). Ảnh thai nhi giữ ở mức minh họa. Không dùng cụm "For Kids". |
 | Tên ≤ 30 ký tự, từ khóa đúng nội dung | [G] 2.3.7 | Đạt | "Luna Mom - Chu kỳ & Thai kỳ" (27) / "Luna Mom - Cycle & Pregnancy" (28); từ khoá ≤ 100 byte, không nhồi tên app khác (xem `docs/app-store-listing.md`). |
 | Chế độ nền chỉ dùng đúng mục đích | [G] 2.5.4 | **Đạt (giai đoạn 12)** | `UIBackgroundModes: [remote-notification]` và `CKSharingSupported` đã gỡ khỏi `project.yml`/Info.plist, cùng các entitlement `aps-environment`, `com.apple.developer.icloud-container-identifiers`, `com.apple.developer.icloud-services` (chỉ giữ App Group). Bản 1.0 không còn khai báo capability nào không dùng. |
@@ -87,7 +94,7 @@ Nguồn chính:
 2. ✅ **Xong (giai đoạn 12)** — https://lmtiep.github.io/kick-counter/privacy.html, có link trong app; còn điền vào ASC. **Privacy policy (vi + en) đăng công khai**, điền vào ASC và thêm link trong app (Cá nhân → "Chính sách quyền riêng tư"). Chính sách phải nêu: dữ liệu gì, lưu ở đâu (máy + iCloud riêng), chia sẻ với bố bé ra sao, cách xóa, không có bên thứ ba ([G] 5.1.1(i), [I]).
 3. ✅ **Xong (giai đoạn 12)** — https://lmtiep.github.io/kick-counter/support.html; còn điền vào ASC. **Support URL** có email liên hệ thật ([V]).
 4. ✅ **Xong (giai đoạn 12).** **Thêm `Widgets/PrivacyInfo.xcprivacy`** khai UserDefaults `1C8F.1`, rồi khai trong `project.yml` cho target widget ([R]).
-5. **Bác sĩ duyệt xong toàn bộ nội dung y khoa.** Không còn `reviewed: false`, và build gửi duyệt có `LunaContentPreview = NO` ([G] 1.4.1, 2.1).
+5. ✅ **Xong — duyệt xong 17/10/2026 (chủ dự án xác nhận).** **Bác sĩ duyệt xong toàn bộ nội dung y khoa.** Không còn `reviewed: false`, và build gửi duyệt có `LunaContentPreview = NO` ([G] 1.4.1, 2.1).
 6. ✅ **Xong (commit `c39893d`).** **Icon thật 1024×1024** thay icon tạm ([G] 2.1).
 7. ➖ **Không cần cho bản 1.0 (không dùng CloudKit); làm lại nếu bật iCloud.** **Deploy schema CloudKit lên Production** cho đủ record type và field (nếu vẫn giữ CloudKit) ([C]).
 8. ✅ **Xong (giai đoạn 12)** — chỉ xoá trên máy (bản 1.0 không còn iCloud; bản sao cũ trong iCloud của người thử TestFlight xoá qua Cài đặt → [tên] → iCloud → Quản lý dung lượng). **Thêm "Xóa toàn bộ dữ liệu"** trong Cá nhân.
@@ -98,7 +105,7 @@ Nguồn chính:
 13. Chủ dự án xác nhận điều khoản công cụ AI đã dùng cho phép dùng thương mại ảnh do mình tạo; kiểm tra `aps-environment` trên IPA phát hành.
 14. ✅ **Xong (2026-10-11).** Ảnh chụp App Store: 9 khung mỗi ngôn ngữ, cỡ 6.9" và 6.5".
 
-**Còn chặn gửi duyệt:** việc số 5 (nội dung y khoa chờ bác sĩ duyệt).
+**Còn chặn gửi duyệt:** không còn (việc số 5 duyệt xong 17/10/2026, chủ dự án xác nhận).
 
 ---
 

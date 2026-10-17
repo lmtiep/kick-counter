@@ -34,8 +34,6 @@ public enum KnowledgeIssue: Equatable, Sendable {
     case doseUnit(article: String, field: String, language: ContentLanguage)
     /// A Vietnamese text without any non-ASCII letter (likely English or unaccented).
     case missingDiacritics(article: String, field: String)
-    /// `reviewed` is true; only the obstetrician's sign-off may set it (spec §3.5).
-    case reviewed(article: String)
 }
 
 /// Automatic checks of `knowledge-content.json` (phase 7 spec §3.5), enforced by
@@ -178,7 +176,6 @@ public enum KnowledgeChecks {
     private static func articleIssues(_ article: KnowledgeArticle, sourceCount: Int) -> [KnowledgeIssue] {
         let id = article.id
         var issues: [KnowledgeIssue] = []
-        if article.reviewed { issues.append(.reviewed(article: id)) }
         if !sectionRange.contains(article.sections.count) {
             issues.append(.sectionCount(article: id, count: article.sections.count))
         }

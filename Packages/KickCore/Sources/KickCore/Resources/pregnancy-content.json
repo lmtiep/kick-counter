@@ -178,7 +178,7 @@
   "weeks": [
     {
       "week": 4,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🌱",
         "en": "a poppy seed",
@@ -284,7 +284,7 @@
     },
     {
       "week": 5,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🌱",
         "en": "a sesame seed",
@@ -390,7 +390,7 @@
     },
     {
       "week": 6,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🫘",
         "en": "a mung bean",
@@ -500,7 +500,7 @@
     },
     {
       "week": 7,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🫐",
         "en": "a blueberry",
@@ -608,7 +608,7 @@
     },
     {
       "week": 8,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍒",
         "en": "a cherry",
@@ -718,7 +718,7 @@
     },
     {
       "week": 9,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍇",
         "en": "a grape",
@@ -824,7 +824,7 @@
     },
     {
       "week": 10,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🟣",
         "en": "a passion fruit",
@@ -938,7 +938,7 @@
     },
     {
       "week": 11,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍑",
         "en": "an apricot",
@@ -1052,7 +1052,7 @@
     },
     {
       "week": 12,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍑",
         "en": "a plum",
@@ -1164,7 +1164,7 @@
     },
     {
       "week": 13,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍋",
         "en": "a lime",
@@ -1276,7 +1276,7 @@
     },
     {
       "week": 14,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "⭐",
         "en": "a star fruit",
@@ -1384,7 +1384,7 @@
     },
     {
       "week": 15,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍊",
         "en": "a tangerine",
@@ -1495,7 +1495,7 @@
     },
     {
       "week": 16,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍅",
         "en": "a tomato",
@@ -1605,7 +1605,7 @@
     },
     {
       "week": 17,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍊",
         "en": "an orange",
@@ -1715,7 +1715,7 @@
     },
     {
       "week": 18,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍎",
         "en": "an apple",
@@ -1825,7 +1825,7 @@
     },
     {
       "week": 19,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥑",
         "en": "an avocado",
@@ -1935,7 +1935,7 @@
     },
     {
       "week": 20,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍐",
         "en": "an Asian pear",
@@ -2049,7 +2049,7 @@
     },
     {
       "week": 21,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🌽",
         "en": "a large ear of corn",
@@ -2165,7 +2165,7 @@
     },
     {
       "week": 22,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥭",
         "en": "a mango",
@@ -2279,7 +2279,7 @@
     },
     {
       "week": 23,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍎",
         "en": "a pomegranate",
@@ -2393,7 +2393,7 @@
     },
     {
       "week": 24,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥔",
         "en": "a jicama",
@@ -2512,7 +2512,7 @@
     },
     {
       "week": 25,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍈",
         "en": "a small cantaloupe",
@@ -2630,7 +2630,7 @@
     },
     {
       "week": 26,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥬",
         "en": "a red cabbage",
@@ -2746,7 +2746,7 @@
     },
     {
       "week": 27,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍈",
         "en": "a pomelo",
@@ -2863,7 +2863,7 @@
     },
     {
       "week": 28,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥒",
         "en": "a bottle gourd",
@@ -2983,7 +2983,7 @@
     },
     {
       "week": 29,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥭",
         "en": "a large papaya",
@@ -3101,7 +3101,7 @@
     },
     {
       "week": 30,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥬",
         "en": "a large cabbage",
@@ -3219,7 +3219,7 @@
     },
     {
       "week": 31,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍍",
         "en": "a pineapple",
@@ -3337,7 +3337,7 @@
     },
     {
       "week": 32,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍈",
         "en": "a durian",
@@ -3457,7 +3457,7 @@
     },
     {
       "week": 33,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥥",
         "en": "a coconut",
@@ -3575,7 +3575,7 @@
     },
     {
       "week": 34,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥦",
         "en": "a large cauliflower",
@@ -3693,7 +3693,7 @@
     },
     {
       "week": 35,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥬",
         "en": "a napa cabbage",
@@ -3811,7 +3811,7 @@
     },
     {
       "week": 36,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🥒",
         "en": "a winter melon",
@@ -3929,7 +3929,7 @@
     },
     {
       "week": 37,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🟠",
         "en": "a gac fruit",
@@ -4049,7 +4049,7 @@
     },
     {
       "week": 38,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍈",
         "en": "a honeydew melon",
@@ -4167,7 +4167,7 @@
     },
     {
       "week": 39,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🟢",
         "en": "a small jackfruit",
@@ -4285,7 +4285,7 @@
     },
     {
       "week": 40,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍉",
         "en": "a watermelon",
@@ -4403,7 +4403,7 @@
     },
     {
       "week": 41,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍈",
         "en": "a pumpkin",
@@ -4521,7 +4521,7 @@
     },
     {
       "week": 42,
-      "reviewed": false,
+      "reviewed": true,
       "size": {
         "emoji": "🍈",
         "en": "a soursop",
@@ -4651,7 +4651,7 @@
         "en": "An ultrasound checks that the pregnancy is in the womb, looks for the heartbeat and dates the pregnancy. Routine blood and urine tests are usually done too.",
         "vi": "Siêu âm xác định thai nằm trong tử cung, kiểm tra tim thai và tính tuổi thai. Mẹ thường được làm thêm xét nghiệm máu và nước tiểu."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "nt-scan",
@@ -4665,7 +4665,7 @@
         "en": "Measures the fluid at the back of your baby's neck. With a blood test (double test), it screens for some chromosomal conditions.",
         "vi": "Đo lớp dịch sau gáy của bé. Kết hợp xét nghiệm máu (double test) để sàng lọc một số bất thường nhiễm sắc thể."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "triple-test",
@@ -4679,7 +4679,7 @@
         "en": "A blood test that screens for some chromosomal conditions and neural tube defects. Ask your doctor whether you need it.",
         "vi": "Xét nghiệm máu sàng lọc một số bất thường nhiễm sắc thể và dị tật ống thần kinh. Mẹ hãy hỏi bác sĩ xem có cần làm không."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "anomaly-scan",
@@ -4693,7 +4693,7 @@
         "en": "A detailed ultrasound that checks how your baby's organs and body are developing, and where the placenta lies.",
         "vi": "Siêu âm chi tiết để kiểm tra sự phát triển các cơ quan, hình thái của bé và vị trí bánh nhau."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "gdm-screening",
@@ -4707,7 +4707,7 @@
         "en": "A glucose tolerance test: you drink a sugary drink, then have blood tests to see how your body handles sugar.",
         "vi": "Nghiệm pháp dung nạp glucose: mẹ uống dung dịch đường, sau đó lấy máu xét nghiệm để xem cơ thể xử lý đường thế nào."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "tetanus-pertussis",
@@ -4721,7 +4721,7 @@
         "en": "Vaccines in pregnancy protect you and pass protection to your newborn. Follow the schedule your clinic recommends.",
         "vi": "Tiêm phòng khi mang thai giúp bảo vệ mẹ và truyền miễn dịch cho bé sau sinh. Mẹ hãy tiêm theo lịch hướng dẫn của cơ sở y tế nơi khám."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "growth-scan",
@@ -4735,7 +4735,7 @@
         "en": "An ultrasound that checks your baby's growth, position and the amount of amniotic fluid.",
         "vi": "Siêu âm kiểm tra sự tăng trưởng, ngôi thai và lượng nước ối."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "gbs-test",
@@ -4749,7 +4749,7 @@
         "en": "A swab checks for group B streptococcus. If it is found, antibiotics during labour help protect your baby.",
         "vi": "Lấy mẫu dịch để tìm liên cầu khuẩn nhóm B (GBS). Nếu có, mẹ sẽ được dùng kháng sinh khi chuyển dạ để bảo vệ bé."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "weekly-checks",
@@ -4763,7 +4763,7 @@
         "en": "From week 37 you are usually seen every week to check your blood pressure, your baby's heartbeat and position.",
         "vi": "Từ tuần 37, mẹ thường khám mỗi tuần để kiểm tra huyết áp, tim thai và ngôi thai."
       },
-      "reviewed": false
+      "reviewed": true
     },
     {
       "id": "post-dates",
@@ -4777,7 +4777,7 @@
         "en": "If your baby has not arrived, you will be checked more often, and your doctor will discuss inducing labour.",
         "vi": "Nếu bé chưa chào đời, mẹ sẽ được theo dõi thường xuyên hơn và bác sĩ sẽ trao đổi về việc khởi phát chuyển dạ."
       },
-      "reviewed": false
+      "reviewed": true
     }
   ]
 }

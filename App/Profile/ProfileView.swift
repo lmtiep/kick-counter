@@ -99,9 +99,11 @@ struct ProfileView: View {
                         .accessibilityIdentifier("profileAppointments")
                         .lunaCard(padding: 0)
                         // Partner sharing needs iCloud, off in 1.0 (phase 12).
+                        #if CLOUD_SYNC
                         if AppEnvironment.showsPartnerUI {
                             PartnerShareCard()
                         }
+                        #endif
                     }
                     permissionsCard
                     aboutCard

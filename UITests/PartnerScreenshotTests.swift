@@ -1,5 +1,8 @@
 import XCTest
 
+// The partner UI is compiled only with the CLOUD_SYNC flag (not set for 1.0, App Review
+// 2.5.19): see `AppFeatures.cloudSync`.
+#if CLOUD_SYNC
 /// Phase 8 spec §6: screenshots of partner sharing (pinned clock, week 24).
 final class PartnerScreenshotTests: XCTestCase {
     override func setUp() {
@@ -83,3 +86,12 @@ final class PartnerScreenshotTests: XCTestCase {
         attachScreenshot(app, "partner-stopped-vi-light")
     }
 }
+#else
+/// Stands in for the partner tests while CLOUD_SYNC is off, so a CI shard or a
+/// `-only-testing` filter that names this class still finds a test.
+final class PartnerScreenshotTests: XCTestCase {
+    func testPartnerUIIsCompiledOut() throws {
+        throw XCTSkip("Partner sharing is compiled out of this build (no CLOUD_SYNC)")
+    }
+}
+#endif

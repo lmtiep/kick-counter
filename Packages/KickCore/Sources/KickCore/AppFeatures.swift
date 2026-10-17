@@ -13,7 +13,11 @@ public enum AppFeatures {
     /// - the Info keys `UIBackgroundModes: [remote-notification]` and `CKSharingSupported`;
     /// - the CloudKit Production schema;
     /// - an updated privacy policy (published before the release), and the guard test
-    ///   `AppFeaturesTests.cloudSyncIsOffForVersion1`.
+    ///   `AppFeaturesTests.cloudSyncIsOffForVersion1`;
+    /// - the `CLOUD_SYNC` compilation condition (`SWIFT_ACTIVE_COMPILATION_CONDITIONS`) on
+    ///   the app and UI-test targets in `project.yml`: without it the partner code
+    ///   (`App/Partner`, the app delegate's remote notifications and CloudKit share
+    ///   handling, the partner UI tests) is not compiled at all (App Review 2.5.19).
     /// See "Giai đoạn 12" in `docs/release-checklist.md`.
     public static let cloudSync = false
 }

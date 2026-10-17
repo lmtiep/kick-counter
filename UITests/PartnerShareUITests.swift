@@ -1,5 +1,8 @@
 import XCTest
 
+// The partner UI is compiled only with the CLOUD_SYNC flag (not set for 1.0, App Review
+// 2.5.19): see `AppFeatures.cloudSync`.
+#if CLOUD_SYNC
 /// Phase 8 spec §5.1 and §6: the mother's "Share with baby's dad" row in each
 /// state, with `FakePartnerSharing` (`-uiTestingSharing`).
 final class PartnerShareUITests: XCTestCase {
@@ -81,3 +84,12 @@ final class PartnerShareUITests: XCTestCase {
         XCTAssertFalse(app.buttons["partnerShareRow"].exists)
     }
 }
+#else
+/// Stands in for the partner tests while CLOUD_SYNC is off, so a CI shard or a
+/// `-only-testing` filter that names this class still finds a test.
+final class PartnerShareUITests: XCTestCase {
+    func testPartnerUIIsCompiledOut() throws {
+        throw XCTSkip("Partner sharing is compiled out of this build (no CLOUD_SYNC)")
+    }
+}
+#endif

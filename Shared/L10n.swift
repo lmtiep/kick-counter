@@ -464,8 +464,10 @@ enum L10n {
     static func counterOfTarget(_ target: Int) -> String { String(format: t("counter.ofTarget"), target) }
     static var counterDoneLabel: String { t("counter.doneLabel") }
     static func counterDoneDetail(_ duration: String) -> String { String(format: t("counter.doneDetail"), duration) }
-    /// Vietnamese emergency number; the button is only shown in Vietnamese.
+    /// Vietnamese emergency number; the button is only shown on a device whose region is Vietnam.
     static var counterCall115: String { t("counter.call115") }
+    /// Instead of the 115 button outside Vietnam (no button: the number depends on the country).
+    static var counterCallLocalEmergency: String { t("counter.callLocalEmergency") }
     static var kicksLastSevenDays: String { t("kicks.last7") }
     static var kicksCardiffTitle: String { t("kicks.cardiff.title") }
     static var kicksCardiffBody: String { t("kicks.cardiff.body") }

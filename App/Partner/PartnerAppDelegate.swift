@@ -1,14 +1,20 @@
-import CloudKit
 import KickCore
+
+extension PartnerInvitationInbox {
+    /// The one inbox: the scene delegate fills it, `RootView` empties it. Without
+    /// CLOUD_SYNC (version 1.0) nothing fills it.
+    static let shared = PartnerInvitationInbox()
+}
+
+// The app delegate (remote notifications, CloudKit share invitations) is compiled
+// only with the CLOUD_SYNC flag, not set for 1.0 (App Review 2.5.19 / 5.1.3(ii)):
+// see `AppFeatures.cloudSync`.
+#if CLOUD_SYNC
+import CloudKit
 import OSLog
 import UIKit
 
 private let logger = Logger(subsystem: "com.lmtiep.kickcounter", category: "partner-invitation")
-
-extension PartnerInvitationInbox {
-    /// The one inbox: the scene delegate fills it, `RootView` empties it.
-    static let shared = PartnerInvitationInbox()
-}
 
 extension Notification.Name {
     /// A silent push from the partner's shared-database subscription arrived.
@@ -78,3 +84,4 @@ final class PartnerSceneDelegate: NSObject, UIWindowSceneDelegate {
         PartnerInvitationInbox.shared.receive(PartnerInvitation(payload: CloudInvitationBox(metadata: metadata)))
     }
 }
+#endif

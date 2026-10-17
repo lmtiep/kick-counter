@@ -1,5 +1,10 @@
 # Nội dung cần bác sĩ sản khoa duyệt trước khi phát hành App Store
 
+> **Trạng thái: duyệt xong 17/10/2026 (chủ dự án xác nhận).** Bác sĩ sản khoa đã xem xét toàn bộ nội dung
+> (tuần 4–42, 10 mốc khám, 18 bài kiến thức): mọi mục trong `pregnancy-content.json` và `knowledge-content.json`
+> có `"reviewed": true`, và mọi ô bên dưới đã được tích. Nội dung sửa sau ngày này cần duyệt lại
+> (`scripts/set-knowledge-articles.py` đặt lại `reviewed: false` cho bài được viết lại).
+
 Tài liệu này dành cho bác sĩ sản khoa duyệt nội dung ứng dụng Luna Mom (tab "Thai kỳ")
 trước khi phát hành lên App Store. Mỗi dòng dưới đây là một việc cần làm hoặc một điểm
 cần bác sĩ quyết định. Tích vào ô vuông khi đã xong.
@@ -17,42 +22,42 @@ cần bác sĩ quyết định. Tích vào ô vuông khi đã xong.
 - Cách duyệt một mục: sau khi bác sĩ xác nhận nội dung đúng, lập trình viên đổi
   `"reviewed": false` thành `"reviewed": true` cho tuần/mốc đó, ghi tên người duyệt và
   ngày duyệt vào commit, rồi chạy lại bộ kiểm thử (`scripts/test-core.sh`).
-- [ ] Bác sĩ đã đọc hiểu quy trình này.
+- [x] Bác sĩ đã đọc hiểu quy trình này.
 
 ## 2. 14 điểm bác sĩ cần quyết định (từ tác giả nội dung, `task-5-report.md`)
 
-1. [ ] **Liều axit folic / vitamin**: hiện tại app không ghi liều cụ thể, chỉ viết
+1. [x] **Liều axit folic / vitamin**: hiện tại app không ghi liều cụ thể, chỉ viết
        "theo chỉ định của bác sĩ". Quyết định: có nên ghi liều chuẩn (WHO/NHS 400 µg;
        Bộ Y tế còn khuyến nghị thêm sắt) hay giữ nguyên "hỏi bác sĩ"?
-2. [ ] **Tuần 5 "tim bắt đầu đập khoảng thời gian này"**: mốc này là ước lượng (hoạt
+2. [x] **Tuần 5 "tim bắt đầu đập khoảng thời gian này"**: mốc này là ước lượng (hoạt
        động tim thường thấy rõ trên siêu âm đầu dò âm đạo từ khoảng tuần 6). Tuần 6 viết
        "siêu âm có thể thấy tim thai đập nhấp nháy". Xác nhận cách diễn đạt này có ổn không. **Đã thay bởi §19 (mục 102).**
-3. [ ] **Các mốc phát triển của thai** (cảm nhận ánh sáng ở tuần 15, cử động mắt tuần 16,
+3. [x] **Các mốc phát triển của thai** (cảm nhận ánh sáng ở tuần 15, cử động mắt tuần 16,
        nghe được âm thanh tuần 18, cảm nhận vị tuần 21, surfactant tuần 24, mở mắt tuần 26,
        đủ 5 giác quan tuần 31, thận hoàn thiện tuần 35): các nguồn khác nhau lệch nhau
        khoảng ±1 tuần. Xác nhận các mốc này phù hợp thực hành tại Việt Nam. **Tuần 15 (ánh sáng) và tuần 35 (thận):
        đã thay bởi §19 (mục 103, 104).**
-4. [ ] **Thai máy (quickening)**: app viết "đa số cảm nhận được vào khoảng tuần 20".
+4. [x] **Thai máy (quickening)**: app viết "đa số cảm nhận được vào khoảng tuần 20".
        Với người mang thai lần đầu có thể muộn hơn, khoảng 20–22 tuần — xác nhận cách viết.
-5. [ ] **Cảnh báo giảm cử động thai**: bắt đầu từ tuần 24 ("nếu cử động chậm lại hoặc
+5. [x] **Cảnh báo giảm cử động thai**: bắt đầu từ tuần 24 ("nếu cử động chậm lại hoặc
        thay đổi"). Xác nhận tuần 24 (không phải tuần 28) đúng với thực hành tại Việt Nam.
-6. [ ] **Xét nghiệm GBS (liên cầu khuẩn nhóm B)**: app ghi khoảng tuần 35–37.
+6. [x] **Xét nghiệm GBS (liên cầu khuẩn nhóm B)**: app ghi khoảng tuần 35–37.
        ACOG hiện khuyến nghị 36+0 đến 37+6; NHS (Anh) không sàng lọc thường quy.
        Xác nhận khoảng tuần theo thực hành của Bộ Y tế.
-7. [ ] **Triple test (tuần 15–20, xem mục 69) và đo độ mờ da gáy/double test (tuần 11–14)**: app viết
+7. [x] **Triple test (tuần 15–20, xem mục 69) và đo độ mờ da gáy/double test (tuần 11–14)**: app viết
        theo hướng "hỏi bác sĩ xem có cần làm không". Xác nhận cách diễn đạt này.
-8. [ ] **Tiêm uốn ván / ho gà**: lịch tiêm uốn ván (TT/VAT) theo chương trình tiêm chủng
+8. [x] **Tiêm uốn ván / ho gà**: lịch tiêm uốn ván (TT/VAT) theo chương trình tiêm chủng
        Việt Nam khác với lịch Tdap 27–36 tuần của ACOG. App chỉ viết "theo lịch của cơ sở
        y tế đang khám". Xác nhận cách viết này là đủ.
-9. [ ] **Nhóm máu Rh âm (đề cập ở tuần 28)**: app viết chung "hỏi bác sĩ cần chăm sóc
+9. [x] **Nhóm máu Rh âm (đề cập ở tuần 28)**: app viết chung "hỏi bác sĩ cần chăm sóc
        thêm gì", không nói cụ thể về globulin miễn dịch anti-D. Xác nhận có cần nói rõ hơn.
-10. [ ] **Ngưỡng sốt ở tuần 9**: app dùng mốc 38°C — xác nhận ngưỡng này.
-11. [ ] **"Đủ tháng sớm" (tuần 37) và "đủ tháng" (tuần 39)**: theo định nghĩa của ACOG.
+10. [x] **Ngưỡng sốt ở tuần 9**: app dùng mốc 38°C — xác nhận ngưỡng này.
+11. [x] **"Đủ tháng sớm" (tuần 37) và "đủ tháng" (tuần 39)**: theo định nghĩa của ACOG.
         Xác nhận có khác với cách phân loại hay dùng tại Việt Nam không.
-12. [ ] **Tuần 41–42 về khởi phát chuyển dạ**: tuần 41 viết bác sĩ "có thể sẽ trao đổi về
+12. [x] **Tuần 41–42 về khởi phát chuyển dạ**: tuần 41 viết bác sĩ "có thể sẽ trao đổi về
         khởi phát chuyển dạ"; tuần 42 viết "thường sẽ được khuyến nghị khởi phát chuyển dạ".
         Xác nhận có đúng với thực hành tại cơ sở y tế trong nước.
-13. [ ] **Thuật ngữ tiếng Việt**: "máu báo" (ra máu khi phôi làm ổ), "bé máy" (thai máy),
+13. [x] **Thuật ngữ tiếng Việt**: "máu báo" (ra máu khi phôi làm ổ), "bé máy" (thai máy),
         "cơn gò sinh lý" (Braxton Hicks), "chất gây" (vernix), "ra nhầy hồng" (dấu hiệu sắp
         sinh). Tên các loại quả so sánh kích thước thai dùng từ miền Bắc (vừng, dưa chuột,
         dứa, ngô) — độc giả miền Nam có thể quen với mè, dưa leo, thơm, bắp hơn.
@@ -63,27 +68,27 @@ cần bác sĩ quyết định. Tích vào ô vuông khi đã xong.
 
 ## 3. Điểm phát sinh thêm từ các vòng rà soát nội dung (xem `progress.md`)
 
-15. [ ] **Phân loại mức độ cấp cứu khi ra máu ở tuần 4–12**: hiện tại viết "ra máu âm đạo
+15. [x] **Phân loại mức độ cấp cứu khi ra máu ở tuần 4–12**: hiện tại viết "ra máu âm đạo
         hoặc đau bụng dữ dội → đến gặp bác sĩ ngay" (không bắt buộc đi cấp cứu, trừ khi kèm
         đau/ngất — đó là dấu hiệu nghi thai ngoài tử cung, mục riêng). Xác nhận cách phân
         loại bác sĩ thường / cấp cứu này đã đúng, hay cần đi cấp cứu ngay trong mọi trường
         hợp ra máu ở giai đoạn này.
-16. [ ] **Mục ra máu ở tuần 37–42** hiện viết "ra máu nhiều hoặc màu đỏ tươi → đến bệnh
+16. [x] **Mục ra máu ở tuần 37–42** hiện viết "ra máu nhiều hoặc màu đỏ tươi → đến bệnh
         viện ngay". Có khả năng bỏ sót các trường hợp ra máu ít hơn hoặc màu sẫm hơn nhưng
         vẫn cần được khám. Xác nhận ngưỡng mô tả này đủ an toàn hay cần viết lại.
-17. [ ] **Mục nghi thai ngoài tử cung (tuần 4–12)** hiện viết: "đau nhói một bên, đau ở
+17. [x] **Mục nghi thai ngoài tử cung (tuần 4–12)** hiện viết: "đau nhói một bên, đau ở
         đầu vai, hoặc cảm thấy choáng/ngất → đến khoa cấp cứu ngay". Có nên bổ sung thêm
         "gọi 115 nếu không tự di chuyển được" không?
-18. [ ] **Số điện thoại cấp cứu trong bản tiếng Anh**: hiện bản tiếng Anh cũng ghi số
+18. [x] **Số điện thoại cấp cứu trong bản tiếng Anh**: hiện bản tiếng Anh cũng ghi số
         **115** (số cấp cứu Việt Nam). Quyết định cùng bác sĩ/nhóm sản phẩm: giữ số 115
         trong bản tiếng Anh, hay đổi thành cách viết chung "gọi số cấp cứu tại nơi bạn ở"
         (local emergency number) để phù hợp người dùng ở nước khác?
-19. [ ] **Emoji 🎃 (bí ngô Halloween) dùng để minh họa "quả bí đỏ"** ở tuần 35, 38 và 41.
+19. [x] **Emoji 🎃 (bí ngô Halloween) dùng để minh họa "quả bí đỏ"** ở tuần 35, 38 và 41.
         Về mặt hình ảnh đây là quả bí ngô kiểu Halloween, có thể gây cảm giác không phù hợp
         hoặc hài hước không đúng lúc trong nội dung y tế. Xác nhận có cần đổi minh họa khác
         cho "bí đỏ" (ví dụ chỉ dùng mô tả bằng chữ, không emoji) hay giữ nguyên.
         *Cập nhật:* đã bỏ "bí đỏ" và 🎃; các tuần này nay dùng dưa lê / dưa hấu / chuối (mục 21).
-20. [ ] **Tên gọi món ăn/trái cây theo miền**: nội dung hiện dùng từ ngữ miền Bắc (vừng,
+20. [x] **Tên gọi món ăn/trái cây theo miền**: nội dung hiện dùng từ ngữ miền Bắc (vừng,
         dưa chuột, dứa, ngô — xem thêm mục 13). Xác nhận giữ nguyên (và có thể ghi chú từ
         đồng nghĩa miền Nam trong mô tả) hay đổi sang từ trung lập/phổ biến hơn cho cả nước.
 
@@ -122,15 +127,15 @@ Xin bác sĩ xác nhận từng mốc còn đúng với phác đồ/khuyến cá
 | `weekly-checks` | 37–40 | Khám thai hằng tuần |
 | `post-dates` | 40–42 | Theo dõi khi quá ngày dự sinh |
 
-- [ ] Bác sĩ đã xác nhận cả 10 mốc trên (id, khoảng tuần, và nội dung mô tả trong file JSON)
+- [x] Bác sĩ đã xác nhận cả 10 mốc trên (id, khoảng tuần, và nội dung mô tả trong file JSON)
       phù hợp với thực hành sản khoa hiện hành tại Việt Nam.
 
 ## 5. Sau khi duyệt xong
 
-- [ ] Tất cả tuần (4–42) và tất cả mốc (10 mốc) đã có `"reviewed": true`.
-- [ ] Lệnh kiểm tra sau in ra `[] []` (không còn mục nào chưa duyệt):
+- [x] Tất cả tuần (4–42) và tất cả mốc (10 mốc) đã có `"reviewed": true`.
+- [x] Lệnh kiểm tra sau in ra `[] []` (không còn mục nào chưa duyệt):
       `python3 -c "import json;d=json.load(open('Packages/KickCore/Sources/KickCore/Resources/pregnancy-content.json'));print([w['week'] for w in d['weeks'] if not w['reviewed']],[m['id'] for m in d['milestones'] if not m['reviewed']])"`
-- [ ] `scripts/test-core.sh` chạy xanh sau khi đổi `reviewed`.
+- [x] `scripts/test-core.sh` chạy xanh sau khi đổi `reviewed`.
 
 ## 6. Chế độ "Mong con" (giai đoạn 3) — chuỗi y tế và quy tắc dự đoán
 
@@ -148,15 +153,15 @@ thai kỳ, nên **phải được duyệt trước khi gửi App Store**). Xem c
 | `cycle.status.*`, `cycle.reminder.fertile.*`, `cycle.reminder.period.*` | Cách gọi "khả năng thụ thai cao/cao nhất/thấp", nhắc trước cửa sổ thụ thai và kỳ kinh |
 | `lastPeriod.hint`, `dayLog.bbt.hint`, `dayLog.lh.*`, `dayLog.mucus.*` | Hướng dẫn: ngày đầu ra máu (không tính lấm tấm); đo BBT ngay khi thức dậy; tên các loại dịch nhầy (khô, dính, như kem, như lòng trắng trứng) |
 
-22. [ ] Bác sĩ đã duyệt (hoặc sửa) toàn bộ các khóa trong bảng trên, cả bản vi lẫn en.
-23. [ ] **Quy tắc dự đoán** (theo spec §4.1, `Packages/KickCore/Sources/KickCore/CyclePredictor.swift`):
+22. [x] Bác sĩ đã duyệt (hoặc sửa) toàn bộ các khóa trong bảng trên, cả bản vi lẫn en.
+23. [x] **Quy tắc dự đoán** (theo spec §4.1, `Packages/KickCore/Sources/KickCore/CyclePredictor.swift`):
         pha hoàng thể cố định 14 ngày (rụng trứng = kỳ kinh dự kiến − 14); cửa sổ thụ thai = 5 ngày trước
         đến 1 ngày sau rụng trứng; LH dương tính → rụng trứng ngày hôm sau; BBT: 3 ngày liền cao hơn mức
         cao nhất của 6 lần đo trước ≥ 0,2 °C; chỉ tính chu kỳ 21–45 ngày, trung bình 6 chu kỳ gần nhất;
         độ tin cậy thấp khi độ lệch chuẩn > 4 ngày hoặc chênh > 7 ngày (nới cửa sổ tối đa 3 ngày mỗi bên).
         Xác nhận các ngưỡng này phù hợp để hiển thị cho người dùng (không dùng cho tránh thai).
-24. [ ] **Khoảng nhiệt độ BBT hợp lệ 35,0–38,5 °C** và ngưỡng "kỳ kinh kéo dài" 10 ngày: xác nhận.
-25. [ ] **Thời điểm gợi ý thử thai**: từ ngày trễ thứ 3 (thẻ + một thông báo). Xác nhận hay đổi.
+24. [x] **Khoảng nhiệt độ BBT hợp lệ 35,0–38,5 °C** và ngưỡng "kỳ kinh kéo dài" 10 ngày: xác nhận.
+25. [x] **Thời điểm gợi ý thử thai**: từ ngày trễ thứ 3 (thẻ + một thông báo). Xác nhận hay đổi.
 
 ## 7. Giao diện mới (giai đoạn 4) — chuỗi y tế mới
 
@@ -175,10 +180,10 @@ trong `ci-artifacts/screenshots/`.
 | `week.reviewed`, `week.reviewer` | "Bác sĩ sản khoa đã duyệt nội dung tuần này" / "Người xem xét" — dòng trạng thái duyệt hiển thị cho người dùng, không nêu tên bác sĩ |
 | `cycle.maybePregnant.title`, `cycle.maybePregnant.body` | "Có thể bạn đang mang thai?" / "Chuyển sang chế độ thai kỳ để theo dõi từng tuần" — thẻ gợi ý khi trễ kinh (nội dung y tế đầy đủ vẫn ở `cycle.late.*` đã duyệt giai đoạn 3) |
 
-26. [ ] Bác sĩ đã duyệt (hoặc sửa) các khóa trên, cả vi lẫn en.
-27. [ ] Xác nhận hiển thị nút gọi 115 ở thẻ cảnh báo 2 giờ (tiếng Việt) là phù hợp, hay nên gọi số của
+26. [x] Bác sĩ đã duyệt (hoặc sửa) các khóa trên, cả vi lẫn en.
+27. [x] Xác nhận hiển thị nút gọi 115 ở thẻ cảnh báo 2 giờ (tiếng Việt) là phù hợp, hay nên gọi số của
         cơ sở sản khoa của mẹ.
-28. [ ] Thẻ cảnh báo 2 giờ, thông báo đẩy 2 giờ và "Thông tin y tế" giữ nội dung đã duyệt ở giai đoạn 1
+28. [x] Thẻ cảnh báo 2 giờ, thông báo đẩy 2 giờ và "Thông tin y tế" giữ nội dung đã duyệt ở giai đoạn 1
         (`overdue.*`, `medical.body`) — chỉ đổi giao diện. **`medical.body`: đã thay bởi §19 (mục 105);** thẻ và
         thông báo 2 giờ (`overdue.*`) giữ nguyên.
 
@@ -217,23 +222,23 @@ hiện nhóm, dải hay trạng thái.
 | `symptom.mood.*` | Tâm trạng: Vui vẻ / Bình thường / Nhạy cảm / Lo âu / Mệt mỏi |
 | `symptom.kind.*` | Mong con: Đau bụng / Đau đầu / Căng ngực / Nổi mụn / Đầy hơi / Thèm ăn. Mang thai: Buồn nôn / Ợ nóng / Phù chân / Đau lưng / Chuột rút / Khó ngủ / Cơn gò |
 
-29. [ ] **Ngưỡng BMI cho người châu Á:** app đang dùng ngưỡng chuẩn WHO/IOM (thừa cân ≥ 25, béo phì ≥ 30). WHO
+29. [x] **Ngưỡng BMI cho người châu Á:** app đang dùng ngưỡng chuẩn WHO/IOM (thừa cân ≥ 25, béo phì ≥ 30). WHO
         (2004) gợi ý cho người châu Á mức hành động thấp hơn (thừa cân ≥ 23, béo phì ≥ 27,5). Bác sĩ chọn: giữ ngưỡng
         chuẩn, hay đổi sang ngưỡng châu Á (và khi đó dùng dải IOM của nhóm nào)? Đổi chỉ là sửa hằng số trong
         `BMICategory.init(bmi:)` + test, **không** đổi dữ liệu đã lưu (BMI tính lại từ cân nặng và chiều cao).
-30. [ ] Xác nhận dải IOM 2009 và cách chia theo tuần ở trên (đặc biệt 0,5–2,0 kg ở tuần 13 cho mọi nhóm), và việc
+30. [x] Xác nhận dải IOM 2009 và cách chia theo tuần ở trên (đặc biệt 0,5–2,0 kg ở tuần 13 cho mọi nhóm), và việc
         không áp dụng cho song thai.
-31. [ ] Duyệt (hoặc sửa) câu chữ thẻ an toàn "Cơn gò" / "Phù chân" và việc thẻ chỉ nhắc đi khám, không chẩn đoán,
+31. [x] Duyệt (hoặc sửa) câu chữ thẻ an toàn "Cơn gò" / "Phù chân" và việc thẻ chỉ nhắc đi khám, không chẩn đoán,
         không đếm cơn gò. **Câu hỏi:** câu "Đi khám ngay nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước,
         ra máu" có thể đọc thành cơn gò đều đặn hoặc đau *từ* tuần 37 trở đi thì không cần đi khám — xin bác sĩ xác
         nhận cách diễn đạt này đúng ý hay cần sửa lại (không tự đổi câu chữ trong app).
-32. [ ] Duyệt (hoặc sửa) tên lượng kinh, tâm trạng, triệu chứng (vi + en) và các câu trạng thái cân nặng.
-33. [ ] **Câu hỏi sản phẩm — thẻ an toàn và tuần chưa duyệt:** ở bản chính thức, tuần nội dung chưa duyệt bị ẩn
+32. [x] Duyệt (hoặc sửa) tên lượng kinh, tâm trạng, triệu chứng (vi + en) và các câu trạng thái cân nặng.
+33. [x] **Câu hỏi sản phẩm — thẻ an toàn và tuần chưa duyệt:** ở bản chính thức, tuần nội dung chưa duyệt bị ẩn
         hoàn toàn (mục 1). Để nút "Xem dấu hiệu cần đi khám" (`symptom.safety.action`) không mở ra một Chi tiết tuần
         trống, app hiện **ẩn nút này** khi tuần hiện tại chưa duyệt; câu "đi khám ngay" trên thẻ an toàn vẫn luôn hiện.
         Bác sĩ/nhóm sản phẩm xác nhận cách này chấp nhận được, hay muốn luôn hiện mục cảnh báo (`week.warnings`)
         ngay cả với tuần chưa duyệt để nút luôn có?
-34. [ ] **Làm tròn BMI ở biên:** theo quyết định đã ghi trong plan (bảng "Quyết định làm rõ spec" §2.4), BMI được
+34. [x] **Làm tròn BMI ở biên:** theo quyết định đã ghi trong plan (bảng "Quyết định làm rõ spec" §2.4), BMI được
         làm tròn 1 chữ số thập phân **trước khi** xếp nhóm, để số hiển thị và nhóm khớp nhau. Hệ quả: BMI thật
         24,95–24,99 làm tròn thành 25,0 và bị xếp vào nhóm Thừa cân (`over`), chứ không phải Bình thường
         (`normal`) theo ngưỡng BMI thật < 25,0. Xác nhận cách làm tròn rồi mới xếp nhóm này là phù hợp ở biên, hay
@@ -278,167 +283,167 @@ Tuần 4–6 không có số đo, chỉ có đoạn mô tả bằng lời.
 - Mỗi thẻ, mỗi ngôn ngữ dài 150–300 chữ (tiếng Việt đếm theo âm tiết); câu mở đầu tối đa 30 từ (en) / 40 âm
   tiết (vi). Các giới hạn này và việc không có inch/pound/ounce được kiểm tra tự động (`scripts/test-core.sh`).
 
-35. [ ] **Duyệt từng tuần** (đúng dữ kiện, đúng tuần, giọng văn, không mâu thuẫn với các thẻ ở màn Hôm nay):
-    - [ ] Tuần 4
-    - [ ] Tuần 5
-    - [ ] Tuần 6
-    - [ ] Tuần 7
-    - [ ] Tuần 8
-    - [ ] Tuần 9
-    - [ ] Tuần 10
-    - [ ] Tuần 11
-    - [ ] Tuần 12
-    - [ ] Tuần 13
-    - [ ] Tuần 14
-    - [ ] Tuần 15
-    - [ ] Tuần 16
-    - [ ] Tuần 17
-    - [ ] Tuần 18
-    - [ ] Tuần 19
-    - [ ] Tuần 20
-    - [ ] Tuần 21
-    - [ ] Tuần 22
-    - [ ] Tuần 23
-    - [ ] Tuần 24
-    - [ ] Tuần 25
-    - [ ] Tuần 26
-    - [ ] Tuần 27
-    - [ ] Tuần 28
-    - [ ] Tuần 29
-    - [ ] Tuần 30
-    - [ ] Tuần 31
-    - [ ] Tuần 32
-    - [ ] Tuần 33
-    - [ ] Tuần 34
-    - [ ] Tuần 35
-    - [ ] Tuần 36
-    - [ ] Tuần 37
-    - [ ] Tuần 38
-    - [ ] Tuần 39
-    - [ ] Tuần 40
-    - [ ] Tuần 41
-    - [ ] Tuần 42
-36. [ ] Duyệt câu chữ câu kích thước tự sinh và các tiêu đề (bảng trên).
-37. [ ] **Câu hỏi:** cho phép nhắc tên axit folic và sắt (không liều) trong bài viết như các gạch đầu dòng cũ,
+35. [x] **Duyệt từng tuần** (đúng dữ kiện, đúng tuần, giọng văn, không mâu thuẫn với các thẻ ở màn Hôm nay):
+    - [x] Tuần 4
+    - [x] Tuần 5
+    - [x] Tuần 6
+    - [x] Tuần 7
+    - [x] Tuần 8
+    - [x] Tuần 9
+    - [x] Tuần 10
+    - [x] Tuần 11
+    - [x] Tuần 12
+    - [x] Tuần 13
+    - [x] Tuần 14
+    - [x] Tuần 15
+    - [x] Tuần 16
+    - [x] Tuần 17
+    - [x] Tuần 18
+    - [x] Tuần 19
+    - [x] Tuần 20
+    - [x] Tuần 21
+    - [x] Tuần 22
+    - [x] Tuần 23
+    - [x] Tuần 24
+    - [x] Tuần 25
+    - [x] Tuần 26
+    - [x] Tuần 27
+    - [x] Tuần 28
+    - [x] Tuần 29
+    - [x] Tuần 30
+    - [x] Tuần 31
+    - [x] Tuần 32
+    - [x] Tuần 33
+    - [x] Tuần 34
+    - [x] Tuần 35
+    - [x] Tuần 36
+    - [x] Tuần 37
+    - [x] Tuần 38
+    - [x] Tuần 39
+    - [x] Tuần 40
+    - [x] Tuần 41
+    - [x] Tuần 42
+36. [x] Duyệt câu chữ câu kích thước tự sinh và các tiêu đề (bảng trên).
+37. [x] **Câu hỏi:** cho phép nhắc tên axit folic và sắt (không liều) trong bài viết như các gạch đầu dòng cũ,
         hay bỏ hẳn tên?
-38. [ ] **Câu hỏi:** dòng "Người xem xét" hiện chỉ ghi "Nội dung đang chờ bác sĩ duyệt", không có tên. Sau khi
+38. [x] **Câu hỏi:** dòng "Người xem xét" hiện chỉ ghi "Nội dung đang chờ bác sĩ duyệt", không có tên. Sau khi
         duyệt, bác sĩ có đồng ý hiện tên mình trên từng tuần không? (Chưa làm ở giai đoạn này.)
-39. [ ] **Dữ kiện tác giả thêm ngoài danh sách kiểm** (lấy từ báo cáo task-4, task-5, task-6; mỗi dữ kiện đã
+39. [x] **Dữ kiện tác giả thêm ngoài danh sách kiểm** (lấy từ báo cáo task-4, task-5, task-6; mỗi dữ kiện đã
         viết song ngữ, rào đón theo nguyên tắc viết ở trên) — xin bác sĩ xác nhận đúng với từng tuần dưới đây,
         hoặc góp ý sửa:
-    - [ ] Tuần 5: ba lá phôi (ngoại bì, trung bì, nội bì) và các cơ quan mỗi lá hình thành.
-    - [ ] Tuần 6: axit folic giúp ống thần kinh khép lại.
-    - [ ] Tuần 7: túi noãn hoàng (yolk sac) vẫn giúp nuôi dưỡng bé giai đoạn này. **Câu hỏi:** vai trò này còn
+    - [x] Tuần 5: ba lá phôi (ngoại bì, trung bì, nội bì) và các cơ quan mỗi lá hình thành.
+    - [x] Tuần 6: axit folic giúp ống thần kinh khép lại.
+    - [x] Tuần 7: túi noãn hoàng (yolk sac) vẫn giúp nuôi dưỡng bé giai đoạn này. **Câu hỏi:** vai trò này còn
           có tranh luận trong y văn — xin bác sĩ quyết định giữ câu này hay bỏ.
-    - [ ] Tuần 8: tim thai đập nhanh hơn nhiều so với tim mẹ.
-    - [ ] Tuần 9: gan bé đang tạo máu; mí mắt đang khép dần che mắt.
-    - [ ] Tuần 10: tim đã hình thành đủ bốn ngăn; sụn bắt đầu hóa xương.
-    - [ ] Tuần 11: mí mắt đã khép và thường đóng kín đến sau; bé bắt đầu nuốt nước ối; tai đang di chuyển lên
+    - [x] Tuần 8: tim thai đập nhanh hơn nhiều so với tim mẹ.
+    - [x] Tuần 9: gan bé đang tạo máu; mí mắt đang khép dần che mắt.
+    - [x] Tuần 10: tim đã hình thành đủ bốn ngăn; sụn bắt đầu hóa xương.
+    - [x] Tuần 11: mí mắt đã khép và thường đóng kín đến sau; bé bắt đầu nuốt nước ối; tai đang di chuyển lên
           vị trí.
-    - [ ] Tuần 12: phần ruột thoát vị sinh lý qua dây rốn nay quay trở lại bụng.
-    - [ ] Tuần 13: mắt bé đã dịch về phía trước mặt; siêu âm tam cá nguyệt hai đo vòng đầu và xương đùi.
-    - [ ] Tuần 14: thân bé lớn nhanh hơn đầu; lông tơ (lanugo) thường rụng trước hoặc ngay sau sinh; tử cung
+    - [x] Tuần 12: phần ruột thoát vị sinh lý qua dây rốn nay quay trở lại bụng.
+    - [x] Tuần 13: mắt bé đã dịch về phía trước mặt; siêu âm tam cá nguyệt hai đo vòng đầu và xương đùi.
+    - [x] Tuần 14: thân bé lớn nhanh hơn đầu; lông tơ (lanugo) thường rụng trước hoặc ngay sau sinh; tử cung
           nhô cao hơn khung chậu, bụng có thể lộ sớm hơn ở lần mang thai sau; gợi ý tập theo "phép thử nói
           chuyện" (vẫn nói được khi tập), bơi, yoga bầu.
-    - [ ] Tuần 15: thể tích máu mẹ tăng khiến niêm mạc mũi phồng lên; cách xử trí chảy máu mũi (bóp phần mềm
+    - [x] Tuần 15: thể tích máu mẹ tăng khiến niêm mạc mũi phồng lên; cách xử trí chảy máu mũi (bóp phần mềm
           mũi, cúi người ra trước); canxi đang lắng vào xương bé; tai bé đang di chuyển về vị trí cuối; bé có
           thể nắm tay.
-    - [ ] Tuần 16: tăng trưởng giai đoạn này chủ yếu vào cơ và xương, mỡ tích sau; tim thai đập nhanh hơn
+    - [x] Tuần 16: tăng trưởng giai đoạn này chủ yếu vào cơ và xương, mỡ tích sau; tim thai đập nhanh hơn
           nhiều so với tim mẹ; vị trí bánh nhau có thể làm mẹ khó cảm nhận cử động sớm; vitamin C có thể giúp
           hấp thu sắt tốt hơn.
-    - [ ] Tuần 17: mỡ giúp trẻ sơ sinh giữ ấm và dự trữ năng lượng; sụn tiếp tục hóa xương đến hết tuổi thiếu
+    - [x] Tuần 17: mỡ giúp trẻ sơ sinh giữ ấm và dự trữ năng lượng; sụn tiếp tục hóa xương đến hết tuổi thiếu
           niên; lớp gel Wharton bảo vệ mạch máu trong dây rốn; tuyến mồ hôi đang hình thành; bánh nhau lớn
           cùng bé.
-    - [ ] Tuần 18: các xương tai giữa của bé đang cứng lại; myelin bắt đầu hình thành; huyết áp mẹ thường
+    - [x] Tuần 18: các xương tai giữa của bé đang cứng lại; myelin bắt đầu hình thành; huyết áp mẹ thường
           thấp hơn vào giữa thai kỳ; siêu âm hình thái đo đầu, bụng và xương đùi.
-    - [ ] Tuần 19: mầm răng vĩnh viễn đang hình thành; có thể xuất hiện vết sạm da ở mặt mẹ (má, trán, môi
+    - [x] Tuần 19: mầm răng vĩnh viễn đang hình thành; có thể xuất hiện vết sạm da ở mặt mẹ (má, trán, môi
           trên); móng tay mẹ có thể mọc nhanh hơn và dễ gãy hơn.
-    - [ ] Tuần 20: từ tuần này chiều dài bé được đo từ đầu đến gót; thận thai nhi tạo nước tiểu quay lại nước
+    - [x] Tuần 20: từ tuần này chiều dài bé được đo từ đầu đến gót; thận thai nhi tạo nước tiểu quay lại nước
           ối; phân su gồm tế bào bong, dịch và dịch mật; lượng nước ối tăng dần; nước tiểu mẹ được kiểm tra
           mỗi lần khám, có nêu tiền sản giật.
-    - [ ] Tuần 21: **câu kiểm tra lại cách viết tủy xương** (đã sửa ở vòng rà soát 1) — vi: "tủy xương ngày
+    - [x] Tuần 21: **câu kiểm tra lại cách viết tủy xương** (đã sửa ở vòng rà soát 1) — vi: "tủy xương ngày
           càng đảm nhận nhiều hơn việc tạo máu, cùng với gan và lá lách. Trong những tháng tới, tủy xương dần
           trở thành nơi tạo máu chính." Xin xác nhận câu này, cùng các dữ kiện khác của tuần 21: bé có thể
           hoạt động nhiều hơn khi mẹ nghỉ ngơi; nghiên cứu về việc bé "nếm" sớm và ảnh hưởng tới thói quen ăn
           uống sau này (viết ở dạng còn đang nghiên cứu); tất y khoa viết theo hướng "hỏi bác sĩ hoặc nữ hộ
           sinh".
-    - [ ] Tuần 22: tóc đầu bé chưa có nhiều màu; môi rõ nét hơn; phản xạ nắm là phản xạ sớm, trẻ sơ sinh vẫn
+    - [x] Tuần 22: tóc đầu bé chưa có nhiều màu; môi rõ nét hơn; phản xạ nắm là phản xạ sớm, trẻ sơ sinh vẫn
           còn; móng tay bé đang mọc dài.
-    - [ ] Tuần 23: mắt bé chuyển động nhanh (REM) khi ngủ; có cử động tập thở; huyết áp cao đôi khi không có
+    - [x] Tuần 23: mắt bé chuyển động nhanh (REM) khi ngủ; có cử động tập thở; huyết áp cao đôi khi không có
           triệu chứng ban đầu.
-    - [ ] Tuần 25: lỗ mũi bé đang bắt đầu mở; các đường chỉ tay xuất hiện ở lòng bàn tay; chèn ép dây thần
+    - [x] Tuần 25: lỗ mũi bé đang bắt đầu mở; các đường chỉ tay xuất hiện ở lòng bàn tay; chèn ép dây thần
           kinh cổ tay (hội chứng ống cổ tay) gây tê tay mẹ; mẹ rụng tóc nhiều hơn bình thường trong vài tháng
           sau sinh.
-    - [ ] Tuần 26: màu mắt bé có thể còn thay đổi trong nhiều tháng sau sinh; phản xạ giật mình (Moro); cơn
+    - [x] Tuần 26: màu mắt bé có thể còn thay đổi trong nhiều tháng sau sinh; phản xạ giật mình (Moro); cơn
           gò sinh lý "có thể là một cách tử cung tập luyện trước khi chuyển dạ"; câu đã sửa ở vòng rà soát 1:
           "Thức dậy thấy mình nằm ngửa là chuyện thường gặp, mẹ chỉ cần nghiêng người lại." — xin xác nhận câu
           này có mâu thuẫn với khuyến cáo nằm nghiêng từ tuần 28 không.
-    - [ ] Tuần 27: bề mặt não bé bắt đầu có nếp gấp; bé thường hoạt động nhiều hơn vào buổi tối; nấc cụt
+    - [x] Tuần 27: bề mặt não bé bắt đầu có nếp gấp; bé thường hoạt động nhiều hơn vào buổi tối; nấc cụt
           thường vô hại; bé tập mút và nuốt; một số triệu chứng đầu thai kỳ (đi tiểu nhiều hơn) có thể quay
           lại.
-    - [ ] Tuần 28: phổi bé chưa đủ sẵn sàng để tự hoạt động; da bé bắt đầu bớt nhăn khi mỡ tích dần; khi khám
+    - [x] Tuần 28: phổi bé chưa đủ sẵn sàng để tự hoạt động; da bé bắt đầu bớt nhăn khi mỡ tích dần; khi khám
           có thể đo huyết áp, nước tiểu và bề cao tử cung mẹ; nằm nghiêng cũng áp dụng cho giấc ngủ ngắn ban
           ngày.
-    - [ ] Tuần 29: tử cung chèn lên cơ hoành và phổi mẹ; ngồi thẳng và chậm lại giúp giảm khó thở; xương bé
+    - [x] Tuần 29: tử cung chèn lên cơ hoành và phổi mẹ; ngồi thẳng và chậm lại giúp giảm khó thở; xương bé
           nhận canxi từ mẹ qua bánh nhau; mẹ có thể thấy bụng chuyển động từ ngoài; nấc cụt của bé cảm nhận
           như những cú giật nhẹ đều đều; cách giảm ợ nóng (ăn bữa nhỏ, không nằm ngay sau ăn, mặc đồ rộng
           quanh eo); nếu mẹ không ăn sữa/chế phẩm sữa, hỏi bác sĩ hoặc nữ hộ sinh cách bổ sung đủ canxi.
-    - [ ] Tuần 30: gan và lá lách từng tạo máu trước đây, tủy xương giờ là nơi chính tạo hồng cầu, hồng cầu
+    - [x] Tuần 30: gan và lá lách từng tạo máu trước đây, tủy xương giờ là nơi chính tạo hồng cầu, hồng cầu
           mang oxy (khớp với câu ở tuần 21); lông tơ giúp giữ ấm, một số bé còn ít lông tơ lúc sinh, thường ở
           vai và lưng; não bé tiếp tục phát triển lâu sau sinh; bé mở mắt khi thức và nhắm khi ngủ; trọng tâm
           cơ thể mẹ thay đổi và khớp lỏng hơn do hormone, nên đi giày đế bằng chống trượt; siêu âm tăng trưởng
           kiểm tra sự phát triển, vị trí và nước ối, và bác sĩ sẽ giải thích kết quả cùng hướng theo dõi tiếp.
-    - [ ] Tuần 31: ví dụ về các giác quan của bé (cảm nhận bằng mặt và tay, nếm nước ối, nghe âm thanh bên
+    - [x] Tuần 31: ví dụ về các giác quan của bé (cảm nhận bằng mặt và tay, nếm nước ối, nghe âm thanh bên
           ngoài; thị giác còn hạn chế trong bóng tối tử cung); bé có thể phản ứng với giọng mẹ hoặc âm nhạc
           bằng cử động; sữa non được tả là đặc, màu hơi vàng, một số mẹ không thấy tiết sữa non và cả hai đều
           bình thường, có thể dùng miếng lót thấm sữa; chuẩn bị cho con bú: cách bế, cách ngậm bắt vú, và nơi
           tìm hỗ trợ.
-    - [ ] Tuần 32: cử động tập thở đẩy dịch ra vào phổi bé; oxy vẫn qua bánh nhau đến khi sinh; da bé mềm và
+    - [x] Tuần 32: cử động tập thở đẩy dịch ra vào phổi bé; oxy vẫn qua bánh nhau đến khi sinh; da bé mềm và
           bớt trong hơn; chưa cần lo nếu bé chưa quay đầu ở tuần này; đỉnh tử cung mẹ đã cao hẳn trên rốn; nên
           lên kế hoạch di chuyển và lưu số liên hệ của khoa sản.
-    - [ ] Tuần 33: phần lớn kháng thể truyền từ mẹ sang bé diễn ra ở giai đoạn cuối thai kỳ, và kháng thể còn
+    - [x] Tuần 33: phần lớn kháng thể truyền từ mẹ sang bé diễn ra ở giai đoạn cuối thai kỳ, và kháng thể còn
           giúp bảo vệ bé trong những tháng đầu sau sinh (đã sửa ở vòng rà soát 1); sưng chân mẹ nặng hơn khi
           nóng hoặc đứng lâu, gác chân cao và tập cổ chân giúp giảm; đồ chuẩn bị đi sinh nên có giấy tờ tùy
           thân và thẻ bảo hiểm y tế, ngoài sổ khám thai.
-    - [ ] Tuần 34: phổi bé tiến triển thêm nhưng những tuần cuối vẫn quan trọng; hệ thần kinh nối não với cơ
+    - [x] Tuần 34: phổi bé tiến triển thêm nhưng những tuần cuối vẫn quan trọng; hệ thần kinh nối não với cơ
           nên cử động bé phối hợp hơn; mỡ giúp bé giữ ấm sau sinh; đau vùng bẹn khi mẹ đi lại — báo bác sĩ
           hoặc nữ hộ sinh nếu đau khung chậu khiến khó đi lại hoặc khó xoay người khi ngủ, nên đi bước ngắn;
           các dấu hiệu chuyển dạ (cơn gò đều và mạnh hơn, vỡ ối, ra nhầy hồng) — nên lưu số khoa sản và có kế
           hoạch di chuyển vào bất kỳ giờ nào.
-    - [ ] Tuần 35: thận bé tạo nước tiểu, trở thành một phần nước ối; mẹ có thể rỉ ít nước tiểu khi ho, cười
+    - [x] Tuần 35: thận bé tạo nước tiểu, trở thành một phần nước ối; mẹ có thể rỉ ít nước tiểu khi ho, cười
           hoặc hắt hơi — tập cơ sàn chậu, không nên uống ít nước để đỡ phải đi tiểu (đã sửa ở vòng rà soát 1);
           liên cầu khuẩn nhóm B (GBS) được tả là "vi khuẩn thường gặp", xét nghiệm bằng cách phết dịch để kíp
           đỡ sinh có cách bảo vệ bé lúc sinh.
-    - [ ] Tuần 36: tụt đầu (dropping/engaging) — ở lần mang thai đầu thường xảy ra vài tuần trước sinh, ở lần
+    - [x] Tuần 36: tụt đầu (dropping/engaging) — ở lần mang thai đầu thường xảy ra vài tuần trước sinh, ở lần
           sau có thể chỉ xảy ra khi chuyển dạ; chất gây (vernix) vẫn còn và một phần có thể còn lúc sinh;
           lông tơ và chất gây bé nuốt vào trở thành một phần phân su; hầu hết bé đã quay đầu lúc này — nếu bé
           ngôi mông hoặc ngôi ngang, bác sĩ/nữ hộ sinh sẽ trao đổi hướng xử lý; sau khi tụt đầu, ợ nóng có thể
           giảm và ăn được bữa đầy đủ hơn, mẹ có thể có cảm giác nhói nhẹ phía dưới; đồ chuẩn bị đi sinh nên có
           tã, đồ mặc, đồ ăn nhẹ và nước uống cho lúc chuyển dạ.
-    - [ ] Tuần 37: bé có thể mút tay hoặc ngón tay trong bụng mẹ; một số bé sinh trong vài tuần tới, số khác
+    - [x] Tuần 37: bé có thể mút tay hoặc ngón tay trong bụng mẹ; một số bé sinh trong vài tuần tới, số khác
           sau ngày dự sinh; "ra nhầy hồng" là nút nhầy, có thể hồng hoặc lẫn máu, xuất hiện vài ngày trước
           hoặc khi bắt đầu chuyển dạ; khám hằng tuần gồm đo huyết áp, nghe tim thai và kiểm tra ngôi thai; khi
           có dấu hiệu chuyển dạ, gọi khoa sản để được hướng dẫn khi nào cần đến viện; nếu vỡ ối, gọi ngay cho
           khoa sản dù màu nước ối ra sao (đã sửa ở vòng rà soát 1).
-    - [ ] Tuần 38: trong bụng mẹ bé có thể nắm dây rốn hoặc tay mình — đây là phản xạ nắm còn lại sau sinh;
+    - [x] Tuần 38: trong bụng mẹ bé có thể nắm dây rốn hoặc tay mình — đây là phản xạ nắm còn lại sau sinh;
           phân su thường ra trong những ngày đầu sau sinh; bé đang ở thế cuộn tròn; cơn gò sinh lý có thể đến
           gần nhau hơn, còn cơn gò chuyển dạ đều, dài và mạnh hơn; nên ăn nhẹ, đủ nước và đi bộ nhẹ nhàng.
           **Dữ kiện thêm ở vòng rà soát 1:** câu "bụng mẹ có thể thấy căng và nặng khi bé đã chiếm gần hết
           chỗ" — xin bác sĩ xác nhận tất cả các điểm trên.
-    - [ ] Tuần 39: não bé tiếp tục phát triển nhanh trong những năm đầu đời; da tiếp da giúp giữ ấm cho bé;
+    - [x] Tuần 39: não bé tiếp tục phát triển nhanh trong những năm đầu đời; da tiếp da giúp giữ ấm cho bé;
           surfactant giúp phổi bé hoạt động khi bắt đầu thở không khí; nhầy hồng, cơn gò sinh lý và cảm giác
           tức nặng có thể là dấu hiệu sắp sinh, nhưng chuyển dạ vẫn có thể còn vài ngày hoặc vài tuần nữa.
-    - [ ] Tuần 40: phản xạ bú của bé (quay đầu theo hướng chạm vào má và bú); đầu bé có thể hơi dài hoặc nhọn
+    - [x] Tuần 40: phản xạ bú của bé (quay đầu theo hướng chạm vào má và bú); đầu bé có thể hơi dài hoặc nhọn
           vài ngày đầu sau sinh; nhiều bé sinh trong khoảng một hai tuần trước hoặc sau ngày dự sinh, ngày dự
           sinh chỉ là ước tính; chờ lâu hơn dự sinh thường gặp hơn ở lần mang thai đầu; sau ngày dự sinh bác
           sĩ/nữ hộ sinh có thể nghe tim thai thường xuyên hơn.
-    - [ ] Tuần 41: phần lớn chất gây đã mất nên da bé có thể khô hoặc bong, thường tự hết trong vài tuần đầu;
+    - [x] Tuần 41: phần lớn chất gây đã mất nên da bé có thể khô hoặc bong, thường tự hết trong vài tuần đầu;
           hỏi nữ hộ sinh cách cắt móng tay cho bé sau sinh; theo dõi quá ngày dự sinh có thể gồm đo huyết áp
           và kiểm tra tim thai.
-    - [ ] Tuần 42: da bé có thể khô, nứt hoặc bong, đặc biệt ở tay và chân, thường tự lành; bé vẫn nhận oxy
+    - [x] Tuần 42: da bé có thể khô, nứt hoặc bong, đặc biệt ở tay và chân, thường tự lành; bé vẫn nhận oxy
           và dưỡng chất qua bánh nhau, việc kiểm tra tim thai và nước ối cho biết bé đang thích nghi ra sao;
           các lần kiểm tra này có thể lặp lại nhiều lần trong tuần để giúp quyết định thời điểm sinh phù hợp.
-- [ ] Khi bác sĩ duyệt xong một tuần: đổi `"reviewed": true` cho tuần đó như mục 1 — cờ này áp dụng cho cả
+- [x] Khi bác sĩ duyệt xong một tuần: đổi `"reviewed": true` cho tuần đó như mục 1 — cờ này áp dụng cho cả
       các gạch đầu dòng lẫn bài viết của tuần.
 
 ## 10. Bài viết chuyên sâu theo tam cá nguyệt (giai đoạn 7)
@@ -459,116 +464,116 @@ vi/en, nằm trong `Packages/KickCore/Sources/KickCore/Resources/knowledge-conte
   động ít đi thì gọi ngay, dù ngày hay đêm.
 - Tuần luôn tính theo số tuần tròn đã qua (như màn Hôm nay); tiếng Việt dùng từ miền Bắc.
 
-40. [ ] **Duyệt từng bài** (đúng dữ kiện, đúng tam cá nguyệt, giọng văn, khớp với bài viết theo tuần):
-    - [ ] Dinh dưỡng — `nutrition-first-trimester`: Ăn uống trong tam cá nguyệt đầu
-    - [ ] Dinh dưỡng — `food-safety`: An toàn thực phẩm khi mang thai
-    - [ ] Dinh dưỡng — `iron-calcium-balanced-meals`: Sắt, canxi và bữa ăn cân đối
-    - [ ] Vận động — `safe-exercise`: Vận động an toàn khi mang thai
-    - [ ] Vận động — `gentle-exercise-second-trimester`: Vận động nhẹ nhàng ở tam cá nguyệt thứ hai
-    - [ ] Vận động — `pelvic-floor-posture`: Cơ sàn chậu và tư thế hằng ngày
-    - [ ] Giấc ngủ — `first-trimester-tiredness`: Mệt mỏi trong tam cá nguyệt đầu
-    - [ ] Giấc ngủ — `sleep-positions`: Tư thế ngủ khi mang thai
-    - [ ] Giấc ngủ — `sleeping-well-late-pregnancy`: Ngủ ngon hơn ở những tháng cuối
-    - [ ] Cảm xúc — `early-pregnancy-worries`: Lo lắng khi mới mang thai
-    - [ ] Cảm xúc — `changing-body-feelings`: Cơ thể thay đổi và cảm xúc của mẹ
-    - [ ] Cảm xúc — `preparing-for-motherhood`: Chuẩn bị làm mẹ
-    - [ ] Khám thai — `antenatal-checkup-milestones`: Lịch khám thai qua từng giai đoạn
-    - [ ] Khám thai — `first-trimester-screening`: Xét nghiệm và sàng lọc đầu thai kỳ
-    - [ ] Khám thai — `anomaly-scan-glucose-test`: Siêu âm hình thái và xét nghiệm tiểu đường
-    - [ ] Chuẩn bị sinh — `signs-of-labour`: Nhận biết dấu hiệu chuyển dạ
-    - [ ] Chuẩn bị sinh — `hospital-bag`: Chuẩn bị túi đồ đi sinh
-    - [ ] Chuẩn bị sinh — `birth-plan-breastfeeding`: Kế hoạch sinh và những cữ bú đầu
-41. [ ] **Con số theo hướng dẫn** — xác nhận từng con số và nguồn:
-    - [ ] Vận động vừa sức khoảng 150 phút mỗi tuần; những lần tập ngắn cũng được tính (WHO 2020,
+40. [x] **Duyệt từng bài** (đúng dữ kiện, đúng tam cá nguyệt, giọng văn, khớp với bài viết theo tuần):
+    - [x] Dinh dưỡng — `nutrition-first-trimester`: Ăn uống trong tam cá nguyệt đầu
+    - [x] Dinh dưỡng — `food-safety`: An toàn thực phẩm khi mang thai
+    - [x] Dinh dưỡng — `iron-calcium-balanced-meals`: Sắt, canxi và bữa ăn cân đối
+    - [x] Vận động — `safe-exercise`: Vận động an toàn khi mang thai
+    - [x] Vận động — `gentle-exercise-second-trimester`: Vận động nhẹ nhàng ở tam cá nguyệt thứ hai
+    - [x] Vận động — `pelvic-floor-posture`: Cơ sàn chậu và tư thế hằng ngày
+    - [x] Giấc ngủ — `first-trimester-tiredness`: Mệt mỏi trong tam cá nguyệt đầu
+    - [x] Giấc ngủ — `sleep-positions`: Tư thế ngủ khi mang thai
+    - [x] Giấc ngủ — `sleeping-well-late-pregnancy`: Ngủ ngon hơn ở những tháng cuối
+    - [x] Cảm xúc — `early-pregnancy-worries`: Lo lắng khi mới mang thai
+    - [x] Cảm xúc — `changing-body-feelings`: Cơ thể thay đổi và cảm xúc của mẹ
+    - [x] Cảm xúc — `preparing-for-motherhood`: Chuẩn bị làm mẹ
+    - [x] Khám thai — `antenatal-checkup-milestones`: Lịch khám thai qua từng giai đoạn
+    - [x] Khám thai — `first-trimester-screening`: Xét nghiệm và sàng lọc đầu thai kỳ
+    - [x] Khám thai — `anomaly-scan-glucose-test`: Siêu âm hình thái và xét nghiệm tiểu đường
+    - [x] Chuẩn bị sinh — `signs-of-labour`: Nhận biết dấu hiệu chuyển dạ
+    - [x] Chuẩn bị sinh — `hospital-bag`: Chuẩn bị túi đồ đi sinh
+    - [x] Chuẩn bị sinh — `birth-plan-breastfeeding`: Kế hoạch sinh và những cữ bú đầu
+41. [x] **Con số theo hướng dẫn** — xác nhận từng con số và nguồn:
+    - [x] Vận động vừa sức khoảng 150 phút mỗi tuần; những lần tập ngắn cũng được tính (WHO 2020,
           ACOG CO 804) — `safe-exercise`, `gentle-exercise-second-trimester`.
-    - [ ] Caffeine dưới 200 mg mỗi ngày (ACOG CO 462, NHS) — câu cố định trong `food-safety`: "Phần lớn các hướng
+    - [x] Caffeine dưới 200 mg mỗi ngày (ACOG CO 462, NHS) — câu cố định trong `food-safety`: "Phần lớn các hướng
           dẫn khuyên mẹ giữ tổng lượng caffeine dưới 200 mg mỗi ngày, tính cả cà phê, trà, nước cola, nước tăng lực
           và sô-cô-la." Đây là câu duy nhất được phép có đơn vị mg.
-    - [ ] Nằm nghiêng khi đi ngủ từ khoảng tuần 28 (NICE NG201, NHS) — `sleep-positions`.
-    - [ ] "Baby blues" thường hết trong khoảng hai tuần (NICE CG192, NHS) — `preparing-for-motherhood`.
-    - [ ] Buồn chán hoặc lo âu gần như mỗi ngày từ hai tuần trở lên thì nói với bác sĩ hoặc nữ hộ sinh — các bài
+    - [x] Nằm nghiêng khi đi ngủ từ khoảng tuần 28 (NICE NG201, NHS) — `sleep-positions`.
+    - [x] "Baby blues" thường hết trong khoảng hai tuần (NICE CG192, NHS) — `preparing-for-motherhood`.
+    - [x] Buồn chán hoặc lo âu gần như mỗi ngày từ hai tuần trở lên thì nói với bác sĩ hoặc nữ hộ sinh — các bài
           cảm xúc.
-    - [ ] Ít nhất 8 lần tiếp xúc chăm sóc trước sinh (WHO 2016) — `antenatal-checkup-milestones`.
-    - [ ] Các mốc: đo độ mờ da gáy và double test tuần 11–14; siêu âm hình thái tuần 18–22; xét nghiệm tiểu đường
+    - [x] Ít nhất 8 lần tiếp xúc chăm sóc trước sinh (WHO 2016) — `antenatal-checkup-milestones`.
+    - [x] Các mốc: đo độ mờ da gáy và double test tuần 11–14; siêu âm hình thái tuần 18–22; xét nghiệm tiểu đường
           thai kỳ tuần 24–28 (khớp lịch khám gợi ý ở mục 4).
-    - [ ] Chuẩn bị túi đồ đi sinh từ khoảng tuần 33, xong trước khoảng tuần 36.
-    - [ ] Cho con bú trong giờ đầu sau sinh; chỉ bú mẹ hoàn toàn trong 6 tháng đầu; kẹp dây rốn sau ít nhất 1 phút
+    - [x] Chuẩn bị túi đồ đi sinh từ khoảng tuần 33, xong trước khoảng tuần 36.
+    - [x] Cho con bú trong giờ đầu sau sinh; chỉ bú mẹ hoàn toàn trong 6 tháng đầu; kẹp dây rốn sau ít nhất 1 phút
           khi có thể (WHO, WHO/UNICEF 2018) — `birth-plan-breastfeeding`.
-    - [ ] Nấu ăn bằng muối i-ốt giúp đủ i-ốt, chất cơ thể cần nhiều hơn khi mang thai (WHO, Bộ Y tế) — không kèm
+    - [x] Nấu ăn bằng muối i-ốt giúp đủ i-ốt, chất cơ thể cần nhiều hơn khi mang thai (WHO, Bộ Y tế) — không kèm
           liều lượng — `iron-calcium-balanced-meals`.
-42. [ ] **Câu hỏi:** bài `early-pregnancy-worries` có câu "nếu có ý nghĩ làm hại bản thân, hãy nói với người mẹ tin
+42. [x] **Câu hỏi:** bài `early-pregnancy-worries` có câu "nếu có ý nghĩ làm hại bản thân, hãy nói với người mẹ tin
         tưởng và tìm trợ giúp ngay: gọi 115 hoặc đến bệnh viện gần nhất". Câu này cũng lặp lại ở `changing-body-feelings`
         và `preparing-for-motherhood`. Bác sĩ có muốn thêm một đường dây hỗ trợ tâm lý cụ thể ở Việt Nam không?
-43. [ ] **Câu hỏi:** bài `antenatal-checkup-milestones` nêu khuyến cáo "ít nhất 8 lần" của WHO và viết "lịch khám do
+43. [x] **Câu hỏi:** bài `antenatal-checkup-milestones` nêu khuyến cáo "ít nhất 8 lần" của WHO và viết "lịch khám do
         cơ sở y tế của mẹ đặt". Có cần nêu số lần khám tối thiểu theo hướng dẫn của Bộ Y tế không?
-44. [ ] **Danh sách nguồn** (`sources` trong `knowledge-content.json`, 10 mục: WHO 2016, WHO 2020, ACOG, ACOG CO 804,
+44. [x] **Danh sách nguồn** (`sources` trong `knowledge-content.json`, 10 mục: WHO 2016, WHO 2020, ACOG, ACOG CO 804,
         ACOG CO 462, NHS, NICE NG201, NICE CG192, WHO/UNICEF 2018, Bộ Y tế) — xác nhận phù hợp.
-45. [ ] **Dữ kiện tác giả thêm ngoài danh sách kiểm** (từ các commit nội dung của giai đoạn 7) — xin bác sĩ xác nhận:
-    - [ ] `nutrition-first-trimester`: axit folic quan trọng nhất trong giai đoạn não và cột sống bé hình thành;
+45. [x] **Dữ kiện tác giả thêm ngoài danh sách kiểm** (từ các commit nội dung của giai đoạn 7) — xin bác sĩ xác nhận:
+    - [x] `nutrition-first-trimester`: axit folic quan trọng nhất trong giai đoạn não và cột sống bé hình thành;
           rau lá xanh, các loại đậu và cam có folate.
-    - [ ] `nutrition-first-trimester`: uống đủ nước giúp đỡ táo bón; nói với bác sĩ hoặc nữ hộ sinh về chế độ ăn
+    - [x] `nutrition-first-trimester`: uống đủ nước giúp đỡ táo bón; nói với bác sĩ hoặc nữ hộ sinh về chế độ ăn
           ở lần khám đầu; không tự dùng thêm thực phẩm bổ sung hay thuốc nam khi chưa hỏi.
-    - [ ] `food-safety`: pa-tê là sản phẩm từ gan; rượu gạo tự nấu cũng tính là rượu; một cốc cà phê đậm có thể
+    - [x] `food-safety`: pa-tê là sản phẩm từ gan; rượu gạo tự nấu cũng tính là rượu; một cốc cà phê đậm có thể
           dùng gần hết lượng caffeine cho phép trong ngày, nên chọn cốc nhạt hơn, nhỏ hơn hoặc đã khử caffeine.
-    - [ ] `food-safety`: dùng thớt và dao riêng cho thịt sống; cho thức ăn còn lại vào tủ lạnh sớm sau khi ăn.
-    - [ ] `iron-calcium-balanced-meals`: canxi giúp xây xương và răng cho bé; mẹ có thể thấy ăn ngon hơn ở tam cá
+    - [x] `food-safety`: dùng thớt và dao riêng cho thịt sống; cho thức ăn còn lại vào tủ lạnh sớm sau khi ăn.
+    - [x] `iron-calcium-balanced-meals`: canxi giúp xây xương và răng cho bé; mẹ có thể thấy ăn ngon hơn ở tam cá
           nguyệt hai; gợi ý món ăn nhẹ (trái cây, sữa chua, các loại hạt, trứng luộc) thay cho bánh kẹo và nước
           ngọt.
-    - [ ] `iron-calcium-balanced-meals`: nấu ăn bằng muối i-ốt có thể giúp mẹ có đủ i-ốt, chất cơ thể cần nhiều
+    - [x] `iron-calcium-balanced-meals`: nấu ăn bằng muối i-ốt có thể giúp mẹ có đủ i-ốt, chất cơ thể cần nhiều
           hơn khi mang thai (WHO, Bộ Y tế).
-    - [ ] `gentle-exercise-second-trimester`: ví dụ khởi động (đi bộ chậm, xoay vai); nên chọn thời điểm trời mát
+    - [x] `gentle-exercise-second-trimester`: ví dụ khởi động (đi bộ chậm, xoay vai); nên chọn thời điểm trời mát
           hoặc phòng thoáng khí.
-    - [ ] `pelvic-floor-posture`: cơ sàn chậu giúp kiểm soát việc đi tiểu và xì hơi; gợi ý gắn bài tập với một
+    - [x] `pelvic-floor-posture`: cơ sàn chậu giúp kiểm soát việc đi tiểu và xì hơi; gợi ý gắn bài tập với một
           việc làm hằng ngày; đau vùng chậu khiến cả việc đi cầu thang, đi lại và xoay người khi ngủ khó khăn hơn.
-    - [ ] `safe-exercise`: tránh yoga nóng, thể dục dụng cụ, đi xe đạp địa hình và quyền anh (ACOG CO 804); ngừng
+    - [x] `safe-exercise`: tránh yoga nóng, thể dục dụng cụ, đi xe đạp địa hình và quyền anh (ACOG CO 804); ngừng
           tập nếu đau đầu hoặc yếu cơ ảnh hưởng đến thăng bằng (ACOG CO 804); đau đầu dữ dội, hoặc kèm nhìn mờ hay
           phù đột ngột → liên hệ khoa sản ngay.
-    - [ ] `first-trimester-tiredness`: năng lượng thường trở lại từ khoảng tuần 14 (đầu tam cá nguyệt hai).
-    - [ ] `first-trimester-tiredness`: cảm giác choáng váng muốn ngất → đến khoa cấp cứu ngay (cảnh báo tuần 4–12).
-    - [ ] `sleep-positions`: ngất xỉu, hoặc chóng mặt không hết sau khi ngồi dậy → đến bác sĩ hoặc nữ hộ sinh ngay
+    - [x] `first-trimester-tiredness`: năng lượng thường trở lại từ khoảng tuần 14 (đầu tam cá nguyệt hai).
+    - [x] `first-trimester-tiredness`: cảm giác choáng váng muốn ngất → đến khoa cấp cứu ngay (cảnh báo tuần 4–12).
+    - [x] `sleep-positions`: ngất xỉu, hoặc chóng mặt không hết sau khi ngồi dậy → đến bác sĩ hoặc nữ hộ sinh ngay
           (như bài `safe-exercise`).
-    - [ ] `sleep-positions`: nằm nghiêng giúp giảm áp lực của tử cung lên tĩnh mạch lớn, máu đến bé dễ dàng hơn.
-    - [ ] `sleep-positions`: hơi gập đầu gối có thể giảm mỏi lưng và hông; nên kê gối ngồi dựa thay vì nằm thẳng
+    - [x] `sleep-positions`: nằm nghiêng giúp giảm áp lực của tử cung lên tĩnh mạch lớn, máu đến bé dễ dàng hơn.
+    - [x] `sleep-positions`: hơi gập đầu gối có thể giảm mỏi lưng và hông; nên kê gối ngồi dựa thay vì nằm thẳng
           khi đọc sách hay nghỉ ngơi.
-    - [ ] `sleeping-well-late-pregnancy`: nâng cao đầu giường, ví dụ kê gối dưới nệm.
-    - [ ] `sleeping-well-late-pregnancy`: chuột rút thường hết trong vài phút; nếu một vùng ở chân sưng, đỏ và
+    - [x] `sleeping-well-late-pregnancy`: nâng cao đầu giường, ví dụ kê gối dưới nệm.
+    - [x] `sleeping-well-late-pregnancy`: chuột rút thường hết trong vài phút; nếu một vùng ở chân sưng, đỏ và
           đau → đến bác sĩ ngay.
-    - [ ] `early-pregnancy-worries`: nhờ bác sĩ hoặc nữ hộ sinh giải thích một kết quả xét nghiệm hay siêu âm
+    - [x] `early-pregnancy-worries`: nhờ bác sĩ hoặc nữ hộ sinh giải thích một kết quả xét nghiệm hay siêu âm
           khiến mẹ lo lắng.
-    - [ ] `changing-body-feelings`: đường sậm màu giữa bụng, vài vùng da mặt sậm hơn, tóc dày và óng hơn; phần
+    - [x] `changing-body-feelings`: đường sậm màu giữa bụng, vài vùng da mặt sậm hơn, tóc dày và óng hơn; phần
           lớn mờ dần sau sinh, vết rạn da cũng nhạt màu dần.
-    - [ ] `changing-body-feelings`: kích thước bụng phụ thuộc chiều cao và vóc người mẹ; bác sĩ hoặc nữ hộ sinh
+    - [x] `changing-body-feelings`: kích thước bụng phụ thuộc chiều cao và vóc người mẹ; bác sĩ hoặc nữ hộ sinh
           theo dõi sự phát triển của bé qua các lần khám.
-    - [ ] `changing-body-feelings`: bé được nước ối và các cơ của tử cung đệm bảo vệ.
-    - [ ] `preparing-for-motherhood`: lớp học trước sinh giải thích các giai đoạn chuyển dạ và cách giảm đau
+    - [x] `changing-body-feelings`: bé được nước ối và các cơ của tử cung đệm bảo vệ.
+    - [x] `preparing-for-motherhood`: lớp học trước sinh giải thích các giai đoạn chuyển dạ và cách giảm đau
           (không nêu tên thuốc).
-    - [ ] `preparing-for-motherhood`: trầm cảm sau sinh khá phổ biến và có thể điều trị; câu mốc hai tuần áp dụng
+    - [x] `preparing-for-motherhood`: trầm cảm sau sinh khá phổ biến và có thể điều trị; câu mốc hai tuần áp dụng
           cho cả trước và sau khi sinh.
-    - [ ] `first-trimester-screening`: hội chứng Down được nêu một lần làm ví dụ về bất thường nhiễm sắc thể.
-    - [ ] `anomaly-scan-glucose-test`: nên xét nghiệm đường huyết vài tuần sau sinh, vì nguy cơ tiểu đường về
+    - [x] `first-trimester-screening`: hội chứng Down được nêu một lần làm ví dụ về bất thường nhiễm sắc thể.
+    - [x] `anomaly-scan-glucose-test`: nên xét nghiệm đường huyết vài tuần sau sinh, vì nguy cơ tiểu đường về
           sau cao hơn.
-    - [ ] `birth-plan-breastfeeding`: WHO khuyên da tiếp da và kẹp dây rốn muộn cho bé khỏe mạnh.
-    - [ ] `signs-of-labour`: đau đầu dữ dội, mờ mắt hoặc sưng phù bất thường → đến khoa sản ngay; co giật hoặc
+    - [x] `birth-plan-breastfeeding`: WHO khuyên da tiếp da và kẹp dây rốn muộn cho bé khỏe mạnh.
+    - [x] `signs-of-labour`: đau đầu dữ dội, mờ mắt hoặc sưng phù bất thường → đến khoa sản ngay; co giật hoặc
           khó thở → gọi 115 (theo cảnh báo tuần 20–42).
-    - [ ] `hospital-bag`: nhắc cử động thai giảm (gọi ngay, dù ngày hay đêm) và vỡ ối (đến ngay, dù màu nước ối
+    - [x] `hospital-bag`: nhắc cử động thai giảm (gọi ngay, dù ngày hay đêm) và vỡ ối (đến ngay, dù màu nước ối
           ra sao).
-46. [ ] **Câu hỏi:** bài `food-safety` khuyên nấu chín phô mai mềm mốc trắng (kiểu brie/camembert). Với loại đã
+46. [x] **Câu hỏi:** bài `food-safety` khuyên nấu chín phô mai mềm mốc trắng (kiểu brie/camembert). Với loại đã
         tiệt trùng (pasteurised), bác sĩ có cho vẫn cần nấu chín, hay có thể ăn sống nếu nhãn ghi rõ đã tiệt
         trùng không?
-47. [ ] **Câu hỏi:** bài `food-safety` xếp gan và pa-tê vào cùng mức khuyến cáo. Bác sĩ muốn dùng "hạn chế" hay
+47. [x] **Câu hỏi:** bài `food-safety` xếp gan và pa-tê vào cùng mức khuyến cáo. Bác sĩ muốn dùng "hạn chế" hay
         "tránh hẳn"? Pa-tê rất phổ biến trong bánh mì ở Việt Nam, nên cần câu chữ rõ ràng.
-48. [ ] **Câu hỏi:** về điểm đến khi ngất xỉu — `safe-exercise` và `sleep-positions` viết "đến bác sĩ hoặc nữ hộ
+48. [x] **Câu hỏi:** về điểm đến khi ngất xỉu — `safe-exercise` và `sleep-positions` viết "đến bác sĩ hoặc nữ hộ
         sinh ngay", còn `first-trimester-tiredness` viết "đến khoa cấp cứu ngay" (kèm bối cảnh thai ngoài tử
         cung ở tuần 4–12). Bác sĩ có muốn thống nhất một điểm đến cho cả ba bài, hay giữ khác nhau theo bối cảnh
         từng bài?
-49. [ ] **Câu hỏi:** bài `sleeping-well-late-pregnancy` hiện chỉ nói về ợ nóng. Có nên thêm câu: đau nặng ngay
+49. [x] **Câu hỏi:** bài `sleeping-well-late-pregnancy` hiện chỉ nói về ợ nóng. Có nên thêm câu: đau nặng ngay
         dưới sườn, kèm đau đầu hoặc thay đổi thị lực, nên đến khoa sản ngay (dấu hiệu tiền sản giật) không?
-50. [ ] **Câu hỏi:** câu muối i-ốt ở mục 41 chỉ là lời khuyên bằng chữ, không kèm liều lượng cụ thể (mg hay đơn
+50. [x] **Câu hỏi:** câu muối i-ốt ở mục 41 chỉ là lời khuyên bằng chữ, không kèm liều lượng cụ thể (mg hay đơn
         vị khác). Bác sĩ xác nhận cách viết không nêu liều là đủ, hay cần nêu con số.
-51. [ ] **Câu hỏi:** các cảnh báo theo tuần trong `pregnancy-content.json` dùng en "maternity unit" / vi
+51. [x] **Câu hỏi:** các cảnh báo theo tuần trong `pregnancy-content.json` dùng en "maternity unit" / vi
         "bệnh viện", còn các bài viết chuyên sâu ở mục này dùng "khoa sản". Bác sĩ muốn dùng từ tiếng Việt nào
         thống nhất — "khoa sản" hay "bệnh viện"?
-52. [ ] **Ghi chú:** bài `sleep-positions` dẫn sang bài khác bằng tên bài: "Sleeping well in late pregnancy" /
+52. [x] **Ghi chú:** bài `sleep-positions` dẫn sang bài khác bằng tên bài: "Sleeping well in late pregnancy" /
         "Ngủ ngon hơn ở những tháng cuối". Nếu đổi tên bài `sleeping-well-late-pregnancy`, cần sửa câu dẫn này
         theo cho khớp.
 
@@ -594,27 +599,27 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
 | `onboarding.regularity.*`, `onboarding.result.late`, `profile.showFertilityTests(.hint)` | Đều / Không đều / Không rõ và mô tả; "Theo ngày bạn nhập, kỳ kinh có thể đã trễ khoảng %@."; "Hiện que thử rụng trứng & nhiệt độ" |
 | `settings.cycleReminders.hint.tracking` | Chú thích dưới công tắc "Nhắc chu kỳ" trong Hồ sơ khi theo dõi chu kỳ (không nhắc trước cửa sổ thụ thai, xem mục 56): "Nhắc lúc 9:00: 1 ngày trước kỳ kinh dự kiến và một lần khi trễ kinh 3 ngày." (chế độ Mong con vẫn dùng `settings.cycle.remindersHint`, có nhắc 2 ngày trước cửa sổ thụ thai) |
 
-53. [ ] Bác sĩ đã duyệt (hoặc sửa) toàn bộ các khóa trong bảng trên, cả bản vi lẫn en.
-54. [ ] **Nhóm "có nội tiết"** (`Contraception.isHormonal` trong `Packages/KickCore/Sources/KickCore/CycleGoal.swift`):
+53. [x] Bác sĩ đã duyệt (hoặc sửa) toàn bộ các khóa trong bảng trên, cả bản vi lẫn en.
+54. [x] **Nhóm "có nội tiết"** (`Contraception.isHormonal` trong `Packages/KickCore/Sources/KickCore/CycleGoal.swift`):
         thuốc tránh thai hằng ngày, que cấy hoặc thuốc tiêm, vòng có nội tiết. Với nhóm này app **ẩn** cửa sổ thụ thai và
         ngày rụng trứng, gọi lần ra máu là "Ra máu dự kiến" và không đổi cách tính ngày. Vòng chữ T bằng đồng, bao cao
         su, tính ngày/xuất tinh ngoài vẫn **hiện** "Khả năng thụ thai cao" kèm ghi chú "không phải biện pháp tránh thai".
         **Câu hỏi:** cách chia này có đúng không — thuốc chỉ có progestin (progestin-only pill), que cấy và vòng nội
         tiết không phải lúc nào cũng ngừng rụng trứng. Có nên vẫn ẩn cửa sổ thụ thai, hay hiện kèm ghi chú? (Hiện tại:
         ẩn.)
-55. [ ] **Khi theo dõi chu kỳ, ngày thường không có nhãn "Khả năng thụ thai thấp"** (chỉ "Ngày 13 của chu kỳ"), để
+55. [x] **Khi theo dõi chu kỳ, ngày thường không có nhãn "Khả năng thụ thai thấp"** (chỉ "Ngày 13 của chu kỳ"), để
         không ai hiểu nhầm là ngày "an toàn". Xác nhận cách làm này.
-56. [ ] **Nhắc nhở khi theo dõi chu kỳ**: chỉ còn hai loại, "Ngày mai có thể đến kỳ kinh" (`cycle.reminder.period.*`)
+56. [x] **Nhắc nhở khi theo dõi chu kỳ**: chỉ còn hai loại, "Ngày mai có thể đến kỳ kinh" (`cycle.reminder.period.*`)
         và "Kỳ kinh đã trễ 3 ngày / Bạn có thể thử thai" (`cycle.reminder.late.*`); không nhắc trước cửa sổ thụ thai.
         **Câu hỏi:** cả hai câu nhắc hiện đều nói "kỳ kinh" (period) dù người dùng đang dùng biện pháp tránh thai nội
         tiết, mà lần ra máu khi đó có thể là ra máu do thuốc chứ không phải kỳ kinh tự nhiên. Với người dùng nhóm
         "có nội tiết" (mục 54), thông báo nên vẫn nói "kỳ kinh", hay đổi sang "ra máu" cho đúng hơn?
-57. [ ] **Ngưỡng chu kỳ:** lời giải thích độ dài chu kỳ (`onboarding.cycleLength.hint`) nói "từ 21 đến 35 ngày", và
+57. [x] **Ngưỡng chu kỳ:** lời giải thích độ dài chu kỳ (`onboarding.cycleLength.hint`) nói "từ 21 đến 35 ngày", và
         lời trấn an chu kỳ không đều (`onboarding.regularity.irregularNote`) nói nên trao đổi với bác sĩ nếu chu kỳ
         "ngắn hơn 21 ngày hoặc dài hơn 35 ngày, hoặc mất kinh 3 tháng liền". **Câu hỏi:** các ngưỡng 21/35 ngày và
         mốc "mất kinh 3 tháng" có đúng với người lớn không, hay cần điều chỉnh? **Ngưỡng 21/35: đã thay bởi §19
         (mục 106).**
-58. [ ] **Thuốc tránh thai chỉ có progestin (progestin-only pill, "thuốc tránh thai đơn thuần")** hiện không có lựa chọn
+58. [x] **Thuốc tránh thai chỉ có progestin (progestin-only pill, "thuốc tránh thai đơn thuần")** hiện không có lựa chọn
         riêng: người dùng sẽ chọn "Thuốc tránh thai hằng ngày" (`contraception.pill`), và app xử lý như thuốc phối hợp
         (ẩn cửa sổ thụ thai và ngày rụng trứng, gọi lần ra máu là "Ra máu dự kiến"). **Câu hỏi:** thuốc chỉ có
         progestin có nên gộp chung vào "Thuốc tránh thai hằng ngày" không, hay cần một lựa chọn riêng với cách hiển thị
@@ -626,13 +631,13 @@ Người dùng không mong con giờ có thể chọn "Theo dõi chu kỳ". Dữ
 Trang mới "Lịch sử chu kỳ" (mở từ thẻ "Sắp tới" ở Hôm nay) tóm tắt độ dài chu kỳ, độ dài kỳ kinh và liệt kê từng chu
 kỳ đã qua cùng những ngày đã ghi. Cách tính trung bình giống hệt màn Hôm nay (6 chu kỳ gần nhất có độ dài 21–45 ngày).
 
-59. [ ] **"Không tính vào trung bình"** (`cycleHistory.notCounted`): ghi dưới chu kỳ ngắn hơn 21 hoặc dài hơn 45 ngày;
+59. [x] **"Không tính vào trung bình"** (`cycleHistory.notCounted`): ghi dưới chu kỳ ngắn hơn 21 hoặc dài hơn 45 ngày;
         app cố ý không dùng từ "bất thường". **Câu hỏi:** khoảng 21–45 ngày có phù hợp để loại khỏi trung bình không? Có
         nên gợi ý đi khám khi gặp chu kỳ như vậy, hay giữ trung lập như hiện tại?
-60. [ ] **"Chu kỳ trung bình" kèm khoảng dao động** (ví dụ "29 ngày", dòng dưới "26–31 ngày"; `cycleHistory.averageCycle`,
+60. [x] **"Chu kỳ trung bình" kèm khoảng dao động** (ví dụ "29 ngày", dòng dưới "26–31 ngày"; `cycleHistory.averageCycle`,
         `cycleHistory.range`). Khoảng chỉ hiện khi chu kỳ ngắn nhất khác dài nhất. **Câu hỏi:** cách hiển thị này có dễ
         hiểu và không gây lo lắng không?
-61. [ ] **"Kỳ kinh trung bình" / "Ra máu trung bình"** (`cycleHistory.averagePeriod`, `cycleHistory.averageBleed`): với
+61. [x] **"Kỳ kinh trung bình" / "Ra máu trung bình"** (`cycleHistory.averagePeriod`, `cycleHistory.averageBleed`): với
         người dùng biện pháp tránh thai có nội tiết (mục 54), app gọi là "ra máu", cả ở VoiceOver ("ra máu 5 ngày").
         **Câu hỏi:** cách gọi này có đúng không?
 
@@ -698,48 +703,48 @@ có thể nặng hoặc nhẹ hơn khá nhiều so với bé. Câu chữ dùng "
 - Tuần 24: "Bé nặng khoảng 670 g (thường từ 556 đến 784 g), tương đương một củ đậu." / "Your baby weighs about 670 g
   (typically 556 to 784 g), about as heavy as a jicama."
 
-62. [ ] Bác sĩ đã duyệt (hoặc sửa) bảng trên: tên vi tự nhiên (tiếng Bắc), vật so sánh phù hợp với từng tuần.
-63. [ ] Duyệt câu chữ mới "tương đương …" / "about as heavy as …" (hai câu mẫu ở trên), cả vi lẫn en.
-64. [ ] **Các điểm nghiên cứu đã nêu và đã chấp nhận** (xem `docs/research/2026-10-08-produce-weights.md` §4) — xin
+62. [x] Bác sĩ đã duyệt (hoặc sửa) bảng trên: tên vi tự nhiên (tiếng Bắc), vật so sánh phù hợp với từng tuần.
+63. [x] Duyệt câu chữ mới "tương đương …" / "about as heavy as …" (hai câu mẫu ở trên), cả vi lẫn en.
+64. [x] **Các điểm nghiên cứu đã nêu và đã chấp nhận** (xem `docs/research/2026-10-08-produce-weights.md` §4) — xin
         bác sĩ xác nhận hoặc đề nghị đổi:
-    - [ ] Tuần 26 (bắp cải tím) và tuần 30 (bắp cải to) cùng họ bắp cải; hai vật khác nhau, có nguồn riêng.
-    - [ ] Tuần 33, quả dừa (dừa ta "trái khô", còn vỏ): trang của Sở KH&CN Bến Tre không còn truy cập được, nội
+    - [x] Tuần 26 (bắp cải tím) và tuần 30 (bắp cải to) cùng họ bắp cải; hai vật khác nhau, có nguồn riêng.
+    - [x] Tuần 33, quả dừa (dừa ta "trái khô", còn vỏ): trang của Sở KH&CN Bến Tre không còn truy cập được, nội
           dung được đọc từ bản lưu trên Internet Archive (đường dẫn trong `produceSources`).
-    - [ ] Tuần 35, cây cải thảo: nguồn duy nhất là phiếu giống của một công ty hạt giống, khoảng 1,5–3 kg khá rộng;
+    - [x] Tuần 35, cây cải thảo: nguồn duy nhất là phiếu giống của một công ty hạt giống, khoảng 1,5–3 kg khá rộng;
           cải thảo ngoài chợ thường 1,5–2 kg.
-    - [ ] Tuần 37, quả gấc: 2850 g là trung bình đo được của một dòng gấc (GAC-19) trong một nghiên cứu; gấc nếp
+    - [x] Tuần 37, quả gấc: 2850 g là trung bình đo được của một dòng gấc (GAC-19) trong một nghiên cứu; gấc nếp
           thông thường thường nhẹ hơn (dòng GAC-46 trong cùng bài trung bình 1,861 kg).
-    - [ ] Tuần 38, "quả dưa mật" (honeydew): tên tiếng Việt chưa thống nhất (cửa hàng còn gọi "dưa lưới ruột xanh");
+    - [x] Tuần 38, "quả dưa mật" (honeydew): tên tiếng Việt chưa thống nhất (cửa hàng còn gọi "dưa lưới ruột xanh");
           cùng loài *Cucumis melo* với dưa lưới tuần 25 nhưng là nhóm giống khác, vỏ trơn màu nhạt. Xin xác nhận tên.
-    - [ ] Tuần 39, "quả mít nhỏ": số liệu UF/IFAS cho các giống mít quả nhỏ (3–10 lb); mít phổ biến ở Việt Nam nặng
+    - [x] Tuần 39, "quả mít nhỏ": số liệu UF/IFAS cho các giống mít quả nhỏ (3–10 lb); mít phổ biến ở Việt Nam nặng
           hơn nhiều (khoảng 6,75 kg), nên tên ghi rõ "mít nhỏ".
-    - [ ] Tuần 42, quả mãng cầu xiêm: lời một nhà vườn trên báo của Bộ (2–4 kg), khác với số liệu USDA (933 g, quả
+    - [x] Tuần 42, quả mãng cầu xiêm: lời một nhà vườn trên báo của Bộ (2–4 kg), khác với số liệu USDA (933 g, quả
           bán ở Mỹ); một trang của Bộ Công Thương ghi 1–3 kg cho Hậu Giang.
-    - [ ] Đầu mút khoảng nằm ngoài ±25 % ở các tuần 33, 35, 36, 39, 42 (xem lưu ý trên bảng).
-    - [ ] Tuần 41 (quả bí đỏ) và 42 so với cân nặng tuần 40, vì chuẩn Hadlock chỉ đến tuần 40.
-    - [ ] Tuần 32 là quả sầu riêng: cân nặng cả quả (1881 g) suy ra từ tỉ lệ bỏ đi lớn (68 %), nên là dòng USDA kém
+    - [x] Đầu mút khoảng nằm ngoài ±25 % ở các tuần 33, 35, 36, 39, 42 (xem lưu ý trên bảng).
+    - [x] Tuần 41 (quả bí đỏ) và 42 so với cân nặng tuần 40, vì chuẩn Hadlock chỉ đến tuần 40.
+    - [x] Tuần 32 là quả sầu riêng: cân nặng cả quả (1881 g) suy ra từ tỉ lệ bỏ đi lớn (68 %), nên là dòng USDA kém
           chắc chắn nhất.
-    - [ ] Tuần 10 là quả chanh leo (số liệu USDA cho chanh leo tím, 35 g); một số giống lai ở Việt Nam to hơn.
-    - [ ] Tuần 13 là "quả chanh không hạt" (USDA "Limes, raw" là chanh Tahiti); chanh ta nhỏ hơn và chưa có số liệu.
-    - [ ] Tuần 21 là bắp ngô to tính cả vỏ và lõi (397 g); bắp ngô đã bóc vỏ chỉ khoảng 250 g.
-65. [ ] Tranh thai nhi theo tuần: duyệt theo danh sách kiểm tra y khoa ở `docs/design/fetus-artwork-brief.md` §5
+    - [x] Tuần 10 là quả chanh leo (số liệu USDA cho chanh leo tím, 35 g); một số giống lai ở Việt Nam to hơn.
+    - [x] Tuần 13 là "quả chanh không hạt" (USDA "Limes, raw" là chanh Tahiti); chanh ta nhỏ hơn và chưa có số liệu.
+    - [x] Tuần 21 là bắp ngô to tính cả vỏ và lõi (397 g); bắp ngô đã bóc vỏ chỉ khoảng 250 g.
+65. [x] Tranh thai nhi theo tuần: duyệt theo danh sách kiểm tra y khoa ở `docs/design/fetus-artwork-brief.md` §5
         (giai đoạn thai, tỉ lệ đầu–thân, mắt, lông tơ, không gây hiểu nhầm là hình ảnh chẩn đoán).
 
 ## 14. Kỳ kinh trước đây và câu so sánh ở Hôm nay (giai đoạn 13)
 
 Người dùng có thể ghi thêm các kỳ kinh cũ, để trung bình 6 chu kỳ (và dự đoán kỳ tới) dựa trên nhiều dữ liệu hơn.
 
-66. [ ] **Độ dài giả định khi ghi bù.** Khi bấm "Kỳ kinh bắt đầu" ở một ngày đã qua đủ lâu (ngày bắt đầu + độ dài kỳ
+66. [x] **Độ dài giả định khi ghi bù.** Khi bấm "Kỳ kinh bắt đầu" ở một ngày đã qua đủ lâu (ngày bắt đầu + độ dài kỳ
         kinh thường gặp − 1 < hôm nay), app lưu kỳ kinh **đã kết thúc**, dài bằng "độ dài kỳ kinh thường gặp" trong Cài
         đặt (mặc định 5 ngày) — cùng quy tắc với câu hỏi "kỳ kinh gần nhất" ở phần giới thiệu. Trang "Lịch sử chu kỳ" có
         thêm nút "Thêm kỳ kinh trước đây": chọn ngày bắt đầu và "Số ngày hành kinh" (2–10 ngày, mặc định là độ dài
         thường gặp). Nếu ngày cuối rơi sau hôm nay, kỳ kinh được lưu là "đang diễn ra". Nếu kỳ kinh thực tế dài hơn,
         mở ngày cuối thật trong Lịch (tối đa ngày thứ 10) và chọn "Kết thúc kỳ kinh vào ngày này". **Câu hỏi:** giả định độ dài
         thường gặp cho kỳ kinh ghi bù có ổn không, và khoảng 2–10 ngày có phù hợp không?
-67. [ ] **Cách gọi cho người dùng biện pháp tránh thai có nội tiết** (mục 54, 61): nút và tiêu đề là "Thêm lần ra máu
+67. [x] **Cách gọi cho người dùng biện pháp tránh thai có nội tiết** (mục 54, 61): nút và tiêu đề là "Thêm lần ra máu
         trước đây" / "Add a past bleed", ô số ngày là "Số ngày ra máu", lỗi trùng là "Trùng với một lần ra máu đã ghi." và
         thông báo sau khi lưu là "Đã thêm lần ra máu". **Câu hỏi:** cách gọi này có đúng không?
-68. [ ] **"Bé nặng tương đương …"** (`pregnancy.baby.sizeWeight`, "Your baby weighs about as much as …"): thẻ kích
+68. [x] **"Bé nặng tương đương …"** (`pregnancy.baby.sizeWeight`, "Your baby weighs about as much as …"): thẻ kích
         thước ở Hôm nay, từ tuần 10 (các tuần có cân nặng Hadlock), dùng cùng cách so sánh theo cân nặng như bài viết
         theo tuần (mục 13); tuần 4–9 vẫn là "Bé to bằng …". **Câu hỏi:** như mục 13 — "tương đương" có quá mạnh không?
 
@@ -756,11 +761,11 @@ thay các nội dung chăm sóc trước khi có thai và trước khi sinh củ
 sàng lọc lệch bội ghi "Triple test 15 – 20 tuần"; dặn khám lại ngay khi "đau bụng, ra máu, ra nước âm đạo, cử động
 thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu, hoa mắt, đau thượng vị, nôn mửa".
 
-69. [ ] **§4-triple-test — mốc triple test.** Mốc `triple-test`: 15–18 → **15–20 tuần**. Gạch đầu dòng tuần 15:
+69. [x] **§4-triple-test — mốc triple test.** Mốc `triple-test`: 15–18 → **15–20 tuần**. Gạch đầu dòng tuần 15:
         "…thường làm vào tuần 15 đến 18." → "…thường làm trong khoảng tuần 15 đến 20."; bài tuần 15 và bài
         `antenatal-checkup-milestones`: "tuần 15 đến 18" → "tuần 15 đến 20". Bài tuần 15 thêm nguồn Bộ Y tế.
         Nguồn: Bộ Y tế QĐ 1139/QĐ-BYT 2026 (bảng sàng lọc, "Triple test 15 – 20 tuần").
-70. [ ] **Mục 15 — ra máu tuần 4–12, tách theo mức độ** (tuần 4–12, mục cảnh báo). Cũ: "Ra máu âm đạo hoặc đau bụng
+70. [x] **Mục 15 — ra máu tuần 4–12, tách theo mức độ** (tuần 4–12, mục cảnh báo). Cũ: "Ra máu âm đạo hoặc đau bụng
         dữ dội: mẹ hãy liên hệ bác sĩ ngay." → Mới (hai dòng): "Ra máu âm đạo, dù chỉ lấm tấm, hoặc đau bụng không
         dứt: mẹ hãy liên hệ bác sĩ ngay." và "Ra máu nhiều (thấm đẫm băng vệ sinh chỉ một lúc sau khi thay) hoặc đau
         bụng dữ dội: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay." (Vòng rà soát an toàn: dòng 1 nay bao mọi mức ra
@@ -769,7 +774,7 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         khoa cấp cứu ngay. Nguồn: NHS – Vaginal bleeding in pregnancy (ra máu ít/lấm tấm, không đau hoặc đau nhẹ →
         liên hệ khoa sản; đau bụng dữ dội, đau vai, choáng/ngất, ra máu nhiều "soaking a period pad soon after
         putting it on" → gọi 999).
-71. [ ] **Mục 16 — ra máu tuần 37–42.** Cũ: "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ
+71. [x] **Mục 16 — ra máu tuần 37–42.** Cũ: "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không dịu: mẹ
         hãy đến bệnh viện ngay." → Mới (hai dòng): "Ra máu âm đạo, trừ chút nhầy hồng hoặc nâu khi sắp chuyển dạ: mẹ
         hãy liên hệ bệnh viện ngay, dù ngày hay đêm." và "Ra máu nhiều hoặc máu đỏ tươi, hoặc đau bụng liên tục không
         dịu: mẹ hãy đến bệnh viện ngay hoặc gọi 115." Bài tuần 37: "Ra máu nhiều hoặc máu đỏ tươi thì lại khác…" →
@@ -779,19 +784,19 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         dịu, mẹ hãy đến bệnh viện ngay hoặc gọi 115." Nguồn: NHS – Signs that labour has begun ("you have vaginal
         bleeding" → gọi ngay); NHS – Vaginal bleeding in pregnancy (show); Bộ Y tế QĐ 1139/QĐ-BYT 2026 (khám lại ngay
         khi ra máu). **Câu hỏi:** "gọi 115" khi ra máu nhiều ở tuần 37–42 có phù hợp không?
-72. [ ] **Mục 17 — nghi thai ngoài tử cung, thêm 115** (tuần 4–12). Cũ: "…hoặc choáng váng muốn ngất: mẹ hãy đến
+72. [x] **Mục 17 — nghi thai ngoài tử cung, thêm 115** (tuần 4–12). Cũ: "…hoặc choáng váng muốn ngất: mẹ hãy đến
         khoa cấp cứu ngay." → Mới: "…hoặc choáng váng muốn ngất: mẹ hãy đến khoa cấp cứu ngay. Nếu choáng nhiều,
         ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay." Bài `first-trimester-tiredness` thêm: "Nếu
         ngất, hoặc không tự đi được, mẹ hoặc người nhà hãy gọi 115 ngay." Nguồn: NHS – Ectopic pregnancy (đau bụng đột ngột dữ dội kèm choáng nhiều/ngất,
         buồn nôn, xanh tái → gọi 999 hoặc đến A&E).
-73. [ ] **22-c — `medical.ttc.body`.** "chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc rất không đều" → "…dài hơn
+73. [x] **22-c — `medical.ttc.body`.** "chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc rất không đều" → "…dài hơn
         **35** ngày…" (cùng mốc với `onboarding.regularity.irregularNote` và `onboarding.cycleLength.hint` đã có).
         Nguồn: NHS – Periods (21–35 ngày); FIGO 2018 (bình thường 24–38 ngày); ACOG CO 651 (21–45 ngày là khoảng của
         trẻ vị thành niên). **Câu hỏi:** bác sĩ chọn mốc 35 (NHS) hay 38 (FIGO) để dùng chung cho mọi chuỗi. **Đã thay bởi §19 (mục 106).**
-74. [ ] **22-e — `cycle.irregular.body`.** "Chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc thay đổi nhiều — bạn nên
+74. [x] **22-e — `cycle.irregular.body`.** "Chu kỳ ngắn hơn 21 ngày, dài hơn 45 ngày hoặc thay đổi nhiều — bạn nên
         trao đổi với bác sĩ." → "…dài hơn **35** ngày…". Nguồn như mục 73. Phần "thay đổi nhiều" (chênh > 7 ngày)
         khớp FIGO, giữ nguyên. **Đã thay bởi §19 (mục 106).**
-75. [ ] **22-c/22-e — hằng số dự đoán chưa đổi, chờ bác sĩ chọn.** Cách tính trung bình **không** đổi:
+75. [x] **22-c/22-e — hằng số dự đoán chưa đổi, chờ bác sĩ chọn.** Cách tính trung bình **không** đổi:
         `CyclePredictor.usableCycleLengths = 21...45` (chỉ chu kỳ 21–45 ngày được tính vào trung bình và "tính vào
         trung bình" trong Lịch sử). **Đã đổi (chủ sản phẩm duyệt):** thẻ "Chu kỳ có vẻ không đều" dùng ngưỡng riêng
         `CyclePredictor.regularCycleLengths = 21...35`: thẻ hiện khi chu kỳ gần nhất < 21 hoặc > 35 ngày (trước đây
@@ -799,12 +804,12 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         cảnh báo, hay tách hai ngưỡng (ví dụ vẫn tính trung bình đến 45 ngày nhưng hiện thẻ từ 36 hoặc 39 ngày)?
         Nguồn: FIGO 2018 (Munro, Critchley, Fraser, Int J Gynaecol Obstet 143:393); PMC11790291 (2025); NHS – Periods;
         ACOG CO 651 (2015); AAFP 2023 (Infertility: Evaluation and Management). **Đã thay bởi §19 (mục 106).**
-76. [ ] **24-b — ngưỡng "kỳ kinh kéo dài" chưa đổi, chờ bác sĩ chọn.** `CycleRules.longPeriodDays = 10` (thẻ hiện
+76. [x] **24-b — ngưỡng "kỳ kinh kéo dài" chưa đổi, chờ bác sĩ chọn.** `CycleRules.longPeriodDays = 10` (thẻ hiện
         khi kỳ kinh chưa kết thúc > 10 ngày; giới hạn ghi 10 ngày). Không có câu nào cho người dùng nêu khoảng "bình
         thường" sai, nên **không đổi câu chữ** (`cycle.longPeriod.*` chỉ nói số ngày đã kéo dài và gợi ý đi khám).
         **Câu hỏi:** bật thẻ từ ngày thứ 9 (> 8 ngày, FIGO) hay ngày thứ 8 (> 7 ngày, NHS – Heavy periods), và có giữ
         giới hạn ghi 10 ngày không? Nguồn: FIGO 2018; PMC11790291; NHS – Heavy periods; NHS – Periods.
-77. [ ] **31-a — thẻ an toàn "Cơn gò"** (`symptom.safety.contractions`, trả lời câu hỏi ở mục 31). Cũ: "Đi khám ngay
+77. [x] **31-a — thẻ an toàn "Cơn gò"** (`symptom.safety.contractions`, trả lời câu hỏi ở mục 31). Cũ: "Đi khám ngay
         nếu cơn gò đều đặn hoặc đau trước tuần 37, hoặc ra nước, ra máu." → Mới: "Đi khám ngay nếu ra nước, ra máu,
         hoặc có cơn gò đều đặn hay đau trước tuần 37. Từ tuần 37, hãy gọi bệnh viện khi cơn gò đều khoảng 5 phút một
         lần hoặc dày hơn, hoặc khi mẹ lo lắng." (en: "Go now if you leak fluid or bleed, or if contractions come
@@ -812,21 +817,21 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         vỡ ối, ra máu → gọi ngay; cơn gò đều 5 phút một lần hoặc dày hơn → gọi; mỗi cơn > 2 phút hoặc ≥ 6 cơn trong
         10 phút → gọi ngay); Bộ Y tế QĐ 1139/QĐ-BYT 2026. **Câu hỏi:** có cần nêu thêm ngưỡng "> 2 phút / ≥ 6 cơn
         trong 10 phút" trên thẻ không (hiện bỏ để câu ngắn)?
-78. [ ] **31-b — thẻ an toàn "Phù chân"** (`symptom.safety.swelling`). Cũ: "Đi khám ngay nếu mặt hoặc tay phù đột
+78. [x] **31-b — thẻ an toàn "Phù chân"** (`symptom.safety.swelling`). Cũ: "Đi khám ngay nếu mặt hoặc tay phù đột
         ngột kèm đau đầu, nhìn mờ hoặc đau vùng thượng vị." → Mới: "Đi khám ngay nếu mặt, tay hoặc chân phù đột ngột,
         hoặc đau đầu dữ dội, nhìn mờ, nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, ợ nóng không đỡ dù đã dùng
         thuốc trị ợ nóng, dù chỉ có một dấu hiệu." (en thêm "or in your upper belly" và "heartburn that does not ease
         with heartburn medicine".)
         Nguồn: NHS – Pre-eclampsia ("Any of these symptoms can be serious and need to be checked immediately");
         Bộ Y tế QĐ 1139/QĐ-BYT 2026 (nhức đầu, hoa mắt, đau thượng vị là dấu hiệu tiền sản giật).
-79. [ ] **39-T15-b — chảy máu cam** (bài tuần 15, tab Mẹ). Cũ: "Bóp nhẹ phần mềm của mũi và hơi cúi người về trước
+79. [x] **39-T15-b — chảy máu cam** (bài tuần 15, tab Mẹ). Cũ: "Bóp nhẹ phần mềm của mũi và hơi cúi người về trước
         thường giúp cầm máu. Nếu chảy máu cam thường xuyên hoặc nhiều, mẹ hãy báo bác sĩ hoặc nữ hộ sinh." → Mới:
         "Khi chảy máu cam, mẹ ngồi xuống, cúi người về trước, bóp chặt phần mềm của mũi liên tục 10 đến 15 phút và thở
         bằng miệng. Nếu máu không cầm sau 10 đến 15 phút, chảy rất nhiều, hoặc mẹ thấy mệt lả, choáng hay khó thở, mẹ
         hãy đến khoa cấp cứu. Nếu chảy máu cam hay tái lại, mẹ hãy báo bác sĩ hoặc nữ hộ sinh." Nguồn: NHS – Nosebleed
         ("pinch your nose just above your nostrils for 10 to 15 minutes"; đến A&E khi kéo dài > 10–15 phút, chảy
         nhiều, thấy yếu, choáng hoặc khó thở).
-80. [ ] **40-1, 45-03a, 47 — gan và pa tê** (bài `food-safety`, trả lời câu hỏi ở mục 47 theo nguồn; bác sĩ quyết
+80. [x] **40-1, 45-03a, 47 — gan và pa tê** (bài `food-safety`, trả lời câu hỏi ở mục 47 theo nguồn; bác sĩ quyết
         định cuối). Cũ: "Gan và các món từ gan như pa tê chứa rất nhiều vitamin A, có thể gây hại nếu ăn quá nhiều. Vì
         vậy, mẹ không nên ăn thường xuyên hay ăn nhiều một lúc." → Mới: "Mẹ tránh gan và các món làm từ gan, như pa tê
         gan, vì chứa rất nhiều vitamin A có thể gây hại cho bé. Pa tê để ngăn mát còn có thể nhiễm vi khuẩn Listeria.
@@ -840,13 +845,13 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         nóng"; trang CDC đã mở chỉ nói hâm nóng cho thịt nguội/xúc xích, không nói cho pa tê, nên app **không** ghi
         câu này. (3) Hướng dẫn dinh dưỡng của Bộ Y tế (QĐ 776/QĐ-BYT 2017) liệt kê gan là nguồn vitamin A và dặn không
         dùng quá liều vitamin A; không có câu "tránh gan". Bác sĩ cân nhắc với thói quen bánh mì pa tê ở Việt Nam.
-81. [ ] **49 — ợ nóng và đau dưới sườn** (bài `sleeping-well-late-pregnancy`, trả lời câu hỏi ở mục 49). Thêm vào
+81. [x] **49 — ợ nóng và đau dưới sườn** (bài `sleeping-well-late-pregnancy`, trả lời câu hỏi ở mục 49). Thêm vào
         phần "Những điều cần báo bác sĩ hoặc nữ hộ sinh": "Nếu đau nhiều dưới sườn hoặc vùng thượng vị, hay ợ nóng
         không đỡ dù đã dùng thuốc trị ợ nóng, mẹ hãy đến khoa sản ngay. Đó có thể là dấu hiệu tiền sản giật." Để bài
         không quá 500 chữ, bỏ câu "Thở chậm và sâu có thể giúp mẹ thư thái khi đầu óc ngổn ngang." và rút "cũng có
         thể giúp mẹ đỡ hơn" → "cũng có thể giúp mẹ" (không phải nội dung an toàn). Nguồn: NHS – Pre-eclampsia ("pain below the ribs", "heartburn that does not go away with heartburn
         medicines"; mỗi dấu hiệu cần kiểm tra ngay); Bộ Y tế QĐ 1139/QĐ-BYT 2026 (đau thượng vị).
-82. [ ] **56 — nhắc chu kỳ khi dùng tránh thai nội tiết** (trả lời câu hỏi ở mục 56). Với nhóm "có nội tiết"
+82. [x] **56 — nhắc chu kỳ khi dùng tránh thai nội tiết** (trả lời câu hỏi ở mục 56). Với nhóm "có nội tiết"
         (mục 54) khi theo dõi chu kỳ, app không còn nói "kỳ kinh": "Ngày mai có thể đến kỳ kinh" → "Ngày mai có thể
         ra máu" (`cycle.reminder.bleed.*`, thân: "Hãy ghi lại khi bắt đầu ra máu để dự đoán chính xác hơn."); "Kỳ kinh
         đã trễ 3 ngày / Bạn có thể thử thai." → "Đã trễ 3 ngày so với lần ra máu dự kiến / Nếu có quên thuốc hoặc lo lắng,
@@ -858,24 +863,24 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         giữ câu cũ. Nguồn: NHS Devon Sexual Health – Taking 'the pill'; NHS 111 Wales – Progestogen-only pill; NHS –
         IUS (hormonal coil). **Câu hỏi:** với que cấy, thuốc tiêm, vòng nội tiết và thuốc chỉ có progestin (ra máu
         thường không đều hoặc mất hẳn), có nên **tắt** nhắc "trễ" để tránh lo lắng không cần thiết không? (Chưa đổi.)
-83. [ ] **35-T30 — tủy xương** (gạch đầu dòng tuần 30). "Tủy xương đã bắt đầu tạo hồng cầu." → "Tủy xương giờ là
+83. [x] **35-T30 — tủy xương** (gạch đầu dòng tuần 30). "Tủy xương đã bắt đầu tạo hồng cầu." → "Tủy xương giờ là
         nơi tạo hồng cầu chính." (khớp bài tuần 21 và 30). Nguồn: PMC8707658 (Extramedullary hematopoiesis);
         MedlinePlus – Fetal development.
-84. [ ] **39-T18-b — myelin** (bài tuần 18). "Một lớp vỏ chứa chất béo gọi là myelin đang bắt đầu bao quanh các dây
+84. [x] **39-T18-b — myelin** (bài tuần 18). "Một lớp vỏ chứa chất béo gọi là myelin đang bắt đầu bao quanh các dây
         thần kinh. … còn tiếp tục phát triển nhiều năm sau sinh." → "Lớp vỏ chứa chất béo gọi là myelin đang hình
         thành ngày càng nhiều quanh các dây thần kinh. … còn tiếp tục phát triển nhiều năm sau sinh, đến tận tuổi
         thiếu niên." Nguồn: National Research Council & IOM (NCBI Bookshelf NBK32785, 2009); các nghiên cứu myelin
         tủy sống thai nhi trên PubMed.
-85. [ ] **39-T19-b — nám da** (bài tuần 19). "Cả hai đều khá thường gặp và thường mờ dần trong vài tháng sau sinh."
+85. [x] **39-T19-b — nám da** (bài tuần 19). "Cả hai đều khá thường gặp và thường mờ dần trong vài tháng sau sinh."
         → "Cả hai đều khá thường gặp và thường nhạt dần sau sinh, nhưng mảng sẫm ở mặt có thể kéo dài ở một số mẹ.
         Che nắng kỹ giúp hạn chế sạm thêm." Nguồn: NHS – 19 weeks pregnant (chloasma); StatPearls – Melasma (2026).
-86. [ ] **39-T27-a — nếp gấp của não** (bài tuần 27). "Bề mặt não bắt đầu có các nếp gấp…" → "Bề mặt não ngày càng
+86. [x] **39-T27-a — nếp gấp của não** (bài tuần 27). "Bề mặt não bắt đầu có các nếp gấp…" → "Bề mặt não ngày càng
         có nhiều nếp gấp…". Nguồn: Adventures in Neuropathology – Fetal gyral development (2019); J Neurosurg Pediatr
         11(1), 2013.
-87. [ ] **39-T38-b — phân su** (bài tuần 38). "Trong ruột bé có phân su, tức phân đầu tiên, thường được thải ra
+87. [x] **39-T38-b — phân su** (bài tuần 38). "Trong ruột bé có phân su, tức phân đầu tiên, thường được thải ra
         trong vài ngày đầu sau sinh." → "Trong ruột bé có phân su, tức phân đầu tiên. Bé thường đi phân su lần đầu
         trong 24 đến 48 giờ sau sinh." Nguồn: Cleveland Clinic – Meconium ("within 24 to 48 hours after birth").
-88. [ ] **44 — danh sách nguồn** (`sources` trong `knowledge-content.json`; trả lời mục 44). (1) Mục Bộ Y tế:
+88. [x] **44 — danh sách nguồn** (`sources` trong `knowledge-content.json`; trả lời mục 44). (1) Mục Bộ Y tế:
         "Bộ Y tế Việt Nam: Hướng dẫn quốc gia về các dịch vụ chăm sóc sức khỏe sinh sản" → "Bộ Y tế Việt Nam: Hướng
         dẫn quốc gia các dịch vụ chăm sóc sức khỏe sinh sản về nội dung Chăm sóc trước khi có thai và trước khi sinh
         (Quyết định 1139/QĐ-BYT, 23/4/2026; thay phần tương ứng của Quyết định 4128/QĐ-BYT, 2016)" (cùng câu này
@@ -889,13 +894,13 @@ thai bất thường và phù"; dấu hiệu tiền sản giật "nhức đầu,
         CG192 ghi thêm "updated 2020". (7) Mốc baby blues "khoảng hai tuần" (`preparing-for-motherhood`) là của NHS;
         bài đã có nguồn NHS nên không thêm NICE NG194. **Câu hỏi:** bác sĩ có muốn thêm NICE NG194 (chăm sóc sau
         sinh) không?
-89. [ ] **Vòng rà soát an toàn — dấu hiệu tiền sản giật hằng tuần (tuần 20–42).** Cũ: "Đau đầu dữ dội, nhìn mờ hoặc
+89. [x] **Vòng rà soát an toàn — dấu hiệu tiền sản giật hằng tuần (tuần 20–42).** Cũ: "Đau đầu dữ dội, nhìn mờ hoặc
         nổi đom đóm mắt, phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện ngay." → Mới: "Đau đầu dữ dội, nhìn mờ hoặc
         nổi đom đóm mắt, đau dưới sườn hay vùng thượng vị, hoặc phù mặt, tay, chân đột ngột: mẹ hãy đến bệnh viện
         ngay." Bài `signs-of-labour` thêm "đau dưới sườn hay vùng thượng vị" cùng cách. Test
         `coreDangerSignsAppearEveryWeekOfTheirStage` kiểm tra "ribs"/"thượng vị" ở mọi tuần từ 20. Nguồn: NHS –
         Pre-eclampsia ("pain below the ribs"); Bộ Y tế QĐ 1139/QĐ-BYT 2026 ("đau thượng vị").
-90. [ ] **Vòng rà soát an toàn — mức cấp cứu ở tuần 13–36** (trước đây mức 115 dừng ở tuần 12). Tuần 13–19: "Ra máu
+90. [x] **Vòng rà soát an toàn — mức cấp cứu ở tuần 13–36** (trước đây mức 115 dừng ở tuần 12). Tuần 13–19: "Ra máu
         âm đạo dù ít hay nhiều, đau bụng dữ dội hoặc choáng ngất: liên hệ bác sĩ hoặc bệnh viện ngay." → hai dòng: "Ra
         máu âm đạo dù ít hay nhiều, hoặc đau bụng không dứt: mẹ hãy liên hệ bác sĩ hoặc bệnh viện ngay." và "Ra máu
         nhiều, đau bụng dữ dội hoặc ngất: mẹ hãy gọi 115 hoặc đến khoa cấp cứu ngay." Tuần 20–36: giữ "Ra máu âm đạo dù
@@ -914,21 +919,21 @@ nhắc (mặc định 21:00). Thông báo: "Đến giờ uống thuốc" — "Vi
 "Thuốc tránh thai" với nút "Đã uống hôm nay" và "Bỏ đánh dấu". Đặc tả:
 `docs/superpowers/specs/2026-10-09-pill-reminder-design.md`.
 
-91. [ ] **Câu duy nhất về quên thuốc** (chú thích dưới trang cài đặt, `pill.sheet.missed`): "Nếu quên uống, hãy làm
+91. [x] **Câu duy nhất về quên thuốc** (chú thích dưới trang cài đặt, `pill.sheet.missed`): "Nếu quên uống, hãy làm
         theo tờ hướng dẫn trong hộp thuốc hoặc hỏi bác sĩ, dược sĩ." / "If you miss a pill, follow the leaflet in the
         pack or ask a doctor or pharmacist." App **không** đưa hướng dẫn lâm sàng nào khác (uống bù, dùng thêm bao cao
         su…). **Câu hỏi:** câu này có đủ và đúng không?
-92. [ ] **Nhắc lại sau 2 giờ.** Nếu chưa đánh dấu "Đã uống", app nhắc lại **một lần** sau 2 giờ: "Bạn đã uống viên thuốc
+92. [x] **Nhắc lại sau 2 giờ.** Nếu chưa đánh dấu "Đã uống", app nhắc lại **một lần** sau 2 giờ: "Bạn đã uống viên thuốc
         chưa?" — "Viên 12/21. Bấm Đã uống sau khi uống." Không nhắc thêm. **Câu hỏi:** 2 giờ có hợp lý không?
-93. [ ] **Tuần nghỉ của vỉ 21 + 7.** Ngày 22–28 của vỉ không có nhắc nhở; thẻ ở Hôm nay ghi "Tuần nghỉ · vỉ mới bắt
+93. [x] **Tuần nghỉ của vỉ 21 + 7.** Ngày 22–28 của vỉ không có nhắc nhở; thẻ ở Hôm nay ghi "Tuần nghỉ · vỉ mới bắt
         đầu ngày 18 thg 10". Tối ngày đầu vỉ mới, nhắc lại như bình thường. Vỉ "28 viên" nhắc mỗi ngày. **Câu hỏi:**
         cách gọi "tuần nghỉ" và việc không nhắc trong 7 ngày đó có ổn không?
-94. [ ] **Thuốc chỉ chứa progestin** (cửa sổ khoảng 3 giờ) đang dùng chung lựa chọn "28 viên" và cùng lần nhắc lại sau 2
+94. [x] **Thuốc chỉ chứa progestin** (cửa sổ khoảng 3 giờ) đang dùng chung lựa chọn "28 viên" và cùng lần nhắc lại sau 2
         giờ. **Câu hỏi:** loại thuốc này có cần cách nhắc khác (ví dụ nhắc lại sớm hơn, hoặc một lựa chọn riêng) không?
 
 ## 17. Onboarding mới (giai đoạn 18)
 
-95. [ ] **Giai đoạn 18 — lưu ý y khoa ở màn chào mừng.** Onboarding mới gộp lưu ý y khoa thành một dòng ngắn cạnh
+95. [x] **Giai đoạn 18 — lưu ý y khoa ở màn chào mừng.** Onboarding mới gộp lưu ý y khoa thành một dòng ngắn cạnh
         biểu tượng "!". Cũ (`onboarding.3.title` + `onboarding.3.body`): "Không thay thế tư vấn y tế. Nếu thấy bé cử động
         ít hơn bình thường, hãy liên hệ ngay bác sĩ hoặc cơ sở y tế. Đừng chờ kết quả từ app." → Mới (`onboarding.medical`):
         "Không thay thế bác sĩ. Bé cử động ít bất thường? Gọi bác sĩ ngay." (en: "Not a substitute for a doctor. Fewer
@@ -944,7 +949,7 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
 ít đi: đến bệnh viện ngay." Mọi ngưỡng nằm ở `Packages/KickCore/Sources/KickCore/ContractionRules.swift`. Đặc tả:
 `docs/superpowers/specs/2026-10-10-contraction-timer-design.md`.
 
-96. [ ] **Quy tắc 5-1-1 (từ tuần 37, hoặc khi app chưa biết tuần thai).** Thẻ 5-1-1 hiện khi **đủ cả bốn** điều kiện,
+96. [x] **Quy tắc 5-1-1 (từ tuần 37, hoặc khi app chưa biết tuần thai).** Thẻ 5-1-1 hiện khi **đủ cả bốn** điều kiện,
         tính trên các cơn gò **đã kết thúc** bắt đầu trong 60 phút qua (`window` = 60 phút):
         (a) ít nhất **6 cơn** (`fiveOneOneMinCount` = 6);
         (b) khoảng cách trung bình giữa hai lần bắt đầu **≤ 5 phút 30 giây** (`fiveOneOneMaxAverageInterval` = 5:30;
@@ -958,7 +963,7 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
         1 giờ) và gọi **gấp** nếu có cơn dài trên 2 phút hoặc từ 6 cơn trở lên trong 10 phút; app **không** có hai ngưỡng
         gấp này. **Câu hỏi:** bác sĩ giữ 5-1-1 với dung sai 5:30 / 45 s / 6 cơn / 60 phút, hay dùng ngưỡng khác (ví dụ
         như NHS, không chờ đủ 1 giờ)? Có cần thêm cảnh báo khi một cơn kéo dài trên 2 phút không?
-97. [ ] **Cơn gò đều trước tuần 37.** Khi tuần thai < 37 (`termWeek` = 37; tuần 36+6 vẫn là "trước 37"), thẻ khẩn hiện
+97. [x] **Cơn gò đều trước tuần 37.** Khi tuần thai < 37 (`termWeek` = 37; tuần 36+6 vẫn là "trước 37"), thẻ khẩn hiện
         khi có **từ 4 cơn gò đã kết thúc trở lên bắt đầu trong 60 phút qua** (`pretermMinCount` = 4), không xét độ dài
         hay khoảng cách. Thẻ này đếm **mọi** cơn gò trong giờ qua, kể cả sau khi mẹ bấm "Kết thúc theo dõi" hay khi
         các cơn thuộc hai lần theo dõi khác nhau, để mẹ không thể vô tình làm mất cảnh báo. Đối chiếu: các nguồn khác
@@ -966,7 +971,7 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
         thì dặn gọi gấp khi "dưới 37 tuần và nghĩ mình chuyển dạ" (không có số cơn). **Câu hỏi:** ngưỡng 4 cơn/giờ có
         phù hợp không? Có nên thêm điều kiện (cơn đau, đều) hay tính từ một mốc tuần nào đó (app hiện áp dụng cho mọi
         tuần dưới 37, kể cả trước tuần 28 nếu mẹ mở màn từ tab Đếm cử động)?
-98. [ ] **Câu cảnh báo và câu an toàn.**
+98. [x] **Câu cảnh báo và câu an toàn.**
         Thẻ 5-1-1 (`contraction.alert.fiveOneOne`): "Cơn gò đều khoảng 5 phút một lần, mỗi cơn khoảng 1 phút, trong 1
         giờ: đến lúc gọi bác sĩ hoặc đến bệnh viện." / "Contractions about 5 minutes apart, each about 1 minute long,
         for 1 hour: time to call your doctor or go to the hospital."
@@ -979,7 +984,7 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
         **Cả hai thẻ** đều có nút "Gọi cấp cứu 115" (giống thẻ cảnh báo 2 giờ khi đếm cử động). **Câu hỏi:** câu chữ có
         đúng và đủ không? Nút 115 trên thẻ 5-1-1 (chuyển dạ đủ tháng, thường chỉ cần gọi bác sĩ/đến viện) có hợp lý,
         hay chỉ nên để ở thẻ trước tuần 37? Câu an toàn có cần thêm "gọi 115" như các câu cảnh báo ở mục 15–17 không?
-99. [ ] **Tự đóng cơn gò quên bấm, bỏ lần bấm nhầm, và "lần theo dõi".**
+99. [x] **Tự đóng cơn gò quên bấm, bỏ lần bấm nhầm, và "lần theo dõi".**
         - Cơn gò chạy quá **5 phút** (`maxDuration` = 5 phút) được coi là quên bấm "Hết cơn gò": app đóng nó ở mốc bắt
           đầu + 5 phút. Vì thế app không bao giờ ghi một cơn dài trên 5 phút. Lúc đó nút đã hiện lại "Bắt đầu cơn gò",
           nên lần bấm tiếp theo vừa đóng cơn cũ ở 5:00 vừa bắt đầu cơn mới.
@@ -990,12 +995,12 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
         **Câu hỏi:** 5 phút và 3 giây có hợp lý không? Một cơn gò thật kéo dài trên 2 phút đã là dấu hiệu cần gọi gấp
         (NHS) — có nên báo cho mẹ thay vì chỉ lặng lẽ đóng cơn ở 5 phút? Khoảng nghỉ 2 giờ để tách lần theo dõi có ổn
         không?
-100. [ ] **Một quy tắc cho mọi người.** App dùng cùng ngưỡng cho mẹ sinh con so và con rạ, và không hỏi khoảng cách
+100. [x] **Một quy tắc cho mọi người.** App dùng cùng ngưỡng cho mẹ sinh con so và con rạ, và không hỏi khoảng cách
          từ nhà đến bệnh viện. Một số nơi khuyên mẹ sinh con rạ, có tiền sử sinh nhanh hoặc ở xa bệnh viện nên gọi hoặc
          đi **sớm hơn**; trang NHS đã đối chiếu không phân biệt các trường hợp này. Câu 5-1-1 hiện tại không nhắc điều
          này. **Câu hỏi:** có cần thêm một câu như "Nếu đã từng sinh, sinh nhanh hoặc nhà xa bệnh viện, hãy hỏi bác sĩ
          khi nào nên đi" vào màn hình, hay thêm lựa chọn để app đổi ngưỡng?
-101. [ ] **Cảnh báo trên màn hình khoá và thông báo một lần.** Khi thẻ 5-1-1 hoặc thẻ trước tuần 37 đang hiện, Live
+101. [x] **Cảnh báo trên màn hình khoá và thông báo một lần.** Khi thẻ 5-1-1 hoặc thẻ trước tuần 37 đang hiện, Live
          Activity cơn gò (màn hình khoá, Dynamic Island) có thêm một dòng ngắn kèm dấu cảnh báo, tính theo tuần thai thật:
          - 5-1-1 (`la.contraction.alert.fiveOneOne`): "Cơn gò đều 5 phút một lần trong 1 giờ: gọi bác sĩ hoặc đến bệnh
            viện." / "Contractions 5 min apart for 1 hour: call your doctor or go to the hospital."
@@ -1013,23 +1018,23 @@ hình tính "Trong 1 giờ qua": "Số cơn", "Dài TB", "Cách nhau TB". Có Li
 Chủ sản phẩm đã duyệt; bác sĩ xác nhận lại câu chữ. Các mục cũ nói về cùng nội dung (§2 điểm 2–3, §6, §7, mục
 28, 57, 73–75) được thay bởi phần này.
 
-102. [ ] **Tuần 6 — tim thai** (`pregnancy-content.json`, tuần 6, ý "Bé" đầu tiên). Cũ: "Lúc này siêu âm có thể thấy
+102. [x] **Tuần 6 — tim thai** (`pregnancy-content.json`, tuần 6, ý "Bé" đầu tiên). Cũ: "Lúc này siêu âm có thể thấy
         tim thai đập." → Mới: "Khoảng thời gian này, siêu âm thường thấy được hoạt động tim thai, tùy tuổi thai chính
         xác và cách siêu âm. Nếu lần đầu chưa thấy, bác sĩ có thể hẹn mẹ siêu âm lại." Bài viết tuần 6 vốn đã nói "có
         thể sẽ thấy"; thêm cho đồng bộ: "Thấy được hay chưa còn tùy tuổi thai chính xác và cách siêu âm, nên việc chưa
         thấy tim thai lúc này cũng khá thường gặp…". Bản en sửa song song. Nguồn: NHS – Week-by-week guide to
         pregnancy (tuần 6); ACOG – How Your Fetus Grows During Pregnancy.
-103. [ ] **Tuần 15 — ánh sáng** (ý "Bé" thứ hai). Cũ: "Dù mí mắt còn khép, bé đã cảm nhận được ánh sáng." → Mới:
+103. [x] **Tuần 15 — ánh sáng** (ý "Bé" thứ hai). Cũ: "Dù mí mắt còn khép, bé đã cảm nhận được ánh sáng." → Mới:
         "Dù mí mắt còn khép, bé có thể đã bắt đầu cảm nhận được ánh sáng." (khớp phần mở đầu và bài viết, vốn đã viết
         "có thể"). Nguồn: NHS – Week-by-week guide to pregnancy; ACOG – How Your Fetus Grows During Pregnancy.
-104. [ ] **Tuần 35 — thận** (ý "Bé" đầu tiên, phần mở đầu và đoạn phát triển đầu tiên của bài viết). Cũ: "Thận của bé
+104. [x] **Tuần 35 — thận** (ý "Bé" đầu tiên, phần mở đầu và đoạn phát triển đầu tiên của bài viết). Cũ: "Thận của bé
         đã phát triển hoàn chỉnh." → Mới: "Các đơn vị lọc nhỏ của thận bé gần như đã hình thành đủ; thận vẫn tiếp tục
         trưởng thành sau sinh." Phần mở đầu: "Các đơn vị lọc của thận bé gần như đã hình thành đủ, và dù chỗ trong bụng
         ngày càng chật, mẹ vẫn cần cảm nhận được bé cử động mỗi ngày." Bài viết: "Thận của bé giờ đã có gần đủ các đơn
         vị lọc nhỏ, vốn hoàn tất hình thành vào khoảng tuần 34 đến 36. Thận tạo ra nước tiểu, góp phần vào lượng nước
         ối, và vẫn tiếp tục trưởng thành sau khi bé chào đời." (việc tạo nephron kết thúc khoảng tuần 34–36). Nguồn:
         NHS – Week-by-week guide to pregnancy; ACOG – How Your Fetus Grows During Pregnancy.
-105. [ ] **Hướng dẫn đếm cử động** (`kicks.cardiff.body`, `history.guide.body`, `medical.body`). Theo RCOG, không
+105. [x] **Hướng dẫn đếm cử động** (`kicks.cardiff.body`, `history.guide.body`, `medical.body`). Theo RCOG, không
         dùng một ngưỡng đếm cố định để báo động; điều quan trọng nhất là cử động thay đổi so với nhịp quen thuộc của bé.
         Tính năng đếm tới 10, thẻ cảnh báo 2 giờ và thông báo 2 giờ (`overdue.*`, `la.overdue`,
         `completion.exceeded`) giữ nguyên. Các câu nay mở đầu bằng "ít hơn, yếu hơn hoặc khác nhịp quen thuộc → gọi
@@ -1052,7 +1057,7 @@ Chủ sản phẩm đã duyệt; bác sĩ xác nhận lại câu chữ. Các m�
           thấy cử động khác mọi ngày, hãy liên hệ bác sĩ. Đừng chờ đến hôm sau…"
         Bản en sửa song song. Nguồn: RCOG Green-top Guideline No. 57 – Reduced Fetal Movements (Royal College of
         Obstetricians and Gynaecologists).
-106. [ ] **Ngưỡng độ dài chu kỳ → FIGO 24–38 ngày (người trưởng thành).** `CyclePredictor.regularCycleLengths`:
+106. [x] **Ngưỡng độ dài chu kỳ → FIGO 24–38 ngày (người trưởng thành).** `CyclePredictor.regularCycleLengths`:
         `21...35` → `24...38` (thẻ "Chu kỳ có vẻ không đều" hiện khi chu kỳ gần nhất < 24 hoặc > 38 ngày, hoặc ≥ 3 chu
         kỳ chênh > 7 ngày như cũ). Cách tính trung bình (`usableCycleLengths = 21...45`) và khoảng nhập trong Cài đặt
         **không đổi**. Câu chữ:
