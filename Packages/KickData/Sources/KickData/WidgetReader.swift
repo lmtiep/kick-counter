@@ -5,15 +5,23 @@ import SwiftData
 /// Reads what the Home Screen / Lock Screen widget shows, on the device only
 /// and without ever writing: no save, no duplicate clean-up (unlike `CycleStore`).
 public enum WidgetReader {
-    /// The App Group store opened for reading: saving through it is refused.
-    public static func makeContainer() throws -> ModelContainer {
-        let configuration = ModelConfiguration(
-            schema: KickPersistence.schema,
-            allowsSave: false,
-            groupContainer: .identifier(AppGroup.identifier),
-            cloudKitDatabase: .none
-        )
-        return try ModelContainer(for: KickPersistence.schema, configurations: configuration)
+    /// Everything the widget needs from the App Group, or `.unavailable` when it cannot
+    /// be read: the store throws, or the settings hold no onboarding answer at all (they
+    /// are not readable yet, e.g. before the first unlock after a restart, or the data
+    /// is not there). The widget then retries soon instead of showing "get started".
+    public static func read(
+        defaults: UserDefaults = AppGroup.defaults,
+        now: Date,
+        calendar: Calendar = .current,
+        url: URL? = nil
+    ) -> WidgetRead {
+        guard defaults.object(forKey: SettingsKey.hasCompletedOnboarding) != nil else { return .unavailable }
+        do {
+            let container = try KickPersistence.makeContainer(readOnly: true, url: url)
+            return .input(try input(context: ModelContext(container), defaults: defaults, now: now, calendar: calendar))
+        } catch {
+            return .unavailable
+        }
     }
 
     /// Settings from `defaults`; periods, logs and kick sessions only for the mode that needs them.

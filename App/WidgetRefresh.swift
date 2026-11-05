@@ -14,13 +14,6 @@ enum WidgetRefresh {
     private static var pending: Task<Void, Never>?
     private static var observers: [Task<Void, Never>] = []
 
-    /// Reloads every widget timeline now.
-    static func reload() {
-        pending?.cancel()
-        pending = nil
-        WidgetCenter.shared.reloadAllTimelines()
-    }
-
     /// Reloads shortly, once, however many changes arrive in between.
     static func reloadSoon() {
         pending?.cancel()

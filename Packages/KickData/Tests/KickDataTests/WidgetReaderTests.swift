@@ -82,3 +82,28 @@ struct WidgetReaderTests {
         #expect(try read().kicksToday == nil)
     }
 }
+
+@MainActor
+struct ReadOnlyStoreTests {
+    @Test func appConfigWritesAndTheReadOnlyConfigReadsButRefusesToSave() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("widget-\(UUID().uuidString).store")
+        defer { try? FileManager.default.removeItem(at: url) }
+        do {
+            let writer = try KickPersistence.makeContainer(url: url)
+            writer.mainContext.insert(PeriodEntry(record: PeriodRecord(startDate: date("2026-09-20T00:00:00Z"))))
+            try writer.mainContext.save()
+        }
+        let reader = try KickPersistence.makeContainer(readOnly: true, url: url)
+        #expect(try reader.mainContext.fetchCount(FetchDescriptor<PeriodEntry>()) == 1)
+        reader.mainContext.insert(PeriodEntry(record: PeriodRecord(startDate: date("2026-09-25T00:00:00Z"))))
+        #expect(throws: (any Error).self) { try reader.mainContext.save() }
+        reader.mainContext.rollback()
+        let check = try KickPersistence.makeContainer(url: url)
+        #expect(try check.mainContext.fetchCount(FetchDescriptor<PeriodEntry>()) == 1)
+    }
+
+    @Test func unreadableDefaultsMeanUnavailable() {
+        let defaults = UserDefaults(suiteName: "ReadOnlyStoreTests-\(UUID().uuidString)")!
+        #expect(WidgetReader.read(defaults: defaults, now: date("2026-10-02T12:00:00Z"), calendar: utcCalendar) == .unavailable)
+    }
+}
