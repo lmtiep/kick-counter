@@ -8,12 +8,13 @@ struct ChecklistRow: View {
     let isDone: Bool
     let identifier: String
     let toggle: () -> Void
+    @ScaledMetric(relativeTo: .body) private var boxSize: CGFloat = 22
 
     var body: some View {
         Button(action: toggle) {
             HStack(alignment: .firstTextBaseline, spacing: 12) {
                 Image(systemName: isDone ? "checkmark.circle.fill" : "circle")
-                    .font(.system(size: 22))
+                    .font(.system(size: boxSize))
                     .foregroundStyle(Color.luna(isDone ? .pregStrong : .chevron))
                     .accessibilityHidden(true)
                 Text(text)
@@ -39,5 +40,21 @@ extension View {
         alert(L10n.errorSave, isPresented: isPresented) {
             Button(L10n.commonOK) {}
         }
+    }
+}
+
+/// A plain progress bar for a checklist (no trimester notches, unlike the pregnancy bar).
+struct ChecklistProgressBar: View {
+    let fraction: Double
+
+    var body: some View {
+        GeometryReader { proxy in
+            ZStack(alignment: .leading) {
+                Capsule().fill(.luna(.track))
+                Capsule().fill(.luna(.preg)).frame(width: proxy.size.width * min(max(fraction, 0), 1))
+            }
+        }
+        .frame(height: 8)
+        .accessibilityHidden(true)
     }
 }

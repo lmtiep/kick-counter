@@ -25,13 +25,12 @@ struct BagChecklistView: View {
                         .font(.luna(.cardTitle))
                         .foregroundStyle(.luna(.textPrimary))
                         .accessibilityIdentifier("bagProgress")
-                    PregnancyProgressBar(fraction: progress.fraction)
+                    ChecklistProgressBar(fraction: progress.fraction)
                     Text(L10n.bagHint)
                         .font(.luna(.caption))
                         .foregroundStyle(.luna(.textSecondary))
                 }
                 .padding(.vertical, 4)
-                .accessibilityElement(children: .combine)
                 .listRowBackground(Color.luna(.card))
             }
             ForEach(sections) { section in

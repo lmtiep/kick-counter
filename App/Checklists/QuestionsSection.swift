@@ -63,6 +63,7 @@ struct QuestionsSection: View {
                         TextField(L10n.questionsField, text: $newQuestion, axis: .vertical)
                             .submitLabel(.done)
                             .onSubmit(add)
+                            .keyboardDoneButton()
                             .accessibilityIdentifier("questionField")
                         Button(action: add) {
                             Image(systemName: "plus.circle.fill")
@@ -77,6 +78,7 @@ struct QuestionsSection: View {
                 }
             } header: {
                 Text(title)
+                    .modifier(ListHeaderStyle(isList: rowBackground != nil))
                     .accessibilityIdentifier("questionsHeader")
             } footer: {
                 if case .pending = mode {
@@ -104,6 +106,20 @@ struct QuestionsSection: View {
             try change(ChecklistStore(context: modelContext))
         } catch {
             saveFailed = true
+        }
+    }
+}
+
+/// On the appointments List the section headers are Luna caption text; inside the editor's
+/// Form they stay the system's, like "Ghi chú" next to them.
+private struct ListHeaderStyle: ViewModifier {
+    let isList: Bool
+
+    func body(content: Content) -> some View {
+        if isList {
+            content.font(.luna(.captionStrong)).foregroundStyle(.luna(.textSecondary))
+        } else {
+            content
         }
     }
 }
