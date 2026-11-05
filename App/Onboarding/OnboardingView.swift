@@ -305,11 +305,10 @@ struct OnboardingView: View {
                 .fixedSize(horizontal: false, vertical: true)
             VStack(alignment: .leading, spacing: 8) {
                 // Always on the first step, never skipped.
-                commitment(L10n.onboardingPrivacy, identifier: "onboardingPrivacyNote") {
-                    Image(systemName: "lock")
-                        .font(.system(size: lockSize, weight: .semibold))
-                        .foregroundStyle(OnboardingPalette.privacyIcon)
-                } background: { OnboardingPalette.privacyIconBackground }
+                promise(L10n.onboardingPromiseFree, symbol: "heart", identifier: "onboardingPromiseFree")
+                promise(L10n.onboardingPromiseNoAds, symbol: "nosign", identifier: "onboardingPromiseNoAds")
+                promise(L10n.onboardingPromiseNoAccount, symbol: "person", identifier: "onboardingPromiseNoAccount")
+                promise(L10n.onboardingPromiseOnDevice, symbol: "lock", identifier: "onboardingPromiseOnDevice")
                 commitment(L10n.onboardingMedical, identifier: "onboardingMedicalNote") {
                     Text(verbatim: "!")
                         .font(.luna(size: 12, weight: .bold, relativeTo: .footnote))
@@ -318,6 +317,15 @@ struct OnboardingView: View {
             }
             .padding(.top, 2)
         }
+    }
+
+    /// One of the four promises on the welcome step: a green lock-style icon and the line.
+    private func promise(_ text: String, symbol: String, identifier: String) -> some View {
+        commitment(text, identifier: identifier) {
+            Image(systemName: symbol)
+                .font(.system(size: lockSize, weight: .semibold))
+                .foregroundStyle(OnboardingPalette.privacyIcon)
+        } background: { OnboardingPalette.privacyIconBackground }
     }
 
     /// A privacy or medical line: a 24 pt round icon and 13/1.4 text.

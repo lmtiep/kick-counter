@@ -7566,19 +7566,70 @@
         }
       }
     },
-    "onboarding.privacy": {
+    "onboarding.promise.free": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Data stays on this iPhone. No account, no ads."
+            "value": "Free"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dữ liệu chỉ lưu trên iPhone. Không tài khoản, không quảng cáo."
+            "value": "Miễn phí"
+          }
+        }
+      }
+    },
+    "onboarding.promise.noAccount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No account needed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không cần tài khoản"
+          }
+        }
+      }
+    },
+    "onboarding.promise.noAds": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No ads"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không quảng cáo"
+          }
+        }
+      }
+    },
+    "onboarding.promise.onDevice": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your data stays on your iPhone"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu chỉ nằm trên iPhone của bạn"
           }
         }
       }
@@ -10269,6 +10320,74 @@
         }
       }
     },
+    "privacy.backup": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A backup leaves your iPhone only when you share the file yourself."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bản sao lưu chỉ rời khỏi iPhone khi chính bạn gửi tệp đi."
+          }
+        }
+      }
+    },
+    "privacy.deleteAll": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deleting all data erases everything on your iPhone."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xoá toàn bộ dữ liệu là xoá sạch mọi thứ trên iPhone."
+          }
+        }
+      }
+    },
+    "privacy.notifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders are created on your iPhone only."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhắc nhở chỉ được tạo ngay trên iPhone của bạn."
+          }
+        }
+      }
+    },
+    "privacy.policyLink": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Read the full privacy policy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đọc chính sách quyền riêng tư đầy đủ"
+          }
+        }
+      }
+    },
     "profile.contraception": {
       "extractionState": "manual",
       "localizations": {
@@ -10435,6 +10554,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chế độ mang thai"
+          }
+        }
+      }
+    },
+    "profile.privacyPromise": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your privacy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quyền riêng tư của bạn"
           }
         }
       }

@@ -181,4 +181,38 @@ final class ProfileUITests: XCTestCase {
             cycle.terminate()
         }
     }
+
+    /// "Your privacy" opens from About and shows the four promises and the policy link.
+    @MainActor
+    func testPrivacyPromiseScreenShowsTheFourPoints() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
+        app.openTab(.profile)
+        let row = app.descendants(matching: .any)["profilePrivacyPromise"]
+        XCTAssertTrue(app.buttons["profileAppointments"].waitForExistence(timeout: 10))
+        app.scrollUntilHittable(row)
+        row.tap()
+        for id in ["privacyFree", "privacyNoAds", "privacyNoAccount", "privacyOnDevice"] {
+            XCTAssertTrue(app.staticTexts[id].waitForExistence(timeout: 5), id)
+        }
+        XCTAssertTrue(app.descendants(matching: .any)["privacyPolicyLink"].exists)
+    }
+
+    @MainActor
+    func testPrivacyPromiseScreens() {
+        // Few launches: this shard is close to the 60-minute CI limit.
+        let variants = [("vi", false, false), ("vi", true, false), ("en", false, true)]
+        for (language, dark, largest) in variants {
+            let suffix = UITestVariants.suffix(language, dark) + (largest ? "-ax5" : "")
+            let app = XCUIApplication.launchPinned(
+                language: language, dark: dark, dueDate: UITestDates.dueAtWeek24, largestText: largest)
+            app.openTab(.profile)
+            let row = app.descendants(matching: .any)["profilePrivacyPromise"]
+            XCTAssertTrue(app.buttons["profileAppointments"].waitForExistence(timeout: 10))
+            app.scrollUntilHittable(row)
+            row.tap()
+            XCTAssertTrue(app.staticTexts["privacyOnDevice"].waitForExistence(timeout: 5))
+            attachScreenshot(app, "profile-privacy-\(suffix)")
+            app.terminate()
+        }
+    }
 }
