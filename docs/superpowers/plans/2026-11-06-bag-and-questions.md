@@ -59,10 +59,10 @@ for custom items and questions, unique ids). KickCore: `checklistRoundTrips`, `a
 ## Task 6: UI
 Strings via `scripts/add-strings.py` + `L10n` (appended section "Bag and questions (1.1)").
 `App/Checklists/`: `BagChecklistView`, `AddBagItemSheet`, `BagTodayCard`, `QuickQuestionCard`/`QuickQuestionSheet`,
-`QuestionsSection` (editor), `UnassignedQuestionsSection`. Edits: `PregnancyTodayView` (two cards),
+`QuestionsSection` (editor, pending and unassigned modes). Edits: `PregnancyTodayView` (two cards),
 `ProfileView` (one row), `AppointmentEditorSheet` (questions + adoption), `AppointmentsView`
 (unassigned section, delete message, question counts), `AppointmentRows`.
-Seeds for UI tests (`-seedBag`, `-seedQuestions`) via `ChecklistSeed` in KickCore.
+No launch-argument seeds (they would touch `UITestLaunchOptions` and `AppEnvironment`, shared with other branches): UI tests create their data through the UI.
 
 ## Task 7: UI tests (CI only) `BagChecklistUITests`, `QuestionsUITests`, `BagQuestionsScreenshotTests`
 Tick and add an item; hide a built-in; reset; quick-add then see it on the next appointment and tick;
