@@ -519,6 +519,12 @@ struct ProfileView: View {
             .buttonStyle(.plain)
             .accessibilityIdentifier("settingsMedicalInfo")
             LunaDivider()
+            NavigationLink { PrivacyPromiseView() } label: {
+                LunaRow(title: L10n.profilePrivacyPromise)
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("profilePrivacyPromise")
+            LunaDivider()
             externalLinkRow(L10n.settingsPrivacyPolicy, url: AppLinks.privacyPolicy, identifier: "profilePrivacyPolicy")
             LunaDivider()
             externalLinkRow(L10n.settingsSupport, url: AppLinks.support, identifier: "profileSupport")

@@ -136,6 +136,9 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Cuối mục Cá nhân, dưới "Thông tin y tế", có hai liên kết mở Safari: "Chính sách quyền riêng tư" và "Hỗ trợ"
   (`App/AppLinks.swift`), dẫn tới các trang tĩnh trong `site/` (xuất bản qua GitHub Pages, nhánh `gh-pages`):
   trang chủ, chính sách quyền riêng tư và hỗ trợ, cả vi và en, không script hay theo dõi.
+- Lời hứa quyền riêng tư (1.1): bước chào mừng của onboarding nêu bốn dòng — miễn phí, không quảng cáo, không cần
+  tài khoản, dữ liệu chỉ nằm trên iPhone; Cá nhân → "Quyền riêng tư của bạn" (`App/Settings/PrivacyPromiseView.swift`)
+  nhắc lại bốn ý đó. Chỉ nói những gì app làm thật, khớp nhãn "Data Not Collected".
 - `Widgets/PrivacyInfo.xcprivacy` khai báo quyền riêng tư của widget (không thu thập dữ liệu, chỉ đọc
   UserDefaults của App Group).
 - Các capability không còn dùng đã gỡ: `remote-notification`, `CKSharingSupported`, và entitlement iCloud

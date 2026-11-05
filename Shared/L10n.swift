@@ -722,7 +722,15 @@ enum L10n {
 
     // MARK: - Phase 9: onboarding
 
-    static var onboardingPrivacy: String { t("onboarding.privacy") }
+    static var onboardingPromiseFree: String { t("onboarding.promise.free") }
+    static var onboardingPromiseNoAds: String { t("onboarding.promise.noAds") }
+    static var onboardingPromiseNoAccount: String { t("onboarding.promise.noAccount") }
+    static var onboardingPromiseOnDevice: String { t("onboarding.promise.onDevice") }
+    static var privacyNotifications: String { t("privacy.notifications") }
+    static var privacyBackup: String { t("privacy.backup") }
+    static var privacyDeleteAll: String { t("privacy.deleteAll") }
+    static var privacyPolicyLink: String { t("privacy.policyLink") }
+    static var profilePrivacyPromise: String { t("profile.privacyPromise") }
     /// Phase 18: the welcome step's one-line medical note (doctor doc item 91).
     static var onboardingMedical: String { t("onboarding.medical") }
     static var onboardingStart: String { t("onboarding.start") }

@@ -162,7 +162,10 @@ final class OnboardingUITests: XCTestCase {
     func testSkippingTheGoalMeansPregnancy() {
         let app = launch()
         XCTAssertTrue(app.staticTexts["onboardingMedicalNote"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.staticTexts["onboardingPrivacyNote"].exists)
+        for id in ["onboardingPromiseFree", "onboardingPromiseNoAds", "onboardingPromiseNoAccount", "onboardingPromiseOnDevice"] {
+            XCTAssertTrue(app.staticTexts[id].exists, id)
+        }
+        XCTAssertFalse(app.staticTexts["onboardingPrivacyNote"].exists)
         let progress = app.descendants(matching: .any)["onboardingProgress"]
         XCTAssertEqual(progress.label, "Step 1 of 8")
         XCTAssertFalse(app.buttons["onboardingSkip"].exists)
@@ -216,10 +219,10 @@ final class OnboardingUITests: XCTestCase {
     /// The welcome text stays on the plain background at the largest text size.
     @MainActor
     func testWelcomeScreenAtLargestText() {
-        for dark in [false, true] {
-            let app = launch(language: "vi", dark: dark, largestText: true)
+        for (language, dark) in [("vi", false), ("vi", true), ("en", false)] {
+            let app = launch(language: language, dark: dark, largestText: true)
             XCTAssertTrue(app.buttons["onboardingNext"].waitForExistence(timeout: 10))
-            attachScreenshot(app, "ax5-onboarding-welcome-vi-\(dark ? "dark" : "light")")
+            attachScreenshot(app, "ax5-onboarding-welcome-\(language)-\(dark ? "dark" : "light")")
             app.terminate()
         }
     }
