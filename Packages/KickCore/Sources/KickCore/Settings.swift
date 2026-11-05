@@ -72,6 +72,15 @@ public enum SettingsKey {
     /// `"<run id>:<ContractionAlert raw value>"` of the last contraction alert
     /// notification (phase 20): the same alert is not posted again for that run.
     public static let contractionAlertNotified = "contractionAlertNotified"
+    /// `Date` the app was first used (stored the first time it opens). Drives the rating
+    /// prompt (`ReviewPromptPolicy`); never leaves the phone or goes into a backup.
+    public static let reviewFirstUseAt = "reviewFirstUseAt"
+    /// Comma-separated `yyyymmdd` of days the app was opened (`ReviewPromptStore`).
+    public static let reviewUseDays = "reviewUseDays"
+    /// Comma-separated `timeIntervalSince1970` of each time the rating prompt was requested.
+    public static let reviewAskedAt = "reviewAskedAt"
+    /// Comma-separated app versions the rating prompt was requested in.
+    public static let reviewAskedVersions = "reviewAskedVersions"
 }
 
 public enum SettingsDefault {

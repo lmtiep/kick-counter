@@ -511,3 +511,17 @@ hành động trên thông báo khi khoá màn hình).
       báo: không có hộp thoại xin quyền.
 - [ ] Sao lưu ra file rồi khôi phục: các cơn gò còn nguyên. "Xoá toàn bộ dữ liệu" xoá cả cơn gò và kết thúc Live
       Activity cơn gò.
+
+## Giai đoạn 21 — Góp ý và xin đánh giá
+
+### Kiểm thử thủ công trên máy thật (vi và en)
+- [ ] Cá nhân → "Gửi góp ý": màn soạn thư mở, người nhận lmtiep@gmail.com, tiêu đề "Luna Mom – góp ý" (en: "Luna Mom feedback"),
+      dòng trống ở đầu cho lời nhắn, bên dưới chỉ có phiên bản app + build, iOS, mã máy, ngôn ngữ, chế độ (không có dữ liệu sức khỏe).
+      Hủy soạn thư: không gửi gì và về lại Cá nhân.
+- [ ] Máy chưa cài tài khoản thư (Cài đặt → Mail → xóa tài khoản): dòng mở `mailto:` với cùng nội dung; nếu cũng không mở được
+      thì hiện địa chỉ cùng nút "Sao chép địa chỉ".
+- [ ] Hộp xin đánh giá: từ ngày thứ 3 dùng app, hoàn thành một lượt đếm cử động đủ mục tiêu rồi đóng màn hoàn thành; hộp của Apple
+      hiện đúng một lần (không lặp lại ở lượt sau). **TestFlight không bao giờ hiện hộp thật**, nên chỉ cần kiểm tra không có gì
+      bị treo hay lỗi.
+- [ ] Không có hộp xin đánh giá ngay sau khi dùng bộ đếm cơn gò, khi thẻ "quá 2 giờ" / 5-1-1 đang hiện, hay trong phần giới thiệu.
+- [ ] "Xóa toàn bộ dữ liệu" xóa luôn lịch sử xin đánh giá; file sao lưu không chứa khóa `review*`.

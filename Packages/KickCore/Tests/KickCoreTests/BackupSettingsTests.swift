@@ -12,6 +12,10 @@ struct BackupSettingsTests {
             SettingsKey.partnerCachedSnapshot,
             SettingsKey.partnerPendingZoneDeletion,
             SettingsKey.hasCompletedOnboarding,
+            SettingsKey.reviewFirstUseAt,
+            SettingsKey.reviewUseDays,
+            SettingsKey.reviewAskedAt,
+            SettingsKey.reviewAskedVersions,
         ])
         #expect(Set(BackupSettings.table.keys) == expected)
         #expect(BackupSettings.excludedKeys.isDisjoint(with: BackupSettings.table.keys))

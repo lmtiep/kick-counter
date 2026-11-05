@@ -1,6 +1,7 @@
 import KickCore
 import KickData
 import SwiftData
+import StoreKit
 import SwiftUI
 
 /// Pregnancy mode, Kicks tab (spec §4.6): count to 10 (the first tap starts
@@ -8,6 +9,8 @@ import SwiftUI
 /// 2-hour alert, the last 7 days (→ History) and the Cardiff method.
 struct KicksView: View {
     @Environment(KickCoordinator.self) private var coordinator
+    @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(\.requestReview) private var requestReview
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     @AppStorage(SettingsKey.reminderEnabled, store: AppGroup.defaults) private var reminderEnabled = false
     @AppStorage(SettingsKey.reminderHour, store: AppGroup.defaults) private var reminderHour = SettingsDefault.reminderHour
@@ -20,6 +23,9 @@ struct KicksView: View {
     )
     private var sessions: [KickSession]
     @State private var confirmingCancel = false
+    /// A session reached its target and its completion sheet is up: the rating prompt waits
+    /// for the sheet to be closed.
+    @State private var reviewAfterCompletion = false
     @State private var showingSettings = false
     /// Kick time chips grow with Dynamic Type so "20:05" never squeezes.
     @ScaledMetric(relativeTo: .caption) private var chipMinWidth: CGFloat = 76
@@ -101,6 +107,16 @@ struct KicksView: View {
                 Button(L10n.counterKeepCounting, role: .cancel) {}
             } message: {
                 Text(L10n.counterCancelConfirmMessage)
+            }
+            .onChange(of: coordinator.completedSession != nil) { _, completed in
+                if completed {
+                    reviewAfterCompletion = true
+                } else if reviewAfterCompletion {
+                    reviewAfterCompletion = false
+                    ReviewPrompter.moment(
+                        .kickSessionCompleted, kicks: coordinator, contractions: contractions, requestReview: requestReview
+                    )
+                }
             }
             .sheet(isPresented: completionBinding) {
                 if let session = coordinator.completedSession {

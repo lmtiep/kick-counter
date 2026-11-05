@@ -1,4 +1,5 @@
 import KickCore
+import StoreKit
 import SwiftUI
 
 /// The period just started from the ring, which "Undo" may delete.
@@ -31,6 +32,9 @@ struct CycleTodayView: View {
     let onOpenCalendar: () -> Void
 
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(KickCoordinator.self) private var kicks
+    @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(\.requestReview) private var requestReview
     @State private var showingLastPeriodSheet = false
     @State private var logDay: CycleDaySelection?
     @State private var actionFailure: CycleFailure?
@@ -251,6 +255,10 @@ struct CycleTodayView: View {
                 failure = nil
                 undoOffer = UndoOffer(id: id, day: today, voiceOver: voiceOverEnabled)
                 toast = L10n.cycleToastPeriodStarted
+                ReviewPrompter.moment(
+                    .periodStarted(totalPeriods: cycle.periods.count),
+                    kicks: kicks, contractions: contractions, requestReview: requestReview
+                )
             case .failure(let error):
                 failure = error
             }
