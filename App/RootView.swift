@@ -19,6 +19,7 @@ struct RootView: View {
     @Environment(WeightCoordinator.self) private var weight
     @Environment(PillCoordinator.self) private var pill
     @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(PregnancyEnding.self) private var ending
     @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
@@ -174,6 +175,7 @@ struct RootView: View {
                 replayingOnboarding = false
                 selectedTab = .today
                 toastMessage = L10n.backupRestored
+                ending.loadMemories()
             }
             #if DEBUG
             .task {
@@ -258,7 +260,10 @@ struct RootView: View {
                 partnerProfile
                     .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile, tint: contentTint)
             } else {
-                ProfileView(onReplayOnboarding: { replayingOnboarding = true })
+                ProfileView(
+                    onReplayOnboarding: { replayingOnboarding = true },
+                    onPregnancyEnded: { selectedTab = .today }
+                )
                     .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile, tint: contentTint)
             }
         }

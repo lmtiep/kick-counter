@@ -119,6 +119,16 @@ struct AppEnvironment {
             try seedCycles(scenario, into: cycleStore)
         }
         #endif
+        #if DEBUG
+        if isUITesting, let seed = AppClock.launchOptions.seedPregnancyEnded {
+            try seedPregnancyEnded(seed, into: container)
+        }
+        if isUITesting, let streak = AppClock.launchOptions.seedCareLowStreak {
+            var care = CareCheckInState.load(from: AppGroup.defaults)
+            care.lowStreak = streak
+            care.save(to: AppGroup.defaults)
+        }
+        #endif
         let cycle = CycleCoordinator(
             store: cycleStore,
             notifications: notifications,
@@ -244,6 +254,23 @@ struct AppEnvironment {
         for log in records.logs {
             try store.saveLog(log, today: now)
         }
+    }
+
+    /// `-uiTesting -seedPregnancyEnded <branch>:<days>` (1.1 item 4): the cycle mode after an
+    /// ended pregnancy (the tracking goal unless one is seeded), predictions paused, and one memory.
+    private static func seedPregnancyEnded(_ seed: PregnancyEndSeed, into container: ModelContainer) throws {
+        let now = AppClock.now()
+        let defaults = AppGroup.defaults
+        seed.state(now: now, calendar: .current).save(to: defaults)
+        PregnancyProfile.clear(defaults)
+        AppMode.save(.tryingToConceive, to: defaults)
+        if defaults.object(forKey: SettingsKey.cycleGoal) == nil {
+            defaults.set(CycleGoal.tracking.rawValue, forKey: SettingsKey.cycleGoal)
+        }
+        try PregnancyMemoryStore(context: container.mainContext).archive(
+            memory: seed.memory(now: now, calendar: .current), title: "",
+            deleteAllSessions: false, deleteAllContractions: false, appointmentIDs: [], weightIDs: [], now: now
+        )
     }
 
     /// `-uiTesting -seedWeights`: the design's pre-pregnancy weight (52 kg), height
