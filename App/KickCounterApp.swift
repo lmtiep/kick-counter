@@ -28,6 +28,8 @@ struct KickCounterApp: App {
             ContractionIntentBridge.endTracking = { _ = await contractions.endEpisode() }
             // "Đã uống" on a pill notification (phase 17), even when it launches the app.
             PillNotificationDelegate.shared.install(pill: env.pill)
+            // The Home Screen / Lock Screen widget follows every change (1.1).
+            WidgetRefresh.startObserving()
         case .failure(let error):
             logger.fault("Could not open the data store: \(error.localizedDescription)")
         }

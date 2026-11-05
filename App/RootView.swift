@@ -147,6 +147,11 @@ struct RootView: View {
             .toast($toastMessage)
             // A `.lunamom` file opened from Files, AirDrop or a chat app (phase 15).
             .onOpenURL { url in
+                // A tap on the Home Screen / Lock Screen widget (1.1).
+                if let link = WidgetLink(url: url) {
+                    selectedTab = link == .kicks && mode == .pregnant ? .kicks : .today
+                    return
+                }
                 guard BackupCenter.isBackupFile(url) else { return }
                 backup.open(url)
             }

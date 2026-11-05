@@ -9,6 +9,10 @@ enum L10n {
         bundle().localizedString(forKey: key, value: nil, table: nil)
     }
 
+    /// Where the `.lproj` folders are: the app or widget bundle. Only the widget preview
+    /// tests, which run outside the app, point it at their own bundle (before any lookup).
+    nonisolated(unsafe) static var resourceBundle: Bundle = .main
+
     private static let lock = NSLock()
     /// Resolved `.lproj` bundles by language code, so a lookup does not hit the file system.
     nonisolated(unsafe) private static var bundles: [String: Bundle] = [:]
@@ -20,7 +24,7 @@ enum L10n {
         lock.lock()
         defer { lock.unlock() }
         if let cached = bundles[language] { return cached }
-        let bundle = choice.localizationBundle(in: .main, preferredLanguages: preferred)
+        let bundle = choice.localizationBundle(in: resourceBundle, preferredLanguages: preferred)
         bundles[language] = bundle
         return bundle
     }
@@ -1029,4 +1033,17 @@ enum L10n {
         case .saveFailed, .futureDate: t("pill.failure.save")
         }
     }
+
+    // MARK: - Widget (1.1)
+
+    static var widgetName: String { t("widget.name") }
+    static var widgetDescription: String { t("widget.description") }
+    static var widgetSetup: String { t("widget.setup") }
+    /// "70 days to go" / "còn 70 ngày", from `days(_:)`.
+    static func widgetToGo(_ amount: String) -> String { String(format: t("widget.toGo"), amount) }
+    /// "9 days past due" / "quá hạn 9 ngày", from `days(_:)`.
+    static func widgetPastDue(_ amount: String) -> String { String(format: t("widget.pastDue"), amount) }
+    static func widgetKicksToday(_ count: Int) -> String { String(format: t("widget.kicksToday"), count) }
+    static var widgetOvulationDay: String { t("widget.ovulationDay") }
+    static var widgetOutsideWindow: String { t("widget.outsideWindow") }
 }
