@@ -22,6 +22,15 @@ final class BagChecklistUITests: XCTestCase {
         app.staticTexts["bagProgress"].label
     }
 
+    /// The progress header scrolls away with the list (and a List drops what is off screen),
+    /// so scroll back up to it before reading it.
+    @MainActor
+    private func expectProgress(_ app: XCUIApplication, _ text: String) {
+        let header = app.staticTexts["bagProgress"]
+        app.scrollDownUntilHittable(header, maxSwipes: 14)
+        waitForLabel(header, containing: text)
+    }
+
     /// Tick, add her own item, hide a built-in, show it again, reset.
     @MainActor
     func testTickAddHideAndReset() {
@@ -33,7 +42,7 @@ final class BagChecklistUITests: XCTestCase {
         XCTAssertTrue(cccd.waitForExistence(timeout: 5))
         XCTAssertEqual(cccd.value as? String, "Not done")
         cccd.tap()
-        waitForLabel(app.staticTexts["bagProgress"], containing: "1 of \(total) packed")
+        expectProgress(app, "1 of \(total) packed")
         XCTAssertEqual(cccd.value as? String, "Done")
 
         // Her own item goes to the end of its group and counts.
@@ -48,9 +57,10 @@ final class BagChecklistUITests: XCTestCase {
         let pillow = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Pillow'")).firstMatch
         app.scrollUntilHittable(pillow)
         XCTAssertTrue(pillow.exists)
-        waitForLabel(app.staticTexts["bagProgress"], containing: "1 of \(total + 1) packed")
+        expectProgress(app, "1 of \(total + 1) packed")
+        app.scrollUntilHittable(pillow, maxSwipes: 14)
         pillow.tap()
-        waitForLabel(app.staticTexts["bagProgress"], containing: "2 of \(total + 1) packed")
+        expectProgress(app, "2 of \(total + 1) packed")
 
         // Hide a built-in: it leaves the list and the count; the menu brings it back.
         let cash = app.buttons["bagItem-cash"]
@@ -58,17 +68,17 @@ final class BagChecklistUITests: XCTestCase {
         cash.swipeLeft()
         app.buttons["Hide"].firstMatch.tap()
         XCTAssertTrue(waitForDisappearance(cash))
-        waitForLabel(app.staticTexts["bagProgress"], containing: "2 of \(total) packed")
+        expectProgress(app, "2 of \(total) packed")
         app.buttons["bagMenu"].tap()
         app.buttons["bagUnhide"].tap()
         XCTAssertTrue(app.buttons["bagItem-cash"].waitForExistence(timeout: 5))
-        waitForLabel(app.staticTexts["bagProgress"], containing: "2 of \(total + 1) packed")
+        expectProgress(app, "2 of \(total + 1) packed")
 
         // Reset unticks everything but keeps her own item.
         app.buttons["bagMenu"].tap()
         app.buttons["bagReset"].tap()
         app.confirmDialog("Untick all")
-        waitForLabel(app.staticTexts["bagProgress"], containing: "0 of \(total + 1) packed")
+        expectProgress(app, "0 of \(total + 1) packed")
         XCTAssertTrue(app.buttons["bagItem-cccd"].exists)
 
         // The Today card shows the same count.

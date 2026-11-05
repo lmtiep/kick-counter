@@ -39,7 +39,8 @@ final class BagQuestionsScreenshotTests: XCTestCase {
         app.addAppointment(titled: "Khám thai tuần 33")
         app.appointmentRow(containing: "Khám thai tuần 33").tap()
         let adopted = app.buttons["questionRow"].firstMatch
-        XCTAssertTrue(adopted.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(adopted)
+        XCTAssertTrue(adopted.exists)
         app.addQuestionInEditor("Em nên ăn gì để kiểm soát đường huyết?")
         app.buttons["keyboardDone"].tap()
         app.scrollUntilHittable(adopted)
