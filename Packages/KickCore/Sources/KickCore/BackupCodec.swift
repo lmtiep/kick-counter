@@ -82,13 +82,14 @@ public struct BackupSummary: Equatable, Sendable {
     public var weights: Int
     public var pillDoses: Int = 0
     public var contractions: Int = 0
+    public var checklistItems: Int = 0
     /// The file's `appMode`; missing means pregnant, as in `AppMode.load`.
     public var mode: AppMode
     /// From the earliest to the latest date in the records; nil without records.
     public var dateRange: ClosedRange<Date>?
 
     public var isEmpty: Bool {
-        sessions + appointments + periods + cycleLogs + weights + pillDoses + contractions == 0
+        sessions + appointments + periods + cycleLogs + weights + pillDoses + contractions + checklistItems == 0
     }
 }
 
@@ -112,6 +113,7 @@ extension BackupDocument {
             weights: weights.count,
             pillDoses: pillDoses.count,
             contractions: contractions.count,
+            checklistItems: checklistItems.count,
             mode: mode,
             dateRange: dates.min().flatMap { first in dates.max().map { first...$0 } }
         )
@@ -174,6 +176,9 @@ public enum BackupValidation {
             guard dto.endedAt == nil, dto.id != newestRunning?.id || dto.startedAt != newestStart else { return dto }
             return ContractionDTO(ContractionRules.closingForgotten(dto.record))
         }
+        let checklist = cleanChecklist(document.checklistItems, appointmentIDs: Set(document.appointments.map(\.id)))
+        cleaned.checklistItems = checklist.items
+        skipped += checklist.skipped
         cleaned.appointments = keep(document.appointments, id: \.id) {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }

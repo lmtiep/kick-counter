@@ -17,7 +17,8 @@ public enum BackupStore {
             },
             weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
             pillDoses: try context.fetch(FetchDescriptor<PillDose>(sortBy: [SortDescriptor(\.day)])).map(\.record),
-            contractions: try context.fetch(FetchDescriptor<Contraction>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record)
+            contractions: try context.fetch(FetchDescriptor<Contraction>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record),
+            checklistItems: try context.fetch(FetchDescriptor<ChecklistItem>(sortBy: [SortDescriptor(\.createdAt)])).map(\.record)
         )
     }
 
@@ -67,6 +68,9 @@ public enum BackupStore {
             }
             for record in records.contractions {
                 context.insert(Contraction(record: record))
+            }
+            for record in records.checklistItems {
+                context.insert(ChecklistItem(record: record))
             }
             try save(context)
         } catch {

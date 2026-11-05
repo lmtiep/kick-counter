@@ -27,6 +27,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     /// Timed contractions (phase 20). Optional in the file like `pillDoses`:
     /// missing means none, and an empty list is not written.
     public var contractions: [ContractionDTO] = []
+    /// Hospital bag overrides and custom items, and questions for the doctor (1.1).
+    /// Optional in the file like `pillDoses`: missing means none, and an empty list is not written.
+    public var checklistItems: [ChecklistItemDTO] = []
     /// Typed by `BackupSettings.table`; keys outside the table are dropped on decode.
     public var settings: [String: BackupValue]
 
@@ -60,7 +63,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, settings
+        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, checklistItems, settings
     }
 
     public init(from decoder: Decoder) throws {
@@ -76,6 +79,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         weights = try container.decode([WeightDTO].self, forKey: .weights)
         pillDoses = try container.decodeIfPresent([PillDoseDTO].self, forKey: .pillDoses) ?? []
         contractions = try container.decodeIfPresent([ContractionDTO].self, forKey: .contractions) ?? []
+        checklistItems = try container.decodeIfPresent([ChecklistItemDTO].self, forKey: .checklistItems) ?? []
         let raw = try container.decode([String: BackupJSONScalar].self, forKey: .settings)
         settings = BackupSettings.typed(raw)
     }
@@ -96,6 +100,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         }
         if !contractions.isEmpty {
             try container.encode(contractions, forKey: .contractions)
+        }
+        if !checklistItems.isEmpty {
+            try container.encode(checklistItems, forKey: .checklistItems)
         }
         try container.encode(settings, forKey: .settings)
     }
@@ -316,6 +323,7 @@ public struct BackupRecords: Equatable, Sendable {
     public var weights: [WeightRecord]
     public var pillDoses: [PillDoseRecord]
     public var contractions: [ContractionRecord]
+    public var checklistItems: [ChecklistItemRecord]
 
     public init(
         sessions: [SessionRecord],
@@ -324,7 +332,8 @@ public struct BackupRecords: Equatable, Sendable {
         logs: [CycleLogDTO],
         weights: [WeightRecord],
         pillDoses: [PillDoseRecord] = [],
-        contractions: [ContractionRecord] = []
+        contractions: [ContractionRecord] = [],
+        checklistItems: [ChecklistItemRecord] = []
     ) {
         self.sessions = sessions
         self.appointments = appointments
@@ -333,6 +342,7 @@ public struct BackupRecords: Equatable, Sendable {
         self.weights = weights
         self.pillDoses = pillDoses
         self.contractions = contractions
+        self.checklistItems = checklistItems
     }
 }
 
@@ -346,6 +356,7 @@ extension BackupDocument {
         cycleLogs = records.logs
         pillDoses = records.pillDoses.map(PillDoseDTO.init)
         contractions = records.contractions.map(ContractionDTO.init)
+        checklistItems = records.checklistItems.map(ChecklistItemDTO.init)
     }
 
     public var records: BackupRecords {
@@ -356,7 +367,8 @@ extension BackupDocument {
             logs: cycleLogs,
             weights: weights.map(\.record),
             pillDoses: pillDoses.map(\.record),
-            contractions: contractions.map(\.record)
+            contractions: contractions.map(\.record),
+            checklistItems: checklistItems.map(\.record)
         )
     }
 }
