@@ -27,6 +27,8 @@ import Foundation
 ///   instead of `ContractionRules.undoWindow`, so a slow CI simulator can still tap it.
 /// - `-seedLastBackupDaysAgo <days>` stores a last backup that many days before the pinned
 ///   now, so Profile shows the backup reminder card (1.1) when it is 30 or more.
+/// - `-uiTestingReportPreview` makes "Report for your doctor" write its PDF to a known path and
+///   show the first page full screen with the page count, instead of the share sheet (1.1).
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -47,6 +49,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedContractions: ContractionSeed?
     public let contractionUndoWindow: TimeInterval?
     public let seedLastBackupDaysAgo: Int?
+    public let reportPreview: Bool
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -80,6 +83,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         seedLastBackupDaysAgo = isUITesting
             ? Self.value(after: "-seedLastBackupDaysAgo", in: arguments).flatMap { Int($0) }.flatMap { $0 >= 0 ? $0 : nil }
             : nil
+        reportPreview = isUITesting && arguments.contains("-uiTestingReportPreview")
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {

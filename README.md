@@ -254,3 +254,10 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Ảnh xem trước: `KickCounterWidgetTests/WidgetPreviewRenderTests` dựng mọi mẫu (vi/en, sáng/tối, 5 cỡ) ra PNG; chạy cục bộ
   `TEST_RUNNER_WIDGET_PREVIEW_DIR=/đường/dẫn xcodebuild -scheme KickCounter -only-testing:KickCounterWidgetTests test`.
 - Kiểm thử trên máy thật: `docs/release-checklist.md` ("Widget 1.1").
+
+## Báo cáo cho bác sĩ (1.1)
+- Cá nhân → "Xuất báo cáo cho bác sĩ": PDF A4 dựng ngay trên máy (`App/Report/DoctorReportPDF.swift`), chia sẻ bằng
+  share sheet, thư mục tạm bị xoá sau khi chia sẻ hoặc huỷ. Tên gõ lúc xuất không bao giờ được lưu.
+- Dữ liệu báo cáo là `KickCore/DoctorReport.swift` (`DoctorReport.make`): chỉ số liệu và bảng, không diễn giải.
+  Thêm cờ UI test `-uiTestingReportPreview`: ghi PDF vào `NSTemporaryDirectory()/LunaMom-report-uitest.pdf` và hiện
+  trang đầu toàn màn hình kèm số trang (chỉ bản Debug).

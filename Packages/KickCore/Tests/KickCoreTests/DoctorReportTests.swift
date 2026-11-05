@@ -296,4 +296,10 @@ struct DoctorReportTests {
         #expect(ReportSectionKind.kinds(for: .pregnant) == [.kicks, .contractions, .weights, .symptoms, .appointments])
         #expect(ReportSectionKind.kinds(for: .tryingToConceive) == [.periods, .cycleLengths, .moodsAndSymptoms, .bbtAndLH])
     }
+
+    @Test func thePreviewFlagNeedsUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingReportPreview"]).reportPreview)
+        #expect(!UITestLaunchOptions(arguments: ["-uiTestingReportPreview"]).reportPreview)
+        #expect(!UITestLaunchOptions(arguments: ["-uiTesting"]).reportPreview)
+    }
 }
