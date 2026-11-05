@@ -80,7 +80,6 @@ struct BagChecklistView: View {
         }
         .confirmationDialog(L10n.bagResetTitle, isPresented: $confirmingReset, titleVisibility: .visible) {
             Button(L10n.bagResetAction, role: .destructive) { write { try $0.resetBagTicks() } }
-                .accessibilityIdentifier("bagResetConfirm")
             Button(L10n.commonCancel, role: .cancel) {}
         }
         .sheet(item: $addingTo) { group in
