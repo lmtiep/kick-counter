@@ -29,6 +29,7 @@ struct BackupStoreTests {
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 50)))
         context.insert(PillDose(record: PillDoseRecord(day: CalendarDay(year: 2026, month: 9, day: 1), takenAt: day.addingTimeInterval(75_600))))
         context.insert(Contraction(record: ContractionRecord(startedAt: day, endedAt: day.addingTimeInterval(60))))
+        context.insert(LabourMarker(record: LabourMarkerRecord(at: day)))
         try context.save()
     }
 
@@ -61,7 +62,8 @@ struct BackupStoreTests {
             contractions: [
                 ContractionRecord(startedAt: date("2026-10-08T21:00:00Z"), endedAt: date("2026-10-08T21:00:50Z")),
                 ContractionRecord(startedAt: date("2026-10-08T21:06:00Z")),
-            ]
+            ],
+            labourMarkers: [LabourMarkerRecord(at: date("2026-10-08T21:30:00Z"))]
         )
     }
 
@@ -73,7 +75,8 @@ struct BackupStoreTests {
             logs: records.logs.sorted { $0.day < $1.day },
             weights: records.weights.sorted { $0.day < $1.day },
             pillDoses: records.pillDoses.sorted { $0.day < $1.day },
-            contractions: records.contractions.sorted { $0.startedAt < $1.startedAt }
+            contractions: records.contractions.sorted { $0.startedAt < $1.startedAt },
+            labourMarkers: records.labourMarkers.sorted { $0.at < $1.at }
         )
     }
 
@@ -88,6 +91,7 @@ struct BackupStoreTests {
         #expect(exported.weights.map(\.kg) == [50])
         #expect(exported.pillDoses.map(\.day) == [CalendarDay(year: 2026, month: 9, day: 1)])
         #expect(exported.contractions.map(\.startedAt) == [date("2026-09-01T00:00:00Z")])
+        #expect(exported.labourMarkers.map(\.at) == [date("2026-09-01T00:00:00Z")])
     }
 
     @Test func replaceAllSwapsEverythingForTheFileRecords() throws {
@@ -102,6 +106,7 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 2)
+        #expect(try context.fetchCount(FetchDescriptor<LabourMarker>()) == 1)
     }
 
     @Test func replaceAllThenExportRoundTripsThroughTheCodec() throws {

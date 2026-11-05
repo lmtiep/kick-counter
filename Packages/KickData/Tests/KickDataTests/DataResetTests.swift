@@ -23,6 +23,7 @@ struct DataResetTests {
             "WeightEntry": try context.fetchCount(FetchDescriptor<WeightEntry>()),
             "PillDose": try context.fetchCount(FetchDescriptor<PillDose>()),
             "Contraction": try context.fetchCount(FetchDescriptor<Contraction>()),
+            "LabourMarker": try context.fetchCount(FetchDescriptor<LabourMarker>()),
         ]
     }
 
@@ -40,6 +41,7 @@ struct DataResetTests {
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 55)))
         context.insert(PillDose(record: PillDoseRecord(day: CalendarDay(year: 2026, month: 10, day: 1), takenAt: day.addingTimeInterval(75_600))))
         context.insert(Contraction(record: ContractionRecord(startedAt: day, endedAt: day.addingTimeInterval(60))))
+        context.insert(LabourMarker(record: LabourMarkerRecord(at: day)))
         try context.save()
         #expect(try counts().values.allSatisfy { $0 == 1 })
 
@@ -51,7 +53,7 @@ struct DataResetTests {
 
     @Test func deleteAllCoversEverySchemaEntity() {
         #expect(Set(KickPersistence.schema.entities.map(\.name)) == [
-            "KickSession", "Kick", "Appointment", "PeriodEntry", "CycleLog", "WeightEntry", "PillDose", "Contraction",
+            "KickSession", "Kick", "Appointment", "PeriodEntry", "CycleLog", "WeightEntry", "PillDose", "Contraction", "LabourMarker",
         ])
     }
 
