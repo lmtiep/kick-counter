@@ -40,7 +40,7 @@ final class CareAfterPregnancyUITests: XCTestCase {
         start.tap()
         let alert = app.alerts["Is this your first period since the pregnancy?"]
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
-        alert.buttons["Yes"].tap()
+        alert.buttons["Yes"].firstMatch.tap()
         XCTAssertTrue(app.descendants(matching: .any)["cycleStatusCard"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.descendants(matching: .any)["cyclePausedCard"].exists)
     }
@@ -53,7 +53,7 @@ final class CareAfterPregnancyUITests: XCTestCase {
         start.tap()
         let alert = app.alerts["Is this your first period since giving birth?"]
         XCTAssertTrue(alert.waitForExistence(timeout: 5))
-        alert.buttons["Not this one"].tap()
+        alert.buttons["Not this one"].firstMatch.tap()
         XCTAssertTrue(app.staticTexts["cyclePausedText"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.descendants(matching: .any)["cycleStatusCard"].exists)
         // Not asked again about the same period.
