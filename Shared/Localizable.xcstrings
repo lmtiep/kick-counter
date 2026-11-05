@@ -1565,6 +1565,601 @@
         }
       }
     },
+    "bag.group.baby": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đồ cho bé"
+          }
+        }
+      }
+    },
+    "bag.group.companion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For your companion"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Người đi cùng"
+          }
+        }
+      }
+    },
+    "bag.group.documents": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Documents"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giấy tờ"
+          }
+        }
+      }
+    },
+    "bag.group.mother": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For mom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đồ cho mẹ"
+          }
+        }
+      }
+    },
+    "bag.item.babyBlanket": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Swaddle or small blanket"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khăn quấn hoặc chăn nhỏ cho bé"
+          }
+        }
+      }
+    },
+    "bag.item.babyClothes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Newborn outfits (3 to 4 sets)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quần áo sơ sinh (3 đến 4 bộ)"
+          }
+        }
+      }
+    },
+    "bag.item.babyHat": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baby hat"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mũ cho bé"
+          }
+        }
+      }
+    },
+    "bag.item.babyMitts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baby mittens and socks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bao tay, bao chân cho bé"
+          }
+        }
+      }
+    },
+    "bag.item.babyTowel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baby towel"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khăn tắm cho bé"
+          }
+        }
+      }
+    },
+    "bag.item.babyWipes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soft baby wipes"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khăn ướt mềm cho bé"
+          }
+        }
+      }
+    },
+    "bag.item.bhyt": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Health insurance card (BHYT)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thẻ BHYT"
+          }
+        }
+      }
+    },
+    "bag.item.cash": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Some cash"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một ít tiền mặt"
+          }
+        }
+      }
+    },
+    "bag.item.cccd": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your ID card (CCCD)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CCCD của mẹ"
+          }
+        }
+      }
+    },
+    "bag.item.companionCash": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Small bills for the hospital canteen and parking"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiền lẻ cho căng tin và gửi xe"
+          }
+        }
+      }
+    },
+    "bag.item.companionCharger": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phone charger"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sạc điện thoại"
+          }
+        }
+      }
+    },
+    "bag.item.companionClothes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A change of clothes"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quần áo để thay"
+          }
+        }
+      }
+    },
+    "bag.item.companionFood": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Water and food"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nước uống và đồ ăn"
+          }
+        }
+      }
+    },
+    "bag.item.companionMat": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sleeping mat, pillow or light blanket"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiếu, gối hoặc chăn mỏng"
+          }
+        }
+      }
+    },
+    "bag.item.companionToiletries": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toiletries"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đồ vệ sinh cá nhân"
+          }
+        }
+      }
+    },
+    "bag.item.diapers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Newborn diapers"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỉm hoặc tã sơ sinh"
+          }
+        }
+      }
+    },
+    "bag.item.fatherId": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dad's ID card, for the birth certificate"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CCCD của bố bé (để làm giấy khai sinh)"
+          }
+        }
+      }
+    },
+    "bag.item.marriageCert": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marriage certificate (or a copy)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giấy đăng ký kết hôn (hoặc bản sao)"
+          }
+        }
+      }
+    },
+    "bag.item.maternityPads": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Postpartum pads"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Băng vệ sinh dành cho mẹ sau sinh"
+          }
+        }
+      }
+    },
+    "bag.item.muslin": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muslin cloths"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khăn xô, khăn sữa"
+          }
+        }
+      }
+    },
+    "bag.item.nursingBra": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nursing bras"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Áo ngực cho con bú"
+          }
+        }
+      }
+    },
+    "bag.item.pajamas": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Front-button pajamas or a loose dress"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đồ bộ cài khuy trước hoặc váy rộng"
+          }
+        }
+      }
+    },
+    "bag.item.phoneCharger": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phone, charger and power bank"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Điện thoại, sạc và sạc dự phòng"
+          }
+        }
+      }
+    },
+    "bag.item.prenatalBook": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prenatal care book and latest test and ultrasound results"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sổ khám thai và kết quả xét nghiệm, siêu âm mới nhất"
+          }
+        }
+      }
+    },
+    "bag.item.referral": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Referral letter, if you have one"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giấy chuyển viện (nếu có)"
+          }
+        }
+      }
+    },
+    "bag.item.slippers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slippers"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dép đi trong phòng"
+          }
+        }
+      }
+    },
+    "bag.item.snacks": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Water bottle and light snacks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bình nước và đồ ăn nhẹ"
+          }
+        }
+      }
+    },
+    "bag.item.socks": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warm socks and a light jacket"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tất ấm và áo khoác mỏng"
+          }
+        }
+      }
+    },
+    "bag.item.toiletries": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toothbrush, toothpaste, shampoo, hair ties"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bàn chải, kem đánh răng, dầu gội, dây buộc tóc"
+          }
+        }
+      }
+    },
+    "bag.item.towel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Towel and face cloths"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khăn tắm và khăn mặt"
+          }
+        }
+      }
+    },
+    "bag.item.underwear": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disposable or spare underwear"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quần lót dùng một lần hoặc quần lót thay"
+          }
+        }
+      }
+    },
     "calendar.a11y.fertile": {
       "extractionState": "manual",
       "localizations": {
