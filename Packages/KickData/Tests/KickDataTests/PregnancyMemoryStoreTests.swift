@@ -110,6 +110,16 @@ struct PregnancyMemoryStoreTests {
         #expect(try counts() == before)
     }
 
+    @Test func pregnancyRowsReadsEveryRawRow() throws {
+        try seedRawRows()
+        let rows = try PregnancyMemoryStore(context: context).pregnancyRows()
+        #expect(rows.sessions.count == 1 && rows.sessions.first?.state.kicks.count == 2)
+        #expect(rows.contractions.count == 1)
+        #expect(rows.appointments.map(\.id) == [outOfRange.id, inRange.id])
+        #expect(rows.weights.map(\.id) == [earlierWeight.id, pregnancyWeight.id])
+        #expect(rows.logs.map(\.id) == [log.id])
+    }
+
     @Test func archiveWithoutMemoryOnlyDeletes() throws {
         try seedRawRows()
         let store = PregnancyMemoryStore(context: context)

@@ -27,6 +27,9 @@ public final class AppointmentCoordinator {
     @ObservationIgnored private var reminderText: NotificationText
     private let calendar: Calendar
     private let now: @MainActor () -> Date
+    /// True after a pregnancy ended (1.1 item 4): no appointment reminder is
+    /// scheduled, and a load cancels any still pending.
+    private let remindersSilenced: @MainActor () -> Bool
 
     private var generations: [UUID: Int] = [:]
     /// The in-flight `load()`, so concurrent callers share one reconciliation.
@@ -37,13 +40,15 @@ public final class AppointmentCoordinator {
         notifications: NotificationScheduler,
         reminderText: NotificationText,
         calendar: Calendar = .current,
-        now: @escaping @MainActor () -> Date = { Date() }
+        now: @escaping @MainActor () -> Date = { Date() },
+        remindersSilenced: @escaping @MainActor () -> Bool = { false }
     ) {
         self.store = store
         self.notifications = notifications
         self.reminderText = reminderText
         self.calendar = calendar
         self.now = now
+        self.remindersSilenced = remindersSilenced
     }
 
     public var nextAppointment: AppointmentRecord? { upcoming.first }
@@ -64,6 +69,10 @@ public final class AppointmentCoordinator {
 
     private func performLoad() async {
         guard refresh() else { return }
+        guard !remindersSilenced() else {
+            await cancelAllReminders()
+            return
+        }
         let authorized = await notifications.isAuthorized()
         await updateDeniedHint(authorized: authorized)
         guard authorized else { return }
@@ -152,6 +161,15 @@ public final class AppointmentCoordinator {
         failure = nil
     }
 
+    /// Cancels every pending appointment reminder (the pregnancy ended); the
+    /// appointments themselves are left as they are.
+    public func cancelAllReminders() async {
+        for id in await notifications.pendingAppointmentReminderIDs() {
+            bump(id)
+            notifications.cancelAppointmentReminder(id: id)
+        }
+    }
+
     /// The app language changed: every pending day-before reminder is scheduled
     /// again with the new text. Never prompts for permission.
     public func updateReminderText(_ text: NotificationText) async {
@@ -171,7 +189,7 @@ public final class AppointmentCoordinator {
             logger.error("Reading appointment failed: \(error.localizedDescription)")
             return
         }
-        guard let record, AppointmentRules.wantsReminder(record, now: now()),
+        guard !remindersSilenced(), let record, AppointmentRules.wantsReminder(record, now: now()),
               (try? soonestReminderIDs().contains(id)) == true
         else {
             notifications.cancelAppointmentReminder(id: id)

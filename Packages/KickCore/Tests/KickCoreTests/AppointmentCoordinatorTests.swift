@@ -243,4 +243,32 @@ struct AppointmentCoordinatorTests {
         let soonest = Set(coordinator.upcoming.prefix(cap).map { NotificationScheduler.appointmentReminderID(for: $0.id) })
         #expect(Set(afterLoad.map(\.identifier)) == soonest)
     }
+
+    // MARK: - After a pregnancy ended (1.1 item 4)
+
+    @Test func silencedRemindersAreCancelledAndNeverScheduled() async throws {
+        var silenced = false
+        let coordinator = AppointmentCoordinator(
+            store: repository,
+            notifications: NotificationScheduler(center: center),
+            reminderText: NotificationText(title: "Check-up tomorrow", body: "Bring your records"),
+            calendar: utcCalendar,
+            now: { clock.now },
+            remindersSilenced: { silenced }
+        )
+        _ = try #require(await coordinator.add(date: days(10), title: "Scan"))
+        _ = try #require(await coordinator.add(date: days(20), title: "Visit"))
+        #expect(center.added.count == 2)
+
+        await coordinator.cancelAllReminders()
+        #expect(center.added.isEmpty)
+
+        silenced = true
+        await coordinator.load()
+        #expect(center.added.isEmpty, "a later load never brings them back")
+        _ = try #require(await coordinator.add(date: days(15), title: "Later"))
+        #expect(center.added.isEmpty)
+        #expect(center.requestCount == 0)
+        #expect(coordinator.upcoming.count == 3, "the appointments themselves stay")
+    }
 }

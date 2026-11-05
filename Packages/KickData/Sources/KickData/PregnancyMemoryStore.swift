@@ -9,6 +9,15 @@ private let logger = Logger(subsystem: "com.lmtiep.kickcounter", category: "memo
 /// raw data: the memory is written and the raw rows are deleted in ONE save.
 /// If anything throws, the context is rolled back and the error rethrown, so
 /// nothing is deleted and no memory is left half-made (spec §4.3).
+/// The raw rows of a pregnancy, read for the memory.
+public struct PregnancyRows: Sendable {
+    public var sessions: [SessionRecord]
+    public var contractions: [ContractionRecord]
+    public var appointments: [AppointmentRecord]
+    public var weights: [WeightRecord]
+    public var logs: [CycleLogRecord]
+}
+
 @MainActor
 public final class PregnancyMemoryStore {
     private let context: ModelContext
@@ -93,6 +102,17 @@ public final class PregnancyMemoryStore {
             context.rollback()
             throw error
         }
+    }
+
+    /// Every raw row a memory is built from (`PregnancyMemoryBuilder.make`).
+    public func pregnancyRows() throws -> PregnancyRows {
+        PregnancyRows(
+            sessions: try context.fetch(FetchDescriptor<KickSession>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record),
+            contractions: try context.fetch(FetchDescriptor<Contraction>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record),
+            appointments: try context.fetch(FetchDescriptor<Appointment>(sortBy: [SortDescriptor(\.date)])).map(\.record),
+            weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
+            logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map(\.record)
+        )
     }
 
     private func model(id: UUID) throws -> PregnancyMemory? {

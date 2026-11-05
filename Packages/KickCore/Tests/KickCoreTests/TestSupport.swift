@@ -216,6 +216,10 @@ final class FakeLiveActivities: LiveActivityManaging {
     var droppedUpdates: [(sessionID: UUID, count: Int, completedAt: Date?)] = []
     var droppedEnds: [(sessionID: UUID, dismissAfter: TimeInterval)] = []
     var endAllCount = 0
+    /// `endAll(force: true)` calls.
+    var forcedEndAllCount = 0
+    /// Ended with a dismissal delay: the "Done!" card still on the Lock Screen.
+    var lingeringIDs: Set<UUID> = []
 
     /// One-shot gate: the next `start(...)` call suspends until `releaseStart()`
     /// is called, simulating an in-flight ActivityKit request.
@@ -280,9 +284,10 @@ final class FakeLiveActivities: LiveActivityManaging {
         }
         ended.append((sessionID, dismissAfter))
         activeIDs.remove(sessionID)
+        if dismissAfter > 0 { lingeringIDs.insert(sessionID) }
     }
 
-    func endAll() async {
+    func endAll(force: Bool) async {
         if holdEndAll {
             holdEndAll = false
             endAllPending = true
@@ -293,6 +298,10 @@ final class FakeLiveActivities: LiveActivityManaging {
         }
         endAllCount += 1
         activeIDs.removeAll()
+        if force {
+            forcedEndAllCount += 1
+            lingeringIDs.removeAll()
+        }
     }
 
     /// One-shot gate: the next `endAll()` call suspends until `releaseEndAll()`

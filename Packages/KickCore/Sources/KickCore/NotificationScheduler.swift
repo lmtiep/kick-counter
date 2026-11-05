@@ -81,6 +81,13 @@ public final class NotificationScheduler {
         "contraction-alert-\(key)"
     }
 
+    /// Removes a contraction alert, pending or already shown (the pregnancy ended).
+    public func removeContractionAlert(run: String) {
+        let id = Self.contractionAlertID(run)
+        center.removePending(ids: [id])
+        center.removeDelivered(ids: [id])
+    }
+
     let center: NotificationCenterClient
 
     public init(center: NotificationCenterClient) {

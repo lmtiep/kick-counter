@@ -15,6 +15,7 @@ struct AppEnvironment {
     let weight: WeightCoordinator
     let pill: PillCoordinator
     let contractions: ContractionCoordinator
+    let pregnancyEnding: PregnancyEnding
     let content: WeeklyContentLibrary?
     let knowledge: KnowledgeLibrary?
     let sharing: any PartnerSharing
@@ -108,7 +109,9 @@ struct AppEnvironment {
             store: AppointmentStore(context: container.mainContext),
             notifications: notifications,
             reminderText: ReminderTexts.appointment,
-            now: { AppClock.now() }
+            now: { AppClock.now() },
+            // After a pregnancy ended no check-up reminder reaches her (1.1 item 4).
+            remindersSilenced: { PregnancyEndState.load(from: AppGroup.defaults) != nil }
         )
         let cycleStore = CycleStore(context: container.mainContext)
         #if DEBUG
@@ -187,6 +190,10 @@ struct AppEnvironment {
             weight: weight,
             pill: pill,
             contractions: contractions,
+            pregnancyEnding: PregnancyEnding(
+                kicks: coordinator, contractions: contractions, cycle: cycle,
+                appointments: appointments, weight: weight, container: container
+            ),
             content: WeeklyContentLibrary.loadBundled(),
             knowledge: KnowledgeLibrary.loadBundled(),
             sharing: sharing,
