@@ -86,6 +86,26 @@ public enum SettingsKey {
     public static let backupFirstUseAt = "backupFirstUseAt"
     /// `Date` "Để sau" was tapped on the backup reminder card.
     public static let backupReminderSnoozedAt = "backupReminderSnoozedAt"
+    /// 1.1 item 4 (pregnancy ending). `PregnancyEndBranch` raw value; missing means
+    /// no pregnancy has ended (or she is pregnant again). Never in a backup.
+    public static let pregnancyEndBranch = "pregnancyEndBranch"
+    /// The day the pregnancy ended, `timeIntervalSince1970` of the start of that day.
+    public static let pregnancyEndDate = "pregnancyEndDate"
+    /// The period she confirmed as the first after the end (UUID string); missing
+    /// means predictions are paused (`CyclePause`).
+    public static let pregnancyEndFirstPeriodID = "pregnancyEndFirstPeriodID"
+    /// Periods she answered "Chưa phải" for (UUID strings), so she is not asked again.
+    public static let pregnancyEndDeclinedPeriods = "pregnancyEndDeclinedPeriods"
+    /// Gentle check-ins after the end (`CareCheckInState`). Missing means on.
+    public static let careCheckInEnabled = "careCheckInEnabled"
+    /// One local notification per check-in. Missing means off.
+    public static let careCheckInNotify = "careCheckInNotify"
+    /// `Date` the last check-in was answered or skipped.
+    public static let careCheckInLastShown = "careCheckInLastShown"
+    /// Low feelings in a row.
+    public static let careCheckInLowStreak = "careCheckInLowStreak"
+    /// "Cảm ơn, mình ổn rồi": check-ins stopped for good.
+    public static let careCheckInStopped = "careCheckInStopped"
 }
 
 public enum SettingsDefault {
