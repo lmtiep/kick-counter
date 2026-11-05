@@ -181,4 +181,38 @@ struct CareCheckInTests {
         #expect(center.added.isEmpty)
         #expect(center.requestCount == 0)
     }
+
+    // MARK: - Keeping the one notification in step
+
+    @MainActor
+    @Test func syncSchedulesTheNextCheckInOnlyWhenAskedFor() async {
+        let center = FakeNotificationCenter()
+        let scheduler = NotificationScheduler(center: center)
+        let text = NotificationText(title: "Luna Mom", body: "Luna Mom is checking in on you")
+        var state = CareCheckInState()
+
+        // Off by default: nothing, and no prompt.
+        await scheduler.syncCareCheckIn(end: end, state: state, now: dayAfterEnd(3), text: text, calendar: calendar, mayPrompt: false)
+        #expect(center.added.isEmpty)
+
+        state.notify = true
+        center.status = .notDetermined
+        await scheduler.syncCareCheckIn(end: end, state: state, now: dayAfterEnd(3), text: text, calendar: calendar, mayPrompt: false)
+        #expect(center.added.isEmpty, "never prompts unless she turned it on")
+        #expect(center.requestCount == 0)
+
+        await scheduler.syncCareCheckIn(end: end, state: state, now: dayAfterEnd(3), text: text, calendar: calendar, mayPrompt: true)
+        #expect(center.requestCount == 1)
+        #expect(center.added.map(\.identifier) == ["care-checkin"])
+        #expect((center.added.first?.trigger as? UNCalendarNotificationTrigger)?.dateComponents.day
+            == calendar.component(.day, from: startOfDay(21)))
+
+        state.stopped = true
+        await scheduler.syncCareCheckIn(end: end, state: state, now: dayAfterEnd(3), text: text, calendar: calendar, mayPrompt: false)
+        #expect(center.added.isEmpty, "\"I'm okay now\" cancels it")
+
+        state.stopped = false
+        await scheduler.syncCareCheckIn(end: nil, state: state, now: dayAfterEnd(3), text: text, calendar: calendar, mayPrompt: false)
+        #expect(center.added.isEmpty)
+    }
 }

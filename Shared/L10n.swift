@@ -1102,4 +1102,54 @@ enum L10n {
     static var memoryRenameTitle: String { t("memory.rename.title") }
     static var memoryDelete: String { t("memory.delete") }
     static var memoryDeleteConfirm: String { t("memory.delete.confirm") }
+
+    // MARK: - 1.1: after the ending (pause, first period, check-ins)
+
+    static func cyclePaused(_ branch: PregnancyEndBranch) -> String {
+        switch branch {
+        case .birth: t("cycle.paused.birth")
+        case .loss: t("cycle.paused.loss")
+        }
+    }
+    static var cyclePausedEarlier: String { t("cycle.paused.earlier") }
+    static var widgetPaused: String { t("widget.paused") }
+    static func firstPeriodQuestion(_ branch: PregnancyEndBranch) -> String {
+        switch branch {
+        case .birth: t("firstPeriod.question.birth")
+        case .loss: t("firstPeriod.question.loss")
+        }
+    }
+    static var firstPeriodMessage: String { t("firstPeriod.message") }
+    static var firstPeriodYes: String { t("firstPeriod.yes") }
+    static var firstPeriodNo: String { t("firstPeriod.no") }
+    static var careTitle: String { t("care.title") }
+    static func careFeeling(_ feeling: CareFeeling) -> String {
+        switch feeling {
+        case .good: t("care.feeling.good")
+        case .okay: t("care.feeling.okay")
+        case .tired: t("care.feeling.tired")
+        case .sad: t("care.feeling.sad")
+        case .heavy: t("care.feeling.heavy")
+        }
+    }
+    static var careSkip: String { t("care.skip") }
+    static var careStop: String { t("care.stop") }
+    static func careReply(_ feeling: CareFeeling, branch: PregnancyEndBranch) -> String {
+        switch feeling {
+        case .good: t("care.reply.good")
+        case .okay: t("care.reply.okay")
+        case .tired: t("care.reply.tired")
+        case .sad, .heavy: branch == .birth ? t("care.reply.low.birth") : t("care.reply.low.loss")
+        }
+    }
+    static var careTipTitle: String { t("care.tipTitle") }
+    static let careTipCount = 10
+    /// `index` 0..<careTipCount.
+    static func careTip(_ index: Int) -> String { t("care.tip.\((index % careTipCount) + 1)") }
+    static var careShare: String { t("care.share") }
+    static var careProfileTitle: String { t("care.profile.title") }
+    static var careProfileEnabled: String { t("care.profile.enabled") }
+    static var careProfileNotify: String { t("care.profile.notify") }
+    static var careProfileNote: String { t("care.profile.note") }
+    static var careNotificationBody: String { t("care.notification.body") }
 }

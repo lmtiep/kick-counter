@@ -137,4 +137,35 @@ extension NotificationScheduler {
     public func cancelCareCheckIn() {
         center.removePending(ids: [Self.careCheckInID])
     }
+
+    /// Brings the one check-in notification in line with her choices: scheduled at
+    /// 10:00 on the next check-in day while "Gửi thông báo nhẹ nhàng" is on, the
+    /// check-ins still run and notifications are allowed; cancelled otherwise.
+    /// Prompts only when `mayPrompt` (she just turned the switch on). Returns false
+    /// only when she wants it but notifications are not allowed.
+    @discardableResult
+    public func syncCareCheckIn(
+        end: PregnancyEndState?,
+        state: CareCheckInState,
+        now: Date,
+        text: NotificationText,
+        calendar: Calendar = .current,
+        mayPrompt: Bool
+    ) async -> Bool {
+        guard state.notify, let next = CareCheckInPolicy.nextDate(end: end, state: state, now: now, calendar: calendar) else {
+            cancelCareCheckIn()
+            return true
+        }
+        let authorized = mayPrompt ? await requestAuthorizationIfNeeded() : await isAuthorized()
+        guard authorized else {
+            cancelCareCheckIn()
+            return false
+        }
+        do {
+            try await scheduleCareCheckIn(on: next, now: now, text: text, calendar: calendar)
+        } catch {
+            cancelCareCheckIn()
+        }
+        return true
+    }
 }

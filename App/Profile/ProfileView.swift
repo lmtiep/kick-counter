@@ -79,6 +79,10 @@ struct ProfileView: View {
                     } else {
                         cycleCard
                     }
+                    // The gentle check-ins after a pregnancy ended (1.1 item 4).
+                    if mode == .tryingToConceive, cycle.endState != nil {
+                        CareCheckInSettingsCard()
+                    }
                     // Kept journeys (1.1 item 4): only once there is one.
                     if !ending.memories.isEmpty {
                         NavigationLink { MemoryListView() } label: {

@@ -1888,6 +1888,516 @@
         }
       }
     },
+    "care.feeling.good": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhẹ nhàng"
+          }
+        }
+      }
+    },
+    "care.feeling.heavy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heavy-hearted"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nặng lòng"
+          }
+        }
+      }
+    },
+    "care.feeling.okay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Okay"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tạm ổn"
+          }
+        }
+      }
+    },
+    "care.feeling.sad": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sad"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buồn"
+          }
+        }
+      }
+    },
+    "care.feeling.tired": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tired"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mệt"
+          }
+        }
+      }
+    },
+    "care.notification.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom is checking in on you"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom gửi bạn một lời hỏi thăm"
+          }
+        }
+      }
+    },
+    "care.profile.enabled": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check in on me"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi thăm tôi"
+          }
+        }
+      }
+    },
+    "care.profile.note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your answers stay on this phone."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Câu trả lời của bạn chỉ ở trên điện thoại này."
+          }
+        }
+      }
+    },
+    "care.profile.notify": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send a gentle notification"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gửi thông báo nhẹ nhàng"
+          }
+        }
+      }
+    },
+    "care.profile.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check-ins"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi thăm"
+          }
+        }
+      }
+    },
+    "care.reply.good": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm glad to hear that."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mình vui khi nghe bạn nói vậy."
+          }
+        }
+      }
+    },
+    "care.reply.low.birth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "These days can hold a lot of feelings. I'm here with you."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những ngày này có thể có rất nhiều cảm xúc. Mình ở đây với bạn."
+          }
+        }
+      }
+    },
+    "care.reply.low.loss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I'm here with you. Every feeling is allowed."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mình ở đây với bạn. Cảm xúc nào cũng được phép."
+          }
+        }
+      }
+    },
+    "care.reply.okay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One day at a time."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Từng ngày một thôi, bạn nhé."
+          }
+        }
+      }
+    },
+    "care.reply.tired": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It's okay to be tired. You've been carrying a lot."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mệt cũng không sao. Bạn đã mang theo rất nhiều điều rồi."
+          }
+        }
+      }
+    },
+    "care.share": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If the sadness lingers, share it with someone close or a friend you trust."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nếu nỗi buồn cứ kéo dài, hãy chia sẻ với người thân hoặc một người bạn tin cậy."
+          }
+        }
+      }
+    },
+    "care.skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ qua"
+          }
+        }
+      }
+    },
+    "care.stop": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thanks, I'm okay now"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cảm ơn, mình ổn rồi"
+          }
+        }
+      }
+    },
+    "care.tip.1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Take a slow walk outside."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đi bộ chậm rãi ngoài trời một chút."
+          }
+        }
+      }
+    },
+    "care.tip.10": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Let someone help you with one thing today."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Để ai đó giúp bạn một việc hôm nay."
+          }
+        }
+      }
+    },
+    "care.tip.2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Make yourself a warm drink."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pha cho mình một cốc đồ uống ấm."
+          }
+        }
+      }
+    },
+    "care.tip.3": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Call someone you love."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gọi cho một người bạn thương."
+          }
+        }
+      }
+    },
+    "care.tip.4": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write three lines about today."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viết ba dòng về ngày hôm nay."
+          }
+        }
+      }
+    },
+    "care.tip.5": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rest, without feeling guilty."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nghỉ ngơi mà không cần áy náy."
+          }
+        }
+      }
+    },
+    "care.tip.6": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open a window and take a few slow breaths."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở cửa sổ và hít thở chậm vài lần."
+          }
+        }
+      }
+    },
+    "care.tip.7": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen to a song you love."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nghe một bài hát bạn thích."
+          }
+        }
+      }
+    },
+    "care.tip.8": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wrap up in a soft blanket and sit quietly for a while."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quấn một chiếc chăn mềm và ngồi yên một lúc."
+          }
+        }
+      }
+    },
+    "care.tip.9": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step into the sun for a few minutes."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ra nắng vài phút."
+          }
+        }
+      }
+    },
+    "care.tipTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A small thing for today"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một điều nhỏ cho hôm nay"
+          }
+        }
+      }
+    },
+    "care.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How are you today?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay bạn thế nào?"
+          }
+        }
+      }
+    },
     "common.cancel": {
       "extractionState": "manual",
       "localizations": {
@@ -4064,6 +4574,57 @@
         }
       }
     },
+    "cycle.paused.birth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After birth, your period may take weeks or months to return, especially while breastfeeding."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sau sinh, kỳ kinh có thể quay lại sau vài tuần hoặc vài tháng, nhất là khi cho con bú."
+          }
+        }
+      }
+    },
+    "cycle.paused.earlier": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It started on an earlier day"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh bắt đầu từ hôm trước"
+          }
+        }
+      }
+    },
+    "cycle.paused.loss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your period may take a while to come back. When it does, just log it."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kỳ kinh có thể cần một thời gian để quay lại. Khi nào có, bạn chỉ cần ghi lại."
+          }
+        }
+      }
+    },
     "cycle.phase": {
       "extractionState": "manual",
       "localizations": {
@@ -5743,6 +6304,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "Luna Mom – góp ý"
+          }
+        }
+      }
+    },
+    "firstPeriod.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If it is, Luna Mom will start predicting again from this period."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nếu đúng, Luna Mom sẽ bắt đầu dự đoán lại từ kỳ này."
+          }
+        }
+      }
+    },
+    "firstPeriod.no": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not this one"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa phải"
+          }
+        }
+      }
+    },
+    "firstPeriod.question.birth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Is this your first period since giving birth?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đây có phải kỳ kinh đầu tiên sau khi sinh không?"
+          }
+        }
+      }
+    },
+    "firstPeriod.question.loss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Is this your first period since the pregnancy?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đây có phải kỳ kinh đầu tiên sau thai kỳ không?"
+          }
+        }
+      }
+    },
+    "firstPeriod.yes": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yes"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đúng vậy"
           }
         }
       }
@@ -13665,6 +14311,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "quá hạn %@"
+          }
+        }
+      }
+    },
+    "widget.paused": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log your period when it comes"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi lại khi có kinh nhé"
           }
         }
       }

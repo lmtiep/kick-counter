@@ -320,6 +320,8 @@ struct RootView: View {
         await cycle.load()
         await weight.load()
         await pill.load()
+        // The optional check-in notification follows the next check-in day (1.1 item 4).
+        if mode == .tryingToConceive { await CareCheckInNotifications.sync() }
         // Partner sharing is off with iCloud (phase 12): nothing to refresh.
         guard AppEnvironment.showsPartnerUI else { return }
         switch mode {
@@ -352,6 +354,7 @@ struct RootView: View {
         PillNotificationDelegate.shared.registerCategory()
         await pill.updateTexts(ReminderTexts.pill)
         await restoreDailyKickReminder()
+        await CareCheckInNotifications.sync()
     }
 
     /// Schedules the stored daily kick reminder again, never prompting and

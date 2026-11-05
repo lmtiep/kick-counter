@@ -66,13 +66,19 @@ struct CycleTodayView: View {
                     CycleWeekStrip(forecast: cycle.forecast, policy: cycle.policy, today: today, log: { cycle.log(on: $0) }) { day in
                         logDay = CycleDaySelection(date: day)
                     }
-                    if let forecast = cycle.forecast {
+                    if cycle.isPaused, let end = cycle.endState {
+                        pausedState(end)
+                    } else if let forecast = cycle.forecast {
                         content(for: forecast)
                     } else {
                         emptyState
                     }
                 }
                 .padding(.bottom, 24)
+                // After a pregnancy ended: "Is this your first period since…?" (1.1 item 4).
+                .firstPeriodQuestion(
+                    isBlocked: logDay != nil || showingLastPeriodSheet || showingImPregnant || failureMessage != nil
+                )
                 // Exactly the screen's width: a card that measures even a pixel
                 // wider (wrapped text rounds up) would widen the scroll content
                 // and let the whole screen pan and bounce sideways.
@@ -123,6 +129,9 @@ struct CycleTodayView: View {
             }
             .padding(.top, 22)
             phasePill(forecast)
+            // The gentle check-in after a pregnancy ended, above the other cards when due.
+            CareCheckInCard()
+                .padding(.top, 10)
             logCard
                 .padding(.top, 10)
             PillTodayCard()
@@ -410,6 +419,37 @@ struct CycleTodayView: View {
         .foregroundStyle(.luna(.textSecondary))
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 4)
+    }
+
+    /// After a pregnancy ended, until she confirms the first period (spec §4.4):
+    /// no ring, prediction or "Think you might be pregnant?", only the gentle line.
+    private func pausedState(_ end: PregnancyEndState) -> some View {
+        VStack(spacing: 12) {
+            CareCheckInCard()
+            CyclePausedCard(
+                branch: end.branch,
+                working: working,
+                onStartedToday: { Task { await startPausedPeriod() } },
+                onStartedEarlier: { showingLastPeriodSheet = true }
+            )
+            logCard
+            PillTodayCard()
+            footnotes
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 22)
+    }
+
+    private func startPausedPeriod() async {
+        working = true
+        defer { working = false }
+        switch await cycle.startPeriodReturningID(on: AppClock.now()) {
+        case .success:
+            toast = L10n.cycleToastPeriodStarted
+        case .failure(let failure):
+            cycle.clearFailure()
+            actionFailure = failure
+        }
     }
 
     private var emptyState: some View {

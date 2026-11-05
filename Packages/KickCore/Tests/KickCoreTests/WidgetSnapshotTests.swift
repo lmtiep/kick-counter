@@ -246,4 +246,36 @@ struct WidgetSnapshotTests {
         let snapshot = WidgetSnapshot.make(WidgetInput(mode: .pregnant, hasCompletedOnboarding: false), now: now, calendar: newYork)
         #expect(snapshot.refreshDate == newYork.date(from: DateComponents(year: 2026, month: 11, day: 2)))
     }
+
+    // MARK: - After a pregnancy ended (1.1 item 4)
+
+    @Test func pausedAfterAnEnding() {
+        var input = cycleInput(goal: .tracking, periods: periods("2026-01-10", "2026-02-07"))
+        input.endState = PregnancyEndState(branch: .loss, endDate: day("2026-09-01"), calendar: calendar)
+        #expect(make(input, "2026-10-02").content == .paused)
+        // No period at all: paused too, not "set up".
+        input.periods = []
+        #expect(make(input, "2026-10-02").content == .paused)
+    }
+
+    @Test func resumedUsesOnlyPeriodsAfterTheEnd() {
+        let after = periods("2026-09-20")
+        var input = cycleInput(goal: .tracking, periods: periods("2026-01-10", "2026-02-07") + after)
+        input.endState = PregnancyEndState(branch: .birth, endDate: day("2026-09-01"), firstPeriodConfirmedID: after[0].id, calendar: calendar)
+        guard case .cycle(let content) = make(input, "2026-10-02").content else {
+            Issue.record("expected the cycle content")
+            return
+        }
+        // One period after the end: the typical 28 days from 09-20.
+        #expect(content.nextPeriodDate == day("2026-10-18"))
+    }
+
+    @Test func endStateIgnoredOutsideTheCycleMode() {
+        var input = pregnancyInput(due: due(elapsed: 100, now: "2026-10-02"))
+        input.endState = PregnancyEndState(branch: .loss, endDate: day("2026-09-01"), calendar: calendar)
+        guard case .pregnancy = make(input, "2026-10-02").content else {
+            Issue.record("expected the pregnancy content")
+            return
+        }
+    }
 }
