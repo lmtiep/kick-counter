@@ -41,6 +41,7 @@ public enum BackupStore {
             try deleteEvery(WeightEntry.self, in: context)
             try deleteEvery(PillDose.self, in: context)
             try deleteEvery(Contraction.self, in: context)
+            try deleteEvery(ChecklistItem.self, in: context)
             for record in records.sessions {
                 insert(record, into: context)
             }

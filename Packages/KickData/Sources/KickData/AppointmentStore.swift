@@ -47,6 +47,8 @@ public final class AppointmentStore: AppointmentRepository {
 
     public func delete(id: UUID) throws {
         guard let model = try model(id: id) else { return }
+        // Its questions go with it, in the same save (1.1).
+        try ChecklistItem.deleteQuestions(appointmentID: id, in: context)
         context.delete(model)
         try save()
     }

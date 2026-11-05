@@ -260,3 +260,61 @@ public final class Contraction {
         ContractionRecord(id: id, startedAt: startedAt, endedAt: endedAt)
     }
 }
+
+/// One row of the hospital bag or of a doctor-questions list (1.1). Every property is
+/// defaulted and there are no relationships (the `PillDose`/`Contraction` precedent), so
+/// adding it is a lightweight migration. A built-in bag item is stored only once touched:
+/// `builtInID` set, `text` empty. A question points at its appointment by `appointmentID`
+/// (not a relationship) and is deleted with it by `AppointmentStore.delete`.
+@Model
+public final class ChecklistItem {
+    public var id: UUID = UUID()
+    /// `ChecklistKind.rawValue`: "bag" or "question".
+    public var list: String = "bag"
+    /// `BagGroup.rawValue` of a custom bag item.
+    public var group: String?
+    public var builtInID: String?
+    public var text: String = ""
+    public var isDone: Bool = false
+    public var isHidden: Bool = false
+    public var order: Int = 0
+    public var appointmentID: UUID?
+    public var createdAt: Date = Date()
+
+    public init(record: ChecklistItemRecord) {
+        id = record.id
+        list = record.kind.rawValue
+        group = record.group?.rawValue
+        builtInID = record.builtInID
+        text = record.text
+        isDone = record.isDone
+        isHidden = record.isHidden
+        order = record.order
+        appointmentID = record.appointmentID
+        createdAt = record.createdAt
+    }
+
+    public var record: ChecklistItemRecord {
+        ChecklistItemRecord(
+            id: id,
+            kind: ChecklistKind(rawValue: list) ?? .bag,
+            group: group.flatMap(BagGroup.init(rawValue:)),
+            builtInID: builtInID,
+            text: text,
+            isDone: isDone,
+            isHidden: isHidden,
+            order: order,
+            appointmentID: appointmentID,
+            createdAt: createdAt
+        )
+    }
+
+    /// Deletes every question of `appointmentID` in `context` (the caller saves).
+    @MainActor
+    static func deleteQuestions(appointmentID: UUID, in context: ModelContext) throws {
+        let question = ChecklistKind.question.rawValue
+        for model in try context.fetch(FetchDescriptor<ChecklistItem>()) where model.list == question && model.appointmentID == appointmentID {
+            context.delete(model)
+        }
+    }
+}
