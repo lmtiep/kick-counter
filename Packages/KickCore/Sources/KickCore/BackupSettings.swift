@@ -72,6 +72,17 @@ public enum BackupSettings {
         // The backup reminder belongs to this phone too (1.1).
         SettingsKey.backupFirstUseAt,
         SettingsKey.backupReminderSnoozedAt,
+        // The pregnancy-ended state and the check-ins (1.1 item 4) belong to this
+        // phone: the feelings never leave it, and a restore never re-pauses predictions.
+        SettingsKey.pregnancyEndBranch,
+        SettingsKey.pregnancyEndDate,
+        SettingsKey.pregnancyEndFirstPeriodID,
+        SettingsKey.pregnancyEndDeclinedPeriods,
+        SettingsKey.careCheckInEnabled,
+        SettingsKey.careCheckInNotify,
+        SettingsKey.careCheckInLastShown,
+        SettingsKey.careCheckInLowStreak,
+        SettingsKey.careCheckInStopped,
     ]
 
     /// `AppDataReset.ownedKeys` minus `excludedKeys` (`BackupSettingsTests` checks it).

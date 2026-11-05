@@ -45,6 +45,13 @@ public final class CycleCoordinator {
     public private(set) var failure: CycleFailure?
     /// True when the user has turned notifications off; the UI shows a hint.
     public private(set) var notificationsDenied = false
+    /// The ended pregnancy, if any (1.1 item 4); drives the prediction pause.
+    public private(set) var endState: PregnancyEndState?
+    /// Predictions are paused after a pregnancy ended (`CyclePause`): no forecast,
+    /// so no prediction reminders either.
+    public private(set) var isPaused = false
+    /// Periods she answered "not the first after the end" for.
+    public private(set) var declinedPeriods: Set<UUID> = []
 
     private let store: CycleRepository
     private let notifications: NotificationScheduler
@@ -73,6 +80,8 @@ public final class CycleCoordinator {
         self.now = now
         settings = CycleSettings.load(from: defaults)
         preferences = CyclePreferences.load(from: defaults)
+        endState = PregnancyEndState.load(from: defaults)
+        declinedPeriods = PregnancyEndState.declinedPeriods(in: defaults)
     }
 
     public var mode: AppMode { AppMode.load(from: defaults) }
@@ -303,12 +312,61 @@ public final class CycleCoordinator {
 
     /// "I'm pregnant": stores the pregnancy dates (usually the first day of the
     /// latest period), switches to pregnancy mode and cancels cycle reminders.
-    /// Cycle data is kept.
+    /// Cycle data is kept. An earlier ended pregnancy's state, pause and
+    /// check-ins are cleared; its memories stay.
     public func switchToPregnant(source: PregnancyDateSource, date: Date) {
         PregnancyProfile.save(source: source, date: date, to: defaults, calendar: calendar)
+        PregnancyEndState.clear(defaults)
         AppMode.save(.pregnant, to: defaults)
         bump()
         notifications.cancelCycleReminders()
+        endState = nil
+        declinedPeriods = []
+        recomputeForecast()
+    }
+
+    // MARK: - When a pregnancy ends (1.1 item 4)
+
+    /// "My pregnancy has ended" (spec §4.2, §4.6): keeps her cycle goal (or
+    /// stores `.tracking` when she never had one — never trying to conceive),
+    /// stores the ended state, clears the pregnancy dates and switches to the
+    /// cycle mode with predictions paused. Never prompts for permission.
+    public func endPregnancy(branch: PregnancyEndBranch, endDate: Date) async {
+        if defaults.object(forKey: SettingsKey.cycleGoal) == nil {
+            defaults.set(CycleGoal.tracking.rawValue, forKey: SettingsKey.cycleGoal)
+        }
+        PregnancyEndState.clear(defaults)
+        PregnancyEndState(branch: branch, endDate: endDate, calendar: calendar).save(to: defaults)
+        PregnancyProfile.clear(defaults)
+        AppMode.save(.tryingToConceive, to: defaults)
+        let generation = bump()
+        guard refresh() else {
+            notifications.cancelCycleReminders()
+            return
+        }
+        await syncReminders(generation: generation, mayPrompt: false)
+    }
+
+    /// The first period after the end, while paused (spec §4.6), so the screen
+    /// can ask "Is this your first period since…?".
+    public var periodNeedingConfirmation: PeriodRecord? {
+        CyclePause.periodNeedingConfirmation(endState, periods: periods, declined: declinedPeriods)
+    }
+
+    /// "Đúng vậy": predictions resume from that period. Never prompts.
+    public func confirmFirstPeriod(id: UUID) async {
+        guard var state = PregnancyEndState.load(from: defaults) else { return }
+        state.firstPeriodConfirmedID = id
+        state.save(to: defaults)
+        let generation = bump()
+        guard refresh() else { return }
+        await syncReminders(generation: generation, mayPrompt: false)
+    }
+
+    /// "Chưa phải": the pause stays, the period is kept and she is not asked about it again.
+    public func declineFirstPeriod(id: UUID) {
+        declinedPeriods.insert(id)
+        PregnancyEndState.saveDeclinedPeriods(declinedPeriods, to: defaults)
     }
 
     /// The app language changed: the cycle reminders are scheduled again with
@@ -403,6 +461,8 @@ public final class CycleCoordinator {
     private func refresh() -> Bool {
         settings = CycleSettings.load(from: defaults)
         preferences = CyclePreferences.load(from: defaults)
+        endState = PregnancyEndState.load(from: defaults)
+        declinedPeriods = endState == nil ? [] : PregnancyEndState.declinedPeriods(in: defaults)
         let loadedPeriods: [PeriodRecord]
         let loadedLogs: [CycleLogRecord]
         do {
@@ -419,8 +479,18 @@ public final class CycleCoordinator {
         return true
     }
 
+    /// While paused (spec §4.6) there is no forecast, which also silences the
+    /// prediction reminders. Periods from before the end never count.
     private func recomputeForecast() {
-        forecast = CyclePredictor.forecast(periods: periods, logs: logs, settings: settings, now: now(), calendar: calendar)
+        isPaused = CyclePause.isPaused(endState, periods: periods)
+        guard !isPaused else {
+            forecast = nil
+            return
+        }
+        forecast = CyclePredictor.forecast(
+            periods: CyclePause.periodsForForecast(periods, state: endState),
+            logs: logs, settings: settings, now: now(), calendar: calendar
+        )
     }
 
     @discardableResult

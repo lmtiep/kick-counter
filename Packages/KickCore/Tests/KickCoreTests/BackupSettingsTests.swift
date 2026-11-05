@@ -18,10 +18,31 @@ struct BackupSettingsTests {
             SettingsKey.reviewAskedVersions,
             SettingsKey.backupFirstUseAt,
             SettingsKey.backupReminderSnoozedAt,
+            SettingsKey.pregnancyEndBranch,
+            SettingsKey.pregnancyEndDate,
+            SettingsKey.pregnancyEndFirstPeriodID,
+            SettingsKey.pregnancyEndDeclinedPeriods,
+            SettingsKey.careCheckInEnabled,
+            SettingsKey.careCheckInNotify,
+            SettingsKey.careCheckInLastShown,
+            SettingsKey.careCheckInLowStreak,
+            SettingsKey.careCheckInStopped,
         ])
         #expect(Set(BackupSettings.table.keys) == expected)
         #expect(BackupSettings.excludedKeys.isDisjoint(with: BackupSettings.table.keys))
         #expect(Set(BackupSettings.table.keys).union(BackupSettings.excludedKeys) == Set(AppDataReset.ownedKeys))
+    }
+
+    /// 1.1 item 4: the ended state and the check-in answers stay on this phone.
+    @Test func newKeysExcludedFromBackup() {
+        for key in PregnancyEndState.keys + [
+            SettingsKey.careCheckInEnabled, SettingsKey.careCheckInNotify, SettingsKey.careCheckInLastShown,
+            SettingsKey.careCheckInLowStreak, SettingsKey.careCheckInStopped,
+        ] {
+            #expect(BackupSettings.excludedKeys.contains(key), "\(key)")
+            #expect(BackupSettings.table[key] == nil, "\(key)")
+            #expect(AppDataReset.ownedKeys.contains(key), "\(key)")
+        }
     }
 
     @Test func lastBackupAtIsOwnedAndADate() {
