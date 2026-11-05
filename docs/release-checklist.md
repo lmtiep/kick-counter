@@ -39,6 +39,7 @@
 ## App Store Connect
 - [ ] Danh mục: Health & Fitness.
 - [ ] App Privacy: "Data Not Collected".
+- [ ] Promotional Text (vi + en) dẫn bằng bốn ý: miễn phí, không quảng cáo, không cần tài khoản, dữ liệu chỉ trên iPhone (`docs/app-store-listing.md`); giữ khớp với bước chào mừng và màn "Quyền riêng tư của bạn".
 - [ ] Mô tả có câu miễn trừ y tế (dùng nội dung `medical.body`).
 - [ ] Ảnh chụp màn hình vi + en: lấy từ `ci-artifacts/screenshots/` hoặc chụp trên máy thật.
 - [ ] Ghi chú cho reviewer: cách thử Live Activity (chạm một lần trong app rồi khóa máy).

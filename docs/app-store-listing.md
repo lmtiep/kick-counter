@@ -21,9 +21,9 @@ Luna Mom - Chu kỳ & Thai kỳ
 Sức khỏe nữ giới & Thai kỳ
 ```
 
-**Văn bản quảng bá (Promotional Text)** [170 characters]
+**Văn bản quảng bá (Promotional Text)** [141 characters]
 ```
-Theo dõi kỳ kinh, đồng hành từng tuần thai, đếm cử động thai và cơn gò — tất cả trong một app. Dữ liệu chỉ nằm trên iPhone của bạn, không quảng cáo.
+Miễn phí, không quảng cáo, không cần tài khoản. Dữ liệu chỉ nằm trên iPhone của bạn. Theo dõi kỳ kinh, tuần thai, đếm cử động thai và cơn gò.
 ```
 
 **Mô tả (Description)** [4000 characters]
@@ -87,9 +87,9 @@ Luna Mom - Cycle & Pregnancy
 Women's health & pregnancy
 ```
 
-**Promotional Text** [170 characters]
+**Promotional Text** [141 characters]
 ```
-Track your period, follow your pregnancy week by week, count kicks and time contractions, all in one calm app. Your data stays on your iPhone. No ads.
+Free. No ads. No account needed. Your data stays on your iPhone. Track your period, follow your pregnancy, count kicks and time contractions.
 ```
 
 **Description** [4000 characters]
@@ -165,6 +165,6 @@ App Store Connect counts characters for most fields (Python `len()`), but **byte
 |---|---|---|---|---|
 | Name | 27 | 31 | 28 | 30 characters |
 | Subtitle | 26 | 36 | 26 | 30 characters |
-| Promotional text | 148 | 195 | 150 | 170 characters |
+| Promotional text | 141 | 183 | 141 | 170 characters |
 | Description | 2296 | 2969 | 2349 | 4000 characters |
 | Keywords | 80 | **100** | 99 (99 bytes) | **100 bytes** |
