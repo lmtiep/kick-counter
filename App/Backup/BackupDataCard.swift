@@ -95,7 +95,7 @@ struct BackupReminderCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(alignment: .firstTextBaseline, spacing: 10) {
-                Image(systemName: "externaldrive.badge.timemachine")
+                Image(systemName: "clock.arrow.circlepath")
                     .font(.luna(.body))
                     .foregroundStyle(.luna(.textPrimary))
                     .accessibilityHidden(true)
