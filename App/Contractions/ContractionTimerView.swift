@@ -22,6 +22,9 @@ struct ContractionTimerView: View {
     @State private var pendingDelete: ContractionEntry?
     /// "Kết thúc theo dõi" asks first: a mis-tap would split the episode.
     @State private var confirmsEndEpisode = false
+    /// The edit, add-missed and water-broke sheets (edit spec 2026-11-06).
+    @State private var sheet: ContractionSheet?
+    @State private var pendingMarkerDelete: LabourMarkerRecord?
 
     /// The pregnancy week on the app's (pinnable) clock; nil when unknown.
     private var week: GestationalWeek? {
@@ -49,6 +52,7 @@ struct ContractionTimerView: View {
         .lunaBackground()
         .navigationBarTitleDisplayMode(.inline)
         .sensoryFeedback(.impact(weight: .medium), trigger: tapFeedback)
+        .contractionSheets($sheet)
         // Hidden at the coordinator's deadline, so "Hoàn tác" never shows once
         // the coordinator would refuse it.
         .task(id: undoToken) {
@@ -87,6 +91,19 @@ struct ContractionTimerView: View {
             }
             Button(L10n.commonCancel, role: .cancel) { pendingDelete = nil }
         }
+        .confirmationDialog(
+            L10n.contractionWaterBrokeDeleteConfirm,
+            isPresented: Binding(get: { pendingMarkerDelete != nil }, set: { if !$0 { pendingMarkerDelete = nil } }),
+            titleVisibility: .visible
+        ) {
+            Button(L10n.commonDelete, role: .destructive) {
+                if let marker = pendingMarkerDelete {
+                    Task { await contractions.deleteMarker(id: marker.id) }
+                }
+                pendingMarkerDelete = nil
+            }
+            Button(L10n.commonCancel, role: .cancel) { pendingMarkerDelete = nil }
+        }
         .alert(failureMessage ?? "", isPresented: Binding(
             get: { contractions.failure != nil },
             set: { if !$0 { contractions.clearFailure() } }
@@ -109,16 +126,31 @@ struct ContractionTimerView: View {
             .padding(.top, 20)
             controls(hasEpisode: stats.currentEpisode != nil)
                 .padding(.top, 14)
+            editButtons(hasWaterBroke: stats.currentMarkers.contains(where: \.isWaterBroke))
+                .padding(.top, 14)
             if scenePhase == .active, !contractions.liveActivitiesAvailable {
                 liveActivityHint
                     .padding(.top, 16)
             }
             ContractionStatsCard(summary: stats.lastHour)
                 .padding(.top, 20)
-            ContractionEpisodeCard(episode: stats.currentEpisode) { pendingDelete = $0 }
-                .padding(.top, 12)
-            safetyCard
-                .padding(.top, 12)
+            ContractionEpisodeCard(
+                episode: stats.currentEpisode,
+                markers: stats.currentMarkers,
+                onDelete: { pendingDelete = $0 },
+                onEdit: { sheet = .edit($0.record) },
+                onEditMarker: { sheet = .editMarker($0) },
+                onDeleteMarker: { pendingMarkerDelete = $0 }
+            )
+            .padding(.top, 12)
+            // The existing safety line, emphasised once the water has broken.
+            if let water = stats.currentMarkers.last(where: \.isWaterBroke) {
+                WaterBrokeCard(at: water.at)
+                    .padding(.top, 12)
+            } else {
+                safetyCard
+                    .padding(.top, 12)
+            }
             historyLink
                 .padding(.top, 12)
         }
@@ -202,6 +234,40 @@ struct ContractionTimerView: View {
             }
             .buttonStyle(.pill(.dark, fullWidth: stacked, height: 44))
             .accessibilityIdentifier("contractionEndEpisode")
+        }
+    }
+
+    /// "Thêm cơn gò bị sót" and, until one is recorded, "Vỡ ối": side by side,
+    /// stacked when large text does not fit.
+    private func editButtons(hasWaterBroke: Bool) -> some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 10) { editButtonViews(hasWaterBroke: hasWaterBroke, stacked: false) }
+            VStack(spacing: 10) { editButtonViews(hasWaterBroke: hasWaterBroke, stacked: true) }
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    @ViewBuilder
+    private func editButtonViews(hasWaterBroke: Bool, stacked: Bool) -> some View {
+        Button {
+            sheet = .addMissed
+        } label: {
+            Label(L10n.contractionAddTitle, systemImage: "plus")
+                .lineLimit(stacked ? nil : 1)
+                .fixedSize(horizontal: !stacked, vertical: stacked)
+        }
+        .buttonStyle(.pill(.soft(.surfaceAlt, .textPrimary), fullWidth: stacked, height: 44))
+        .accessibilityIdentifier("contractionAddMissed")
+        if !hasWaterBroke {
+            Button {
+                sheet = .waterBroke
+            } label: {
+                Label(L10n.contractionWaterBrokeButton, systemImage: "drop")
+                    .lineLimit(stacked ? nil : 1)
+                    .fixedSize(horizontal: !stacked, vertical: stacked)
+            }
+            .buttonStyle(.pill(.soft(.surfaceAlt, .textPrimary), fullWidth: stacked, height: 44))
+            .accessibilityIdentifier("contractionWaterBroke")
         }
     }
 

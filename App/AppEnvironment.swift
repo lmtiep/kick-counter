@@ -159,6 +159,7 @@ struct AppEnvironment {
         // read as the timer screen does (the pinnable AppClock).
         let contractions = ContractionCoordinator(
             store: contractionStore,
+            markers: LabourMarkerStore(context: container.mainContext),
             liveActivities: isUITesting
                 ? NoopContractionLiveActivityManager(isAvailable: !arguments.contains("-contractionLiveActivitiesOff"))
                 : SystemContractionLiveActivityManager(),

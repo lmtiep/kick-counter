@@ -980,6 +980,33 @@ enum L10n {
     }
     static var contractionHistoryDeleteConfirm: String { t("contraction.history.delete.confirm") }
     static var contractionHistoryDeleteMessage: String { t("contraction.history.delete.message") }
+    // Editing contractions (edit spec 2026-11-06).
+    static var contractionEditTitle: String { t("contraction.edit.title") }
+    static var contractionAddTitle: String { t("contraction.add.title") }
+    static var contractionEditStart: String { t("contraction.edit.start") }
+    static var contractionEditEnd: String { t("contraction.edit.end") }
+    static var contractionEditDuration: String { t("contraction.edit.duration") }
+    static var contractionEditHint: String { t("contraction.edit.hint") }
+    static var contractionEditErrorFuture: String { t("contraction.edit.error.future") }
+    static var contractionEditErrorEndBeforeStart: String { t("contraction.edit.error.endBeforeStart") }
+    static var contractionEditErrorTooShort: String { t("contraction.edit.error.tooShort") }
+    static var contractionEditErrorTooLong: String { t("contraction.edit.error.tooLong") }
+    static var contractionEditErrorOverlap: String { t("contraction.edit.error.overlap") }
+    static var contractionEditErrorNotEditable: String { t("contraction.edit.error.notEditable") }
+    static func contractionEditMessage(_ error: ContractionEditError) -> String {
+        switch error {
+        case .startInFuture, .endInFuture: contractionEditErrorFuture
+        case .endNotAfterStart: contractionEditErrorEndBeforeStart
+        case .tooShort: contractionEditErrorTooShort
+        case .tooLong: contractionEditErrorTooLong
+        case .overlapsNeighbour: contractionEditErrorOverlap
+        case .notEditable: contractionEditErrorNotEditable
+        }
+    }
+    static var contractionWaterBrokeButton: String { t("contraction.waterBroke.button") }
+    static var contractionWaterBrokeWhen: String { t("contraction.waterBroke.when") }
+    static func contractionWaterBrokeAt(_ time: String) -> String { String(format: t("contraction.waterBroke.at"), time) }
+    static var contractionWaterBrokeDeleteConfirm: String { t("contraction.waterBroke.delete.confirm") }
     static var kicksContractionsLink: String { t("kicks.contractionsLink") }
     static var kicksContractionsLinkDetail: String { t("kicks.contractionsLink.detail") }
     static var pregnancyShortcutContractions: String { t("pregnancy.shortcut.contractions") }
