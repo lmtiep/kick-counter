@@ -1,6 +1,6 @@
 # When a pregnancy ends: loss and birth (1.1, item 4)
 
-Date: 2026-11-05 · Status: draft for owner approval · Branch: `feat/pregnancy-ending`
+Date: 2026-11-05 · Status: owner decisions in; awaiting approval of the doc · Branch: `feat/pregnancy-ending`
 
 ## 1. Intent
 
@@ -209,6 +209,11 @@ CycleLog rows also hold cycle data.
 **Backup.**
 - Memories go into the backup like other data *(controller's call)*.
 - The export screen already offers a password and has it on by default.
+
+**Loss-branch memory content (owner decision).** The same content as the birth
+branch, kicks and contractions included: she chose to keep it. The loss page is
+softer: it opens with the dates and her own words or title, not with numbers,
+and it has no fruit art.
 
 **Pregnant again.** `ImPregnantSheet` clears the ended state, the pause and
 the check-ins. Memories stay, listed newest first, with no cap.
