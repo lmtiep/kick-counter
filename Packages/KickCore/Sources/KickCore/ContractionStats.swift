@@ -18,6 +18,8 @@ public struct ContractionEntry: Equatable, Sendable, Identifiable {
 public struct ContractionEpisode: Equatable, Sendable, Identifiable {
     /// Oldest first, never empty.
     public let entries: [ContractionEntry]
+    /// "Vỡ ối" markers that fall in this episode (`ContractionStats`), oldest first.
+    public internal(set) var markers: [LabourMarkerRecord] = []
 
     /// The first contraction's id: stable while that contraction exists.
     public var id: UUID { entries[0].id }
@@ -61,6 +63,8 @@ public struct ContractionDay: Equatable, Sendable, Identifiable {
     public let day: CalendarDay
     /// Newest first.
     public let episodes: [ContractionEpisode]
+    /// Markers of this day that belong to no episode, oldest first.
+    public let markers: [LabourMarkerRecord]
     public var id: Int { day.key }
 }
 
@@ -83,13 +87,24 @@ public struct ContractionStats: Equatable, Sendable {
     /// only decides what the list and the Live Activity show.
     public let alertRun: ContractionEpisode?
     public let alert: ContractionAlert
+    /// The markers the timer screen lists: those in the current episode and
+    /// the recent ones in none (made after "Kết thúc theo dõi", or before the
+    /// first contraction), oldest first.
+    public let currentMarkers: [LabourMarkerRecord]
+    /// Markers in no episode and not current: the history shows them by day.
+    public let pastLooseMarkers: [LabourMarkerRecord]
 
     /// `week` is nil when the pregnancy week is unknown. `episodeEndedAt` is
     /// when "Kết thúc theo dõi" was last tapped: contractions that start after
     /// it begin a new episode, and the one it ended is no longer current.
-    public init(contractions: [ContractionRecord], now: Date, week: GestationalWeek?, episodeEndedAt: Date? = nil) {
+    public init(
+        contractions: [ContractionRecord], now: Date, week: GestationalWeek?, episodeEndedAt: Date? = nil,
+        markers: [LabourMarkerRecord] = []
+    ) {
         let records = ContractionRules.normalized(contractions, now: now)
-        let episodes = Self.episodes(records, now: now, endedAt: episodeEndedAt)
+        let (episodes, loose) = Self.attach(
+            markers, to: Self.episodes(records, now: now, endedAt: episodeEndedAt), endedAt: episodeEndedAt
+        )
         self.episodes = episodes
 
         if let last = episodes.last,
@@ -100,6 +115,11 @@ public struct ContractionStats: Equatable, Sendable {
             currentEpisode = nil
         }
         running = currentEpisode?.entries.last.flatMap { $0.isRunning ? $0 : nil }
+        let recentLoose = loose.filter { marker in
+            marker.at >= now.addingTimeInterval(-ContractionRules.episodeGap) && (episodeEndedAt.map { marker.at > $0 } ?? true)
+        }
+        currentMarkers = ((currentEpisode?.markers ?? []) + recentLoose).sorted { $0.at < $1.at }
+        pastLooseMarkers = loose.filter { marker in !recentLoose.contains { $0.id == marker.id } }
 
         let windowStart = now.addingTimeInterval(-ContractionRules.window)
         let inWindow = episodes.flatMap(\.completed).filter { $0.startedAt >= windowStart }
@@ -120,19 +140,48 @@ public struct ContractionStats: Equatable, Sendable {
         episodes.reversed().filter { $0.id != currentEpisode?.id }
     }
 
-    /// The past episodes grouped by the day of their first start in `calendar`,
-    /// newest day first.
+    /// The past episodes, and the markers in no episode, grouped by the day of
+    /// the episode's first start (or the marker's time) in `calendar`, newest
+    /// day first.
     public func pastEpisodesByDay(calendar: Calendar) -> [ContractionDay] {
-        var days: [ContractionDay] = []
+        var episodesByDay: [CalendarDay: [ContractionEpisode]] = [:]
         for episode in pastEpisodes {
-            let day = CalendarDay(episode.startedAt, calendar: calendar)
-            if let last = days.last, last.day == day {
-                days[days.count - 1] = ContractionDay(day: day, episodes: last.episodes + [episode])
-            } else {
-                days.append(ContractionDay(day: day, episodes: [episode]))
-            }
+            episodesByDay[CalendarDay(episode.startedAt, calendar: calendar), default: []].append(episode)
         }
-        return days
+        var markersByDay: [CalendarDay: [LabourMarkerRecord]] = [:]
+        for marker in pastLooseMarkers {
+            markersByDay[CalendarDay(marker.at, calendar: calendar), default: []].append(marker)
+        }
+        let days = Set(episodesByDay.keys).union(markersByDay.keys).sorted(by: >)
+        return days.map { ContractionDay(day: $0, episodes: episodesByDay[$0] ?? [], markers: markersByDay[$0] ?? []) }
+    }
+
+    /// Puts each known marker in the episode nearest to it (within
+    /// `episodeGap` of the episode's first or last start); the rest are loose.
+    /// A marker made after "Kết thúc theo dõi" never joins an episode that mark ended.
+    private static func attach(
+        _ markers: [LabourMarkerRecord], to episodes: [ContractionEpisode], endedAt: Date?
+    ) -> (episodes: [ContractionEpisode], loose: [LabourMarkerRecord]) {
+        var attached = Array(repeating: [LabourMarkerRecord](), count: episodes.count)
+        var loose: [LabourMarkerRecord] = []
+        for marker in markers.filter(\.isWaterBroke).sorted(by: { $0.at < $1.at }) {
+            var best: (index: Int, distance: TimeInterval)?
+            for (index, episode) in episodes.enumerated() {
+                if let endedAt, marker.at > endedAt, episode.lastStartedAt <= endedAt { continue }
+                let distance = marker.at < episode.startedAt
+                    ? episode.startedAt.timeIntervalSince(marker.at)
+                    : max(0, marker.at.timeIntervalSince(episode.lastStartedAt))
+                guard distance <= ContractionRules.episodeGap else { continue }
+                if best == nil || distance <= best!.distance { best = (index, distance) }
+            }
+            if let best { attached[best.index].append(marker) } else { loose.append(marker) }
+        }
+        let joined = zip(episodes, attached).map { episode, markers in
+            var episode = episode
+            episode.markers = markers
+            return episode
+        }
+        return (joined, loose)
     }
 
     private static func episodes(_ records: [ContractionRecord], now: Date, endedAt marker: Date?) -> [ContractionEpisode] {

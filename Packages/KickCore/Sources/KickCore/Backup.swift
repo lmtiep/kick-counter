@@ -27,6 +27,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     /// Timed contractions (phase 20). Optional in the file like `pillDoses`:
     /// missing means none, and an empty list is not written.
     public var contractions: [ContractionDTO] = []
+    /// Labour markers such as "Vỡ ối" (edit spec 2026-11-06). Optional in the
+    /// file like `contractions`: missing means none, and an empty list is not written.
+    public var labourMarkers: [LabourMarkerDTO] = []
     /// Typed by `BackupSettings.table`; keys outside the table are dropped on decode.
     public var settings: [String: BackupValue]
 
@@ -60,7 +63,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, settings
+        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, labourMarkers, settings
     }
 
     public init(from decoder: Decoder) throws {
@@ -76,6 +79,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         weights = try container.decode([WeightDTO].self, forKey: .weights)
         pillDoses = try container.decodeIfPresent([PillDoseDTO].self, forKey: .pillDoses) ?? []
         contractions = try container.decodeIfPresent([ContractionDTO].self, forKey: .contractions) ?? []
+        labourMarkers = try container.decodeIfPresent([LabourMarkerDTO].self, forKey: .labourMarkers) ?? []
         let raw = try container.decode([String: BackupJSONScalar].self, forKey: .settings)
         settings = BackupSettings.typed(raw)
     }
@@ -96,6 +100,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         }
         if !contractions.isEmpty {
             try container.encode(contractions, forKey: .contractions)
+        }
+        if !labourMarkers.isEmpty {
+            try container.encode(labourMarkers, forKey: .labourMarkers)
         }
         try container.encode(settings, forKey: .settings)
     }
@@ -304,6 +311,23 @@ public struct ContractionDTO: Equatable, Sendable, Codable {
     }
 }
 
+/// A labour marker; `kind` is the raw value, kept as written.
+public struct LabourMarkerDTO: Equatable, Sendable, Codable {
+    public var id: UUID
+    public var kind: String
+    public var at: Date
+
+    public init(_ record: LabourMarkerRecord) {
+        id = record.id
+        kind = record.kind
+        at = record.at
+    }
+
+    public var record: LabourMarkerRecord {
+        LabourMarkerRecord(id: id, kind: kind, at: at)
+    }
+}
+
 // MARK: - Records
 
 /// Every record a backup carries, as the stores hold them (`BackupStore` in KickData).
@@ -316,6 +340,7 @@ public struct BackupRecords: Equatable, Sendable {
     public var weights: [WeightRecord]
     public var pillDoses: [PillDoseRecord]
     public var contractions: [ContractionRecord]
+    public var labourMarkers: [LabourMarkerRecord]
 
     public init(
         sessions: [SessionRecord],
@@ -324,7 +349,8 @@ public struct BackupRecords: Equatable, Sendable {
         logs: [CycleLogDTO],
         weights: [WeightRecord],
         pillDoses: [PillDoseRecord] = [],
-        contractions: [ContractionRecord] = []
+        contractions: [ContractionRecord] = [],
+        labourMarkers: [LabourMarkerRecord] = []
     ) {
         self.sessions = sessions
         self.appointments = appointments
@@ -333,6 +359,7 @@ public struct BackupRecords: Equatable, Sendable {
         self.weights = weights
         self.pillDoses = pillDoses
         self.contractions = contractions
+        self.labourMarkers = labourMarkers
     }
 }
 
@@ -346,6 +373,7 @@ extension BackupDocument {
         cycleLogs = records.logs
         pillDoses = records.pillDoses.map(PillDoseDTO.init)
         contractions = records.contractions.map(ContractionDTO.init)
+        labourMarkers = records.labourMarkers.map(LabourMarkerDTO.init)
     }
 
     public var records: BackupRecords {
@@ -356,7 +384,8 @@ extension BackupDocument {
             logs: cycleLogs,
             weights: weights.map(\.record),
             pillDoses: pillDoses.map(\.record),
-            contractions: contractions.map(\.record)
+            contractions: contractions.map(\.record),
+            labourMarkers: labourMarkers.map(\.record)
         )
     }
 }

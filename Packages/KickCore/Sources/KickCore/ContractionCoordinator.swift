@@ -15,6 +15,15 @@ public enum ContractionToggleAction: String, Equatable, Sendable {
     case stop
 }
 
+/// What an edit, an added missed contraction or a marker came to.
+public enum ContractionEditOutcome: Equatable, Sendable {
+    case saved
+    /// Refused before anything was written; the sheet shows why.
+    case invalid(ContractionEditError)
+    /// The store failed (`ContractionCoordinator.failure` is set).
+    case failed
+}
+
 /// What a tap on the big button did.
 public enum ContractionToggle: Equatable, Sendable {
     /// A new contraction is running (after closing a forgotten one at
@@ -40,6 +49,8 @@ public enum ContractionToggle: Equatable, Sendable {
 public final class ContractionCoordinator {
     /// Every stored contraction, oldest start first.
     public private(set) var contractions: [ContractionRecord] = []
+    /// Every stored labour marker ("Vỡ ối"), oldest first.
+    public private(set) var markers: [LabourMarkerRecord] = []
     /// When "Kết thúc theo dõi" was last tapped (`SettingsKey.contractionEpisodeEndedAt`).
     public private(set) var episodeEndedAt: Date?
     /// Store errors for the screen's alert.
@@ -52,6 +63,7 @@ public final class ContractionCoordinator {
     private var lastToggleAt: Date?
 
     private let store: ContractionRepository
+    private let markerStore: LabourMarkerRepository
     private let liveActivities: ContractionLiveActivityManaging
     private let notifications: NotificationScheduler?
     private let alertText: @MainActor (ContractionAlert) -> NotificationText?
@@ -69,6 +81,7 @@ public final class ContractionCoordinator {
     ///   - undoWindow: how long "Hoàn tác" is offered (UI tests lengthen it).
     public init(
         store: ContractionRepository,
+        markers markerStore: LabourMarkerRepository = InMemoryLabourMarkerRepository(),
         liveActivities: ContractionLiveActivityManaging,
         notifications: NotificationScheduler? = nil,
         alertText: @escaping @MainActor (ContractionAlert) -> NotificationText? = { _ in nil },
@@ -78,6 +91,7 @@ public final class ContractionCoordinator {
         now: @escaping @MainActor () -> Date = { Date() }
     ) {
         self.store = store
+        self.markerStore = markerStore
         self.liveActivities = liveActivities
         self.notifications = notifications
         self.alertText = alertText
@@ -111,7 +125,9 @@ public final class ContractionCoordinator {
     /// The screen's numbers and alert at `date` (default: now). `week` is nil
     /// when the pregnancy week is unknown.
     public func stats(week: GestationalWeek?, at date: Date? = nil) -> ContractionStats {
-        ContractionStats(contractions: contractions, now: date ?? now(), week: week, episodeEndedAt: episodeEndedAt)
+        ContractionStats(
+            contractions: contractions, now: date ?? now(), week: week, episodeEndedAt: episodeEndedAt, markers: markers
+        )
     }
 
     /// Re-reads the store and the episode mark, closes a forgotten contraction
@@ -233,6 +249,95 @@ public final class ContractionCoordinator {
         return true
     }
 
+    // MARK: - Editing (edit spec 2026-11-06)
+
+    /// Moves a completed contraction to `start`...`end`. The live-timing rules
+    /// apply (`ContractionEditRules`); nothing is written when they refuse.
+    /// A running contraction is not editable: stop it first.
+    @discardableResult
+    public func update(id: UUID, start: Date, end: Date) async -> ContractionEditOutcome {
+        await change { contractions, time in
+            guard let current = contractions.first(where: { $0.id == id }), !current.isRunning else {
+                return .invalid(.notEditable)
+            }
+            if let error = ContractionEditRules.validate(id: id, start: start, end: end, existing: contractions, now: time) {
+                return .invalid(error)
+            }
+            var edited = current
+            edited.startedAt = start
+            edited.endedAt = end
+            return write { try store.save(edited) } ? .saved : .failed
+        }
+    }
+
+    /// Adds a contraction she did not time: it joins the episode its time falls in.
+    @discardableResult
+    public func addMissed(start: Date, duration: TimeInterval) async -> ContractionEditOutcome {
+        await change { contractions, time in
+            let end = start.addingTimeInterval(duration)
+            if let error = ContractionEditRules.validate(id: nil, start: start, end: end, existing: contractions, now: time) {
+                return .invalid(error)
+            }
+            let record = ContractionRecord(startedAt: start, endedAt: end)
+            return write { try store.save(record) } ? .saved : .failed
+        }
+    }
+
+    /// "Vỡ ối": records when the water broke.
+    @discardableResult
+    public func markWaterBroke(at time: Date) async -> ContractionEditOutcome {
+        await changeMarkers { _, now in
+            if let error = ContractionEditRules.validateMarker(at: time, now: now) { return .invalid(error) }
+            let record = LabourMarkerRecord(at: time)
+            return write { try markerStore.save(record) } ? .saved : .failed
+        }
+    }
+
+    @discardableResult
+    public func updateMarker(id: UUID, at time: Date) async -> ContractionEditOutcome {
+        await changeMarkers { markers, now in
+            guard var marker = markers.first(where: { $0.id == id }) else { return .invalid(.notEditable) }
+            if let error = ContractionEditRules.validateMarker(at: time, now: now) { return .invalid(error) }
+            marker.at = time
+            return write { try markerStore.save(marker) } ? .saved : .failed
+        }
+    }
+
+    public func deleteMarker(id: UUID) async {
+        await changeMarkers { _, _ in
+            write { try markerStore.delete(ids: [id]) } ? .saved : .failed
+        }
+    }
+
+    /// Runs `edit` on the freshly read contractions, then recomputes: reads the
+    /// store again, reconciles the Live Activity and posts the alert's
+    /// notification when this edit newly turned it on (never when it turned it off).
+    private func change(
+        _ edit: ([ContractionRecord], Date) -> ContractionEditOutcome
+    ) async -> ContractionEditOutcome {
+        guard refresh() else { return .failed }
+        let time = now()
+        let week = week()
+        let alertBefore = stats(week: week, at: time).alert
+        let outcome = edit(contractions, time)
+        guard outcome == .saved else { return outcome }
+        lastToggle = nil
+        lastToggleAt = nil
+        refresh()
+        await syncLiveActivity()
+        await notifyAlert(before: alertBefore, week: week, at: time)
+        return outcome
+    }
+
+    private func changeMarkers(
+        _ edit: ([LabourMarkerRecord], Date) -> ContractionEditOutcome
+    ) async -> ContractionEditOutcome {
+        guard refresh() else { return .failed }
+        let outcome = edit(markers, now())
+        if outcome == .saved { refresh() }
+        return outcome
+    }
+
     /// Partner mode, or the app left pregnancy mode: ends every contraction Live
     /// Activity, keeping the contractions and the episode. `load()` shows the
     /// current episode again when pregnancy mode comes back.
@@ -250,6 +355,7 @@ public final class ContractionCoordinator {
     /// everything shown and ends the Live Activity. Call right after.
     public func resetAfterDataDeletion() async {
         contractions = []
+        markers = []
         episodeEndedAt = nil
         lastToggle = nil
         lastToggleAt = nil
@@ -300,6 +406,7 @@ public final class ContractionCoordinator {
     private func refresh() -> Bool {
         do {
             contractions = try store.contractions()
+            markers = try markerStore.markers()
             if failure == .loadFailed { failure = nil }
             return true
         } catch {
