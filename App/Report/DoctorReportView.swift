@@ -244,14 +244,7 @@ private struct ReportPreviewCover: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            Color.white.ignoresSafeArea()
-            if let image = preview.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .ignoresSafeArea()
-            }
+        VStack(spacing: 0) {
             HStack {
                 Text(verbatim: "pages: \(preview.pageCount)")
                     .font(.caption)
@@ -261,7 +254,15 @@ private struct ReportPreviewCover: View {
                     .accessibilityIdentifier("reportPreviewClose")
             }
             .padding(8)
+            if let image = preview.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+            }
+            Spacer(minLength: 0)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
     }
 }
 #endif

@@ -45,15 +45,17 @@ final class DoctorReportScreenshotTests: XCTestCase {
     /// The first page of each PDF, full screen from the preview flag.
     @MainActor
     func testFirstPageOfThePDF() {
-        let cases: [(String, Bool, [String])] = [
-            ("vi", false, Self.data), ("en", false, Self.data), ("vi", true, []),
+        // The last one: the whole pregnancy, which can run to a second page.
+        let cases: [(String, Bool, [String], Int)] = [
+            ("vi", false, Self.data, 0), ("en", false, Self.data, 0), ("vi", true, [], 0), ("vi", false, Self.data, 2),
         ]
-        for (language, cycle, extra) in cases {
+        for (language, cycle, extra, range) in cases {
             let app = XCUIApplication.launchPinned(
                 language: language, dueDate: cycle ? nil : UITestDates.dueAtWeek24,
                 seedCycles: cycle ? "irregular" : nil, extraArguments: extra + ["-uiTestingReportPreview"]
             )
             openReport(app, cycle: cycle)
+            if range > 0 { app.buttons["reportRange-\(range)"].tap() }
             if !cycle {
                 let name = app.textFields["reportName"]
                 name.tap()
@@ -63,7 +65,7 @@ final class DoctorReportScreenshotTests: XCTestCase {
             app.scrollUntilHittable(export)
             export.tap()
             XCTAssertTrue(app.staticTexts["reportPageCount"].waitForExistence(timeout: 20))
-            attachScreenshot(app, "report-pdf-\(cycle ? "cycle" : "pregnancy")-\(language)")
+            attachScreenshot(app, "report-pdf-\(cycle ? "cycle" : "pregnancy")-\(language)\(range > 0 ? "-whole" : "")")
             app.terminate()
         }
     }
