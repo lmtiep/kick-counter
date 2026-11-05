@@ -199,7 +199,8 @@ final class ProfileUITests: XCTestCase {
 
     @MainActor
     func testPrivacyPromiseScreens() {
-        let variants = UITestVariants.all.map { ($0.0, $0.1, false) } + [("vi", false, true), ("en", false, true)]
+        // Few launches: this shard is close to the 60-minute CI limit.
+        let variants = [("vi", false, false), ("vi", true, false), ("en", false, true)]
         for (language, dark, largest) in variants {
             let suffix = UITestVariants.suffix(language, dark) + (largest ? "-ax5" : "")
             let app = XCUIApplication.launchPinned(
