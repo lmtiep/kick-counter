@@ -19,9 +19,22 @@ extension UTType {
 final class BackupCenter {
     struct Request: Identifiable {
         let id = UUID()
-        /// The file's document after `BackupValidation`, and how many records it dropped;
-        /// or why the file cannot be read. A decode error never touches any data.
-        let result: Result<(document: BackupDocument, skipped: Int), BackupError>
+        let content: Content
+    }
+
+    enum Content {
+        /// The file's document after `BackupValidation`, and how many records it dropped.
+        case ready(document: BackupDocument, skipped: Int)
+        /// A password-protected file (1.1), kept in memory only until it is opened
+        /// or the sheet closes; nothing in it has been read yet.
+        case locked(Data)
+        /// Why the file cannot be read. A decode error never touches any data.
+        case failed(BackupError)
+    }
+
+    enum UnlockResult: Equatable {
+        case opened
+        case wrongPassword
     }
 
     var request: Request?
@@ -42,26 +55,70 @@ final class BackupCenter {
         }
         do {
             let size = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
-            guard size <= BackupCodec.maxFileSize else {
-                request = Request(result: .failure(.corrupt))
+            // A sealed file is the JSON plus a header and a tag.
+            guard size <= BackupCodec.maxFileSize + BackupEncryption.headerLength + BackupEncryption.tagLength else {
+                request = Request(content: .failed(.corrupt))
                 return
             }
             open(data: try Data(contentsOf: url))
         } catch {
             logger.error("Reading a backup file failed: \(error.localizedDescription)")
-            request = Request(result: .failure(.corrupt))
+            request = Request(content: .failed(.corrupt))
         }
     }
 
     func open(data: Data) {
+        if BackupEncryption.isEncrypted(data) {
+            // Only the header is read here; a file this build cannot open says so now.
+            do {
+                _ = try BackupEncryption.parameters(of: data)
+                request = Request(content: .locked(data))
+            } catch BackupEncryptionError.unsupportedVersion(let version) where version > BackupEncryption.formatVersion {
+                request = Request(content: .failed(.newerVersion(Int(version))))
+            } catch {
+                request = Request(content: .failed(.corrupt))
+            }
+            return
+        }
+        decode(data)
+    }
+
+    /// Opens a password-protected file. A wrong password (or a damaged file: AES-GCM
+    /// cannot tell them apart) changes nothing and the sheet asks again; otherwise
+    /// the decrypted JSON goes through the same decoding and validation as a plain
+    /// file. The key derivation runs off the main actor. The password is not kept.
+    func unlock(_ data: Data, password: String) async -> UnlockResult {
+        let opened = await Task.detached(priority: .userInitiated) { () -> Result<Data, BackupEncryptionError> in
+            do {
+                return .success(try BackupEncryption.open(data, password: password))
+            } catch let error as BackupEncryptionError {
+                return .failure(error)
+            } catch {
+                return .failure(.wrongPassword)
+            }
+        }.value
+        switch opened {
+        case .success(let json):
+            decode(json)
+            return .opened
+        case .failure(.wrongPassword):
+            logger.info("A protected backup did not open: wrong password or damaged file")
+            return .wrongPassword
+        case .failure:
+            request = Request(content: .failed(.corrupt))
+            return .opened
+        }
+    }
+
+    private func decode(_ data: Data) {
         do {
             let document = try BackupCodec.decode(data)
             let cleaned = BackupValidation.clean(document, now: AppClock.now(), calendar: AppLocale.calendar)
-            request = Request(result: .success((cleaned.0, cleaned.skipped)))
+            request = Request(content: .ready(document: cleaned.0, skipped: cleaned.skipped))
         } catch let error as BackupError {
-            request = Request(result: .failure(error))
+            request = Request(content: .failed(error))
         } catch {
-            request = Request(result: .failure(.corrupt))
+            request = Request(content: .failed(.corrupt))
         }
     }
 
@@ -78,25 +135,44 @@ final class BackupCenter {
         BackupLeftovers.removeAll(documents: documents, temporary: fileManager.temporaryDirectory)
     }
 
+    /// Remembers the first day the app is used, for the backup reminder (1.1).
+    static func recordUse() {
+        BackupReminderStore.recordUse(in: AppGroup.defaults, now: AppClock.now())
+    }
+
     /// Whether `url` is a backup this app should open (`onOpenURL`).
     static func isBackupFile(_ url: URL) -> Bool {
         url.isFileURL && url.pathExtension.lowercased() == BackupFormat.fileExtension
     }
 
     /// Writes `LunaMom-YYYY-MM-DD.lunamom` with every record and the owned settings
-    /// to a fresh temporary folder (spec §4.1).
-    static func makeExportFile(container: ModelContainer, now: Date) throws -> URL {
+    /// to a fresh temporary folder (spec §4.1). With a password (1.1) the JSON is
+    /// sealed by `BackupEncryption` off the main actor and only the sealed bytes
+    /// are written; the password is used for this call only and never stored.
+    static func makeExportFile(container: ModelContainer, now: Date, password: String?) async throws -> URL {
         let document = BackupDocument(
             createdAt: now,
             appVersion: appVersion,
             records: try BackupStore.export(from: container),
             settings: BackupSettings.read(from: AppGroup.defaults)
         )
+        var bytes = try BackupCodec.encode(document)
+        if let password {
+            let plain = bytes
+            bytes = try await Task.detached(priority: .userInitiated) {
+                try BackupEncryption.seal(plain, password: password)
+            }.value
+        }
         let folder = FileManager.default.temporaryDirectory
             .appendingPathComponent("\(BackupLeftovers.exportFolderPrefix)\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let url = folder.appendingPathComponent(BackupDocument.fileName(for: now, calendar: AppLocale.calendar))
-        try BackupCodec.encode(document).write(to: url, options: [.atomic, .completeFileProtection])
+        do {
+            try bytes.write(to: url, options: [.atomic, .completeFileProtection])
+        } catch {
+            try? FileManager.default.removeItem(at: folder)
+            throw error
+        }
         return url
     }
 

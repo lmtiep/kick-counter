@@ -800,6 +800,23 @@
         }
       }
     },
+    "backup.export.create": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create backup file"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tạo file sao lưu"
+          }
+        }
+      }
+    },
     "backup.export.failed": {
       "extractionState": "manual",
       "localizations": {
@@ -864,6 +881,397 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lần sao lưu gần nhất: %@"
+          }
+        }
+      }
+    },
+    "backup.move.intro": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your data is only on this iPhone. To take it to a new one, use a backup file."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dữ liệu chỉ nằm trên iPhone này. Để mang sang máy mới, hãy dùng file sao lưu."
+          }
+        }
+      }
+    },
+    "backup.move.row": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move to a new iPhone"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển sang iPhone mới"
+          }
+        }
+      }
+    },
+    "backup.move.step": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step %ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bước %ld"
+          }
+        }
+      }
+    },
+    "backup.move.step1.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By email, Zalo, AirDrop or Files. A password is recommended."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qua email, Zalo, AirDrop hoặc ứng dụng Tệp. Nên đặt mật khẩu cho file."
+          }
+        }
+      }
+    },
+    "backup.move.step1.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back up and send the file to yourself"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sao lưu và gửi file cho chính bạn"
+          }
+        }
+      }
+    },
+    "backup.move.step2.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "From the App Store. You can restore right from the welcome screen."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tải từ App Store. Có thể khôi phục ngay từ màn hình chào."
+          }
+        }
+      }
+    },
+    "backup.move.step2.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Install Luna Mom on the new iPhone"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cài Luna Mom trên iPhone mới"
+          }
+        }
+      }
+    },
+    "backup.move.step3.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap the file in Mail, Zalo or Files and choose Luna Mom, or use “Restore from a file” in Profile."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chạm vào file trong Mail, Zalo hoặc Tệp rồi chọn Luna Mom, hoặc dùng “Khôi phục từ file” trong mục Cá nhân."
+          }
+        }
+      }
+    },
+    "backup.move.step3.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the file there and tap Restore"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở file trên máy mới và chạm Khôi phục"
+          }
+        }
+      }
+    },
+    "backup.now": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back up now"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sao lưu ngay"
+          }
+        }
+      }
+    },
+    "backup.protect.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter the password again"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập lại mật khẩu"
+          }
+        }
+      }
+    },
+    "backup.protect.detail": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The file contains health data. A password is a good idea if you send it by email or Zalo."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File chứa dữ liệu sức khoẻ. Nên đặt mật khẩu nếu bạn gửi qua email hoặc Zalo."
+          }
+        }
+      }
+    },
+    "backup.protect.hide": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide password"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ẩn mật khẩu"
+          }
+        }
+      }
+    },
+    "backup.protect.mismatch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The two passwords don't match."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hai mật khẩu chưa khớp nhau."
+          }
+        }
+      }
+    },
+    "backup.protect.off": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Without a password, anyone who gets the file can read it."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không đặt mật khẩu thì ai có file cũng đọc được."
+          }
+        }
+      }
+    },
+    "backup.protect.password": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Password"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mật khẩu"
+          }
+        }
+      }
+    },
+    "backup.protect.show": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show password"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện mật khẩu"
+          }
+        }
+      }
+    },
+    "backup.protect.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protect the file with a password"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bảo vệ file bằng mật khẩu"
+          }
+        }
+      }
+    },
+    "backup.protect.tooShort": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "At least 6 characters."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ít nhất 6 ký tự."
+          }
+        }
+      }
+    },
+    "backup.protect.warning": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you forget the password, the file can't be opened again. Luna Mom doesn't keep the password anywhere."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quên mật khẩu sẽ không mở lại được file — Luna Mom không lưu mật khẩu ở đâu cả."
+          }
+        }
+      }
+    },
+    "backup.reminder.last": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last backup: %@. A backup keeps your data safe if you change or lose your phone."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lần sao lưu gần nhất: %@. Sao lưu giúp giữ dữ liệu khi bạn đổi hoặc mất điện thoại."
+          }
+        }
+      }
+    },
+    "backup.reminder.never": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You haven't backed up yet. A backup keeps your data safe if you change or lose your phone."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn chưa sao lưu lần nào. Sao lưu giúp giữ dữ liệu khi bạn đổi hoặc mất điện thoại."
+          }
+        }
+      }
+    },
+    "backup.reminder.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It's been a while since your last backup"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã lâu chưa sao lưu"
           }
         }
       }
@@ -1085,6 +1493,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dữ liệu"
+          }
+        }
+      }
+    },
+    "backup.unlock.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter the password you set when you made this backup."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhập mật khẩu bạn đã đặt khi sao lưu."
+          }
+        }
+      }
+    },
+    "backup.unlock.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open file"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở file"
+          }
+        }
+      }
+    },
+    "backup.unlock.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This file has a password"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "File có mật khẩu"
+          }
+        }
+      }
+    },
+    "backup.unlock.wrong": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wrong password. Please try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mật khẩu không đúng. Hãy thử lại."
           }
         }
       }

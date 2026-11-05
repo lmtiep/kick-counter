@@ -24,12 +24,14 @@ struct RestoreBackupSheet: View {
     @State private var failed = false
 
     var body: some View {
-        switch request.result {
-        case .success(let file):
+        switch request.content {
+        case .locked(let data):
+            UnlockBackupView(data: data)
+        case .ready(let document, let skipped):
             LunaSheet(title: L10n.backupRestoreTitle, titleIdentifier: "restoreBackupTitle") {
-                summaryCard(file.document.summary)
+                summaryCard(document.summary)
                     .padding(.top, 14)
-                warningCard(skipped: file.skipped)
+                warningCard(skipped: skipped)
                     .padding(.top, 12)
                 if failed {
                     Text(L10n.backupRestoreFailed)
@@ -40,7 +42,7 @@ struct RestoreBackupSheet: View {
                         .accessibilityIdentifier("restoreBackupFailed")
                 }
                 Button {
-                    Task { await restore(file.document) }
+                    Task { await restore(document) }
                 } label: {
                     HStack(spacing: 8) {
                         if working {
@@ -60,7 +62,7 @@ struct RestoreBackupSheet: View {
                     .accessibilityIdentifier("restoreBackupCancel")
             }
             .interactiveDismissDisabled(working)
-        case .failure(let error):
+        case .failed(let error):
             LunaSheet(title: L10n.backupErrorTitle, titleIdentifier: "restoreBackupTitle") {
                 Label {
                     Text(L10n.backupError(error))

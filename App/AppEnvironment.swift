@@ -68,6 +68,11 @@ struct AppEnvironment {
             if let mode = AppClock.launchOptions.seedAppMode {
                 AppMode.save(mode, to: AppGroup.defaults)
             }
+            // 1.1: a last backup that many days before the pinned now (the reminder card).
+            if let days = options.seedLastBackupDaysAgo {
+                let lastBackup = AppLocale.calendar.date(byAdding: .day, value: -days, to: AppClock.now()) ?? AppClock.now()
+                AppGroup.defaults.set(lastBackup, forKey: SettingsKey.lastBackupAt)
+            }
         }
         #endif
         // Phase 12 spec §3.2: with partner mode hidden, someone who was following a
