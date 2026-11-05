@@ -28,7 +28,8 @@ import Foundation
 /// - `-seedLastBackupDaysAgo <days>` stores a last backup that many days before the pinned
 ///   now, so Profile shows the backup reminder card (1.1) when it is 30 or more.
 /// - `-uiTestingReportPreview` makes "Report for your doctor" write its PDF to a known path and
-///   show the first page full screen with the page count, instead of the share sheet (1.1).
+///   show its pages (scrollable) with the page count, instead of the share sheet (1.1).
+/// - `-uiTestingReportLongNote` adds an appointment with a note of about 3,000 characters to that report.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -50,6 +51,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let contractionUndoWindow: TimeInterval?
     public let seedLastBackupDaysAgo: Int?
     public let reportPreview: Bool
+    public let reportLongNote: Bool
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -84,6 +86,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
             ? Self.value(after: "-seedLastBackupDaysAgo", in: arguments).flatMap { Int($0) }.flatMap { $0 >= 0 ? $0 : nil }
             : nil
         reportPreview = isUITesting && arguments.contains("-uiTestingReportPreview")
+        reportLongNote = isUITesting && arguments.contains("-uiTestingReportLongNote")
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {

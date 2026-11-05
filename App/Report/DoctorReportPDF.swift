@@ -22,7 +22,7 @@ enum DoctorReportPDF {
     /// Writes the file into a new folder of the temp directory. The caller deletes
     /// the folder (`url.deletingLastPathComponent()`) after sharing or cancelling.
     static func write(_ data: Data, now: Date) throws -> URL {
-        let folder = FileManager.default.temporaryDirectory.appendingPathComponent("LunaReport-\(UUID().uuidString)", isDirectory: true)
+        let folder = FileManager.default.temporaryDirectory.appendingPathComponent("\(BackupLeftovers.reportFolderPrefix)\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let url = folder.appendingPathComponent(fileName(now: now))
         try data.write(to: url, options: [.atomic, .completeFileProtection])
@@ -35,11 +35,11 @@ enum DoctorReportPDF {
         return draw(content, total: pages).data
     }
 
-    /// The first page as an image, for the UI-test preview.
-    static func firstPageImage(of data: Data, scale: CGFloat = 2) -> UIImage? {
-        guard let page = PDFDocument(data: data)?.page(at: 0) else { return nil }
+    /// Every page as an image, for the UI-test preview.
+    static func pageImages(of data: Data, scale: CGFloat = 2) -> [UIImage] {
+        guard let document = PDFDocument(data: data) else { return [] }
         let size = CGSize(width: pageSize.width * scale, height: pageSize.height * scale)
-        return page.thumbnail(of: size, for: .mediaBox)
+        return (0..<document.pageCount).compactMap { document.page(at: $0)?.thumbnail(of: size, for: .mediaBox) }
     }
 
     static func pageCount(of data: Data) -> Int {
@@ -139,19 +139,50 @@ enum DoctorReportPDF {
             let titleHeight = height(table.title, font: titleFont, width: contentWidth)
             let headHeight = rowHeight(table.columns.map(\.title), widths: widths, font: headFont)
             let firstHeight = table.rows.first.map { rowHeight($0, widths: widths, font: bodyFont) } ?? 0
-            ensure(titleHeight + 8 + headHeight + firstHeight)
+            // A very tall first row is split below, so only a few lines of it must fit with the title.
+            ensure(titleHeight + 8 + headHeight + min(firstHeight, 3 * bodyFont.lineHeight + 2 * DoctorReportPDF.cellPaddingY))
             y += 8
             y += Self.draw(table.title, font: titleFont, color: Ink.accent, in: CGRect(x: DoctorReportPDF.margin, y: y, width: contentWidth, height: 200)) + 6
-            drawRow(table.columns.map(\.title), widths: widths, font: headFont, height: headHeight, fill: Ink.headerFill)
+            let headers = table.columns.map(\.title)
+            drawRow(headers, widths: widths, font: headFont, height: headHeight, fill: Ink.headerFill)
+            let minSplit = 3 * bodyFont.lineHeight + 2 * DoctorReportPDF.cellPaddingY
             for row in table.rows {
-                let h = rowHeight(row, widths: widths, font: bodyFont)
-                if y + h > bottom {
-                    endPage()
-                    beginPage()
-                    drawRow(table.columns.map(\.title), widths: widths, font: headFont, height: headHeight, fill: Ink.headerFill)
+                var cells = row
+                var attempts = 0
+                while attempts < 400 {
+                    attempts += 1
+                    let h = rowHeight(cells, widths: widths, font: bodyFont)
+                    if y + h <= bottom {
+                        drawRow(cells, widths: widths, font: bodyFont, height: h, fill: nil)
+                        break
+                    }
+                    let pageBody = bottom - DoctorReportPDF.margin - headHeight
+                    if h <= pageBody || bottom - y < minSplit {
+                        // It fits on a page of its own (or there is hardly any room left): next page.
+                        nextPage(headers: headers, widths: widths, font: headFont, height: headHeight)
+                        continue
+                    }
+                    // Taller than a page: fill this page and continue the text on the next one.
+                    let room = bottom - y - 2 * DoctorReportPDF.cellPaddingY
+                    let parts = ReportRowSplitter.split(cells: cells, fitting: Double(room)) { column, text in
+                        Double(height(text, font: bodyFont, width: widths[column] - 2 * DoctorReportPDF.cellPaddingX))
+                    }
+                    if parts.head.allSatisfy(\.isEmpty) {
+                        nextPage(headers: headers, widths: widths, font: headFont, height: headHeight)
+                        continue
+                    }
+                    drawRow(parts.head, widths: widths, font: bodyFont, height: rowHeight(parts.head, widths: widths, font: bodyFont), fill: nil)
+                    if parts.tail.allSatisfy(\.isEmpty) { break }
+                    cells = parts.tail
+                    nextPage(headers: headers, widths: widths, font: headFont, height: headHeight)
                 }
-                drawRow(row, widths: widths, font: bodyFont, height: h, fill: nil)
             }
+        }
+
+        private mutating func nextPage(headers: [String], widths: [CGFloat], font: UIFont, height: CGFloat) {
+            endPage()
+            beginPage()
+            drawRow(headers, widths: widths, font: font, height: height, fill: Ink.headerFill)
         }
 
         private func rowHeight(_ cells: [String], widths: [CGFloat], font: UIFont) -> CGFloat {

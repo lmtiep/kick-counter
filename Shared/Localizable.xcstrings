@@ -10932,6 +10932,23 @@
         }
       }
     },
+    "report.col.status": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Status"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trạng thái"
+          }
+        }
+      }
+    },
     "report.col.symptoms": {
       "extractionState": "manual",
       "localizations": {
@@ -11591,6 +11608,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "đang diễn ra"
+          }
+        }
+      }
+    },
+    "report.value.reached": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reached 10"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đủ 10 cử động"
+          }
+        }
+      }
+    },
+    "report.value.stopped": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stopped"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã dừng"
           }
         }
       }

@@ -97,6 +97,20 @@ final class DoctorReportUITests: XCTestCase {
         XCTAssertTrue(pageCount(app) >= 1)
     }
 
+    /// A note longer than the room left on a page continues on the next page (nothing is lost).
+    @MainActor
+    func testALongAppointmentNoteRunsOverToASecondPage() {
+        let app = XCUIApplication.launchPinned(
+            language: "vi", dueDate: UITestDates.dueAtWeek24,
+            extraArguments: Self.pregnancyData + ["-uiTestingReportPreview", "-uiTestingReportLongNote"]
+        )
+        openReport(app)
+        let export = app.buttons["reportExport"]
+        app.scrollUntilHittable(export)
+        export.tap()
+        XCTAssertTrue(pageCount(app) >= 2)
+    }
+
     @MainActor
     func testTheCycleReportHasTwoRangesAndAPDF() {
         let app = XCUIApplication.launchPinned(

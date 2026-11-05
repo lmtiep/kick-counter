@@ -47,9 +47,12 @@ struct ReportContent: Equatable {
             return Table(
                 title: title,
                 columns: [.init(title: L10n.reportColDate, weight: 3), .init(title: L10n.reportColTime, weight: 2),
-                          .init(title: L10n.reportColMovements, weight: 2), .init(title: L10n.reportColDuration, weight: 2)],
+                          .init(title: L10n.reportColMovements, weight: 2), .init(title: L10n.reportColDuration, weight: 2),
+                          .init(title: L10n.reportColStatus, weight: 3)],
                 rows: rows.map {
-                    [Formatting.dayMonthYear($0.startedAt), Formatting.time($0.startedAt), "\($0.count)", Formatting.duration($0.duration)]
+                    [Formatting.dayMonthYear($0.startedAt), Formatting.time($0.startedAt), "\($0.count)",
+                     $0.duration.map(Formatting.duration) ?? dash,
+                     $0.reachedTarget ? L10n.reportValueReached : L10n.reportValueStopped]
                 }
             )
         case .contractions(let rows):

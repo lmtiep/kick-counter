@@ -36,12 +36,22 @@ struct DoctorReportView: View {
     private var kinds: [ReportSectionKind] { ReportSectionKind.kinds(for: mode) }
 
     private func makeReport(now: Date) -> DoctorReport {
+        var allAppointments = appointments.upcoming + appointments.past
+        #if DEBUG
+        if AppClock.launchOptions.reportLongNote {
+            // About 3,000 characters: longer than the room left on a page.
+            allAppointments.append(AppointmentRecord(
+                date: now.addingTimeInterval(-86_400), title: "Long note",
+                note: String(repeating: "Ghi chú rất dài của lần khám. ", count: 100)
+            ))
+        }
+        #endif
         let input = DoctorReportInput(
             sessions: sessions.map(\.state),
             contractions: contractions.contractions,
             weights: weight.entries,
             logs: cycle.logs,
-            appointments: appointments.upcoming + appointments.past,
+            appointments: allAppointments,
             periods: cycle.periods,
             dueDate: dueDate > 0 ? Date(timeIntervalSince1970: dueDate) : nil
         )
@@ -227,7 +237,7 @@ struct DoctorReportView: View {
     private func showPreview(of data: Data, now: Date) {
         let path = NSTemporaryDirectory() + "LunaMom-report-uitest.pdf"
         try? data.write(to: URL(fileURLWithPath: path), options: .atomic)
-        preview = ReportPreview(pageCount: DoctorReportPDF.pageCount(of: data), image: DoctorReportPDF.firstPageImage(of: data))
+        preview = ReportPreview(pageCount: DoctorReportPDF.pageCount(of: data), images: DoctorReportPDF.pageImages(of: data))
     }
     #endif
 }
@@ -236,7 +246,7 @@ struct DoctorReportView: View {
 struct ReportPreview: Identifiable {
     let id = UUID()
     let pageCount: Int
-    let image: UIImage?
+    let images: [UIImage]
 }
 
 private struct ReportPreviewCover: View {
@@ -254,12 +264,16 @@ private struct ReportPreviewCover: View {
                     .accessibilityIdentifier("reportPreviewClose")
             }
             .padding(8)
-            if let image = preview.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
+            ScrollView {
+                VStack(spacing: 8) {
+                    ForEach(Array(preview.images.enumerated()), id: \.offset) { _, image in
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .border(Color.gray.opacity(0.4))
+                    }
+                }
             }
-            Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)

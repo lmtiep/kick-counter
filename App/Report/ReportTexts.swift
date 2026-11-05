@@ -66,6 +66,9 @@ extension L10n {
     static var reportColDays: String { t("report.col.days") }
     static var reportColBBT: String { t("report.col.bbt") }
     static var reportColLH: String { t("report.col.lh") }
+    static var reportColStatus: String { t("report.col.status") }
+    static var reportValueReached: String { t("report.value.reached") }
+    static var reportValueStopped: String { t("report.value.stopped") }
     static var reportValueOngoing: String { t("report.value.ongoing") }
     static var reportValueDone: String { t("report.value.done") }
 }

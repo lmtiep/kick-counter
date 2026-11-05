@@ -87,7 +87,10 @@ public struct DoctorReport: Equatable, Sendable {
     public struct KickRow: Equatable, Sendable {
         public var startedAt: Date
         public var count: Int
-        public var duration: TimeInterval
+        /// Start to end; nil when the session has no end.
+        public var duration: TimeInterval?
+        /// The session reached its target (completed) rather than being stopped.
+        public var reachedTarget: Bool
     }
 
     public struct ContractionRow: Equatable, Sendable {
@@ -203,7 +206,9 @@ public struct DoctorReport: Equatable, Sendable {
             header.dueDate = input.dueDate
             header.week = input.dueDate.flatMap { PregnancyTimeline(dueDate: $0, now: now, calendar: calendar)?.week }
         case .tryingToConceive:
-            let history = CycleHistory.make(periods: input.periods, logs: input.logs, now: now, calendar: calendar)
+            // The averages cover the chosen cycles only, not the whole history.
+            let chosen = input.periods.filter { calendar.startOfDay(for: $0.startDate) >= start }
+            let history = CycleHistory.make(periods: chosen, logs: [], now: now, calendar: calendar)
             header.averageCycleLength = history.averageCycleLength
             header.averagePeriodLength = history.averagePeriodLength
         case .partner:
@@ -293,11 +298,12 @@ public struct DoctorReport: Equatable, Sendable {
     }
 
     private static func kickRows(_ sessions: [SessionState], in window: Range<Date>) -> [KickRow] {
+        // Every finished session: reached the target, stopped by her, or ended by the app.
         sessions
-            .filter { $0.status == .completed && window.contains($0.startedAt) }
+            .filter { $0.status != .active && window.contains($0.startedAt) }
             .sorted { $0.startedAt < $1.startedAt }
-            .compactMap { session in
-                session.duration.map { KickRow(startedAt: session.startedAt, count: session.count, duration: $0) }
+            .map {
+                KickRow(startedAt: $0.startedAt, count: $0.count, duration: $0.duration, reachedTarget: $0.status == .completed)
             }
     }
 

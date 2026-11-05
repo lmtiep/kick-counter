@@ -69,4 +69,22 @@ final class DoctorReportScreenshotTests: XCTestCase {
             app.terminate()
         }
     }
+
+    /// A 3,000-character note: the kicks table with its status column on page 1, the note running on to page 2.
+    @MainActor
+    func testLongNotePages() {
+        let app = XCUIApplication.launchPinned(
+            language: "vi", dueDate: UITestDates.dueAtWeek24,
+            extraArguments: Self.data + ["-uiTestingReportPreview", "-uiTestingReportLongNote"]
+        )
+        openReport(app)
+        let export = app.buttons["reportExport"]
+        app.scrollUntilHittable(export)
+        export.tap()
+        XCTAssertTrue(app.staticTexts["reportPageCount"].waitForExistence(timeout: 20))
+        attachScreenshot(app, "report-pdf-longnote-page1")
+        app.swipeUp()
+        app.swipeUp()
+        attachScreenshot(app, "report-pdf-longnote-page2")
+    }
 }

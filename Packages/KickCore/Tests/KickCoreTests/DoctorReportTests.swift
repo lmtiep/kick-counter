@@ -116,14 +116,17 @@ struct DoctorReportTests {
 
     // MARK: - Pregnancy sections
 
-    @Test func kicksListCompletedSessionsOnly() {
+    @Test func kicksListEveryFinishedSessionWithItsStatus() {
         let input = DoctorReportInput(sessions: [
             session("2026-10-01T20:00:00", kicks: 10, minutes: 24),
             session("2026-10-02T09:00:00", kicks: 4, minutes: 15, status: .cancelled),
             SessionState(startedAt: at("2026-10-02T11:00:00")),
         ])
         let rows = kickRows(make(input: input))
-        #expect(rows == [DoctorReport.KickRow(startedAt: at("2026-10-01T20:00:00"), count: 10, duration: 24 * 60)])
+        #expect(rows == [
+            DoctorReport.KickRow(startedAt: at("2026-10-01T20:00:00"), count: 10, duration: 24 * 60, reachedTarget: true),
+            DoctorReport.KickRow(startedAt: at("2026-10-02T09:00:00"), count: 4, duration: 15 * 60, reachedTarget: false),
+        ])
     }
 
     @Test func contractionsAreSummarisedPerEpisode() {
@@ -221,7 +224,7 @@ struct DoctorReportTests {
         let starts = ["2026-07-01", "2026-07-29", "2026-08-27", "2026-09-24"]
         let periods = starts.map { PeriodRecord(startDate: day($0), endDate: calendar.date(byAdding: .day, value: 4, to: day($0))) }
         let report = make(mode: .tryingToConceive, range: .cycles(3), input: DoctorReportInput(periods: periods))
-        #expect(report.header.averageCycleLength == 28) // 28, 29, 28
+        #expect(report.header.averageCycleLength == 29) // the last 3 cycles: 29 and 28 days (28.5)
         #expect(report.header.averagePeriodLength == 5)
         #expect(report.header.week == nil)
         #expect(report.header.dueDate == nil)
@@ -301,5 +304,23 @@ struct DoctorReportTests {
         #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-uiTestingReportPreview"]).reportPreview)
         #expect(!UITestLaunchOptions(arguments: ["-uiTestingReportPreview"]).reportPreview)
         #expect(!UITestLaunchOptions(arguments: ["-uiTesting"]).reportPreview)
+    }
+
+    @Test func cycleHeaderAveragesCoverTheChosenCyclesOnly() {
+        // Early cycles: 35 days, periods of 7 days. Chosen (last 3): 28-day cycles, periods of 5 days.
+        let periods = [
+            PeriodRecord(startDate: day("2026-05-01"), endDate: day("2026-05-07")),
+            PeriodRecord(startDate: day("2026-06-05"), endDate: day("2026-06-11")),
+            PeriodRecord(startDate: day("2026-07-03"), endDate: day("2026-07-07")),
+            PeriodRecord(startDate: day("2026-07-31"), endDate: day("2026-08-04")),
+            PeriodRecord(startDate: day("2026-08-28"), endDate: day("2026-09-01")),
+        ]
+        let input = DoctorReportInput(periods: periods)
+        let chosen = make(mode: .tryingToConceive, range: .cycles(3), input: input).header
+        #expect(chosen.averageCycleLength == 28)
+        #expect(chosen.averagePeriodLength == 5)
+        let all = make(mode: .tryingToConceive, range: .cycles(6), input: input).header
+        #expect(all.averageCycleLength == 30) // 35, 28, 28, 28 -> 29.75
+        #expect(all.averagePeriodLength == 6)  // (7+7+5+5+5)/5 = 5.8
     }
 }
