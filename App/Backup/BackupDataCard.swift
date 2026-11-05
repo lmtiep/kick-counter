@@ -117,8 +117,8 @@ struct BackupReminderCard: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        // No identifier on the card: it would replace the buttons' own identifiers.
         .lunaCard()
-        .accessibilityIdentifier("backupReminderCard")
     }
 
     @ViewBuilder private var buttons: some View {
