@@ -91,15 +91,21 @@ struct PregnancyEndingSheet: View {
             bodyText(L10n.pregnancyEndOpener(branch))
                 .accessibilityIdentifier("pregnancyEndOpener")
                 .padding(.top, 8)
+            // Label above the picker: side by side, the compact picker cannot
+            // shrink at accessibility sizes and pushed the sheet off screen.
             VStack(alignment: .leading, spacing: 6) {
+                Text(L10n.pregnancyEndDateLabel(branch))
+                    .font(.luna(.body))
+                    .foregroundStyle(.luna(.textPrimary))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityHidden(true)
                 DatePicker(
                     L10n.pregnancyEndDateLabel(branch),
                     selection: $endDate,
                     in: ...today,
                     displayedComponents: .date
                 )
-                .font(.luna(.body))
-                .foregroundStyle(.luna(.textPrimary))
+                .labelsHidden()
                 .accessibilityIdentifier("pregnancyEndDate")
                 Text(L10n.pregnancyEndDateHint)
                     .font(.luna(.caption))
