@@ -574,4 +574,29 @@ struct CycleCoordinatorTests {
         #expect(coordinator.endState == nil)
         #expect(!coordinator.isPaused)
     }
+
+    @Test func switchToPregnantClearsTheCheckInsAndTheirNotification() async throws {
+        await coordinator.endPregnancy(branch: .loss, endDate: day("2026-08-01"))
+        var care = CareCheckInState()
+        care.notify = true
+        care.lowStreak = 1
+        care.save(to: defaults)
+        _ = try await NotificationScheduler(center: center).scheduleCareCheckIn(
+            on: day("2026-09-10"), now: day("2026-09-05"), text: NotificationText(title: "Luna Mom", body: "Hi"), calendar: utcCalendar
+        )
+        #expect(center.added.map(\.identifier) == ["care-checkin"])
+        coordinator.switchToPregnant(source: .lmp, date: day("2026-09-03"))
+        for key in CareCheckInState.keys {
+            #expect(defaults.object(forKey: key) == nil, "\(key)")
+        }
+        #expect(center.added.isEmpty)
+    }
+
+    @Test func endingAgainStartsTheCheckInsAfresh() async {
+        var care = CareCheckInState()
+        care.stopped = true
+        care.save(to: defaults)
+        await coordinator.endPregnancy(branch: .birth, endDate: day("2026-09-01"))
+        #expect(CareCheckInState.load(from: defaults) == CareCheckInState())
+    }
 }

@@ -317,9 +317,11 @@ public final class CycleCoordinator {
     public func switchToPregnant(source: PregnancyDateSource, date: Date) {
         PregnancyProfile.save(source: source, date: date, to: defaults, calendar: calendar)
         PregnancyEndState.clear(defaults)
+        CareCheckInState.clear(defaults)
         AppMode.save(.pregnant, to: defaults)
         bump()
         notifications.cancelCycleReminders()
+        notifications.cancelCareCheckIn()
         endState = nil
         declinedPeriods = []
         recomputeForecast()
@@ -336,6 +338,8 @@ public final class CycleCoordinator {
             defaults.set(CycleGoal.tracking.rawValue, forKey: SettingsKey.cycleGoal)
         }
         PregnancyEndState.clear(defaults)
+        CareCheckInState.clear(defaults)
+        notifications.cancelCareCheckIn()
         PregnancyEndState(branch: branch, endDate: endDate, calendar: calendar).save(to: defaults)
         PregnancyProfile.clear(defaults)
         AppMode.save(.tryingToConceive, to: defaults)
