@@ -88,6 +88,7 @@ final class BackupCenter {
     /// the decrypted JSON goes through the same decoding and validation as a plain
     /// file. The key derivation runs off the main actor. The password is not kept.
     func unlock(_ data: Data, password: String) async -> UnlockResult {
+        let requestID = request?.id
         let opened = await Task.detached(priority: .userInitiated) { () -> Result<Data, BackupEncryptionError> in
             do {
                 return .success(try BackupEncryption.open(data, password: password))
@@ -97,6 +98,8 @@ final class BackupCenter {
                 return .failure(.wrongPassword)
             }
         }.value
+        // Another file was opened meanwhile: this result belongs to a request that is gone.
+        guard request?.id == requestID else { return .opened }
         switch opened {
         case .success(let json):
             decode(json)

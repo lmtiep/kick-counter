@@ -80,6 +80,46 @@ struct BackupEncryptionTests {
         }
     }
 
+    /// Ciphertext and tag damage is an authentication failure, never another error.
+    @Test func everyTamperedCiphertextOrTagByteIsWrongPassword() throws {
+        let sealed = try BackupEncryption.seal(Data("{\"a\":1}".utf8), password: password, iterations: fast)
+        for index in BackupEncryption.headerLength..<sealed.count {
+            var tampered = sealed
+            tampered[index] ^= 0x01
+            #expect(throws: BackupEncryptionError.wrongPassword, "byte \(index)") {
+                try BackupEncryption.open(tampered, password: password)
+            }
+        }
+    }
+
+    /// A slice of a larger buffer (non-zero start index) opens like a fresh `Data`.
+    @Test func aSliceOfALargerBufferOpens() throws {
+        let json = try plain
+        let sealed = try BackupEncryption.seal(json, password: password, iterations: fast)
+        let buffer = Data([1, 2, 3, 4, 5]) + sealed + Data([9, 9])
+        let slice = buffer[5..<(5 + sealed.count)]
+        #expect(slice.startIndex == 5)
+        #expect(BackupEncryption.isEncrypted(slice))
+        #expect(try BackupEncryption.parameters(of: slice).iterations == fast)
+        #expect(try BackupEncryption.open(slice, password: password) == json)
+    }
+
+    @Test func theBoundariesAreAccepted() throws {
+        // The largest accepted count is read without refusal (sealing at it would be slow:
+        // the count is patched in, so the key differs and authentication fails instead).
+        var sealed = try BackupEncryption.seal(Data("{}".utf8), password: password, iterations: fast)
+        let offset = BackupEncryption.magic.count + 2
+        sealed.replaceSubrange(offset..<offset + 4, with: withUnsafeBytes(of: UInt32(BackupEncryption.maximumIterations).bigEndian) { Data($0) })
+        #expect(try BackupEncryption.parameters(of: sealed).iterations == BackupEncryption.maximumIterations)
+        // Exactly a header and a tag (empty ciphertext) parses and then fails authentication.
+        let minimal = Data(sealed.prefix(BackupEncryption.headerLength)) + Data(count: BackupEncryption.tagLength)
+        #expect(try BackupEncryption.parameters(of: minimal).iterations == BackupEncryption.maximumIterations)
+        // An empty plaintext is a valid seal; it round-trips.
+        let empty = try BackupEncryption.seal(Data(), password: password, iterations: fast)
+        #expect(empty.count == BackupEncryption.headerLength + BackupEncryption.tagLength)
+        #expect(try BackupEncryption.open(empty, password: password) == Data())
+    }
+
     @Test func aTamperedCiphertextByteIsAnAuthenticationFailure() throws {
         var sealed = try BackupEncryption.seal(try plain, password: password, iterations: fast)
         sealed[BackupEncryption.headerLength + 3] ^= 0x80

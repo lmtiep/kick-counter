@@ -166,7 +166,7 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   state của trang (xoá khi tạo xong file hoặc đóng trang), không lưu, không ghi log.
 - Định dạng mã hoá (`KickCore/BackupEncryption.swift`, chỉ dùng thư viện của Apple): `LUNAENC1` (8 byte) · phiên bản
   (1) · KDF (1 = PBKDF2-HMAC-SHA256, CommonCrypto) · số vòng `UInt32` big-endian (mặc định 600 000, đọc từ file, chỉ
-  nhận 100 000–10 000 000) · salt 16 byte · nonce AES-GCM 12 byte · ciphertext · tag 16 byte. 42 byte đầu là dữ liệu
+  nhận 100 000–3 000 000) · salt 16 byte · nonce AES-GCM 12 byte · ciphertext · tag 16 byte. 42 byte đầu là dữ liệu
   xác thực (AAD) của AES-GCM (CryptoKit); bên trong là đúng JSON sao lưu cũ. Mật khẩu chuẩn hoá NFC trước khi dẫn
   khoá. Sai mật khẩu hay file bị sửa đều là `.wrongPassword`, không trả dữ liệu nào. File thường (JSON) không đổi,
   nhận biết bằng 8 byte đầu. File mẫu có mật khẩu cho UI test: `UITests/Fixtures/sample-protected.lunamom` (mật khẩu

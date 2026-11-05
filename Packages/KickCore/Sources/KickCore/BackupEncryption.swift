@@ -59,8 +59,9 @@ public enum BackupEncryption {
     /// Files asking for fewer are refused: they would protect nothing.
     public static let minimumIterations = 100_000
     /// Files asking for more are refused before any work: a damaged or hostile
-    /// count must not freeze the phone. Leaves room for later, stronger defaults.
-    public static let maximumIterations = 10_000_000
+    /// count must not hold the restore sheet for long. Five times the default leaves
+    /// room for later, stronger defaults.
+    public static let maximumIterations = 3_000_000
     public static let saltLength = 16
     public static let nonceLength = 12
     public static let tagLength = 16
