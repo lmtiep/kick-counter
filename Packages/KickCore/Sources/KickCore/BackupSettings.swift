@@ -64,6 +64,11 @@ public enum BackupSettings {
         SettingsKey.partnerCachedSnapshot,
         SettingsKey.partnerPendingZoneDeletion,
         SettingsKey.hasCompletedOnboarding,
+        // The rating prompt's history belongs to this phone and this install.
+        SettingsKey.reviewFirstUseAt,
+        SettingsKey.reviewUseDays,
+        SettingsKey.reviewAskedAt,
+        SettingsKey.reviewAskedVersions,
     ]
 
     /// `AppDataReset.ownedKeys` minus `excludedKeys` (`BackupSettingsTests` checks it).

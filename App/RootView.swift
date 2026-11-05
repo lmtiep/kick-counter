@@ -78,9 +78,15 @@ struct RootView: View {
             .background {
                 if mode == .pregnant, AppEnvironment.showsPartnerUI { partnerPublishObserver }
             }
-            .task { await reload() }
+            .task {
+                ReviewPrompter.recordUse()
+                await reload()
+            }
             .onChange(of: scenePhase) { _, phase in
-                if phase == .active { Task { await reload() } }
+                if phase == .active {
+                    ReviewPrompter.recordUse()
+                    Task { await reload() }
+                }
             }
             .onChange(of: appMode) { oldMode, newMode in
                 // Profile stays open after switching mode there; anywhere else

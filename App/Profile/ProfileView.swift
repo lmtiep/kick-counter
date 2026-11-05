@@ -59,6 +59,8 @@ struct ProfileView: View {
     @State private var exportingBackup = false
     @State private var exportFailed = false
     @State private var importingBackup = false
+    @State private var composingFeedback = false
+    @State private var feedbackNoMail = false
     /// `SettingsKey.lastBackupAt`, read again whenever Profile appears.
     @State private var lastBackupAt: Date?
 
@@ -156,6 +158,20 @@ struct ProfileView: View {
             }
             .alert(L10n.settingsDeleteAllFailed, isPresented: $deleteAllFailed) {
                 Button(L10n.commonOK) {}
+            }
+            .sheet(isPresented: $composingFeedback) {
+                MailComposeView(email: feedbackEmail) { composingFeedback = false }
+                    .ignoresSafeArea()
+            }
+            // No mail account and no app to open `mailto:`: show the address to copy.
+            .alert(L10n.feedbackNoMailTitle, isPresented: $feedbackNoMail) {
+                Button(L10n.feedbackCopyAddress) {
+                    UIPasteboard.general.string = FeedbackEmail.address
+                    AccessibilityNotification.Announcement(L10n.feedbackCopied).post()
+                }
+                Button(L10n.commonOK, role: .cancel) {}
+            } message: {
+                Text(L10n.feedbackNoMailMessage(FeedbackEmail.address))
             }
             .alert(L10n.backupExportFailed, isPresented: $exportFailed) {
                 Button(L10n.commonOK) {}
@@ -507,6 +523,13 @@ struct ProfileView: View {
             LunaDivider()
             externalLinkRow(L10n.settingsSupport, url: AppLinks.support, identifier: "profileSupport")
             LunaDivider()
+            Button(action: sendFeedback) {
+                LunaRow(title: L10n.settingsFeedback)
+            }
+            .buttonStyle(.plain)
+            .accessibilityHint(L10n.settingsFeedbackHint)
+            .accessibilityIdentifier("profileFeedback")
+            LunaDivider()
             Button(action: onReplayOnboarding) {
                 LunaRow(title: L10n.profileReplayOnboarding)
             }
@@ -820,6 +843,24 @@ struct ProfileView: View {
     private var lmpText: String? {
         guard pregnancyDateSource == PregnancyDateSource.lmp.rawValue, lmpDate > 0 else { return nil }
         return Formatting.longDate(Date(timeIntervalSince1970: lmpDate))
+    }
+
+    private var feedbackEmail: FeedbackEmail {
+        FeedbackContent.email(mode: FeedbackMode(appMode: mode, goal: cycle.preferences.goal))
+    }
+
+    /// The mail composer when the phone can send mail; else `mailto:` in whatever mail app
+    /// handles it; else the address, to copy.
+    private func sendFeedback() {
+        if MailComposeView.canSendMail {
+            composingFeedback = true
+        } else if let url = feedbackEmail.mailtoURL {
+            openURL(url) { accepted in
+                if !accepted { feedbackNoMail = true }
+            }
+        } else {
+            feedbackNoMail = true
+        }
     }
 
     private var appVersion: String {

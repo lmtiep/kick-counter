@@ -1,5 +1,6 @@
 import Accessibility
 import KickCore
+import StoreKit
 import SwiftUI
 
 /// Log or edit one day (phase 5 spec §3.1): start/end a period there, then
@@ -12,6 +13,9 @@ struct CycleDayLogSheet: View {
     private let existing: CycleLogRecord?
 
     @Environment(CycleCoordinator.self) private var cycle
+    @Environment(KickCoordinator.self) private var kicks
+    @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(\.requestReview) private var requestReview
     @Environment(\.dismiss) private var dismiss
     @State private var lh: LHResult?
     @State private var temperatureText: String
@@ -196,7 +200,15 @@ struct CycleDayLogSheet: View {
                     .accessibilityIdentifier("dayLogExtendPeriod")
                 }
                 Button(L10n.dayLogPeriodStart) {
-                    Task { await run { await cycle.startPeriod(on: day) } }
+                    Task {
+                        await run { await cycle.startPeriod(on: day) }
+                        if failure == nil {
+                            ReviewPrompter.moment(
+                                .periodStarted(totalPeriods: cycle.periods.count),
+                                kicks: kicks, contractions: contractions, requestReview: requestReview
+                            )
+                        }
+                    }
                 }
                 .buttonStyle(.pill(.soft(.cycleSoft, .cycleOnSoft), fullWidth: false, height: 40))
                 .disabled(saving)

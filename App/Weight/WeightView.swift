@@ -1,4 +1,5 @@
 import KickCore
+import StoreKit
 import SwiftUI
 
 /// The mother's weight (phase 5 spec §3.3), opened from Today's shortcut or
@@ -7,6 +8,9 @@ import SwiftUI
 /// card; the history by week (swipe to delete, with a confirmation).
 struct WeightView: View {
     @Environment(WeightCoordinator.self) private var weight
+    @Environment(KickCoordinator.self) private var kicks
+    @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(\.requestReview) private var requestReview
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     @State private var pendingDelete: WeightRecord?
     @State private var showingDateSheet = false
@@ -35,7 +39,12 @@ struct WeightView: View {
                         .accessibilityElement(children: .contain)
                         .accessibilityIdentifier("weightSummaryCard")
                     }
-                    WeightEntryCard(dueDate: due) { toast = L10n.weightSaved }
+                    WeightEntryCard(dueDate: due) {
+                        toast = L10n.weightSaved
+                        ReviewPrompter.moment(
+                            .weightSaved, kicks: kicks, contractions: contractions, requestReview: requestReview
+                        )
+                    }
                     Text(L10n.weightHistory)
                         .font(.luna(.cardTitle))
                         .foregroundStyle(.luna(.textPrimary))

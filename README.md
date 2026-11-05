@@ -203,3 +203,12 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   ±25 % so với `weightG` (Hadlock 1991). Tuần 4–9 giữ so sánh cũ.
 - Bảng và nguồn: `docs/research/2026-10-08-produce-weights.md` (bản máy đọc `.json`; test `BundledContentTests` so khớp).
 - Tranh thai nhi theo tuần: `docs/design/fetus-artwork-brief.md`. Bác sĩ duyệt: `docs/content-review-for-doctor.md` mục 13.
+
+## Góp ý và xin đánh giá (giai đoạn 21)
+- Cá nhân → "Gửi góp ý" mở màn soạn thư hệ thống tới lmtiep@gmail.com; phần thân chỉ ghi sẵn phiên bản app + build, iOS,
+  mã máy, ngôn ngữ và chế độ (không có dữ liệu sức khỏe), người dùng bấm Gửi thì mới đi. Máy không gửi được thư thì mở
+  `mailto:` cùng nội dung, cuối cùng là hiện địa chỉ để sao chép (`FeedbackEmail`, `App/Profile/FeedbackMail.swift`).
+- Hộp xin đánh giá của Apple (`requestReview`) chỉ hiện ở lúc vui: xong một lượt đếm cử động đủ mục tiêu, ghi kỳ kinh thứ 3
+  trở lên, lưu cân nặng sau 7 ngày dùng; không bao giờ sau khi dùng bộ đếm cơn gò, khi đang có thẻ cảnh báo, hay trong phần
+  giới thiệu. Cần dùng app từ 3 ngày khác nhau, tối đa 1 lần/120 ngày, 3 lần/365 ngày, 1 lần cho mỗi phiên bản
+  (`ReviewPromptPolicy`, trạng thái ở App Group, xóa khi "Xóa toàn bộ dữ liệu", không vào file sao lưu). Tắt hẳn trong UI test.

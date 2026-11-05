@@ -117,6 +117,22 @@ enum L10n {
     static var settingsPrivacyPolicy: String { t("settings.privacyPolicy") }
     static var settingsSupport: String { t("settings.support") }
     static var settingsOpensInSafari: String { t("settings.opensInSafari") }
+    static var settingsFeedback: String { t("settings.feedback") }
+    static var settingsFeedbackHint: String { t("settings.feedback.hint") }
+    static var feedbackSubject: String { t("feedback.subject") }
+    static var feedbackLabelApp: String { t("feedback.label.app") }
+    static var feedbackLabelIOS: String { t("feedback.label.ios") }
+    static var feedbackLabelDevice: String { t("feedback.label.device") }
+    static var feedbackLabelLanguage: String { t("feedback.label.language") }
+    static var feedbackLabelMode: String { t("feedback.label.mode") }
+    static var feedbackModeTracking: String { t("feedback.mode.tracking") }
+    static var feedbackModeConceiving: String { t("feedback.mode.conceiving") }
+    static var feedbackModePregnant: String { t("feedback.mode.pregnant") }
+    static var feedbackModePartner: String { t("feedback.mode.partner") }
+    static var feedbackNoMailTitle: String { t("feedback.noMail.title") }
+    static func feedbackNoMailMessage(_ address: String) -> String { String(format: t("feedback.noMail.message"), address) }
+    static var feedbackCopyAddress: String { t("feedback.copyAddress") }
+    static var feedbackCopied: String { t("feedback.copied") }
     static var settingsDeleteAll: String { t("settings.deleteAll") }
     static var settingsDeleteAllTitle: String { t("settings.deleteAll.title") }
     static var settingsDeleteAllMessage: String { t("settings.deleteAll.message") }
