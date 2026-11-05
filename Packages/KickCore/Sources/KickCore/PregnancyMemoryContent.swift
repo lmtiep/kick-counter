@@ -253,3 +253,21 @@ public enum PregnancyMemoryBuilder {
         }
     }
 }
+
+/// One saved memory (value snapshot of the SwiftData `PregnancyMemory`).
+public struct PregnancyMemoryRecord: Equatable, Sendable, Identifiable {
+    public let id: UUID
+    public var createdAt: Date
+    /// Her title, for example a baby's name; empty when she gave none.
+    public var title: String
+    public var content: PregnancyMemoryContent
+
+    public init(id: UUID = UUID(), createdAt: Date, title: String, content: PregnancyMemoryContent) {
+        self.id = id
+        self.createdAt = createdAt
+        self.title = title
+        self.content = content
+    }
+
+    public var branch: PregnancyEndBranch { content.branch }
+}

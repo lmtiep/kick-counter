@@ -17,7 +17,9 @@ public enum BackupStore {
             },
             weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
             pillDoses: try context.fetch(FetchDescriptor<PillDose>(sortBy: [SortDescriptor(\.day)])).map(\.record),
-            contractions: try context.fetch(FetchDescriptor<Contraction>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record)
+            contractions: try context.fetch(FetchDescriptor<Contraction>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record),
+            // A memory whose payload cannot be read is left out rather than failing the export.
+            pregnancyMemories: try context.fetch(FetchDescriptor<PregnancyMemory>(sortBy: [SortDescriptor(\.createdAt)])).compactMap(\.record)
         )
     }
 
@@ -41,6 +43,7 @@ public enum BackupStore {
             try deleteEvery(WeightEntry.self, in: context)
             try deleteEvery(PillDose.self, in: context)
             try deleteEvery(Contraction.self, in: context)
+            try deleteEvery(PregnancyMemory.self, in: context)
             for record in records.sessions {
                 insert(record, into: context)
             }
@@ -66,6 +69,9 @@ public enum BackupStore {
             }
             for record in records.contractions {
                 context.insert(Contraction(record: record))
+            }
+            for record in records.pregnancyMemories {
+                context.insert(try PregnancyMemory(record: record))
             }
             try save(context)
         } catch {

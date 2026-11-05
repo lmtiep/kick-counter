@@ -29,8 +29,22 @@ struct BackupStoreTests {
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 50)))
         context.insert(PillDose(record: PillDoseRecord(day: CalendarDay(year: 2026, month: 9, day: 1), takenAt: day.addingTimeInterval(75_600))))
         context.insert(Contraction(record: ContractionRecord(startedAt: day, endedAt: day.addingTimeInterval(60))))
+        context.insert(try PregnancyMemory(record: oldMemory))
         try context.save()
     }
+
+    private let oldMemory = PregnancyMemoryRecord(
+        createdAt: date("2026-09-02T00:00:00Z"), title: "Cũ",
+        content: PregnancyMemoryContent(branch: .birth, start: nil, end: date("2026-09-01T00:00:00Z"), furthestWeek: nil)
+    )
+
+    private let newMemory = PregnancyMemoryRecord(
+        createdAt: date("2026-10-09T00:00:00Z"), title: "Mới",
+        content: PregnancyMemoryContent(
+            branch: .loss, start: date("2026-06-01T00:00:00Z"), end: date("2026-08-20T00:00:00Z"), furthestWeek: 11,
+            notes: [MemoryNote(day: date("2026-07-01T00:00:00Z"), text: "ghi", moods: [], pregnancySymptoms: ["nausea"])]
+        )
+    )
 
     private func newRecords() -> BackupRecords {
         let start = date("2026-10-08T20:00:00Z")
@@ -61,7 +75,8 @@ struct BackupStoreTests {
             contractions: [
                 ContractionRecord(startedAt: date("2026-10-08T21:00:00Z"), endedAt: date("2026-10-08T21:00:50Z")),
                 ContractionRecord(startedAt: date("2026-10-08T21:06:00Z")),
-            ]
+            ],
+            pregnancyMemories: [newMemory]
         )
     }
 
@@ -73,7 +88,8 @@ struct BackupStoreTests {
             logs: records.logs.sorted { $0.day < $1.day },
             weights: records.weights.sorted { $0.day < $1.day },
             pillDoses: records.pillDoses.sorted { $0.day < $1.day },
-            contractions: records.contractions.sorted { $0.startedAt < $1.startedAt }
+            contractions: records.contractions.sorted { $0.startedAt < $1.startedAt },
+            pregnancyMemories: records.pregnancyMemories.sorted { $0.createdAt < $1.createdAt }
         )
     }
 
@@ -88,6 +104,7 @@ struct BackupStoreTests {
         #expect(exported.weights.map(\.kg) == [50])
         #expect(exported.pillDoses.map(\.day) == [CalendarDay(year: 2026, month: 9, day: 1)])
         #expect(exported.contractions.map(\.startedAt) == [date("2026-09-01T00:00:00Z")])
+        #expect(exported.pregnancyMemories == [oldMemory])
     }
 
     @Test func replaceAllSwapsEverythingForTheFileRecords() throws {
@@ -102,6 +119,7 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 2)
+        #expect(try context.fetchCount(FetchDescriptor<PregnancyMemory>()) == 1)
     }
 
     @Test func replaceAllThenExportRoundTripsThroughTheCodec() throws {
@@ -116,6 +134,7 @@ struct BackupStoreTests {
         #expect(decoded.cycleLogs.first?.record.unknownMoodsRaw == ["dreamy"])
         #expect(decoded.records.pillDoses.count == 2)
         #expect(decoded.records.contractions.count == 2)
+        #expect(decoded.records.pregnancyMemories == [newMemory])
     }
 
     /// The safety proof: a save that fails leaves every old record in place and
@@ -134,6 +153,7 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 1)
+        #expect(try context.fetchCount(FetchDescriptor<PregnancyMemory>()) == 1)
         #expect(!context.hasChanges)
         // A later save does not resurrect the abandoned replace.
         try context.save()
@@ -147,6 +167,7 @@ struct BackupStoreTests {
         #expect(exported.sessions.isEmpty && exported.appointments.isEmpty && exported.periods.isEmpty)
         #expect(exported.logs.isEmpty && exported.weights.isEmpty && exported.pillDoses.isEmpty)
         #expect(exported.contractions.isEmpty)
+        #expect(exported.pregnancyMemories.isEmpty)
         #expect(try container.mainContext.fetchCount(FetchDescriptor<Kick>()) == 0)
     }
 

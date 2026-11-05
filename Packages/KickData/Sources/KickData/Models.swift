@@ -260,3 +260,32 @@ public final class Contraction {
         ContractionRecord(id: id, startedAt: startedAt, endedAt: endedAt)
     }
 }
+
+/// A kept pregnancy journey (1.1 item 4): a frozen `PregnancyMemoryContent`
+/// stored as JSON, with no relationships, so adding it is a lightweight
+/// migration (every attribute has a default, like `PillDose` / `Contraction`).
+@Model
+public final class PregnancyMemory {
+    public var id: UUID = UUID()
+    public var createdAt: Date = Date()
+    /// Her title, for example a baby's name; empty when she gave none.
+    public var title: String = ""
+    /// `PregnancyEndBranch` raw value, readable without decoding the payload.
+    public var branchRaw: String = PregnancyEndBranch.birth.rawValue
+    /// `PregnancyMemoryContent` as JSON (`PregnancyMemoryContent.encoder`).
+    public var payload: Data = Data()
+
+    public init(record: PregnancyMemoryRecord) throws {
+        id = record.id
+        createdAt = record.createdAt
+        title = record.title
+        branchRaw = record.content.branch.rawValue
+        payload = try PregnancyMemoryContent.encoder.encode(record.content)
+    }
+
+    /// nil when the payload cannot be read.
+    public var record: PregnancyMemoryRecord? {
+        guard let content = try? PregnancyMemoryContent.decoder.decode(PregnancyMemoryContent.self, from: payload) else { return nil }
+        return PregnancyMemoryRecord(id: id, createdAt: createdAt, title: title, content: content)
+    }
+}
