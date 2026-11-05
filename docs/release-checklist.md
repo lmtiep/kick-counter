@@ -525,3 +525,22 @@ hành động trên thông báo khi khoá màn hình).
       bị treo hay lỗi.
 - [ ] Không có hộp xin đánh giá ngay sau khi dùng bộ đếm cơn gò, khi thẻ "quá 2 giờ" / 5-1-1 đang hiện, hay trong phần giới thiệu.
 - [ ] "Xóa toàn bộ dữ liệu" xóa luôn lịch sử xin đánh giá; file sao lưu không chứa khóa `review*`.
+
+## Widget Màn hình chính và Màn hình khoá (1.1)
+
+### Kiểm thử thủ công trên máy thật (vi và en)
+- [ ] Thêm widget "Luna Mom" (nhỏ, vừa) vào Màn hình chính và (hình chữ nhật, một dòng, tròn) vào Màn hình khoá. Chưa xong
+      giới thiệu hoặc chưa có dữ liệu: "Mở Luna Mom để bắt đầu"; chạm mở app.
+- [ ] Đổi chế độ trong Cá nhân (mang thai, theo dõi chu kỳ, đang chuẩn bị mang thai): widget đổi theo sau vài giây, không bao giờ trống.
+      Chế độ người thân: hiện trạng thái trung tính.
+- [ ] Số liệu khớp màn Hôm nay: số ngày tới kỳ kinh và ngày, "Ngày N của chu kỳ", trạng thái thụ thai hôm nay, tuần thai và số
+      ngày còn lại. Bắt đầu / kết thúc kỳ kinh, ghi kỳ đã qua, xoá kỳ: widget cập nhật.
+- [ ] Mang thai từ tuần 28: xong một lượt đếm cử động (kể cả từ Live Activity), widget cỡ vừa hiện "Cử động hôm nay: N"; chạm dòng
+      đó mở tab Đếm cử động, chạm chỗ khác mở Hôm nay. Trước tuần 28 không có dòng cử động.
+- [ ] Qua nửa đêm (hoặc chỉnh đồng hồ sang ngày mới): số ngày và "Cử động hôm nay" cập nhật, không cần mở app.
+- [ ] Khôi phục từ file sao lưu và "Xoá toàn bộ dữ liệu": widget đổi theo (xoá thì về "Mở Luna Mom để bắt đầu"). Đổi ngôn ngữ
+      trong Cá nhân: widget đổi ngôn ngữ.
+- [ ] Màn hình khoá đang khoá: nội dung widget bị che (privacy); mở khoá thì hiện. StandBy hiện cỡ nhỏ đọc rõ, kể cả chế độ đêm.
+- [ ] Chế độ tối và chế độ màu (Tinted / Accented, iOS 18): chữ chính vẫn đọc rõ, tranh quả không bị mất.
+- [ ] Cỡ chữ lớn (Cài đặt → Trợ năng): chữ không bị cắt (co lại thay vì tràn). VoiceOver đọc một câu đầy đủ cho mỗi widget.
+- [ ] Không có yêu cầu mạng nào từ extension widget (Instruments → Network, hoặc Cài đặt → Quyền riêng tư → Báo cáo hoạt động ứng dụng).

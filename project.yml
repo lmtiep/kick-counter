@@ -54,6 +54,10 @@ targets:
             UTTypeConformsTo: [public.json, public.data]
             UTTypeTagSpecification:
               public.filename-extension: [lunamom]
+        # 1.1 widget: `lunamom://today` and `lunamom://kicks` (WidgetLink).
+        CFBundleURLTypes:
+          - CFBundleURLName: com.lmtiep.kickcounter.widget
+            CFBundleURLSchemes: [lunamom]
         UIAppFonts:
           - BeVietnamPro-Light.ttf
           - BeVietnamPro-Regular.ttf
@@ -78,8 +82,19 @@ targets:
       - Shared
       - path: App/Assets.xcassets
         buildPhase: resources
+      # Widgets/FruitArt.xcassets (inside Widgets) holds copies of the app's `Fruit-W##.imageset`
+      # folders (a KickCore test keeps them identical), so the widget does not carry the fetus art.
+      - path: App/Fonts/BeVietnamPro-Regular.ttf
+        buildPhase: resources
+      - path: App/Fonts/BeVietnamPro-Medium.ttf
+        buildPhase: resources
+      - path: App/Fonts/BeVietnamPro-SemiBold.ttf
+        buildPhase: resources
+      - path: App/Fonts/BeVietnamPro-Bold.ttf
+        buildPhase: resources
     dependencies:
       - package: KickCore
+      - package: KickData
       - sdk: SwiftUI.framework
       - sdk: WidgetKit.framework
     info:
@@ -90,6 +105,11 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        UIAppFonts:
+          - BeVietnamPro-Regular.ttf
+          - BeVietnamPro-Medium.ttf
+          - BeVietnamPro-SemiBold.ttf
+          - BeVietnamPro-Bold.ttf
     entitlements:
       path: Widgets/KickCounterWidgets.entitlements
       properties:
@@ -99,6 +119,34 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.lmtiep.kickcounter.widgets
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+  # Renders the widget views to PNG (no host app: it needs the App Group), see WidgetPreviewRenderTests.
+  KickCounterWidgetTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - WidgetTests
+      - Widgets/Home
+      - Shared/L10n.swift
+      - Shared/AppLocale.swift
+      - Shared/Localizable.xcstrings
+      - Widgets/FruitArt.xcassets
+      - path: App/Fonts/BeVietnamPro-Regular.ttf
+        buildPhase: resources
+      - path: App/Fonts/BeVietnamPro-Medium.ttf
+        buildPhase: resources
+      - path: App/Fonts/BeVietnamPro-SemiBold.ttf
+        buildPhase: resources
+      - path: App/Fonts/BeVietnamPro-Bold.ttf
+        buildPhase: resources
+    dependencies:
+      - package: KickCore
+      - package: KickData
+      - sdk: SwiftUI.framework
+      - sdk: WidgetKit.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lmtiep.kickcounter.widgettests
+        GENERATE_INFOPLIST_FILE: YES
   KickCounterUITests:
     type: bundle.ui-testing
     platform: iOS
@@ -118,3 +166,4 @@ schemes:
     test:
       targets:
         - KickCounterUITests
+        - KickCounterWidgetTests

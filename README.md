@@ -212,3 +212,21 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   trở lên, lưu cân nặng sau 7 ngày dùng; không bao giờ sau khi dùng bộ đếm cơn gò, khi đang có thẻ cảnh báo, hay trong phần
   giới thiệu. Cần dùng app từ 3 ngày khác nhau, tối đa 1 lần/120 ngày, 3 lần/365 ngày, 1 lần cho mỗi phiên bản
   (`ReviewPromptPolicy`, trạng thái ở App Group, xóa khi "Xóa toàn bộ dữ liệu", không vào file sao lưu). Tắt hẳn trong UI test.
+
+## Widget Màn hình chính và Màn hình khoá (1.1)
+- Một widget "Luna Mom" thích ứng theo chế độ (`Widgets/Home/`): theo dõi chu kỳ (số ngày tới kỳ kinh + ngày, ngày kinh,
+  trễ), đang chuẩn bị mang thai (trạng thái thụ thai hôm nay, ngày chu kỳ, dải 7 ngày cửa sổ thụ thai), mang thai (tuần,
+  còn bao nhiêu ngày, quả/trái của tuần và "Cử động hôm nay" ở cỡ vừa), chế độ người thân hoặc chưa có dữ liệu thì hiện
+  "Mở Luna Mom để bắt đầu". Cỡ: nhỏ, vừa, và Màn hình khoá (hình chữ nhật, một dòng, tròn). Chạm mở Hôm nay (`lunamom://today`),
+  dòng cử động mở tab Đếm cử động (`lunamom://kicks`, `WidgetLink`).
+- Số liệu là số của màn Hôm nay: logic thuần ở KickCore (`WidgetSnapshot` dựng từ `CyclePredictor`, `PregnancyTimeline`,
+  `HistoryStats`; `WidgetLink`). Widget đọc App Group **chỉ đọc, trên máy** (`KickData.WidgetReader`: `allowsSave: false`, không
+  gộp bản sao trong store, không CloudKit); không gửi gì đi đâu. Nội dung Màn hình khoá dùng `.privacySensitive()`.
+- Timeline có mục cho mỗi nửa đêm của 3 ngày tới. App gọi `WidgetCenter.reloadAllTimelines()` qua `App/WidgetRefresh.swift`
+  (gộp lại 0,6 giây) mỗi khi store lưu (`ModelContext.didSave`: kỳ kinh, nhật ký, phiên đếm, khôi phục, xoá toàn bộ), khi
+  cài đặt dùng chung đổi (chế độ, mục tiêu, ngày dự sinh, ngôn ngữ), và khi app lên/xuống nền.
+- Tranh quả theo tuần: `Widgets/FruitArt.xcassets` là bản sao `Fruit-W##` của app (actool không theo symlink; test
+  `WidgetArtTests` giữ hai bản giống nhau). Phông Be Vietnam Pro nằm trong `UIAppFonts` của widget.
+- Ảnh xem trước: `KickCounterWidgetTests/WidgetPreviewRenderTests` dựng mọi mẫu (vi/en, sáng/tối, 5 cỡ) ra PNG; chạy cục bộ
+  `TEST_RUNNER_WIDGET_PREVIEW_DIR=/đường/dẫn xcodebuild -scheme KickCounter -only-testing:KickCounterWidgetTests test`.
+- Kiểm thử trên máy thật: `docs/release-checklist.md` ("Widget 1.1").
