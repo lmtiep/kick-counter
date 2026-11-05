@@ -2976,6 +2976,108 @@
         }
       }
     },
+    "control.contraction.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start or end timing a contraction without opening the app."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu hoặc kết thúc tính giờ cơn gò mà không cần mở app."
+          }
+        }
+      }
+    },
+    "control.contraction.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraction"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơn gò"
+          }
+        }
+      }
+    },
+    "control.contraction.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time a contraction"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bấm cơn gò"
+          }
+        }
+      }
+    },
+    "control.kicks.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start a movement count without opening the app."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu đếm cử động mà không cần mở app."
+          }
+        }
+      }
+    },
+    "control.kicks.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Count kicks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đếm cử động"
+          }
+        }
+      }
+    },
+    "control.kicks.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start counting kicks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu đếm cử động"
+          }
+        }
+      }
+    },
     "counter.a11y.button": {
       "extractionState": "manual",
       "localizations": {
@@ -6338,6 +6440,261 @@
           "stringUnit": {
             "state": "translated",
             "value": "Kết thúc theo dõi cơn gò"
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.contractionDiscarded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That was too short, so it was not saved."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơn quá ngắn nên không được lưu."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.contractionStarted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timing a contraction."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cơn gò đang tính giờ."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.contractionStopped": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraction timed."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã ghi cơn gò."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.failed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That did not work. Open Luna Mom to try again."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa thực hiện được. Hãy mở Luna Mom để thử lại."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.kicksAlreadyRunning": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already counting. Tap the card on your Lock Screen to add movements."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang đếm rồi. Chạm vào thẻ trên màn hình khoá để thêm cử động."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.kicksStarted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Counting started. Tap the card on your Lock Screen to add movements."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã bắt đầu đếm. Chạm vào thẻ trên màn hình khoá để thêm cử động."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.needsPregnancy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Luna Mom and switch to pregnancy mode to use this."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở Luna Mom và chọn chế độ Mang thai để dùng tính năng này."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.nothingToEnd": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No contraction timing is running."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có phiên theo dõi cơn gò nào đang chạy."
+          }
+        }
+      }
+    },
+    "intent.siri.dialog.trackingEnded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contraction timing ended. Nothing was deleted."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã kết thúc theo dõi cơn gò. Không xoá gì."
+          }
+        }
+      }
+    },
+    "intent.siri.startKicks.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starts a movement count, or reports that one is running."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu một lượt đếm cử động, hoặc cho biết lượt đếm đang chạy."
+          }
+        }
+      }
+    },
+    "intent.siri.startKicks.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start counting kicks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu đếm cử động"
+          }
+        }
+      }
+    },
+    "intent.siri.stopContractions.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ends the contraction timing session. Nothing is deleted."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc phiên theo dõi cơn gò. Không xoá gì."
+          }
+        }
+      }
+    },
+    "intent.siri.stopContractions.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop timing contractions"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết thúc theo dõi cơn gò"
+          }
+        }
+      }
+    },
+    "intent.siri.timeContraction.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starts timing a contraction, or ends the one being timed."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bắt đầu tính giờ một cơn gò, hoặc kết thúc cơn đang tính giờ."
+          }
+        }
+      }
+    },
+    "intent.siri.timeContraction.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time a contraction"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bấm cơn gò"
           }
         }
       }

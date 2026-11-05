@@ -7,5 +7,9 @@ struct KickCounterWidgetsBundle: WidgetBundle {
         LunaWidget()
         KickLiveActivityWidget()
         ContractionLiveActivityWidget()
+        if #available(iOS 18, *) {
+            KickCountControl()
+            ContractionControl()
+        }
     }
 }

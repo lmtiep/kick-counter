@@ -254,3 +254,11 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Ảnh xem trước: `KickCounterWidgetTests/WidgetPreviewRenderTests` dựng mọi mẫu (vi/en, sáng/tối, 5 cỡ) ra PNG; chạy cục bộ
   `TEST_RUNNER_WIDGET_PREVIEW_DIR=/đường/dẫn xcodebuild -scheme KickCounter -only-testing:KickCounterWidgetTests test`.
 - Kiểm thử trên máy thật: `docs/release-checklist.md` ("Widget 1.1").
+
+## Siri, Nút Tác vụ và Trung tâm điều khiển (1.1)
+- Ba lệnh: "Bắt đầu đếm cử động", "Bấm cơn gò", "Kết thúc theo dõi cơn gò" (Siri, Spotlight, Phím tắt không cần cài đặt; điều khiển
+  cho Trung tâm điều khiển / Màn hình khoá / Nút Tác vụ từ iOS 18). Đặc tả: `docs/superpowers/specs/2026-11-06-siri-controls-design.md`.
+- Quyết định nằm trong KickCore (`SiriPlanner`, thuần, có test) và chạy bởi `SiriControls`; các App Intent ở `Shared/SiriIntents.swift`,
+  cụm từ ở `App/LunaShortcuts.swift` + `App/AppShortcuts.xcstrings`, điều khiển ở `Widgets/LunaControls.swift` (`@available(iOS 18, *)`).
+- Câu trả lời ngắn, chung chung, không đọc số liệu. Ngoài chế độ Mang thai không bắt đầu gì cả. Phần chỉ thử được trên máy thật:
+  `docs/release-checklist.md`.

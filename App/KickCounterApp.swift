@@ -26,6 +26,9 @@ struct KickCounterApp: App {
             let contractions = env.contractions
             ContractionIntentBridge.toggle = { _ = await contractions.toggle($0) }
             ContractionIntentBridge.endTracking = { _ = await contractions.endEpisode() }
+            // Siri, Shortcuts, the Action Button and Controls (1.1).
+            let siri = SiriControls(kicks: coordinator, contractions: contractions, defaults: AppGroup.defaults)
+            SiriIntentBridge.run = { await siri.run($0) }
             // "Đã uống" on a pill notification (phase 17), even when it launches the app.
             PillNotificationDelegate.shared.install(pill: env.pill)
             // The Home Screen / Lock Screen widget follows every change (1.1).

@@ -5,7 +5,7 @@ import KickCore
 /// Strings come from the `.lproj` of the language chosen in the app (`AppLanguage`,
 /// shared with the widget through the App Group), so a change applies at once.
 enum L10n {
-    private static func t(_ key: String) -> String {
+    static func t(_ key: String) -> String {
         bundle().localizedString(forKey: key, value: nil, table: nil)
     }
 
