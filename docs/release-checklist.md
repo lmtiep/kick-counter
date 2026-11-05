@@ -430,6 +430,30 @@ Khi muốn bật lại đồng bộ iCloud và chế độ chia sẻ với bố 
       bản lại nhánh `gh-pages`.
 - [ ] Ghi chú phát hành: "Sao lưu toàn bộ dữ liệu ra file và khôi phục trên iPhone khác (Cá nhân → Dữ liệu)."
 
+## 1.1 — Sao lưu có mật khẩu, lời nhắc, chuyển sang iPhone mới
+
+Đặc tả: `docs/superpowers/specs/2026-11-05-backup-plus-design.md`. Hai máy thật.
+
+- [ ] **Qua Zalo, có mật khẩu.** Máy A: Cá nhân → "Sao lưu ra file": công tắc "Bảo vệ file bằng mật khẩu" đã bật sẵn.
+      Đặt mật khẩu (có dấu tiếng Việt, ví dụ "mẹbầu2026"), nhập lại, gửi file cho chính mình qua Zalo.
+- [ ] Máy B: mở file trong Zalo → Luna Mom → trang "File có mật khẩu". Nhập **sai** mật khẩu: "Mật khẩu không đúng.
+      Hãy thử lại.", dữ liệu trên máy B không đổi. Nhập đúng: trang khôi phục với **đúng số** mục như máy A; bấm "Khôi
+      phục", dữ liệu khớp máy A.
+- [ ] Mở file có mật khẩu bằng một app khác (Tệp → xem trước, hoặc trình soạn thảo trên máy tính): không đọc được chữ
+      nào của dữ liệu (không thấy tên lịch khám, ghi chú).
+- [ ] **File cũ vẫn mở được:** một file `.lunamom` tạo bằng bản 1.0 (không mật khẩu) vẫn khôi phục như trước.
+- [ ] Tắt công tắc mật khẩu: hiện "Không đặt mật khẩu thì ai có file cũng đọc được.", file tạo ra là JSON đọc được.
+- [ ] Mật khẩu dưới 6 ký tự hoặc hai lần nhập không khớp: nút "Tạo file sao lưu" bị khoá, có dòng báo lỗi.
+- [ ] Huỷ bảng chia sẻ: "Lần sao lưu gần nhất" không đổi, trang mật khẩu vẫn mở với ô trống.
+- [ ] **Lời nhắc:** chỉnh đồng hồ máy tới 30 ngày sau lần sao lưu gần nhất: đầu mục Dữ liệu có thẻ "Đã lâu chưa sao
+      lưu"; "Sao lưu ngay" mở trang sao lưu; "Để sau" ẩn thẻ (hiện lại sau 14 ngày). Không có thông báo nào.
+- [ ] Cá nhân → Dữ liệu → "Chuyển sang iPhone mới": đủ 3 bước, nút ở bước 1 mở trang sao lưu.
+- [ ] VoiceOver: công tắc, hai ô mật khẩu, nút hiện/ẩn mật khẩu đọc đúng tên; cỡ chữ AX5 không bị cắt.
+- [ ] **Trang web:** `site/privacy.html` có đoạn về mật khẩu và lời nhắc; chủ dự án duyệt rồi mới xuất bản lại
+      `gh-pages`.
+- [ ] Ghi chú phát hành: "Đặt mật khẩu cho file sao lưu, nhắc khi lâu chưa sao lưu, và hướng dẫn chuyển sang iPhone
+      mới (Cá nhân → Dữ liệu)."
+
 ## Giai đoạn 17 — Nhắc uống thuốc tránh thai
 
 Đặc tả: `docs/superpowers/specs/2026-10-09-pill-reminder-design.md`. Làm trên **máy thật** (simulator không có nút

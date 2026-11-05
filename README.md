@@ -148,7 +148,7 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 ## Sao lưu & khôi phục (giai đoạn 15)
 - Cá nhân → "Dữ liệu" (trên "Xoá toàn bộ dữ liệu"): "Sao lưu ra file" tạo `LunaMom-YYYY-MM-DD.lunamom` rồi mở bảng chia
   sẻ của iOS (Tệp, iCloud Drive, AirDrop, Zalo…); "Lần sao lưu gần nhất" chỉ ghi khi chia sẻ xong (`lastBackupAt`).
-  "Khôi phục từ file" mở trình chọn tệp. App không tự ghi lên iCloud và file không mã hoá (có ghi chú dưới hàng).
+  "Khôi phục từ file" mở trình chọn tệp. App không tự ghi lên iCloud; file chỉ được mã hoá khi đặt mật khẩu (1.1, xem dưới).
 - Mở một file `.lunamom` từ app khác (UTType `com.lmtiep.kickcounter.backup`, khai báo trong `project.yml`) hoặc chọn
   "Khôi phục từ bản sao lưu" ở bước đầu của onboarding cũng mở trang khôi phục: tóm tắt file, cảnh báo thay toàn bộ
   dữ liệu, rồi khôi phục **tất cả hoặc không gì cả** (`KickData/BackupStore.replaceAll`, một lần lưu, rollback khi
@@ -159,6 +159,27 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   `WRITE_BACKUP_FIXTURE=1 scripts/test-core.sh --filter BackupFixtureTests`.
 - Đặc tả: `docs/superpowers/specs/2026-10-09-backup-design.md`. Kiểm thử hai máy: `docs/release-checklist.md`
   ("Giai đoạn 15").
+
+## Sao lưu có mật khẩu, lời nhắc, chuyển sang iPhone mới (1.1)
+- "Sao lưu ra file" mở trước bước "Bảo vệ file bằng mật khẩu" (`BackupExportSheet`), **bật sẵn**, người dùng có thể
+  tắt. Mật khẩu ≥ 6 ký tự, nhập hai lần, có nút hiện/ẩn, cảnh báo quên mật khẩu là mất file. Mật khẩu chỉ nằm trong
+  state của trang (xoá khi tạo xong file hoặc đóng trang), không lưu, không ghi log.
+- Định dạng mã hoá (`KickCore/BackupEncryption.swift`, chỉ dùng thư viện của Apple): `LUNAENC1` (8 byte) · phiên bản
+  (1) · KDF (1 = PBKDF2-HMAC-SHA256, CommonCrypto) · số vòng `UInt32` big-endian (mặc định 600 000, đọc từ file, chỉ
+  nhận 100 000–10 000 000) · salt 16 byte · nonce AES-GCM 12 byte · ciphertext · tag 16 byte. 42 byte đầu là dữ liệu
+  xác thực (AAD) của AES-GCM (CryptoKit); bên trong là đúng JSON sao lưu cũ. Mật khẩu chuẩn hoá NFC trước khi dẫn
+  khoá. Sai mật khẩu hay file bị sửa đều là `.wrongPassword`, không trả dữ liệu nào. File thường (JSON) không đổi,
+  nhận biết bằng 8 byte đầu. File mẫu có mật khẩu cho UI test: `UITests/Fixtures/sample-protected.lunamom` (mật khẩu
+  `matkhau123`), tạo lại cùng lệnh `WRITE_BACKUP_FIXTURE=1` ở trên.
+- Mở file có mật khẩu: trang hỏi mật khẩu (`UnlockBackupView`); sai thì "Mật khẩu không đúng", thử lại, không đổi gì;
+  đúng thì vào trang khôi phục như cũ.
+- Thẻ "Đã lâu chưa sao lưu" ở đầu mục Dữ liệu (`BackupReminderPolicy`): lần sao lưu gần nhất ≥ 30 ngày, hoặc chưa
+  sao lưu lần nào và đã dùng app ≥ 14 ngày; "Để sau" ẩn 14 ngày. Chỉ trong app, không có thông báo. Khoá
+  `backupFirstUseAt`, `backupReminderSnoozedAt` thuộc `ownedKeys` và không vào file sao lưu. UI test:
+  `-seedLastBackupDaysAgo <ngày>`.
+- Cá nhân → Dữ liệu → "Chuyển sang iPhone mới": hướng dẫn 3 bước, bước 1 có nút mở luôn trang sao lưu.
+- Đặc tả: `docs/superpowers/specs/2026-11-05-backup-plus-design.md`. Kiểm thử: `docs/release-checklist.md` ("1.1 — Sao
+  lưu có mật khẩu").
 
 ## Nhắc uống thuốc tránh thai (giai đoạn 17)
 - Chỉ khi theo dõi chu kỳ với biện pháp "Thuốc tránh thai hằng ngày": Cá nhân → Chu kỳ → "Nhắc uống thuốc" (dưới
