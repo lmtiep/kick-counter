@@ -31,6 +31,7 @@ struct PregnancyEndingSheet: View {
     @State private var deleteData = false
     @State private var working = false
     @State private var failed = false
+    @State private var showingDatePicker = false
 
     private var today: Date { AppClock.now() }
 
@@ -48,6 +49,21 @@ struct PregnancyEndingSheet: View {
                 .accessibilityIdentifier("pregnancyEndCancel")
         }
         .interactiveDismissDisabled(working)
+        .sheet(isPresented: $showingDatePicker) {
+            NavigationStack {
+                DatePicker("", selection: $endDate, in: ...today, displayedComponents: .date)
+                    .datePickerStyle(.graphical)
+                    .labelsHidden()
+                    .tint(.luna(.cycleText))
+                    .padding(.horizontal)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button(L10n.completionDone) { showingDatePicker = false }
+                        }
+                    }
+            }
+            .lunaSheetPresentation(detents: [.medium, .large])
+        }
         .alert(L10n.pregnancyEndFailed, isPresented: $failed) {
             Button(L10n.commonOK) {}
         }
@@ -91,21 +107,26 @@ struct PregnancyEndingSheet: View {
             bodyText(L10n.pregnancyEndOpener(branch))
                 .accessibilityIdentifier("pregnancyEndOpener")
                 .padding(.top, 8)
-            // Label above the picker: side by side, the compact picker cannot
-            // shrink at accessibility sizes and pushed the sheet off screen.
+            // The date as a button opening a calendar (as "I'm pregnant" does): an
+            // inline compact picker cannot shrink at accessibility sizes and
+            // pushed the whole sheet past the screen edge.
             VStack(alignment: .leading, spacing: 6) {
-                Text(L10n.pregnancyEndDateLabel(branch))
-                    .font(.luna(.body))
-                    .foregroundStyle(.luna(.textPrimary))
-                    .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityHidden(true)
-                DatePicker(
-                    L10n.pregnancyEndDateLabel(branch),
-                    selection: $endDate,
-                    in: ...today,
-                    displayedComponents: .date
-                )
-                .labelsHidden()
+                Button { showingDatePicker = true } label: {
+                    HStack(spacing: 12) {
+                        Text(L10n.pregnancyEndDateLabel(branch))
+                            .font(.luna(.body))
+                            .foregroundStyle(.luna(.textPrimary))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(Formatting.dayMonthYear(endDate))
+                            .font(.luna(.bodyStrong))
+                            .foregroundStyle(.luna(.textPrimary))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .frame(minHeight: 44)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
                 .accessibilityIdentifier("pregnancyEndDate")
                 Text(L10n.pregnancyEndDateHint)
                     .font(.luna(.caption))
