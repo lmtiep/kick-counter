@@ -69,6 +69,9 @@ public enum BackupSettings {
         SettingsKey.reviewUseDays,
         SettingsKey.reviewAskedAt,
         SettingsKey.reviewAskedVersions,
+        // The backup reminder belongs to this phone too (1.1).
+        SettingsKey.backupFirstUseAt,
+        SettingsKey.backupReminderSnoozedAt,
     ]
 
     /// `AppDataReset.ownedKeys` minus `excludedKeys` (`BackupSettingsTests` checks it).

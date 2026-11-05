@@ -5,7 +5,12 @@ import Testing
 /// `UITests/Fixtures/sample.lunamom` is made by KickCore's encoder, so the UI tests'
 /// file always matches the format. Regenerate it with
 /// `WRITE_BACKUP_FIXTURE=1 scripts/test-core.sh --filter BackupFixtureTests`.
+/// `sample-protected.lunamom` is the same file sealed with `protectedPassword`;
+/// its salt and nonce are random, so it is only rewritten when regenerating.
 struct BackupFixtureTests {
+    /// The UI tests type this password (`BackupUITests`).
+    static let protectedPassword = "matkhau123"
+
     /// Pregnant at 24w3d on `UITestDates.fixedNow` (2026-10-02 12:00 UTC): three
     /// sessions, two check-ups, one period, two day logs, three weights.
     static func fixture() -> BackupDocument {
@@ -52,14 +57,17 @@ struct BackupFixtureTests {
         )
     }
 
-    private var fixtureURL: URL {
+    private var fixtureURL: URL { fixturesFolder.appendingPathComponent("sample.lunamom") }
+    private var protectedFixtureURL: URL { fixturesFolder.appendingPathComponent("sample-protected.lunamom") }
+
+    private var fixturesFolder: URL {
         URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent() // KickCoreTests
             .deletingLastPathComponent() // Tests
             .deletingLastPathComponent() // KickCore
             .deletingLastPathComponent() // Packages
             .deletingLastPathComponent() // repo
-            .appendingPathComponent("UITests/Fixtures/sample.lunamom")
+            .appendingPathComponent("UITests/Fixtures")
     }
 
     @Test func fixtureFileMatchesTheEncoder() throws {
@@ -71,6 +79,22 @@ struct BackupFixtureTests {
         #expect(stored == encoded, "Regenerate UITests/Fixtures/sample.lunamom (see the doc comment)")
         let decoded = try BackupCodec.decode(stored)
         #expect(decoded == Self.fixture())
+    }
+
+    /// A file sealed by an earlier build still opens: a known answer for the whole
+    /// format (header layout, key derivation with the file's count, AES-GCM).
+    @Test func protectedFixtureOpensWithItsPassword() throws {
+        let encoded = try BackupCodec.encode(Self.fixture())
+        if ProcessInfo.processInfo.environment["WRITE_BACKUP_FIXTURE"] == "1" {
+            try BackupEncryption.seal(encoded, password: Self.protectedPassword).write(to: protectedFixtureURL)
+        }
+        let stored = try Data(contentsOf: protectedFixtureURL)
+        #expect(BackupEncryption.isEncrypted(stored))
+        #expect(try BackupEncryption.parameters(of: stored).iterations == BackupEncryption.defaultIterations)
+        #expect(try BackupEncryption.open(stored, password: Self.protectedPassword) == encoded)
+        #expect(throws: BackupEncryptionError.wrongPassword) {
+            try BackupEncryption.open(stored, password: "matkhau124")
+        }
     }
 
     @Test func fixtureIsValidOnTheUITestDay() {

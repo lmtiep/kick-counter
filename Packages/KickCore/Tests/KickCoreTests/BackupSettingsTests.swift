@@ -16,6 +16,8 @@ struct BackupSettingsTests {
             SettingsKey.reviewUseDays,
             SettingsKey.reviewAskedAt,
             SettingsKey.reviewAskedVersions,
+            SettingsKey.backupFirstUseAt,
+            SettingsKey.backupReminderSnoozedAt,
         ])
         #expect(Set(BackupSettings.table.keys) == expected)
         #expect(BackupSettings.excludedKeys.isDisjoint(with: BackupSettings.table.keys))

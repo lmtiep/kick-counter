@@ -117,6 +117,13 @@ struct UITestRestoreOnReactivateOptionTests {
         #expect(!UITestLaunchOptions(arguments: ["-uiTestingRestoreOnReactivate"]).restoresFileOnReactivate)
     }
 
+    @Test func seedLastBackupDaysAgoIsReadOnlyWithUITesting() {
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedLastBackupDaysAgo", "45"]).seedLastBackupDaysAgo == 45)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedLastBackupDaysAgo", "-3"]).seedLastBackupDaysAgo == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedLastBackupDaysAgo", "x"]).seedLastBackupDaysAgo == nil)
+        #expect(UITestLaunchOptions(arguments: ["-seedLastBackupDaysAgo", "45"]).seedLastBackupDaysAgo == nil)
+    }
+
     @Test func seedPillParsesTypeAndOffset() {
         let options = UITestLaunchOptions(arguments: ["-uiTesting", "-seedPill", "21+7:11"])
         #expect(options.seedPill?.type == .withBreak)

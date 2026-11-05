@@ -25,6 +25,8 @@ import Foundation
 /// - `-seedContractions <scenario>` stores that `ContractionSeed` (`511`, `preterm`) (phase 20).
 /// - `-contractionUndoWindow <seconds>` offers the contraction timer's "Hoàn tác" that long
 ///   instead of `ContractionRules.undoWindow`, so a slow CI simulator can still tap it.
+/// - `-seedLastBackupDaysAgo <days>` stores a last backup that many days before the pinned
+///   now, so Profile shows the backup reminder card (1.1) when it is 30 or more.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -44,6 +46,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedPill: PillSeed?
     public let seedContractions: ContractionSeed?
     public let contractionUndoWindow: TimeInterval?
+    public let seedLastBackupDaysAgo: Int?
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -73,6 +76,9 @@ public struct UITestLaunchOptions: Equatable, Sendable {
             : nil
         contractionUndoWindow = isUITesting
             ? Self.value(after: "-contractionUndoWindow", in: arguments).flatMap(TimeInterval.init).flatMap { $0 > 0 ? $0 : nil }
+            : nil
+        seedLastBackupDaysAgo = isUITesting
+            ? Self.value(after: "-seedLastBackupDaysAgo", in: arguments).flatMap { Int($0) }.flatMap { $0 >= 0 ? $0 : nil }
             : nil
     }
 
