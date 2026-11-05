@@ -39,7 +39,6 @@ private struct TimePickerRow: View {
     let title: String
     @Binding var time: Date
     let identifier: String
-    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         let picker = DatePicker(
@@ -52,19 +51,19 @@ private struct TimePickerRow: View {
             displayedComponents: [.date, .hourAndMinute]
         )
         .labelsHidden()
+        .datePickerStyle(.compact)
         .tint(.luna(.pregText))
-        Group {
-            if typeSize.isAccessibilitySize {
-                VStack(alignment: .leading, spacing: 8) {
-                    label
-                    picker.datePickerStyle(.wheel)
-                }
-            } else {
-                HStack(spacing: 8) {
-                    label
-                    Spacer(minLength: 8)
-                    picker.datePickerStyle(.compact)
-                }
+        // Side by side when it fits; otherwise the label above (large text),
+        // always a compact picker: a wheel is 216 pt tall whatever the text size.
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8) {
+                label.lineLimit(1)
+                Spacer(minLength: 8)
+                picker
+            }
+            VStack(alignment: .leading, spacing: 8) {
+                label
+                picker
             }
         }
         .frame(minHeight: 44)
@@ -142,17 +141,17 @@ struct ContractionEditSheet: View {
                         LunaDivider()
                     }
                     Stepper(value: duration, in: 0...900, step: 5) {
-                        HStack(spacing: 8) {
-                            Text(L10n.contractionEditDuration)
-                                .font(.luna(.bodyStrong))
-                                .foregroundStyle(.luna(.textPrimary))
-                            Spacer(minLength: 8)
-                            Text(ContractionClock.text(TimeInterval(duration.wrappedValue)))
-                                .font(.luna(.bodyStrong))
-                                .monospacedDigit()
-                                .foregroundStyle(.luna(.pregText))
+                        ViewThatFits(in: .horizontal) {
+                            HStack(spacing: 8) {
+                                durationLabel.lineLimit(1)
+                                Spacer(minLength: 8)
+                                durationValue
+                            }
+                            VStack(alignment: .leading, spacing: 2) {
+                                durationLabel
+                                durationValue
+                            }
                         }
-                        .fixedSize(horizontal: false, vertical: true)
                     }
                     .accessibilityLabel(L10n.contractionEditDuration)
                     .accessibilityValue(ContractionClock.text(TimeInterval(duration.wrappedValue)))
@@ -187,6 +186,20 @@ struct ContractionEditSheet: View {
         }
         .onChange(of: start) { saveError = nil }
         .onChange(of: end) { saveError = nil }
+    }
+
+    private var durationLabel: some View {
+        Text(L10n.contractionEditDuration)
+            .font(.luna(.bodyStrong))
+            .foregroundStyle(.luna(.textPrimary))
+            .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private var durationValue: some View {
+        Text(ContractionClock.text(TimeInterval(duration.wrappedValue)))
+            .font(.luna(.bodyStrong))
+            .monospacedDigit()
+            .foregroundStyle(.luna(.pregText))
     }
 
     private var message: String? {

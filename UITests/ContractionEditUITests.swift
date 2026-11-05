@@ -19,14 +19,13 @@ final class ContractionEditUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForExistence(timeout: 5))
 
         // Invalid first: a length of 0 s puts the end at the start.
-        let stepper = app.steppers["contractionEditDuration"]
-        XCTAssertTrue(stepper.waitForExistence(timeout: 5))
-        for _ in 0..<12 { stepper.buttons["Decrement"].tap() }
+        XCTAssertTrue(app.buttons["contractionEditDuration-Decrement"].waitForExistence(timeout: 5))
+        for _ in 0..<12 { app.buttons["contractionEditDuration-Decrement"].tap() }
         XCTAssertTrue(app.descendants(matching: .any)["contractionEditError"].waitForExistence(timeout: 3))
         XCTAssertFalse(app.buttons["contractionEditSave"].isEnabled)
 
         // Then a valid 1:10: the row shows it.
-        for _ in 0..<14 { stepper.buttons["Increment"].tap() }
+        for _ in 0..<14 { app.buttons["contractionEditDuration-Increment"].tap() }
         XCTAssertFalse(app.descendants(matching: .any)["contractionEditError"].exists)
         let save = app.buttons["contractionEditSave"]
         XCTAssertTrue(save.isEnabled)
@@ -118,7 +117,7 @@ final class ContractionEditUITests: XCTestCase {
         let row = rows(app).firstMatch
         row.tap()
         XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForExistence(timeout: 5))
-        app.steppers["contractionEditDuration"].buttons["Increment"].tap()
+        app.buttons["contractionEditDuration-Increment"].tap()
         app.buttons["contractionEditSave"].tap()
         XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForNonExistence(timeout: 5))
         waitForLabel(rows(app).firstMatch, containing: "lasted 0:45")
