@@ -7,11 +7,13 @@ public enum ChecklistKind: String, CaseIterable, Sendable {
 }
 
 /// The four groups of the hospital bag, in the order they are shown.
-public enum BagGroup: String, CaseIterable, Sendable {
+public enum BagGroup: String, CaseIterable, Identifiable, Sendable {
     case documents
     case mother
     case baby
     case companion
+
+    public var id: String { rawValue }
 }
 
 /// Value snapshot of the SwiftData `ChecklistItem`. A built-in bag item is stored only

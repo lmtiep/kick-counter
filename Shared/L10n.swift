@@ -1054,4 +1054,40 @@ enum L10n {
     static func widgetKicksToday(_ count: Int) -> String { String(format: t("widget.kicksToday"), count) }
     static var widgetOvulationDay: String { t("widget.ovulationDay") }
     static var widgetOutsideWindow: String { t("widget.outsideWindow") }
+
+    // MARK: - Hospital bag and questions for the doctor (1.1)
+
+    static var bagTitle: String { t("bag.title") }
+    static func bagCardTitle(_ done: Int, _ total: Int) -> String { String(format: t("bag.card.title"), done, total) }
+    static var bagCardSubtitle: String { t("bag.card.subtitle") }
+    static func bagProgress(_ done: Int, _ total: Int) -> String { String(format: t("bag.progress"), done, total) }
+    static var bagHint: String { t("bag.hint") }
+    static var bagAdd: String { t("bag.add") }
+    static var bagAddField: String { t("bag.add.field") }
+    static var bagAddGroup: String { t("bag.add.group") }
+    static var bagHide: String { t("bag.hide") }
+    static var bagMenuReset: String { t("bag.menu.reset") }
+    static func bagMenuUnhide(_ count: Int) -> String { String(format: t("bag.menu.unhide"), count) }
+    static var bagMenuLabel: String { t("bag.menu.label") }
+    static var bagResetTitle: String { t("bag.reset.title") }
+    static var bagResetAction: String { t("bag.reset.action") }
+    /// A group title or a built-in item, localised by id (`BagCatalog.stringKey`).
+    static func bagGroup(_ group: BagGroup) -> String { t(BagCatalog.stringKey(forGroup: group)) }
+    static func bagItem(_ id: String) -> String { t(BagCatalog.stringKey(forItem: id)) }
+    static var checklistDone: String { t("checklist.done") }
+    static var checklistNotDone: String { t("checklist.notDone") }
+    static var questionsTitle: String { t("questions.title") }
+    static var questionsField: String { t("questions.field") }
+    static func questionsProgress(_ done: Int, _ total: Int) -> String { String(format: t("questions.progress"), done, total) }
+    static var questionsEmpty: String { t("questions.empty") }
+    static var questionsPendingHint: String { t("questions.pending.hint") }
+    static var questionsUnassignedTitle: String { t("questions.unassigned.title") }
+    static var questionsUnassignedFooter: String { t("questions.unassigned.footer") }
+    static func questionsRowSummary(_ done: Int, _ total: Int) -> String { String(format: t("questions.row.summary"), done, total) }
+    static var questionsQuickCard: String { t("questions.quick.card") }
+    static var questionsQuickSubtitle: String { t("questions.quick.subtitle") }
+    static var questionsQuickField: String { t("questions.quick.field") }
+    static func questionsQuickAddedTo(_ date: String) -> String { String(format: t("questions.quick.addedTo"), date) }
+    static var questionsQuickAddedLoose: String { t("questions.quick.addedLoose") }
+    static func appointmentsDeleteConfirmQuestions(_ count: Int) -> String { String(format: t("appointments.delete.confirm.questions"), count) }
 }

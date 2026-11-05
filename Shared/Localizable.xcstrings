@@ -239,6 +239,23 @@
         }
       }
     },
+    "appointments.delete.confirm.questions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Its %ld saved questions will be deleted too."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld câu hỏi đã ghi cho lần khám này cũng sẽ bị xoá."
+          }
+        }
+      }
+    },
     "appointments.delete.confirm.title": {
       "extractionState": "manual",
       "localizations": {
@@ -1565,6 +1582,91 @@
         }
       }
     },
+    "bag.add": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add an item"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm đồ"
+          }
+        }
+      }
+    },
+    "bag.add.field": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Item"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Món đồ"
+          }
+        }
+      }
+    },
+    "bag.add.group": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Group"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nhóm"
+          }
+        }
+      }
+    },
+    "bag.card.subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check off what you have packed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đánh dấu những thứ đã chuẩn bị"
+          }
+        }
+      }
+    },
+    "bag.card.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hospital bag · %1$ld/%2$ld"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đồ đi sinh · %1$ld/%2$ld"
+          }
+        }
+      }
+    },
     "bag.group.baby": {
       "extractionState": "manual",
       "localizations": {
@@ -1629,6 +1731,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đồ cho mẹ"
+          }
+        }
+      }
+    },
+    "bag.hide": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ẩn"
+          }
+        }
+      }
+    },
+    "bag.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap an item when it is packed. Swipe left to hide one you do not need."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chạm vào món đồ khi đã chuẩn bị xong. Vuốt sang trái để ẩn món bạn không cần."
           }
         }
       }
@@ -2160,6 +2296,125 @@
         }
       }
     },
+    "bag.menu.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bag options"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tùy chọn đồ đi sinh"
+          }
+        }
+      }
+    },
+    "bag.menu.reset": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Untick everything"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ tick tất cả"
+          }
+        }
+      }
+    },
+    "bag.menu.unhide": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show %ld hidden items"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hiện lại %ld mục đã ẩn"
+          }
+        }
+      }
+    },
+    "bag.progress": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld of %2$ld packed"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã chuẩn bị %1$ld/%2$ld"
+          }
+        }
+      }
+    },
+    "bag.reset.action": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Untick all"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ tick"
+          }
+        }
+      }
+    },
+    "bag.reset.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Untick every item?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ tick tất cả các món?"
+          }
+        }
+      }
+    },
+    "bag.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hospital bag"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đồ đi sinh"
+          }
+        }
+      }
+    },
     "calendar.a11y.fertile": {
       "extractionState": "manual",
       "localizations": {
@@ -2479,6 +2734,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lịch chu kỳ"
+          }
+        }
+      }
+    },
+    "checklist.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xong"
+          }
+        }
+      }
+    },
+    "checklist.notDone": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not done"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa xong"
           }
         }
       }
@@ -11268,6 +11557,227 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cá nhân"
+          }
+        }
+      }
+    },
+    "questions.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write down what you want to ask so you do not forget."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi lại điều bạn muốn hỏi để khỏi quên."
+          }
+        }
+      }
+    },
+    "questions.field": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a question"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thêm câu hỏi"
+          }
+        }
+      }
+    },
+    "questions.pending.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "These questions will be added to this appointment when you save it."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Các câu hỏi này sẽ được thêm vào lần khám này khi bạn lưu."
+          }
+        }
+      }
+    },
+    "questions.progress": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld of %2$ld asked"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã hỏi %1$ld/%2$ld"
+          }
+        }
+      }
+    },
+    "questions.quick.addedLoose": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved. It will go to your next appointment."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã lưu. Câu hỏi sẽ gắn vào lần khám tiếp theo."
+          }
+        }
+      }
+    },
+    "questions.quick.addedTo": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Added to your appointment on %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã thêm vào lần khám ngày %@"
+          }
+        }
+      }
+    },
+    "questions.quick.card": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write a question for the doctor"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi câu hỏi cho bác sĩ"
+          }
+        }
+      }
+    },
+    "questions.quick.field": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your question"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Câu hỏi của bạn"
+          }
+        }
+      }
+    },
+    "questions.quick.subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For your next check-up"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cho lần khám tới"
+          }
+        }
+      }
+    },
+    "questions.row.summary": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$ld/%2$ld questions asked"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã hỏi %1$ld/%2$ld câu hỏi"
+          }
+        }
+      }
+    },
+    "questions.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questions for the doctor"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Câu hỏi cho bác sĩ"
+          }
+        }
+      }
+    },
+    "questions.unassigned.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "They will move to your next appointment once you add one."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sẽ chuyển sang lần khám tiếp theo khi bạn thêm lịch khám."
+          }
+        }
+      }
+    },
+    "questions.unassigned.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved questions"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Câu hỏi đã ghi"
           }
         }
       }

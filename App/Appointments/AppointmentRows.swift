@@ -3,6 +3,8 @@ import SwiftUI
 
 struct AppointmentRow: View {
     let record: AppointmentRecord
+    /// The questions written for this appointment (1.1); nothing is shown without any.
+    var questions = ChecklistProgress(done: 0, total: 0)
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -24,6 +26,11 @@ struct AppointmentRow: View {
                     .font(.luna(.small))
                     .foregroundStyle(.luna(.textSecondary))
                     .lineLimit(2)
+            }
+            if questions.total > 0 {
+                Label(L10n.questionsRowSummary(questions.done, questions.total), systemImage: "text.bubble")
+                    .font(.luna(.small))
+                    .foregroundStyle(.luna(.pregText))
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
