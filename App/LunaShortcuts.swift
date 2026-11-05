@@ -5,12 +5,12 @@ import AppIntents
 struct LunaShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
         AppShortcut(
-            intent: StartKickCountIntent(),
+            intent: RecordKickIntent(),
             phrases: [
-                "Start counting kicks in \(.applicationName)",
-                "Count kicks in \(.applicationName)",
+                "Record a kick in \(.applicationName)",
+                "Log a kick in \(.applicationName)",
             ],
-            shortTitle: "intent.siri.startKicks.title",
+            shortTitle: "intent.siri.recordKick.title",
             systemImageName: "hand.tap.fill"
         )
         AppShortcut(

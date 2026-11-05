@@ -3033,13 +3033,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Start a movement count without opening the app."
+            "value": "Record one movement without opening the app."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bắt đầu đếm cử động mà không cần mở app."
+            "value": "Ghi một cử động thai mà không cần mở app."
           }
         }
       }
@@ -3050,13 +3050,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Count kicks"
+            "value": "Record a kick"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đếm cử động"
+            "value": "Ghi cử động"
           }
         }
       }
@@ -3067,13 +3067,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Start counting kicks"
+            "value": "Record a kick"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bắt đầu đếm cử động"
+            "value": "Ghi cử động thai"
           }
         }
       }
@@ -6512,36 +6512,19 @@
         }
       }
     },
-    "intent.siri.dialog.kicksAlreadyRunning": {
+    "intent.siri.dialog.kickRecorded": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Already counting. Tap the card on your Lock Screen to add movements."
+            "value": "Kick recorded."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đang đếm rồi. Chạm vào thẻ trên màn hình khoá để thêm cử động."
-          }
-        }
-      }
-    },
-    "intent.siri.dialog.kicksStarted": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Counting started. Tap the card on your Lock Screen to add movements."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Đã bắt đầu đếm. Chạm vào thẻ trên màn hình khoá để thêm cử động."
+            "value": "Đã ghi một cử động."
           }
         }
       }
@@ -6597,36 +6580,36 @@
         }
       }
     },
-    "intent.siri.startKicks.description": {
+    "intent.siri.recordKick.description": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Starts a movement count, or reports that one is running."
+            "value": "Records one movement. Starts a count if none is running."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bắt đầu một lượt đếm cử động, hoặc cho biết lượt đếm đang chạy."
+            "value": "Ghi một cử động thai. Bắt đầu lượt đếm nếu chưa có."
           }
         }
       }
     },
-    "intent.siri.startKicks.title": {
+    "intent.siri.recordKick.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Start counting kicks"
+            "value": "Record a kick"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bắt đầu đếm cử động"
+            "value": "Ghi cử động thai"
           }
         }
       }

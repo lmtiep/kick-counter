@@ -5,17 +5,16 @@ struct SiriPlannerTests {
     private func state(
         mode: AppMode = .pregnant,
         onboarded: Bool = true,
-        kickSession: Bool = false,
         running: Bool = false,
         episode: Bool = false
     ) -> SiriState {
-        SiriState(mode: mode, onboarded: onboarded, kickSessionActive: kickSession,
+        SiriState(mode: mode, onboarded: onboarded,
                   contractionRunning: running, contractionEpisodeActive: episode)
     }
 
     @Test(arguments: SiriCommand.allCases, [AppMode.tryingToConceive, .partner])
     func onlyPregnancyModeActs(command: SiriCommand, mode: AppMode) {
-        #expect(SiriPlanner.plan(command, state(mode: mode, kickSession: true, running: true, episode: true)) == .needsPregnancyMode)
+        #expect(SiriPlanner.plan(command, state(mode: mode, running: true, episode: true)) == .needsPregnancyMode)
     }
 
     @Test(arguments: SiriCommand.allCases)
@@ -23,12 +22,8 @@ struct SiriPlannerTests {
         #expect(SiriPlanner.plan(command, state(onboarded: false)) == .needsPregnancyMode)
     }
 
-    @Test func startKicksStartsWhenNoSession() {
-        #expect(SiriPlanner.plan(.startKicks, state()) == .recordKick)
-    }
-
-    @Test func startKicksDoesNotAddWhileRunning() {
-        #expect(SiriPlanner.plan(.startKicks, state(kickSession: true)) == .kickAlreadyRunning)
+    @Test func recordKickAlwaysRecordsOne() {
+        #expect(SiriPlanner.plan(.recordKick, state()) == .recordKick)
     }
 
     @Test(arguments: [false, true])

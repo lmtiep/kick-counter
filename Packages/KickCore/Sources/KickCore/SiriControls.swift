@@ -2,8 +2,7 @@ import Foundation
 
 /// What a command did, for the short generic dialog (no numbers, no medical wording).
 public enum SiriResult: Equatable, Sendable {
-    case kicksStarted
-    case kicksAlreadyRunning
+    case kickRecorded
     case contractionStarted
     case contractionStopped
     case contractionDiscarded
@@ -34,25 +33,25 @@ public struct SiriControls {
         // The intent may launch the app in the background: read the stores first.
         if mode == .pregnant, onboarded {
             switch command {
-            case .startKicks: await kicks.load()
+            case .recordKick: await kicks.load()
             case .timeContraction, .stopContractions: await contractions.load()
             }
         }
         let state = SiriState(
             mode: mode,
             onboarded: onboarded,
-            kickSessionActive: kicks.activeSession != nil,
             contractionRunning: contractions.running != nil,
             contractionEpisodeActive: contractions.isTrackingEpisode
         )
         switch SiriPlanner.plan(command, state) {
         case .needsPregnancyMode:
             return .needsPregnancyMode
-        case .kickAlreadyRunning:
-            return .kicksAlreadyRunning
         case .recordKick:
-            guard case .added = await kicks.recordKick() else { return .failed }
-            return .kicksStarted
+            switch await kicks.recordKick() {
+            // A debounced tap means a kick was recorded a moment ago.
+            case .added, .completed, .ignoredDebounce: return .kickRecorded
+            case .ignoredInactive: return .failed
+            }
         case .toggleContraction:
             switch await contractions.toggle() {
             case .started: return .contractionStarted

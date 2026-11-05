@@ -1,23 +1,6 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "Count kicks in ${applicationName}": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Count kicks in ${applicationName}"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Đếm cử động trong ${applicationName}"
-          }
-        }
-      }
-    },
     "End contraction tracking in ${applicationName}": {
       "extractionState": "manual",
       "localizations": {
@@ -35,6 +18,40 @@
         }
       }
     },
+    "Log a kick in ${applicationName}": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log a kick in ${applicationName}"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi cử động thai trong ${applicationName}"
+          }
+        }
+      }
+    },
+    "Record a kick in ${applicationName}": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record a kick in ${applicationName}"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi cử động trong ${applicationName}"
+          }
+        }
+      }
+    },
     "Start a contraction in ${applicationName}": {
       "extractionState": "manual",
       "localizations": {
@@ -48,23 +65,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tính giờ cơn gò trong ${applicationName}"
-          }
-        }
-      }
-    },
-    "Start counting kicks in ${applicationName}": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start counting kicks in ${applicationName}"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bắt đầu đếm cử động trong ${applicationName}"
           }
         }
       }

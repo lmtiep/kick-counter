@@ -2,7 +2,7 @@ import Foundation
 
 /// What a Siri phrase, Shortcut or Control asks for (1.1 spec: Siri, Action Button and Control Center).
 public enum SiriCommand: String, CaseIterable, Sendable {
-    case startKicks
+    case recordKick
     case timeContraction
     case stopContractions
 }
@@ -11,24 +11,20 @@ public enum SiriCommand: String, CaseIterable, Sendable {
 public struct SiriState: Equatable, Sendable {
     public var mode: AppMode
     public var onboarded: Bool
-    public var kickSessionActive: Bool
     public var contractionRunning: Bool
     public var contractionEpisodeActive: Bool
 
-    public init(mode: AppMode, onboarded: Bool, kickSessionActive: Bool, contractionRunning: Bool, contractionEpisodeActive: Bool) {
+    public init(mode: AppMode, onboarded: Bool, contractionRunning: Bool, contractionEpisodeActive: Bool) {
         self.mode = mode
         self.onboarded = onboarded
-        self.kickSessionActive = kickSessionActive
         self.contractionRunning = contractionRunning
         self.contractionEpisodeActive = contractionEpisodeActive
     }
 }
 
 public enum SiriPlan: Equatable, Sendable {
-    /// No session: the first kick starts one.
+    /// One kick, as the Live Activity "+" button: starts a session if none runs, else adds to it.
     case recordKick
-    /// A session runs: nothing is added, so a repeated phrase never inflates a count.
-    case kickAlreadyRunning
     /// Starts a contraction, or stops the running one.
     case toggleContraction
     case endContractionTracking
@@ -42,8 +38,8 @@ public enum SiriPlanner {
     public static func plan(_ command: SiriCommand, _ state: SiriState) -> SiriPlan {
         guard state.mode == .pregnant, state.onboarded else { return .needsPregnancyMode }
         switch command {
-        case .startKicks:
-            return state.kickSessionActive ? .kickAlreadyRunning : .recordKick
+        case .recordKick:
+            return .recordKick
         case .timeContraction:
             return .toggleContraction
         case .stopContractions:

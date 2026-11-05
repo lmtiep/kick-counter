@@ -35,25 +35,25 @@ struct SiriControlsTests {
         AppMode.save(.pregnant, to: defaults)
     }
 
-    @Test func startKicksStartsSessionAndLiveActivity() async {
-        let result = await siri.run(.startKicks)
-        #expect(result == .kicksStarted)
+    @Test func recordKickStartsSessionAndLiveActivity() async {
+        let result = await siri.run(.recordKick)
+        #expect(result == .kickRecorded)
         #expect(kicks.activeSession?.count == 1)
         #expect(kickLive.started.count == 1)
     }
 
-    @Test func startKicksTwiceKeepsOneKick() async {
-        await siri.run(.startKicks)
+    @Test func recordKickAddsToTheRunningSession() async {
+        await siri.run(.recordKick)
         clock.advance(60)
-        let second = await siri.run(.startKicks)
-        #expect(second == .kicksAlreadyRunning)
-        #expect(kicks.activeSession?.count == 1)
-        #expect(kickLive.updates.allSatisfy { $0.count == 1 })
+        #expect(await siri.run(.recordKick) == .kickRecorded)
+        #expect(kicks.activeSession?.count == 2)
+        #expect(kickLive.updates.last?.count == 2)
+        #expect(kickLive.started.count == 1)
     }
 
-    @Test func startKicksReportsAFailedSave() async {
+    @Test func recordKickReportsAFailedSave() async {
         kickStore.failNextWrite = true
-        let result = await siri.run(.startKicks)
+        let result = await siri.run(.recordKick)
         #expect(result == .failed)
         #expect(kicks.activeSession == nil)
     }
@@ -96,6 +96,15 @@ struct SiriControlsTests {
         #expect(contractions.episodeEndedAt == ended)
     }
 
+    @Test func stopContractionsAfterTheEpisodeGapChangesNothing() async {
+        await siri.run(.timeContraction)
+        clock.advance(60)
+        await siri.run(.timeContraction)
+        clock.advance(3 * 60 * 60)
+        #expect(await siri.run(.stopContractions) == .nothingToEnd)
+        #expect(contractions.episodeEndedAt == nil)
+    }
+
     @Test(arguments: [AppMode.tryingToConceive, .partner])
     func notPregnantChangesNothing(mode: AppMode) async {
         AppMode.save(mode, to: defaults)
@@ -109,7 +118,7 @@ struct SiriControlsTests {
 
     @Test func notOnboardedChangesNothing() async {
         defaults.set(false, forKey: SettingsKey.hasCompletedOnboarding)
-        #expect(await siri.run(.startKicks) == .needsPregnancyMode)
+        #expect(await siri.run(.recordKick) == .needsPregnancyMode)
         #expect(kicks.activeSession == nil)
     }
 }

@@ -9,7 +9,7 @@ import WidgetKit
 struct KickCountControl: ControlWidget {
     var body: some ControlWidgetConfiguration {
         StaticControlConfiguration(kind: "com.lmtiep.kickcounter.control.kicks") {
-            ControlWidgetButton(action: StartKickCountIntent()) {
+            ControlWidgetButton(action: RecordKickIntent()) {
                 Label(L10n.controlKicksLabel, systemImage: "hand.tap.fill")
             }
         }

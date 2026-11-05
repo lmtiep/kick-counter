@@ -10,16 +10,16 @@ enum SiriIntentBridge {
     static var run: (@MainActor (SiriCommand) async -> SiriResult)?
 }
 
-/// "Bắt đầu đếm cử động": starts a count; while one runs it only says so (it never adds a kick).
-struct StartKickCountIntent: LiveActivityIntent {
-    static let title: LocalizedStringResource = "intent.siri.startKicks.title"
-    static let description = IntentDescription("intent.siri.startKicks.description")
+/// "Ghi cử động thai": one kick, like the Live Activity "+" button; starts a session if none runs.
+struct RecordKickIntent: LiveActivityIntent {
+    static let title: LocalizedStringResource = "intent.siri.recordKick.title"
+    static let description = IntentDescription("intent.siri.recordKick.description")
 
     init() {}
 
     @MainActor
     func perform() async throws -> some IntentResult & ProvidesDialog {
-        .result(dialog: await SiriDialog.perform(.startKicks))
+        .result(dialog: await SiriDialog.perform(.recordKick))
     }
 }
 

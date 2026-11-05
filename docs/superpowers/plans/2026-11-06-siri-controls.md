@@ -16,24 +16,28 @@ Spec: `docs/superpowers/specs/2026-11-06-siri-controls-design.md`. Branch `feat/
   `ContractionCoordinator` is not edited: the extra read is an extension in its own file.
 
 ## Decisions
-- "Start counting kicks": no session means it starts one (the first kick starts a session, there is no
-  empty session). A session already running means it does nothing and says so; it never adds a kick, so a
-  repeated phrase or button press cannot inflate a count. Kicks are added from the Live Activity card.
-- Outside pregnancy mode (or before onboarding) no intent starts anything; the dialog is generic.
-  A background intent cannot open the app conditionally on iOS 17 (`ForegroundContinuableIntent` is
-  unavailable in extensions and deprecated in 26), so the dialog asks her to open the app.
+- "Ghi cử động thai" / "Record a kick" (replaces "Start counting kicks", fix round 1): each run records exactly
+  one kick, like the Live Activity "+" button: it starts a session if none runs, else adds to the running one.
+  The name says what it does, so a kick is never recorded under a "start" label. The dialog is "Kick recorded."
+  with no numbers and no promise of a Lock Screen card. A debounced repeat reports "recorded" (a kick was
+  just recorded); a failed save reports the generic failure.
+- Outside pregnancy mode (or before onboarding) no intent starts anything; the dialog is generic. This
+  deviates from the spec ("opens the app on Today"), kept on purpose because of iOS 17 limits: a background
+  intent cannot open the app conditionally (`ForegroundContinuableIntent` is unavailable in extensions and
+  deprecated in iOS 26; `OpenURLIntent` is iOS 18 only and would open the app every time), so the dialog asks
+  her to open the app.
+- `isTrackingEpisode` is `stats(week: nil).currentEpisode != nil`, so "stop" respects the 2-hour episode gap.
 
 ## Tasks (TDD: test first, watch it fail, then code)
 1. `SiriPlannerTests` (KickCore), then `SiriPlanner.swift`.
-   `enum SiriCommand { startKicks, timeContraction, stopContractions }`,
-   `struct SiriState { mode: AppMode, onboarded: Bool, kickSessionActive: Bool, contractionRunning: Bool, contractionEpisodeActive: Bool }`,
-   `enum SiriPlan { recordKick, kickAlreadyRunning, toggleContraction, endContractionTracking, nothingToEnd, needsPregnancyMode }`.
-   Tests: `onlyPregnancyModeActs`, `notOnboardedNeverActs`, `startKicksStartsWhenNoSession`,
-   `startKicksDoesNotAddWhileRunning`, `timeContractionAlwaysToggles`, `stopEndsRunningOrActiveEpisode`,
+   `enum SiriCommand { recordKick, timeContraction, stopContractions }`,
+   `struct SiriState { mode: AppMode, onboarded: Bool, contractionRunning: Bool, contractionEpisodeActive: Bool }`,
+   `enum SiriPlan { recordKick, toggleContraction, endContractionTracking, nothingToEnd, needsPregnancyMode }`.
+   Tests: `onlyPregnancyModeActs`, `notOnboardedNeverActs`, `recordKickAlwaysRecordsOne`, `timeContractionAlwaysToggles`, `stopEndsRunningOrActiveEpisode`,
    `stopWithNothingToEnd`.
 2. `SiriControlsTests` (KickCore, real coordinators on fakes), then `SiriControls.swift`
    (+ `ContractionCoordinator+Siri.swift` for `isTrackingEpisode`).
-   Tests: `startKicksStartsSessionAndLiveActivity`, `startKicksTwiceKeepsOneKick`, `timeContractionStartsThenStops`,
+   Tests: `recordKickStartsSessionAndLiveActivity`, `recordKickAddsToTheRunningSession`, `stopContractionsAfterTheEpisodeGapChangesNothing`, `timeContractionStartsThenStops`,
    `shortContractionIsDiscarded`, `stopContractionsEndsEpisode`, `stopContractionsWhenIdleChangesNothing`,
    `trackingIsPregnancyOnly` (nothing changes in cycle or partner mode), `notOnboardedChangesNothing`.
 3. Strings via `scripts/add-strings.py` (vi + en): titles, descriptions, dialogs, control labels, short titles;

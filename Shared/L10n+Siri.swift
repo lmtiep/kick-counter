@@ -5,8 +5,7 @@ import KickCore
 extension L10n {
     static func siriDialog(_ result: SiriResult) -> String {
         switch result {
-        case .kicksStarted: t("intent.siri.dialog.kicksStarted")
-        case .kicksAlreadyRunning: t("intent.siri.dialog.kicksAlreadyRunning")
+        case .kickRecorded: t("intent.siri.dialog.kickRecorded")
         case .contractionStarted: t("intent.siri.dialog.contractionStarted")
         case .contractionStopped: t("intent.siri.dialog.contractionStopped")
         case .contractionDiscarded: t("intent.siri.dialog.contractionDiscarded")

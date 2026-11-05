@@ -256,7 +256,7 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Kiểm thử trên máy thật: `docs/release-checklist.md` ("Widget 1.1").
 
 ## Siri, Nút Tác vụ và Trung tâm điều khiển (1.1)
-- Ba lệnh: "Bắt đầu đếm cử động", "Bấm cơn gò", "Kết thúc theo dõi cơn gò" (Siri, Spotlight, Phím tắt không cần cài đặt; điều khiển
+- Ba lệnh: "Ghi cử động thai" (mỗi lần đúng một cử động, như nút "+" trên Live Activity), "Bấm cơn gò", "Kết thúc theo dõi cơn gò" (Siri, Spotlight, Phím tắt không cần cài đặt; điều khiển
   cho Trung tâm điều khiển / Màn hình khoá / Nút Tác vụ từ iOS 18). Đặc tả: `docs/superpowers/specs/2026-11-06-siri-controls-design.md`.
 - Quyết định nằm trong KickCore (`SiriPlanner`, thuần, có test) và chạy bởi `SiriControls`; các App Intent ở `Shared/SiriIntents.swift`,
   cụm từ ở `App/LunaShortcuts.swift` + `App/AppShortcuts.xcstrings`, điều khiển ở `Widgets/LunaControls.swift` (`@available(iOS 18, *)`).

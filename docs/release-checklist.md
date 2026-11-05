@@ -576,17 +576,18 @@ Chỉ thử được trên máy thật (không có trong simulator): giọng nó
 Logic quyết định đã có test trong `scripts/test-core.sh` (`SiriPlannerTests`, `SiriControlsTests`).
 
 ### Kiểm thử thủ công trên máy thật
-- [ ] **Siri tiếng Việt** (Cài đặt → Siri → ngôn ngữ Tiếng Việt): nói "Bắt đầu đếm cử động trong Luna Mom", "Bấm cơn gò trong Luna Mom",
+- [ ] **Siri tiếng Việt** (Cài đặt → Siri → ngôn ngữ Tiếng Việt): nói "Ghi cử động trong Luna Mom", "Bấm cơn gò trong Luna Mom",
       "Kết thúc theo dõi cơn gò trong Luna Mom". Mỗi câu chạy không mở app và Siri đọc đúng câu trả lời ngắn (không có số liệu).
-      Lặp lại bằng tiếng Anh (Start counting kicks / Time a contraction / Stop timing contractions in Luna Mom).
+      Lặp lại bằng tiếng Anh (Record a kick / Time a contraction / Stop timing contractions in Luna Mom).
 - [ ] Không cần cài đặt trước: các câu trên cũng hiện trong Spotlight và ứng dụng Phím tắt.
-- [ ] Đếm cử động: lần đầu tạo lượt đếm và hiện Live Activity; nói lần nữa khi đang đếm chỉ báo "đang đếm rồi", số cử động không tăng.
+- [ ] Ghi cử động: lần đầu tạo lượt đếm và hiện Live Activity; mỗi lần nói/chạm tiếp theo thêm đúng một cử động (khớp nút "+" trên
+      Live Activity), câu trả lời chỉ là "Đã ghi một cử động." (không số liệu, không nhắc thẻ màn hình khoá).
 - [ ] Cơn gò: nói lần một bắt đầu tính giờ (Live Activity hiện), lần hai kết thúc; chạm quá ngắn (dưới 3 giây) không được lưu.
       "Kết thúc theo dõi" khi không có phiên nào: báo không có gì để kết thúc.
 - [ ] Chế độ Theo dõi chu kỳ / Mong con / Người thân và chưa xong giới thiệu: cả ba câu chỉ trả lời ngắn, không bắt đầu gì cả.
-- [ ] **Nút Tác vụ** (iPhone 15 Pro trở lên): Cài đặt → Nút Tác vụ → Phím tắt / Điều khiển → chọn "Bắt đầu đếm cử động" hoặc
+- [ ] **Nút Tác vụ** (iPhone 15 Pro trở lên): Cài đặt → Nút Tác vụ → Phím tắt / Điều khiển → chọn "Ghi cử động thai" hoặc
       "Bấm cơn gò". Nhấn giữ nút: chạy không mở khoá app.
-- [ ] **Trung tâm điều khiển** (iOS 18): thêm điều khiển "Đếm cử động" và "Cơn gò" (Chỉnh sửa → Thêm điều khiển → Luna Mom), chạm:
+- [ ] **Trung tâm điều khiển** (iOS 18): thêm điều khiển "Ghi cử động" và "Cơn gò" (Chỉnh sửa → Thêm điều khiển → Luna Mom), chạm:
       chạy như Siri. Cũng thêm được vào hai ô ở Màn hình khoá. iOS 17: app vẫn chạy bình thường, chỉ không có điều khiển.
 - [ ] **Màn hình khoá đang khoá**: điều khiển và Nút Tác vụ chạy được; câu trả lời không đọc số liệu. Kiểm tra cả khi app đã bị vuốt tắt
       (iOS mở app nền để chạy) và khi Chế độ tập trung đang bật.
