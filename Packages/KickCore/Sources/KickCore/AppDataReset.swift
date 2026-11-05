@@ -42,6 +42,8 @@ public enum AppDataReset {
         SettingsKey.reviewUseDays,
         SettingsKey.reviewAskedAt,
         SettingsKey.reviewAskedVersions,
+        SettingsKey.backupFirstUseAt,
+        SettingsKey.backupReminderSnoozedAt,
     ]
 
     /// Removes exactly `ownedKeys` from `defaults`; any other key is left as it is.

@@ -21,7 +21,7 @@ extension UIApplication {
 @MainActor
 enum BackupSharePresenter {
     static func present(_ url: URL, completion: @escaping @MainActor (_ completed: Bool) -> Void) {
-        // The file holds unencrypted health data: it is only kept while the sheet is open.
+        // The file holds health data (sealed or not): it is only kept while the sheet is open.
         let folder = url.deletingLastPathComponent()
         guard let presenter = UIApplication.shared.topViewController else {
             try? FileManager.default.removeItem(at: folder)

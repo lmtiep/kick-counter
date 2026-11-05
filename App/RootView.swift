@@ -80,11 +80,13 @@ struct RootView: View {
             }
             .task {
                 ReviewPrompter.recordUse()
+                BackupCenter.recordUse()
                 await reload()
             }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active {
                     ReviewPrompter.recordUse()
+                    BackupCenter.recordUse()
                     Task { await reload() }
                 }
             }

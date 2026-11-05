@@ -887,6 +887,37 @@ enum L10n {
 
     static var onboardingRestore: String { t("onboarding.restore") }
 
+    // MARK: - 1.1: password-protected backups, reminder, new iPhone
+
+    static var backupProtectTitle: String { t("backup.protect.title") }
+    static var backupProtectDetail: String { t("backup.protect.detail") }
+    static var backupProtectPassword: String { t("backup.protect.password") }
+    static var backupProtectConfirm: String { t("backup.protect.confirm") }
+    static var backupProtectShow: String { t("backup.protect.show") }
+    static var backupProtectHide: String { t("backup.protect.hide") }
+    static var backupProtectTooShort: String { t("backup.protect.tooShort") }
+    static var backupProtectMismatch: String { t("backup.protect.mismatch") }
+    static var backupProtectWarning: String { t("backup.protect.warning") }
+    static var backupProtectOff: String { t("backup.protect.off") }
+    static var backupExportCreate: String { t("backup.export.create") }
+    static var backupUnlockTitle: String { t("backup.unlock.title") }
+    static var backupUnlockBody: String { t("backup.unlock.body") }
+    static var backupUnlockOpen: String { t("backup.unlock.open") }
+    static var backupUnlockWrong: String { t("backup.unlock.wrong") }
+    static var backupReminderTitle: String { t("backup.reminder.title") }
+    static func backupReminderLast(_ date: String) -> String { String(format: t("backup.reminder.last"), date) }
+    static var backupReminderNever: String { t("backup.reminder.never") }
+    static var backupNow: String { t("backup.now") }
+    static var backupMoveRow: String { t("backup.move.row") }
+    static var backupMoveIntro: String { t("backup.move.intro") }
+    static var backupMoveStep1Title: String { t("backup.move.step1.title") }
+    static var backupMoveStep1Body: String { t("backup.move.step1.body") }
+    static var backupMoveStep2Title: String { t("backup.move.step2.title") }
+    static var backupMoveStep2Body: String { t("backup.move.step2.body") }
+    static var backupMoveStep3Title: String { t("backup.move.step3.title") }
+    static var backupMoveStep3Body: String { t("backup.move.step3.body") }
+    static func backupMoveStep(_ number: Int) -> String { String(format: t("backup.move.step"), number) }
+
     // MARK: - Contraction timer (phase 20)
 
     static var contractionTitle: String { t("contraction.title") }

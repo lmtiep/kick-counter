@@ -81,6 +81,11 @@ public enum SettingsKey {
     public static let reviewAskedAt = "reviewAskedAt"
     /// Comma-separated app versions the rating prompt was requested in.
     public static let reviewAskedVersions = "reviewAskedVersions"
+    /// `Date` the app was first opened, for the backup reminder (`BackupReminderPolicy`).
+    /// Belongs to this phone: never in a backup.
+    public static let backupFirstUseAt = "backupFirstUseAt"
+    /// `Date` "Để sau" was tapped on the backup reminder card.
+    public static let backupReminderSnoozedAt = "backupReminderSnoozedAt"
 }
 
 public enum SettingsDefault {
