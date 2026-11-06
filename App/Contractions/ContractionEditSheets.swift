@@ -39,37 +39,52 @@ private struct TimePickerRow: View {
     let title: String
     @Binding var time: Date
     let identifier: String
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
-        let picker = DatePicker(
-            title,
-            selection: Binding(
-                get: { time },
-                set: { time = ContractionEditRules.keepingSeconds(of: time, in: $0, calendar: AppLocale.calendar) }
-            ),
-            in: ...Date(),
-            displayedComponents: [.date, .hourAndMinute]
+        let binding = Binding(
+            get: { time },
+            set: { time = ContractionEditRules.keepingSeconds(of: time, in: $0, calendar: AppLocale.calendar) }
         )
-        .labelsHidden()
-        .datePickerStyle(.compact)
-        .tint(.luna(.pregText))
-        // Side by side when it fits; otherwise the label above (large text),
-        // always a compact picker: a wheel is 216 pt tall whatever the text size.
-        ViewThatFits(in: .horizontal) {
-            HStack(spacing: 8) {
-                label.lineLimit(1)
-                Spacer(minLength: 8)
-                picker
-            }
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
+            if typeSize.isAccessibilitySize {
+                // The system pills do not wrap: the date and the time on their own
+                // lines, at a size that fits a phone's width.
                 label
-                picker
+                HStack(spacing: 8) {
+                    picker(binding, .date)
+                    Spacer(minLength: 0)
+                }
+                HStack(spacing: 8) {
+                    picker(binding, .hourAndMinute)
+                    Spacer(minLength: 0)
+                }
+            } else {
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 8) {
+                        label.lineLimit(1)
+                        Spacer(minLength: 8)
+                        picker(binding, [.date, .hourAndMinute])
+                    }
+                    VStack(alignment: .leading, spacing: 8) {
+                        label
+                        picker(binding, [.date, .hourAndMinute])
+                    }
+                }
             }
         }
         .frame(minHeight: 44)
         .accessibilityElement(children: .contain)
         .accessibilityLabel(title)
         .accessibilityIdentifier(identifier)
+    }
+
+    private func picker(_ binding: Binding<Date>, _ components: DatePickerComponents) -> some View {
+        DatePicker(title, selection: binding, in: ...Date(), displayedComponents: components)
+            .labelsHidden()
+            .datePickerStyle(.compact)
+            .tint(.luna(.pregText))
+            .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
     }
 
     private var label: some View {
@@ -96,6 +111,7 @@ struct ContractionEditSheet: View {
     @State private var end: Date
     @State private var saveError: String?
     @State private var saving = false
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     init(mode: Mode) {
         self.mode = mode
@@ -141,14 +157,15 @@ struct ContractionEditSheet: View {
                         LunaDivider()
                     }
                     Stepper(value: duration, in: 0...900, step: 5) {
-                        ViewThatFits(in: .horizontal) {
+                        if typeSize.isAccessibilitySize {
+                            VStack(alignment: .leading, spacing: 2) {
+                                durationLabel
+                                durationValue
+                            }
+                        } else {
                             HStack(spacing: 8) {
                                 durationLabel.lineLimit(1)
                                 Spacer(minLength: 8)
-                                durationValue
-                            }
-                            VStack(alignment: .leading, spacing: 2) {
-                                durationLabel
                                 durationValue
                             }
                         }

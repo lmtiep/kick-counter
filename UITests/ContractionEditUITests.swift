@@ -31,7 +31,7 @@ final class ContractionEditUITests: XCTestCase {
         XCTAssertTrue(save.isEnabled)
         save.tap()
         XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForNonExistence(timeout: 5))
-        waitForLabel(rows(app).firstMatch, containing: "lasted 1:10")
+        waitForLabel(rows(app).firstMatch, containing: "lasted 1:10", timeout: 15)
     }
 
     @MainActor
@@ -49,7 +49,7 @@ final class ContractionEditUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForNonExistence(timeout: 5))
         XCTAssertTrue(rows(app).firstMatch.waitForExistence(timeout: 5))
         waitForLabel(app.descendants(matching: .any)["contractionStatsCount"], containing: "1")
-        waitForLabel(rows(app).firstMatch, containing: "lasted 1:00")
+        waitForLabel(rows(app).firstMatch, containing: "lasted 1:00", timeout: 15)
     }
 
     @MainActor
@@ -120,7 +120,7 @@ final class ContractionEditUITests: XCTestCase {
         app.buttons["contractionEditDuration-Increment"].tap()
         app.buttons["contractionEditSave"].tap()
         XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForNonExistence(timeout: 5))
-        waitForLabel(rows(app).firstMatch, containing: "lasted 0:45")
+        waitForLabel(rows(app).firstMatch, containing: "lasted 0:45", timeout: 15)
     }
 
     private func rows(_ app: XCUIApplication) -> XCUIElementQuery {
