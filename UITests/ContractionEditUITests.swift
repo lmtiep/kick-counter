@@ -78,10 +78,13 @@ final class ContractionEditUITests: XCTestCase {
         let format = DateFormatter()
         format.locale = Locale(identifier: "en_US")
         format.dateFormat = "h"
-        wheels.element(boundBy: 0).adjust(toPickerWheelValue: format.string(from: target))
+        let hour = format.string(from: target)
+        wheels.element(boundBy: 0).adjust(toPickerWheelValue: hour)
         format.dateFormat = "a"
         wheels.element(boundBy: 2).adjust(toPickerWheelValue: format.string(from: target))
-        app.staticTexts["contractionEditTitle"].tap()
+        // The popover covers the title: tap the empty part of the sheet below Save and Cancel to close it.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.92)).tap()
+        XCTAssertTrue(app.buttons["contractionEditSave"].waitForExistence(timeout: 5))
 
         // The length is still 1:00: no error, Save is on.
         XCTAssertFalse(app.descendants(matching: .any)["contractionEditError"].exists)
@@ -91,6 +94,7 @@ final class ContractionEditUITests: XCTestCase {
         save.tap()
         XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForNonExistence(timeout: 5))
         waitForLabel(rows(app).firstMatch, containing: "lasted 1:00", timeout: 15)
+        waitForLabel(rows(app).firstMatch, containing: "Started \(hour):", timeout: 15)
     }
 
     @MainActor
