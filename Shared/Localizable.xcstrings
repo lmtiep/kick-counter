@@ -10326,13 +10326,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "A backup leaves your iPhone only when you share the file yourself."
+            "value": "A backup leaves your iPhone only when you share the file yourself, and you can protect it with a password."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bản sao lưu chỉ rời khỏi iPhone khi chính bạn gửi tệp đi."
+            "value": "Bản sao lưu chỉ rời khỏi iPhone khi chính bạn gửi tệp đi, và bạn có thể đặt mật khẩu cho tệp."
           }
         }
       }
