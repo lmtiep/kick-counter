@@ -57,9 +57,11 @@ final class ContractionEditUITests: XCTestCase {
     @MainActor
     func testAddMissedKeepsItsLengthWhenTheStartMoves() throws {
         let calendar = Calendar.current
-        let target = Date().addingTimeInterval(-3 * 3600)
+        // Contractions run on the real clock. An hour back keeps the added contraction inside the
+        // current episode (2 h gap), so its row is on the timer screen; 3 h put it in History.
+        let target = Date().addingTimeInterval(-3600)
         try XCTSkipUnless(
-            calendar.isDate(target, inSameDayAs: Date()), "three hours ago is yesterday: the day picker would have to change"
+            calendar.isDate(target, inSameDayAs: Date()), "an hour ago is yesterday: the day picker would have to change"
         )
         let app = XCUIApplication.launchPinned(dueDate: UITestDates.dueAtWeek38)
         app.openContractionTimer()
