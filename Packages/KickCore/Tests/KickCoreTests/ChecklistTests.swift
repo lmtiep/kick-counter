@@ -167,4 +167,14 @@ struct ChecklistTests {
         #expect(ChecklistText.clean("") == nil)
         #expect(ChecklistText.clean(String(repeating: "a", count: 900))?.count == ChecklistText.maxLength)
     }
+
+    @Test func duplicateOverridesResolveToTheNewestInAnyOrder() {
+        let old = ChecklistItemRecord(kind: .bag, builtInID: "cccd", isDone: true, createdAt: date("2026-11-01T08:00:00Z"))
+        let new = ChecklistItemRecord(kind: .bag, builtInID: "cccd", isDone: false, createdAt: date("2026-11-02T08:00:00Z"))
+        for rows in [[old, new], [new, old]] {
+            let cccd = entries(BagList.sections(overrides: rows), .documents).first { $0.builtInID == "cccd" }
+            #expect(cccd?.isDone == false)
+            #expect(BagList.canonicalOverrides(rows)["cccd"]?.id == new.id)
+        }
+    }
 }

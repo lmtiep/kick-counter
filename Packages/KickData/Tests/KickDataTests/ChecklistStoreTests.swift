@@ -147,4 +147,20 @@ struct ChecklistStoreTests {
         #expect(throws: SaveFailed.self) { try failing.setBuiltInDone("cccd", done: true, now: now) }
         #expect(try store.items().isEmpty)
     }
+
+    @Test func updatingABuiltInWithDuplicateRowsChangesTheNewestAndRemovesTheRest() throws {
+        let context = container.mainContext
+        let old = ChecklistItemRecord(kind: .bag, builtInID: "cccd", isDone: true, createdAt: date("2026-11-01T08:00:00Z"))
+        let new = ChecklistItemRecord(kind: .bag, builtInID: "cccd", isHidden: true, createdAt: date("2026-11-02T08:00:00Z"))
+        context.insert(ChecklistItem(record: old))
+        context.insert(ChecklistItem(record: new))
+        try context.save()
+
+        try store.setBuiltInDone("cccd", done: true, now: now)
+
+        let rows = try store.items()
+        #expect(rows.count == 1)
+        #expect(rows[0].id == new.id)
+        #expect(rows[0].isDone && rows[0].isHidden)
+    }
 }

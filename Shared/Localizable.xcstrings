@@ -239,7 +239,24 @@
         }
       }
     },
-    "appointments.delete.confirm.questions": {
+    "appointments.delete.confirm.questions.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Its %ld saved question will be deleted too."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%ld câu hỏi đã ghi cho lần khám này cũng sẽ bị xoá."
+          }
+        }
+      }
+    },
+    "appointments.delete.confirm.questions.other": {
       "extractionState": "manual",
       "localizations": {
         "en": {

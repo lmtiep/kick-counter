@@ -105,7 +105,11 @@ public final class ChecklistStore {
 
     private func updateBuiltIn(_ builtInID: String, now: Date, change: (ChecklistItem) -> Void) throws {
         guard BagCatalog.items.contains(where: { $0.id == builtInID }) else { return }
-        let existing = try models().first { $0.list == ChecklistKind.bag.rawValue && $0.builtInID == builtInID }
+        // The newest row, as `BagList` reads it; older duplicates (from a backup) are removed.
+        let rows = try models().filter { $0.list == ChecklistKind.bag.rawValue && $0.builtInID == builtInID }
+        let newestID = BagList.canonicalOverrides(rows.map(\.record))[builtInID]?.id
+        let existing = rows.first { $0.id == newestID }
+        for duplicate in rows where duplicate.id != newestID { context.delete(duplicate) }
         let model = existing ?? ChecklistItem(record: ChecklistItemRecord(kind: .bag, builtInID: builtInID, createdAt: now))
         if existing == nil { context.insert(model) }
         change(model)

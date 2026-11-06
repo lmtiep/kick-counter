@@ -64,7 +64,12 @@ struct AppointmentEditorSheet: View {
                 }
                 // Questions for the doctor (1.1): this appointment's, or the unassigned
                 // ones a new appointment adopts when saved.
-                QuestionsSection(mode: editedRecord.map { .appointment($0.id) } ?? .pending, saveFailed: $saveFailed)
+                // A past or done check-up never adopts them, so it does not promise to.
+                if let record = editedRecord {
+                    QuestionsSection(mode: .appointment(record.id), saveFailed: $saveFailed)
+                } else if QuestionRouting.canAdopt(AppointmentRecord(date: date, title: title), now: AppClock.now()) {
+                    QuestionsSection(mode: .pending, saveFailed: $saveFailed)
+                }
                 if let record = editedRecord, !record.isDone {
                     Section {
                         Button(L10n.appointmentsMarkDone) {

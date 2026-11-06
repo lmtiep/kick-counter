@@ -176,12 +176,13 @@ public enum BackupValidation {
             guard dto.endedAt == nil, dto.id != newestRunning?.id || dto.startedAt != newestStart else { return dto }
             return ContractionDTO(ContractionRules.closingForgotten(dto.record))
         }
-        let checklist = cleanChecklist(document.checklistItems, appointmentIDs: Set(document.appointments.map(\.id)))
-        cleaned.checklistItems = checklist.items
-        skipped += checklist.skipped
         cleaned.appointments = keep(document.appointments, id: \.id) {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
+        // Questions link to the appointments that survived, not to those in the file.
+        let checklist = cleanChecklist(document.checklistItems, appointmentIDs: Set(cleaned.appointments.map(\.id)))
+        cleaned.checklistItems = checklist.items
+        skipped += checklist.skipped
         // A session cannot start in the future or end before it starts; kicks
         // after now cannot have happened and are dropped.
         let sessions = keep(document.sessions, id: \.id) { dto in

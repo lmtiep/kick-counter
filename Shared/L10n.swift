@@ -1089,5 +1089,5 @@ enum L10n {
     static var questionsQuickField: String { t("questions.quick.field") }
     static func questionsQuickAddedTo(_ date: String) -> String { String(format: t("questions.quick.addedTo"), date) }
     static var questionsQuickAddedLoose: String { t("questions.quick.addedLoose") }
-    static func appointmentsDeleteConfirmQuestions(_ count: Int) -> String { String(format: t("appointments.delete.confirm.questions"), count) }
+    static func appointmentsDeleteConfirmQuestions(_ count: Int) -> String { String(format: t(count == 1 ? "appointments.delete.confirm.questions.one" : "appointments.delete.confirm.questions.other"), count) }
 }

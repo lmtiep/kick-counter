@@ -76,4 +76,12 @@ struct QuestionRoutingTests {
         #expect(progress.done == 1)
         #expect(progress.total == 2)
     }
+
+    @Test func aDraftEditedToAPastDateCannotAdopt() {
+        let draft = AppointmentRecord(date: date("2026-10-01T09:00:00Z"), title: "")
+        #expect(QuestionRouting.canAdopt(draft, now: now, calendar: utcCalendar) == false)
+        var future = draft
+        future.date = date("2026-10-03T09:00:00Z")
+        #expect(QuestionRouting.canAdopt(future, now: now, calendar: utcCalendar))
+    }
 }

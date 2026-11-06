@@ -104,4 +104,24 @@ struct ChecklistBackupTests {
         let (cleaned, _) = BackupValidation.clean(document([question], appointments: [appointment]), now: now, calendar: utcCalendar)
         #expect(cleaned.records.checklistItems.first?.appointmentID == appointmentID)
     }
+
+    @Test func aQuestionForADroppedBlankTitleAppointmentBecomesUnassigned() {
+        let now = date("2026-11-07T12:00:00Z")
+        let blank = AppointmentRecord(id: appointmentID, date: date("2026-11-20T08:00:00Z"), title: "  ")
+        let (cleaned, skipped) = BackupValidation.clean(document([question], appointments: [blank]), now: now, calendar: utcCalendar)
+        #expect(cleaned.appointments.isEmpty)
+        #expect(skipped == 1)
+        #expect(cleaned.records.checklistItems.first?.appointmentID == nil)
+    }
+
+    @Test func duplicateBuiltInOverridesKeepTheNewest() {
+        let now = date("2026-11-07T12:00:00Z")
+        let older = ChecklistItemRecord(kind: .bag, builtInID: "cccd", isDone: true, createdAt: date("2026-11-01T08:00:00Z"))
+        let newer = ChecklistItemRecord(kind: .bag, builtInID: "cccd", isDone: false, isHidden: true, createdAt: date("2026-11-02T08:00:00Z"))
+        for order in [[older, newer], [newer, older]] {
+            let (cleaned, skipped) = BackupValidation.clean(document(order), now: now, calendar: utcCalendar)
+            #expect(cleaned.records.checklistItems == [newer])
+            #expect(skipped == 1)
+        }
+    }
 }

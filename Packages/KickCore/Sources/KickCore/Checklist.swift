@@ -135,10 +135,7 @@ public enum BagList {
     /// `order` (then creation time). Rows for built-ins this build does not know are ignored.
     public static func sections(overrides: [ChecklistItemRecord]) -> [BagSection] {
         let bag = overrides.filter { $0.kind == .bag }
-        var byBuiltIn: [String: ChecklistItemRecord] = [:]
-        for row in bag.filter({ $0.builtInID != nil }).sorted(by: { $0.createdAt < $1.createdAt }) {
-            byBuiltIn[row.builtInID ?? ""] = row
-        }
+        let byBuiltIn = canonicalOverrides(bag)
         let customs = bag
             .filter { $0.builtInID == nil && $0.group != nil }
             .sorted { ($0.order, $0.createdAt) < ($1.order, $1.createdAt) }
@@ -155,6 +152,22 @@ public enum BagList {
             }
             return BagSection(group: group, entries: builtIns + own)
         }
+    }
+
+    /// One row per built-in id. Rows can be duplicated (a backup may carry two); the newest
+    /// wins (ties by id), here and in `ChecklistStore`, so both read the same row.
+    public static func canonicalOverrides(_ rows: [ChecklistItemRecord]) -> [String: ChecklistItemRecord] {
+        var result: [String: ChecklistItemRecord] = [:]
+        for row in rows where row.kind == .bag {
+            guard let builtInID = row.builtInID else { continue }
+            if let current = result[builtInID], !isNewer(row, than: current) { continue }
+            result[builtInID] = row
+        }
+        return result
+    }
+
+    static func isNewer(_ a: ChecklistItemRecord, than b: ChecklistItemRecord) -> Bool {
+        (a.createdAt, a.id.uuidString) > (b.createdAt, b.id.uuidString)
     }
 
     public static func progress(_ sections: [BagSection]) -> ChecklistProgress {

@@ -64,6 +64,9 @@ extension BackupValidation {
             }
             kept.append(item)
         }
+        // One override per built-in: the newest.
+        let newest = BagList.canonicalOverrides(kept.map(\.record))
+        kept = kept.filter { $0.builtInID == nil || newest[$0.builtInID ?? ""]?.id == $0.id }
         return (kept, items.count - kept.count)
     }
 }
