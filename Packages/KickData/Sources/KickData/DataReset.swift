@@ -20,6 +20,7 @@ public enum DataReset {
             try deleteEvery(PillDose.self, in: context)
             try deleteEvery(Contraction.self, in: context)
             try deleteEvery(LabourMarker.self, in: context)
+            try deleteEvery(PregnancyMemory.self, in: context)
             try context.save()
         } catch {
             context.rollback()

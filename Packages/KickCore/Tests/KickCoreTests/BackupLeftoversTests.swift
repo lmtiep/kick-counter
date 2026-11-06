@@ -56,4 +56,21 @@ struct BackupLeftoversTests {
         BackupLeftovers.removeAll(documents: documents, temporary: tmp)
         #expect(FileManager.default.fileExists(atPath: documents.path))
     }
+
+    /// The report for the doctor holds health data too: its temp folders go with "Delete all data".
+    @Test func removeAllAlsoClearsTheReportFolders() throws {
+        let (home, documents, tmp) = try makeHome()
+        defer { try? FileManager.default.removeItem(at: home) }
+        let fm = FileManager.default
+        let report = tmp.appendingPathComponent("\(BackupLeftovers.reportFolderPrefix)\(UUID().uuidString)")
+        try fm.createDirectory(at: report, withIntermediateDirectories: true)
+        try Data("x".utf8).write(to: report.appendingPathComponent("LunaMom-Report-2026-11-06.pdf"))
+        let unrelated = tmp.appendingPathComponent("other.txt")
+        try Data("keep".utf8).write(to: unrelated)
+
+        BackupLeftovers.removeAll(documents: documents, temporary: tmp)
+
+        #expect(!fm.fileExists(atPath: report.path))
+        #expect(fm.fileExists(atPath: unrelated.path))
+    }
 }

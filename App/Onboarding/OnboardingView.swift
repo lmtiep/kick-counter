@@ -114,7 +114,8 @@ struct OnboardingView: View {
                         .id(flow.step)
                     }
                     .scrollBounceBehavior(.basedOnSize)
-                    .defaultScrollAnchor(.bottom)
+                    // The welcome step opens at its title when large text makes it scroll.
+                    .defaultScrollAnchor(flow.step == .welcome ? .top : .bottom)
                 }
                 buttons
                     .padding(.horizontal, 24)

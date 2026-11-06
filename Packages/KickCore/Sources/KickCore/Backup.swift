@@ -30,6 +30,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     /// Labour markers such as "Vỡ ối" (edit spec 2026-11-06). Optional in the
     /// file like `contractions`: missing means none, and an empty list is not written.
     public var labourMarkers: [LabourMarkerDTO] = []
+    /// Kept pregnancy journeys (1.1 item 4). Optional in the file like
+    /// `contractions`: missing means none, and an empty list is not written.
+    public var pregnancyMemories: [PregnancyMemoryDTO] = []
     /// Typed by `BackupSettings.table`; keys outside the table are dropped on decode.
     public var settings: [String: BackupValue]
 
@@ -63,7 +66,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, labourMarkers, settings
+        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, labourMarkers, pregnancyMemories, settings
     }
 
     public init(from decoder: Decoder) throws {
@@ -80,6 +83,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         pillDoses = try container.decodeIfPresent([PillDoseDTO].self, forKey: .pillDoses) ?? []
         contractions = try container.decodeIfPresent([ContractionDTO].self, forKey: .contractions) ?? []
         labourMarkers = try container.decodeIfPresent([LabourMarkerDTO].self, forKey: .labourMarkers) ?? []
+        pregnancyMemories = try container.decodeIfPresent([PregnancyMemoryDTO].self, forKey: .pregnancyMemories) ?? []
         let raw = try container.decode([String: BackupJSONScalar].self, forKey: .settings)
         settings = BackupSettings.typed(raw)
     }
@@ -103,6 +107,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         }
         if !labourMarkers.isEmpty {
             try container.encode(labourMarkers, forKey: .labourMarkers)
+        }
+        if !pregnancyMemories.isEmpty {
+            try container.encode(pregnancyMemories, forKey: .pregnancyMemories)
         }
         try container.encode(settings, forKey: .settings)
     }
@@ -328,6 +335,28 @@ public struct LabourMarkerDTO: Equatable, Sendable, Codable {
     }
 }
 
+/// A kept pregnancy journey. The payload travels as its stored bytes (base64), so
+/// the round trip is lossless whatever the content (even one this build cannot read).
+public struct PregnancyMemoryDTO: Equatable, Sendable, Codable {
+    public var id: UUID
+    public var createdAt: Date
+    public var title: String
+    public var branch: String
+    public var payload: Data
+
+    public init(_ stored: StoredPregnancyMemory) {
+        id = stored.id
+        createdAt = stored.createdAt
+        title = stored.title
+        branch = stored.branchRaw
+        payload = stored.payload
+    }
+
+    public var stored: StoredPregnancyMemory {
+        StoredPregnancyMemory(id: id, createdAt: createdAt, title: title, branchRaw: branch, payload: payload)
+    }
+}
+
 // MARK: - Records
 
 /// Every record a backup carries, as the stores hold them (`BackupStore` in KickData).
@@ -341,6 +370,7 @@ public struct BackupRecords: Equatable, Sendable {
     public var pillDoses: [PillDoseRecord]
     public var contractions: [ContractionRecord]
     public var labourMarkers: [LabourMarkerRecord]
+    public var pregnancyMemories: [StoredPregnancyMemory]
 
     public init(
         sessions: [SessionRecord],
@@ -350,7 +380,8 @@ public struct BackupRecords: Equatable, Sendable {
         weights: [WeightRecord],
         pillDoses: [PillDoseRecord] = [],
         contractions: [ContractionRecord] = [],
-        labourMarkers: [LabourMarkerRecord] = []
+        labourMarkers: [LabourMarkerRecord] = [],
+        pregnancyMemories: [StoredPregnancyMemory] = []
     ) {
         self.sessions = sessions
         self.appointments = appointments
@@ -360,6 +391,7 @@ public struct BackupRecords: Equatable, Sendable {
         self.pillDoses = pillDoses
         self.contractions = contractions
         self.labourMarkers = labourMarkers
+        self.pregnancyMemories = pregnancyMemories
     }
 }
 
@@ -374,6 +406,7 @@ extension BackupDocument {
         pillDoses = records.pillDoses.map(PillDoseDTO.init)
         contractions = records.contractions.map(ContractionDTO.init)
         labourMarkers = records.labourMarkers.map(LabourMarkerDTO.init)
+        pregnancyMemories = records.pregnancyMemories.map(PregnancyMemoryDTO.init)
     }
 
     public var records: BackupRecords {
@@ -385,7 +418,8 @@ extension BackupDocument {
             weights: weights.map(\.record),
             pillDoses: pillDoses.map(\.record),
             contractions: contractions.map(\.record),
-            labourMarkers: labourMarkers.map(\.record)
+            labourMarkers: labourMarkers.map(\.record),
+            pregnancyMemories: pregnancyMemories.map(\.stored)
         )
     }
 }

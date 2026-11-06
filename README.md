@@ -260,3 +260,41 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - Ảnh xem trước: `KickCounterWidgetTests/WidgetPreviewRenderTests` dựng mọi mẫu (vi/en, sáng/tối, 5 cỡ) ra PNG; chạy cục bộ
   `TEST_RUNNER_WIDGET_PREVIEW_DIR=/đường/dẫn xcodebuild -scheme KickCounter -only-testing:KickCounterWidgetTests test`.
 - Kiểm thử trên máy thật: `docs/release-checklist.md` ("Widget 1.1").
+
+## Khi thai kỳ kết thúc (1.1)
+- Cá nhân → "Thai kỳ của tôi đã kết thúc" (thay "Kết thúc theo dõi thai kỳ"): hai lựa chọn ngang nhau "Bé đã chào đời" /
+  "Thai kỳ đã dừng lại", lời riêng cho từng nhánh và ngày (mặc định hôm nay), rồi hỏi có giữ hành trình làm **Kỷ niệm**
+  không. Đặc tả: `docs/superpowers/specs/2026-11-05-pregnancy-ending-design.md` (§4.6 là bản chốt). Không có lời khuyên y
+  khoa, không số đường dây nóng, không nhắc "thử lại".
+- Thứ tự cố định `PregnancyEndingPlan` (KickCore), chạy bởi `App/PregnancyEnding/PregnancyEnding.swift`: lưu kỷ niệm và
+  xoá dữ liệu thai kỳ gốc **trong một lần lưu** (`KickData.PregnancyMemoryStore.archive`, lỗi thì không xoá gì), dừng lượt
+  đếm và cơn gò, kết thúc mọi Live Activity kể cả thẻ "Xong!" (`endAll(force: true)`), huỷ nhắc lịch khám (và giữ im
+  khi còn trạng thái đã kết thúc), rồi `CycleCoordinator.endPregnancy` (mục tiêu `tracking` nếu chưa có, không hỏi quyền
+  thông báo). Dữ liệu xoá: lượt đếm, cơn gò, lịch khám và cân nặng **trong khoảng ngày của thai kỳ này** (thai kỳ trước
+  không bị đụng tới); nhật ký ngày và kỳ kinh không bao giờ xoá.
+- `PregnancyMemory` (SwiftData, payload JSON `PregnancyMemoryContent`, không quan hệ, di chuyển nhẹ); file sao lưu có
+  mảng tuỳ chọn `pregnancyMemories` (vẫn phiên bản 1). "Xoá toàn bộ dữ liệu" xoá cả kỷ niệm.
+- Sau khi kết thúc: dự đoán tạm dừng (`CyclePause`) cho tới khi chị xác nhận kỳ kinh đầu tiên sau đó ("Đúng vậy" /
+  "Chưa phải"); kỳ kinh trước ngày kết thúc không vào trung bình. Widget hiện một dòng trung tính.
+- Hỏi thăm (`CareCheckInPolicy`): từ ngày 21, tối đa mỗi tuần một lần, tới ngày 105; trả lời ở App Group trên máy (lần
+  hỏi gần nhất và chuỗi ngày buồn không vào file sao lưu; trạng thái đã kết thúc và các công tắc Hỏi thăm thì có, nên
+  khôi phục không làm mất việc tạm dừng dự đoán). Xoá khi xoá toàn bộ hoặc mang thai lại. Sau khi kết thúc, Siri và
+  Trung tâm điều khiển chỉ trả lời "Luna Mom đang theo dõi chu kỳ của bạn." Thông báo tuỳ chọn duy nhất `care-checkin`, nội dung "Luna Mom gửi
+  bạn một lời hỏi thăm".
+- UI test: `-seedPregnancyEnded <birth|loss>:<số ngày>` (trạng thái đã kết thúc + một kỷ niệm mẫu) và
+  `-seedCareLowStreak <n>`; kiểm thử trên máy: `docs/release-checklist.md` ("1.1 — Khi thai kỳ kết thúc").
+
+## Báo cáo cho bác sĩ (1.1)
+- Cá nhân → "Xuất báo cáo cho bác sĩ": PDF A4 dựng ngay trên máy (`App/Report/DoctorReportPDF.swift`), chia sẻ bằng
+  share sheet, thư mục tạm bị xoá sau khi chia sẻ hoặc huỷ. Tên gõ lúc xuất không bao giờ được lưu.
+- Dữ liệu báo cáo là `KickCore/DoctorReport.swift` (`DoctorReport.make`): chỉ số liệu và bảng, không diễn giải.
+  Thêm cờ UI test `-uiTestingReportPreview`: ghi PDF vào `NSTemporaryDirectory()/LunaMom-report-uitest.pdf` và hiện
+  trang đầu toàn màn hình kèm số trang (chỉ bản Debug).
+
+## Siri, Nút Tác vụ và Trung tâm điều khiển (1.1)
+- Ba lệnh: "Ghi cử động thai" (mỗi lần đúng một cử động, như nút "+" trên Live Activity), "Bấm cơn gò", "Kết thúc theo dõi cơn gò" (Siri, Spotlight, Phím tắt không cần cài đặt; điều khiển
+  cho Trung tâm điều khiển / Màn hình khoá / Nút Tác vụ từ iOS 18). Đặc tả: `docs/superpowers/specs/2026-11-06-siri-controls-design.md`.
+- Quyết định nằm trong KickCore (`SiriPlanner`, thuần, có test) và chạy bởi `SiriControls`; các App Intent ở `Shared/SiriIntents.swift`,
+  cụm từ ở `App/LunaShortcuts.swift` + `App/AppShortcuts.xcstrings`, điều khiển ở `Widgets/LunaControls.swift` (`@available(iOS 18, *)`).
+- Câu trả lời ngắn, chung chung, không đọc số liệu. Ngoài chế độ Mang thai không bắt đầu gì cả. Phần chỉ thử được trên máy thật:
+  `docs/release-checklist.md`.

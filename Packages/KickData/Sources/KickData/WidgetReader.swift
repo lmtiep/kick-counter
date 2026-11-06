@@ -46,6 +46,8 @@ public enum WidgetReader {
             input.periods = CycleRules.mergingDuplicates(periods.map(\.record), calendar: calendar).periods
             let logs = try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)]))
             input.logs = CycleRules.mergingDuplicates(logs.map(\.record), calendar: calendar).logs
+            // After a pregnancy ended the widget pauses predictions like the app (1.1 item 4).
+            input.endState = PregnancyEndState.load(from: defaults)
         case .pregnant:
             input.kicksToday = try kicksToday(context: context, now: now, calendar: calendar)
         case .partner:

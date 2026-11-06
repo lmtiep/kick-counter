@@ -41,6 +41,7 @@ struct LunaWidgetContent: View {
         case .cycle(let cycle): CycleWidgetView(cycle: cycle, layout: layout)
         case .fertility(let fertility): FertilityWidgetView(content: fertility, layout: layout)
         case .pregnancy(let pregnancy): PregnancyWidgetView(content: pregnancy, layout: layout)
+        case .paused: PausedView(layout: layout)
         }
     }
 }
@@ -165,6 +166,40 @@ private struct SetupView: View {
                     .font(WidgetStyle.font(17, .bold, relativeTo: .headline))
                     .foregroundStyle(.luna(.textPrimary))
                 Text(L10n.widgetSetup)
+                    .font(WidgetStyle.font(14, .medium, relativeTo: .subheadline))
+                    .foregroundStyle(.luna(.textSecondary))
+                    .lineLimit(3)
+                    .minimumScaleFactor(0.8)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        }
+    }
+}
+
+/// Cycle mode after a pregnancy ended (1.1 item 4): no prediction, one short,
+/// neutral line that never names the pregnancy (it may show on the Lock Screen).
+private struct PausedView: View {
+    let layout: WidgetLayout
+
+    var body: some View {
+        switch layout {
+        case .accessoryInline:
+            Text(L10n.widgetPaused)
+        case .accessoryCircular:
+            Image(systemName: "moon.stars").font(.title2).widgetAccentable()
+        case .accessoryRectangular:
+            AccessoryLines(title: L10n.widgetName, detail: L10n.widgetPaused)
+        case .small, .medium:
+            VStack(alignment: .leading, spacing: 8) {
+                Image(systemName: "moon.stars")
+                    .font(.system(size: 22))
+                    .foregroundStyle(.luna(.cycleStrong))
+                    .widgetAccentable()
+                Spacer(minLength: 0)
+                Text(L10n.widgetName)
+                    .font(WidgetStyle.font(17, .bold, relativeTo: .headline))
+                    .foregroundStyle(.luna(.textPrimary))
+                Text(L10n.widgetPaused)
                     .font(WidgetStyle.font(14, .medium, relativeTo: .subheadline))
                     .foregroundStyle(.luna(.textSecondary))
                     .lineLimit(3)

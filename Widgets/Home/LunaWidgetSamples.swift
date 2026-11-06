@@ -5,6 +5,8 @@ import KickCore
 enum LunaWidgetSamples {
     enum Kind: CaseIterable {
         case needsSetup, cycle, cycleLate, cycleOnPeriod, fertility, fertilityOvulation, pregnancy, pregnancyEarly, pregnancyPastDue
+        /// After a pregnancy ended, predictions paused (1.1 item 4).
+        case paused
     }
 
     static func snapshot(_ kind: Kind, now: Date, calendar: Calendar = .current) -> WidgetSnapshot {
@@ -43,6 +45,10 @@ enum LunaWidgetSamples {
         case .pregnancy: return pregnancy(elapsed: 30 * 7 + 3, kicks: 6)
         case .pregnancyEarly: return pregnancy(elapsed: 4 * 7 + 2, kicks: nil)
         case .pregnancyPastDue: return pregnancy(elapsed: 41 * 7 + 2, kicks: nil)
+        case .paused:
+            var input = cycle(goal: .tracking, daysAgo: 60)
+            input.endState = PregnancyEndState(branch: .loss, endDate: day(-30), calendar: calendar)
+            return input
         }
     }
 }

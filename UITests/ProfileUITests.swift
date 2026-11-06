@@ -6,32 +6,32 @@ final class ProfileUITests: XCTestCase {
         continueAfterFailure = false
     }
 
-    /// Spec §6: ending the pregnancy → the three trying-to-conceive tabs; the dates are kept.
+    /// 1.1 item 4: after "My pregnancy has ended" (the cycle tabs, on Today),
+    /// "I'm pregnant" from Profile goes back to the pregnancy tabs.
     @MainActor
-    func testEndingThePregnancyReturnsToCycleTrackingAndKeepsTheDates() {
+    func testPregnantAgainAfterTheEnding() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
         app.openTab(.profile)
-        let end = app.buttons["profileEndPregnancy"]
+        let end = app.buttons["profilePregnancyEnded"]
         XCTAssertTrue(end.waitForExistence(timeout: 10))
         end.tap()
-        let confirm = app.buttons["endPregnancyConfirm"]
-        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
-        confirm.tap()
+        app.buttons["pregnancyEnd-birth"].tap()
+        app.buttons["pregnancyEndContinue"].tap()
+        app.buttons["pregnancyEndKeepNo"].tap()
+        app.buttons["pregnancyEndConfirm"].tap()
 
         XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.tabBars.buttons["Profile"].isSelected)
+        XCTAssertTrue(app.tabBars.buttons["Today"].isSelected)
+        app.openCycleTab(.profile)
         let switchBack = app.buttons["profileSwitchToPregnant"]
         XCTAssertTrue(switchBack.waitForExistence(timeout: 5))
-
-        // Back to pregnant: no period logged, so the sheet starts from the kept due date.
         switchBack.tap()
         let save = app.buttons["imPregnantSave"]
         XCTAssertTrue(save.waitForExistence(timeout: 5))
         save.tap()
+        XCTAssertTrue(app.tabBars.buttons["Kicks"].waitForExistence(timeout: 5))
         app.openTab(.today)
-        let progress = app.descendants(matching: .any)["weekProgressCard"]
-        XCTAssertTrue(progress.waitForExistence(timeout: 5))
-        XCTAssertTrue(progress.label.contains("24 weeks, 3 days"), progress.label)
+        XCTAssertTrue(app.descendants(matching: .any)["weekProgressCard"].waitForExistence(timeout: 5))
     }
 
     /// Phase 5 spec §3.5: pre-pregnancy weight and height are edited from Profile.
@@ -72,10 +72,10 @@ final class ProfileUITests: XCTestCase {
     func testNotNowKeepsPregnancyMode() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek24)
         app.openTab(.profile)
-        let end = app.buttons["profileEndPregnancy"]
+        let end = app.buttons["profilePregnancyEnded"]
         XCTAssertTrue(end.waitForExistence(timeout: 10))
         end.tap()
-        let cancel = app.buttons["endPregnancyCancel"]
+        let cancel = app.buttons["pregnancyEndCancel"]
         XCTAssertTrue(cancel.waitForExistence(timeout: 5))
         cancel.tap()
         XCTAssertTrue(end.waitForExistence(timeout: 5))
@@ -153,18 +153,18 @@ final class ProfileUITests: XCTestCase {
             let suffix = UITestVariants.suffix(language, dark)
             let pregnant = XCUIApplication.launchPinned(language: language, dark: dark, dueDate: UITestDates.dueAtWeek24)
             pregnant.openTab(.profile)
-            XCTAssertTrue(pregnant.buttons["profileEndPregnancy"].waitForExistence(timeout: 10))
+            XCTAssertTrue(pregnant.buttons["profilePregnancyEnded"].waitForExistence(timeout: 10))
             attachScreenshot(pregnant, "profile-pregnant-\(suffix)")
             if !dark {
                 pregnant.swipeUp()
                 attachScreenshot(pregnant, "profile-pregnant-bottom-\(suffix)")
                 pregnant.swipeDown()
-                pregnant.buttons["profileEndPregnancy"].tap()
-                XCTAssertTrue(pregnant.buttons["endPregnancyConfirm"].waitForExistence(timeout: 5))
+                pregnant.buttons["profilePregnancyEnded"].tap()
+                XCTAssertTrue(pregnant.buttons["pregnancyEnd-birth"].waitForExistence(timeout: 5))
                 attachScreenshot(pregnant, "end-pregnancy-\(suffix)")
             }
             if language == "vi" {
-                if !dark { pregnant.buttons["endPregnancyCancel"].tap() }
+                if !dark { pregnant.buttons["pregnancyEndCancel"].tap() }
                 let fontLicense = pregnant.buttons["profileFontLicense"]
                 XCTAssertTrue(fontLicense.waitForExistence(timeout: 5))
                 pregnant.scrollUntilHittable(fontLicense)
