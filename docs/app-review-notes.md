@@ -1,7 +1,7 @@
 # App Review notes (ready to paste into App Store Connect)
 
 Paste the text between the lines into App Store Connect → App Review Information → Notes. It matches the sheet "Khác",
-row "Notes", of `Luna Mom - huong dan App Store Connect.xlsx` (11/10/2026, updated 17/10/2026): about 3300 bytes UTF-8 with the placeholder, limit 4000.
+row "Notes", of `Luna Mom - huong dan App Store Connect.xlsx` (11/10/2026, updated 17/10/2026): about 3700 bytes UTF-8 with the placeholder, limit 4000.
 
 Before pasting, handle the `[OWNER: …]` sentence: the content review is done (17/10/2026, confirmed by the project
 owner), so add the obstetrician's name there, then delete the bracket.
@@ -17,7 +17,8 @@ HOW TO TEST
 4. Contraction timer (Today shortcut from week 28, or Kicks tab > "Time contractions"): one Start/Stop button. A second Live Activity has a Start/Stop button that works from the Lock Screen without opening the app and ends 2 hours after the last contraction. When contractions match the common 5-1-1 guidance (week 37+), or occur before week 37, the app only advises contacting a doctor or hospital; on a device whose region is Vietnam it shows a "Call 115" button (Vietnam's ambulance number) that opens the system dialer, elsewhere a line asking to call the local emergency number. It never diagnoses labor.
 5. Cycle tracking: Calendar > "Edit period" to tick period days. Today shows predictions, labelled as estimates and not contraception.
 6. Pill reminder: Profile > Contraception = "The pill", then Profile > "Pill reminder". A local notification has a "Taken" action. The app gives no missed-pill medical instructions; it says to follow the pack leaflet or ask a doctor or pharmacist.
-7. Data: Profile > Data > "Back up to a file" exports a .lunamom file through the system share sheet (the user chooses where it goes; the app uploads nothing), optionally password-protected on the device (AES-GCM with a PBKDF2 key from the password, which the app never stores), and "Restore from a file" imports one after confirmation. Profile > "Delete all data" erases everything on the device, cancels notifications and ends Live Activities.
+7. When a pregnancy ends: Profile > "My pregnancy has ended" (birth or loss) returns the app to cycle tracking, stops every pregnancy reminder and Live Activity, can keep the journey as a memory, and offers gentle, optional check-ins. It gives no medical advice.
+8. Data: Profile > Data > "Back up to a file" exports a .lunamom file through the system share sheet (the user chooses where it goes; the app uploads nothing), optionally password-protected on the device (AES-GCM with a PBKDF2 key from the password, which the app never stores), and "Restore from a file" imports one after confirmation. Profile > "Delete all data" erases everything on the device, cancels notifications and ends Live Activities.
 
 NOTIFICATIONS: all local, none are push. Permission is requested in context (first kick count, first period, or turning on a reminder), never at launch; declining never blocks a feature. No background modes; the only entitlement is the App Group shared with the widget extension.
 

@@ -6,10 +6,11 @@ struct SiriPlannerTests {
         mode: AppMode = .pregnant,
         onboarded: Bool = true,
         running: Bool = false,
-        episode: Bool = false
+        episode: Bool = false,
+        ended: Bool = false
     ) -> SiriState {
         SiriState(mode: mode, onboarded: onboarded,
-                  contractionRunning: running, contractionEpisodeActive: episode)
+                  contractionRunning: running, contractionEpisodeActive: episode, pregnancyEnded: ended)
     }
 
     @Test(arguments: SiriCommand.allCases, [AppMode.tryingToConceive, .partner])
@@ -38,5 +39,17 @@ struct SiriPlannerTests {
 
     @Test func stopWithNothingToEnd() {
         #expect(SiriPlanner.plan(.stopContractions, state()) == .nothingToEnd)
+    }
+
+    /// Review fix 3: after a pregnancy ended, a neutral answer that never mentions pregnancy mode.
+    @Test(arguments: SiriCommand.allCases)
+    func afterAnEndingTheAnswerIsNeutral(command: SiriCommand) {
+        #expect(SiriPlanner.plan(command, state(mode: .tryingToConceive, running: true, episode: true, ended: true)) == .trackingCycle)
+        #expect(SiriPlanner.plan(command, state(mode: .tryingToConceive, onboarded: false, ended: true)) == .trackingCycle)
+    }
+
+    @Test func pregnantAgainActsAsUsual() {
+        // The ended state is cleared when she is pregnant again; even if not, pregnancy mode acts.
+        #expect(SiriPlanner.plan(.recordKick, state(ended: true)) == .recordKick)
     }
 }

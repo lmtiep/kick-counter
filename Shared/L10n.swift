@@ -524,15 +524,11 @@ enum L10n {
     static var appName: String { t("app.name") }
     static var profileModePregnant: String { t("profile.mode.pregnant") }
     static var profileModeCycle: String { t("profile.mode.cycle") }
-    static var profileEndPregnancy: String { t("profile.endPregnancy") }
     static var profileSwitchToPregnant: String { t("profile.switchToPregnant") }
     static var profileKickReminder: String { t("profile.kickReminder") }
     static var profileReminderOff: String { t("profile.reminderOff") }
     static var profileReplayOnboarding: String { t("profile.replayOnboarding") }
     static var profileFontLicense: String { t("profile.fontLicense") }
-    static var endPregnancyTitle: String { t("endPregnancy.title") }
-    static var endPregnancyBody: String { t("endPregnancy.body") }
-    static var endPregnancyConfirm: String { t("endPregnancy.confirm") }
     static var commonNotNow: String { t("common.notNow") }
 
     // MARK: - Phase 4: sheets
@@ -1054,4 +1050,106 @@ enum L10n {
     static func widgetKicksToday(_ count: Int) -> String { String(format: t("widget.kicksToday"), count) }
     static var widgetOvulationDay: String { t("widget.ovulationDay") }
     static var widgetOutsideWindow: String { t("widget.outsideWindow") }
+
+    // MARK: - 1.1: when a pregnancy ends
+
+    static var profilePregnancyEnded: String { t("profile.pregnancyEnded") }
+    static var pregnancyEndTitle: String { t("pregnancyEnd.title") }
+    static var pregnancyEndIntro: String { t("pregnancyEnd.intro") }
+    static func pregnancyEndChoice(_ branch: PregnancyEndBranch) -> String {
+        switch branch {
+        case .birth: t("pregnancyEnd.birth")
+        case .loss: t("pregnancyEnd.loss")
+        }
+    }
+    static func pregnancyEndOpener(_ branch: PregnancyEndBranch) -> String {
+        switch branch {
+        case .birth: t("pregnancyEnd.birth.opener")
+        case .loss: t("pregnancyEnd.loss.opener")
+        }
+    }
+    static func pregnancyEndDateLabel(_ branch: PregnancyEndBranch) -> String {
+        switch branch {
+        case .birth: t("pregnancyEnd.date.birth")
+        case .loss: t("pregnancyEnd.date.loss")
+        }
+    }
+    static var pregnancyEndDateHint: String { t("pregnancyEnd.date.hint") }
+    static var pregnancyEndContinue: String { t("pregnancyEnd.continue") }
+    static var pregnancyEndKeepQuestion: String { t("pregnancyEnd.keep.question") }
+    static var pregnancyEndKeepYes: String { t("pregnancyEnd.keep.yes") }
+    static var pregnancyEndKeepNo: String { t("pregnancyEnd.keep.no") }
+    static var pregnancyEndKeepYesNote: String { t("pregnancyEnd.keep.yesNote") }
+    static var pregnancyEndDeleteData: String { t("pregnancyEnd.deleteData") }
+    static var pregnancyEndDeleteDataNote: String { t("pregnancyEnd.deleteData.note") }
+    static var pregnancyEndConfirm: String { t("pregnancyEnd.confirm") }
+    static var pregnancyEndFailed: String { t("pregnancyEnd.failed") }
+    static var memoryTitlePlaceholder: String { t("memory.titlePlaceholder") }
+    static var memoryTitle: String { t("memory.title") }
+    static var memoryDefaultTitle: String { t("memory.defaultTitle") }
+    static func memoryDates(_ start: String, _ end: String) -> String { String(format: t("memory.dates"), start, end) }
+    static func memoryBirthWeek(_ week: Int) -> String { String(format: t("memory.birthWeek"), week) }
+    static var memorySectionNotes: String { t("memory.section.notes") }
+    static var memorySectionAppointments: String { t("memory.section.appointments") }
+    static var memorySectionWeights: String { t("memory.section.weights") }
+    static var memorySectionKicks: String { t("memory.section.kicks") }
+    static var memorySectionContractions: String { t("memory.section.contractions") }
+    static func memoryKickDay(sessions: Int, kicks: Int) -> String { String(format: t("memory.kickDay"), sessions, kicks) }
+    static func memoryContractionEpisode(_ count: Int) -> String { String(format: t("memory.contractionEpisode"), count) }
+    static var memoryEmpty: String { t("memory.empty") }
+    static var memoryActions: String { t("memory.actions") }
+    static var memoryRename: String { t("memory.rename") }
+    static var memoryRenameTitle: String { t("memory.rename.title") }
+    static var memoryDelete: String { t("memory.delete") }
+    static var memoryDeleteConfirm: String { t("memory.delete.confirm") }
+
+    // MARK: - 1.1: after the ending (pause, first period, check-ins)
+
+    static func cyclePaused(_ branch: PregnancyEndBranch) -> String {
+        switch branch {
+        case .birth: t("cycle.paused.birth")
+        case .loss: t("cycle.paused.loss")
+        }
+    }
+    static var cyclePausedEarlier: String { t("cycle.paused.earlier") }
+    static var widgetPaused: String { t("widget.paused") }
+    static func firstPeriodQuestion(_ branch: PregnancyEndBranch) -> String {
+        switch branch {
+        case .birth: t("firstPeriod.question.birth")
+        case .loss: t("firstPeriod.question.loss")
+        }
+    }
+    static var firstPeriodMessage: String { t("firstPeriod.message") }
+    static var firstPeriodYes: String { t("firstPeriod.yes") }
+    static var firstPeriodNo: String { t("firstPeriod.no") }
+    static var careTitle: String { t("care.title") }
+    static func careFeeling(_ feeling: CareFeeling) -> String {
+        switch feeling {
+        case .good: t("care.feeling.good")
+        case .okay: t("care.feeling.okay")
+        case .tired: t("care.feeling.tired")
+        case .sad: t("care.feeling.sad")
+        case .heavy: t("care.feeling.heavy")
+        }
+    }
+    static var careSkip: String { t("care.skip") }
+    static var careStop: String { t("care.stop") }
+    static func careReply(_ feeling: CareFeeling, branch: PregnancyEndBranch) -> String {
+        switch feeling {
+        case .good: t("care.reply.good")
+        case .okay: t("care.reply.okay")
+        case .tired: t("care.reply.tired")
+        case .sad, .heavy: branch == .birth ? t("care.reply.low.birth") : t("care.reply.low.loss")
+        }
+    }
+    static var careTipTitle: String { t("care.tipTitle") }
+    static let careTipCount = 10
+    /// `index` 0..<careTipCount.
+    static func careTip(_ index: Int) -> String { t("care.tip.\((index % careTipCount) + 1)") }
+    static var careShare: String { t("care.share") }
+    static var careProfileTitle: String { t("care.profile.title") }
+    static var careProfileEnabled: String { t("care.profile.enabled") }
+    static var careProfileNotify: String { t("care.profile.notify") }
+    static var careProfileNote: String { t("care.profile.note") }
+    static var careNotificationBody: String { t("care.notification.body") }
 }

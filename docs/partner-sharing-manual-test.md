@@ -57,10 +57,10 @@ trên hai iPhone thật với **hai Apple ID khác nhau**, cài bản TestFlight
 3. [ ] (Lần thử thứ hai) Mời lại như mục 1, máy B nhận lại như mục 2; lần này ngừng từ **bên trong** bảng chia sẻ
        của hệ thống ("Ngừng chia sẻ" trong bảng). Kết quả giống bước 4.2.
 4. [ ] (Lần thử thứ ba) Mời lại như mục 1, máy B nhận lại như mục 2. Lần này **không** chạm "Ngừng chia sẻ": máy A
-       Cá nhân → "Kết thúc theo dõi thai kỳ" → "Quay về theo dõi chu kỳ". Máy B (mở app hoặc kéo để làm mới): màn
+       Cá nhân → "Thai kỳ của tôi đã kết thúc" → một nhánh → "Xác nhận". Máy B (mở app hoặc kéo để làm mới): màn
        "Mẹ đã ngừng chia sẻ", không còn dữ liệu cũ. Trên CloudKit Console (như ở mục 8, "Ngừng chia sẻ từ bên trong
        bảng chia sẻ hệ thống"): zone `PartnerShare` của máy A **không còn tồn tại**. Làm lại một lần bằng bộ chọn chế
-       độ ở Cá nhân ("Mong con" thay vì "Kết thúc theo dõi thai kỳ"): kết quả giống hệt.
+       độ ở Cá nhân ("Mong con" thay vì "Thai kỳ của tôi đã kết thúc"): kết quả giống hệt.
 5. [ ] (Lần thử thứ tư, ngoại tuyến) Mời lại, máy B nhận lại. Bật chế độ máy bay trên máy A **rồi mới** kết thúc
        theo dõi thai kỳ. Tắt chế độ máy bay, đưa app máy A về nền rồi mở lại (đang ở chế độ Mong con): việc ngừng
        chia sẻ dang dở được làm nốt. Máy B hiện "Mẹ đã ngừng chia sẻ"; zone `PartnerShare` của máy A không còn.

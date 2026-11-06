@@ -23,6 +23,8 @@ enum ProfileModeChoice: Hashable {
 struct ProfileView: View {
     /// Shows onboarding in replay mode (RootView): nothing is saved from it.
     let onReplayOnboarding: () -> Void
+    /// The pregnancy ended (1.1 item 4): RootView shows the cycle Today.
+    var onPregnancyEnded: () -> Void = {}
 
     @Environment(KickCoordinator.self) private var coordinator
     @Environment(CycleCoordinator.self) private var cycle
@@ -30,6 +32,7 @@ struct ProfileView: View {
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(PillCoordinator.self) private var pill
     @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(PregnancyEnding.self) private var ending
     @Environment(\.modelContext) private var modelContext
     @Environment(BackupCenter.self) private var backup
     @Environment(\.openURL) private var openURL
@@ -75,6 +78,19 @@ struct ProfileView: View {
                         pregnancyCard
                     } else {
                         cycleCard
+                    }
+                    // The gentle check-ins after a pregnancy ended (1.1 item 4).
+                    if mode == .tryingToConceive, cycle.endState != nil {
+                        CareCheckInSettingsCard()
+                    }
+                    // Kept journeys (1.1 item 4): only once there is one.
+                    if !ending.memories.isEmpty {
+                        NavigationLink { MemoryListView() } label: {
+                            LunaRow(title: L10n.memoryTitle)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("profileMemories")
+                        .lunaCard(padding: 0)
                     }
                     // The kick reminder belongs to pregnancy mode, but stays
                     // reachable while it is on so it can always be turned off.
@@ -134,8 +150,8 @@ struct ProfileView: View {
                 ImPregnantSheet(lastPeriodStart: cycle.forecast?.currentPeriodStart)
             }
             .sheet(isPresented: $showingEndPregnancy) {
-                EndPregnancySheet()
-                    .lunaSheetPresentation(detents: [.medium])
+                PregnancyEndingSheet(onEnded: onPregnancyEnded)
+                    .lunaSheetPresentation(detents: [.large])
             }
             // Turning the reminder on may have just asked for notifications.
             .sheet(isPresented: $showingKickSettings, onDismiss: { Task { await refreshPermissions() } }) {
@@ -180,7 +196,10 @@ struct ProfileView: View {
             .fileImporter(isPresented: $importingBackup, allowedContentTypes: [.lunaMomBackup, .json]) { result in
                 if case .success(let url) = result { backup.open(url) }
             }
-            .onAppear { refreshLastBackup() }
+            .onAppear {
+                refreshLastBackup()
+                ending.loadMemories()
+            }
             .task { await refreshPermissions() }
             .onChange(of: scenePhase) { _, phase in
                 if phase == .active { Task { await refreshPermissions() } }
@@ -240,11 +259,12 @@ struct ProfileView: View {
             .padding(18)
             LunaDivider()
             if mode == .pregnant {
+                // Discreet, in Profile only, never on Today (spec §4.1).
                 Button { showingEndPregnancy = true } label: {
-                    LunaRow(title: L10n.profileEndPregnancy)
+                    LunaRow(title: L10n.profilePregnancyEnded)
                 }
                 .buttonStyle(.plain)
-                .accessibilityIdentifier("profileEndPregnancy")
+                .accessibilityIdentifier("profilePregnancyEnded")
             } else {
                 Button { showingImPregnant = true } label: {
                     LunaRow(title: L10n.profileSwitchToPregnant)
@@ -645,6 +665,7 @@ struct ProfileView: View {
             kicks: coordinator, appointments: appointments, cycle: cycle, weight: weight, pill: pill,
             contractions: contractions
         )
+        ending.loadMemories()
         profileLogger.info("Deleted all data")
     }
 
@@ -809,40 +830,6 @@ struct LanguagePickerCard: View {
             .accessibilityIdentifier("profileLanguagePicker")
         }
         .lunaCard()
-    }
-}
-
-/// "End pregnancy tracking?" (spec §4.8): back to trying-to-conceive mode;
-/// pregnancy data, check-ups and their reminders are kept.
-struct EndPregnancySheet: View {
-    @Environment(CycleCoordinator.self) private var cycle
-    @Environment(\.dismiss) private var dismiss
-    @State private var working = false
-
-    var body: some View {
-        LunaSheet(title: L10n.endPregnancyTitle) {
-            Text(L10n.endPregnancyBody)
-                .font(.luna(.body))
-                .foregroundStyle(.luna(.articleText))
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.top, 6)
-            Button(L10n.endPregnancyConfirm) {
-                Task {
-                    working = true
-                    await cycle.activateTryingToConceive()
-                    working = false
-                    dismiss()
-                }
-            }
-            .buttonStyle(.pill(.dark))
-            .disabled(working)
-            .padding(.top, 20)
-            .accessibilityIdentifier("endPregnancyConfirm")
-            Button(L10n.commonNotNow) { dismiss() }
-                .buttonStyle(.pill(.text(.textSecondary), height: 44))
-                .padding(.top, 4)
-                .accessibilityIdentifier("endPregnancyCancel")
-        }
     }
 }
 

@@ -125,6 +125,7 @@ enum WidgetSpeech {
         case .cycle(let cycle): WidgetCycleTexts(cycle).spoken
         case .fertility(let content): WidgetFertilityTexts(content).spoken
         case .pregnancy(let content): WidgetPregnancyTexts(content).spoken
+        case .paused: L10n.widgetName + ", " + L10n.widgetPaused
         }
     }
 }

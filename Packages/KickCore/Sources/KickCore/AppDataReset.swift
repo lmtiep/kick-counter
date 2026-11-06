@@ -44,6 +44,16 @@ public enum AppDataReset {
         SettingsKey.reviewAskedVersions,
         SettingsKey.backupFirstUseAt,
         SettingsKey.backupReminderSnoozedAt,
+        SettingsKey.pregnancyEndBranch,
+        SettingsKey.pregnancyEndDate,
+        SettingsKey.pregnancyEndRangeStart,
+        SettingsKey.pregnancyEndFirstPeriodID,
+        SettingsKey.pregnancyEndDeclinedPeriods,
+        SettingsKey.careCheckInEnabled,
+        SettingsKey.careCheckInNotify,
+        SettingsKey.careCheckInLastShown,
+        SettingsKey.careCheckInLowStreak,
+        SettingsKey.careCheckInStopped,
     ]
 
     /// Removes exactly `ownedKeys` from `defaults`; any other key is left as it is.

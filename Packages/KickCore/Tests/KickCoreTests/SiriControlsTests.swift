@@ -121,4 +121,15 @@ struct SiriControlsTests {
         #expect(await siri.run(.recordKick) == .needsPregnancyMode)
         #expect(kicks.activeSession == nil)
     }
+
+    /// Review fix 3: after a pregnancy ended Siri answers neutrally and starts nothing.
+    @Test func afterAnEndingSiriIsNeutral() async {
+        AppMode.save(.tryingToConceive, to: defaults)
+        PregnancyEndState(branch: .loss, endDate: date("2026-09-01T00:00:00Z")).save(to: defaults)
+        for command in SiriCommand.allCases {
+            #expect(await siri.run(command) == .trackingCycle)
+        }
+        #expect(kicks.activeSession == nil)
+        #expect(contractions.contractions.isEmpty)
+    }
 }

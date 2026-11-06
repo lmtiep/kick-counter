@@ -12,6 +12,7 @@ extension L10n {
         case .trackingEnded: t("intent.siri.dialog.trackingEnded")
         case .nothingToEnd: t("intent.siri.dialog.nothingToEnd")
         case .needsPregnancyMode: t("intent.siri.dialog.needsPregnancy")
+        case .trackingCycle: t("intent.siri.dialog.trackingCycle")
         case .failed: t("intent.siri.dialog.failed")
         }
     }

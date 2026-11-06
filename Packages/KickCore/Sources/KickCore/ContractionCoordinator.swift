@@ -261,6 +261,35 @@ public final class ContractionCoordinator {
         failure = nil
     }
 
+    /// The pregnancy ended (1.1 item 4): a running contraction is closed now
+    /// (or dropped as a mis-tap), the episode is marked ended so nothing shows
+    /// as current, a posted contraction alert is removed and every contraction
+    /// Live Activity ends. Stored contractions are left to the archive.
+    public func stopForPregnancyEnd() async {
+        refresh()
+        let time = now()
+        if let open = running {
+            stop(open, at: time)
+        }
+        episodeEndedAt = time
+        defaults.set(time, forKey: SettingsKey.contractionEpisodeEndedAt)
+        if let key = defaults.string(forKey: SettingsKey.contractionAlertNotified) {
+            let run = key.split(separator: ":", maxSplits: 1).first.map(String.init) ?? key
+            notifications?.removeContractionAlert(run: run)
+            defaults.removeObject(forKey: SettingsKey.contractionAlertNotified)
+        }
+        lastToggle = nil
+        lastToggleAt = nil
+        refresh()
+        let previous = syncTask
+        let task = Task {
+            await previous?.value
+            await self.liveActivities.endAll()
+        }
+        syncTask = task
+        await task.value
+    }
+
     // MARK: - Internals
 
     private func start(at time: Date) -> ContractionToggle? {

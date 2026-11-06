@@ -307,6 +307,32 @@ public final class KickCoordinator {
         await notifications.cancelOverdueAlerts(except: nil)
     }
 
+    /// The pregnancy ended (1.1 item 4): cancels a running count (when the
+    /// archive kept it), forgets the session and the completion card, stops the
+    /// daily reminder and every 2-hour alert, and ends every kick Live Activity,
+    /// the "Done!" card included (`endAll(force: true)`).
+    public func stopForPregnancyEnd() async {
+        if let loadTask { await loadTask.value }
+        do {
+            if let record = try store.cancelActive(at: now()) {
+                notifications.cancelOverdueAlert(sessionID: record.id)
+            }
+        } catch {
+            logger.error("Cancelling the session at the pregnancy's end failed: \(error.localizedDescription)")
+        }
+        publish(nil)
+        completedSession = nil
+        failure = nil
+        notifications.cancelDailyReminder()
+        await liveActivities.endAll(force: true)
+        await notifications.cancelOverdueAlerts(except: nil)
+    }
+
+    /// Ends every kick Live Activity; `force` removes the "Done!" card too.
+    public func endLiveActivities(force: Bool) async {
+        await liveActivities.endAll(force: force)
+    }
+
     public func notificationsAuthorized() async -> Bool {
         await notifications.isAuthorized()
     }

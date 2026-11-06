@@ -9,6 +9,8 @@ public enum SiriResult: Equatable, Sendable {
     case trackingEnded
     case nothingToEnd
     case needsPregnancyMode
+    /// After a pregnancy ended: "Luna Mom is tracking your cycle."
+    case trackingCycle
     case failed
 }
 
@@ -41,11 +43,14 @@ public struct SiriControls {
             mode: mode,
             onboarded: onboarded,
             contractionRunning: contractions.running != nil,
-            contractionEpisodeActive: contractions.isTrackingEpisode
+            contractionEpisodeActive: contractions.isTrackingEpisode,
+            pregnancyEnded: PregnancyEndState.load(from: defaults) != nil
         )
         switch SiriPlanner.plan(command, state) {
         case .needsPregnancyMode:
             return .needsPregnancyMode
+        case .trackingCycle:
+            return .trackingCycle
         case .recordKick:
             switch await kicks.recordKick() {
             // A debounced tap means a kick was recorded a moment ago.

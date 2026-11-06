@@ -1,5 +1,6 @@
 import KickCore
 import SwiftUI
+import WidgetKit
 
 enum AppTab: Hashable {
     case today
@@ -19,6 +20,7 @@ struct RootView: View {
     @Environment(WeightCoordinator.self) private var weight
     @Environment(PillCoordinator.self) private var pill
     @Environment(ContractionCoordinator.self) private var contractions
+    @Environment(PregnancyEnding.self) private var ending
     @Environment(PartnerShareCoordinator.self) private var partnerShare
     @Environment(PartnerJourneyModel.self) private var partnerJourney
     @Environment(PartnerInvitationInbox.self) private var invitations
@@ -94,6 +96,8 @@ struct RootView: View {
                 // Profile stays open after switching mode there; anywhere else
                 // (e.g. "I'm pregnant" on Today) lands on the new mode's Today.
                 if selectedTab != .profile { selectedTab = .today }
+                // Siri's Controls answer by mode (ending a pregnancy, pregnant again).
+                if #available(iOS 18.0, *) { ControlCenter.shared.reloadAllControls() }
                 // Pill reminders exist only in the cycle mode (phase 17).
                 Task { await pill.contraceptionChanged() }
                 // The contraction timer is pregnancy only: leaving it (partner mode,
@@ -174,6 +178,9 @@ struct RootView: View {
                 replayingOnboarding = false
                 selectedTab = .today
                 toastMessage = L10n.backupRestored
+                ending.loadMemories()
+                // The restored check-in choices: schedule or cancel `care-checkin` now.
+                Task { await CareCheckInNotifications.sync() }
             }
             #if DEBUG
             .task {
@@ -258,7 +265,10 @@ struct RootView: View {
                 partnerProfile
                     .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile, tint: contentTint)
             } else {
-                ProfileView(onReplayOnboarding: { replayingOnboarding = true })
+                ProfileView(
+                    onReplayOnboarding: { replayingOnboarding = true },
+                    onPregnancyEnded: { selectedTab = .today }
+                )
                     .lunaTab(L10n.tabProfile, systemImage: "person.crop.circle.fill", tag: .profile, tint: contentTint)
             }
         }
@@ -315,6 +325,8 @@ struct RootView: View {
         await cycle.load()
         await weight.load()
         await pill.load()
+        // The optional check-in notification follows the next check-in day (1.1 item 4).
+        if mode == .tryingToConceive { await CareCheckInNotifications.sync() }
         // Partner sharing is off with iCloud (phase 12): nothing to refresh.
         guard AppEnvironment.showsPartnerUI else { return }
         switch mode {
@@ -347,6 +359,7 @@ struct RootView: View {
         PillNotificationDelegate.shared.registerCategory()
         await pill.updateTexts(ReminderTexts.pill)
         await restoreDailyKickReminder()
+        await CareCheckInNotifications.sync()
     }
 
     /// Schedules the stored daily kick reminder again, never prompting and

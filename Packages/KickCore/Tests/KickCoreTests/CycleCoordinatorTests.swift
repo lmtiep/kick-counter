@@ -496,4 +496,107 @@ struct CycleCoordinatorTests {
 
         #expect(center.added.isEmpty)
     }
+
+    // MARK: - When a pregnancy ends (1.1 item 4)
+
+    @Test func endPregnancyWithNoStoredGoalSavesTracking() async {
+        AppMode.save(.pregnant, to: defaults)
+        #expect(defaults.object(forKey: SettingsKey.cycleGoal) == nil)
+        await coordinator.endPregnancy(branch: .birth, endDate: day("2026-09-01"))
+        #expect(defaults.string(forKey: SettingsKey.cycleGoal) == CycleGoal.tracking.rawValue)
+        #expect(coordinator.preferences.goal == .tracking)
+        #expect(coordinator.mode == .tryingToConceive)
+        #expect(PregnancyEndState.load(from: defaults) == PregnancyEndState(branch: .birth, endDate: day("2026-09-01"), calendar: utcCalendar))
+        #expect(coordinator.endState?.branch == .birth)
+    }
+
+    @Test func endPregnancyKeepsAnExistingConceivingGoal() async {
+        CyclePreferences(goal: .conceiving).save(to: defaults)
+        AppMode.save(.pregnant, to: defaults)
+        await coordinator.endPregnancy(branch: .loss, endDate: day("2026-09-01"))
+        #expect(coordinator.preferences.goal == .conceiving)
+    }
+
+    @Test func endPregnancyClearsThePregnancyDates() async {
+        AppMode.save(.pregnant, to: defaults)
+        PregnancyProfile.saveDueDate(day("2027-01-01"), to: defaults)
+        await coordinator.endPregnancy(branch: .loss, endDate: day("2026-09-01"))
+        #expect(PregnancyProfile.load(from: defaults).dueDate == nil)
+    }
+
+    @Test func endPregnancyNeverPrompts() async {
+        seedRegularCycles()
+        AppMode.save(.pregnant, to: defaults)
+        center.status = .notDetermined
+        await coordinator.endPregnancy(branch: .birth, endDate: day("2026-09-01"))
+        #expect(center.requestCount == 0)
+        #expect(center.added.isEmpty)
+    }
+
+    @Test func forecastNilWhilePaused() async throws {
+        seedRegularCycles()
+        await coordinator.endPregnancy(branch: .loss, endDate: day("2026-08-20"))
+        #expect(coordinator.isPaused)
+        #expect(coordinator.forecast == nil)
+        #expect(center.added.isEmpty)
+
+        // The 09-03 period is the first after the end: confirming it resumes predictions.
+        let first = try #require(coordinator.periodNeedingConfirmation)
+        #expect(first.startDate == day("2026-09-03"))
+        await coordinator.confirmFirstPeriod(id: first.id)
+        #expect(!coordinator.isPaused)
+        #expect(coordinator.periodNeedingConfirmation == nil)
+        let forecast = try #require(coordinator.forecast)
+        // Only the 09-03 period counts toward the forecast.
+        #expect(forecast.nextPeriodStart == day("2026-10-01"))
+        #expect(reminderIDs.contains("cycle-period"))
+        #expect(center.requestCount == 0)
+    }
+
+    @Test func decliningKeepsThePauseAndThePeriod() async throws {
+        seedRegularCycles()
+        await coordinator.endPregnancy(branch: .birth, endDate: day("2026-08-20"))
+        let first = try #require(coordinator.periodNeedingConfirmation)
+        coordinator.declineFirstPeriod(id: first.id)
+        #expect(coordinator.isPaused)
+        #expect(coordinator.forecast == nil)
+        #expect(coordinator.periodNeedingConfirmation == nil)
+        #expect(coordinator.periods.contains { $0.id == first.id })
+    }
+
+    @Test func switchToPregnantClearsEndState() async {
+        seedRegularCycles()
+        await coordinator.endPregnancy(branch: .loss, endDate: day("2026-08-20"))
+        coordinator.declineFirstPeriod(id: coordinator.periods[2].id)
+        coordinator.switchToPregnant(source: .lmp, date: day("2026-09-03"))
+        #expect(PregnancyEndState.load(from: defaults) == nil)
+        #expect(defaults.object(forKey: SettingsKey.pregnancyEndDeclinedPeriods) == nil)
+        #expect(coordinator.endState == nil)
+        #expect(!coordinator.isPaused)
+    }
+
+    @Test func switchToPregnantClearsTheCheckInsAndTheirNotification() async throws {
+        await coordinator.endPregnancy(branch: .loss, endDate: day("2026-08-01"))
+        var care = CareCheckInState()
+        care.notify = true
+        care.lowStreak = 1
+        care.save(to: defaults)
+        _ = try await NotificationScheduler(center: center).scheduleCareCheckIn(
+            on: day("2026-09-10"), now: day("2026-09-05"), text: NotificationText(title: "Luna Mom", body: "Hi"), calendar: utcCalendar
+        )
+        #expect(center.added.map(\.identifier) == ["care-checkin"])
+        coordinator.switchToPregnant(source: .lmp, date: day("2026-09-03"))
+        for key in CareCheckInState.keys {
+            #expect(defaults.object(forKey: key) == nil, "\(key)")
+        }
+        #expect(center.added.isEmpty)
+    }
+
+    @Test func endingAgainStartsTheCheckInsAfresh() async {
+        var care = CareCheckInState()
+        care.stopped = true
+        care.save(to: defaults)
+        await coordinator.endPregnancy(branch: .birth, endDate: day("2026-09-01"))
+        #expect(CareCheckInState.load(from: defaults) == CareCheckInState())
+    }
 }
