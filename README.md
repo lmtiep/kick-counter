@@ -220,6 +220,12 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
 - UI test: `-seedContractions 511|preterm`; `ContractionTimerUITests`, `ContractionTimerScreenshotTests`. Bác sĩ duyệt:
   `docs/content-review-for-doctor.md` mục 18 (96–100). Kiểm thử trên máy thật: `docs/release-checklist.md` ("Giai đoạn
   20").
+- Sửa cơn gò (1.1, đặc tả `docs/superpowers/specs/2026-11-06-contraction-edit-design.md`): chạm một dòng đã xong để sửa giờ
+  bắt đầu / kết thúc (`ContractionEditSheet`, cùng quy tắc như khi bấm giờ: không ở tương lai, 3 giây–5 phút, không
+  trùng cơn khác, kiểm tra thuần ở `ContractionEditRules`), "Thêm cơn gò bị sót" (giờ bắt đầu + độ dài, bước 5 giây) và
+  "Vỡ ối" (model `LabourMarker`, mảng `labourMarkers` tuỳ chọn trong file sao lưu). Sau khi lưu "Vỡ ối", thẻ nhấn mạnh
+  dùng lại đúng câu an toàn đã có. Lịch sử: chạm một lần theo dõi để sửa từng cơn. Thông báo cảnh báo chỉ gửi khi một lần
+  sửa/thêm làm cảnh báo bật lên, không bao giờ khi nó tắt. UI test: `ContractionEditUITests` (chỉ chạy trên CI).
 
 ## Kích thước theo tuần (giai đoạn 11)
 - Từ tuần 10, câu "Bé lớn cỡ nào?" so sánh **cân nặng** ("tương đương một quả mận"): `size.typicalGrams` / `size.sourceKey`

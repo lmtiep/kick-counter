@@ -89,6 +89,18 @@ struct PregnancyMemoryStoreTests {
         try store.archive(memory: memory, title: "Bông", deleting: try thisPregnancyRows())
     }
 
+    @Test func archiveDeletesOnlyTheGivenLabourMarkers() throws {
+        let thisMarker = LabourMarkerRecord(at: date("2026-09-30T21:00:00Z"))
+        let earlierMarker = LabourMarkerRecord(at: date("2025-07-01T21:00:00Z"))
+        context.insert(LabourMarker(record: thisMarker))
+        context.insert(LabourMarker(record: earlierMarker))
+        try context.save()
+        try PregnancyMemoryStore(context: context).archive(
+            memory: content(), title: "", deleting: PregnancyRawRowIDs(labourMarkers: [thisMarker.id])
+        )
+        #expect(try context.fetch(FetchDescriptor<LabourMarker>()).map(\.id) == [earlierMarker.id])
+    }
+
     @Test func archiveSavesMemoryAndDeletesRows() throws {
         try seedRawRows()
         let store = PregnancyMemoryStore(context: context)

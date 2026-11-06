@@ -261,6 +261,28 @@ public final class Contraction {
     }
 }
 
+/// A moment in labour that is not a contraction, such as "Vỡ ối" (edit spec
+/// 2026-11-06). `kind` is the raw value (`LabourMarkerRecord.waterBroke`), kept
+/// as a string so a kind a newer build wrote survives. Every property has a
+/// default and there are no relationships, like `Contraction`, so a store from
+/// before this model opens by lightweight migration.
+@Model
+public final class LabourMarker {
+    public var id: UUID = UUID()
+    public var kind: String = LabourMarkerRecord.waterBroke
+    public var at: Date = Date()
+
+    public init(record: LabourMarkerRecord) {
+        id = record.id
+        kind = record.kind
+        at = record.at
+    }
+
+    public var record: LabourMarkerRecord {
+        LabourMarkerRecord(id: id, kind: kind, at: at)
+    }
+}
+
 /// A kept pregnancy journey (1.1 item 4): a frozen `PregnancyMemoryContent`
 /// stored as JSON, with no relationships, so adding it is a lightweight
 /// migration (every attribute has a default, like `PillDose` / `Contraction`).

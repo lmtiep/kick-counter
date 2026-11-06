@@ -16,6 +16,7 @@ public struct PregnancyRows: Sendable {
     public var appointments: [AppointmentRecord]
     public var weights: [WeightRecord]
     public var logs: [CycleLogRecord]
+    public var labourMarkers: [LabourMarkerRecord]
 }
 
 @MainActor
@@ -61,7 +62,7 @@ public final class PregnancyMemoryStore {
 
     /// Inserts the memory (when given) and deletes exactly the given raw rows (the
     /// pregnancy's in-range kick sessions with their kicks, contractions,
-    /// appointments and weights). Day logs and periods are never touched. One
+    /// appointments, weights and labour markers). Day logs and periods are never touched. One
     /// save; on any throw everything is rolled back. A new pregnancy model adds
     /// its ID set to `PregnancyRawRowIDs` and one `delete` call here.
     public func archive(
@@ -85,6 +86,7 @@ public final class PregnancyMemoryStore {
             try delete(Contraction.self, ids: rows.contractions, id: \.id)
             try delete(Appointment.self, ids: rows.appointments, id: \.id)
             try delete(WeightEntry.self, ids: rows.weights, id: \.id)
+            try delete(LabourMarker.self, ids: rows.labourMarkers, id: \.id)
             try saveContext(context)
         } catch {
             context.rollback()
@@ -106,7 +108,8 @@ public final class PregnancyMemoryStore {
             contractions: try context.fetch(FetchDescriptor<Contraction>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record),
             appointments: try context.fetch(FetchDescriptor<Appointment>(sortBy: [SortDescriptor(\.date)])).map(\.record),
             weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
-            logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map(\.record)
+            logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map(\.record),
+            labourMarkers: try context.fetch(FetchDescriptor<LabourMarker>(sortBy: [SortDescriptor(\.at)])).map(\.record)
         )
     }
 

@@ -29,6 +29,7 @@ struct BackupStoreTests {
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 50)))
         context.insert(PillDose(record: PillDoseRecord(day: CalendarDay(year: 2026, month: 9, day: 1), takenAt: day.addingTimeInterval(75_600))))
         context.insert(Contraction(record: ContractionRecord(startedAt: day, endedAt: day.addingTimeInterval(60))))
+        context.insert(LabourMarker(record: LabourMarkerRecord(at: day)))
         context.insert(try PregnancyMemory(record: oldMemory))
         try context.save()
     }
@@ -76,6 +77,7 @@ struct BackupStoreTests {
                 ContractionRecord(startedAt: date("2026-10-08T21:00:00Z"), endedAt: date("2026-10-08T21:00:50Z")),
                 ContractionRecord(startedAt: date("2026-10-08T21:06:00Z")),
             ],
+            labourMarkers: [LabourMarkerRecord(at: date("2026-10-08T21:30:00Z"))],
             pregnancyMemories: [try! StoredPregnancyMemory(newMemory)]
         )
     }
@@ -89,6 +91,7 @@ struct BackupStoreTests {
             weights: records.weights.sorted { $0.day < $1.day },
             pillDoses: records.pillDoses.sorted { $0.day < $1.day },
             contractions: records.contractions.sorted { $0.startedAt < $1.startedAt },
+            labourMarkers: records.labourMarkers.sorted { $0.at < $1.at },
             pregnancyMemories: records.pregnancyMemories.sorted { $0.createdAt < $1.createdAt }
         )
     }
@@ -104,6 +107,7 @@ struct BackupStoreTests {
         #expect(exported.weights.map(\.kg) == [50])
         #expect(exported.pillDoses.map(\.day) == [CalendarDay(year: 2026, month: 9, day: 1)])
         #expect(exported.contractions.map(\.startedAt) == [date("2026-09-01T00:00:00Z")])
+        #expect(exported.labourMarkers.map(\.at) == [date("2026-09-01T00:00:00Z")])
         #expect(exported.pregnancyMemories.compactMap(\.record) == [oldMemory])
     }
 
@@ -119,6 +123,7 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 2)
+        #expect(try context.fetchCount(FetchDescriptor<LabourMarker>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<PregnancyMemory>()) == 1)
     }
 

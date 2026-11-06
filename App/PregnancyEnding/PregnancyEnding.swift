@@ -118,7 +118,7 @@ final class PregnancyEnding {
         }
         let deleting = PregnancyMemoryBuilder.rowsToDelete(
             range: range, sessions: rows.sessions, contractions: rows.contractions,
-            appointments: rows.appointments, weights: rows.weights
+            appointments: rows.appointments, weights: rows.weights, labourMarkers: rows.labourMarkers
         )
         try store.archive(memory: content, title: keep.memoryTitle ?? "", deleting: deleting, now: now())
     }

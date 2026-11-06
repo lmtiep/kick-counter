@@ -180,6 +180,17 @@ struct PregnancyMemoryBuilderTests {
         #expect(none.isEmpty)
     }
 
+    @Test func rowsToDeleteTakesOnlyThisPregnancysLabourMarkers() {
+        let range = at("2026-02-01T00:00:00")...at("2026-11-20T00:00:00")
+        let thisMarker = LabourMarkerRecord(at: at("2026-11-19T21:00:00"))
+        let earlierMarker = LabourMarkerRecord(at: at("2025-07-01T21:00:00"))
+        let rows = PregnancyMemoryBuilder.rowsToDelete(
+            range: range, sessions: [], contractions: [], appointments: [], weights: [], labourMarkers: [thisMarker, earlierMarker]
+        )
+        #expect(rows.labourMarkers == [thisMarker.id])
+        #expect(!rows.isEmpty)
+    }
+
     @Test func sameContentForBothBranches() {
         let sessions = [session("2026-10-01T09:00:00", kicks: 10, minutes: 30)]
         let logs = [CycleLogRecord(day: day("2026-06-01"), note: "Note")]

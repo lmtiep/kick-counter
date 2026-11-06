@@ -82,6 +82,7 @@ public struct BackupSummary: Equatable, Sendable {
     public var weights: Int
     public var pillDoses: Int = 0
     public var contractions: Int = 0
+    public var labourMarkers: Int = 0
     public var pregnancyMemories: Int = 0
     /// The file's `appMode`; missing means pregnant, as in `AppMode.load`.
     public var mode: AppMode
@@ -89,7 +90,7 @@ public struct BackupSummary: Equatable, Sendable {
     public var dateRange: ClosedRange<Date>?
 
     public var isEmpty: Bool {
-        sessions + appointments + periods + cycleLogs + weights + pillDoses + contractions + pregnancyMemories == 0
+        sessions + appointments + periods + cycleLogs + weights + pillDoses + contractions + labourMarkers + pregnancyMemories == 0
     }
 }
 
@@ -98,6 +99,7 @@ extension BackupDocument {
         var dates: [Date] = sessions.map(\.startedAt) + appointments.map(\.date) + cycleLogs.map(\.day) + weights.map(\.day)
         dates += pillDoses.compactMap { $0.calendarDay?.date(in: .autoupdatingCurrent) }
         dates += contractions.map(\.startedAt)
+        dates += labourMarkers.map(\.at)
         dates += periods.map(\.startDate) + periods.compactMap(\.endDate)
         let mode: AppMode = if case .string(let raw) = settings[SettingsKey.appMode] {
             AppMode(rawValue: raw) ?? .pregnant
@@ -113,6 +115,7 @@ extension BackupDocument {
             weights: weights.count,
             pillDoses: pillDoses.count,
             contractions: contractions.count,
+            labourMarkers: labourMarkers.count,
             pregnancyMemories: pregnancyMemories.count,
             mode: mode,
             dateRange: dates.min().flatMap { first in dates.max().map { first...$0 } }
@@ -176,6 +179,8 @@ public enum BackupValidation {
             guard dto.endedAt == nil, dto.id != newestRunning?.id || dto.startedAt != newestStart else { return dto }
             return ContractionDTO(ContractionRules.closingForgotten(dto.record))
         }
+        // A marker cannot be in the future.
+        cleaned.labourMarkers = keep(document.labourMarkers, id: \.id) { $0.at <= now }
         // Memories are frozen as they were made: only repeated ids are dropped.
         cleaned.pregnancyMemories = keep(document.pregnancyMemories, id: \.id) { _ in true }
         cleaned.appointments = keep(document.appointments, id: \.id) {

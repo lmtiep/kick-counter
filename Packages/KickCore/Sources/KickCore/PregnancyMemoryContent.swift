@@ -149,15 +149,23 @@ public struct PregnancyRawRowIDs: Equatable, Sendable {
     public var contractions: Set<UUID>
     public var appointments: Set<UUID>
     public var weights: Set<UUID>
+    /// Labour markers such as "Vỡ ối", so none shows up in a later pregnancy's history.
+    public var labourMarkers: Set<UUID>
 
-    public init(sessions: Set<UUID> = [], contractions: Set<UUID> = [], appointments: Set<UUID> = [], weights: Set<UUID> = []) {
+    public init(
+        sessions: Set<UUID> = [], contractions: Set<UUID> = [], appointments: Set<UUID> = [], weights: Set<UUID> = [],
+        labourMarkers: Set<UUID> = []
+    ) {
         self.sessions = sessions
         self.contractions = contractions
         self.appointments = appointments
         self.weights = weights
+        self.labourMarkers = labourMarkers
     }
 
-    public var isEmpty: Bool { sessions.isEmpty && contractions.isEmpty && appointments.isEmpty && weights.isEmpty }
+    public var isEmpty: Bool {
+        sessions.isEmpty && contractions.isEmpty && appointments.isEmpty && weights.isEmpty && labourMarkers.isEmpty
+    }
 }
 
 /// Builds the memory from the raw rows (spec §4.6). Pure: the archive in
@@ -230,14 +238,16 @@ public enum PregnancyMemoryBuilder {
         sessions: [SessionRecord],
         contractions: [ContractionRecord],
         appointments: [AppointmentRecord],
-        weights: [WeightRecord]
+        weights: [WeightRecord],
+        labourMarkers: [LabourMarkerRecord] = []
     ) -> PregnancyRawRowIDs {
         guard let range else { return PregnancyRawRowIDs() }
         return PregnancyRawRowIDs(
             sessions: Set(sessions.filter { range.contains($0.state.startedAt) }.map(\.id)),
             contractions: Set(contractions.filter { range.contains($0.startedAt) }.map(\.id)),
             appointments: Set(appointments.filter { range.contains($0.date) }.map(\.id)),
-            weights: Set(weights.filter { range.contains($0.day) }.map(\.id))
+            weights: Set(weights.filter { range.contains($0.day) }.map(\.id)),
+            labourMarkers: Set(labourMarkers.filter { range.contains($0.at) }.map(\.id))
         )
     }
 
