@@ -105,6 +105,12 @@ struct ProfileView: View {
                         }
                         #endif
                     }
+                    NavigationLink { DoctorReportView() } label: {
+                        LunaRow(title: L10n.reportRow)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("profileDoctorReport")
+                    .lunaCard(padding: 0)
                     permissionsCard
                     aboutCard
                     dataCard

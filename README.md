@@ -255,6 +255,13 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   `TEST_RUNNER_WIDGET_PREVIEW_DIR=/đường/dẫn xcodebuild -scheme KickCounter -only-testing:KickCounterWidgetTests test`.
 - Kiểm thử trên máy thật: `docs/release-checklist.md` ("Widget 1.1").
 
+## Báo cáo cho bác sĩ (1.1)
+- Cá nhân → "Xuất báo cáo cho bác sĩ": PDF A4 dựng ngay trên máy (`App/Report/DoctorReportPDF.swift`), chia sẻ bằng
+  share sheet, thư mục tạm bị xoá sau khi chia sẻ hoặc huỷ. Tên gõ lúc xuất không bao giờ được lưu.
+- Dữ liệu báo cáo là `KickCore/DoctorReport.swift` (`DoctorReport.make`): chỉ số liệu và bảng, không diễn giải.
+  Thêm cờ UI test `-uiTestingReportPreview`: ghi PDF vào `NSTemporaryDirectory()/LunaMom-report-uitest.pdf` và hiện
+  trang đầu toàn màn hình kèm số trang (chỉ bản Debug).
+
 ## Siri, Nút Tác vụ và Trung tâm điều khiển (1.1)
 - Ba lệnh: "Ghi cử động thai" (mỗi lần đúng một cử động, như nút "+" trên Live Activity), "Bấm cơn gò", "Kết thúc theo dõi cơn gò" (Siri, Spotlight, Phím tắt không cần cài đặt; điều khiển
   cho Trung tâm điều khiển / Màn hình khoá / Nút Tác vụ từ iOS 18). Đặc tả: `docs/superpowers/specs/2026-11-06-siri-controls-design.md`.
