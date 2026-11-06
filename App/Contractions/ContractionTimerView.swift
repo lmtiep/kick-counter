@@ -126,7 +126,7 @@ struct ContractionTimerView: View {
             .padding(.top, 20)
             controls(hasEpisode: stats.currentEpisode != nil)
                 .padding(.top, 14)
-            editButtons(hasWaterBroke: stats.currentMarkers.contains(where: \.isWaterBroke))
+            editButtons(hasWaterBroke: stats.activeWaterBroke != nil)
                 .padding(.top, 14)
             if scenePhase == .active, !contractions.liveActivitiesAvailable {
                 liveActivityHint
@@ -144,7 +144,7 @@ struct ContractionTimerView: View {
             )
             .padding(.top, 12)
             // The existing safety line, emphasised once the water has broken.
-            if let water = stats.currentMarkers.last(where: \.isWaterBroke) {
+            if let water = stats.activeWaterBroke {
                 WaterBrokeCard(at: water.at)
                     .padding(.top, 12)
             } else {

@@ -52,6 +52,47 @@ final class ContractionEditUITests: XCTestCase {
         waitForLabel(rows(app).firstMatch, containing: "lasted 1:00", timeout: 15)
     }
 
+    /// Edit round 2: moving the start of a missed contraction keeps its length (1:00),
+    /// so it stays valid and saves as a one-minute contraction.
+    @MainActor
+    func testAddMissedKeepsItsLengthWhenTheStartMoves() throws {
+        let calendar = Calendar.current
+        let target = Date().addingTimeInterval(-3 * 3600)
+        try XCTSkipUnless(
+            calendar.isDate(target, inSameDayAs: Date()), "three hours ago is yesterday: the day picker would have to change"
+        )
+        let app = XCUIApplication.launchPinned(dueDate: UITestDates.dueAtWeek38)
+        app.openContractionTimer()
+        let add = app.buttons["contractionAddMissed"]
+        app.scrollUntilHittable(add)
+        add.tap()
+        XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForExistence(timeout: 5))
+
+        // The time pill opens hour, minute and AM/PM wheels (en_US).
+        let timePill = app.datePickers.buttons.matching(NSPredicate(format: "label MATCHES %@", ".*[0-9]:[0-9]{2}.*")).firstMatch
+        XCTAssertTrue(timePill.waitForExistence(timeout: 5))
+        timePill.tap()
+        let wheels = app.pickerWheels
+        XCTAssertTrue(wheels.element(boundBy: 0).waitForExistence(timeout: 5))
+        XCTAssertEqual(wheels.count, 3, "hour, minute, AM/PM")
+        let format = DateFormatter()
+        format.locale = Locale(identifier: "en_US")
+        format.dateFormat = "h"
+        wheels.element(boundBy: 0).adjust(toPickerWheelValue: format.string(from: target))
+        format.dateFormat = "a"
+        wheels.element(boundBy: 2).adjust(toPickerWheelValue: format.string(from: target))
+        app.staticTexts["contractionEditTitle"].tap()
+
+        // The length is still 1:00: no error, Save is on.
+        XCTAssertFalse(app.descendants(matching: .any)["contractionEditError"].exists)
+        XCTAssertTrue(app.buttons["contractionEditDuration-Increment"].label.contains("1:00"), app.buttons["contractionEditDuration-Increment"].label)
+        let save = app.buttons["contractionEditSave"]
+        XCTAssertTrue(save.isEnabled)
+        save.tap()
+        XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForNonExistence(timeout: 5))
+        waitForLabel(rows(app).firstMatch, containing: "lasted 1:00", timeout: 15)
+    }
+
     @MainActor
     func testWaterBrokeShowsTheSafetyCardAndTheMarkerCanBeDeleted() {
         let app = XCUIApplication.launchPinned(dueDate: UITestDates.dueAtWeek38)

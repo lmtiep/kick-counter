@@ -22,7 +22,7 @@ public enum ContractionEditRules {
     /// `nil` when `start`...`end` is a valid contraction at `now`. `existing`
     /// is every stored contraction; `id` is the one being edited (ignored in
     /// the overlap check), nil when adding. A running neighbour counts as
-    /// ending at `now`.
+    /// ending at `now`, or at start + `maxDuration` when its stop was forgotten.
     public static func validate(
         id: UUID?, start: Date, end: Date, existing: [ContractionRecord], now: Date
     ) -> ContractionEditError? {
@@ -33,7 +33,8 @@ public enum ContractionEditRules {
         if length < ContractionRules.minDuration { return .tooShort }
         if length > ContractionRules.maxDuration { return .tooLong }
         for other in existing where other.id != id {
-            let otherEnd = other.endedAt ?? max(now, other.startedAt)
+            let otherEnd = other.endedAt
+                ?? min(max(now, other.startedAt), other.startedAt.addingTimeInterval(ContractionRules.maxDuration))
             if start < otherEnd, end > other.startedAt { return .overlapsNeighbour }
         }
         return nil
@@ -54,4 +55,32 @@ public enum ContractionEditRules {
         parts.nanosecond = nanos
         return calendar.date(from: parts) ?? picked
     }
+}
+
+/// The times in an edit sheet. Adding a missed contraction keeps its length
+/// when the start moves; editing keeps the end.
+public struct ContractionDraft: Equatable, Sendable {
+    public private(set) var start: Date
+    public private(set) var end: Date
+
+    public init(start: Date, end: Date) {
+        self.start = start
+        self.end = end
+    }
+
+    /// A minute ago, a minute long: it ended just now.
+    public static func missed(now: Date) -> ContractionDraft {
+        ContractionDraft(start: now.addingTimeInterval(-60), end: now)
+    }
+
+    public var duration: TimeInterval { end.timeIntervalSince(start) }
+
+    public mutating func setStart(_ newStart: Date, keepingLength: Bool) {
+        if keepingLength { end = newStart.addingTimeInterval(duration) }
+        start = newStart
+    }
+
+    public mutating func setEnd(_ newEnd: Date) { end = newEnd }
+
+    public mutating func setDuration(_ seconds: TimeInterval) { end = start.addingTimeInterval(seconds) }
 }

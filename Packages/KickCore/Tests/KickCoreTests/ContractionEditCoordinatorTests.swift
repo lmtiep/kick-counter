@@ -200,6 +200,21 @@ struct ContractionEditCoordinatorTests {
         #expect(coordinator.running?.id == running.id)
     }
 
+    @Test func addMissedFitsAfterAForgottenRunningContraction() async {
+        let forgotten = ContractionRecord(startedAt: at(900))
+        store.seed(forgotten)
+        let coordinator = makeCoordinator()
+        await coordinator.load()
+        #expect(await coordinator.addMissed(start: at(500), duration: 60) == .saved)
+        #expect(await coordinator.addMissed(start: at(700), duration: 60) == .invalid(.overlapsNeighbour))
+    }
+
+    @Test func theCurrentTimeIsTheCoordinatorsClock() {
+        #expect(makeCoordinator().currentTime() == clock.now)
+        clock.advance(30)
+        #expect(makeCoordinator().currentTime() == clock.now)
+    }
+
     @Test func addMissedSyncsTheLiveActivity() async {
         let (coordinator, _) = await threeLoaded()
         #expect(await coordinator.addMissed(start: at(750), duration: 60) == .saved)

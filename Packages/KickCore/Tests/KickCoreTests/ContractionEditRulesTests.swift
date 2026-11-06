@@ -85,6 +85,16 @@ struct ContractionEditRulesTests {
         #expect(validate(start: at(200), end: at(100), existing: [running]) == nil)
     }
 
+    /// Running for over `maxDuration` is a forgotten stop: it ended at start + 5 min, so a missed one fits after it.
+    @Test func aForgottenRunningNeighbourEndsAtFiveMinutes() {
+        let forgotten = ContractionRecord(startedAt: at(900))
+        #expect(validate(start: at(500), end: at(440), existing: [forgotten]) == nil)
+        #expect(validate(start: at(700), end: at(640), existing: [forgotten]) == .overlapsNeighbour)
+        // Still within five minutes: it runs to now.
+        let recent = ContractionRecord(startedAt: at(200))
+        #expect(validate(start: at(100), end: at(40), existing: [recent]) == .overlapsNeighbour)
+    }
+
     @Test func markerInFutureIsRefused() {
         #expect(ContractionEditRules.validateMarker(at: now.addingTimeInterval(1), now: now) == .startInFuture)
         #expect(ContractionEditRules.validateMarker(at: now, now: now) == nil)

@@ -19,16 +19,27 @@ enum ContractionSheet: Identifiable {
     }
 }
 
-extension View {
-    func contractionSheets(_ sheet: Binding<ContractionSheet?>) -> some View {
-        self.sheet(item: sheet) { item in
+private struct ContractionSheetsModifier: ViewModifier {
+    @Binding var sheet: ContractionSheet?
+    @Environment(ContractionCoordinator.self) private var contractions
+
+    func body(content: Content) -> some View {
+        content.sheet(item: $sheet) { item in
+            // The coordinator's clock opens the sheet: its defaults and its checks agree with the store's.
+            let now = contractions.currentTime()
             switch item {
-            case .edit(let record): ContractionEditSheet(mode: .edit(record))
-            case .addMissed: ContractionEditSheet(mode: .addMissed)
-            case .waterBroke: LabourMarkerSheet(marker: nil)
-            case .editMarker(let marker): LabourMarkerSheet(marker: marker)
+            case .edit(let record): ContractionEditSheet(mode: .edit(record), now: now)
+            case .addMissed: ContractionEditSheet(mode: .addMissed, now: now)
+            case .waterBroke: LabourMarkerSheet(marker: nil, now: now)
+            case .editMarker(let marker): LabourMarkerSheet(marker: marker, now: now)
             }
         }
+    }
+}
+
+extension View {
+    func contractionSheets(_ sheet: Binding<ContractionSheet?>) -> some View {
+        modifier(ContractionSheetsModifier(sheet: sheet))
     }
 }
 
@@ -40,6 +51,7 @@ private struct TimePickerRow: View {
     @Binding var time: Date
     let identifier: String
     @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(ContractionCoordinator.self) private var contractions
 
     var body: some View {
         let binding = Binding(
@@ -80,7 +92,7 @@ private struct TimePickerRow: View {
     }
 
     private func picker(_ binding: Binding<Date>, _ components: DatePickerComponents) -> some View {
-        DatePicker(title, selection: binding, in: ...Date(), displayedComponents: components)
+        DatePicker(title, selection: binding, in: ...contractions.currentTime(), displayedComponents: components)
             .labelsHidden()
             .datePickerStyle(.compact)
             .tint(.luna(.pregText))
@@ -107,23 +119,20 @@ struct ContractionEditSheet: View {
     let mode: Mode
     @Environment(ContractionCoordinator.self) private var contractions
     @Environment(\.dismiss) private var dismiss
-    @State private var start: Date
-    @State private var end: Date
+    @State private var draft: ContractionDraft
     @State private var saveError: String?
     @State private var saving = false
     @Environment(\.dynamicTypeSize) private var typeSize
 
-    init(mode: Mode) {
+    init(mode: Mode, now: Date) {
         self.mode = mode
         switch mode {
         case .edit(let record):
-            _start = State(initialValue: record.startedAt)
-            _end = State(initialValue: record.endedAt ?? record.startedAt.addingTimeInterval(60))
+            _draft = State(initialValue: ContractionDraft(
+                start: record.startedAt, end: record.endedAt ?? record.startedAt.addingTimeInterval(60)
+            ))
         case .addMissed:
-            // A minute ago, a minute long: it ended just now.
-            let now = Date()
-            _start = State(initialValue: now.addingTimeInterval(-60))
-            _end = State(initialValue: now)
+            _draft = State(initialValue: .missed(now: now))
         }
     }
 
@@ -133,16 +142,26 @@ struct ContractionEditSheet: View {
 
     private var isAdding: Bool { editingID == nil }
 
+    /// Adding keeps the length when the start moves; editing keeps the end.
+    private var start: Binding<Date> {
+        Binding(get: { draft.start }, set: { draft.setStart($0, keepingLength: isAdding) })
+    }
+
+    private var end: Binding<Date> {
+        Binding(get: { draft.end }, set: { draft.setEnd($0) })
+    }
+
     private var duration: Binding<Int> {
         Binding(
-            get: { Int(end.timeIntervalSince(start).rounded()) },
-            set: { end = start.addingTimeInterval(TimeInterval($0)) }
+            get: { Int(draft.duration.rounded()) },
+            set: { draft.setDuration(TimeInterval($0)) }
         )
     }
 
     private var error: ContractionEditError? {
         ContractionEditRules.validate(
-            id: editingID, start: start, end: end, existing: contractions.contractions, now: Date()
+            id: editingID, start: draft.start, end: draft.end, existing: contractions.contractions,
+            now: contractions.currentTime()
         )
     }
 
@@ -150,10 +169,10 @@ struct ContractionEditSheet: View {
         LunaSheet(title: isAdding ? L10n.contractionAddTitle : L10n.contractionEditTitle, titleIdentifier: "contractionEditTitle") {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading, spacing: 10) {
-                    TimePickerRow(title: L10n.contractionEditStart, time: $start, identifier: "contractionEditStart")
+                    TimePickerRow(title: L10n.contractionEditStart, time: start, identifier: "contractionEditStart")
                     LunaDivider()
                     if !isAdding {
-                        TimePickerRow(title: L10n.contractionEditEnd, time: $end, identifier: "contractionEditEnd")
+                        TimePickerRow(title: L10n.contractionEditEnd, time: end, identifier: "contractionEditEnd")
                         LunaDivider()
                     }
                     Stepper(value: duration, in: 0...900, step: 5) {
@@ -201,8 +220,7 @@ struct ContractionEditSheet: View {
         .onChange(of: error) { _, new in
             if let new { AccessibilityNotification.Announcement(L10n.contractionEditMessage(new)).post() }
         }
-        .onChange(of: start) { saveError = nil }
-        .onChange(of: end) { saveError = nil }
+        .onChange(of: draft) { saveError = nil }
     }
 
     private var durationLabel: some View {
@@ -230,9 +248,9 @@ struct ContractionEditSheet: View {
         let outcome: ContractionEditOutcome
         switch mode {
         case .edit(let record):
-            outcome = await contractions.update(id: record.id, start: start, end: end)
+            outcome = await contractions.update(id: record.id, start: draft.start, end: draft.end)
         case .addMissed:
-            outcome = await contractions.addMissed(start: start, duration: end.timeIntervalSince(start))
+            outcome = await contractions.addMissed(start: draft.start, duration: draft.duration)
         }
         switch outcome {
         case .saved:
@@ -257,13 +275,13 @@ struct LabourMarkerSheet: View {
     @State private var saveError: String?
     @State private var saving = false
 
-    init(marker: LabourMarkerRecord?) {
+    init(marker: LabourMarkerRecord?, now: Date) {
         self.marker = marker
-        _time = State(initialValue: marker?.at ?? Date())
+        _time = State(initialValue: marker?.at ?? now)
     }
 
     private var error: ContractionEditError? {
-        ContractionEditRules.validateMarker(at: time, now: Date())
+        ContractionEditRules.validateMarker(at: time, now: contractions.currentTime())
     }
 
     var body: some View {

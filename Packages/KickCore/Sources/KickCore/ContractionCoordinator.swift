@@ -102,6 +102,9 @@ public final class ContractionCoordinator {
         episodeEndedAt = defaults.object(forKey: SettingsKey.contractionEpisodeEndedAt) as? Date
     }
 
+    /// The coordinator's clock: what the edit sheets validate against.
+    public func currentTime() -> Date { now() }
+
     public var liveActivitiesAvailable: Bool { liveActivities.isAvailable }
 
     /// The running contraction, if any.

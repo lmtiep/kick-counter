@@ -98,4 +98,60 @@ struct ContractionStatsMarkerTests {
         let records = [done(900), done(600)]
         #expect(stats(records, markers: []) == ContractionStats(contractions: records, now: now, week: nil))
     }
+
+    // MARK: - 24 hours (edit round 2)
+
+    @Test func markerHoursBeforeTheFirstContractionJoinsThatEpisode() throws {
+        let water = marker(10 * 3600 + 900)
+        let result = stats([done(900), done(300)], markers: [water])
+        #expect(try #require(result.currentEpisode).markers == [water])
+        #expect(result.currentMarkers == [water])
+        #expect(result.activeWaterBroke == water)
+    }
+
+    @Test func markerOverADayBeforeTheFirstContractionStaysLoose() {
+        let water = marker(25 * 3600)
+        let result = stats([done(900), done(300)], markers: [water])
+        #expect(result.currentEpisode?.markers.isEmpty == true)
+        #expect(result.activeWaterBroke == nil)
+        #expect(result.pastLooseMarkers == [water])
+    }
+
+    @Test func aLooseMarkerStaysCurrentForTwentyFourHours() {
+        let recent = marker(23 * 3600)
+        let result = stats([], markers: [recent])
+        #expect(result.currentMarkers == [recent])
+        #expect(result.activeWaterBroke == recent)
+        let old = marker(25 * 3600)
+        let after = stats([], markers: [old])
+        #expect(after.currentMarkers.isEmpty)
+        #expect(after.activeWaterBroke == nil)
+        #expect(after.pastLooseMarkers == [old])
+    }
+
+    @Test func anAttachedMarkerStopsBeingActiveAfterADayButStaysInItsEpisode() throws {
+        // One long labour: a contraction every hour for 26 hours, the water broke 25 hours ago.
+        let water = marker(25 * 3600)
+        let chain = (0..<26).map { done(26 * 3600 - Double($0) * 3600) }
+        let result = stats(chain, markers: [water])
+        #expect(result.episodes.count == 1)
+        #expect(try #require(result.currentEpisode).markers == [water])
+        #expect(result.currentMarkers == [water], "still listed with its episode")
+        #expect(result.activeWaterBroke == nil, "but no longer the emphasised card")
+    }
+
+    @Test func aMarkerAfterTheEndMarkIsNotActiveOnAnEndedEpisode() {
+        let endedAt = now.addingTimeInterval(-1200)
+        let water = marker(600)
+        let result = stats([done(1800), done(1500)], markers: [water], endedAt: endedAt)
+        #expect(result.activeWaterBroke == water)
+        #expect(result.episodes.allSatisfy { $0.markers.isEmpty })
+    }
+
+    @Test func aMarkerBeforeTheEndMarkIsNotActive() {
+        let endedAt = now.addingTimeInterval(-600)
+        let water = marker(1500)
+        let result = stats([done(1800), done(1500)], markers: [water], endedAt: endedAt)
+        #expect(result.activeWaterBroke == nil)
+    }
 }

@@ -93,6 +93,9 @@ public struct ContractionStats: Equatable, Sendable {
     public let currentMarkers: [LabourMarkerRecord]
     /// Markers in no episode and not current: the history shows them by day.
     public let pastLooseMarkers: [LabourMarkerRecord]
+    /// The newest "Vỡ ối" made within `ContractionRules.markerWindow` of `now`
+    /// that is current: the emphasised safety card shows and the button hides.
+    public let activeWaterBroke: LabourMarkerRecord?
 
     /// `week` is nil when the pregnancy week is unknown. `episodeEndedAt` is
     /// when "Kết thúc theo dõi" was last tapped: contractions that start after
@@ -115,10 +118,12 @@ public struct ContractionStats: Equatable, Sendable {
             currentEpisode = nil
         }
         running = currentEpisode?.entries.last.flatMap { $0.isRunning ? $0 : nil }
+        let markerWindowStart = now.addingTimeInterval(-ContractionRules.markerWindow)
         let recentLoose = loose.filter { marker in
-            marker.at >= now.addingTimeInterval(-ContractionRules.episodeGap) && (episodeEndedAt.map { marker.at > $0 } ?? true)
+            marker.at >= markerWindowStart && (episodeEndedAt.map { marker.at > $0 } ?? true)
         }
         currentMarkers = ((currentEpisode?.markers ?? []) + recentLoose).sorted { $0.at < $1.at }
+        activeWaterBroke = currentMarkers.last { $0.isWaterBroke && $0.at >= markerWindowStart }
         pastLooseMarkers = loose.filter { marker in !recentLoose.contains { $0.id == marker.id } }
 
         let windowStart = now.addingTimeInterval(-ContractionRules.window)
@@ -171,7 +176,10 @@ public struct ContractionStats: Equatable, Sendable {
                 let distance = marker.at < episode.startedAt
                     ? episode.startedAt.timeIntervalSince(marker.at)
                     : max(0, marker.at.timeIntervalSince(episode.lastStartedAt))
-                guard distance <= ContractionRules.episodeGap else { continue }
+                // Before the first contraction: up to a day (the labour may start slowly);
+                // after the last: while the episode would still go on.
+                let limit = marker.at < episode.startedAt ? ContractionRules.markerWindow : ContractionRules.episodeGap
+                guard distance <= limit else { continue }
                 if best == nil || distance <= best!.distance { best = (index, distance) }
             }
             if let best { attached[best.index].append(marker) } else { loose.append(marker) }
