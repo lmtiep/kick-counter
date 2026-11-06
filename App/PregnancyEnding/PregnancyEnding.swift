@@ -64,6 +64,7 @@ final class PregnancyEnding {
     /// Ends the pregnancy. Throws only from the archive, before anything else changed.
     func end(branch: PregnancyEndBranch, endDate: Date, keep: PregnancyEndingKeep) async throws {
         let endDay = calendar.startOfDay(for: min(endDate, now()))
+        let rangeStart = try pregnancyRange(endDay: endDay)?.lowerBound
         for step in PregnancyEndingPlan.steps(keep: keep) {
             switch step {
             case .archive:
@@ -81,7 +82,7 @@ final class PregnancyEnding {
             case .cancelPregnancyReminders:
                 await appointments.cancelAllReminders()
             case .switchToCycle:
-                await cycle.endPregnancy(branch: branch, endDate: endDay)
+                await cycle.endPregnancy(branch: branch, endDate: endDay, rangeStart: rangeStart)
             }
         }
         // The lists follow the deleted rows; appointment reminders stay silenced.
@@ -91,17 +92,23 @@ final class PregnancyEnding {
         logger.info("Pregnancy ended")
     }
 
-    private func archive(branch: PregnancyEndBranch, endDay: Date, keep: PregnancyEndingKeep) throws {
-        let store = self.store
+    /// The pregnancy's days, from the stored dates (read before `switchToCycle` clears them).
+    private func pregnancyRange(endDay: Date) throws -> ClosedRange<Date>? {
         let rows = try store.pregnancyRows()
-        let profile = PregnancyProfile.load(from: defaults)
-        let range = PregnancyRange.make(
-            profile: profile, endDate: endDay,
+        return PregnancyRange.make(
+            profile: PregnancyProfile.load(from: defaults), endDate: endDay,
             fallbackStarts: PregnancyMemoryBuilder.fallbackStarts(
                 sessions: rows.sessions, contractions: rows.contractions, appointments: rows.appointments
             ),
             calendar: calendar
         )
+    }
+
+    private func archive(branch: PregnancyEndBranch, endDay: Date, keep: PregnancyEndingKeep) throws {
+        let store = self.store
+        let rows = try store.pregnancyRows()
+        let profile = PregnancyProfile.load(from: defaults)
+        let range = try pregnancyRange(endDay: endDay)
         let content = keep.memoryTitle.map { _ in
             PregnancyMemoryBuilder.make(
                 branch: branch, profile: profile, endDate: endDay,
@@ -109,13 +116,11 @@ final class PregnancyEnding {
                 weights: rows.weights, logs: rows.logs, calendar: calendar
             )
         }
-        let deleting = PregnancyMemoryBuilder.rowsToDelete(range: range, appointments: rows.appointments, weights: rows.weights)
-        try store.archive(
-            memory: content, title: keep.memoryTitle ?? "",
-            deleteAllSessions: true, deleteAllContractions: true,
-            appointmentIDs: deleting.appointmentIDs, weightIDs: deleting.weightIDs,
-            now: now()
+        let deleting = PregnancyMemoryBuilder.rowsToDelete(
+            range: range, sessions: rows.sessions, contractions: rows.contractions,
+            appointments: rows.appointments, weights: rows.weights
         )
+        try store.archive(memory: content, title: keep.memoryTitle ?? "", deleting: deleting, now: now())
     }
 
     func rename(id: UUID, title: String) {

@@ -59,7 +59,11 @@ struct MigrationTests {
         let store = PregnancyMemoryStore(context: context)
         try store.archive(
             memory: PregnancyMemoryContent(branch: .birth, start: nil, end: day, furthestWeek: nil),
-            title: "Bé Na", deleteAllSessions: true, deleteAllContractions: true, appointmentIDs: [], weightIDs: []
+            title: "Bé Na",
+            deleting: PregnancyRawRowIDs(
+                sessions: Set(try context.fetch(FetchDescriptor<KickSession>()).map(\.id)),
+                contractions: Set(try context.fetch(FetchDescriptor<Contraction>()).map(\.id))
+            )
         )
         let reopened = try KickPersistence.makeContainer(url: url)
         #expect(try PregnancyMemoryStore(context: reopened.mainContext).all().map(\.title) == ["Bé Na"])

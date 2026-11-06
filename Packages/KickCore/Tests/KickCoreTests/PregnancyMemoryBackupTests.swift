@@ -5,7 +5,7 @@ import Testing
 /// 1.1 item 4 (spec §4.3): the backup gains an optional `pregnancyMemories`
 /// array, still version 1, following `pillDoses` / `contractions`.
 struct PregnancyMemoryBackupTests {
-    private let memory = PregnancyMemoryRecord(
+    private let record = PregnancyMemoryRecord(
         id: UUID(uuidString: "00000000-0000-0000-0000-000000000071")!,
         createdAt: date("2026-11-01T10:00:00Z"),
         title: "Bông",
@@ -20,7 +20,9 @@ struct PregnancyMemoryBackupTests {
         )
     )
 
-    private func document(_ records: [PregnancyMemoryRecord]) -> BackupDocument {
+    private var memory: StoredPregnancyMemory { try! StoredPregnancyMemory(record) }
+
+    private func document(_ records: [StoredPregnancyMemory]) -> BackupDocument {
         var document = BackupCodecTests.sampleDocument()
         document.pregnancyMemories = records.map(PregnancyMemoryDTO.init)
         return document
@@ -72,5 +74,21 @@ struct PregnancyMemoryBackupTests {
         let (cleaned, skipped) = BackupValidation.clean(file, now: date("2026-11-05T00:00:00Z"), calendar: utcCalendar)
         #expect(cleaned.pregnancyMemories == [PregnancyMemoryDTO(memory)])
         #expect(skipped == 1)
+    }
+
+    @Test func storedMemoryDecodesBackToTheRecord() {
+        #expect(memory.record == record)
+        #expect(memory.branchRaw == "loss")
+    }
+
+    /// Review fix 6: a payload this build cannot read still survives export and restore, byte for byte.
+    @Test func anUnreadablePayloadRoundTripsLosslessly() throws {
+        let unreadable = StoredPregnancyMemory(
+            id: UUID(), createdAt: date("2026-11-01T10:00:00Z"), title: "Future", branchRaw: "birth",
+            payload: Data(#"{"version":9,"somethingNew":[1,2,3]}"#.utf8)
+        )
+        #expect(unreadable.record == nil)
+        let decoded = try BackupCodec.decode(BackupCodec.encode(document([unreadable, memory])))
+        #expect(decoded.records.pregnancyMemories == [unreadable, memory])
     }
 }

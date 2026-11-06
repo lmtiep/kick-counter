@@ -283,9 +283,20 @@ public final class PregnancyMemory {
         payload = try PregnancyMemoryContent.encoder.encode(record.content)
     }
 
-    /// nil when the payload cannot be read.
-    public var record: PregnancyMemoryRecord? {
-        guard let content = try? PregnancyMemoryContent.decoder.decode(PregnancyMemoryContent.self, from: payload) else { return nil }
-        return PregnancyMemoryRecord(id: id, createdAt: createdAt, title: title, content: content)
+    /// The bytes as restored from a backup, readable or not.
+    public init(stored: StoredPregnancyMemory) {
+        id = stored.id
+        createdAt = stored.createdAt
+        title = stored.title
+        branchRaw = stored.branchRaw
+        payload = stored.payload
     }
+
+    /// Exactly what is stored, for the backup.
+    public var stored: StoredPregnancyMemory {
+        StoredPregnancyMemory(id: id, createdAt: createdAt, title: title, branchRaw: branchRaw, payload: payload)
+    }
+
+    /// nil when the payload cannot be read.
+    public var record: PregnancyMemoryRecord? { stored.record }
 }

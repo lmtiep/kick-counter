@@ -18,7 +18,9 @@ struct PregnancyEndTests {
         let defaults = makeTestDefaults()
         #expect(PregnancyEndState.load(from: defaults) == nil)
         let id = UUID()
-        let state = PregnancyEndState(branch: .loss, endDate: day("2026-10-20"), firstPeriodConfirmedID: id)
+        let state = PregnancyEndState(
+            branch: .loss, endDate: day("2026-10-20"), rangeStart: day("2026-02-01"), firstPeriodConfirmedID: id, calendar: calendar
+        )
         state.save(to: defaults)
         #expect(PregnancyEndState.load(from: defaults) == state)
 
@@ -31,13 +33,15 @@ struct PregnancyEndTests {
     @Test func clearRemovesEveryKey() {
         let defaults = makeTestDefaults()
         PregnancyEndState(branch: .birth, endDate: day("2026-10-20"), firstPeriodConfirmedID: UUID()).save(to: defaults)
-        defaults.set([UUID().uuidString], forKey: SettingsKey.pregnancyEndDeclinedPeriods)
+        PregnancyEndState.saveDeclinedPeriods([UUID(), UUID()], to: defaults)
+        #expect(PregnancyEndState.declinedPeriods(in: defaults).count == 2)
         PregnancyEndState.clear(defaults)
         #expect(PregnancyEndState.load(from: defaults) == nil)
         for key in PregnancyEndState.keys {
             #expect(defaults.object(forKey: key) == nil, "\(key)")
         }
         #expect(PregnancyEndState.keys.contains(SettingsKey.pregnancyEndDeclinedPeriods))
+        #expect(PregnancyEndState.keys.contains(SettingsKey.pregnancyEndRangeStart))
     }
 
     @Test func unknownBranchLoadsAsNil() {

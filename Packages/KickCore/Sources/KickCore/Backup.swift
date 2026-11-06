@@ -311,22 +311,25 @@ public struct ContractionDTO: Equatable, Sendable, Codable {
     }
 }
 
-/// A kept pregnancy journey. The content travels as its own JSON object.
+/// A kept pregnancy journey. The payload travels as its stored bytes (base64), so
+/// the round trip is lossless whatever the content (even one this build cannot read).
 public struct PregnancyMemoryDTO: Equatable, Sendable, Codable {
     public var id: UUID
     public var createdAt: Date
     public var title: String
-    public var content: PregnancyMemoryContent
+    public var branch: String
+    public var payload: Data
 
-    public init(_ record: PregnancyMemoryRecord) {
-        id = record.id
-        createdAt = record.createdAt
-        title = record.title
-        content = record.content
+    public init(_ stored: StoredPregnancyMemory) {
+        id = stored.id
+        createdAt = stored.createdAt
+        title = stored.title
+        branch = stored.branchRaw
+        payload = stored.payload
     }
 
-    public var record: PregnancyMemoryRecord {
-        PregnancyMemoryRecord(id: id, createdAt: createdAt, title: title, content: content)
+    public var stored: StoredPregnancyMemory {
+        StoredPregnancyMemory(id: id, createdAt: createdAt, title: title, branchRaw: branch, payload: payload)
     }
 }
 
@@ -342,7 +345,7 @@ public struct BackupRecords: Equatable, Sendable {
     public var weights: [WeightRecord]
     public var pillDoses: [PillDoseRecord]
     public var contractions: [ContractionRecord]
-    public var pregnancyMemories: [PregnancyMemoryRecord]
+    public var pregnancyMemories: [StoredPregnancyMemory]
 
     public init(
         sessions: [SessionRecord],
@@ -352,7 +355,7 @@ public struct BackupRecords: Equatable, Sendable {
         weights: [WeightRecord],
         pillDoses: [PillDoseRecord] = [],
         contractions: [ContractionRecord] = [],
-        pregnancyMemories: [PregnancyMemoryRecord] = []
+        pregnancyMemories: [StoredPregnancyMemory] = []
     ) {
         self.sessions = sessions
         self.appointments = appointments
@@ -387,7 +390,7 @@ extension BackupDocument {
             weights: weights.map(\.record),
             pillDoses: pillDoses.map(\.record),
             contractions: contractions.map(\.record),
-            pregnancyMemories: pregnancyMemories.map(\.record)
+            pregnancyMemories: pregnancyMemories.map(\.stored)
         )
     }
 }

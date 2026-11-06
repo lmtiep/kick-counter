@@ -46,6 +46,7 @@ public enum AppDataReset {
         SettingsKey.backupReminderSnoozedAt,
         SettingsKey.pregnancyEndBranch,
         SettingsKey.pregnancyEndDate,
+        SettingsKey.pregnancyEndRangeStart,
         SettingsKey.pregnancyEndFirstPeriodID,
         SettingsKey.pregnancyEndDeclinedPeriods,
         SettingsKey.careCheckInEnabled,

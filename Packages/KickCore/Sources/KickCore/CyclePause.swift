@@ -8,19 +8,23 @@ public enum CyclePause {
     /// or no longer matches a stored period (she deleted it).
     public static func isPaused(_ state: PregnancyEndState?, periods: [PeriodRecord]) -> Bool {
         guard let state else { return false }
-        guard let confirmed = state.firstPeriodConfirmedID else { return true }
-        return !periods.contains { $0.id == confirmed }
+        return confirmedPeriod(state, periods: periods) == nil
     }
 
-    /// Periods starting before the end day are dropped, so the pregnancy-long
-    /// gap never skews the averages.
+    /// The forecast's periods: all of them without an ended pregnancy; after one,
+    /// only the confirmed first period and those after it, so neither the
+    /// pregnancy-long gap nor bleeding she said was not her period skews the averages.
+    /// While paused (no forecast is made) the periods from the end day on.
     public static func periodsForForecast(_ periods: [PeriodRecord], state: PregnancyEndState?) -> [PeriodRecord] {
         guard let state else { return periods }
-        return periods.filter { $0.startDate >= state.endDate }
+        let from = confirmedPeriod(state, periods: periods)?.startDate ?? state.endDate
+        return periods.filter { $0.startDate >= from }
     }
 
-    /// While paused: the oldest stored period starting on or after the end day
-    /// that she has not answered "not the first" for.
+    /// While paused: the oldest stored period starting after the pregnancy's first
+    /// day (on or after the end day when that is unknown) that she has not
+    /// answered "not the first" for. A period logged with a date before the end
+    /// day is asked about too.
     public static func periodNeedingConfirmation(
         _ state: PregnancyEndState?,
         periods: [PeriodRecord],
@@ -28,7 +32,15 @@ public enum CyclePause {
     ) -> PeriodRecord? {
         guard let state, isPaused(state, periods: periods) else { return nil }
         return periods
-            .filter { $0.startDate >= state.endDate && !declined.contains($0.id) }
+            .filter { period in
+                let after = state.rangeStart.map { period.startDate > $0 } ?? (period.startDate >= state.endDate)
+                return after && !declined.contains(period.id)
+            }
             .min { $0.startDate < $1.startDate }
+    }
+
+    private static func confirmedPeriod(_ state: PregnancyEndState, periods: [PeriodRecord]) -> PeriodRecord? {
+        guard let id = state.firstPeriodConfirmedID else { return nil }
+        return periods.first { $0.id == id }
     }
 }

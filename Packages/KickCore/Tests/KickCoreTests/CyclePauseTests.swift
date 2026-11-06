@@ -61,4 +61,25 @@ struct CyclePauseTests {
         #expect(CyclePause.periodNeedingConfirmation(state, periods: [after], declined: []) == nil)
         #expect(CyclePause.periodNeedingConfirmation(nil, periods: [after], declined: []) == nil)
     }
+
+    /// Review fix 4: a first period logged with a date before the end day is asked about.
+    @Test func aPeriodAfterTheRangeStartIsAsked() {
+        let state = PregnancyEndState(
+            branch: .birth, endDate: day("2026-08-01"), rangeStart: day("2025-11-01"), calendar: utcCalendar
+        )
+        let beforePregnancy = PeriodRecord(startDate: day("2025-10-05"))
+        let earlyDated = PeriodRecord(startDate: day("2026-07-28"))
+        #expect(CyclePause.periodNeedingConfirmation(state, periods: [beforePregnancy, earlyDated], declined: []) == earlyDated)
+        #expect(CyclePause.periodNeedingConfirmation(state, periods: [beforePregnancy], declined: []) == nil)
+    }
+
+    /// Review fix 5: once confirmed, only that period and later ones count; declined bleeding does not.
+    @Test func forecastStartsAtTheConfirmedPeriod() {
+        let declined = PeriodRecord(startDate: day("2026-08-20"), endDate: day("2026-08-24"))
+        let confirmed = PeriodRecord(startDate: day("2026-09-20"), endDate: day("2026-09-24"))
+        let later = PeriodRecord(startDate: day("2026-10-18"), endDate: day("2026-10-22"))
+        var state = end
+        state.firstPeriodConfirmedID = confirmed.id
+        #expect(CyclePause.periodsForForecast([before, declined, confirmed, later], state: state) == [confirmed, later])
+    }
 }

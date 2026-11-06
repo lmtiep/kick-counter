@@ -91,10 +91,12 @@ public enum SettingsKey {
     public static let pregnancyEndBranch = "pregnancyEndBranch"
     /// The day the pregnancy ended, `timeIntervalSince1970` of the start of that day.
     public static let pregnancyEndDate = "pregnancyEndDate"
+    /// The pregnancy's first day (`PregnancyRange`), `timeIntervalSince1970`; missing when unknown.
+    public static let pregnancyEndRangeStart = "pregnancyEndRangeStart"
     /// The period she confirmed as the first after the end (UUID string); missing
     /// means predictions are paused (`CyclePause`).
     public static let pregnancyEndFirstPeriodID = "pregnancyEndFirstPeriodID"
-    /// Periods she answered "Chưa phải" for (UUID strings), so she is not asked again.
+    /// Periods she answered "Chưa phải" for (comma-separated UUIDs), so she is not asked again.
     public static let pregnancyEndDeclinedPeriods = "pregnancyEndDeclinedPeriods"
     /// Gentle check-ins after the end (`CareCheckInState`). Missing means on.
     public static let careCheckInEnabled = "careCheckInEnabled"

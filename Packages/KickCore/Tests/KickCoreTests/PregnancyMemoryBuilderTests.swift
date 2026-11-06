@@ -162,13 +162,22 @@ struct PregnancyMemoryBuilderTests {
         let after = AppointmentRecord(date: at("2026-12-01T09:00:00"), title: "After")
         let inWeight = WeightRecord(day: day("2026-05-01"), kg: 53)
         let outWeight = WeightRecord(day: day("2026-01-01"), kg: 50)
+        let thisSession = session("2026-10-01T09:00:00", kicks: 10, minutes: 30)
+        let earlierSession = session("2025-06-01T09:00:00", kicks: 10, minutes: 30)
+        let thisContraction = ContractionRecord(startedAt: at("2026-11-19T22:00:00"), endedAt: at("2026-11-19T22:01:00"))
+        let earlierContraction = ContractionRecord(startedAt: at("2025-07-01T22:00:00"), endedAt: at("2025-07-01T22:01:00"))
         let rows = PregnancyMemoryBuilder.rowsToDelete(
-            range: range, appointments: [inside, before, after], weights: [inWeight, outWeight]
+            range: range, sessions: [thisSession, earlierSession], contractions: [thisContraction, earlierContraction],
+            appointments: [inside, before, after], weights: [inWeight, outWeight]
         )
-        #expect(rows.appointmentIDs == [inside.id])
-        #expect(rows.weightIDs == [inWeight.id])
-        let none = PregnancyMemoryBuilder.rowsToDelete(range: nil, appointments: [inside], weights: [inWeight])
-        #expect(none.appointmentIDs.isEmpty && none.weightIDs.isEmpty)
+        #expect(rows.appointments == [inside.id])
+        #expect(rows.weights == [inWeight.id])
+        #expect(rows.sessions == [thisSession.id])
+        #expect(rows.contractions == [thisContraction.id])
+        let none = PregnancyMemoryBuilder.rowsToDelete(
+            range: nil, sessions: [thisSession], contractions: [thisContraction], appointments: [inside], weights: [inWeight]
+        )
+        #expect(none.isEmpty)
     }
 
     @Test func sameContentForBothBranches() {
@@ -179,5 +188,21 @@ struct PregnancyMemoryBuilderTests {
         #expect(birth != loss)
         birth.branch = .loss
         #expect(birth == loss)
+    }
+
+    /// Review fix 2: an earlier pregnancy's kicks and contractions are not in this memory.
+    @Test func earlierPregnancyKicksAndContractionsAreLeftOut() {
+        let content = make(
+            sessions: [
+                session("2025-06-01T09:00:00", kicks: 10, minutes: 30),
+                session("2026-10-01T09:00:00", kicks: 10, minutes: 30),
+            ],
+            contractions: [
+                ContractionRecord(startedAt: at("2025-07-01T22:00:00"), endedAt: at("2025-07-01T22:01:00")),
+                ContractionRecord(startedAt: at("2026-11-19T22:00:00"), endedAt: at("2026-11-19T22:01:00")),
+            ]
+        )
+        #expect(content.kickDays.map(\.day) == [day("2026-10-01")])
+        #expect(content.contractionEpisodes.map(\.start) == [at("2026-11-19T22:00:00")])
     }
 }

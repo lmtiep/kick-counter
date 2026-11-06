@@ -31,8 +31,16 @@ struct PregnancyMemoryStoreTests {
         )
     }
 
-    /// One session with two kicks, one contraction, two appointments, two weights, a day log and a period.
+    /// An earlier pregnancy's session (one kick) and contraction, then this pregnancy's
+    /// session with two kicks, one contraction, two appointments, two weights, a day log and a period.
     private func seedRawRows() throws {
+        let earlier = date("2025-03-01T20:00:00Z")
+        let earlierSession = KickSession(startedAt: earlier)
+        context.insert(earlierSession)
+        let earlierKick = Kick(timestamp: earlier.addingTimeInterval(60))
+        context.insert(earlierKick)
+        earlierKick.session = earlierSession
+        context.insert(Contraction(record: ContractionRecord(startedAt: earlier, endedAt: earlier.addingTimeInterval(50))))
         let start = date("2026-08-20T20:00:00Z")
         let session = KickSession(startedAt: start)
         context.insert(session)
@@ -64,21 +72,33 @@ struct PregnancyMemoryStoreTests {
         ]
     }
 
-    private func archive(_ store: PregnancyMemoryStore, memory: PregnancyMemoryContent?) throws {
-        try store.archive(
-            memory: memory, title: "Bông", deleteAllSessions: true, deleteAllContractions: true,
-            appointmentIDs: [inRange.id], weightIDs: [pregnancyWeight.id]
+    private static let rangeStart = date("2026-05-01T00:00:00Z")
+
+    /// What the app deletes for this pregnancy: its in-range rows only.
+    private func thisPregnancyRows() throws -> PregnancyRawRowIDs {
+        let start = Self.rangeStart
+        return PregnancyRawRowIDs(
+            sessions: Set(try context.fetch(FetchDescriptor<KickSession>()).filter { $0.startedAt >= start }.map(\.id)),
+            contractions: Set(try context.fetch(FetchDescriptor<Contraction>()).filter { $0.startedAt >= start }.map(\.id)),
+            appointments: [inRange.id],
+            weights: [pregnancyWeight.id]
         )
+    }
+
+    private func archive(_ store: PregnancyMemoryStore, memory: PregnancyMemoryContent?) throws {
+        try store.archive(memory: memory, title: "Bông", deleting: try thisPregnancyRows())
     }
 
     @Test func archiveSavesMemoryAndDeletesRows() throws {
         try seedRawRows()
         let store = PregnancyMemoryStore(context: context)
         try archive(store, memory: content())
+        // The earlier pregnancy's session, kick and contraction stay.
         #expect(try counts() == [
-            "KickSession": 0, "Kick": 0, "Contraction": 0, "Appointment": 1, "WeightEntry": 1,
+            "KickSession": 1, "Kick": 1, "Contraction": 1, "Appointment": 1, "WeightEntry": 1,
             "CycleLog": 1, "PeriodEntry": 1, "PregnancyMemory": 1,
         ])
+        #expect(try context.fetch(FetchDescriptor<KickSession>()).map(\.startedAt) == [date("2025-03-01T20:00:00Z")])
         let saved = try #require(try store.all().first)
         #expect(saved.title == "Bông")
         #expect(saved.content == content())
@@ -113,8 +133,8 @@ struct PregnancyMemoryStoreTests {
     @Test func pregnancyRowsReadsEveryRawRow() throws {
         try seedRawRows()
         let rows = try PregnancyMemoryStore(context: context).pregnancyRows()
-        #expect(rows.sessions.count == 1 && rows.sessions.first?.state.kicks.count == 2)
-        #expect(rows.contractions.count == 1)
+        #expect(rows.sessions.map(\.state.kicks.count) == [1, 2])
+        #expect(rows.contractions.count == 2)
         #expect(rows.appointments.map(\.id) == [outOfRange.id, inRange.id])
         #expect(rows.weights.map(\.id) == [earlierWeight.id, pregnancyWeight.id])
         #expect(rows.logs.map(\.id) == [log.id])
@@ -126,7 +146,7 @@ struct PregnancyMemoryStoreTests {
         try archive(store, memory: nil)
         let after = try counts()
         #expect(after["PregnancyMemory"] == 0)
-        #expect(after["KickSession"] == 0 && after["Kick"] == 0 && after["Contraction"] == 0)
+        #expect(after["KickSession"] == 1 && after["Kick"] == 1 && after["Contraction"] == 1)
         #expect(after["Appointment"] == 1 && after["WeightEntry"] == 1)
     }
 
@@ -140,30 +160,25 @@ struct PregnancyMemoryStoreTests {
         #expect(try CycleStore(context: context).periods().count == 1)
     }
 
-    @Test func archiveCanKeepSessionsAndContractions() throws {
+    /// Review fix 2: only the given rows go; an empty set deletes nothing.
+    @Test func archiveDeletesOnlyTheGivenRows() throws {
         try seedRawRows()
-        try PregnancyMemoryStore(context: context).archive(
-            memory: content(), title: "", deleteAllSessions: false, deleteAllContractions: false,
-            appointmentIDs: [], weightIDs: []
-        )
+        try PregnancyMemoryStore(context: context).archive(memory: content(), title: "", deleting: PregnancyRawRowIDs())
         let after = try counts()
-        #expect(after["KickSession"] == 1 && after["Kick"] == 2 && after["Contraction"] == 1)
+        #expect(after["KickSession"] == 2 && after["Kick"] == 3 && after["Contraction"] == 2)
         #expect(after["PregnancyMemory"] == 1)
     }
 
     @Test func allIsNewestFirst() throws {
         let store = PregnancyMemoryStore(context: context)
-        try store.archive(memory: content(.birth, end: "2025-01-01"), title: "Older", deleteAllSessions: false,
-                          deleteAllContractions: false, appointmentIDs: [], weightIDs: [])
-        try store.archive(memory: content(.loss, end: "2026-09-01"), title: "Newer", deleteAllSessions: false,
-                          deleteAllContractions: false, appointmentIDs: [], weightIDs: [])
+        try store.archive(memory: content(.birth, end: "2025-01-01"), title: "Older", deleting: PregnancyRawRowIDs())
+        try store.archive(memory: content(.loss, end: "2026-09-01"), title: "Newer", deleting: PregnancyRawRowIDs())
         #expect(try store.all().map(\.title) == ["Newer", "Older"])
     }
 
     @Test func renameAndDelete() throws {
         let store = PregnancyMemoryStore(context: context)
-        try store.archive(memory: content(), title: "", deleteAllSessions: false, deleteAllContractions: false,
-                          appointmentIDs: [], weightIDs: [])
+        try store.archive(memory: content(), title: "", deleting: PregnancyRawRowIDs())
         let id = try #require(try store.all().first?.id)
         try store.rename(id: id, title: "  Bông  ")
         #expect(try store.all().first?.title == "Bông")
@@ -176,8 +191,7 @@ struct PregnancyMemoryStoreTests {
 
     @Test func aFailedDeleteKeepsTheMemory() throws {
         let store = PregnancyMemoryStore(context: context)
-        try store.archive(memory: content(), title: "Bông", deleteAllSessions: false, deleteAllContractions: false,
-                          appointmentIDs: [], weightIDs: [])
+        try store.archive(memory: content(), title: "Bông", deleting: PregnancyRawRowIDs())
         let id = try #require(try store.all().first?.id)
         let failing = PregnancyMemoryStore(context: context) { _ in throw InjectedFailure() }
         #expect(throws: InjectedFailure.self) { try failing.delete(id: id) }
@@ -186,8 +200,7 @@ struct PregnancyMemoryStoreTests {
 
     @Test func deleteAllRemovesMemories() throws {
         try PregnancyMemoryStore(context: context).archive(
-            memory: content(), title: "", deleteAllSessions: false, deleteAllContractions: false,
-            appointmentIDs: [], weightIDs: []
+            memory: content(), title: "", deleting: PregnancyRawRowIDs()
         )
         try DataReset.deleteAll(in: container)
         #expect(try PregnancyMemoryStore(context: context).all().isEmpty)

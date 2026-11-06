@@ -142,6 +142,24 @@ public struct PregnancyMemoryContent: Codable, Equatable, Sendable {
     }
 }
 
+/// The raw rows the archive deletes, by model. New pregnancy models add a set here
+/// and a loop in `PregnancyMemoryStore.archive`.
+public struct PregnancyRawRowIDs: Equatable, Sendable {
+    public var sessions: Set<UUID>
+    public var contractions: Set<UUID>
+    public var appointments: Set<UUID>
+    public var weights: Set<UUID>
+
+    public init(sessions: Set<UUID> = [], contractions: Set<UUID> = [], appointments: Set<UUID> = [], weights: Set<UUID> = []) {
+        self.sessions = sessions
+        self.contractions = contractions
+        self.appointments = appointments
+        self.weights = weights
+    }
+
+    public var isEmpty: Bool { sessions.isEmpty && contractions.isEmpty && appointments.isEmpty && weights.isEmpty }
+}
+
 /// Builds the memory from the raw rows (spec §4.6). Pure: the archive in
 /// KickData saves it and deletes the rows in one transaction.
 public enum PregnancyMemoryBuilder {
@@ -170,8 +188,11 @@ public enum PregnancyMemoryBuilder {
             start: range?.lowerBound,
             end: endDay,
             furthestWeek: furthestWeek(profile: profile, endDay: endDay, calendar: calendar),
-            kickDays: kickDays(sessions, calendar: calendar),
-            contractionEpisodes: episodes(contractions, endDay: endDay, calendar: calendar),
+            // Only this pregnancy's rows: an earlier one's kicks and contractions stay out.
+            kickDays: kickDays(sessions.filter { range?.contains($0.state.startedAt) ?? false }, calendar: calendar),
+            contractionEpisodes: episodes(
+                contractions.filter { range?.contains($0.startedAt) ?? false }, endDay: endDay, calendar: calendar
+            ),
             appointments: appointments
                 .filter { range?.contains($0.date) ?? false }
                 .sorted { $0.date < $1.date }
@@ -201,17 +222,22 @@ public enum PregnancyMemoryBuilder {
         sessions.map(\.state.startedAt) + contractions.map(\.startedAt) + appointments.map(\.date)
     }
 
-    /// Which raw rows the archive deletes (spec §4.6): appointments and weights
-    /// inside the range. Kick sessions and contractions are all deleted; day logs never.
+    /// Which raw rows the archive deletes (spec §4.6): the kick sessions,
+    /// contractions, appointments and weights inside the range. Day logs never;
+    /// nothing at all without a range. An earlier pregnancy's rows are kept.
     public static func rowsToDelete(
         range: ClosedRange<Date>?,
+        sessions: [SessionRecord],
+        contractions: [ContractionRecord],
         appointments: [AppointmentRecord],
         weights: [WeightRecord]
-    ) -> (appointmentIDs: Set<UUID>, weightIDs: Set<UUID>) {
-        guard let range else { return ([], []) }
-        return (
-            Set(appointments.filter { range.contains($0.date) }.map(\.id)),
-            Set(weights.filter { range.contains($0.day) }.map(\.id))
+    ) -> PregnancyRawRowIDs {
+        guard let range else { return PregnancyRawRowIDs() }
+        return PregnancyRawRowIDs(
+            sessions: Set(sessions.filter { range.contains($0.state.startedAt) }.map(\.id)),
+            contractions: Set(contractions.filter { range.contains($0.startedAt) }.map(\.id)),
+            appointments: Set(appointments.filter { range.contains($0.date) }.map(\.id)),
+            weights: Set(weights.filter { range.contains($0.day) }.map(\.id))
         )
     }
 
@@ -270,4 +296,38 @@ public struct PregnancyMemoryRecord: Equatable, Sendable, Identifiable {
     }
 
     public var branch: PregnancyEndBranch { content.branch }
+}
+
+/// A memory as stored: the payload bytes exactly as saved, decoded or not. The
+/// backup carries these, so a payload this build cannot read still survives a
+/// round trip (1.1 item 4, review fix 6).
+public struct StoredPregnancyMemory: Equatable, Sendable, Identifiable {
+    public let id: UUID
+    public var createdAt: Date
+    public var title: String
+    /// `PregnancyEndBranch` raw value.
+    public var branchRaw: String
+    /// `PregnancyMemoryContent` JSON (`PregnancyMemoryContent.encoder`).
+    public var payload: Data
+
+    public init(id: UUID, createdAt: Date, title: String, branchRaw: String, payload: Data) {
+        self.id = id
+        self.createdAt = createdAt
+        self.title = title
+        self.branchRaw = branchRaw
+        self.payload = payload
+    }
+
+    public init(_ record: PregnancyMemoryRecord) throws {
+        self.init(
+            id: record.id, createdAt: record.createdAt, title: record.title, branchRaw: record.branch.rawValue,
+            payload: try PregnancyMemoryContent.encoder.encode(record.content)
+        )
+    }
+
+    /// nil when the payload cannot be read by this build.
+    public var record: PregnancyMemoryRecord? {
+        guard let content = try? PregnancyMemoryContent.decoder.decode(PregnancyMemoryContent.self, from: payload) else { return nil }
+        return PregnancyMemoryRecord(id: id, createdAt: createdAt, title: title, content: content)
+    }
 }

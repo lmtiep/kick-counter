@@ -59,17 +59,15 @@ public final class PregnancyMemoryStore {
         try save()
     }
 
-    /// Inserts the memory (when given) and deletes the raw rows: every kick
-    /// session and its kicks, every contraction, and the appointments and
-    /// weights with the given ids. Day logs and periods are never touched.
-    /// One save; on any throw everything is rolled back.
+    /// Inserts the memory (when given) and deletes exactly the given raw rows (the
+    /// pregnancy's in-range kick sessions with their kicks, contractions,
+    /// appointments and weights). Day logs and periods are never touched. One
+    /// save; on any throw everything is rolled back. A new pregnancy model adds
+    /// its ID set to `PregnancyRawRowIDs` and one `delete` call here.
     public func archive(
         memory: PregnancyMemoryContent?,
         title: String,
-        deleteAllSessions: Bool,
-        deleteAllContractions: Bool,
-        appointmentIDs: Set<UUID>,
-        weightIDs: Set<UUID>,
+        deleting rows: PregnancyRawRowIDs,
         now: Date = Date()
     ) throws {
         do {
@@ -79,28 +77,25 @@ public final class PregnancyMemoryStore {
                 )
                 context.insert(try PregnancyMemory(record: record))
             }
-            if deleteAllSessions {
-                // Kicks first: a session's cascade would delete them anyway.
-                for kick in try context.fetch(FetchDescriptor<Kick>()) { context.delete(kick) }
-                for session in try context.fetch(FetchDescriptor<KickSession>()) { context.delete(session) }
+            // Kicks first: a session's cascade would delete them anyway.
+            for kick in try context.fetch(FetchDescriptor<Kick>()) where kick.session.map({ rows.sessions.contains($0.id) }) ?? false {
+                context.delete(kick)
             }
-            if deleteAllContractions {
-                for contraction in try context.fetch(FetchDescriptor<Contraction>()) { context.delete(contraction) }
-            }
-            if !appointmentIDs.isEmpty {
-                for appointment in try context.fetch(FetchDescriptor<Appointment>()) where appointmentIDs.contains(appointment.id) {
-                    context.delete(appointment)
-                }
-            }
-            if !weightIDs.isEmpty {
-                for weight in try context.fetch(FetchDescriptor<WeightEntry>()) where weightIDs.contains(weight.id) {
-                    context.delete(weight)
-                }
-            }
+            try delete(KickSession.self, ids: rows.sessions, id: \.id)
+            try delete(Contraction.self, ids: rows.contractions, id: \.id)
+            try delete(Appointment.self, ids: rows.appointments, id: \.id)
+            try delete(WeightEntry.self, ids: rows.weights, id: \.id)
             try saveContext(context)
         } catch {
             context.rollback()
             throw error
+        }
+    }
+
+    private func delete<Model: PersistentModel>(_: Model.Type, ids: Set<UUID>, id: KeyPath<Model, UUID>) throws {
+        guard !ids.isEmpty else { return }
+        for model in try context.fetch(FetchDescriptor<Model>()) where ids.contains(model[keyPath: id]) {
+            context.delete(model)
         }
     }
 

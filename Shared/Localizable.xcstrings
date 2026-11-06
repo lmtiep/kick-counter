@@ -7158,6 +7158,23 @@
         }
       }
     },
+    "intent.siri.dialog.trackingCycle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom is tracking your cycle."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom đang theo dõi chu kỳ của bạn."
+          }
+        }
+      }
+    },
     "intent.siri.dialog.trackingEnded": {
       "extractionState": "manual",
       "localizations": {

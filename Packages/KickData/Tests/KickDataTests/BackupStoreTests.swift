@@ -76,7 +76,7 @@ struct BackupStoreTests {
                 ContractionRecord(startedAt: date("2026-10-08T21:00:00Z"), endedAt: date("2026-10-08T21:00:50Z")),
                 ContractionRecord(startedAt: date("2026-10-08T21:06:00Z")),
             ],
-            pregnancyMemories: [newMemory]
+            pregnancyMemories: [try! StoredPregnancyMemory(newMemory)]
         )
     }
 
@@ -104,7 +104,7 @@ struct BackupStoreTests {
         #expect(exported.weights.map(\.kg) == [50])
         #expect(exported.pillDoses.map(\.day) == [CalendarDay(year: 2026, month: 9, day: 1)])
         #expect(exported.contractions.map(\.startedAt) == [date("2026-09-01T00:00:00Z")])
-        #expect(exported.pregnancyMemories == [oldMemory])
+        #expect(exported.pregnancyMemories.compactMap(\.record) == [oldMemory])
     }
 
     @Test func replaceAllSwapsEverythingForTheFileRecords() throws {
@@ -134,7 +134,7 @@ struct BackupStoreTests {
         #expect(decoded.cycleLogs.first?.record.unknownMoodsRaw == ["dreamy"])
         #expect(decoded.records.pillDoses.count == 2)
         #expect(decoded.records.contractions.count == 2)
-        #expect(decoded.records.pregnancyMemories == [newMemory])
+        #expect(decoded.records.pregnancyMemories.compactMap(\.record) == [newMemory])
     }
 
     /// The safety proof: a save that fails leaves every old record in place and
@@ -199,5 +199,23 @@ struct BackupStoreTests {
         try BackupStore.replaceAll(in: container, with: exported)
         let stored = try #require(try context.fetch(FetchDescriptor<CycleLog>()).first)
         #expect(stored.lhRaw == "faint" && stored.mucusRaw == "watery" && stored.flowRaw == "spotting")
+    }
+
+    /// Review fix 6: a memory this build cannot read is exported byte for byte and restored.
+    @Test func anUnreadableMemoryIsExportedAndRestoredAsIs() throws {
+        let context = container.mainContext
+        let unreadable = StoredPregnancyMemory(
+            id: UUID(), createdAt: date("2026-10-01T00:00:00Z"), title: "Future", branchRaw: "loss",
+            payload: Data(#"{"version":9}"#.utf8)
+        )
+        context.insert(PregnancyMemory(stored: unreadable))
+        try context.save()
+        let exported = try BackupStore.export(from: container)
+        #expect(exported.pregnancyMemories == [unreadable])
+        let decoded = try BackupCodec.decode(BackupCodec.encode(BackupDocument(
+            createdAt: date("2026-10-09T09:00:00Z"), appVersion: "test", records: exported, settings: [:]
+        )))
+        try BackupStore.replaceAll(in: container, with: decoded.records)
+        #expect(try BackupStore.export(from: container).pregnancyMemories == [unreadable])
     }
 }

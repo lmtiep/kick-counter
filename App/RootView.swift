@@ -1,5 +1,6 @@
 import KickCore
 import SwiftUI
+import WidgetKit
 
 enum AppTab: Hashable {
     case today
@@ -95,6 +96,8 @@ struct RootView: View {
                 // Profile stays open after switching mode there; anywhere else
                 // (e.g. "I'm pregnant" on Today) lands on the new mode's Today.
                 if selectedTab != .profile { selectedTab = .today }
+                // Siri's Controls answer by mode (ending a pregnancy, pregnant again).
+                if #available(iOS 18.0, *) { ControlCenter.shared.reloadAllControls() }
                 // Pill reminders exist only in the cycle mode (phase 17).
                 Task { await pill.contraceptionChanged() }
                 // The contraction timer is pregnancy only: leaving it (partner mode,
@@ -176,6 +179,8 @@ struct RootView: View {
                 selectedTab = .today
                 toastMessage = L10n.backupRestored
                 ending.loadMemories()
+                // The restored check-in choices: schedule or cancel `care-checkin` now.
+                Task { await CareCheckInNotifications.sync() }
             }
             #if DEBUG
             .task {

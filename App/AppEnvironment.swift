@@ -261,15 +261,16 @@ struct AppEnvironment {
     private static func seedPregnancyEnded(_ seed: PregnancyEndSeed, into container: ModelContainer) throws {
         let now = AppClock.now()
         let defaults = AppGroup.defaults
-        seed.state(now: now, calendar: .current).save(to: defaults)
+        var state = seed.state(now: now, calendar: .current)
+        state.rangeStart = seed.memory(now: now, calendar: .current).start
+        state.save(to: defaults)
         PregnancyProfile.clear(defaults)
         AppMode.save(.tryingToConceive, to: defaults)
         if defaults.object(forKey: SettingsKey.cycleGoal) == nil {
             defaults.set(CycleGoal.tracking.rawValue, forKey: SettingsKey.cycleGoal)
         }
         try PregnancyMemoryStore(context: container.mainContext).archive(
-            memory: seed.memory(now: now, calendar: .current), title: "",
-            deleteAllSessions: false, deleteAllContractions: false, appointmentIDs: [], weightIDs: [], now: now
+            memory: seed.memory(now: now, calendar: .current), title: "", deleting: PregnancyRawRowIDs(), now: now
         )
     }
 

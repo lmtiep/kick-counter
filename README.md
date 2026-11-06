@@ -264,13 +264,16 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   xoá dữ liệu thai kỳ gốc **trong một lần lưu** (`KickData.PregnancyMemoryStore.archive`, lỗi thì không xoá gì), dừng lượt
   đếm và cơn gò, kết thúc mọi Live Activity kể cả thẻ "Xong!" (`endAll(force: true)`), huỷ nhắc lịch khám (và giữ im
   khi còn trạng thái đã kết thúc), rồi `CycleCoordinator.endPregnancy` (mục tiêu `tracking` nếu chưa có, không hỏi quyền
-  thông báo). Dữ liệu xoá: lượt đếm, cơn gò, lịch khám và cân nặng trong thai kỳ; nhật ký ngày và kỳ kinh không bao giờ xoá.
+  thông báo). Dữ liệu xoá: lượt đếm, cơn gò, lịch khám và cân nặng **trong khoảng ngày của thai kỳ này** (thai kỳ trước
+  không bị đụng tới); nhật ký ngày và kỳ kinh không bao giờ xoá.
 - `PregnancyMemory` (SwiftData, payload JSON `PregnancyMemoryContent`, không quan hệ, di chuyển nhẹ); file sao lưu có
   mảng tuỳ chọn `pregnancyMemories` (vẫn phiên bản 1). "Xoá toàn bộ dữ liệu" xoá cả kỷ niệm.
 - Sau khi kết thúc: dự đoán tạm dừng (`CyclePause`) cho tới khi chị xác nhận kỳ kinh đầu tiên sau đó ("Đúng vậy" /
   "Chưa phải"); kỳ kinh trước ngày kết thúc không vào trung bình. Widget hiện một dòng trung tính.
-- Hỏi thăm (`CareCheckInPolicy`): từ ngày 21, tối đa mỗi tuần một lần, tới ngày 105; trả lời ở App Group trên máy (không
-  sao lưu, xoá khi xoá toàn bộ hoặc mang thai lại). Thông báo tuỳ chọn duy nhất `care-checkin`, nội dung "Luna Mom gửi
+- Hỏi thăm (`CareCheckInPolicy`): từ ngày 21, tối đa mỗi tuần một lần, tới ngày 105; trả lời ở App Group trên máy (lần
+  hỏi gần nhất và chuỗi ngày buồn không vào file sao lưu; trạng thái đã kết thúc và các công tắc Hỏi thăm thì có, nên
+  khôi phục không làm mất việc tạm dừng dự đoán). Xoá khi xoá toàn bộ hoặc mang thai lại. Sau khi kết thúc, Siri và
+  Trung tâm điều khiển chỉ trả lời "Luna Mom đang theo dõi chu kỳ của bạn." Thông báo tuỳ chọn duy nhất `care-checkin`, nội dung "Luna Mom gửi
   bạn một lời hỏi thăm".
 - UI test: `-seedPregnancyEnded <birth|loss>:<số ngày>` (trạng thái đã kết thúc + một kỷ niệm mẫu) và
   `-seedCareLowStreak <n>`; kiểm thử trên máy: `docs/release-checklist.md` ("1.1 — Khi thai kỳ kết thúc").

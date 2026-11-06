@@ -13,12 +13,17 @@ public struct SiriState: Equatable, Sendable {
     public var onboarded: Bool
     public var contractionRunning: Bool
     public var contractionEpisodeActive: Bool
+    /// A pregnancy has ended (1.1 item 4): the answer never mentions pregnancy mode.
+    public var pregnancyEnded: Bool
 
-    public init(mode: AppMode, onboarded: Bool, contractionRunning: Bool, contractionEpisodeActive: Bool) {
+    public init(
+        mode: AppMode, onboarded: Bool, contractionRunning: Bool, contractionEpisodeActive: Bool, pregnancyEnded: Bool = false
+    ) {
         self.mode = mode
         self.onboarded = onboarded
         self.contractionRunning = contractionRunning
         self.contractionEpisodeActive = contractionEpisodeActive
+        self.pregnancyEnded = pregnancyEnded
     }
 }
 
@@ -31,12 +36,17 @@ public enum SiriPlan: Equatable, Sendable {
     case nothingToEnd
     /// Not in pregnancy mode (or not set up yet): nothing starts.
     case needsPregnancyMode
+    /// After a pregnancy ended (cycle mode): a neutral "Luna Mom is tracking your
+    /// cycle", never a nudge toward pregnancy mode.
+    case trackingCycle
 }
 
 /// The pure decision: command and state in, plan out.
 public enum SiriPlanner {
     public static func plan(_ command: SiriCommand, _ state: SiriState) -> SiriPlan {
-        guard state.mode == .pregnant, state.onboarded else { return .needsPregnancyMode }
+        guard state.mode == .pregnant, state.onboarded else {
+            return state.pregnancyEnded && state.mode != .pregnant ? .trackingCycle : .needsPregnancyMode
+        }
         switch command {
         case .recordKick:
             return .recordKick

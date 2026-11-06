@@ -7,19 +7,30 @@ public enum PregnancyEndBranch: String, Sendable, Codable, CaseIterable {
 }
 
 /// The pregnancy-ended state kept in `AppGroup.defaults` (spec §4.2, §4.6): the
-/// branch, the end day and the period she confirmed as the first after it. Its
-/// presence turns on the prediction pause (`CyclePause`) and the check-ins
-/// (`CareCheckInPolicy`). Belongs to this phone: never in a backup.
+/// branch, the end day, the pregnancy's first day and the period she confirmed
+/// as the first after it. Its presence turns on the prediction pause
+/// (`CyclePause`) and the check-ins (`CareCheckInPolicy`). It travels in a
+/// backup, so a restore never undoes the pause.
 public struct PregnancyEndState: Equatable, Sendable {
     public var branch: PregnancyEndBranch
     /// Start of the local day the pregnancy ended.
     public var endDate: Date
+    /// The pregnancy's first day (`PregnancyRange`), when known: a period
+    /// starting after it may be the first after the end (logged with an early date).
+    public var rangeStart: Date?
     /// The period confirmed as the first after the end; nil = predictions paused.
     public var firstPeriodConfirmedID: UUID?
 
-    public init(branch: PregnancyEndBranch, endDate: Date, firstPeriodConfirmedID: UUID? = nil, calendar: Calendar = .current) {
+    public init(
+        branch: PregnancyEndBranch,
+        endDate: Date,
+        rangeStart: Date? = nil,
+        firstPeriodConfirmedID: UUID? = nil,
+        calendar: Calendar = .current
+    ) {
         self.branch = branch
         self.endDate = calendar.startOfDay(for: endDate)
+        self.rangeStart = rangeStart.map { min(calendar.startOfDay(for: $0), self.endDate) }
         self.firstPeriodConfirmedID = firstPeriodConfirmedID
     }
 
@@ -27,6 +38,7 @@ public struct PregnancyEndState: Equatable, Sendable {
     public static let keys = [
         SettingsKey.pregnancyEndBranch,
         SettingsKey.pregnancyEndDate,
+        SettingsKey.pregnancyEndRangeStart,
         SettingsKey.pregnancyEndFirstPeriodID,
         SettingsKey.pregnancyEndDeclinedPeriods,
     ]
@@ -37,8 +49,9 @@ public struct PregnancyEndState: Equatable, Sendable {
               let interval = defaults.object(forKey: SettingsKey.pregnancyEndDate) as? Double
         else { return nil }
         var state = PregnancyEndState(branch: branch, endDate: Date(timeIntervalSince1970: interval))
-        // Stored already at the start of a day; keep the exact instant.
+        // Stored already at the start of a day; keep the exact instants.
         state.endDate = Date(timeIntervalSince1970: interval)
+        state.rangeStart = (defaults.object(forKey: SettingsKey.pregnancyEndRangeStart) as? Double).map(Date.init(timeIntervalSince1970:))
         state.firstPeriodConfirmedID = defaults.string(forKey: SettingsKey.pregnancyEndFirstPeriodID).flatMap(UUID.init(uuidString:))
         return state
     }
@@ -46,6 +59,11 @@ public struct PregnancyEndState: Equatable, Sendable {
     public func save(to defaults: UserDefaults) {
         defaults.set(branch.rawValue, forKey: SettingsKey.pregnancyEndBranch)
         defaults.set(endDate.timeIntervalSince1970, forKey: SettingsKey.pregnancyEndDate)
+        if let rangeStart {
+            defaults.set(rangeStart.timeIntervalSince1970, forKey: SettingsKey.pregnancyEndRangeStart)
+        } else {
+            defaults.removeObject(forKey: SettingsKey.pregnancyEndRangeStart)
+        }
         if let firstPeriodConfirmedID {
             defaults.set(firstPeriodConfirmedID.uuidString, forKey: SettingsKey.pregnancyEndFirstPeriodID)
         } else {
@@ -58,13 +76,15 @@ public struct PregnancyEndState: Equatable, Sendable {
         for key in keys { defaults.removeObject(forKey: key) }
     }
 
-    /// The periods she answered "not the first" for.
+    /// The periods she answered "not the first" for. Stored as one comma-separated
+    /// string so a backup can carry it as a plain setting.
     public static func declinedPeriods(in defaults: UserDefaults) -> Set<UUID> {
-        Set((defaults.stringArray(forKey: SettingsKey.pregnancyEndDeclinedPeriods) ?? []).compactMap(UUID.init(uuidString:)))
+        let raw = defaults.string(forKey: SettingsKey.pregnancyEndDeclinedPeriods) ?? ""
+        return Set(raw.split(separator: ",").compactMap { UUID(uuidString: String($0)) })
     }
 
     public static func saveDeclinedPeriods(_ ids: Set<UUID>, to defaults: UserDefaults) {
-        defaults.set(ids.map(\.uuidString).sorted(), forKey: SettingsKey.pregnancyEndDeclinedPeriods)
+        defaults.set(ids.map(\.uuidString).sorted().joined(separator: ","), forKey: SettingsKey.pregnancyEndDeclinedPeriods)
     }
 }
 

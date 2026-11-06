@@ -333,14 +333,15 @@ public final class CycleCoordinator {
     /// stores `.tracking` when she never had one — never trying to conceive),
     /// stores the ended state, clears the pregnancy dates and switches to the
     /// cycle mode with predictions paused. Never prompts for permission.
-    public func endPregnancy(branch: PregnancyEndBranch, endDate: Date) async {
+    /// `rangeStart` is the pregnancy's first day (`PregnancyRange`), when known.
+    public func endPregnancy(branch: PregnancyEndBranch, endDate: Date, rangeStart: Date? = nil) async {
         if defaults.object(forKey: SettingsKey.cycleGoal) == nil {
             defaults.set(CycleGoal.tracking.rawValue, forKey: SettingsKey.cycleGoal)
         }
         PregnancyEndState.clear(defaults)
         CareCheckInState.clear(defaults)
         notifications.cancelCareCheckIn()
-        PregnancyEndState(branch: branch, endDate: endDate, calendar: calendar).save(to: defaults)
+        PregnancyEndState(branch: branch, endDate: endDate, rangeStart: rangeStart, calendar: calendar).save(to: defaults)
         PregnancyProfile.clear(defaults)
         AppMode.save(.tryingToConceive, to: defaults)
         let generation = bump()
