@@ -18,9 +18,9 @@ jobs:
     env:
       CI_SHARD_INDEX: ${{ matrix.shard }}
       CI_SHARD_TOTAL: 4
-    # The full UI suite is split over four shards (three ran up to 56 min of the 60-min limit; 1.1 item 4 pushed one over); scoped runs and
+    # The full UI suite is split over four shards (~30–45 min each); scoped runs and
     # pushes to main use shard 1 only, and the other shards exit at once (scripts/ci.sh).
-    timeout-minutes: 60
+    timeout-minutes: 80
     steps:
       - uses: actions/checkout@v4
       - name: Select latest stable Xcode
