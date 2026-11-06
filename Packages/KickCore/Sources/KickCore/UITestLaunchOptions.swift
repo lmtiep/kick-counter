@@ -31,6 +31,9 @@ import Foundation
 ///   that many days before the pinned today, in the cycle mode with predictions paused, and
 ///   one sample memory (`PregnancyEndSeed`).
 /// - `-seedCareLowStreak <n>` stores that many low check-in answers in a row.
+/// - `-uiTestingReportPreview` makes "Report for your doctor" write its PDF to a known path and
+///   show its pages (scrollable) with the page count, instead of the share sheet (1.1).
+/// - `-uiTestingReportLongNote` adds an appointment with a note of about 3,000 characters to that report.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -53,6 +56,8 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedLastBackupDaysAgo: Int?
     public let seedPregnancyEnded: PregnancyEndSeed?
     public let seedCareLowStreak: Int?
+    public let reportPreview: Bool
+    public let reportLongNote: Bool
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -92,6 +97,8 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         seedCareLowStreak = isUITesting
             ? Self.value(after: "-seedCareLowStreak", in: arguments).flatMap { Int($0) }.flatMap { $0 >= 0 ? $0 : nil }
             : nil
+        reportPreview = isUITesting && arguments.contains("-uiTestingReportPreview")
+        reportLongNote = isUITesting && arguments.contains("-uiTestingReportLongNote")
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {
