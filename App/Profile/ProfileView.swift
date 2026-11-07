@@ -114,6 +114,13 @@ struct ProfileView: View {
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("profileAppointments")
                         .lunaCard(padding: 0)
+                        // Any week (1.1); the Today card only shows from week 32.
+                        NavigationLink { BagChecklistView() } label: {
+                            LunaRow(title: L10n.bagTitle)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("profileBag")
+                        .lunaCard(padding: 0)
                         // Partner sharing needs iCloud, off in 1.0 (phase 12).
                         #if CLOUD_SYNC
                         if AppEnvironment.showsPartnerUI {

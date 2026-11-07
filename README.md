@@ -125,6 +125,18 @@ Dự án Xcode được sinh từ `project.yml` — sửa `project.yml`, không 
   đã ghi thành xoá/sửa/thêm; `CycleCoordinator.applyPeriodEdits` lưu tất cả trong một lần (lỗi thì không lưu gì).
   Đặc tả: `docs/superpowers/specs/2026-10-10-calendar-period-edit-design.md`.
 
+## Đồ đi sinh và câu hỏi cho bác sĩ (1.1)
+- Đồ đi sinh: 31 món dựng sẵn trong 4 nhóm (giấy tờ, đồ cho mẹ, đồ cho bé, người đi cùng), chỉ đồ dùng thông thường,
+  không thuốc hay vật tư y tế. Danh sách và phép gộp với phần mẹ đã tick/ẩn/thêm nằm ở `KickCore/Checklist.swift`
+  (thuần, có test); chữ nằm trong `Localizable.xcstrings` (`bag.item.<id>`, `bag.group.<nhóm>`) nên thêm món mới =
+  thêm id vào `BagCatalog` + chuỗi vi/en bằng `scripts/add-strings.py`. Món dựng sẵn chỉ được lưu khi mẹ chạm vào nó.
+- Câu hỏi cho bác sĩ: mỗi lịch khám có danh sách câu hỏi (`App/Checklists/QuestionsSection.swift`); "Ghi câu hỏi cho
+  bác sĩ" trên Hôm nay gắn vào lịch khám sắp tới gần nhất (`QuestionRouting`), nếu chưa có thì để "chưa gán" và lịch khám
+  sắp tới tiếp theo được tạo sẽ nhận. Xoá lịch khám xoá luôn câu hỏi của nó (`AppointmentStore.delete`, hộp thoại có nói).
+- Lưu bằng một model `ChecklistItem` (mọi thuộc tính có giá trị mặc định, không quan hệ); sao lưu thêm mảng tuỳ chọn
+  `checklistItems`; "Xoá toàn bộ dữ liệu" xoá cả hai danh sách.
+- Thẻ "Đồ đi sinh · 12/31" trên Hôm nay từ tuần 32; hàng "Đồ đi sinh" ở Cá nhân (chế độ Mang thai, dưới "Lịch khám") luôn có.
+
 ## Sẵn sàng lên App Store (giai đoạn 12)
 - Bản 1.0 giữ toàn bộ dữ liệu trên máy: `KickCore/AppFeatures.swift` (`cloudSync = false`),
   `KickPersistence` dùng `cloudKitDatabase: .none`. Chế độ chia sẻ với bố bé (giai đoạn 8) bị ẩn cùng với

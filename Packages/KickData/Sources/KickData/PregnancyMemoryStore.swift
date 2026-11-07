@@ -17,6 +17,7 @@ public struct PregnancyRows: Sendable {
     public var weights: [WeightRecord]
     public var logs: [CycleLogRecord]
     public var labourMarkers: [LabourMarkerRecord]
+    public var checklistItems: [ChecklistItemRecord]
 }
 
 @MainActor
@@ -62,7 +63,7 @@ public final class PregnancyMemoryStore {
 
     /// Inserts the memory (when given) and deletes exactly the given raw rows (the
     /// pregnancy's in-range kick sessions with their kicks, contractions,
-    /// appointments, weights and labour markers). Day logs and periods are never touched. One
+    /// appointments, weights, labour markers, bag rows and questions). Day logs and periods are never touched. One
     /// save; on any throw everything is rolled back. A new pregnancy model adds
     /// its ID set to `PregnancyRawRowIDs` and one `delete` call here.
     public func archive(
@@ -87,6 +88,7 @@ public final class PregnancyMemoryStore {
             try delete(Appointment.self, ids: rows.appointments, id: \.id)
             try delete(WeightEntry.self, ids: rows.weights, id: \.id)
             try delete(LabourMarker.self, ids: rows.labourMarkers, id: \.id)
+            try delete(ChecklistItem.self, ids: rows.checklistItems, id: \.id)
             try saveContext(context)
         } catch {
             context.rollback()
@@ -109,7 +111,8 @@ public final class PregnancyMemoryStore {
             appointments: try context.fetch(FetchDescriptor<Appointment>(sortBy: [SortDescriptor(\.date)])).map(\.record),
             weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
             logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map(\.record),
-            labourMarkers: try context.fetch(FetchDescriptor<LabourMarker>(sortBy: [SortDescriptor(\.at)])).map(\.record)
+            labourMarkers: try context.fetch(FetchDescriptor<LabourMarker>(sortBy: [SortDescriptor(\.at)])).map(\.record),
+            checklistItems: try context.fetch(FetchDescriptor<ChecklistItem>(sortBy: [SortDescriptor(\.createdAt)])).map(\.record)
         )
     }
 

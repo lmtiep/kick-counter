@@ -21,24 +21,22 @@ final class ContractionEditScreenshotTests: XCTestCase {
         app.openContractionTimer()
         let row = app.descendants(matching: .any).matching(identifier: "contractionRow").firstMatch
         app.scrollUntilHittable(row, maxSwipes: 20)
-        row.tap()
-        XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForExistence(timeout: 5))
+        let title = app.staticTexts["contractionEditTitle"]
+        row.tapOpening(title, in: app)
         attachScreenshot(app, "contraction-edit-sheet-\(suffix)")
         app.buttons["contractionEditCancel"].tapOrScroll(app)
 
         let add = app.buttons["contractionAddMissed"]
         app.scrollDownUntilHittable(add, maxSwipes: 20)
         app.scrollUntilHittable(add, maxSwipes: 20)
-        add.tap()
-        XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForExistence(timeout: 5))
+        add.tapOpening(title, in: app)
         attachScreenshot(app, "contraction-add-missed-sheet-\(suffix)")
         app.buttons["contractionEditCancel"].tapOrScroll(app)
 
         let water = app.buttons["contractionWaterBroke"]
         app.scrollDownUntilHittable(water, maxSwipes: 20)
         app.scrollUntilHittable(water, maxSwipes: 20)
-        water.tap()
-        XCTAssertTrue(app.staticTexts["contractionWaterBrokeTitle"].waitForExistence(timeout: 5))
+        water.tapOpening(app.staticTexts["contractionWaterBrokeTitle"], in: app)
         attachScreenshot(app, "contraction-water-broke-sheet-\(suffix)")
         app.buttons["contractionWaterBrokeSave"].tapOrScroll(app)
 
@@ -65,6 +63,30 @@ final class ContractionEditScreenshotTests: XCTestCase {
 }
 
 private extension XCUIElement {
+    /// Taps, and taps once more if `screen` has not appeared: right after launch, or while a
+    /// sheet is still dismissing, the first tap is sometimes swallowed.
+    @MainActor
+    func tapOpening(_ screen: XCUIElement, in app: XCUIApplication) {
+        // XCUITest calls a button hittable while its centre is under the status bar, the
+        // navigation bar or the tab bar, and the tap then lands on the bar. At AX5 a swipe can
+        // stop with "Thêm cơn gò bị sót" (126 pt tall) centred at y 60, under the status bar.
+        // Drag it, without momentum, until its centre sits between the bars.
+        for _ in 0..<3 {
+            let top = app.navigationBars.firstMatch.frame.maxY
+            let bottom = app.tabBars.firstMatch.exists ? app.tabBars.firstMatch.frame.minY : app.windows.firstMatch.frame.maxY
+            let mid = frame.midY
+            guard mid < top + 20 || mid > bottom - 20 else { break }
+            let from = app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+            from.press(
+                forDuration: 0.1, thenDragTo: from.withOffset(CGVector(dx: 0, dy: (top + bottom) / 2 - mid)),
+                withVelocity: .slow, thenHoldForDuration: 0.3
+            )
+        }
+        tap()
+        if !screen.waitForExistence(timeout: 5) { tap() }
+        XCTAssertTrue(screen.waitForExistence(timeout: 5))
+    }
+
     /// Scrolls the sheet (AX5 pushes Save and Cancel below the fold) until this is hittable, then taps it.
     @MainActor
     func tapOrScroll(_ app: XCUIApplication) {

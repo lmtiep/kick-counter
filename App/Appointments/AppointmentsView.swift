@@ -1,4 +1,6 @@
 import KickCore
+import KickData
+import SwiftData
 import SwiftUI
 
 /// Upcoming and past check-ups plus the suggested milestones still ahead.
@@ -9,6 +11,8 @@ struct AppointmentsView: View {
     @AppStorage(SettingsKey.dueDate, store: AppGroup.defaults) private var dueDate: Double = 0
     @State private var editor: AppointmentEditorMode?
     @State private var pendingDelete: AppointmentRecord?
+    @State private var questionsSaveFailed = false
+    @Query(sort: \ChecklistItem.createdAt) private var checklistItems: [ChecklistItem]
 
     private let language = ContentLanguage.current
 
@@ -45,6 +49,9 @@ struct AppointmentsView: View {
                     .listRowBackground(Color.luna(.card))
                 }
             }
+
+            // Questions written with no appointment ahead (1.1); the next one adopts them.
+            QuestionsSection(mode: .unassigned, saveFailed: $questionsSaveFailed)
 
             Section {
                 if appointments.upcoming.isEmpty {
@@ -129,10 +136,17 @@ struct AppointmentsView: View {
                 pendingDelete = nil
             }
             Button(L10n.commonCancel, role: .cancel) { pendingDelete = nil }
+        } message: {
+            // Its questions are deleted with it, so the dialog says so (1.1).
+            let count = pendingDelete.map { questionCount(for: $0) } ?? 0
+            if count > 0 {
+                Text(L10n.appointmentsDeleteConfirmQuestions(count))
+            }
         }
         .alert(failureMessage ?? "", isPresented: failureBinding) {
             Button(L10n.commonOK) { appointments.clearFailure() }
         }
+        .checklistSaveAlert($questionsSaveFailed)
         .task { await appointments.load() }
     }
 
@@ -140,7 +154,9 @@ struct AppointmentsView: View {
         Button {
             editor = .edit(record)
         } label: {
-            AppointmentRow(record: record)
+            AppointmentRow(record: record, questions: QuestionRouting.progress(
+                QuestionRouting.questions(for: record.id, in: checklistItems.map(\.record))
+            ))
         }
         .tint(.primary)
         .accessibilityIdentifier("appointmentRow")
@@ -162,6 +178,10 @@ struct AppointmentsView: View {
                 .tint(.luna(.swipeAction))
             }
         }
+    }
+
+    private func questionCount(for record: AppointmentRecord) -> Int {
+        QuestionRouting.questions(for: record.id, in: checklistItems.map(\.record)).count
     }
 
     private var failureMessage: String? {

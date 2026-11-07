@@ -37,6 +37,7 @@ struct PregnancyTodayView: View {
     @State private var showingDateSheet = false
     @State private var detailWeek: WeekSelection?
     @State private var route: PregnancyRoute?
+    @State private var toast: String?
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private let language = ContentLanguage.current
@@ -74,6 +75,7 @@ struct PregnancyTodayView: View {
             .lunaStatusBarBackdrop()
             .lunaBackground()
             .toolbar(.hidden, for: .navigationBar)
+            .toast($toast)
             // Slides up over everything (spec §4.5).
             .fullScreenCover(item: $detailWeek) { selection in
                 WeekDetailView(currentWeek: selection.week)
@@ -149,6 +151,9 @@ struct PregnancyTodayView: View {
             case nil:
                 weightCard(dueDate: timeline.dueDate)
             }
+            if BagRules.showsTodayCard(week: timeline.week.weeks) {
+                BagTodayCard()
+            }
             NavigationLink {
                 AppointmentsView()
             } label: {
@@ -164,6 +169,7 @@ struct PregnancyTodayView: View {
             }
             .buttonStyle(.plain)
             .accessibilityIdentifier("nextAppointmentCard")
+            QuickQuestionCard { toast = $0 }
             knowledgeCard(for: timeline)
         }
         .padding(.horizontal, 20)

@@ -82,6 +82,7 @@ public struct BackupSummary: Equatable, Sendable {
     public var weights: Int
     public var pillDoses: Int = 0
     public var contractions: Int = 0
+    public var checklistItems: Int = 0
     public var labourMarkers: Int = 0
     public var pregnancyMemories: Int = 0
     /// The file's `appMode`; missing means pregnant, as in `AppMode.load`.
@@ -90,7 +91,7 @@ public struct BackupSummary: Equatable, Sendable {
     public var dateRange: ClosedRange<Date>?
 
     public var isEmpty: Bool {
-        sessions + appointments + periods + cycleLogs + weights + pillDoses + contractions + labourMarkers + pregnancyMemories == 0
+        sessions + appointments + periods + cycleLogs + weights + pillDoses + contractions + checklistItems + labourMarkers + pregnancyMemories == 0
     }
 }
 
@@ -115,6 +116,7 @@ extension BackupDocument {
             weights: weights.count,
             pillDoses: pillDoses.count,
             contractions: contractions.count,
+            checklistItems: checklistItems.count,
             labourMarkers: labourMarkers.count,
             pregnancyMemories: pregnancyMemories.count,
             mode: mode,
@@ -186,6 +188,10 @@ public enum BackupValidation {
         cleaned.appointments = keep(document.appointments, id: \.id) {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
+        // Questions link to the appointments that survived, not to those in the file.
+        let checklist = cleanChecklist(document.checklistItems, appointmentIDs: Set(cleaned.appointments.map(\.id)))
+        cleaned.checklistItems = checklist.items
+        skipped += checklist.skipped
         // A session cannot start in the future or end before it starts; kicks
         // after now cannot have happened and are dropped.
         let sessions = keep(document.sessions, id: \.id) { dto in

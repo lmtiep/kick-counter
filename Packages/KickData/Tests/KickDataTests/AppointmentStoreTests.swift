@@ -120,3 +120,48 @@ struct AppointmentStoreTests {
         #expect(try store.appointment(id: appointment.id)?.isDone == false)
     }
 }
+
+@MainActor
+struct AppointmentQuestionsCascadeTests {
+    let container: ModelContainer
+    let appointments: AppointmentStore
+    let checklist: ChecklistStore
+    let now = date("2026-11-06T08:00:00Z")
+
+    init() throws {
+        container = try KickPersistence.makeContainer(inMemory: true)
+        appointments = AppointmentStore(context: container.mainContext, calendar: utcCalendar)
+        checklist = ChecklistStore(context: container.mainContext)
+    }
+
+    @Test func deletingAnAppointmentDeletesItsQuestionsOnly() throws {
+        let doomed = AppointmentRecord(date: date("2026-11-20T09:00:00Z"), title: "Khám 32 tuần")
+        let kept = AppointmentRecord(date: date("2026-12-04T09:00:00Z"), title: "Khám 34 tuần")
+        try appointments.add(doomed)
+        try appointments.add(kept)
+        _ = try checklist.addQuestion("Của lần bị xoá 1", appointmentID: doomed.id, now: now)
+        _ = try checklist.addQuestion("Của lần bị xoá 2", appointmentID: doomed.id, now: now)
+        _ = try checklist.addQuestion("Của lần giữ lại", appointmentID: kept.id, now: now)
+        _ = try checklist.addQuestion("Chưa gán", appointmentID: nil, now: now)
+        _ = try checklist.addBagItem("Gối", group: .mother, now: now)
+        try checklist.setBuiltInDone("cccd", done: true, now: now)
+
+        try appointments.delete(id: doomed.id)
+
+        let items = try checklist.items()
+        #expect(items.filter { $0.kind == .question }.map(\.text).sorted() == ["Chưa gán", "Của lần giữ lại"])
+        #expect(items.filter { $0.kind == .bag }.count == 2, "bag rows are untouched")
+        #expect(try appointments.appointment(id: doomed.id) == nil)
+    }
+
+    @Test func aFailedDeleteKeepsTheAppointmentAndItsQuestions() throws {
+        let record = AppointmentRecord(date: date("2026-11-20T09:00:00Z"), title: "Khám")
+        try appointments.add(record)
+        _ = try checklist.addQuestion("Hỏi", appointmentID: record.id, now: now)
+        struct Boom: Error {}
+        let failing = AppointmentStore(context: container.mainContext, calendar: utcCalendar, saveContext: { _ in throw Boom() })
+        #expect(throws: Boom.self) { try failing.delete(id: record.id) }
+        #expect(try appointments.appointment(id: record.id) != nil)
+        #expect(try checklist.items().count == 1)
+    }
+}

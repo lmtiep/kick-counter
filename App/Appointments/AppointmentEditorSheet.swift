@@ -1,4 +1,5 @@
 import KickCore
+import KickData
 import SwiftUI
 
 enum AppointmentEditorMode: Identifiable {
@@ -18,6 +19,7 @@ struct AppointmentEditorSheet: View {
 
     @Environment(AppointmentCoordinator.self) private var appointments
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
     @State private var date: Date
     @State private var title: String
     @State private var note: String
@@ -60,6 +62,14 @@ struct AppointmentEditorSheet: View {
                     TextField(L10n.appointmentsFieldNote, text: $note, axis: .vertical)
                         .lineLimit(3...6)
                 }
+                // Questions for the doctor (1.1): this appointment's, or the unassigned
+                // ones a new appointment adopts when saved.
+                // A past or done check-up never adopts them, so it does not promise to.
+                if let record = editedRecord {
+                    QuestionsSection(mode: .appointment(record.id), saveFailed: $saveFailed)
+                } else if QuestionRouting.canAdopt(AppointmentRecord(date: date, title: title), now: AppClock.now()) {
+                    QuestionsSection(mode: .pending, saveFailed: $saveFailed)
+                }
                 if let record = editedRecord, !record.isDone {
                     Section {
                         Button(L10n.appointmentsMarkDone) {
@@ -99,7 +109,12 @@ struct AppointmentEditorSheet: View {
         let succeeded: Bool
         switch mode {
         case .new(_, _, let milestoneID):
-            succeeded = await appointments.add(date: date, title: title, note: note, milestoneID: milestoneID) != nil
+            let added = await appointments.add(date: date, title: title, note: note, milestoneID: milestoneID)
+            succeeded = added != nil
+            if let added, QuestionRouting.canAdopt(added, now: AppClock.now()) {
+                // If this fails the questions stay unassigned and visible on the list; nothing is lost.
+                _ = try? ChecklistStore(context: modelContext).adoptUnassignedQuestions(into: added.id)
+            }
         case .edit(let record):
             var updated = record
             updated.date = date

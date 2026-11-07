@@ -27,6 +27,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     /// Timed contractions (phase 20). Optional in the file like `pillDoses`:
     /// missing means none, and an empty list is not written.
     public var contractions: [ContractionDTO] = []
+    /// Hospital bag overrides and custom items, and questions for the doctor (1.1).
+    /// Optional in the file like `pillDoses`: missing means none, and an empty list is not written.
+    public var checklistItems: [ChecklistItemDTO] = []
     /// Labour markers such as "Vỡ ối" (edit spec 2026-11-06). Optional in the
     /// file like `contractions`: missing means none, and an empty list is not written.
     public var labourMarkers: [LabourMarkerDTO] = []
@@ -66,7 +69,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, labourMarkers, pregnancyMemories, settings
+        case format, version, createdAt, appVersion, sessions, appointments, periods, cycleLogs, weights, pillDoses, contractions, checklistItems, labourMarkers, pregnancyMemories, settings
     }
 
     public init(from decoder: Decoder) throws {
@@ -82,6 +85,7 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         weights = try container.decode([WeightDTO].self, forKey: .weights)
         pillDoses = try container.decodeIfPresent([PillDoseDTO].self, forKey: .pillDoses) ?? []
         contractions = try container.decodeIfPresent([ContractionDTO].self, forKey: .contractions) ?? []
+        checklistItems = try container.decodeIfPresent([ChecklistItemDTO].self, forKey: .checklistItems) ?? []
         labourMarkers = try container.decodeIfPresent([LabourMarkerDTO].self, forKey: .labourMarkers) ?? []
         pregnancyMemories = try container.decodeIfPresent([PregnancyMemoryDTO].self, forKey: .pregnancyMemories) ?? []
         let raw = try container.decode([String: BackupJSONScalar].self, forKey: .settings)
@@ -104,6 +108,9 @@ public struct BackupDocument: Equatable, Sendable, Codable {
         }
         if !contractions.isEmpty {
             try container.encode(contractions, forKey: .contractions)
+        }
+        if !checklistItems.isEmpty {
+            try container.encode(checklistItems, forKey: .checklistItems)
         }
         if !labourMarkers.isEmpty {
             try container.encode(labourMarkers, forKey: .labourMarkers)
@@ -369,6 +376,7 @@ public struct BackupRecords: Equatable, Sendable {
     public var weights: [WeightRecord]
     public var pillDoses: [PillDoseRecord]
     public var contractions: [ContractionRecord]
+    public var checklistItems: [ChecklistItemRecord]
     public var labourMarkers: [LabourMarkerRecord]
     public var pregnancyMemories: [StoredPregnancyMemory]
 
@@ -380,6 +388,7 @@ public struct BackupRecords: Equatable, Sendable {
         weights: [WeightRecord],
         pillDoses: [PillDoseRecord] = [],
         contractions: [ContractionRecord] = [],
+        checklistItems: [ChecklistItemRecord] = [],
         labourMarkers: [LabourMarkerRecord] = [],
         pregnancyMemories: [StoredPregnancyMemory] = []
     ) {
@@ -390,6 +399,7 @@ public struct BackupRecords: Equatable, Sendable {
         self.weights = weights
         self.pillDoses = pillDoses
         self.contractions = contractions
+        self.checklistItems = checklistItems
         self.labourMarkers = labourMarkers
         self.pregnancyMemories = pregnancyMemories
     }
@@ -405,6 +415,7 @@ extension BackupDocument {
         cycleLogs = records.logs
         pillDoses = records.pillDoses.map(PillDoseDTO.init)
         contractions = records.contractions.map(ContractionDTO.init)
+        checklistItems = records.checklistItems.map(ChecklistItemDTO.init)
         labourMarkers = records.labourMarkers.map(LabourMarkerDTO.init)
         pregnancyMemories = records.pregnancyMemories.map(PregnancyMemoryDTO.init)
     }
@@ -418,6 +429,7 @@ extension BackupDocument {
             weights: weights.map(\.record),
             pillDoses: pillDoses.map(\.record),
             contractions: contractions.map(\.record),
+            checklistItems: checklistItems.map(\.record),
             labourMarkers: labourMarkers.map(\.record),
             pregnancyMemories: pregnancyMemories.map(\.stored)
         )

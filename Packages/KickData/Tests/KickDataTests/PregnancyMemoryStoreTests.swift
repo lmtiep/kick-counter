@@ -89,6 +89,18 @@ struct PregnancyMemoryStoreTests {
         try store.archive(memory: memory, title: "Bông", deleting: try thisPregnancyRows())
     }
 
+    @Test func archiveDeletesOnlyTheGivenChecklistItems() throws {
+        let question = ChecklistItemRecord(kind: .question, text: "Hỏi bác sĩ", createdAt: date("2026-09-30T09:00:00Z"))
+        let earlierBag = ChecklistItemRecord(kind: .bag, group: .mother, text: "Old", createdAt: date("2025-05-01T09:00:00Z"))
+        context.insert(ChecklistItem(record: question))
+        context.insert(ChecklistItem(record: earlierBag))
+        try context.save()
+        try PregnancyMemoryStore(context: context).archive(
+            memory: content(), title: "", deleting: PregnancyRawRowIDs(checklistItems: [question.id])
+        )
+        #expect(try context.fetch(FetchDescriptor<ChecklistItem>()).map(\.id) == [earlierBag.id])
+    }
+
     @Test func archiveDeletesOnlyTheGivenLabourMarkers() throws {
         let thisMarker = LabourMarkerRecord(at: date("2026-09-30T21:00:00Z"))
         let earlierMarker = LabourMarkerRecord(at: date("2025-07-01T21:00:00Z"))

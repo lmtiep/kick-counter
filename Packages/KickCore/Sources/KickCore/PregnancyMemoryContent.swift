@@ -151,20 +151,24 @@ public struct PregnancyRawRowIDs: Equatable, Sendable {
     public var weights: Set<UUID>
     /// Labour markers such as "Vỡ ối", so none shows up in a later pregnancy's history.
     public var labourMarkers: Set<UUID>
+    /// Hospital bag rows and questions for the doctor that belong to this pregnancy.
+    public var checklistItems: Set<UUID>
 
     public init(
         sessions: Set<UUID> = [], contractions: Set<UUID> = [], appointments: Set<UUID> = [], weights: Set<UUID> = [],
-        labourMarkers: Set<UUID> = []
+        labourMarkers: Set<UUID> = [], checklistItems: Set<UUID> = []
     ) {
         self.sessions = sessions
         self.contractions = contractions
         self.appointments = appointments
         self.weights = weights
         self.labourMarkers = labourMarkers
+        self.checklistItems = checklistItems
     }
 
     public var isEmpty: Bool {
         sessions.isEmpty && contractions.isEmpty && appointments.isEmpty && weights.isEmpty && labourMarkers.isEmpty
+            && checklistItems.isEmpty
     }
 }
 
@@ -239,15 +243,24 @@ public enum PregnancyMemoryBuilder {
         contractions: [ContractionRecord],
         appointments: [AppointmentRecord],
         weights: [WeightRecord],
-        labourMarkers: [LabourMarkerRecord] = []
+        labourMarkers: [LabourMarkerRecord] = [],
+        checklistItems: [ChecklistItemRecord] = []
     ) -> PregnancyRawRowIDs {
         guard let range else { return PregnancyRawRowIDs() }
+        let appointmentIDs = Set(appointments.filter { range.contains($0.date) }.map(\.id))
+        // A question goes with its deleted check-up; an unassigned question or a touched bag
+        // row goes when it was written during this pregnancy.
+        let checklist = checklistItems.filter { item in
+            if let appointmentID = item.appointmentID { return appointmentIDs.contains(appointmentID) }
+            return range.contains(item.createdAt)
+        }
         return PregnancyRawRowIDs(
             sessions: Set(sessions.filter { range.contains($0.state.startedAt) }.map(\.id)),
             contractions: Set(contractions.filter { range.contains($0.startedAt) }.map(\.id)),
             appointments: Set(appointments.filter { range.contains($0.date) }.map(\.id)),
             weights: Set(weights.filter { range.contains($0.day) }.map(\.id)),
-            labourMarkers: Set(labourMarkers.filter { range.contains($0.at) }.map(\.id))
+            labourMarkers: Set(labourMarkers.filter { range.contains($0.at) }.map(\.id)),
+            checklistItems: Set(checklist.map(\.id))
         )
     }
 

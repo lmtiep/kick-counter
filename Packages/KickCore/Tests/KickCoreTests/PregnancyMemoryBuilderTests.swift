@@ -180,6 +180,22 @@ struct PregnancyMemoryBuilderTests {
         #expect(none.isEmpty)
     }
 
+    @Test func rowsToDeleteTakesThisPregnancysBagRowsAndQuestions() {
+        let range = at("2026-02-01T00:00:00")...at("2026-11-20T23:59:59")
+        let checkUp = AppointmentRecord(date: at("2026-10-10T09:00:00"), title: "Khám")
+        let laterCheckUp = AppointmentRecord(date: at("2027-03-01T09:00:00"), title: "Later")
+        let asked = ChecklistItemRecord(kind: .question, text: "Q", appointmentID: checkUp.id, createdAt: at("2026-10-01T09:00:00"))
+        let forLater = ChecklistItemRecord(kind: .question, text: "Q2", appointmentID: laterCheckUp.id, createdAt: at("2026-11-01T09:00:00"))
+        let unassigned = ChecklistItemRecord(kind: .question, text: "Q3", createdAt: at("2026-11-02T09:00:00"))
+        let thisBag = ChecklistItemRecord(kind: .bag, group: .mother, text: "Dép", createdAt: at("2026-09-01T09:00:00"))
+        let earlierBag = ChecklistItemRecord(kind: .bag, group: .mother, text: "Old", createdAt: at("2025-05-01T09:00:00"))
+        let rows = PregnancyMemoryBuilder.rowsToDelete(
+            range: range, sessions: [], contractions: [], appointments: [checkUp, laterCheckUp], weights: [],
+            checklistItems: [asked, forLater, unassigned, thisBag, earlierBag]
+        )
+        #expect(rows.checklistItems == [asked.id, unassigned.id, thisBag.id])
+    }
+
     @Test func rowsToDeleteTakesOnlyThisPregnancysLabourMarkers() {
         let range = at("2026-02-01T00:00:00")...at("2026-11-20T00:00:00")
         let thisMarker = LabourMarkerRecord(at: at("2026-11-19T21:00:00"))
