@@ -21,27 +21,22 @@ final class ContractionEditScreenshotTests: XCTestCase {
         app.openContractionTimer()
         let row = app.descendants(matching: .any).matching(identifier: "contractionRow").firstMatch
         app.scrollUntilHittable(row, maxSwipes: 20)
-        row.tap()
         let title = app.staticTexts["contractionEditTitle"]
-        // Right after launch the list can still be settling and swallow the first tap.
-        if !title.waitForExistence(timeout: 5) { row.tap() }
-        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        row.tapOpening(title, in: app)
         attachScreenshot(app, "contraction-edit-sheet-\(suffix)")
         app.buttons["contractionEditCancel"].tapOrScroll(app)
 
         let add = app.buttons["contractionAddMissed"]
         app.scrollDownUntilHittable(add, maxSwipes: 20)
         app.scrollUntilHittable(add, maxSwipes: 20)
-        add.tap()
-        XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForExistence(timeout: 5))
+        add.tapOpening(title, in: app)
         attachScreenshot(app, "contraction-add-missed-sheet-\(suffix)")
         app.buttons["contractionEditCancel"].tapOrScroll(app)
 
         let water = app.buttons["contractionWaterBroke"]
         app.scrollDownUntilHittable(water, maxSwipes: 20)
         app.scrollUntilHittable(water, maxSwipes: 20)
-        water.tap()
-        XCTAssertTrue(app.staticTexts["contractionWaterBrokeTitle"].waitForExistence(timeout: 5))
+        water.tapOpening(app.staticTexts["contractionWaterBrokeTitle"], in: app)
         attachScreenshot(app, "contraction-water-broke-sheet-\(suffix)")
         app.buttons["contractionWaterBrokeSave"].tapOrScroll(app)
 
@@ -68,6 +63,15 @@ final class ContractionEditScreenshotTests: XCTestCase {
 }
 
 private extension XCUIElement {
+    /// Taps, and taps once more if `screen` has not appeared: right after launch, or while a
+    /// sheet is still dismissing, the first tap is sometimes swallowed.
+    @MainActor
+    func tapOpening(_ screen: XCUIElement, in app: XCUIApplication) {
+        tap()
+        if !screen.waitForExistence(timeout: 5) { tap() }
+        XCTAssertTrue(screen.waitForExistence(timeout: 5))
+    }
+
     /// Scrolls the sheet (AX5 pushes Save and Cancel below the fold) until this is hittable, then taps it.
     @MainActor
     func tapOrScroll(_ app: XCUIApplication) {
