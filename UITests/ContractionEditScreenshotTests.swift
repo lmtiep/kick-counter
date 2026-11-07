@@ -67,6 +67,14 @@ private extension XCUIElement {
     /// sheet is still dismissing, the first tap is sometimes swallowed.
     @MainActor
     func tapOpening(_ screen: XCUIElement, in app: XCUIApplication) {
+        // At AX5 a button can count as hittable while it sits under the tab bar, so the tap
+        // lands on the bar. Bring it out of the bottom band first.
+        let window = app.windows.firstMatch.frame
+        var lifts = 3
+        while frame.maxY > window.maxY - 140, lifts > 0 {
+            app.swipeUp(velocity: .slow)
+            lifts -= 1
+        }
         tap()
         if !screen.waitForExistence(timeout: 5) { tap() }
         XCTAssertTrue(screen.waitForExistence(timeout: 5))
