@@ -55,19 +55,15 @@ final class ContractionEditUITests: XCTestCase {
     /// Edit round 2: moving the start of a missed contraction keeps its length (1:00),
     /// so it stays valid and saves as a one-minute contraction.
     @MainActor
-    func testAddMissedKeepsItsLengthWhenTheStartMoves() throws {
-        // Quarantined for 1.1: on CI the wheels set PM and 12 at 13:39 and an edit error still
-        // showed, in some runs only. ContractionDraftTests pin keeping the length when the start
-        // moves; the follow-up task finds why the UI run differs.
-        throw XCTSkip("Quarantined: the time-wheel flow is unreliable on CI (follow-up task).")
-        let calendar = Calendar.current
-        // Contractions run on the real clock. An hour back keeps the added contraction inside the
-        // current episode (2 h gap), so its row is on the timer screen; 3 h put it in History.
-        let target = Date().addingTimeInterval(-3600)
-        try XCTSkipUnless(
-            calendar.isDate(target, inSameDayAs: Date()), "an hour ago is yesterday: the day picker would have to change"
+    func testAddMissedKeepsItsLengthWhenTheStartMoves() {
+        // The timer's clock starts at 10:30 today, so an hour back (9:30 AM) only turns the hour
+        // wheel back from 10 to 9. On the real clock, at 1 AM or 1 PM the wheel walked forward
+        // through future hours to reach 12, and the picker (bounded at now) snapped back to now.
+        // An hour back keeps the added contraction inside the current episode (2 h gap), so its
+        // row is on the timer screen; 3 h put it in History.
+        let app = XCUIApplication.launchPinned(
+            dueDate: UITestDates.dueAtWeek38, extraArguments: ["-contractionClockStart", "10:30"]
         )
-        let app = XCUIApplication.launchPinned(dueDate: UITestDates.dueAtWeek38)
         app.openContractionTimer()
         let add = app.buttons["contractionAddMissed"]
         app.scrollUntilHittable(add)
@@ -81,14 +77,7 @@ final class ContractionEditUITests: XCTestCase {
         let wheels = app.pickerWheels
         XCTAssertTrue(wheels.element(boundBy: 0).waitForExistence(timeout: 5))
         XCTAssertEqual(wheels.count, 3, "hour, minute, AM/PM")
-        let format = DateFormatter()
-        format.locale = Locale(identifier: "en_US")
-        format.dateFormat = "h"
-        let hour = format.string(from: target)
-        // AM/PM first: the picker stops at now, so setting the hour first could ask for a
-        // future time (11 PM at 12:30 PM) that is clamped before AM/PM is set.
-        format.dateFormat = "a"
-        wheels.element(boundBy: 2).adjust(toPickerWheelValue: format.string(from: target))
+        let hour = "9"
         wheels.element(boundBy: 0).adjust(toPickerWheelValue: hour)
         // The popover covers the title: tap the empty part of the sheet below Save and Cancel to close it.
         app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.92)).tap()

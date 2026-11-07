@@ -160,14 +160,14 @@ struct AppEnvironment {
         let contractionStore = ContractionStore(context: container.mainContext)
         #if DEBUG
         if isUITesting, let seed = AppClock.launchOptions.seedContractions {
-            // The real clock: the timer never uses the pinned one.
-            for record in seed.records(now: Date()) {
+            // The timer's clock, never the pinned one.
+            for record in seed.records(now: contractionNow()) {
                 try contractionStore.save(record)
             }
         }
         #endif
         // The real clock, not AppClock, as KickCoordinator: a pinned clock would
-        // drop every stop as a mis-tap.
+        // drop every stop as a mis-tap. (UI tests may shift it, still ticking.)
         // The alert on the Lock Screen and in the notification uses the real week,
         // read as the timer screen does (the pinnable AppClock).
         let contractions = ContractionCoordinator(
@@ -183,7 +183,8 @@ struct AppEnvironment {
                 PregnancyProfile.load(from: AppGroup.defaults).dueDate
                     .flatMap { PregnancyTimeline(dueDate: $0, now: AppClock.now())?.week }
             },
-            undoWindow: contractionUndoWindow
+            undoWindow: contractionUndoWindow,
+            now: { contractionNow() }
         )
         let sharing = makeSharing()
         let partnerShare = PartnerShareCoordinator(sharing: sharing, defaults: AppGroup.defaults)
@@ -220,6 +221,23 @@ struct AppEnvironment {
         if isUITesting, let window = AppClock.launchOptions.contractionUndoWindow { return window }
         #endif
         return ContractionRules.undoWindow
+    }
+
+    /// Seconds `-contractionClockStart` adds to the real clock in DEBUG UI tests, read once at launch.
+    private static let contractionClockOffset: TimeInterval = {
+        #if DEBUG
+        if isUITesting, let start = AppClock.launchOptions.contractionClockStart {
+            return start.offset(launch: Date(), calendar: .autoupdatingCurrent)
+        }
+        #endif
+        return 0
+    }()
+
+    /// The contraction timer's clock: the real one, or in DEBUG UI tests the real one
+    /// moved to `-contractionClockStart`'s time of day, still ticking. The big button's
+    /// running time reads the real clock, so tests using the flag don't time a contraction.
+    private static func contractionNow() -> Date {
+        Date().addingTimeInterval(contractionClockOffset)
     }
 
     /// CloudKit when `AppFeatures.cloudSync` is on, `DisabledPartnerSharing` (never
