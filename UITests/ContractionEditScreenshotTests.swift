@@ -56,11 +56,7 @@ final class ContractionEditScreenshotTests: XCTestCase {
     }
 
     @MainActor
-    func testEditScreensAtLargestText() throws {
-        // Quarantined for 1.1: in some CI runs the tap on "Thêm cơn gò bị sót" never opens the
-        // sheet at AX5, even after lifting the button and tapping twice. The same screens are
-        // shot at default size in testEditScreens; the AX5 layout was reviewed in earlier runs.
-        throw XCTSkip("Quarantined: AX5 add-missed tap is unreliable on CI (follow-up task).")
+    func testEditScreensAtLargestText() {
         let app = launch(largestText: true, seed: "511")
         shoot(app, suffix: "vi-ax5")
     }
@@ -71,13 +67,20 @@ private extension XCUIElement {
     /// sheet is still dismissing, the first tap is sometimes swallowed.
     @MainActor
     func tapOpening(_ screen: XCUIElement, in app: XCUIApplication) {
-        // At AX5 a button can count as hittable while it sits under the tab bar, so the tap
-        // lands on the bar. Bring it out of the bottom band first.
-        let window = app.windows.firstMatch.frame
-        var lifts = 3
-        while frame.maxY > window.maxY - 140, lifts > 0 {
-            app.swipeUp(velocity: .slow)
-            lifts -= 1
+        // XCUITest calls a button hittable while its centre is under the status bar, the
+        // navigation bar or the tab bar, and the tap then lands on the bar. At AX5 a swipe can
+        // stop with "Thêm cơn gò bị sót" (126 pt tall) centred at y 60, under the status bar.
+        // Drag it, without momentum, until its centre sits between the bars.
+        for _ in 0..<3 {
+            let top = app.navigationBars.firstMatch.frame.maxY
+            let bottom = app.tabBars.firstMatch.exists ? app.tabBars.firstMatch.frame.minY : app.windows.firstMatch.frame.maxY
+            let mid = frame.midY
+            guard mid < top + 20 || mid > bottom - 20 else { break }
+            let from = app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+            from.press(
+                forDuration: 0.1, thenDragTo: from.withOffset(CGVector(dx: 0, dy: (top + bottom) / 2 - mid)),
+                withVelocity: .slow, thenHoldForDuration: 0.3
+            )
         }
         tap()
         if !screen.waitForExistence(timeout: 5) { tap() }
