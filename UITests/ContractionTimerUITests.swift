@@ -122,9 +122,8 @@ final class ContractionTimerUITests: XCTestCase {
         app.openContractionTimer()
         let history = app.buttons["contractionHistory"]
         app.scrollUntilHittable(history, maxSwipes: 10)
-        history.tap()
         let row = app.descendants(matching: .any)["contractionEpisodeRow"].firstMatch
-        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tap(history, untilExists: row))
         waitForLabel(row, containing: "3 contractions")
     }
 
