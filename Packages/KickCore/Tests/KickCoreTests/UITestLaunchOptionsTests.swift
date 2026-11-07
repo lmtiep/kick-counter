@@ -136,4 +136,29 @@ struct UITestRestoreOnReactivateOptionTests {
         #expect(settings?.enabled == true)
         #expect(settings?.pack(calendar: utcCalendar)?.pillNumber(on: date("2026-10-12T12:00:00Z")) == 12)
     }
+
+    @Test func seedPregnancyEndedParsesBranchAndDays() {
+        let options = UITestLaunchOptions(arguments: ["-uiTesting", "-seedPregnancyEnded", "loss:21"])
+        #expect(options.seedPregnancyEnded == PregnancyEndSeed(branch: .loss, daysAgo: 21))
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedPregnancyEnded", "birth:0"]).seedPregnancyEnded?.branch == .birth)
+        #expect(UITestLaunchOptions(arguments: ["-seedPregnancyEnded", "loss:21"]).seedPregnancyEnded == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedPregnancyEnded", "other:3"]).seedPregnancyEnded == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedPregnancyEnded", "loss:-1"]).seedPregnancyEnded == nil)
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-seedCareLowStreak", "1"]).seedCareLowStreak == 1)
+        #expect(UITestLaunchOptions(arguments: ["-seedCareLowStreak", "1"]).seedCareLowStreak == nil)
+    }
+
+    @Test func seedPregnancyEndedStateAndMemory() {
+        let seed = PregnancyEndSeed(branch: .birth, daysAgo: 21)
+        let now = date("2026-10-02T12:00:00Z")
+        let state = seed.state(now: now, calendar: utcCalendar)
+        #expect(state.endDate == date("2026-09-11T00:00:00Z"))
+        #expect(state.branch == .birth)
+        #expect(state.firstPeriodConfirmedID == nil)
+        let content = seed.memory(now: now, calendar: utcCalendar)
+        #expect(content.branch == .birth)
+        #expect(content.end == state.endDate)
+        #expect(content.start! < content.end)
+        #expect(!content.notes.isEmpty && !content.appointments.isEmpty && !content.weights.isEmpty && !content.kickDays.isEmpty)
+    }
 }

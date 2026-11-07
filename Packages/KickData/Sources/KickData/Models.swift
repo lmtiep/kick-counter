@@ -318,3 +318,65 @@ public final class ChecklistItem {
         }
     }
 }
+
+/// A moment in labour that is not a contraction, such as "Vỡ ối" (edit spec
+/// 2026-11-06). `kind` is the raw value (`LabourMarkerRecord.waterBroke`), kept
+/// as a string so a kind a newer build wrote survives. Every property has a
+/// default and there are no relationships, like `Contraction`, so a store from
+/// before this model opens by lightweight migration.
+@Model
+public final class LabourMarker {
+    public var id: UUID = UUID()
+    public var kind: String = LabourMarkerRecord.waterBroke
+    public var at: Date = Date()
+
+    public init(record: LabourMarkerRecord) {
+        id = record.id
+        kind = record.kind
+        at = record.at
+    }
+
+    public var record: LabourMarkerRecord {
+        LabourMarkerRecord(id: id, kind: kind, at: at)
+    }
+}
+
+/// A kept pregnancy journey (1.1 item 4): a frozen `PregnancyMemoryContent`
+/// stored as JSON, with no relationships, so adding it is a lightweight
+/// migration (every attribute has a default, like `PillDose` / `Contraction`).
+@Model
+public final class PregnancyMemory {
+    public var id: UUID = UUID()
+    public var createdAt: Date = Date()
+    /// Her title, for example a baby's name; empty when she gave none.
+    public var title: String = ""
+    /// `PregnancyEndBranch` raw value, readable without decoding the payload.
+    public var branchRaw: String = PregnancyEndBranch.birth.rawValue
+    /// `PregnancyMemoryContent` as JSON (`PregnancyMemoryContent.encoder`).
+    public var payload: Data = Data()
+
+    public init(record: PregnancyMemoryRecord) throws {
+        id = record.id
+        createdAt = record.createdAt
+        title = record.title
+        branchRaw = record.content.branch.rawValue
+        payload = try PregnancyMemoryContent.encoder.encode(record.content)
+    }
+
+    /// The bytes as restored from a backup, readable or not.
+    public init(stored: StoredPregnancyMemory) {
+        id = stored.id
+        createdAt = stored.createdAt
+        title = stored.title
+        branchRaw = stored.branchRaw
+        payload = stored.payload
+    }
+
+    /// Exactly what is stored, for the backup.
+    public var stored: StoredPregnancyMemory {
+        StoredPregnancyMemory(id: id, createdAt: createdAt, title: title, branchRaw: branchRaw, payload: payload)
+    }
+
+    /// nil when the payload cannot be read.
+    public var record: PregnancyMemoryRecord? { stored.record }
+}

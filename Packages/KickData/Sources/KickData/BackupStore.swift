@@ -18,7 +18,10 @@ public enum BackupStore {
             weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
             pillDoses: try context.fetch(FetchDescriptor<PillDose>(sortBy: [SortDescriptor(\.day)])).map(\.record),
             contractions: try context.fetch(FetchDescriptor<Contraction>(sortBy: [SortDescriptor(\.startedAt)])).map(\.record),
-            checklistItems: try context.fetch(FetchDescriptor<ChecklistItem>(sortBy: [SortDescriptor(\.createdAt)])).map(\.record)
+            checklistItems: try context.fetch(FetchDescriptor<ChecklistItem>(sortBy: [SortDescriptor(\.createdAt)])).map(\.record),
+            labourMarkers: try context.fetch(FetchDescriptor<LabourMarker>(sortBy: [SortDescriptor(\.at)])).map(\.record),
+            // The stored bytes, so even a payload this build cannot read is kept.
+            pregnancyMemories: try context.fetch(FetchDescriptor<PregnancyMemory>(sortBy: [SortDescriptor(\.createdAt)])).map(\.stored)
         )
     }
 
@@ -43,6 +46,8 @@ public enum BackupStore {
             try deleteEvery(PillDose.self, in: context)
             try deleteEvery(Contraction.self, in: context)
             try deleteEvery(ChecklistItem.self, in: context)
+            try deleteEvery(LabourMarker.self, in: context)
+            try deleteEvery(PregnancyMemory.self, in: context)
             for record in records.sessions {
                 insert(record, into: context)
             }
@@ -71,6 +76,12 @@ public enum BackupStore {
             }
             for record in records.checklistItems {
                 context.insert(ChecklistItem(record: record))
+            }
+            for record in records.labourMarkers {
+                context.insert(LabourMarker(record: record))
+            }
+            for record in records.pregnancyMemories {
+                context.insert(PregnancyMemory(stored: record))
             }
             try save(context)
         } catch {

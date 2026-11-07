@@ -213,12 +213,41 @@ struct ContractionStatsCard: View {
     }
 }
 
-/// The current episode, newest first: start time, length, interval, and a
-/// delete button per row (with a confirmation).
+/// The current episode, newest first: start time, length, interval, a delete
+/// button per row (with a confirmation) and a tap to edit. "Vỡ ối" markers sit
+/// in the list by their time.
 struct ContractionEpisodeCard: View {
     let episode: ContractionEpisode?
+    var markers: [LabourMarkerRecord] = []
     let onDelete: (ContractionEntry) -> Void
+    var onEdit: (ContractionEntry) -> Void = { _ in }
+    var onEditMarker: (LabourMarkerRecord) -> Void = { _ in }
+    var onDeleteMarker: (LabourMarkerRecord) -> Void = { _ in }
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private enum Item: Identifiable {
+        case entry(ContractionEntry)
+        case marker(LabourMarkerRecord)
+
+        var id: UUID {
+            switch self {
+            case .entry(let entry): entry.id
+            case .marker(let marker): marker.id
+            }
+        }
+
+        var time: Date {
+            switch self {
+            case .entry(let entry): entry.startedAt
+            case .marker(let marker): marker.at
+            }
+        }
+    }
+
+    private var items: [Item] {
+        let all = (episode?.entries.map(Item.entry) ?? []) + markers.map(Item.marker)
+        return all.sorted { $0.time > $1.time }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -227,14 +256,17 @@ struct ContractionEpisodeCard: View {
                 .foregroundStyle(.luna(.textPrimary))
                 .accessibilityAddTraits(.isHeader)
                 .padding(.bottom, 10)
-            if let episode {
-                if !dynamicTypeSize.isAccessibilitySize {
+            if !items.isEmpty {
+                if !dynamicTypeSize.isAccessibilitySize, episode != nil {
                     columnTitles
                         .padding(.bottom, 6)
                 }
-                ForEach(Array(episode.entries.reversed().enumerated()), id: \.element.id) { index, entry in
+                ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
                     if index > 0 { LunaDivider() }
-                    row(entry)
+                    switch item {
+                    case .entry(let entry): row(entry)
+                    case .marker(let marker): markerRow(marker)
+                    }
                 }
             } else {
                 Text(L10n.contractionListEmpty)
@@ -261,62 +293,121 @@ struct ContractionEpisodeCard: View {
 
     private func row(_ entry: ContractionEntry) -> some View {
         let start = Formatting.time(entry.startedAt)
-        let duration = entry.isRunning ? L10n.contractionRunning : ContractionClock.text(entry.duration)
-        let interval = entry.interval.map(ContractionClock.text) ?? L10n.contractionValueNone
+        let label = entry.isRunning
+            ? L10n.contractionRowA11yRunning(start)
+            : L10n.contractionRowA11y(
+                start: start,
+                duration: ContractionClock.text(entry.duration),
+                interval: entry.interval.map(ContractionClock.text)
+            )
         return HStack(spacing: 8) {
             Group {
-                if dynamicTypeSize.isAccessibilitySize {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(start)
-                            .font(.luna(.bodyStrong))
-                            .foregroundStyle(.luna(.textPrimary))
-                        Text(entry.isRunning ? duration : L10n.contractionListDuration + " " + duration)
-                            .foregroundStyle(.luna(entry.isRunning ? .pregText : .articleText))
-                        Text(L10n.contractionListInterval + " " + interval)
-                            .foregroundStyle(.luna(.articleText))
-                    }
-                    .font(.luna(.body))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                if entry.isRunning {
+                    rowText(entry)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(label)
                 } else {
-                    HStack(spacing: 8) {
-                        Text(start)
-                            .font(.luna(.bodyStrong))
-                            .foregroundStyle(.luna(.textPrimary))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(duration)
-                            .font(.luna(entry.isRunning ? .bodyStrong : .body))
-                            .foregroundStyle(.luna(entry.isRunning ? .pregText : .articleText))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(interval)
-                            .font(.luna(.body))
-                            .foregroundStyle(.luna(.articleText))
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                    // A completed row opens the edit sheet; a running one is stopped first.
+                    Button { onEdit(entry) } label: {
+                        rowText(entry)
+                            .frame(minHeight: 44)
+                            .contentShape(Rectangle())
                     }
-                    .monospacedDigit()
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
+                    .buttonStyle(.plain)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(label)
+                    .accessibilityHint(L10n.contractionEditHint)
+                    .accessibilityAddTraits(.isButton)
                 }
             }
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(entry.isRunning
-                ? L10n.contractionRowA11yRunning(start)
-                : L10n.contractionRowA11y(
-                    start: start,
-                    duration: ContractionClock.text(entry.duration),
-                    interval: entry.interval.map(ContractionClock.text)
-                ))
             .accessibilityIdentifier("contractionRow")
-            Button { onDelete(entry) } label: {
-                Image(systemName: "trash")
-                    .font(.system(size: 15, weight: .regular))
-                    .foregroundStyle(.luna(.textSecondary))
-                    .frame(width: 44, height: 44)
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(L10n.contractionDeleteA11y)
-            .accessibilityIdentifier("contractionDelete")
+            deleteButton(identifier: "contractionDelete", label: L10n.contractionDeleteA11y) { onDelete(entry) }
         }
         .padding(.vertical, 2)
+    }
+
+    private func rowText(_ entry: ContractionEntry) -> some View {
+        let start = Formatting.time(entry.startedAt)
+        let duration = entry.isRunning ? L10n.contractionRunning : ContractionClock.text(entry.duration)
+        let interval = entry.interval.map(ContractionClock.text) ?? L10n.contractionValueNone
+        return Group {
+            if dynamicTypeSize.isAccessibilitySize {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(start)
+                        .font(.luna(.bodyStrong))
+                        .foregroundStyle(.luna(.textPrimary))
+                    Text(entry.isRunning ? duration : L10n.contractionListDuration + " " + duration)
+                        .foregroundStyle(.luna(entry.isRunning ? .pregText : .articleText))
+                    Text(L10n.contractionListInterval + " " + interval)
+                        .foregroundStyle(.luna(.articleText))
+                }
+                .font(.luna(.body))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                HStack(spacing: 8) {
+                    Text(start)
+                        .font(.luna(.bodyStrong))
+                        .foregroundStyle(.luna(.textPrimary))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(duration)
+                        .font(.luna(entry.isRunning ? .bodyStrong : .body))
+                        .foregroundStyle(.luna(entry.isRunning ? .pregText : .articleText))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(interval)
+                        .font(.luna(.body))
+                        .foregroundStyle(.luna(.articleText))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .monospacedDigit()
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+            }
+        }
+    }
+
+    /// "Vỡ ối  14:05": a tap edits its time, the trash deletes it (with a confirmation).
+    private func markerRow(_ marker: LabourMarkerRecord) -> some View {
+        let time = Formatting.time(marker.at)
+        return HStack(spacing: 8) {
+            Button { onEditMarker(marker) } label: {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Image(systemName: "drop.fill")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(.luna(.pregText))
+                        .accessibilityHidden(true)
+                    Text(L10n.contractionWaterBrokeButton)
+                        .font(.luna(.bodyStrong))
+                        .foregroundStyle(.luna(.pregText))
+                    Spacer(minLength: 8)
+                    Text(time)
+                        .font(.luna(.bodyStrong))
+                        .monospacedDigit()
+                        .foregroundStyle(.luna(.textPrimary))
+                }
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(L10n.contractionWaterBrokeAt(time))
+            .accessibilityHint(L10n.contractionEditHint)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityIdentifier("contractionMarkerRow")
+            deleteButton(identifier: "contractionMarkerDelete", label: L10n.contractionDeleteA11y) { onDeleteMarker(marker) }
+        }
+        .padding(.vertical, 2)
+    }
+
+    private func deleteButton(identifier: String, label: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: "trash")
+                .font(.system(size: 15, weight: .regular))
+                .foregroundStyle(.luna(.textSecondary))
+                .frame(width: 44, height: 44)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+        .accessibilityIdentifier(identifier)
     }
 }

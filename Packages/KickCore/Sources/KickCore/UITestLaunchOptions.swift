@@ -27,6 +27,13 @@ import Foundation
 ///   instead of `ContractionRules.undoWindow`, so a slow CI simulator can still tap it.
 /// - `-seedLastBackupDaysAgo <days>` stores a last backup that many days before the pinned
 ///   now, so Profile shows the backup reminder card (1.1) when it is 30 or more.
+/// - `-seedPregnancyEnded <birth|loss>:<daysAgo>` (1.1 item 4) stores a pregnancy that ended
+///   that many days before the pinned today, in the cycle mode with predictions paused, and
+///   one sample memory (`PregnancyEndSeed`).
+/// - `-seedCareLowStreak <n>` stores that many low check-in answers in a row.
+/// - `-uiTestingReportPreview` makes "Report for your doctor" write its PDF to a known path and
+///   show its pages (scrollable) with the page count, instead of the share sheet (1.1).
+/// - `-uiTestingReportLongNote` adds an appointment with a note of about 3,000 characters to that report.
 public struct UITestLaunchOptions: Equatable, Sendable {
     public let isUITesting: Bool
     public let fixedNow: Date?
@@ -47,6 +54,10 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedContractions: ContractionSeed?
     public let contractionUndoWindow: TimeInterval?
     public let seedLastBackupDaysAgo: Int?
+    public let seedPregnancyEnded: PregnancyEndSeed?
+    public let seedCareLowStreak: Int?
+    public let reportPreview: Bool
+    public let reportLongNote: Bool
 
     public init(arguments: [String]) {
         isUITesting = arguments.contains("-uiTesting")
@@ -80,6 +91,14 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         seedLastBackupDaysAgo = isUITesting
             ? Self.value(after: "-seedLastBackupDaysAgo", in: arguments).flatMap { Int($0) }.flatMap { $0 >= 0 ? $0 : nil }
             : nil
+        seedPregnancyEnded = isUITesting
+            ? Self.value(after: "-seedPregnancyEnded", in: arguments).flatMap(PregnancyEndSeed.init(argument:))
+            : nil
+        seedCareLowStreak = isUITesting
+            ? Self.value(after: "-seedCareLowStreak", in: arguments).flatMap { Int($0) }.flatMap { $0 >= 0 ? $0 : nil }
+            : nil
+        reportPreview = isUITesting && arguments.contains("-uiTestingReportPreview")
+        reportLongNote = isUITesting && arguments.contains("-uiTestingReportLongNote")
     }
 
     private static func value(after flag: String, in arguments: [String]) -> String? {
@@ -110,5 +129,57 @@ public struct PillSeed: Equatable, Sendable {
     public func settings(today: Date, calendar: Calendar) -> PillReminderSettings {
         let start = CalendarDay(today, calendar: calendar).adding(days: -offsetDays)
         return PillReminderSettings(enabled: true, packType: type, packStartDay: start, hour: 21, minute: 0)
+    }
+}
+
+/// `-seedPregnancyEnded <birth|loss>:<daysAgo>` (1.1 item 4): a pregnancy that
+/// ended `daysAgo` days before the pinned today, and one sample memory.
+public struct PregnancyEndSeed: Equatable, Sendable {
+    public let branch: PregnancyEndBranch
+    public let daysAgo: Int
+
+    public init(branch: PregnancyEndBranch, daysAgo: Int) {
+        self.branch = branch
+        self.daysAgo = daysAgo
+    }
+
+    public init?(argument: String) {
+        let parts = argument.split(separator: ":")
+        guard parts.count == 2, let branch = PregnancyEndBranch(rawValue: String(parts[0])),
+              let days = Int(parts[1]), days >= 0 else { return nil }
+        self.init(branch: branch, daysAgo: days)
+    }
+
+    public func state(now: Date, calendar: Calendar) -> PregnancyEndState {
+        let today = calendar.startOfDay(for: now)
+        let end = calendar.date(byAdding: .day, value: -daysAgo, to: today) ?? today
+        return PregnancyEndState(branch: branch, endDate: end, calendar: calendar)
+    }
+
+    /// A journey of 39 weeks (birth) or 12 weeks (loss) with a few entries of each kind.
+    public func memory(now: Date, calendar: Calendar) -> PregnancyMemoryContent {
+        let end = state(now: now, calendar: calendar).endDate
+        let weeks = branch == .birth ? 39 : 12
+        func day(_ offset: Int) -> Date { calendar.date(byAdding: .day, value: offset, to: end) ?? end }
+        let start = day(-weeks * 7)
+        let lastWeeks = branch == .birth ? [-20, -13, -6] : [-30, -16, -9]
+        return PregnancyMemoryContent(
+            branch: branch,
+            start: start,
+            end: end,
+            furthestWeek: weeks,
+            kickDays: branch == .birth
+                ? lastWeeks.map { KickDay(day: day($0), sessionCount: 2, totalKicks: 20, bestDuration: 18 * 60) }
+                : [],
+            appointments: [
+                MemoryAppointment(date: day(-weeks * 7 + 56).addingTimeInterval(9 * 3600), title: "Siêu âm", note: "Nghe tim bé"),
+                MemoryAppointment(date: day(lastWeeks[1]).addingTimeInterval(9 * 3600), title: "Khám định kỳ", note: ""),
+            ],
+            weights: lastWeeks.enumerated().map { MemoryWeight(day: day($0.element), kg: 54 + Double($0.offset)) },
+            notes: [
+                MemoryNote(day: day(-weeks * 7 + 50), text: "Hôm nay biết tin, vui quá.", moods: ["happy"], pregnancySymptoms: ["nausea"]),
+                MemoryNote(day: day(lastWeeks[2]), text: "Nói chuyện với con trước khi ngủ.", moods: ["calm"], pregnancySymptoms: []),
+            ]
+        )
     }
 }

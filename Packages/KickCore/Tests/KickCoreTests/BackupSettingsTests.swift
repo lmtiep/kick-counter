@@ -18,10 +18,61 @@ struct BackupSettingsTests {
             SettingsKey.reviewAskedVersions,
             SettingsKey.backupFirstUseAt,
             SettingsKey.backupReminderSnoozedAt,
+            SettingsKey.careCheckInLastShown,
+            SettingsKey.careCheckInLowStreak,
         ])
         #expect(Set(BackupSettings.table.keys) == expected)
         #expect(BackupSettings.excludedKeys.isDisjoint(with: BackupSettings.table.keys))
         #expect(Set(BackupSettings.table.keys).union(BackupSettings.excludedKeys) == Set(AppDataReset.ownedKeys))
+    }
+
+    /// 1.1 item 4: the ended state and the check-in answers stay on this phone.
+    /// Review fix 1: the ended state and her check-in choices travel; the feelings do not.
+    @Test func endStateAndCheckInChoicesTravelButNotTheFeelings() {
+        for key in PregnancyEndState.keys + [
+            SettingsKey.careCheckInEnabled, SettingsKey.careCheckInNotify, SettingsKey.careCheckInStopped,
+        ] {
+            #expect(BackupSettings.table[key] != nil, "\(key)")
+        }
+        for key in [SettingsKey.careCheckInLastShown, SettingsKey.careCheckInLowStreak] {
+            #expect(BackupSettings.excludedKeys.contains(key), "\(key)")
+            #expect(BackupSettings.table[key] == nil, "\(key)")
+        }
+    }
+
+    /// Review fix 1: back up, restore on a fresh phone: still paused, same answers.
+    @Test func restoreKeepsThePauseAndTheChoices() throws {
+        let source = makeTestDefaults()
+        let declined = UUID()
+        let state = PregnancyEndState(
+            branch: .loss, endDate: date("2026-08-20T00:00:00Z"), rangeStart: date("2026-05-01T00:00:00Z"), calendar: utcCalendar
+        )
+        state.save(to: source)
+        PregnancyEndState.saveDeclinedPeriods([declined], to: source)
+        var care = CareCheckInState()
+        care.stopped = true
+        care.notify = true
+        care.lowStreak = 2
+        care.lastShown = date("2026-09-20T00:00:00Z")
+        care.save(to: source)
+
+        let document = BackupDocument(
+            createdAt: date("2026-10-01T00:00:00Z"), appVersion: "1.1",
+            sessions: [], appointments: [], periods: [], cycleLogs: [], weights: [],
+            settings: BackupSettings.read(from: source)
+        )
+        let decoded = try BackupCodec.decode(BackupCodec.encode(document))
+        let target = makeTestDefaults()
+        BackupSettings.restore(decoded.settings, backupCreatedAt: decoded.createdAt, to: target)
+
+        let restored = try #require(PregnancyEndState.load(from: target))
+        #expect(restored == state)
+        #expect(PregnancyEndState.declinedPeriods(in: target) == [declined])
+        let old = PeriodRecord(startDate: date("2026-01-10T00:00:00Z"), endDate: date("2026-01-14T00:00:00Z"))
+        #expect(CyclePause.isPaused(restored, periods: [old]), "no \"290 days late\" after a restore")
+        let restoredCare = CareCheckInState.load(from: target)
+        #expect(restoredCare.stopped && restoredCare.notify)
+        #expect(restoredCare.lowStreak == 0 && restoredCare.lastShown == nil, "the feelings stay on the old phone")
     }
 
     @Test func lastBackupAtIsOwnedAndADate() {

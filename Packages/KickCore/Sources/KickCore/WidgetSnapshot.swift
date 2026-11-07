@@ -12,6 +12,8 @@ public struct WidgetInput: Equatable, Sendable {
     public var dueDate: Date?
     /// The count of today's latest finished kick session, nil when none.
     public var kicksToday: Int?
+    /// An ended pregnancy (1.1 item 4): predictions pause until the first period after it.
+    public var endState: PregnancyEndState?
 
     public init(
         mode: AppMode,
@@ -21,7 +23,8 @@ public struct WidgetInput: Equatable, Sendable {
         periods: [PeriodRecord] = [],
         logs: [CycleLogRecord] = [],
         dueDate: Date? = nil,
-        kicksToday: Int? = nil
+        kicksToday: Int? = nil,
+        endState: PregnancyEndState? = nil
     ) {
         self.mode = mode
         self.hasCompletedOnboarding = hasCompletedOnboarding
@@ -31,6 +34,7 @@ public struct WidgetInput: Equatable, Sendable {
         self.logs = logs
         self.dueDate = dueDate
         self.kicksToday = kicksToday
+        self.endState = endState
     }
 }
 
@@ -47,6 +51,9 @@ public struct WidgetSnapshot: Equatable, Sendable {
         /// Cycle mode while trying to conceive.
         case fertility(FertilityContent)
         case pregnancy(PregnancyContent)
+        /// Cycle mode after a pregnancy ended, before the first period is confirmed:
+        /// no prediction, one gentle line (never naming the pregnancy).
+        case paused
     }
 
     public enum PeriodHeadline: Equatable, Sendable {
@@ -127,8 +134,10 @@ public struct WidgetSnapshot: Equatable, Sendable {
         case .pregnant:
             return pregnancy(input, now: now, calendar: calendar)
         case .tryingToConceive:
+            if CyclePause.isPaused(input.endState, periods: input.periods) { return .paused }
             guard let forecast = CyclePredictor.forecast(
-                periods: input.periods, logs: input.logs, settings: input.settings, now: now, calendar: calendar
+                periods: CyclePause.periodsForForecast(input.periods, state: input.endState),
+                logs: input.logs, settings: input.settings, now: now, calendar: calendar
             ) else { return .needsSetup }
             let policy = CycleDisplayPolicy(input.preferences)
             return input.preferences.goal == .tracking

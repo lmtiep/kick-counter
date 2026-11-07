@@ -52,6 +52,9 @@ public enum ContractionRules {
     /// to one episode. The Live Activity also ends after this long without a
     /// new contraction.
     public static let episodeGap: TimeInterval = 2 * 60 * 60
+    /// A "Vỡ ối" marker stays current this long, and joins contractions that
+    /// begin up to this long after it (edit spec 2026-11-06). No medical meaning.
+    public static let markerWindow: TimeInterval = 24 * 60 * 60
     /// The "last hour" the stats and both alerts look at (items 96, 97).
     public static let window: TimeInterval = 60 * 60
     /// From this week the 5-1-1 rule applies; before it, the preterm rule (item 97).

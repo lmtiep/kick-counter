@@ -68,9 +68,9 @@ final class SystemLiveActivityManager: LiveActivityManaging {
         await activity.end(activity.content, dismissalPolicy: policy)
     }
 
-    func endAll() async {
+    func endAll(force: Bool) async {
         let snapshot = activities
-        for activity in snapshot where activity.content.state.completedAt == nil {
+        for activity in snapshot where force || activity.content.state.completedAt == nil {
             await activity.end(nil, dismissalPolicy: .immediate)
         }
     }

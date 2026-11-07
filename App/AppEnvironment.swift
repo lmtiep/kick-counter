@@ -15,6 +15,7 @@ struct AppEnvironment {
     let weight: WeightCoordinator
     let pill: PillCoordinator
     let contractions: ContractionCoordinator
+    let pregnancyEnding: PregnancyEnding
     let content: WeeklyContentLibrary?
     let knowledge: KnowledgeLibrary?
     let sharing: any PartnerSharing
@@ -108,12 +109,24 @@ struct AppEnvironment {
             store: AppointmentStore(context: container.mainContext),
             notifications: notifications,
             reminderText: ReminderTexts.appointment,
-            now: { AppClock.now() }
+            now: { AppClock.now() },
+            // After a pregnancy ended no check-up reminder reaches her (1.1 item 4).
+            remindersSilenced: { PregnancyEndState.load(from: AppGroup.defaults) != nil }
         )
         let cycleStore = CycleStore(context: container.mainContext)
         #if DEBUG
         if isUITesting, let scenario = AppClock.launchOptions.seedCycles {
             try seedCycles(scenario, into: cycleStore)
+        }
+        #endif
+        #if DEBUG
+        if isUITesting, let seed = AppClock.launchOptions.seedPregnancyEnded {
+            try seedPregnancyEnded(seed, into: container)
+        }
+        if isUITesting, let streak = AppClock.launchOptions.seedCareLowStreak {
+            var care = CareCheckInState.load(from: AppGroup.defaults)
+            care.lowStreak = streak
+            care.save(to: AppGroup.defaults)
         }
         #endif
         let cycle = CycleCoordinator(
@@ -159,6 +172,7 @@ struct AppEnvironment {
         // read as the timer screen does (the pinnable AppClock).
         let contractions = ContractionCoordinator(
             store: contractionStore,
+            markers: LabourMarkerStore(context: container.mainContext),
             liveActivities: isUITesting
                 ? NoopContractionLiveActivityManager(isAvailable: !arguments.contains("-contractionLiveActivitiesOff"))
                 : SystemContractionLiveActivityManager(),
@@ -187,6 +201,10 @@ struct AppEnvironment {
             weight: weight,
             pill: pill,
             contractions: contractions,
+            pregnancyEnding: PregnancyEnding(
+                kicks: coordinator, contractions: contractions, cycle: cycle,
+                appointments: appointments, weight: weight, container: container
+            ),
             content: WeeklyContentLibrary.loadBundled(),
             knowledge: KnowledgeLibrary.loadBundled(),
             sharing: sharing,
@@ -237,6 +255,24 @@ struct AppEnvironment {
         for log in records.logs {
             try store.saveLog(log, today: now)
         }
+    }
+
+    /// `-uiTesting -seedPregnancyEnded <branch>:<days>` (1.1 item 4): the cycle mode after an
+    /// ended pregnancy (the tracking goal unless one is seeded), predictions paused, and one memory.
+    private static func seedPregnancyEnded(_ seed: PregnancyEndSeed, into container: ModelContainer) throws {
+        let now = AppClock.now()
+        let defaults = AppGroup.defaults
+        var state = seed.state(now: now, calendar: .current)
+        state.rangeStart = seed.memory(now: now, calendar: .current).start
+        state.save(to: defaults)
+        PregnancyProfile.clear(defaults)
+        AppMode.save(.tryingToConceive, to: defaults)
+        if defaults.object(forKey: SettingsKey.cycleGoal) == nil {
+            defaults.set(CycleGoal.tracking.rawValue, forKey: SettingsKey.cycleGoal)
+        }
+        try PregnancyMemoryStore(context: container.mainContext).archive(
+            memory: seed.memory(now: now, calendar: .current), title: "", deleting: PregnancyRawRowIDs(), now: now
+        )
     }
 
     /// `-uiTesting -seedWeights`: the design's pre-pregnancy weight (52 kg), height

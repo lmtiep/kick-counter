@@ -29,8 +29,23 @@ struct BackupStoreTests {
         context.insert(WeightEntry(record: WeightRecord(day: day, kg: 50)))
         context.insert(PillDose(record: PillDoseRecord(day: CalendarDay(year: 2026, month: 9, day: 1), takenAt: day.addingTimeInterval(75_600))))
         context.insert(Contraction(record: ContractionRecord(startedAt: day, endedAt: day.addingTimeInterval(60))))
+        context.insert(LabourMarker(record: LabourMarkerRecord(at: day)))
+        context.insert(try PregnancyMemory(record: oldMemory))
         try context.save()
     }
+
+    private let oldMemory = PregnancyMemoryRecord(
+        createdAt: date("2026-09-02T00:00:00Z"), title: "Cũ",
+        content: PregnancyMemoryContent(branch: .birth, start: nil, end: date("2026-09-01T00:00:00Z"), furthestWeek: nil)
+    )
+
+    private let newMemory = PregnancyMemoryRecord(
+        createdAt: date("2026-10-09T00:00:00Z"), title: "Mới",
+        content: PregnancyMemoryContent(
+            branch: .loss, start: date("2026-06-01T00:00:00Z"), end: date("2026-08-20T00:00:00Z"), furthestWeek: 11,
+            notes: [MemoryNote(day: date("2026-07-01T00:00:00Z"), text: "ghi", moods: [], pregnancySymptoms: ["nausea"])]
+        )
+    )
 
     private func newRecords() -> BackupRecords {
         let start = date("2026-10-08T20:00:00Z")
@@ -61,7 +76,9 @@ struct BackupStoreTests {
             contractions: [
                 ContractionRecord(startedAt: date("2026-10-08T21:00:00Z"), endedAt: date("2026-10-08T21:00:50Z")),
                 ContractionRecord(startedAt: date("2026-10-08T21:06:00Z")),
-            ]
+            ],
+            labourMarkers: [LabourMarkerRecord(at: date("2026-10-08T21:30:00Z"))],
+            pregnancyMemories: [try! StoredPregnancyMemory(newMemory)]
         )
     }
 
@@ -73,7 +90,9 @@ struct BackupStoreTests {
             logs: records.logs.sorted { $0.day < $1.day },
             weights: records.weights.sorted { $0.day < $1.day },
             pillDoses: records.pillDoses.sorted { $0.day < $1.day },
-            contractions: records.contractions.sorted { $0.startedAt < $1.startedAt }
+            contractions: records.contractions.sorted { $0.startedAt < $1.startedAt },
+            labourMarkers: records.labourMarkers.sorted { $0.at < $1.at },
+            pregnancyMemories: records.pregnancyMemories.sorted { $0.createdAt < $1.createdAt }
         )
     }
 
@@ -88,6 +107,8 @@ struct BackupStoreTests {
         #expect(exported.weights.map(\.kg) == [50])
         #expect(exported.pillDoses.map(\.day) == [CalendarDay(year: 2026, month: 9, day: 1)])
         #expect(exported.contractions.map(\.startedAt) == [date("2026-09-01T00:00:00Z")])
+        #expect(exported.labourMarkers.map(\.at) == [date("2026-09-01T00:00:00Z")])
+        #expect(exported.pregnancyMemories.compactMap(\.record) == [oldMemory])
     }
 
     @Test func replaceAllSwapsEverythingForTheFileRecords() throws {
@@ -102,6 +123,8 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 2)
         #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 2)
+        #expect(try context.fetchCount(FetchDescriptor<LabourMarker>()) == 1)
+        #expect(try context.fetchCount(FetchDescriptor<PregnancyMemory>()) == 1)
     }
 
     @Test func replaceAllThenExportRoundTripsThroughTheCodec() throws {
@@ -116,6 +139,7 @@ struct BackupStoreTests {
         #expect(decoded.cycleLogs.first?.record.unknownMoodsRaw == ["dreamy"])
         #expect(decoded.records.pillDoses.count == 2)
         #expect(decoded.records.contractions.count == 2)
+        #expect(decoded.records.pregnancyMemories.compactMap(\.record) == [newMemory])
     }
 
     /// The safety proof: a save that fails leaves every old record in place and
@@ -134,6 +158,7 @@ struct BackupStoreTests {
         #expect(try context.fetchCount(FetchDescriptor<KickSession>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<PillDose>()) == 1)
         #expect(try context.fetchCount(FetchDescriptor<Contraction>()) == 1)
+        #expect(try context.fetchCount(FetchDescriptor<PregnancyMemory>()) == 1)
         #expect(!context.hasChanges)
         // A later save does not resurrect the abandoned replace.
         try context.save()
@@ -147,6 +172,7 @@ struct BackupStoreTests {
         #expect(exported.sessions.isEmpty && exported.appointments.isEmpty && exported.periods.isEmpty)
         #expect(exported.logs.isEmpty && exported.weights.isEmpty && exported.pillDoses.isEmpty)
         #expect(exported.contractions.isEmpty)
+        #expect(exported.pregnancyMemories.isEmpty)
         #expect(try container.mainContext.fetchCount(FetchDescriptor<Kick>()) == 0)
     }
 
@@ -178,5 +204,23 @@ struct BackupStoreTests {
         try BackupStore.replaceAll(in: container, with: exported)
         let stored = try #require(try context.fetch(FetchDescriptor<CycleLog>()).first)
         #expect(stored.lhRaw == "faint" && stored.mucusRaw == "watery" && stored.flowRaw == "spotting")
+    }
+
+    /// Review fix 6: a memory this build cannot read is exported byte for byte and restored.
+    @Test func anUnreadableMemoryIsExportedAndRestoredAsIs() throws {
+        let context = container.mainContext
+        let unreadable = StoredPregnancyMemory(
+            id: UUID(), createdAt: date("2026-10-01T00:00:00Z"), title: "Future", branchRaw: "loss",
+            payload: Data(#"{"version":9}"#.utf8)
+        )
+        context.insert(PregnancyMemory(stored: unreadable))
+        try context.save()
+        let exported = try BackupStore.export(from: container)
+        #expect(exported.pregnancyMemories == [unreadable])
+        let decoded = try BackupCodec.decode(BackupCodec.encode(BackupDocument(
+            createdAt: date("2026-10-09T09:00:00Z"), appVersion: "test", records: exported, settings: [:]
+        )))
+        try BackupStore.replaceAll(in: container, with: decoded.records)
+        #expect(try BackupStore.export(from: container).pregnancyMemories == [unreadable])
     }
 }

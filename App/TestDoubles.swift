@@ -20,7 +20,7 @@ final class NoopLiveActivityManager: LiveActivityManaging {
     func start(sessionID: UUID, startedAt: Date, count: Int) async {}
     func update(sessionID: UUID, count: Int, completedAt: Date?) async {}
     func end(sessionID: UUID, dismissAfter: TimeInterval) async {}
-    func endAll() async {}
+    func endAll(force: Bool) async {}
 }
 
 /// The contraction Live Activity in UI tests: no system prompt or activity.

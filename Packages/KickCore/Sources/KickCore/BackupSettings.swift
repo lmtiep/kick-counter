@@ -72,6 +72,10 @@ public enum BackupSettings {
         // The backup reminder belongs to this phone too (1.1).
         SettingsKey.backupFirstUseAt,
         SettingsKey.backupReminderSnoozedAt,
+        // The check-in answers stay on this phone (1.1 item 4): when the last one
+        // was shown and the low streak. Her choices and the ended state travel.
+        SettingsKey.careCheckInLastShown,
+        SettingsKey.careCheckInLowStreak,
     ]
 
     /// `AppDataReset.ownedKeys` minus `excludedKeys` (`BackupSettingsTests` checks it).
@@ -103,6 +107,15 @@ public enum BackupSettings {
         SettingsKey.pillReminderMinute: .int,
         SettingsKey.contractionEpisodeEndedAt: .date,
         SettingsKey.contractionAlertNotified: .string,
+        // 1.1 item 4: a restore keeps the prediction pause and her check-in choices.
+        SettingsKey.pregnancyEndBranch: .string,
+        SettingsKey.pregnancyEndDate: .double,
+        SettingsKey.pregnancyEndRangeStart: .double,
+        SettingsKey.pregnancyEndFirstPeriodID: .string,
+        SettingsKey.pregnancyEndDeclinedPeriods: .string,
+        SettingsKey.careCheckInEnabled: .bool,
+        SettingsKey.careCheckInNotify: .bool,
+        SettingsKey.careCheckInStopped: .bool,
     ]
 
     /// The table's keys that `defaults` holds, read with their table type.

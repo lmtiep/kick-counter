@@ -41,6 +41,16 @@ struct WidgetReaderTests {
         #expect(input.logs.count == 1)
     }
 
+    @Test func cycleModeReadsTheEndedPregnancy() throws {
+        defaults.set(true, forKey: SettingsKey.hasCompletedOnboarding)
+        AppMode.save(.tryingToConceive, to: defaults)
+        let end = PregnancyEndState(branch: .loss, endDate: date("2026-09-01T00:00:00Z"), calendar: utcCalendar)
+        end.save(to: defaults)
+        let input = try read()
+        #expect(input.endState == end)
+        #expect(WidgetSnapshot.make(input, now: now, calendar: utcCalendar).content == .paused)
+    }
+
     @Test func readingMergesDuplicatesInMemoryWithoutDeletingThem() throws {
         defaults.set(true, forKey: SettingsKey.hasCompletedOnboarding)
         AppMode.save(.tryingToConceive, to: defaults)

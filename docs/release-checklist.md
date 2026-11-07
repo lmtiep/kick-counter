@@ -168,7 +168,7 @@
 - [ ] Chế độ tối: mọi màn đọc rõ (bảng màu tối suy ra, spec §3).
 - [ ] Cảnh báo 2 giờ (đặt giờ máy hoặc để lượt đếm chạy): ở tiếng Việt nút "Gọi cấp cứu 115" mở cuộc gọi 115;
       ở tiếng Anh không có nút; thông báo đẩy 2 giờ vẫn đến.
-- [ ] Cá nhân → "Kết thúc theo dõi thai kỳ" → về Mong con, dữ liệu thai kỳ và lịch khám còn; "Xem lại phần giới
+- [ ] Cá nhân → "Thai kỳ của tôi đã kết thúc" (1.1, xem mục "1.1 — Khi thai kỳ kết thúc"); "Xem lại phần giới
       thiệu" không xóa gì.
 
 ## Giai đoạn 5 — Ghi triệu chứng & Cân nặng mẹ
@@ -569,3 +569,47 @@ hành động trên thông báo khi khoá màn hình).
 - [ ] Chế độ tối và chế độ màu (Tinted / Accented, iOS 18): chữ chính vẫn đọc rõ, tranh quả không bị mất.
 - [ ] Cỡ chữ lớn (Cài đặt → Trợ năng): chữ không bị cắt (co lại thay vì tràn). VoiceOver đọc một câu đầy đủ cho mỗi widget.
 - [ ] Không có yêu cầu mạng nào từ extension widget (Instruments → Network, hoặc Cài đặt → Quyền riêng tư → Báo cáo hoạt động ứng dụng).
+
+## 1.1 — Khi thai kỳ kết thúc
+
+### Kiểm thử thủ công trên máy thật (vi và en, cả hai nhánh)
+- [ ] Mang thai, bật nhắc đếm cử động, có lịch khám sắp tới, đang đếm dở một lượt và vừa xong một lượt (thẻ "Xong!" còn trên
+      Màn hình khoá), đang bấm giờ một cơn gò. Cá nhân → "Thai kỳ của tôi đã kết thúc" → một nhánh → Xác nhận.
+- [ ] Không còn thông báo thai kỳ nào đang chờ: dùng bảng liệt kê thông báo chờ (bản debug, hoặc Xcode → Debug →
+      `UNUserNotificationCenter.getPendingNotificationRequests`); không còn `daily-reminder`, `overdue-*`, `appointment-*`,
+      `contraction-alert-*`. Nhắc chu kỳ và nhắc uống thuốc vẫn như cũ.
+- [ ] Màn hình khoá và Dynamic Island: không còn Live Activity đếm cử động (kể cả thẻ "Xong!") hay cơn gò.
+- [ ] Không có hộp hỏi quyền thông báo nào khi kết thúc. Đổi ngôn ngữ, mở lại app: nhắc đếm cử động và nhắc lịch khám không quay lại.
+- [ ] Bật "Gửi thông báo nhẹ nhàng" ở Cá nhân → Hỏi thăm (có thể hỏi quyền lúc này). Đặt giờ máy tới 10:00 ngày hỏi thăm: thông
+      báo chỉ ghi "Luna Mom gửi bạn một lời hỏi thăm", không nhắc mang thai, sinh hay mất bé; Màn hình khoá không hiện gì thêm.
+- [ ] Widget (Màn hình chính và khoá) hiện "Ghi lại khi có kinh nhé", không có dự đoán. Ghi kỳ kinh, trả lời "Đúng vậy": widget
+      và Hôm nay có dự đoán lại.
+- [ ] "Cảm ơn, mình ổn rồi" và tắt "Hỏi thăm tôi": thông báo `care-checkin` bị huỷ. "Tôi có thai" lại: thẻ hỏi thăm, tạm dừng
+      và thông báo biến mất; Kỷ niệm vẫn còn.
+- [ ] Nâng cấp từ bản 1.0 có dữ liệu (cài bản App Store, thêm dữ liệu, rồi cài bản này lên trên): mọi dữ liệu còn nguyên, kết
+      thúc thai kỳ khi không có ngày dự sinh vẫn chạy.
+- [ ] Sao lưu có kỷ niệm → "Xoá toàn bộ dữ liệu" → khôi phục: kỷ niệm quay lại; Kỷ niệm không còn sau khi xoá toàn bộ.
+
+## Siri, Nút Tác vụ và Trung tâm điều khiển (1.1)
+
+Chỉ thử được trên máy thật (không có trong simulator): giọng nói Siri, Nút Tác vụ, Trung tâm điều khiển (iOS 18+), màn hình khoá.
+Logic quyết định đã có test trong `scripts/test-core.sh` (`SiriPlannerTests`, `SiriControlsTests`).
+
+### Kiểm thử thủ công trên máy thật
+- [ ] **Siri tiếng Việt** (Cài đặt → Siri → ngôn ngữ Tiếng Việt): nói "Ghi cử động trong Luna Mom", "Bấm cơn gò trong Luna Mom",
+      "Kết thúc theo dõi cơn gò trong Luna Mom". Mỗi câu chạy không mở app và Siri đọc đúng câu trả lời ngắn (không có số liệu).
+      Lặp lại bằng tiếng Anh (Record a kick / Time a contraction / Stop timing contractions in Luna Mom).
+- [ ] Không cần cài đặt trước: các câu trên cũng hiện trong Spotlight và ứng dụng Phím tắt.
+- [ ] Ghi cử động: lần đầu tạo lượt đếm và hiện Live Activity; mỗi lần nói/chạm tiếp theo thêm đúng một cử động (khớp nút "+" trên
+      Live Activity), câu trả lời chỉ là "Đã ghi một cử động." (không số liệu, không nhắc thẻ màn hình khoá).
+- [ ] Cơn gò: nói lần một bắt đầu tính giờ (Live Activity hiện), lần hai kết thúc; chạm quá ngắn (dưới 3 giây) không được lưu.
+      "Kết thúc theo dõi" khi không có phiên nào: báo không có gì để kết thúc.
+- [ ] Chế độ Theo dõi chu kỳ / Mong con / Người thân và chưa xong giới thiệu: cả ba câu chỉ trả lời ngắn, không bắt đầu gì cả.
+- [ ] **Nút Tác vụ** (iPhone 15 Pro trở lên): Cài đặt → Nút Tác vụ → Phím tắt / Điều khiển → chọn "Ghi cử động thai" hoặc
+      "Bấm cơn gò". Nhấn giữ nút: chạy không mở khoá app.
+- [ ] **Trung tâm điều khiển** (iOS 18): thêm điều khiển "Ghi cử động" và "Cơn gò" (Chỉnh sửa → Thêm điều khiển → Luna Mom), chạm:
+      chạy như Siri. Cũng thêm được vào hai ô ở Màn hình khoá. iOS 17: app vẫn chạy bình thường, chỉ không có điều khiển.
+- [ ] **Màn hình khoá đang khoá**: điều khiển và Nút Tác vụ chạy được; câu trả lời không đọc số liệu. Kiểm tra cả khi app đã bị vuốt tắt
+      (iOS mở app nền để chạy) và khi Chế độ tập trung đang bật.
+- [ ] Tên và mô tả điều khiển đúng tiếng Việt / tiếng Anh theo ngôn ngữ máy; nội dung câu trả lời theo ngôn ngữ trong app (Cá nhân → Ngôn ngữ).
+- [ ] Không câu nào có từ ngữ y khoa; Quyền riêng tư: không có yêu cầu mạng nào.
