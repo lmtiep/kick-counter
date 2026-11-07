@@ -81,9 +81,11 @@ final class ContractionEditUITests: XCTestCase {
         format.locale = Locale(identifier: "en_US")
         format.dateFormat = "h"
         let hour = format.string(from: target)
-        wheels.element(boundBy: 0).adjust(toPickerWheelValue: hour)
+        // AM/PM first: the picker stops at now, so setting the hour first could ask for a
+        // future time (11 PM at 12:30 PM) that is clamped before AM/PM is set.
         format.dateFormat = "a"
         wheels.element(boundBy: 2).adjust(toPickerWheelValue: format.string(from: target))
+        wheels.element(boundBy: 0).adjust(toPickerWheelValue: hour)
         // The popover covers the title: tap the empty part of the sheet below Save and Cancel to close it.
         app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.92)).tap()
         XCTAssertTrue(app.buttons["contractionEditSave"].waitForExistence(timeout: 5))

@@ -22,7 +22,10 @@ final class ContractionEditScreenshotTests: XCTestCase {
         let row = app.descendants(matching: .any).matching(identifier: "contractionRow").firstMatch
         app.scrollUntilHittable(row, maxSwipes: 20)
         row.tap()
-        XCTAssertTrue(app.staticTexts["contractionEditTitle"].waitForExistence(timeout: 5))
+        let title = app.staticTexts["contractionEditTitle"]
+        // Right after launch the list can still be settling and swallow the first tap.
+        if !title.waitForExistence(timeout: 5) { row.tap() }
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
         attachScreenshot(app, "contraction-edit-sheet-\(suffix)")
         app.buttons["contractionEditCancel"].tapOrScroll(app)
 
