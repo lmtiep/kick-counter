@@ -382,9 +382,6 @@ struct PregnancyEndingSheet: View {
             failed = true
             return
         }
-        // Held until this sheet is gone (its host's `onDismiss`, or RootView's watcher
-        // when the mode switch removed the host): presenting over a closing sheet is dropped.
-        if let recap { ending.hold(recap) }
         dismiss()
         onEnded(recap)
     }
