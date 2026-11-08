@@ -5,7 +5,7 @@ import Foundation
 /// moment of the ending and when a kept memory is replayed.
 public struct PregnancyRecap: Equatable, Sendable, Identifiable {
     public enum Page: Equatable, Sendable {
-        case celebration, journey, kicks, contractions, appointments, weight, thanks
+        case celebration, journey, kicks, contractions, appointments, weight, thanks, summary
     }
 
     public var id: Date { birthDate }
@@ -16,7 +16,7 @@ public struct PregnancyRecap: Equatable, Sendable, Identifiable {
     public var days: Int?
     /// `weeks` clamped to 4...42 (the range the per-week art covers).
     public var artworkWeek: Int?
-    /// 4...artworkWeek, at most 8 evenly spaced weeks including both ends.
+    /// The handoff's milestones below `artworkWeek`, then `artworkWeek` (`milestones(to:)`).
     public var journeyWeeks: [Int]
     public var totalKicks: Int
     public var kickSessions: Int
@@ -26,11 +26,14 @@ public struct PregnancyRecap: Equatable, Sendable, Identifiable {
     public var weightChangeKg: Double?
     /// The journey was saved as a memory (the last page says where).
     public var keptAsMemory: Bool
+    public var baby: BirthDetails?
     public var pages: [Page]
 
     public static let firstArtworkWeek = 4
     public static let lastArtworkWeek = 42
-    public static let maxJourneyWeeks = 8
+    /// The weeks the handoff has art for (`week-08` … `week-40`).
+    public static let milestoneWeeks = [8, 16, 24, 32]
+    public static let newbornArtWeek = 40
 
     public static func make(content: PregnancyMemoryContent, keptAsMemory: Bool = false, calendar: Calendar) -> PregnancyRecap {
         let artworkWeek = content.furthestWeek.map { min(max($0, firstArtworkWeek), lastArtworkWeek) }
@@ -44,13 +47,14 @@ public struct PregnancyRecap: Equatable, Sendable, Identifiable {
             weeks: content.furthestWeek,
             days: days,
             artworkWeek: artworkWeek,
-            journeyWeeks: artworkWeek.map(journey(to:)) ?? [],
+            journeyWeeks: artworkWeek.map(milestones(to:)) ?? [],
             totalKicks: content.kickDays.reduce(0) { $0 + $1.totalKicks },
             kickSessions: content.kickDays.reduce(0) { $0 + $1.sessionCount },
             contractions: content.contractionEpisodes.reduce(0) { $0 + $1.count },
             appointments: content.appointments.count,
             weightChangeKg: weightChange,
             keptAsMemory: keptAsMemory,
+            baby: content.baby,
             pages: []
         )
         recap.pages = recap.makePages()
@@ -70,14 +74,19 @@ public struct PregnancyRecap: Equatable, Sendable, Identifiable {
         if contractions > 0 { pages.append(.contractions) }
         if appointments > 0 { pages.append(.appointments) }
         if weightChangeKg != nil { pages.append(.weight) }
-        pages.append(.thanks)
+        pages.append(contentsOf: [.thanks, .summary])
         return pages
     }
 
-    private static func journey(to last: Int) -> [Int] {
-        let count = last - firstArtworkWeek + 1
-        guard count > maxJourneyWeeks else { return Array(firstArtworkWeek...last) }
-        let steps = Double(maxJourneyWeeks - 1)
-        return (0..<maxJourneyWeeks).map { firstArtworkWeek + Int((Double($0) * Double(count - 1) / steps).rounded()) }
+    /// Weeks 8, 16, 24 and 32 that come before `last`, then `last`.
+    public static func milestones(to last: Int) -> [Int] {
+        milestoneWeeks.filter { $0 < last } + [last]
+    }
+
+    /// The handoff image for a strip week: the newborn for the final one, else the
+    /// nearest milestone (a tie takes the earlier).
+    public static func milestoneArt(_ week: Int, isFinal: Bool) -> Int {
+        guard !isFinal else { return newbornArtWeek }
+        return (milestoneWeeks + [newbornArtWeek]).min { abs($0 - week) < abs($1 - week) } ?? newbornArtWeek
     }
 }

@@ -88,6 +88,8 @@ public struct PregnancyMemoryContent: Codable, Equatable, Sendable {
     public var appointments: [MemoryAppointment]
     public var weights: [MemoryWeight]
     public var notes: [MemoryNote]
+    /// The baby's details a birth was told with; nil for a loss, older memories and when skipped.
+    public var baby: BirthDetails?
 
     public init(
         branch: PregnancyEndBranch,
@@ -98,7 +100,8 @@ public struct PregnancyMemoryContent: Codable, Equatable, Sendable {
         contractionEpisodes: [ContractionEpisodeSummary] = [],
         appointments: [MemoryAppointment] = [],
         weights: [MemoryWeight] = [],
-        notes: [MemoryNote] = []
+        notes: [MemoryNote] = [],
+        baby: BirthDetails? = nil
     ) {
         version = 1
         self.branch = branch
@@ -110,6 +113,7 @@ public struct PregnancyMemoryContent: Codable, Equatable, Sendable {
         self.appointments = appointments
         self.weights = weights
         self.notes = notes
+        self.baby = baby
     }
 
     /// Nothing but the dates: the detail page shows only its header.
@@ -187,7 +191,8 @@ public enum PregnancyMemoryBuilder {
         appointments: [AppointmentRecord],
         weights: [WeightRecord],
         logs: [CycleLogRecord],
-        calendar: Calendar
+        calendar: Calendar,
+        baby: BirthDetails? = nil
     ) -> PregnancyMemoryContent {
         let endDay = calendar.startOfDay(for: endDate)
         let range = PregnancyRange.make(
@@ -223,7 +228,8 @@ public enum PregnancyMemoryBuilder {
                         moods: $0.moods.map(\.rawValue) + $0.unknownMoodsRaw,
                         pregnancySymptoms: $0.symptoms(for: .pregnant).map(\.rawValue)
                     )
-                }
+                },
+            baby: branch == .birth && baby?.isEmpty == false ? baby : nil
         )
     }
 

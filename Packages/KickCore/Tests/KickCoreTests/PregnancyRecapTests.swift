@@ -27,9 +27,9 @@ struct PregnancyRecapTests {
         PregnancyRecap.make(content: content, calendar: calendar)
     }
 
-    @Test func emptyContentKeepsOnlyCelebrationAndThanks() {
+    @Test func emptyContentKeepsOnlyCelebrationThanksAndSummary() {
         let result = recap(content())
-        #expect(result.pages == [.celebration, .thanks])
+        #expect(result.pages == [.celebration, .thanks, .summary])
         #expect(result.weeks == nil && result.days == nil && result.artworkWeek == nil)
         #expect(result.journeyWeeks.isEmpty)
         #expect(result.birthDate == day("2026-11-08"))
@@ -43,7 +43,7 @@ struct PregnancyRecapTests {
             appointments: [MemoryAppointment(date: day("2026-08-01"), title: "", note: "")],
             weights: [MemoryWeight(day: day("2026-03-01"), kg: 50), MemoryWeight(day: day("2026-11-01"), kg: 61.5)]
         ))
-        #expect(result.pages == [.celebration, .journey, .kicks, .contractions, .appointments, .weight, .thanks])
+        #expect(result.pages == [.celebration, .journey, .kicks, .contractions, .appointments, .weight, .thanks, .summary])
         #expect(result.weeks == 40)
     }
 
@@ -84,16 +84,24 @@ struct PregnancyRecapTests {
         #expect(result.days == 280)
     }
 
-    @Test func journeyWeeksSampleAtMostEightAscendingUnique() {
-        for week in 4...42 {
-            let weeks = recap(content(week: week)).journeyWeeks
-            #expect(weeks.first == 4, "week \(week)")
-            #expect(weeks.last == week, "week \(week)")
-            #expect(weeks.count <= 8, "week \(week)")
-            #expect(weeks == Array(Set(weeks)).sorted(), "week \(week)")
-        }
-        #expect(recap(content(week: 6)).journeyWeeks == [4, 5, 6])
-        #expect(recap(content(week: 11)).journeyWeeks.count == 8)
+    /// Celebration art spec §1: the handoff's milestones below the final week, then the final week.
+    @Test func journeyWeeksAreTheMilestonesBelowTheFinalWeek() {
+        #expect(PregnancyRecap.milestones(to: 40) == [8, 16, 24, 32, 40])
+        #expect(PregnancyRecap.milestones(to: 38) == [8, 16, 24, 32, 38])
+        #expect(PregnancyRecap.milestones(to: 30) == [8, 16, 24, 30])
+        #expect(PregnancyRecap.milestones(to: 12) == [8, 12])
+        #expect(PregnancyRecap.milestones(to: 8) == [8])
+        #expect(PregnancyRecap.milestones(to: 4) == [4])
+        #expect(recap(content(week: 38)).journeyWeeks == [8, 16, 24, 32, 38])
+        #expect(recap(content()).journeyWeeks.isEmpty)
+    }
+
+    @Test func milestoneArtIsTheNearestHandoffImageAndTheFinalIsTheNewborn() {
+        #expect(PregnancyRecap.milestoneArt(8, isFinal: false) == 8)
+        #expect(PregnancyRecap.milestoneArt(30, isFinal: false) == 32)
+        #expect(PregnancyRecap.milestoneArt(12, isFinal: false) == 8, "a tie takes the earlier image")
+        #expect(PregnancyRecap.milestoneArt(4, isFinal: true) == 40)
+        #expect(PregnancyRecap.milestoneArt(38, isFinal: true) == 40)
     }
 
     @Test func artworkWeekIsClampedTo4Through42() {
