@@ -1125,27 +1125,43 @@ enum L10n {
     static var birthPromptBody: String { t("birthPrompt.body") }
     static var birthPromptButton: String { t("birthPrompt.button") }
     static var birthCelebrationTitle: String { t("birth.celebration.title") }
-    static func birthCelebrationDate(_ date: String) -> String { String(format: t("birth.celebration.date"), date) }
-    static func birthJourneyWeeks(_ weeks: Int) -> String {
-        String(format: t(weeks == 1 ? "birth.journey.weeks.one" : "birth.journey.weeks.other"), weeks)
+    static var birthHelloWish: String { t("birth.hello.wish") }
+    /// With `Formatting.longDate`: "Chào đời ngày 8 tháng 11, 2026".
+    static func birthBornOn(_ date: String) -> String { String(format: t("birth.bornOn"), date) }
+    static var birthInfoTime: String { t("birth.info.time") }
+    static var birthInfoWeight: String { t("birth.info.weight") }
+    static var birthInfoLength: String { t("birth.info.length") }
+    static var birthEyebrow: String { t("birth.eyebrow") }
+    static func birthWeeksTogether(_ weeks: Int) -> String {
+        t(weeks == 1 ? "birth.weeksTogether.one" : "birth.weeksTogether.other")
     }
-    static func birthJourneyDays(_ days: Int) -> String {
-        String(format: t(days == 1 ? "birth.journey.days.one" : "birth.journey.days.other"), days)
+    static func birthDaysWithBaby(_ days: Int, formatted: String) -> String {
+        String(format: t(days == 1 ? "birth.daysWithBaby.one" : "birth.daysWithBaby.other"), formatted)
     }
     static func birthJourneyWeekLabel(_ week: Int) -> String { String(format: t("birth.journey.weekLabel"), week) }
-    /// `sessions` picks the singular; `formattedSessions` is the locale-formatted number.
-    static func birthKicksLine(sessions: Int, formattedSessions: String) -> String {
-        String(format: t(sessions == 1 ? "birth.kicks.line.one" : "birth.kicks.line.other"), formattedSessions)
+    static func birthKicksLabel(_ count: Int) -> String {
+        t(count == 1 ? "birth.kicks.label.one" : "birth.kicks.label.other")
     }
-    static func birthContractionsLine(_ count: Int) -> String {
-        t(count == 1 ? "birth.contractions.line.one" : "birth.contractions.line.other")
+    static func birthContractionsLabel(_ count: Int) -> String {
+        t(count == 1 ? "birth.contractions.label.one" : "birth.contractions.label.other")
     }
-    static func birthAppointmentsLine(_ count: Int) -> String {
-        t(count == 1 ? "birth.appointments.line.one" : "birth.appointments.line.other")
+    static func birthAppointmentsLabel(_ count: Int) -> String {
+        t(count == 1 ? "birth.appointments.label.one" : "birth.appointments.label.other")
     }
-    static var birthWeightLine: String { t("birth.weight.line") }
-    static var birthThanks: String { t("birth.thanks") }
+    static var birthWeightChange: String { t("birth.weightChange") }
+    static var birthWeightChangeShort: String { t("birth.weightChange.short") }
+    static var birthThanksTitle: String { t("birth.thanks.title") }
+    static func birthThanksBody(weeks: Int?) -> String {
+        guard let weeks else { return t("birth.thanks.body") }
+        return String(format: t(weeks == 1 ? "birth.thanks.body.weeks.one" : "birth.thanks.body.weeks.other"), weeks)
+    }
     static var birthThanksSaved: String { t("birth.thanks.saved") }
+    static var birthSummaryEyebrow: String { t("birth.summary.eyebrow") }
+    static func birthSummaryTitle(name: String?) -> String {
+        name.map { String(format: t("birth.summary.title"), $0) } ?? t("birth.summary.titleNoName")
+    }
+    static var birthSummaryWeightAtBirth: String { t("birth.summary.weightAtBirth") }
+    static var birthSave: String { t("birth.save") }
     static var birthNext: String { t("birth.next") }
     static var birthDone: String { t("birth.done") }
     static var birthReplay: String { t("birth.replay") }
