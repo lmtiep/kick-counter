@@ -2432,6 +2432,397 @@
         }
       }
     },
+    "birth.appointments.line.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "check-up together"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "lần đi khám"
+          }
+        }
+      }
+    },
+    "birth.appointments.line.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "check-ups together"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "lần đi khám"
+          }
+        }
+      }
+    },
+    "birth.celebration.date": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Born on %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ngày chào đời: %@"
+          }
+        }
+      }
+    },
+    "birth.celebration.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome, little one! 🎉"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chào mừng bé yêu! 🎉"
+          }
+        }
+      }
+    },
+    "birth.contractions.line.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "contraction recorded"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cơn gò đã được ghi lại"
+          }
+        }
+      }
+    },
+    "birth.contractions.line.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "contractions recorded"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cơn gò đã được ghi lại"
+          }
+        }
+      }
+    },
+    "birth.done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xong"
+          }
+        }
+      }
+    },
+    "birth.journey.days.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "…and %d day with your baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "…cùng %d ngày bên bé"
+          }
+        }
+      }
+    },
+    "birth.journey.days.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "…and %d days with your baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "…cùng %d ngày bên bé"
+          }
+        }
+      }
+    },
+    "birth.journey.weekLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week %d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuần %d"
+          }
+        }
+      }
+    },
+    "birth.journey.weeks.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d week"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d tuần"
+          }
+        }
+      }
+    },
+    "birth.journey.weeks.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d weeks"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d tuần"
+          }
+        }
+      }
+    },
+    "birth.kicks.line.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "baby movements counted, in %@ session"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cử động thai đã được đếm, trong %@ lượt"
+          }
+        }
+      }
+    },
+    "birth.kicks.line.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "baby movements counted, in %@ sessions"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cử động thai đã được đếm, trong %@ lượt"
+          }
+        }
+      }
+    },
+    "birth.next": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiếp"
+          }
+        }
+      }
+    },
+    "birth.page": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Page %d of %d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trang %d/%d"
+          }
+        }
+      }
+    },
+    "birth.replay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replay the journey"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Xem lại hành trình"
+          }
+        }
+      }
+    },
+    "birth.thanks": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thank you for letting Luna Mom be with you through your whole pregnancy."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cảm ơn bạn đã để Luna Mom đồng hành suốt thai kỳ."
+          }
+        }
+      }
+    },
+    "birth.thanks.saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your journey is saved in Profile → Memories."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hành trình đã được lưu trong Cá nhân → Kỷ niệm."
+          }
+        }
+      }
+    },
+    "birth.weight.line": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight change"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thay đổi cân nặng"
+          }
+        }
+      }
+    },
+    "birthPrompt.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When your baby is born, tell Luna Mom here to celebrate and keep your pregnancy journey."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khi bé chào đời, hãy báo cho Luna Mom ở đây để cùng chúc mừng và lưu lại hành trình mang thai."
+          }
+        }
+      }
+    },
+    "birthPrompt.button": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My baby is born 🎉"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé đã chào đời 🎉"
+          }
+        }
+      }
+    },
+    "birthPrompt.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Has your baby arrived?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bé đã chào đời chưa?"
+          }
+        }
+      }
+    },
     "calendar.a11y.fertile": {
       "extractionState": "manual",
       "localizations": {
@@ -13359,6 +13750,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Thai kỳ của tôi đã kết thúc"
+          }
+        }
+      }
+    },
+    "profile.pregnancyEnded.subtitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record your baby's birth, or a pregnancy that has ended."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi lại khi bé chào đời hoặc khi thai kỳ dừng lại."
           }
         }
       }

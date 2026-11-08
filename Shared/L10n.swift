@@ -1117,6 +1117,39 @@ enum L10n {
     // MARK: - 1.1: when a pregnancy ends
 
     static var profilePregnancyEnded: String { t("profile.pregnancyEnded") }
+    static var profilePregnancyEndedSubtitle: String { t("profile.pregnancyEnded.subtitle") }
+
+    // MARK: - Birth celebration (1.1)
+
+    static var birthPromptTitle: String { t("birthPrompt.title") }
+    static var birthPromptBody: String { t("birthPrompt.body") }
+    static var birthPromptButton: String { t("birthPrompt.button") }
+    static var birthCelebrationTitle: String { t("birth.celebration.title") }
+    static func birthCelebrationDate(_ date: String) -> String { String(format: t("birth.celebration.date"), date) }
+    static func birthJourneyWeeks(_ weeks: Int) -> String {
+        String(format: t(weeks == 1 ? "birth.journey.weeks.one" : "birth.journey.weeks.other"), weeks)
+    }
+    static func birthJourneyDays(_ days: Int) -> String {
+        String(format: t(days == 1 ? "birth.journey.days.one" : "birth.journey.days.other"), days)
+    }
+    static func birthJourneyWeekLabel(_ week: Int) -> String { String(format: t("birth.journey.weekLabel"), week) }
+    /// `sessions` picks the singular; `formattedSessions` is the locale-formatted number.
+    static func birthKicksLine(sessions: Int, formattedSessions: String) -> String {
+        String(format: t(sessions == 1 ? "birth.kicks.line.one" : "birth.kicks.line.other"), formattedSessions)
+    }
+    static func birthContractionsLine(_ count: Int) -> String {
+        t(count == 1 ? "birth.contractions.line.one" : "birth.contractions.line.other")
+    }
+    static func birthAppointmentsLine(_ count: Int) -> String {
+        t(count == 1 ? "birth.appointments.line.one" : "birth.appointments.line.other")
+    }
+    static var birthWeightLine: String { t("birth.weight.line") }
+    static var birthThanks: String { t("birth.thanks") }
+    static var birthThanksSaved: String { t("birth.thanks.saved") }
+    static var birthNext: String { t("birth.next") }
+    static var birthDone: String { t("birth.done") }
+    static var birthReplay: String { t("birth.replay") }
+    static func birthPage(_ page: Int, of total: Int) -> String { String(format: t("birth.page"), page, total) }
     static var pregnancyEndTitle: String { t("pregnancyEnd.title") }
     static var pregnancyEndIntro: String { t("pregnancyEnd.intro") }
     static func pregnancyEndChoice(_ branch: PregnancyEndBranch) -> String {
