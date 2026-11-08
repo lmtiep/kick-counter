@@ -5,15 +5,15 @@ import KickCore
 extension L10n {
     static func siriDialog(_ result: SiriResult) -> String {
         switch result {
-        case .kickRecorded: t("intent.siri.dialog.kickRecorded")
-        case .contractionStarted: t("intent.siri.dialog.contractionStarted")
-        case .contractionStopped: t("intent.siri.dialog.contractionStopped")
-        case .contractionDiscarded: t("intent.siri.dialog.contractionDiscarded")
-        case .trackingEnded: t("intent.siri.dialog.trackingEnded")
-        case .nothingToEnd: t("intent.siri.dialog.nothingToEnd")
-        case .needsPregnancyMode: t("intent.siri.dialog.needsPregnancy")
-        case .trackingCycle: t("intent.siri.dialog.trackingCycle")
-        case .failed: t("intent.siri.dialog.failed")
+        case .kickRecorded: t("intent.shortcut.dialog.kickRecorded")
+        case .contractionStarted: t("intent.shortcut.dialog.contractionStarted")
+        case .contractionStopped: t("intent.shortcut.dialog.contractionStopped")
+        case .contractionDiscarded: t("intent.shortcut.dialog.contractionDiscarded")
+        case .trackingEnded: t("intent.shortcut.dialog.trackingEnded")
+        case .nothingToEnd: t("intent.shortcut.dialog.nothingToEnd")
+        case .needsPregnancyMode: t("intent.shortcut.dialog.needsPregnancy")
+        case .trackingCycle: t("intent.shortcut.dialog.trackingCycle")
+        case .failed: t("intent.shortcut.dialog.failed")
         }
     }
 

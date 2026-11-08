@@ -10,7 +10,7 @@ struct LunaShortcuts: AppShortcutsProvider {
                 "Record a kick in \(.applicationName)",
                 "Log a kick in \(.applicationName)",
             ],
-            shortTitle: "intent.siri.recordKick.title",
+            shortTitle: "intent.shortcut.recordKick.title",
             systemImageName: "hand.tap.fill"
         )
         AppShortcut(
@@ -19,7 +19,7 @@ struct LunaShortcuts: AppShortcutsProvider {
                 "Time a contraction in \(.applicationName)",
                 "Start a contraction in \(.applicationName)",
             ],
-            shortTitle: "intent.siri.timeContraction.title",
+            shortTitle: "intent.shortcut.timeContraction.title",
             systemImageName: "timer"
         )
         AppShortcut(
@@ -28,7 +28,7 @@ struct LunaShortcuts: AppShortcutsProvider {
                 "Stop timing contractions in \(.applicationName)",
                 "End contraction tracking in \(.applicationName)",
             ],
-            shortTitle: "intent.siri.stopContractions.title",
+            shortTitle: "intent.shortcut.stopContractions.title",
             systemImageName: "stop.circle"
         )
     }
