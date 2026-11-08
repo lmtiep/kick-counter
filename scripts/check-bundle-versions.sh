@@ -36,4 +36,23 @@ if [[ -f "$MAIN_PLIST" ]]; then
     echo "OK $MAIN_PLIST: LunaContentPreview=$CONTENT_PREVIEW_FLAG"
   fi
 fi
+# App Store processing rejects an App Intent whose description (its key or its text)
+# mentions Siri (error 90626), after the upload has already succeeded.
+INTENTS="$APP/Metadata.appintents/extract.actionsdata"
+if [[ -f "$INTENTS" ]]; then
+  if ! python3 -I - "$INTENTS" <<'PY'
+import json, sys
+actions = json.load(open(sys.argv[1])).get("actions", {})
+bad = [name for name, action in actions.items()
+       if "siri" in json.dumps(action.get("descriptionMetadata") or {}).lower()]
+for name in bad:
+    print(f"App Intent {name}: its description mentions Siri (App Store error 90626)", file=sys.stderr)
+sys.exit(1 if bad else 0)
+PY
+  then
+    STATUS=1
+  else
+    echo "OK $INTENTS: no App Intent description mentions Siri"
+  fi
+fi
 exit $STATUS

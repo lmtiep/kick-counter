@@ -8263,7 +8263,7 @@
         }
       }
     },
-    "intent.siri.dialog.contractionDiscarded": {
+    "intent.shortcut.dialog.contractionDiscarded": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8280,7 +8280,7 @@
         }
       }
     },
-    "intent.siri.dialog.contractionStarted": {
+    "intent.shortcut.dialog.contractionStarted": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8297,7 +8297,7 @@
         }
       }
     },
-    "intent.siri.dialog.contractionStopped": {
+    "intent.shortcut.dialog.contractionStopped": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8314,7 +8314,7 @@
         }
       }
     },
-    "intent.siri.dialog.failed": {
+    "intent.shortcut.dialog.failed": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8331,7 +8331,7 @@
         }
       }
     },
-    "intent.siri.dialog.kickRecorded": {
+    "intent.shortcut.dialog.kickRecorded": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8348,7 +8348,7 @@
         }
       }
     },
-    "intent.siri.dialog.needsPregnancy": {
+    "intent.shortcut.dialog.needsPregnancy": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8365,7 +8365,7 @@
         }
       }
     },
-    "intent.siri.dialog.nothingToEnd": {
+    "intent.shortcut.dialog.nothingToEnd": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8382,7 +8382,7 @@
         }
       }
     },
-    "intent.siri.dialog.trackingCycle": {
+    "intent.shortcut.dialog.trackingCycle": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8399,7 +8399,7 @@
         }
       }
     },
-    "intent.siri.dialog.trackingEnded": {
+    "intent.shortcut.dialog.trackingEnded": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8416,7 +8416,7 @@
         }
       }
     },
-    "intent.siri.recordKick.description": {
+    "intent.shortcut.recordKick.description": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8433,7 +8433,7 @@
         }
       }
     },
-    "intent.siri.recordKick.title": {
+    "intent.shortcut.recordKick.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8450,7 +8450,7 @@
         }
       }
     },
-    "intent.siri.stopContractions.description": {
+    "intent.shortcut.stopContractions.description": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8467,7 +8467,7 @@
         }
       }
     },
-    "intent.siri.stopContractions.title": {
+    "intent.shortcut.stopContractions.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8484,7 +8484,7 @@
         }
       }
     },
-    "intent.siri.timeContraction.description": {
+    "intent.shortcut.timeContraction.description": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -8501,7 +8501,7 @@
         }
       }
     },
-    "intent.siri.timeContraction.title": {
+    "intent.shortcut.timeContraction.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {

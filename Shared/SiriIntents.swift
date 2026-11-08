@@ -12,8 +12,8 @@ enum SiriIntentBridge {
 
 /// "Ghi cử động thai": one kick, like the Live Activity "+" button; starts a session if none runs.
 struct RecordKickIntent: LiveActivityIntent {
-    static let title: LocalizedStringResource = "intent.siri.recordKick.title"
-    static let description = IntentDescription("intent.siri.recordKick.description")
+    static let title: LocalizedStringResource = "intent.shortcut.recordKick.title"
+    static let description = IntentDescription("intent.shortcut.recordKick.description")
 
     init() {}
 
@@ -25,8 +25,8 @@ struct RecordKickIntent: LiveActivityIntent {
 
 /// "Bấm cơn gò": starts timing a contraction, or ends the running one.
 struct TimeContractionIntent: LiveActivityIntent {
-    static let title: LocalizedStringResource = "intent.siri.timeContraction.title"
-    static let description = IntentDescription("intent.siri.timeContraction.description")
+    static let title: LocalizedStringResource = "intent.shortcut.timeContraction.title"
+    static let description = IntentDescription("intent.shortcut.timeContraction.description")
 
     init() {}
 
@@ -38,8 +38,8 @@ struct TimeContractionIntent: LiveActivityIntent {
 
 /// "Kết thúc theo dõi cơn gò": ends the episode; every contraction is kept.
 struct StopContractionTimingIntent: LiveActivityIntent {
-    static let title: LocalizedStringResource = "intent.siri.stopContractions.title"
-    static let description = IntentDescription("intent.siri.stopContractions.description")
+    static let title: LocalizedStringResource = "intent.shortcut.stopContractions.title"
+    static let description = IntentDescription("intent.shortcut.stopContractions.description")
 
     init() {}
 
