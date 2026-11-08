@@ -2432,13 +2432,13 @@
         }
       }
     },
-    "birth.appointments.line.one": {
+    "birth.appointments.label.one": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "check-up together"
+            "value": "checkup"
           }
         },
         "vi": {
@@ -2449,13 +2449,13 @@
         }
       }
     },
-    "birth.appointments.line.other": {
+    "birth.appointments.label.other": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "check-ups together"
+            "value": "checkups"
           }
         },
         "vi": {
@@ -2466,7 +2466,7 @@
         }
       }
     },
-    "birth.celebration.date": {
+    "birth.bornOn": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2478,7 +2478,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ngày chào đời: %@"
+            "value": "Chào đời %@"
           }
         }
       }
@@ -2500,13 +2500,13 @@
         }
       }
     },
-    "birth.contractions.line.one": {
+    "birth.contractions.label.one": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "contraction recorded"
+            "value": "contraction timed"
           }
         },
         "vi": {
@@ -2517,19 +2517,53 @@
         }
       }
     },
-    "birth.contractions.line.other": {
+    "birth.contractions.label.other": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "contractions recorded"
+            "value": "contractions timed"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
             "value": "cơn gò đã được ghi lại"
+          }
+        }
+      }
+    },
+    "birth.daysWithBaby.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ day with your baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ngày bên bé"
+          }
+        }
+      }
+    },
+    "birth.daysWithBaby.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ days with your baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ngày bên bé"
           }
         }
       }
@@ -2551,36 +2585,87 @@
         }
       }
     },
-    "birth.journey.days.one": {
+    "birth.eyebrow": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d day with your baby"
+            "value": "YOUR JOURNEY"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "…cùng %d ngày bên bé"
+            "value": "HÀNH TRÌNH CỦA MẸ"
           }
         }
       }
     },
-    "birth.journey.days.other": {
+    "birth.hello.wish": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d days with your baby"
+            "value": "Congratulations to you and your baby. Luna Mom wishes you both a peaceful start together."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "…cùng %d ngày bên bé"
+            "value": "Chúc mừng mẹ và bé. Luna Mom mong hai mẹ con thật nhiều bình yên."
+          }
+        }
+      }
+    },
+    "birth.info.length": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Length"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiều dài"
+          }
+        }
+      }
+    },
+    "birth.info.time": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time of birth"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giờ sinh"
+          }
+        }
+      }
+    },
+    "birth.info.weight": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cân nặng"
           }
         }
       }
@@ -2602,70 +2687,36 @@
         }
       }
     },
-    "birth.journey.weeks.one": {
+    "birth.kicks.label.one": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d week together"
+            "value": "kick counted"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d tuần"
+            "value": "cử động thai đã được đếm"
           }
         }
       }
     },
-    "birth.journey.weeks.other": {
+    "birth.kicks.label.other": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d weeks together"
+            "value": "kicks counted"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d tuần"
-          }
-        }
-      }
-    },
-    "birth.kicks.line.one": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "baby movements counted, in %@ session"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cử động thai đã được đếm, trong %@ lượt"
-          }
-        }
-      }
-    },
-    "birth.kicks.line.other": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "baby movements counted, in %@ sessions"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cử động thai đã được đếm, trong %@ lượt"
+            "value": "cử động thai đã được đếm"
           }
         }
       }
@@ -2721,19 +2772,138 @@
         }
       }
     },
-    "birth.thanks": {
+    "birth.save": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thank you for letting Luna Mom be with you through your whole pregnancy."
+            "value": "Save image"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cảm ơn bạn đã để Luna Mom đồng hành suốt thai kỳ."
+            "value": "Lưu ảnh"
+          }
+        }
+      }
+    },
+    "birth.summary.eyebrow": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "JOURNEY SUMMARY"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "TỔNG KẾT HÀNH TRÌNH"
+          }
+        }
+      }
+    },
+    "birth.summary.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You and %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mẹ và bé %@"
+          }
+        }
+      }
+    },
+    "birth.summary.titleNoName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You and your baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mẹ và bé"
+          }
+        }
+      }
+    },
+    "birth.summary.weightAtBirth": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Birth weight"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cân nặng lúc sinh"
+          }
+        }
+      }
+    },
+    "birth.thanks.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thank you for letting Luna Mom walk with you on this journey. Rest well, and may your baby sleep soundly."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cảm ơn mẹ đã để Luna Mom đồng hành trên hành trình này. Chúc mẹ mau khoẻ và bé ngủ thật ngoan."
+          }
+        }
+      }
+    },
+    "birth.thanks.body.weeks.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thank you for letting Luna Mom walk with you for %d week. Rest well, and may your baby sleep soundly."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cảm ơn mẹ đã để Luna Mom đồng hành suốt %d tuần. Chúc mẹ mau khoẻ và bé ngủ thật ngoan."
+          }
+        }
+      }
+    },
+    "birth.thanks.body.weeks.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thank you for letting Luna Mom walk with you for %d weeks. Rest well, and may your baby sleep soundly."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cảm ơn mẹ đã để Luna Mom đồng hành suốt %d tuần. Chúc mẹ mau khoẻ và bé ngủ thật ngoan."
           }
         }
       }
@@ -2755,7 +2925,58 @@
         }
       }
     },
-    "birth.weight.line": {
+    "birth.thanks.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thank you, mama"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cảm ơn mẹ"
+          }
+        }
+      }
+    },
+    "birth.weeksTogether.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "week together"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tuần bên nhau"
+          }
+        }
+      }
+    },
+    "birth.weeksTogether.other": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "weeks together"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tuần bên nhau"
+          }
+        }
+      }
+    },
+    "birth.weightChange": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -2768,6 +2989,176 @@
           "stringUnit": {
             "state": "translated",
             "value": "Thay đổi cân nặng"
+          }
+        }
+      }
+    },
+    "birth.weightChange.short": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "weight change"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thay đổi cân nặng"
+          }
+        }
+      }
+    },
+    "birthDetails.continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiếp"
+          }
+        }
+      }
+    },
+    "birthDetails.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional. Luna Mom uses these only to celebrate and keeps them in your memory."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không bắt buộc. Luna Mom chỉ dùng để chúc mừng và lưu trong Kỷ niệm."
+          }
+        }
+      }
+    },
+    "birthDetails.length": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Length (cm)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiều dài (cm)"
+          }
+        }
+      }
+    },
+    "birthDetails.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baby's name"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tên bé"
+          }
+        }
+      }
+    },
+    "birthDetails.skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bỏ qua"
+          }
+        }
+      }
+    },
+    "birthDetails.time": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time of birth"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giờ sinh"
+          }
+        }
+      }
+    },
+    "birthDetails.timeUnset": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not set"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chưa chọn"
+          }
+        }
+      }
+    },
+    "birthDetails.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About your baby"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thông tin bé"
+          }
+        }
+      }
+    },
+    "birthDetails.weight": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weight (kg)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cân nặng (kg)"
           }
         }
       }

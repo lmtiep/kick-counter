@@ -177,6 +177,14 @@ enum CycleModeTab: Int {
 }
 
 extension XCUIApplication {
+    /// The birth branch's optional "About your baby" step: skip it.
+    func skipBirthDetails() {
+        let skip = buttons["birthDetailsSkip"]
+        XCTAssertTrue(skip.waitForExistence(timeout: 5))
+        scrollUntilHittable(skip)
+        skip.tap()
+    }
+
     /// A confirmed birth shows the full-screen celebration over the cycle tabs: close it.
     func closeBirthCelebration() {
         let close = buttons["birthCelebrationClose"]

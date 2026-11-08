@@ -79,13 +79,15 @@ final class PregnancyEnding {
     /// Ends the pregnancy. Throws only from the archive, before anything else changed.
     /// Returns the recap to celebrate: only a birth has one.
     @discardableResult
-    func end(branch: PregnancyEndBranch, endDate: Date, keep: PregnancyEndingKeep) async throws -> PregnancyRecap? {
+    func end(
+        branch: PregnancyEndBranch, endDate: Date, keep: PregnancyEndingKeep, baby: BirthDetails? = nil
+    ) async throws -> PregnancyRecap? {
         let endDay = calendar.startOfDay(for: min(endDate, now()))
         let rangeStart = try pregnancyRange(endDay: endDay)?.lowerBound
         // Before any step: `switchToCycle` clears the dates `furthestWeek` needs, and a
         // birth with no memory and the data kept has no archive step at all.
         let content = PregnancyEndingPlan.buildsContent(branch: branch, keep: keep)
-            ? try makeContent(branch: branch, endDay: endDay)
+            ? try makeContent(branch: branch, endDay: endDay, baby: baby)
             : nil
         for step in PregnancyEndingPlan.steps(keep: keep) {
             switch step {
@@ -130,12 +132,12 @@ final class PregnancyEnding {
     }
 
     /// The frozen journey, in memory. Read from the rows before anything is deleted.
-    private func makeContent(branch: PregnancyEndBranch, endDay: Date) throws -> PregnancyMemoryContent {
+    private func makeContent(branch: PregnancyEndBranch, endDay: Date, baby: BirthDetails?) throws -> PregnancyMemoryContent {
         let rows = try store.pregnancyRows()
         return PregnancyMemoryBuilder.make(
             branch: branch, profile: PregnancyProfile.load(from: defaults), endDate: endDay,
             sessions: rows.sessions, contractions: rows.contractions, appointments: rows.appointments,
-            weights: rows.weights, logs: rows.logs, calendar: calendar
+            weights: rows.weights, logs: rows.logs, calendar: calendar, baby: baby
         )
     }
 
