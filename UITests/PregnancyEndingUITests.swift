@@ -68,6 +68,7 @@ final class PregnancyEndingUITests: XCTestCase {
         XCTAssertTrue(opener.waitForExistence(timeout: 5))
         XCTAssertTrue(opener.label.hasPrefix("Congratulations"), opener.label)
         app.buttons["pregnancyEndContinue"].tap()
+        app.skipBirthDetails()
         app.buttons["pregnancyEndKeepNo"].tap()
         let delete = app.switches["pregnancyEndDeleteData"]
         XCTAssertTrue(delete.waitForExistence(timeout: 5))
@@ -81,8 +82,10 @@ final class PregnancyEndingUITests: XCTestCase {
         XCTAssertFalse(app.buttons["profileMemories"].exists, "no memory was made")
     }
 
-    /// Birth celebration spec §1, §5: the Today card from week 37 starts on the birth
-    /// date step; confirming celebrates, "Next" walks the recap, "Done" closes.
+    /// Birth celebration spec §1, §5 and celebration art spec §2, §3: the Today card
+    /// from week 37 starts on the birth date step; the baby's details show on the
+    /// first page and the summary; "Next" walks every page (no auto-advance in UI
+    /// tests), "Done" closes; replaying the memory shows them again.
     @MainActor
     func testBirthFromTodayCardCelebratesAndKeepsAMemory() {
         let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek38)
@@ -93,29 +96,57 @@ final class PregnancyEndingUITests: XCTestCase {
         XCTAssertTrue(app.buttons["pregnancyEndContinue"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["pregnancyEnd-loss"].exists)
         app.buttons["pregnancyEndContinue"].tap()
+
+        let name = app.textFields["birthDetailsName"]
+        XCTAssertTrue(name.waitForExistence(timeout: 5))
+        name.tap()
+        name.typeText("Minh An\n")
+        let weight = app.textFields["birthDetailsWeight"]
+        weight.tap()
+        weight.typeText("3.2")
+        app.buttons["birthDetailsContinue"].tap()
         app.buttons["pregnancyEndKeepYes"].tap()
         app.buttons["pregnancyEndConfirm"].tap()
 
         let next = app.buttons["birthCelebrationNext"]
         XCTAssertTrue(next.waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["birthCelebrationClose"].exists)
+        XCTAssertTrue(app.staticTexts["Minh An"].exists, "the baby card on the first page")
         var pages = 1
-        while next.exists, pages < 10 {
+        var sawThanks = false
+        while next.exists, pages < 12 {
+            let thanks = app.descendants(matching: .any)["birthCelebrationThanks"]
+            if thanks.exists {
+                sawThanks = true
+                XCTAssertTrue(thanks.label.contains("saved in Profile"), thanks.label)
+            }
             next.tap()
             pages += 1
         }
-        XCTAssertGreaterThanOrEqual(pages, 3, "celebration, journey and thanks at least")
+        XCTAssertTrue(sawThanks)
+        XCTAssertGreaterThanOrEqual(pages, 4, "celebration, journey, thanks and summary at least")
         let done = app.buttons["birthCelebrationDone"]
         XCTAssertTrue(done.waitForExistence(timeout: 5))
-        let thanks = app.descendants(matching: .any)["birthCelebrationThanks"]
-        XCTAssertTrue(thanks.exists)
-        XCTAssertTrue(thanks.label.contains("saved in Profile"), thanks.label)
+        XCTAssertTrue(app.staticTexts["You and Minh An"].exists, "the summary names the baby")
+        XCTAssertTrue(app.buttons["birthCelebrationSave"].exists)
         done.tap()
 
         assertCycleModeWithoutPregnancyUI(app)
         XCTAssertFalse(app.buttons["birthCelebrationClose"].exists)
         app.openCycleTab(.profile)
-        XCTAssertTrue(app.buttons["profileMemories"].waitForExistence(timeout: 5))
+        let memories = app.buttons["profileMemories"]
+        XCTAssertTrue(memories.waitForExistence(timeout: 5))
+        memories.tap()
+        let row = app.buttons["memoryRow"].firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        row.tap()
+        let replay = app.buttons["memoryReplay"]
+        XCTAssertTrue(replay.waitForExistence(timeout: 5))
+        app.scrollUntilHittable(replay)
+        replay.tap()
+        XCTAssertTrue(app.buttons["birthCelebrationClose"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Minh An"].exists, "the details are kept in the memory")
+        app.closeBirthCelebration()
     }
 
     /// The close button works from the first page too.
@@ -125,6 +156,7 @@ final class PregnancyEndingUITests: XCTestCase {
         openEnding(app)
         app.buttons["pregnancyEnd-birth"].tap()
         app.buttons["pregnancyEndContinue"].tap()
+        app.skipBirthDetails()
         app.buttons["pregnancyEndKeepNo"].tap()
         app.buttons["pregnancyEndConfirm"].tap()
         XCTAssertTrue(app.buttons["birthCelebrationNext"].waitForExistence(timeout: 10))
@@ -147,6 +179,9 @@ final class PregnancyEndingUITests: XCTestCase {
         openEnding(app)
         app.buttons["pregnancyEnd-loss"].tap()
         app.buttons["pregnancyEndContinue"].tap()
+        // A loss is never asked about the baby.
+        XCTAssertTrue(app.buttons["pregnancyEndKeepNo"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["birthDetailsSkip"].exists)
         app.buttons["pregnancyEndKeepNo"].tap()
         app.buttons["pregnancyEndConfirm"].tap()
         assertCycleModeWithoutPregnancyUI(app)
@@ -175,6 +210,7 @@ final class PregnancyEndingUITests: XCTestCase {
         openEnding(app)
         app.buttons["pregnancyEnd-birth"].tap()
         app.buttons["pregnancyEndContinue"].tap()
+        app.skipBirthDetails()
         app.buttons["pregnancyEndKeepYes"].tap()
         XCTAssertTrue(app.textFields["memoryTitleField"].waitForExistence(timeout: 5))
         cancel.tap()
@@ -194,6 +230,7 @@ final class PregnancyEndingUITests: XCTestCase {
         openEnding(app)
         app.buttons["pregnancyEnd-birth"].tap()
         app.buttons["pregnancyEndContinue"].tap()
+        app.skipBirthDetails()
         let confirm = app.buttons["pregnancyEndConfirm"]
         XCTAssertTrue(confirm.waitForExistence(timeout: 5))
         XCTAssertFalse(confirm.isEnabled)

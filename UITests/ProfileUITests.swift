@@ -17,6 +17,7 @@ final class ProfileUITests: XCTestCase {
         end.tap()
         app.buttons["pregnancyEnd-birth"].tap()
         app.buttons["pregnancyEndContinue"].tap()
+        app.skipBirthDetails()
         app.buttons["pregnancyEndKeepNo"].tap()
         app.buttons["pregnancyEndConfirm"].tap()
         app.closeBirthCelebration()
