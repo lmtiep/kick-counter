@@ -162,3 +162,36 @@ struct UITestRestoreOnReactivateOptionTests {
         #expect(!content.notes.isEmpty && !content.appointments.isEmpty && !content.weights.isEmpty && !content.kickDays.isEmpty)
     }
 }
+
+struct UITestContractionClockOptionTests {
+    private var utc: Calendar {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        return calendar
+    }
+
+    @Test func parsesTheStartTimeWhenUITesting() {
+        let options = UITestLaunchOptions(arguments: ["-uiTesting", "-contractionClockStart", "10:30"])
+        #expect(options.contractionClockStart == ContractionClockStart(hour: 10, minute: 30))
+    }
+
+    @Test func ignoresTheStartTimeWithoutUITestingOrWhenInvalid() {
+        #expect(UITestLaunchOptions(arguments: ["-contractionClockStart", "10:30"]).contractionClockStart == nil)
+        for bad in ["24:00", "10:60", "10", "ten:30", "-1:30", "10:30:00"] {
+            #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-contractionClockStart", bad]).contractionClockStart == nil)
+        }
+        #expect(UITestLaunchOptions(arguments: ["-uiTesting", "-contractionClockStart"]).contractionClockStart == nil)
+    }
+
+    /// The clock reads the start time on launch day, then ticks with the real clock.
+    @Test func offsetMovesLaunchToTheStartTimeOfTheSameDay() {
+        let start = ContractionClockStart(hour: 10, minute: 30)
+        let launch = date("2026-11-07T13:39:14Z")
+        let offset = start.offset(launch: launch, calendar: utc)
+        #expect(launch.addingTimeInterval(offset) == date("2026-11-07T10:30:00Z"))
+        #expect(launch.addingTimeInterval(65 + offset) == date("2026-11-07T10:31:05Z"))
+        // Launched just after midnight: still 10:30 that day, ahead of the real clock.
+        let early = date("2026-11-07T00:10:00Z")
+        #expect(early.addingTimeInterval(start.offset(launch: early, calendar: utc)) == date("2026-11-07T10:30:00Z"))
+    }
+}

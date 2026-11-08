@@ -25,6 +25,9 @@ import Foundation
 /// - `-seedContractions <scenario>` stores that `ContractionSeed` (`511`, `preterm`) (phase 20).
 /// - `-contractionUndoWindow <seconds>` offers the contraction timer's "Hoàn tác" that long
 ///   instead of `ContractionRules.undoWindow`, so a slow CI simulator can still tap it.
+/// - `-contractionClockStart <HH:mm>` starts the contraction timer's clock at that time on
+///   launch day, ticking with the real clock (`ContractionClockStart`), so time-wheel tests
+///   never depend on the hour CI happens to run at.
 /// - `-seedLastBackupDaysAgo <days>` stores a last backup that many days before the pinned
 ///   now, so Profile shows the backup reminder card (1.1) when it is 30 or more.
 /// - `-seedPregnancyEnded <birth|loss>:<daysAgo>` (1.1 item 4) stores a pregnancy that ended
@@ -53,6 +56,7 @@ public struct UITestLaunchOptions: Equatable, Sendable {
     public let seedPill: PillSeed?
     public let seedContractions: ContractionSeed?
     public let contractionUndoWindow: TimeInterval?
+    public let contractionClockStart: ContractionClockStart?
     public let seedLastBackupDaysAgo: Int?
     public let seedPregnancyEnded: PregnancyEndSeed?
     public let seedCareLowStreak: Int?
@@ -88,6 +92,9 @@ public struct UITestLaunchOptions: Equatable, Sendable {
         contractionUndoWindow = isUITesting
             ? Self.value(after: "-contractionUndoWindow", in: arguments).flatMap(TimeInterval.init).flatMap { $0 > 0 ? $0 : nil }
             : nil
+        contractionClockStart = isUITesting
+            ? Self.value(after: "-contractionClockStart", in: arguments).flatMap(ContractionClockStart.init(argument:))
+            : nil
         seedLastBackupDaysAgo = isUITesting
             ? Self.value(after: "-seedLastBackupDaysAgo", in: arguments).flatMap { Int($0) }.flatMap { $0 >= 0 ? $0 : nil }
             : nil
@@ -108,6 +115,32 @@ public struct UITestLaunchOptions: Equatable, Sendable {
 
     private static func date(after flag: String, in arguments: [String]) -> Date? {
         value(after: flag, in: arguments).flatMap { try? Date($0, strategy: .iso8601) }
+    }
+}
+
+/// `-contractionClockStart <HH:mm>`: the time of day the contraction timer's clock
+/// reads at launch. It ticks on from there, so stops and undo still behave as on
+/// the real clock; only the time of day is fixed.
+public struct ContractionClockStart: Equatable, Sendable {
+    public let hour: Int
+    public let minute: Int
+
+    public init(hour: Int, minute: Int) {
+        self.hour = hour
+        self.minute = minute
+    }
+
+    public init?(argument: String) {
+        let parts = argument.split(separator: ":", omittingEmptySubsequences: false)
+        guard parts.count == 2, let hour = Int(parts[0]), let minute = Int(parts[1]),
+              (0..<24).contains(hour), (0..<60).contains(minute) else { return nil }
+        self.init(hour: hour, minute: minute)
+    }
+
+    /// Seconds to add to the real clock so that `launch` reads this time on its own day.
+    public func offset(launch: Date, calendar: Calendar) -> TimeInterval {
+        let start = calendar.date(bySettingHour: hour, minute: minute, second: 0, of: launch) ?? launch
+        return start.timeIntervalSince(launch)
     }
 }
 
