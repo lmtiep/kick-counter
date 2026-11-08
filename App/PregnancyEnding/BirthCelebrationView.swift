@@ -187,7 +187,7 @@ struct BirthCelebrationView: View {
                 line: L10n.birthWeightLine,
                 animates: animates, compactArt: dynamicTypeSize.isAccessibilitySize
             )
-        case .thanks: thanksPage
+        case .thanks, .summary: thanksPage
         }
     }
 

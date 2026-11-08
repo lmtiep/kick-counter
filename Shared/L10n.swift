@@ -1150,6 +1150,15 @@ enum L10n {
     static var birthDone: String { t("birth.done") }
     static var birthReplay: String { t("birth.replay") }
     static func birthPage(_ page: Int, of total: Int) -> String { String(format: t("birth.page"), page, total) }
+    static var birthDetailsTitle: String { t("birthDetails.title") }
+    static var birthDetailsHint: String { t("birthDetails.hint") }
+    static var birthDetailsName: String { t("birthDetails.name") }
+    static var birthDetailsTime: String { t("birthDetails.time") }
+    static var birthDetailsTimeUnset: String { t("birthDetails.timeUnset") }
+    static var birthDetailsWeight: String { t("birthDetails.weight") }
+    static var birthDetailsLength: String { t("birthDetails.length") }
+    static var birthDetailsContinue: String { t("birthDetails.continue") }
+    static var birthDetailsSkip: String { t("birthDetails.skip") }
     static var pregnancyEndTitle: String { t("pregnancyEnd.title") }
     static var pregnancyEndIntro: String { t("pregnancyEnd.intro") }
     static func pregnancyEndChoice(_ branch: PregnancyEndBranch) -> String {
