@@ -131,8 +131,7 @@ final class ProfileUITests: XCTestCase {
         XCTAssertTrue(row.waitForExistence(timeout: 10))
         XCTAssertTrue(row.label.contains("Off"), row.label)
         app.scrollUntilHittable(row)
-        row.tap()
-        XCTAssertTrue(app.switches["kickSettingsHapticsToggle"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tap(row, untilExists: app.switches["kickSettingsHapticsToggle"]))
     }
 
     @MainActor

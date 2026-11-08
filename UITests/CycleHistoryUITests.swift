@@ -11,8 +11,7 @@ final class CycleHistoryUITests: XCTestCase {
     private func openHistory(_ app: XCUIApplication) {
         let link = app.buttons["cycleHistoryLink"]
         app.scrollUntilHittable(link)
-        link.tap()
-        XCTAssertTrue(app.descendants(matching: .any)["cycleHistorySummary"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tap(link, untilExists: app.descendants(matching: .any)["cycleHistorySummary"]))
     }
 
     @MainActor
@@ -96,9 +95,8 @@ final class CycleHistoryUITests: XCTestCase {
         let add = app.buttons["cycleHistoryAddPast"]
         XCTAssertTrue(add.waitForExistence(timeout: 5))
         app.scrollUntilHittable(add)
-        add.tap()
         let next = app.buttons["Next Month"]
-        XCTAssertTrue(next.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tap(add, untilExists: next))
         next.tap()
         // Day cells read e.g. "Thursday, June 4".
         let dayButton = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "June \(day)")).firstMatch

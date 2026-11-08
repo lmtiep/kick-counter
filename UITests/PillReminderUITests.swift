@@ -34,10 +34,8 @@ final class PillReminderUITests: XCTestCase {
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         app.scrollUntilHittable(row, maxSwipes: 8)
         XCTAssertTrue(row.label.contains("Off"), row.label)
-        row.tap()
-
         let toggle = app.switches["pillReminderToggle"]
-        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.tap(row, untilExists: toggle))
         let footnote = app.descendants(matching: .any)["pillMissedFootnote"]
         XCTAssertTrue(footnote.label.contains("follow the leaflet in the pack or ask a doctor or pharmacist"), footnote.label)
         toggle.switches.firstMatch.tap()
