@@ -75,6 +75,7 @@ struct ProfileView: View {
                     LanguagePickerCard()
                     modeCard
                     if mode == .pregnant {
+                        endPregnancyCard
                         pregnancyCard
                     } else {
                         cycleCard
@@ -157,7 +158,7 @@ struct ProfileView: View {
                 ImPregnantSheet(lastPeriodStart: cycle.forecast?.currentPeriodStart)
             }
             .sheet(isPresented: $showingEndPregnancy) {
-                PregnancyEndingSheet(onEnded: onPregnancyEnded)
+                PregnancyEndingSheet(onEnded: { _ in onPregnancyEnded() })
                     .lunaSheetPresentation(detents: [.large])
             }
             // Turning the reminder on may have just asked for notifications.
@@ -264,15 +265,8 @@ struct ProfileView: View {
                 }
             }
             .padding(18)
-            LunaDivider()
-            if mode == .pregnant {
-                // Discreet, in Profile only, never on Today (spec §4.1).
-                Button { showingEndPregnancy = true } label: {
-                    LunaRow(title: L10n.profilePregnancyEnded)
-                }
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("profilePregnancyEnded")
-            } else {
+            if mode != .pregnant {
+                LunaDivider()
                 Button { showingImPregnant = true } label: {
                     LunaRow(title: L10n.profileSwitchToPregnant)
                 }
@@ -281,6 +275,41 @@ struct ProfileView: View {
             }
         }
         .lunaCard(padding: 0)
+    }
+
+    /// "Thai kỳ của tôi đã kết thúc": its own card under the goal, so it is easy to
+    /// find (birth celebration spec §2). The Today card from week 37 opens the same sheet.
+    private var endPregnancyCard: some View {
+        Button { showingEndPregnancy = true } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "heart.circle.fill")
+                    .font(.system(size: 28))
+                    .foregroundStyle(.luna(.cycleStrong))
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(L10n.profilePregnancyEnded)
+                        .font(.luna(.bodyStrong))
+                        .foregroundStyle(.luna(.textPrimary))
+                    Text(L10n.profilePregnancyEndedSubtitle)
+                        .font(.luna(.caption))
+                        .foregroundStyle(.luna(.textSecondary))
+                }
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(.luna(.chevron))
+                    .accessibilityHidden(true)
+            }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 18)
+            .frame(minHeight: 44)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .lunaCard(padding: 0)
+        .accessibilityIdentifier("profilePregnancyEnded")
     }
 
     /// The goal picker at accessibility Dynamic Type sizes (phase 9 fix round 1):

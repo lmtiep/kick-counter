@@ -19,6 +19,7 @@ final class ProfileUITests: XCTestCase {
         app.buttons["pregnancyEndContinue"].tap()
         app.buttons["pregnancyEndKeepNo"].tap()
         app.buttons["pregnancyEndConfirm"].tap()
+        app.closeBirthCelebration()
 
         XCTAssertTrue(app.tabBars.buttons["Calendar"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.tabBars.buttons["Today"].isSelected)

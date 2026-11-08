@@ -196,6 +196,18 @@ struct RootView: View {
             #endif
     }
 
+    private var birthCelebrationHost: some View {
+        let recap = Binding<PregnancyRecap?>(
+            get: { ending.pendingCelebration },
+            set: { ending.pendingCelebration = $0 }
+        )
+        return Color.clear.fullScreenCover(item: recap) { recap in
+            BirthCelebrationView(recap: recap) { ending.pendingCelebration = nil }
+                .environment(\.locale, AppLocale.locale)
+                .environment(\.calendar, AppLocale.calendar)
+        }
+    }
+
     /// The restore sheet with what it needs from the environment: it is hosted by
     /// `RestoreBackupPresenter`, outside this view's hierarchy. Over onboarding
     /// it is light, as onboarding is (phase 18).
@@ -276,6 +288,9 @@ struct RootView: View {
         // Each tab's content gets its own text-safe tint in `lunaTab`: this accent is
         // too light for text on a dark-mode card.
         .tint(mode == .tryingToConceive ? Color.luna(.tabSelectedCycle) : Color.luna(.tabSelectedPreg))
+        // The birth celebration is hosted here, not by the ending sheet or Profile: the
+        // mode switch rebuilds those. The ending is already saved when it appears.
+        .background { birthCelebrationHost }
     }
 
     #if CLOUD_SYNC

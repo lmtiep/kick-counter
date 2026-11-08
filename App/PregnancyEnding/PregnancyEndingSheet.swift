@@ -6,8 +6,9 @@ import SwiftUI
 /// keep the journey as a memory. Nothing changes before "Xác nhận"; "Hủy"
 /// closes it at every step. Never asks for notification permission.
 struct PregnancyEndingSheet: View {
-    /// Called after the ending succeeded (the sheet is already closing).
-    var onEnded: () -> Void = {}
+    /// Called after the ending succeeded (the sheet is already closing). A birth
+    /// passes its recap.
+    var onEnded: (PregnancyRecap?) -> Void = { _ in }
 
     @Environment(PregnancyEnding.self) private var ending
     @Environment(\.dismiss) private var dismiss
@@ -24,7 +25,7 @@ struct PregnancyEndingSheet: View {
         case noMemory
     }
 
-    @State private var step = Step.choose
+    @State private var step: Step
     @State private var endDate = AppClock.now()
     @State private var keepChoice: KeepChoice?
     @State private var memoryTitle = ""
@@ -34,6 +35,13 @@ struct PregnancyEndingSheet: View {
     @State private var showingDatePicker = false
 
     private var today: Date { AppClock.now() }
+
+    /// `initialBranch` opens on that branch's date step instead of the two choices
+    /// (the Today "Has your baby arrived?" card starts on `.birth`).
+    init(initialBranch: PregnancyEndBranch? = nil, onEnded: @escaping (PregnancyRecap?) -> Void = { _ in }) {
+        self.onEnded = onEnded
+        _step = State(initialValue: initialBranch.map(Step.opener) ?? .choose)
+    }
 
     var body: some View {
         LunaSheet(title: L10n.pregnancyEndTitle, titleIdentifier: "pregnancyEndTitle") {
@@ -253,13 +261,23 @@ struct PregnancyEndingSheet: View {
         }
         working = true
         defer { working = false }
+        let recap: PregnancyRecap?
         do {
-            try await ending.end(branch: branch, endDate: endDate, keep: keep)
+            recap = try await ending.end(branch: branch, endDate: endDate, keep: keep)
         } catch {
             failed = true
             return
         }
         dismiss()
-        onEnded()
+        onEnded(recap)
+        if let recap {
+            // RootView presents the cover; let this sheet finish closing first, or
+            // the presentation is dropped.
+            let ending = ending
+            Task {
+                try? await Task.sleep(for: .milliseconds(LunaMotion.isEnabled ? 600 : 250))
+                ending.pendingCelebration = recap
+            }
+        }
     }
 }

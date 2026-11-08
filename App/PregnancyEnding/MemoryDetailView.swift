@@ -14,6 +14,8 @@ struct MemoryDetailView: View {
     @State private var renaming = false
     @State private var draftTitle = ""
     @State private var confirmingDelete = false
+    @State private var replaying: PregnancyRecap?
+    @Environment(\.calendar) private var calendar
 
     private var memory: PregnancyMemoryRecord? {
         ending.memories.first { $0.id == memoryID }
@@ -69,6 +71,9 @@ struct MemoryDetailView: View {
                 .accessibilityIdentifier("memoryActions")
             }
         }
+        .fullScreenCover(item: $replaying) { recap in
+            BirthCelebrationView(recap: recap, playsHaptic: false) { replaying = nil }
+        }
         .alert(L10n.memoryRenameTitle, isPresented: $renaming) {
             TextField(L10n.memoryTitlePlaceholder, text: $draftTitle)
                 .accessibilityIdentifier("memoryRenameField")
@@ -103,6 +108,15 @@ struct MemoryDetailView: View {
                 Text(L10n.memoryBirthWeek(week))
                     .font(.luna(.body))
                     .foregroundStyle(.luna(.textSecondary))
+            }
+            if memory.branch == .birth {
+                Button(L10n.birthReplay) {
+                    // Without the haptic and the "saved in Kỷ niệm" line: it is already there.
+                    replaying = PregnancyRecap.make(content: memory.content, keptAsMemory: false, calendar: calendar)
+                }
+                .buttonStyle(.pill(.soft(.cycleSoft, .cycleOnSoft), fullWidth: false, height: 44))
+                .padding(.top, 8)
+                .accessibilityIdentifier("memoryReplay")
             }
         }
         .padding(.top, 4)
