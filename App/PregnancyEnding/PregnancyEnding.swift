@@ -19,20 +19,8 @@ final class PregnancyEnding {
     /// Newest first (Profile's "Kỷ niệm" row shows while it is not empty).
     private(set) var memories: [PregnancyMemoryRecord] = []
     /// A birth just ended: RootView shows the celebration for it (not the sheet or
-    /// Profile, which the mode switch rebuilds). Cleared when the cover closes.
+    /// Profile, which the mode switch rebuilds). Cleared when she closes it.
     var pendingCelebration: PregnancyRecap?
-    /// The recap of an ending whose sheet is still closing. It becomes
-    /// `pendingCelebration` once the sheet is gone (`releaseHeldCelebration`).
-    private(set) var heldCelebration: PregnancyRecap?
-
-    func hold(_ recap: PregnancyRecap) { heldCelebration = recap }
-
-    /// Idempotent: the sheet's `onDismiss` and RootView's watcher both call it.
-    func releaseHeldCelebration() {
-        guard let recap = heldCelebration else { return }
-        heldCelebration = nil
-        pendingCelebration = recap
-    }
 
     private let kicks: KickCoordinator
     private let contractions: ContractionCoordinator
@@ -89,6 +77,9 @@ final class PregnancyEnding {
         let content = PregnancyEndingPlan.buildsContent(branch: branch, keep: keep)
             ? try makeContent(branch: branch, endDay: endDay, baby: baby)
             : nil
+        let recap = content.flatMap {
+            PregnancyRecap.forEnding(content: $0, keptAsMemory: keep.memoryTitle != nil, calendar: calendar)
+        }
         for step in PregnancyEndingPlan.steps(keep: keep) {
             switch step {
             case .archive:
@@ -106,6 +97,9 @@ final class PregnancyEnding {
             case .cancelPregnancyReminders:
                 await appointments.cancelAllReminders()
             case .switchToCycle:
+                // Under the sheet before the mode switch takes it away: she sees the
+                // celebration as it slides down, not Today first.
+                if let recap { pendingCelebration = recap }
                 await cycle.endPregnancy(branch: branch, endDate: endDay, rangeStart: rangeStart)
             }
         }
@@ -114,9 +108,7 @@ final class PregnancyEnding {
         await weight.load()
         loadMemories()
         logger.info("Pregnancy ended")
-        return content.flatMap {
-            PregnancyRecap.forEnding(content: $0, keptAsMemory: keep.memoryTitle != nil, calendar: calendar)
-        }
+        return recap
     }
 
     /// The pregnancy's days, from the stored dates (read before `switchToCycle` clears them).

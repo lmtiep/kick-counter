@@ -5,7 +5,6 @@ import SwiftUI
 /// spec §1). The button opens the ending sheet already on the birth branch's
 /// date step. No dismiss or snooze: the card goes when the pregnancy ends.
 struct BirthPromptCard: View {
-    @Environment(PregnancyEnding.self) private var ending
     @State private var showingSheet = false
 
     var body: some View {
@@ -34,7 +33,7 @@ struct BirthPromptCard: View {
         .lunaCard(.cycleSoft, border: .cycleSoftBorder)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("birthPromptCard")
-        .sheet(isPresented: $showingSheet, onDismiss: { ending.releaseHeldCelebration() }) {
+        .sheet(isPresented: $showingSheet) {
             PregnancyEndingSheet(initialBranch: .birth)
                 .lunaSheetPresentation(detents: [.large])
         }
