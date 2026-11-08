@@ -12,12 +12,15 @@ public struct BirthDetails: Codable, Equatable, Sendable {
 
     public static let weightRange = 0.5...7.0
     public static let lengthRange = 25.0...65.0
+    static let gramsRange = 500.0...7000.0
 
     public init(name: String? = nil, time: Date? = nil, weightKg: Double? = nil, lengthCm: Double? = nil) {
         let trimmed = name?.trimmingCharacters(in: .whitespacesAndNewlines)
         self.name = trimmed?.isEmpty == false ? trimmed : nil
         self.time = time
-        self.weightKg = weightKg.flatMap { Self.weightRange.contains($0) ? $0 : nil }
+        // 500…7000 is a weight in grams ("3200"), as it is often said in Vietnam.
+        let kg = weightKg.map { Self.gramsRange.contains($0) ? $0 / 1000 : $0 }
+        self.weightKg = kg.flatMap { Self.weightRange.contains($0) ? $0 : nil }
         self.lengthCm = lengthCm.flatMap { Self.lengthRange.contains($0) ? $0 : nil }
     }
 

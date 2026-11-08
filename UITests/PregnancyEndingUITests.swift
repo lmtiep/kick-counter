@@ -97,14 +97,17 @@ final class PregnancyEndingUITests: XCTestCase {
         XCTAssertFalse(app.buttons["pregnancyEnd-loss"].exists)
         app.buttons["pregnancyEndContinue"].tap()
 
-        let name = app.textFields["birthDetailsName"]
-        XCTAssertTrue(name.waitForExistence(timeout: 5))
-        name.tap()
-        name.typeText("Minh An\n")
+        // The weight first: the decimal pad has no return key, the name's return closes it.
         let weight = app.textFields["birthDetailsWeight"]
+        XCTAssertTrue(weight.waitForExistence(timeout: 5))
         weight.tap()
         weight.typeText("3.2")
-        app.buttons["birthDetailsContinue"].tap()
+        let name = app.textFields["birthDetailsName"]
+        name.tap()
+        name.typeText("Minh An\n")
+        let detailsContinue = app.buttons["birthDetailsContinue"]
+        app.scrollUntilHittable(detailsContinue)
+        detailsContinue.tap()
         app.buttons["pregnancyEndKeepYes"].tap()
         app.buttons["pregnancyEndConfirm"].tap()
 

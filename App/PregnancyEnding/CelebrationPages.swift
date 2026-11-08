@@ -603,17 +603,20 @@ struct SummaryCard: View {
     }
 
     private var grid: some View {
-        let columns = dynamicTypeSize.isAccessibilitySize
-            ? [GridItem(.flexible())]
-            : [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)]
+        // Plain rows, not a lazy grid: `ImageRenderer` draws lazy cells blank in the saved image.
+        let perRow = dynamicTypeSize.isAccessibilitySize ? 1 : 2
+        let rows = stride(from: 0, to: statCells.count, by: perRow).map { Array(statCells[$0..<min($0 + perRow, statCells.count)]) }
         return VStack(spacing: 10) {
             if let weeks = recap.weeks {
                 weeksCell(weeks)
             }
-            if !statCells.isEmpty {
-                LazyVGrid(columns: columns, spacing: 10) {
-                    ForEach(statCells, id: \.art) { cell in statCell(cell) }
+            ForEach(rows.indices, id: \.self) { row in
+                HStack(alignment: .top, spacing: 10) {
+                    ForEach(rows[row], id: \.art) { cell in statCell(cell) }
+                    // An odd last cell keeps half the width.
+                    if rows[row].count < perRow { Color.clear.frame(maxWidth: .infinity) }
                 }
+                .fixedSize(horizontal: false, vertical: true)
             }
             if let baby = recap.baby {
                 let cells = BirthCells(baby: baby, weightLabel: L10n.birthSummaryWeightAtBirth).cells

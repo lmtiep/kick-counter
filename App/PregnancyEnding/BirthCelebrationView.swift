@@ -5,8 +5,9 @@ import UIKit
 /// The full-screen moment after "Bé đã chào đời" (celebration art spec §3, the
 /// Claude Design handoff): Stories-style pages with a progress bar that moves on
 /// by itself every 6 s. A tap on the right half goes on, on the left half back;
-/// holding pauses; ✕ closes from every page. While VoiceOver runs (and in UI
-/// tests) nothing moves on by itself and "Tiếp" shows on every page but the last.
+/// holding pauses; ✕ closes from every page. While VoiceOver runs, at
+/// accessibility text sizes (pages scroll, she may still be reading) and in UI
+/// tests nothing moves on by itself and "Tiếp" shows on every page but the last.
 struct BirthCelebrationView: View {
     let recap: PregnancyRecap
     /// The success haptic belongs to the moment of birth, not to a replay.
@@ -16,6 +17,7 @@ struct BirthCelebrationView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
     @Environment(\.colorScheme) private var scheme
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var index = 0
     @State private var progress = 0.0
     @State private var paused = false
@@ -23,7 +25,7 @@ struct BirthCelebrationView: View {
     static let pageDuration = 6.0
 
     private var animates: Bool { LunaMotion.isEnabled && !reduceMotion }
-    private var autoAdvances: Bool { LunaMotion.isEnabled && !voiceOver }
+    private var autoAdvances: Bool { LunaMotion.isEnabled && !voiceOver && !dynamicTypeSize.isAccessibilitySize }
     private var pages: [PregnancyRecap.Page] { recap.pages }
     private var page: PregnancyRecap.Page { pages[min(index, pages.count - 1)] }
     private var isLast: Bool { index >= pages.count - 1 }
@@ -143,8 +145,10 @@ struct BirthCelebrationView: View {
                 .padding(.bottom, 16)
                 .frame(maxWidth: .infinity, minHeight: proxy.size.height)
                 .contentShape(Rectangle())
-                // Buttons inside win over these: a tap on one is not a page tap.
+                // Buttons inside win over these: a tap on one is not a page tap. The
+                // summary is to be read and saved, so a tap on its card goes nowhere.
                 .onTapGesture(coordinateSpace: .local) { location in
+                    guard page != .summary else { return }
                     location.x < proxy.size.width / 2 ? goBack() : advance()
                 }
                 .onLongPressGesture(minimumDuration: 0.25) {
