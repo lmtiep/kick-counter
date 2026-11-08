@@ -18,6 +18,21 @@ private let logger = Logger(subsystem: "com.lmtiep.kickcounter", category: "preg
 final class PregnancyEnding {
     /// Newest first (Profile's "Kỷ niệm" row shows while it is not empty).
     private(set) var memories: [PregnancyMemoryRecord] = []
+    /// A birth just ended: RootView shows the celebration for it (not the sheet or
+    /// Profile, which the mode switch rebuilds). Cleared when the cover closes.
+    var pendingCelebration: PregnancyRecap?
+    /// The recap of an ending whose sheet is still closing. It becomes
+    /// `pendingCelebration` once the sheet is gone (`releaseHeldCelebration`).
+    private(set) var heldCelebration: PregnancyRecap?
+
+    func hold(_ recap: PregnancyRecap) { heldCelebration = recap }
+
+    /// Idempotent: the sheet's `onDismiss` and RootView's watcher both call it.
+    func releaseHeldCelebration() {
+        guard let recap = heldCelebration else { return }
+        heldCelebration = nil
+        pendingCelebration = recap
+    }
 
     private let kicks: KickCoordinator
     private let contractions: ContractionCoordinator
@@ -62,13 +77,20 @@ final class PregnancyEnding {
     }
 
     /// Ends the pregnancy. Throws only from the archive, before anything else changed.
-    func end(branch: PregnancyEndBranch, endDate: Date, keep: PregnancyEndingKeep) async throws {
+    /// Returns the recap to celebrate: only a birth has one.
+    @discardableResult
+    func end(branch: PregnancyEndBranch, endDate: Date, keep: PregnancyEndingKeep) async throws -> PregnancyRecap? {
         let endDay = calendar.startOfDay(for: min(endDate, now()))
         let rangeStart = try pregnancyRange(endDay: endDay)?.lowerBound
+        // Before any step: `switchToCycle` clears the dates `furthestWeek` needs, and a
+        // birth with no memory and the data kept has no archive step at all.
+        let content = PregnancyEndingPlan.buildsContent(branch: branch, keep: keep)
+            ? try makeContent(branch: branch, endDay: endDay)
+            : nil
         for step in PregnancyEndingPlan.steps(keep: keep) {
             switch step {
             case .archive:
-                try archive(branch: branch, endDay: endDay, keep: keep)
+                try archive(content: content, endDay: endDay, keep: keep)
             case .stopKickCounting:
                 // The reminder setting goes too: a language change or a restore
                 // would otherwise schedule it again outside pregnancy.
@@ -90,6 +112,9 @@ final class PregnancyEnding {
         await weight.load()
         loadMemories()
         logger.info("Pregnancy ended")
+        return content.flatMap {
+            PregnancyRecap.forEnding(content: $0, keptAsMemory: keep.memoryTitle != nil, calendar: calendar)
+        }
     }
 
     /// The pregnancy's days, from the stored dates (read before `switchToCycle` clears them).
@@ -104,24 +129,29 @@ final class PregnancyEnding {
         )
     }
 
-    private func archive(branch: PregnancyEndBranch, endDay: Date, keep: PregnancyEndingKeep) throws {
+    /// The frozen journey, in memory. Read from the rows before anything is deleted.
+    private func makeContent(branch: PregnancyEndBranch, endDay: Date) throws -> PregnancyMemoryContent {
+        let rows = try store.pregnancyRows()
+        return PregnancyMemoryBuilder.make(
+            branch: branch, profile: PregnancyProfile.load(from: defaults), endDate: endDay,
+            sessions: rows.sessions, contractions: rows.contractions, appointments: rows.appointments,
+            weights: rows.weights, logs: rows.logs, calendar: calendar
+        )
+    }
+
+    /// Saves the memory when she keeps one and deletes the raw rows, in one transaction.
+    private func archive(content: PregnancyMemoryContent?, endDay: Date, keep: PregnancyEndingKeep) throws {
         let store = self.store
         let rows = try store.pregnancyRows()
-        let profile = PregnancyProfile.load(from: defaults)
         let range = try pregnancyRange(endDay: endDay)
-        let content = keep.memoryTitle.map { _ in
-            PregnancyMemoryBuilder.make(
-                branch: branch, profile: profile, endDate: endDay,
-                sessions: rows.sessions, contractions: rows.contractions, appointments: rows.appointments,
-                weights: rows.weights, logs: rows.logs, calendar: calendar
-            )
-        }
         let deleting = PregnancyMemoryBuilder.rowsToDelete(
             range: range, sessions: rows.sessions, contractions: rows.contractions,
             appointments: rows.appointments, weights: rows.weights, labourMarkers: rows.labourMarkers,
             checklistItems: rows.checklistItems
         )
-        try store.archive(memory: content, title: keep.memoryTitle ?? "", deleting: deleting, now: now())
+        try store.archive(
+            memory: keep.memoryTitle == nil ? nil : content, title: keep.memoryTitle ?? "", deleting: deleting, now: now()
+        )
     }
 
     func rename(id: UUID, title: String) {

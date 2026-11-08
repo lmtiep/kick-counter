@@ -160,4 +160,14 @@ public enum PregnancyEndingPlan {
         steps += [.stopKickCounting, .stopContractions, .endLiveActivities(force: true), .cancelPregnancyReminders, .switchToCycle]
         return steps
     }
+
+    /// A birth is celebrated whatever she keeps (birth celebration spec §4); a loss never.
+    public static func hasRecap(branch: PregnancyEndBranch) -> Bool { branch == .birth }
+
+    /// Whether the memory content is built before the steps run (they clear the dates it
+    /// needs): to save a memory, or to make the recap. Independent of `steps`, which
+    /// archives only when raw rows are deleted.
+    public static func buildsContent(branch: PregnancyEndBranch, keep: PregnancyEndingKeep) -> Bool {
+        keep.memoryTitle != nil || hasRecap(branch: branch)
+    }
 }

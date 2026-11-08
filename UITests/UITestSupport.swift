@@ -177,6 +177,14 @@ enum CycleModeTab: Int {
 }
 
 extension XCUIApplication {
+    /// A confirmed birth shows the full-screen celebration over the cycle tabs: close it.
+    func closeBirthCelebration() {
+        let close = buttons["birthCelebrationClose"]
+        XCTAssertTrue(close.waitForExistence(timeout: 10))
+        close.tap()
+        XCTAssertTrue(close.waitForNonExistence(timeout: 5))
+    }
+
     func openTab(_ tab: AppTab) {
         openTab(at: tab.rawValue)
     }

@@ -73,11 +73,85 @@ final class PregnancyEndingUITests: XCTestCase {
         XCTAssertTrue(delete.waitForExistence(timeout: 5))
         XCTAssertEqual(delete.value as? String, "0", "keeping the data is the default")
         app.buttons["pregnancyEndConfirm"].tap()
+        app.closeBirthCelebration()
 
         assertCycleModeWithoutPregnancyUI(app)
         app.openCycleTab(.profile)
         XCTAssertTrue(app.buttons["profileSwitchToPregnant"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["profileMemories"].exists, "no memory was made")
+    }
+
+    /// Birth celebration spec §1, §5: the Today card from week 37 starts on the birth
+    /// date step; confirming celebrates, "Next" walks the recap, "Done" closes.
+    @MainActor
+    func testBirthFromTodayCardCelebratesAndKeepsAMemory() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek38)
+        let card = app.descendants(matching: .any)["birthPromptCard"]
+        XCTAssertTrue(card.waitForExistence(timeout: 10))
+        app.buttons["birthPromptButton"].tap()
+        // Straight on the birth branch's date step, not the two choices.
+        XCTAssertTrue(app.buttons["pregnancyEndContinue"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["pregnancyEnd-loss"].exists)
+        app.buttons["pregnancyEndContinue"].tap()
+        app.buttons["pregnancyEndKeepYes"].tap()
+        app.buttons["pregnancyEndConfirm"].tap()
+
+        let next = app.buttons["birthCelebrationNext"]
+        XCTAssertTrue(next.waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["birthCelebrationClose"].exists)
+        var pages = 1
+        while next.exists, pages < 10 {
+            next.tap()
+            pages += 1
+        }
+        XCTAssertGreaterThanOrEqual(pages, 3, "celebration, journey and thanks at least")
+        let done = app.buttons["birthCelebrationDone"]
+        XCTAssertTrue(done.waitForExistence(timeout: 5))
+        let thanks = app.descendants(matching: .any)["birthCelebrationThanks"]
+        XCTAssertTrue(thanks.exists)
+        XCTAssertTrue(thanks.label.contains("saved in Profile"), thanks.label)
+        done.tap()
+
+        assertCycleModeWithoutPregnancyUI(app)
+        XCTAssertFalse(app.buttons["birthCelebrationClose"].exists)
+        app.openCycleTab(.profile)
+        XCTAssertTrue(app.buttons["profileMemories"].waitForExistence(timeout: 5))
+    }
+
+    /// The close button works from the first page too.
+    @MainActor
+    func testCelebrationClosesFromTheFirstPage() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek38)
+        openEnding(app)
+        app.buttons["pregnancyEnd-birth"].tap()
+        app.buttons["pregnancyEndContinue"].tap()
+        app.buttons["pregnancyEndKeepNo"].tap()
+        app.buttons["pregnancyEndConfirm"].tap()
+        XCTAssertTrue(app.buttons["birthCelebrationNext"].waitForExistence(timeout: 10))
+        app.closeBirthCelebration()
+        assertCycleModeWithoutPregnancyUI(app)
+    }
+
+    /// Anti-goal: before week 37 no "it's over" prompt on Today.
+    @MainActor
+    func testNoBirthCardBeforeWeek37() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek30)
+        XCTAssertTrue(app.descendants(matching: .any)["weekProgressCard"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.descendants(matching: .any)["birthPromptCard"].exists)
+    }
+
+    /// Anti-goal: nothing celebratory after "Thai kỳ đã dừng lại".
+    @MainActor
+    func testLossFromProfileHasNoCelebration() {
+        let app = XCUIApplication.launchPinned(language: "en", dueDate: UITestDates.dueAtWeek38)
+        openEnding(app)
+        app.buttons["pregnancyEnd-loss"].tap()
+        app.buttons["pregnancyEndContinue"].tap()
+        app.buttons["pregnancyEndKeepNo"].tap()
+        app.buttons["pregnancyEndConfirm"].tap()
+        assertCycleModeWithoutPregnancyUI(app)
+        XCTAssertFalse(app.buttons["birthCelebrationClose"].waitForExistence(timeout: 2))
+        XCTAssertFalse(app.buttons["birthCelebrationNext"].exists)
     }
 
     @MainActor

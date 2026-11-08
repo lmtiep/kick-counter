@@ -124,6 +124,10 @@ struct PregnancyTodayView: View {
             FetusHero(week: contentWeek) { detailWeek = WeekSelection(week: contentWeek) }
                 .padding(.top, 16)
             WeekProgressCard(progress: PregnancyProgress(timeline: timeline))
+            // "Has your baby arrived?" only when a birth is near (week 37+).
+            if BirthPromptRules.showsTodayCard(week: timeline.week.weeks) {
+                BirthPromptCard()
+            }
             shortcuts(week: timeline.week.weeks, contentWeek: contentWeek)
             if timeline.isKickCountingWeek {
                 kicksTodayCard
