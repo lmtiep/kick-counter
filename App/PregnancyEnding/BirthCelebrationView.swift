@@ -27,7 +27,7 @@ struct BirthCelebrationView: View {
         ZStack {
             background
             if page == .celebration {
-                ConfettiView(isStill: !animates)
+                ConfettiView(intensity: 1, isStill: !animates)
                     .ignoresSafeArea()
                     .transition(.opacity)
             }
