@@ -46,6 +46,8 @@ struct BirthCelebrationView: View {
             .padding(.vertical, 12)
         }
         .animation(pageAnimation, value: index)
+        // VoiceOver follows to the new page instead of staying on a button of the old one.
+        .onChange(of: index) { UIAccessibility.post(notification: .screenChanged, argument: nil) }
         .onAppear {
             if playsHaptic { UINotificationFeedbackGenerator().notificationOccurred(.success) }
         }
@@ -144,7 +146,7 @@ struct BirthCelebrationView: View {
         }
         .contentShape(Rectangle())
         .onTapGesture(perform: advance)
-        .gesture(
+        .simultaneousGesture(
             DragGesture(minimumDistance: 40).onEnded { value in
                 if value.translation.width > 60, abs(value.translation.height) < 80 { goBack() }
             }
@@ -179,13 +181,20 @@ struct BirthCelebrationView: View {
         case .weight:
             StatPage(
                 symbol: "scalemass.fill", target: nil,
-                fixedText: Formatting.kilograms(recap.weightChangeKg ?? 0, signed: true),
+                fixedText: Self.weightText(recap.weightChangeKg ?? 0, spoken: false),
+                spokenText: Self.weightText(recap.weightChangeKg ?? 0, spoken: true),
                 format: { _ in "" },
                 line: L10n.birthWeightLine,
                 animates: animates, compactArt: dynamicTypeSize.isAccessibilitySize
             )
         case .thanks: thanksPage
         }
+    }
+
+    /// "+11,5 kg"; a change that rounds to zero is "0,0 kg", never "+0,0 kg".
+    private static func weightText(_ kg: Double, spoken: Bool) -> String {
+        let rounded = (kg * 10).rounded() / 10
+        return Formatting.kilograms(rounded, signed: rounded != 0, spoken: spoken)
     }
 
     private static func number(_ value: Int) -> String {
@@ -252,6 +261,7 @@ struct BirthCelebrationView: View {
         .multilineTextAlignment(.center)
         .fixedSize(horizontal: false, vertical: true)
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("birthCelebrationThanks")
     }
 }
 
@@ -326,6 +336,7 @@ private struct StatPage: View {
     let symbol: String
     let target: Int?
     var fixedText: String?
+    var spokenText: String?
     let format: (Int) -> String
     let line: String
     let animates: Bool
@@ -359,7 +370,7 @@ private struct StatPage: View {
             }
             .multilineTextAlignment(.center)
             .accessibilityElement(children: .ignore)
-            .accessibilityLabel("\(target.map(format) ?? fixedText ?? "") \(line)")
+            .accessibilityLabel("\(target.map(format) ?? spokenText ?? fixedText ?? "") \(line)")
         }
     }
 }

@@ -182,7 +182,7 @@ extension XCUIApplication {
         let close = buttons["birthCelebrationClose"]
         XCTAssertTrue(close.waitForExistence(timeout: 10))
         close.tap()
-        XCTAssertFalse(close.waitForExistence(timeout: 2))
+        XCTAssertTrue(close.waitForNonExistence(timeout: 5))
     }
 
     func openTab(_ tab: AppTab) {

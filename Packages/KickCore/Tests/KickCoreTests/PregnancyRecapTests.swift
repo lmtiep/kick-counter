@@ -110,4 +110,19 @@ struct PregnancyRecapTests {
         #expect(birth != nil)
         #expect(birth?.keptAsMemory == true)
     }
+
+    /// Review fix 1: a birth with no memory and the data kept has no archive step, yet is celebrated.
+    @Test func everyBirthKeepChoiceBuildsContentForARecapAndALossOnlyForAMemory() {
+        let keeps: [PregnancyEndingKeep] = [.memory(title: "Bông"), .noMemoryKeepData, .noMemoryDeleteData]
+        for keep in keeps {
+            #expect(PregnancyEndingPlan.hasRecap(branch: .birth), "\(keep)")
+            #expect(PregnancyEndingPlan.buildsContent(branch: .birth, keep: keep), "birth \(keep)")
+        }
+        #expect(PregnancyEndingPlan.hasRecap(branch: .loss) == false)
+        #expect(PregnancyEndingPlan.buildsContent(branch: .loss, keep: .memory(title: "")))
+        #expect(PregnancyEndingPlan.buildsContent(branch: .loss, keep: .noMemoryKeepData) == false)
+        #expect(PregnancyEndingPlan.buildsContent(branch: .loss, keep: .noMemoryDeleteData) == false)
+        // The archive step alone cannot be relied on for this.
+        #expect(PregnancyEndingPlan.steps(keep: .noMemoryKeepData).contains(.archive) == false)
+    }
 }

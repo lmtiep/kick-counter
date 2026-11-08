@@ -107,7 +107,9 @@ final class PregnancyEndingUITests: XCTestCase {
         XCTAssertGreaterThanOrEqual(pages, 3, "celebration, journey and thanks at least")
         let done = app.buttons["birthCelebrationDone"]
         XCTAssertTrue(done.waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Your journey is saved in Profile → Memories."].exists)
+        let thanks = app.descendants(matching: .any)["birthCelebrationThanks"]
+        XCTAssertTrue(thanks.exists)
+        XCTAssertTrue(thanks.label.contains("saved in Profile"), thanks.label)
         done.tap()
 
         assertCycleModeWithoutPregnancyUI(app)

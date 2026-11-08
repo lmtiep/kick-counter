@@ -268,16 +268,10 @@ struct PregnancyEndingSheet: View {
             failed = true
             return
         }
+        // Held until this sheet is gone (its host's `onDismiss`, or RootView's watcher
+        // when the mode switch removed the host): presenting over a closing sheet is dropped.
+        if let recap { ending.hold(recap) }
         dismiss()
         onEnded(recap)
-        if let recap {
-            // RootView presents the cover; let this sheet finish closing first, or
-            // the presentation is dropped.
-            let ending = ending
-            Task {
-                try? await Task.sleep(for: .milliseconds(LunaMotion.isEnabled ? 600 : 250))
-                ending.pendingCelebration = recap
-            }
-        }
     }
 }

@@ -2557,7 +2557,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "…and %d day with your baby"
+            "value": "%d day with your baby"
           }
         },
         "vi": {
@@ -2574,7 +2574,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "…and %d days with your baby"
+            "value": "%d days with your baby"
           }
         },
         "vi": {
@@ -2608,7 +2608,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d week"
+            "value": "%d week together"
           }
         },
         "vi": {
@@ -2625,7 +2625,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d weeks"
+            "value": "%d weeks together"
           }
         },
         "vi": {

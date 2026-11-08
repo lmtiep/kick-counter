@@ -157,7 +157,7 @@ struct ProfileView: View {
             .sheet(isPresented: $showingImPregnant) {
                 ImPregnantSheet(lastPeriodStart: cycle.forecast?.currentPeriodStart)
             }
-            .sheet(isPresented: $showingEndPregnancy) {
+            .sheet(isPresented: $showingEndPregnancy, onDismiss: { ending.releaseHeldCelebration() }) {
                 PregnancyEndingSheet(onEnded: { _ in onPregnancyEnded() })
                     .lunaSheetPresentation(detents: [.large])
             }

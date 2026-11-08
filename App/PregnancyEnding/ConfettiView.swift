@@ -46,7 +46,7 @@ struct ConfettiView: View {
         if isStill {
             canvas(time: 4)
         } else {
-            TimelineView(.animation) { timeline in
+            TimelineView(.animation(minimumInterval: 1.0 / 60)) { timeline in
                 canvas(time: timeline.date.timeIntervalSinceReferenceDate)
             }
         }
