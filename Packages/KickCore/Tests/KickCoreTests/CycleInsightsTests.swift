@@ -206,4 +206,15 @@ struct CycleInsightsTests {
         #expect(result.todayPattern(cycleDay: 26, daysUntilNextPeriod: 3, nextPeriodIsReliable: false) == nil)
         #expect(result.todayPattern(cycleDay: 26, daysUntilNextPeriod: 2, nextPeriodIsReliable: true) == nil)
     }
+
+    // MARK: - Chart (review fix: a pregnancy gap must not squash the normal bars)
+
+    @Test func longBarsAreCappedForTheChart() {
+        let p = periods(from: "2025-01-01", lengths: [28, 280, 30])
+        let bars = insights(p, logs: [], now: now(after: p)).lengths
+        #expect(bars.map(\.length) == [28, 280, 30])
+        #expect(bars.map(\.shownLength) == [28, CycleInsights.chartCap, 30])
+        #expect(bars.map(\.isCapped) == [false, true, false])
+        #expect(CycleInsights.chartCap == 60)
+    }
 }

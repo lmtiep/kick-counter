@@ -10,6 +10,10 @@ public struct CycleInsights: Equatable, Sendable {
         public let length: Int
         /// Within `CyclePredictor.usableCycleLengths`, as the average counts it.
         public let counts: Bool
+        /// The bar's height on the chart: a long gap (a pregnancy) stops at `chartCap`
+        /// so the normal bars and the 24–38-day band stay readable.
+        public var shownLength: Int { min(length, CycleInsights.chartCap) }
+        public var isCapped: Bool { length > CycleInsights.chartCap }
     }
 
     public enum Regularity: Equatable, Sendable {
@@ -50,6 +54,7 @@ public struct CycleInsights: Equatable, Sendable {
     public let patterns: [Pattern]
 
     static let maxBars = 12
+    public static let chartCap = 60
     static let cyclesForPatterns = 6
     static let minCyclesWithItem = 3
     static let maxWindowDays = 5

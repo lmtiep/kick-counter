@@ -41,24 +41,53 @@ final class AppLock {
         }
     }
 
+    private var sceneIsActive = true
+    private var wasInBackground = false
+
+    /// The policy first, then the window, in one step: a return after a minute goes
+    /// from the cover straight to the lock (review fix: no frame of her diary between).
     func sceneChanged(to phase: ScenePhase, now: Date = AppClock.now()) {
         let canAuthenticate = Self.canAuthenticate
         if isEnabled, !canAuthenticate {
             defaults.set(false, forKey: SettingsKey.appLockEnabled)
             isEnabled = false
         }
+        let returning = phase == .active && wasInBackground
         switch phase {
-        case .background: policy.handle(.enteredBackground(now), enabled: isEnabled, canAuthenticate: canAuthenticate)
-        case .active: policy.handle(.becameActive(now), enabled: isEnabled, canAuthenticate: canAuthenticate)
+        case .background:
+            wasInBackground = true
+            policy.handle(.enteredBackground(now), enabled: isEnabled, canAuthenticate: canAuthenticate)
+        case .active:
+            wasInBackground = false
+            policy.handle(.becameActive(now), enabled: isEnabled, canAuthenticate: canAuthenticate)
         default: break
         }
+        sceneIsActive = phase == .active
+        updateWindow()
+        // Back from the background still locked: ask again. Not after the Face ID
+        // prompt itself (inactive → active), which would loop on a cancel.
+        if returning, policy.isLocked { Task { await unlock() } }
+    }
+
+    func updateWindow() {
+        AppLockWindow.shared.show(
+            AppLockPolicy.windowMode(isLocked: policy.isLocked, enabled: isEnabled, sceneIsActive: sceneIsActive),
+            lock: self
+        )
     }
 
     /// Asks for Face ID / Touch ID, falling back to the device passcode.
     func unlock() async {
-        guard policy.isLocked else { return }
-        if await Self.authenticate() { policy.unlocked() }
+        guard policy.isLocked, !authenticating else { return }
+        authenticating = true
+        defer { authenticating = false }
+        if await Self.authenticate() {
+            policy.unlocked()
+            updateWindow()
+        }
     }
+
+    private var authenticating = false
 
     /// Turning it on asks first: a failed or cancelled check leaves it off.
     func setEnabled(_ on: Bool) async {
@@ -68,6 +97,7 @@ final class AppLock {
         defaults.set(on, forKey: SettingsKey.appLockEnabled)
         isEnabled = on
         policy.handle(.becameActive(AppClock.now()), enabled: on, canAuthenticate: Self.canAuthenticate)
+        updateWindow()
     }
 
     private static func authenticate() async -> Bool {
@@ -86,27 +116,24 @@ struct AppLockOverlay: ViewModifier {
     let lock: AppLock
     @Environment(\.scenePhase) private var scenePhase
 
-    private var mode: AppLockWindow.Mode {
-        if lock.isLocked { return .locked }
-        if lock.isEnabled, scenePhase != .active { return .cover }
-        return .hidden
-    }
-
     func body(content: Content) -> some View {
         content
             .onChange(of: scenePhase) { _, phase in lock.sceneChanged(to: phase) }
-            .onChange(of: mode, initial: true) { _, mode in AppLockWindow.shared.show(mode, lock: lock) }
+            .onAppear { lock.updateWindow() }
     }
 }
 
 @MainActor
 final class AppLockWindow {
-    enum Mode: Equatable { case hidden, cover, locked }
+    typealias Mode = AppLockPolicy.WindowMode
 
     static let shared = AppLockWindow()
     private var window: UIWindow?
+    private var shown: Mode = .hidden
 
     func show(_ mode: Mode, lock: AppLock) {
+        guard mode != shown else { return }
+        shown = mode
         guard mode != .hidden else {
             window?.isHidden = true
             window = nil

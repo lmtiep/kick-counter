@@ -161,7 +161,7 @@ bạn, không phải chẩn đoán."
   {26,28,25} → ⌈2.25⌉=3 occurrences → window 25–28 (width 4). daysBefore {3,3,3} →
   window 3–3 (width 1) → chosen: "3 ngày trước kỳ kinh", "(3/4 chu kỳ gần đây)".
 - **Today line:** needs a forecast. `startDay` patterns test `forecast.cycleDay`.
-  `daysBefore` patterns test (days until `nextPeriodStart`) + 1, and only when the
+  `daysBefore` patterns test the days until `nextPeriodStart` (the last cycle day is 1), and only when the
   forecast is not low-confidence and not late (`daysLate == 0`). First matching
   pattern in ranking order. None while paused, in pregnancy or with no forecast.
 

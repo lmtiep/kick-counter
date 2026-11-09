@@ -61,4 +61,28 @@ struct AppLockPolicyTests {
         policy.handle(.becameActive(t0), enabled: true, canAuthenticate: false)
         #expect(!policy.isLocked)
     }
+
+    // MARK: - What the lock window shows (review fix: decided in the same step as the policy)
+
+    @Test func lockedShowsTheLockWhateverTheScene() {
+        #expect(AppLockPolicy.windowMode(isLocked: true, enabled: true, sceneIsActive: true) == .locked)
+        #expect(AppLockPolicy.windowMode(isLocked: true, enabled: true, sceneIsActive: false) == .locked)
+    }
+
+    @Test func anInactiveSceneIsCoveredOnlyWhenTheLockIsOn() {
+        #expect(AppLockPolicy.windowMode(isLocked: false, enabled: true, sceneIsActive: false) == .cover)
+        #expect(AppLockPolicy.windowMode(isLocked: false, enabled: false, sceneIsActive: false) == .hidden)
+        #expect(AppLockPolicy.windowMode(isLocked: false, enabled: true, sceneIsActive: true) == .hidden)
+    }
+
+    /// Returning after a minute: the policy locks before the window is decided, so the
+    /// window goes straight from cover to lock and the diary never shows in between.
+    @Test func returningAfterAMinuteGoesFromCoverStraightToLock() {
+        var policy = AppLockPolicy(enabled: true, canAuthenticate: true)
+        policy.unlocked()
+        policy.handle(.enteredBackground(t0), enabled: true, canAuthenticate: true)
+        #expect(AppLockPolicy.windowMode(isLocked: policy.isLocked, enabled: true, sceneIsActive: false) == .cover)
+        policy.handle(.becameActive(t0.addingTimeInterval(120)), enabled: true, canAuthenticate: true)
+        #expect(AppLockPolicy.windowMode(isLocked: policy.isLocked, enabled: true, sceneIsActive: true) == .locked)
+    }
 }

@@ -38,9 +38,17 @@ struct CycleInsightsSection: View {
                 RectangleMark(yStart: .value("", 24), yEnd: .value("", 38))
                     .foregroundStyle(Color.luna(.cycleSoft).opacity(0.6))
                 ForEach(Array(insights.lengths.enumerated()), id: \.offset) { index, bar in
-                    BarMark(x: .value("", index), y: .value("", bar.length), width: .ratio(0.6))
+                    BarMark(x: .value("", index), y: .value("", bar.shownLength), width: .ratio(0.6))
                         .foregroundStyle(Color.luna(bar.counts ? .cycleStrong : .textSecondary).opacity(bar.counts ? 1 : 0.4))
                         .cornerRadius(3)
+                        .annotation(position: .top) {
+                            // A long gap (a pregnancy) stops at the cap: its real length is written on it.
+                            if bar.isCapped {
+                                Text("\(bar.length)")
+                                    .font(.luna(.small))
+                                    .foregroundStyle(.luna(.textSecondary))
+                            }
+                        }
                         .accessibilityLabel(L10n.insightsChartBar(Formatting.spokenDay(bar.start), L10n.days(bar.length)))
                 }
                 if let averageLength {
@@ -50,7 +58,7 @@ struct CycleInsightsSection: View {
                 }
             }
             .chartXAxis(.hidden)
-            .chartYScale(domain: 0...max(45, (insights.lengths.map(\.length).max() ?? 0) + 2))
+            .chartYScale(domain: 0...(insights.lengths.contains(where: \.isCapped) ? CycleInsights.chartCap + 8 : 45))
             .frame(height: 140)
             Text(L10n.insightsChartNormal)
                 .font(.luna(.small))

@@ -39,4 +39,14 @@ public struct AppLockPolicy: Equatable, Sendable {
     public mutating func unlocked() {
         isLocked = false
     }
+
+    /// What the lock window shows. Decided after the policy has handled the scene
+    /// change, never before, so a return after a minute goes from cover to lock
+    /// without a frame of her diary in between.
+    public enum WindowMode: Equatable, Sendable { case hidden, cover, locked }
+
+    public static func windowMode(isLocked: Bool, enabled: Bool, sceneIsActive: Bool) -> WindowMode {
+        if isLocked { return .locked }
+        return enabled && !sceneIsActive ? .cover : .hidden
+    }
 }
