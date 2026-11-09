@@ -82,22 +82,25 @@ Sections, in order (new ones marked ★):
    a spotting day without a period shows a small dot in the period colour at 40 %.
 2. Tâm trạng — adds ★ `irritable` (Cáu gắt), `sad` (Buồn), `energetic` (Tràn đầy năng lượng).
 3. Triệu chứng — cycle mode list becomes: cramps, headache, tenderBreasts, acne,
-   bloating, cravings, ★ backPain, ★ fatigue (Mệt mỏi), ★ insomnia, ★ nausea,
+   bloating, cravings, ★ backPain, ★ insomnia, ★ nausea,
    ★ diarrhea (Tiêu chảy), ★ constipation (Táo bón), ★ dizziness (Chóng mặt).
    `Symptom.mode` becomes `modes: Set<AppMode>`; backPain, insomnia, nausea are in
-   both. Display order per mode is an explicit list.
+   both. Display order per mode is an explicit list. No "fatigue" symptom: the
+   existing mood `tired` covers it (no duplicate chip or pattern).
 4. ★ **Quan hệ**: single choice chips "Không bảo vệ" / "Có bảo vệ", tap again to
    clear → `CycleLog.sexRaw: String?` (`SexLog`: unprotected, protected).
    ★ **Ham muốn**: Thấp / Bình thường / Cao → `sexDriveRaw` (`SexDrive`).
    Shown for every goal. On hormonal contraception the section is the same.
 5. Dịch nhầy, LH, BBT (unchanged rules).
 6. ★ **Que thử thai**: Âm tính / Dương tính → `pregnancyTestRaw` (`PregnancyTestResult`).
-   Saving a positive test shows a one-time prompt on the sheet's dismissal:
+   Saving a day whose test changed to positive (cycle mode only) shows a prompt on the sheet's dismissal:
    "Chúc mừng! Bạn muốn chuyển sang theo dõi thai kỳ?" → opens the existing
    `ImPregnantSheet`; "Để sau" closes. Never switches mode by itself.
 7. Ghi chú (unchanged).
 
-`CycleLogRecord.isEmpty` / `hasContent` include the new fields. The day summary on
+`CycleLogRecord.isEmpty` / `hasContent` include the new fields (spotting, sex, sex
+drive, test count as content). The spotting dot shows only on a day that is not a
+logged or predicted period day. The day summary on
 Today/calendar lists them with the existing chip style; sex shows as a heart glyph
 only (no words) in the calendar day summary.
 
@@ -133,13 +136,46 @@ gặp" patterns (or an empty state "Ghi lại triệu chứng vài chu kỳ, Lun
 bạn hay gặp") → cycle rows (existing). A footnote: "Đây là quan sát từ ghi chép của
 bạn, không phải chẩn đoán."
 
+### 2b. Insights — rulings (builder check)
+
+- **Which cycles:** chart, regularity and patterns use `CycleHistory.cycles` only —
+  no new filtering, no change to `CyclePredictor`. Chart: completed cycles, last ≤12,
+  bar coloured by `countsTowardAverage`. Regularity: the same lengths the average uses
+  (`countsTowardAverage`, last 6). Patterns: completed cycles with
+  `countsTowardAverage`, last 6 — a pregnancy gap is far beyond 45 days, so it is
+  never one of them. Only cycle-mode items count (`Symptom.modes` contains the cycle
+  mode, all moods, spotting).
+- **Denominator:** those cycles with at least one day log of any kind. A cycle with
+  logs but not the item counts in the denominator.
+- **Occurrence per cycle:** the item's first logged day in that cycle, as
+  `startDay` (1 = period start) and `daysBefore` (cycle length − startDay + 1, so the
+  last day of the cycle is 1).
+- **Window per anchor:** the narrowest day range covering ⌈75 %⌉ of the occurrences.
+  An anchor qualifies when that width ≤ 5 days. Both qualify → the narrower; tie →
+  `startDay`. Neither → not a pattern. The chosen anchor is stored with the pattern
+  and is the one the Today line tests.
+- **Ranking:** ratio (cycles with item / denominator) desc, then window width asc,
+  then the item's display order. Max 5.
+- **Worked example:** 4 counted cycles with logs, lengths 28, 30, 27, 29. Headache on
+  day 26 (c1), 28 (c2), 25 (c3), none (c4) → 3/4 = 75 % ≥ 50 %, ≥3 ✓. startDay
+  {26,28,25} → ⌈2.25⌉=3 occurrences → window 25–28 (width 4). daysBefore {3,3,3} →
+  window 3–3 (width 1) → chosen: "3 ngày trước kỳ kinh", "(3/4 chu kỳ gần đây)".
+- **Today line:** needs a forecast. `startDay` patterns test `forecast.cycleDay`.
+  `daysBefore` patterns test (days until `nextPeriodStart`) + 1, and only when the
+  forecast is not low-confidence and not late (`daysLate == 0`). First matching
+  pattern in ranking order. None while paused, in pregnancy or with no forecast.
+
 ### 3. App lock
 
 - Profile → "Quyền riêng tư" → ★ **Khoá bằng Face ID** (Touch ID / "mật mã" by
   device). Shown only when `LAContext.canEvaluatePolicy(.deviceOwnerAuthentication)`.
   Turning it on authenticates first; failure leaves it off. Stored in app defaults
   (`SettingsKey.appLockEnabled`), not in backups.
-- Lock moments: cold launch, and returning to foreground after ≥60 s in background.
+- Lock moments: cold launch, and returning to foreground after ≥60 s in background,
+  measured from `.background` (not `.inactive`: the Face ID prompt itself makes the
+  scene inactive, which must never re-lock).
+- If the toggle is on but the device can no longer evaluate the policy (passcode
+  removed), the app opens unlocked and the toggle shows off — never a lockout.
   While the scene is inactive/background a plain cover (app icon on the background
   colour) hides content for the app switcher.
 - Lock screen: icon, "Luna Mom đã khoá", button "Mở khoá"; auth runs automatically on
