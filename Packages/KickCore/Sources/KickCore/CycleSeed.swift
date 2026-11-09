@@ -15,6 +15,10 @@ public enum CycleSeedScenario: String, Sendable, CaseIterable {
     case late
     /// 24/35/26/34-day cycles: low confidence and the irregular warning, cycle day 11.
     case irregular
+    /// Regular 28-day cycles at cycle day 26 (3 days before the next period), with
+    /// cramps on day 1 and a headache 3 days before every period: two insight patterns,
+    /// the headache one falling on today (1.2).
+    case patterns
 
     public struct Records: Equatable, Sendable {
         public let periods: [PeriodRecord]
@@ -55,6 +59,13 @@ public enum CycleSeedScenario: String, Sendable, CaseIterable {
             return Records(periods: closed([-116, -88, -60, -32]), logs: [])
         case .irregular:
             return Records(periods: closed([-129, -105, -70, -44, -10]), logs: [])
+        case .patterns:
+            let starts = [-137, -109, -81, -53, -25]
+            return Records(
+                periods: closed(starts),
+                logs: starts.map { CycleLogRecord(day: day($0), flow: .medium, symptoms: [.cramps]) }
+                    + starts.dropLast().map { CycleLogRecord(day: day($0 + 25), symptoms: [.headache]) }
+            )
         }
     }
 }

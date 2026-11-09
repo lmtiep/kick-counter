@@ -34,8 +34,8 @@ final class CycleSymptomsUITests: XCTestCase {
         app.scrollUntilHittable(headache)
         headache.tap()
         XCTAssertTrue(headache.isSelected)
-        // Only the trying-to-conceive list: no pregnancy symptoms here.
-        XCTAssertFalse(app.buttons["symptomChip-nausea"].exists)
+        // Only the trying-to-conceive list: no pregnancy-only symptoms here (nausea is shared since 1.2).
+        XCTAssertFalse(app.buttons["symptomChip-heartburn"].exists)
         app.buttons["dayLogSave"].tap()
         let closed = XCTNSPredicateExpectation(
             predicate: NSPredicate(format: "exists == false"), object: app.buttons["dayLogSave"]
