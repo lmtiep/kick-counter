@@ -263,8 +263,8 @@ struct DoctorReportTests {
 
     @Test func moodsAndSymptomsOfCycleMode() {
         let logs = [
-            CycleLogRecord(day: day("2026-09-30"), moods: [.tired], symptoms: [.cramps, .nausea]),
-            CycleLogRecord(day: day("2026-10-01"), symptoms: [.nausea]),
+            CycleLogRecord(day: day("2026-09-30"), moods: [.tired], symptoms: [.cramps, .heartburn]),
+            CycleLogRecord(day: day("2026-10-01"), symptoms: [.heartburn]),
             CycleLogRecord(day: day("2026-10-02"), flow: .light),
         ]
         let periods = [PeriodRecord(startDate: day("2026-09-20"), endDate: day("2026-09-24"))]

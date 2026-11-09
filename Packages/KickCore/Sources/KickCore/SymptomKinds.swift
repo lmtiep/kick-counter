@@ -30,10 +30,15 @@ public enum Mood: String, Sendable, CaseIterable {
     case sensitive
     case anxious
     case tired
+    // 1.2
+    case irritable
+    case sad
+    case energetic
 }
 
 /// Symptoms of both modes in one list (spec §2.1). The UI shows only the
-/// current mode's; the other mode's stay stored untouched.
+/// current mode's; the other mode's stay stored untouched. Back pain, insomnia
+/// and nausea belong to both (1.2 spec §1).
 public enum Symptom: String, Sendable, CaseIterable {
     // Trying to conceive
     case cramps
@@ -50,17 +55,29 @@ public enum Symptom: String, Sendable, CaseIterable {
     case legCramps
     case insomnia
     case contractions
+    // Trying to conceive, 1.2
+    case diarrhea
+    case constipation
+    case dizziness
 
-    public var mode: AppMode {
+    public var modes: Set<AppMode> {
         switch self {
-        case .cramps, .headache, .tenderBreasts, .acne, .bloating, .cravings: .tryingToConceive
-        case .nausea, .heartburn, .swollenFeet, .backPain, .legCramps, .insomnia, .contractions: .pregnant
+        case .cramps, .headache, .tenderBreasts, .acne, .bloating, .cravings, .diarrhea, .constipation, .dizziness:
+            [.tryingToConceive]
+        case .heartburn, .swollenFeet, .legCramps, .contractions: [.pregnant]
+        case .nausea, .backPain, .insomnia: [.tryingToConceive, .pregnant]
         }
     }
 
     /// The chips shown in that mode, in display order.
     public static func cases(for mode: AppMode) -> [Symptom] {
-        allCases.filter { $0.mode == mode }
+        switch mode {
+        case .tryingToConceive:
+            [.cramps, .headache, .tenderBreasts, .acne, .bloating, .cravings,
+             .backPain, .insomnia, .nausea, .diarrhea, .constipation, .dizziness]
+        case .pregnant: [.nausea, .heartburn, .swollenFeet, .backPain, .legCramps, .insomnia, .contractions]
+        case .partner: []
+        }
     }
 
     /// Contractions and swollen feet show the "when to get care" card (spec §3.2).

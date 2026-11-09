@@ -7583,6 +7583,57 @@
         }
       }
     },
+    "cycleLog.summary.pregnancyTest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnancy test: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que thử thai: %@"
+          }
+        }
+      }
+    },
+    "cycleLog.summary.sex": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quan hệ: %@"
+          }
+        }
+      }
+    },
+    "cycleLog.summary.sexDrive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex drive: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ham muốn: %@"
+          }
+        }
+      }
+    },
     "cycleSettings.cycleLength": {
       "extractionState": "manual",
       "localizations": {
@@ -8025,6 +8076,176 @@
         }
       }
     },
+    "dayLog.pregnancyTest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnancy test"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que thử thai"
+          }
+        }
+      }
+    },
+    "dayLog.pregnancyTest.negative": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Negative"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Âm tính"
+          }
+        }
+      }
+    },
+    "dayLog.pregnancyTest.positive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Positive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dương tính"
+          }
+        }
+      }
+    },
+    "dayLog.sex": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quan hệ"
+          }
+        }
+      }
+    },
+    "dayLog.sex.protected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protected"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có bảo vệ"
+          }
+        }
+      }
+    },
+    "dayLog.sex.unprotected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unprotected"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không bảo vệ"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex drive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ham muốn"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive.high": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cao"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive.low": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thấp"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive.normal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normal"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bình thường"
+          }
+        }
+      }
+    },
     "dayLog.signals": {
       "extractionState": "manual",
       "localizations": {
@@ -8038,6 +8259,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dấu hiệu rụng trứng"
+          }
+        }
+      }
+    },
+    "dayLog.spotting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotting"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ra máu lấm tấm"
           }
         }
       }
@@ -16134,6 +16372,23 @@
         }
       }
     },
+    "symptom.kind.constipation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Constipation"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Táo bón"
+          }
+        }
+      }
+    },
     "symptom.kind.contractions": {
       "extractionState": "manual",
       "localizations": {
@@ -16181,6 +16436,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Thèm ăn"
+          }
+        }
+      }
+    },
+    "symptom.kind.diarrhea": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diarrhea"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiêu chảy"
+          }
+        }
+      }
+    },
+    "symptom.kind.dizziness": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dizziness"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chóng mặt"
           }
         }
       }
@@ -16338,6 +16627,23 @@
         }
       }
     },
+    "symptom.mood.energetic": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energetic"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tràn đầy năng lượng"
+          }
+        }
+      }
+    },
     "symptom.mood.happy": {
       "extractionState": "manual",
       "localizations": {
@@ -16351,6 +16657,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vui vẻ"
+          }
+        }
+      }
+    },
+    "symptom.mood.irritable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Irritable"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cáu gắt"
+          }
+        }
+      }
+    },
+    "symptom.mood.sad": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sad"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buồn"
           }
         }
       }

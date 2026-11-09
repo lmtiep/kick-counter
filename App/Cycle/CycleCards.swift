@@ -50,6 +50,10 @@ enum CycleTexts {
         case .lh(.positive): L10n.cycleLogLH(L10n.dayLogLHPositive)
         case .lh(.negative): L10n.cycleLogLH(L10n.dayLogLHNegative)
         case .mucus(let mucus): L10n.mucus(mucus)
+        case .spotting: L10n.dayLogSpotting
+        case .pregnancyTest(let result): L10n.cycleLogPregnancyTest(result)
+        case .sex(let sex): L10n.cycleLogSex(sex)
+        case .sexDrive(let drive): L10n.cycleLogSexDrive(drive)
         case .note: L10n.dayLogNote
         }
     }
