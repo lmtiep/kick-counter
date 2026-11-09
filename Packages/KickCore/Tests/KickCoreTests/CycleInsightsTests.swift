@@ -142,7 +142,8 @@ struct CycleInsightsTests {
             logs.append(CycleLogRecord(day: dayOf(p, cycle: cycle, cycleDay: 10), moods: [.sad]))
         }
         let items = insights(p, logs: logs, now: now(after: p)).patterns.map(\.item)
-        #expect(items == [.mood(.happy), .mood(.calm), .symptom(.cramps), .symptom(.headache), .symptom(.acne)])
+        // Calm ("Bình thường") is never a pattern.
+        #expect(items == [.mood(.happy), .symptom(.cramps), .symptom(.headache), .symptom(.acne), .symptom(.bloating)])
     }
 
     // MARK: - Lengths and regularity

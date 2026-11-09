@@ -52,6 +52,11 @@ struct CycleHistoryView: View {
                 } else {
                     summaryCard(history)
                     addPastButton
+                    CycleInsightsSection(
+                        insights: CycleInsights.make(history: history, logs: cycle.logs, calendar: .current),
+                        averageLength: history.averageCycleLength,
+                        policy: cycle.policy
+                    )
                     VStack(spacing: 0) {
                         ForEach(Array(history.cycles.enumerated()), id: \.element.id) { index, item in
                             if index > 0 { LunaDivider().padding(.horizontal, 18) }

@@ -398,6 +398,54 @@ enum L10n {
     static func cycleLogLH(_ result: String) -> String { String(format: t("cycle.log.lh"), result) }
     // 1.2: spotting, sex, sex drive, pregnancy test (cycle 1.2 spec §1)
     static var dayLogSpotting: String { t("dayLog.spotting") }
+    // 1.2 insights (cycle 1.2 spec §2)
+    static var insightsChartTitle: String { t("insights.chart.title") }
+    static func insightsChartBar(_ start: String, _ length: String) -> String { String(format: t("insights.chart.a11y"), start, length) }
+    static var insightsChartNormal: String { t("insights.chart.normal") }
+    static func insightsRegularity(_ regularity: CycleInsights.Regularity) -> String {
+        switch regularity {
+        case .regular(let spread): String(format: t("insights.regular"), days(spread))
+        case .somewhatVariable(let spread): String(format: t("insights.somewhat"), days(spread))
+        case .variable(let spread): String(format: t("insights.variable"), days(spread))
+        }
+    }
+    static var insightsPatternsTitle: String { t("insights.patterns.title") }
+    static var insightsPatternsEmpty: String { t("insights.patterns.empty") }
+    static var insightsFootnote: String { t("insights.footnote") }
+    static func insightItem(_ item: CycleInsights.Item) -> String {
+        switch item {
+        case .mood(let mood): t("insightItem.\(mood.rawValue)")
+        case .symptom(let symptom): t("insightItem.\(symptom.rawValue)")
+        case .spotting: t("insightItem.spotting")
+        }
+    }
+    static func insightPattern(_ pattern: CycleInsights.Pattern, bleed: Bool) -> String {
+        let range = pattern.window
+        switch pattern.anchor {
+        case .startDay:
+            let when = range.count == 1
+                ? String(format: t("insights.day.one"), range.lowerBound)
+                : String(format: t("insights.day.range"), range.lowerBound, range.upperBound)
+            return String(
+                format: t(bleed ? "insights.pattern.startDay.bleed" : "insights.pattern.startDay"),
+                insightItem(pattern.item), when, pattern.cyclesWithItem, pattern.cyclesLogged
+            )
+        case .daysBefore:
+            let when = range.count == 1
+                ? days(range.lowerBound)
+                : String(format: t("insights.before.range"), range.lowerBound, range.upperBound)
+            return String(
+                format: t(bleed ? "insights.pattern.daysBefore.bleed" : "insights.pattern.daysBefore"),
+                insightItem(pattern.item), when, pattern.cyclesWithItem, pattern.cyclesLogged
+            )
+        }
+    }
+    static func insightToday(_ item: CycleInsights.Item) -> String { String(format: t("insights.today"), insightItem(item)) }
+
+    static var positiveTestTitle: String { t("positiveTest.title") }
+    static var positiveTestMessage: String { t("positiveTest.message") }
+    static var positiveTestSwitch: String { t("positiveTest.switch") }
+    static var positiveTestLater: String { t("positiveTest.later") }
     static var dayLogSex: String { t("dayLog.sex") }
     static func sex(_ value: SexLog) -> String {
         switch value {

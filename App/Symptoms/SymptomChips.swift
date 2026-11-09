@@ -96,6 +96,28 @@ struct FlowChips: View {
     }
 }
 
+/// One value or none: tapping the chosen chip again clears it (1.2 sex, sex
+/// drive, pregnancy test). Identifiers are `<identifier>-<rawValue>`.
+struct SingleChoiceChips<Value: RawRepresentable & Hashable & CaseIterable>: View
+where Value.RawValue == String, Value.AllCases: RandomAccessCollection {
+    @Binding var selection: Value?
+    let identifier: String
+    let title: (Value) -> String
+
+    var body: some View {
+        FlowLayout {
+            ForEach(Array(Value.allCases), id: \.self) { value in
+                SelectableChip(title: title(value), isSelected: selection == value) {
+                    selection = selection == value ? nil : value
+                }
+                .accessibilityIdentifier("\(identifier)-\(value.rawValue)")
+            }
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityIdentifier(identifier)
+    }
+}
+
 /// Moods: several.
 struct MoodChips: View {
     @Binding var selection: Set<Mood>

@@ -99,9 +99,10 @@ public struct CycleInsights: Equatable, Sendable {
         }
     }
 
-    /// Every item she can log in cycle mode, in display order (the ranking's last tie-break).
+    /// Every item she can log in cycle mode, in display order (the ranking's last
+    /// tie-break). Not calm: "Bình thường" coming back is nothing to point out.
     static var items: [Item] {
-        Mood.allCases.map(Item.mood) + Symptom.cases(for: .tryingToConceive).map(Item.symptom) + [.spotting]
+        Mood.allCases.filter { $0 != .calm }.map(Item.mood) + Symptom.cases(for: .tryingToConceive).map(Item.symptom) + [.spotting]
     }
 
     static func patterns(cycles: [PastCycle], logs: [CycleLogRecord], calendar: Calendar) -> [Pattern] {

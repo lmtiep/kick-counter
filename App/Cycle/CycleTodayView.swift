@@ -121,6 +121,29 @@ struct CycleTodayView: View {
         }
     }
 
+    /// "In recent cycles you often … around this time" (1.2 spec §2): one line, only
+    /// when today falls in a pattern's window. Never while paused (no forecast here then).
+    @ViewBuilder
+    private func todayInsight(_ forecast: CycleForecast) -> some View {
+        let history = CycleHistory.make(periods: cycle.periods, logs: cycle.logs, now: AppClock.now())
+        if let pattern = CycleInsights.make(history: history, logs: cycle.logs, calendar: .current).todayPattern(forecast: forecast) {
+            Label {
+                Text(L10n.insightToday(pattern.item))
+                    .font(.luna(.body))
+                    .foregroundStyle(.luna(.textSecondary))
+                    .fixedSize(horizontal: false, vertical: true)
+            } icon: {
+                Image(systemName: "sparkles")
+                    .foregroundStyle(.luna(.cycleStrong))
+                    .accessibilityHidden(true)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 22)
+            .accessibilityElement(children: .combine)
+            .accessibilityIdentifier("cycleTodayInsight")
+        }
+    }
+
     private func content(for forecast: CycleForecast) -> some View {
         let headline = CycleRingHeadline(forecast: forecast)
         return VStack(spacing: 12) {
@@ -137,6 +160,7 @@ struct CycleTodayView: View {
             PillTodayCard()
             notices(forecast)
             ComingUpCard(forecast: forecast, typicalPeriodLength: cycle.settings.typicalPeriodLength, policy: cycle.policy)
+            todayInsight(forecast)
             maybePregnantCard
             footnotes
         }
