@@ -46,4 +46,30 @@ struct SchemaUpgradeTests {
         _ = try store.addQuestion("Câu hỏi đầu tiên", appointmentID: appointmentID, now: day)
         #expect(try store.items().count == 1)
     }
+
+    /// 1.2 adds spotting, sex, sex drive and pregnancy test to `CycleLog`: a store made by
+    /// the 1.1 model (the fixture) opens with its logs intact and the new fields empty.
+    @Test func aStoreFrom11OpensWithItsCycleLogsIntact() throws {
+        let fixture = try #require(Bundle.module.url(forResource: "store-1.1", withExtension: "sqlite", subdirectory: "Fixtures"))
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("luna-schema-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = directory.appendingPathComponent("store.sqlite")
+        try FileManager.default.copyItem(at: fixture, to: url)
+
+        let container = try KickPersistence.makeContainer(url: url)
+        let store = CycleStore(context: container.mainContext, calendar: utcCalendar)
+        let log = try #require(try store.logs().first)
+        #expect(log.id == UUID(uuidString: "00000000-0000-0000-0000-000000000002"))
+        #expect(log.day == date("2026-10-05T00:00:00Z"))
+        #expect(log.flow == .light && log.moods == [.tired] && log.symptoms == [.cramps] && log.note == "x")
+        #expect(!log.spotting && log.sex == nil && log.sexDrive == nil && log.pregnancyTest == nil)
+        #expect(try store.periods().count == 1)
+
+        var edited = log
+        edited.spotting = true
+        edited.sex = .protected
+        try store.saveLog(edited, today: date("2026-11-09T12:00:00Z"))
+        #expect(try store.logs().first?.sex == .protected)
+    }
 }

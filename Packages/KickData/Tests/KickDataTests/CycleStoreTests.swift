@@ -400,4 +400,39 @@ struct CycleStoreTests {
         #expect(try count(PeriodEntry.self) == 2)
         #expect(try count(CycleLog.self) == 2)
     }
+
+    // MARK: - 1.2 kinds
+
+    @Test func theNewKindsRoundTrip() throws {
+        let log = CycleLogRecord(day: day("2026-10-01"), spotting: true, sex: .unprotected, sexDrive: .low, pregnancyTest: .positive)
+        try store.saveLog(log, today: today)
+        let saved = try #require(try store.logs().first)
+        #expect(saved.spotting && saved.sex == .unprotected && saved.sexDrive == .low && saved.pregnancyTest == .positive)
+    }
+
+    @Test func spottingAloneIsKept() throws {
+        try store.saveLog(CycleLogRecord(day: day("2026-10-01"), spotting: true), today: today)
+        #expect(try count(CycleLog.self) == 1)
+    }
+
+    @Test func unknownRawValuesOfTheNewKindsSurviveAnEditOfOtherFields() throws {
+        let context = container.mainContext
+        let kept = CycleLog(record: CycleLogRecord(id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!, day: day("2026-10-01")))
+        kept.sexRaw = "future"
+        kept.sexDriveRaw = "future"
+        kept.pregnancyTestRaw = "faint"
+        context.insert(kept)
+        try context.save()
+
+        #expect(kept.record.sex == nil && kept.record.pregnancyTest == nil)
+        var edited = kept.record
+        edited.note = "Edited"
+        try store.saveLog(edited, today: today)
+        #expect(kept.note == "Edited")
+        #expect(kept.sexRaw == "future" && kept.sexDriveRaw == "future" && kept.pregnancyTestRaw == "faint")
+
+        edited.pregnancyTest = .negative
+        try store.saveLog(edited, today: today)
+        #expect(kept.pregnancyTestRaw == "negative")
+    }
 }

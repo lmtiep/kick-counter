@@ -13,7 +13,10 @@ public enum BackupStore {
             appointments: try context.fetch(FetchDescriptor<Appointment>(sortBy: [SortDescriptor(\.date)])).map(\.record),
             periods: try context.fetch(FetchDescriptor<PeriodEntry>(sortBy: [SortDescriptor(\.startDate)])).map(\.record),
             logs: try context.fetch(FetchDescriptor<CycleLog>(sortBy: [SortDescriptor(\.day)])).map {
-                CycleLogDTO($0.record, lhRaw: $0.lhRaw, mucusRaw: $0.mucusRaw, flowRaw: $0.flowRaw)
+                CycleLogDTO(
+                    $0.record, lhRaw: $0.lhRaw, mucusRaw: $0.mucusRaw, flowRaw: $0.flowRaw,
+                    sexRaw: $0.sexRaw, sexDriveRaw: $0.sexDriveRaw, pregnancyTestRaw: $0.pregnancyTestRaw
+                )
             },
             weights: try context.fetch(FetchDescriptor<WeightEntry>(sortBy: [SortDescriptor(\.day)])).map(\.record),
             pillDoses: try context.fetch(FetchDescriptor<PillDose>(sortBy: [SortDescriptor(\.day)])).map(\.record),
@@ -63,6 +66,9 @@ public enum BackupStore {
                 log.lhRaw = dto.lh
                 log.mucusRaw = dto.mucus
                 log.flowRaw = dto.flow
+                log.sexRaw = dto.sex
+                log.sexDriveRaw = dto.sexDrive
+                log.pregnancyTestRaw = dto.pregnancyTest
                 context.insert(log)
             }
             for record in records.weights {

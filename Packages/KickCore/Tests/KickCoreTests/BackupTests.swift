@@ -196,4 +196,40 @@ struct BackupCodecReviewTests {
         )
         #expect(document.summary.mode == .partner)
     }
+
+    // MARK: - 1.2 day log kinds
+
+    @Test func aDayLogFrom11DecodesWithTheNewKindsEmpty() throws {
+        let json = """
+        {"format":"luna-mom-backup","version":1,"createdAt":"2026-10-09T09:41:00Z","appVersion":"1.1.0",
+         "sessions":[],"appointments":[],"periods":[],"weights":[],"settings":{},
+         "cycleLogs":[{"id":"00000000-0000-0000-0000-0000000000AB","day":"2026-10-02T00:00:00Z",
+           "note":"","moods":["tired"],"symptoms":[],"unknownMoods":[],"unknownSymptoms":[]}]}
+        """
+        let log = try #require(try BackupCodec.decode(Data(json.utf8)).records.logs.first?.record)
+        #expect(log.moods == [.tired])
+        #expect(!log.spotting && log.sex == nil && log.sexDrive == nil && log.pregnancyTest == nil)
+    }
+
+    @Test func theNewKindsRoundTripAndUnknownOnesSurvive() throws {
+        let json = """
+        {"format":"luna-mom-backup","version":1,"createdAt":"2026-10-09T09:41:00Z","appVersion":"2.0",
+         "sessions":[],"appointments":[],"periods":[],"weights":[],"settings":{},
+         "cycleLogs":[{"id":"00000000-0000-0000-0000-0000000000AB","day":"2026-10-02T00:00:00Z",
+           "note":"","moods":[],"symptoms":[],"unknownMoods":[],"unknownSymptoms":[],
+           "spotting":true,"sex":"unprotected","sexDrive":"future","pregnancyTest":"faint"}]}
+        """
+        let document = try BackupCodec.decode(Data(json.utf8))
+        let dto = try #require(document.records.logs.first)
+        #expect(dto.record.spotting && dto.record.sex == .unprotected)
+        #expect(dto.record.sexDrive == nil && dto.record.pregnancyTest == nil)
+        let again = try #require(try BackupCodec.decode(BackupCodec.encode(document)).records.logs.first)
+        #expect(again.sexDrive == "future" && again.pregnancyTest == "faint" && again.sex == "unprotected" && again.spotting == true)
+    }
+
+    @Test func emptyNewKindsAreNotWritten() throws {
+        let dto = CycleLogDTO(CycleLogRecord(day: date("2026-10-02T00:00:00Z"), note: "x"))
+        let text = String(decoding: try JSONEncoder().encode(dto), as: UTF8.self)
+        #expect(!text.contains("spotting") && !text.contains("\"sex") && !text.contains("pregnancyTest"))
+    }
 }
