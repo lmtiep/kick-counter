@@ -53,6 +53,7 @@ public enum AppDataReset {
         SettingsKey.careCheckInNotify,
         SettingsKey.careCheckInLastShown,
         SettingsKey.careCheckInLowStreak,
+        SettingsKey.appLockEnabled,
         SettingsKey.careCheckInStopped,
     ]
 

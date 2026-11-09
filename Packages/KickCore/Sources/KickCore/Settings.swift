@@ -11,6 +11,8 @@ public enum AppGroup {
 /// Keys for preferences stored in `AppGroup.defaults` (read via @AppStorage).
 public enum SettingsKey {
     public static let reminderEnabled = "reminderEnabled"
+    /// 1.2: Face ID / Touch ID / passcode lock. Not in backups.
+    public static let appLockEnabled = "appLockEnabled"
     public static let reminderHour = "reminderHour"
     public static let reminderMinute = "reminderMinute"
     /// `timeIntervalSince1970`; 0 means "not set".

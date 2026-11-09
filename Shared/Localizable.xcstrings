@@ -222,6 +222,125 @@
         }
       }
     },
+    "appLock.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asked when you open Luna Mom and after a minute away. Widgets and notifications still show as your iPhone settings allow."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi khi mở Luna Mom và khi quay lại sau một phút. Widget và thông báo vẫn hiện như cài đặt của iPhone."
+          }
+        }
+      }
+    },
+    "appLock.reason": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlock Luna Mom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở khoá Luna Mom"
+          }
+        }
+      }
+    },
+    "appLock.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom is locked"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom đã khoá"
+          }
+        }
+      }
+    },
+    "appLock.toggle.faceID": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock with Face ID"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoá bằng Face ID"
+          }
+        }
+      }
+    },
+    "appLock.toggle.passcode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock with passcode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoá bằng mật mã"
+          }
+        }
+      }
+    },
+    "appLock.toggle.touchID": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock with Touch ID"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoá bằng Touch ID"
+          }
+        }
+      }
+    },
+    "appLock.unlock": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlock"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở khoá"
+          }
+        }
+      }
+    },
     "appointments.add": {
       "extractionState": "manual",
       "localizations": {

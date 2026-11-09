@@ -14,6 +14,7 @@ struct KickCounterApp: App {
     private let environment: Result<AppEnvironment, Error>
     /// A backup file waiting to be restored (phase 15).
     @State private var backup = BackupCenter()
+    @State private var appLock = AppLock()
 
     init() {
         LunaAppearance.configure()
@@ -56,6 +57,8 @@ struct KickCounterApp: App {
                     .environment(\.partnerPublisher, env.partnerPublisher)
                     .environment(env.partnerJourney)
                     .environment(backup)
+                    .environment(appLock)
+                    .modifier(AppLockOverlay(lock: appLock))
                     .environment(\.contentLibrary, env.content)
                     .environment(\.knowledgeLibrary, env.knowledge)
                     .modelContainer(env.container)

@@ -442,6 +442,14 @@ enum L10n {
     }
     static func insightToday(_ item: CycleInsights.Item) -> String { String(format: t("insights.today"), insightItem(item)) }
 
+    static var appLockTitle: String { t("appLock.title") }
+    static var appLockUnlock: String { t("appLock.unlock") }
+    static var appLockReason: String { t("appLock.reason") }
+    static var appLockFooter: String { t("appLock.footer") }
+    static var appLockToggleFaceID: String { t("appLock.toggle.faceID") }
+    static var appLockToggleTouchID: String { t("appLock.toggle.touchID") }
+    static var appLockTogglePasscode: String { t("appLock.toggle.passcode") }
+
     static var positiveTestTitle: String { t("positiveTest.title") }
     static var positiveTestMessage: String { t("positiveTest.message") }
     static var positiveTestSwitch: String { t("positiveTest.switch") }

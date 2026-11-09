@@ -17,6 +17,23 @@
           }
         }
       }
+    },
+    "NSFaceIDUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom uses Face ID to keep your diary private."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom dùng Face ID để giữ nhật ký của bạn riêng tư."
+          }
+        }
+      }
     }
   },
   "version": "1.0"
