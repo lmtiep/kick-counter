@@ -361,11 +361,19 @@ struct CalendarDayCell: View {
                 fontSize: 15
             )
             .overlay(alignment: .bottom) {
-                if log != nil {
-                    Circle()
-                        .fill(.luna(.textPrimary))
-                        .frame(width: 4, height: 4)
-                        .offset(y: 8)
+                if let log {
+                    HStack(spacing: 2) {
+                        // Spotting outside a period: the dot in the period colour, faint (1.2 spec §1).
+                        Circle()
+                            .fill(isSpottingOnly(log) ? Color.luna(.cycleStrong).opacity(0.4) : Color.luna(.textPrimary))
+                            .frame(width: 4, height: 4)
+                        if log.sex != nil {
+                            Image(systemName: "heart.fill")
+                                .font(.system(size: 6))
+                                .foregroundStyle(.luna(.cycleStrong))
+                        }
+                    }
+                    .offset(y: 8)
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 44)
@@ -375,6 +383,12 @@ struct CalendarDayCell: View {
         .accessibilityLabel(CycleAccessibility.dayLabel(day: day, status: status, log: log, isToday: isToday, policy: policy))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
         .accessibilityIdentifier("calendarDay")
+    }
+
+    private func isSpottingOnly(_ log: CycleLogRecord) -> Bool {
+        guard log.spotting else { return false }
+        if case .period? = status { return false }
+        return true
     }
 }
 
@@ -449,6 +463,9 @@ enum CycleAccessibility {
             }
             if let bbt = log.bbtCelsius { parts.append(L10n.calendarA11yTemperature(Formatting.temperature(bbt))) }
             if let mucus = log.mucus { parts.append(L10n.mucus(mucus)) }
+            if log.spotting { parts.append(L10n.dayLogSpotting) }
+            if log.sex != nil { parts.append(L10n.dayLogSex) }
+            if let test = log.pregnancyTest { parts.append(L10n.cycleLogPregnancyTest(test)) }
             if !log.note.isEmpty { parts.append(L10n.calendarA11yNote) }
         }
         return parts.joined(separator: ", ")

@@ -24,10 +24,14 @@ struct SymptomKindsTests {
         #expect(RawList.ordered([Symptom.nausea, .cramps, .nausea]) == [.cramps, .nausea])
     }
 
-    @Test func symptomsBelongToOneMode() {
-        #expect(Symptom.cases(for: .tryingToConceive) == [.cramps, .headache, .tenderBreasts, .acne, .bloating, .cravings])
+    @Test func eachModeShowsItsOwnList() {
+        #expect(Symptom.cases(for: .tryingToConceive) == [
+            .cramps, .headache, .tenderBreasts, .acne, .bloating, .cravings,
+            .backPain, .insomnia, .nausea, .diarrhea, .constipation, .dizziness,
+        ])
         #expect(Symptom.cases(for: .pregnant) == [.nausea, .heartburn, .swollenFeet, .backPain, .legCramps, .insomnia, .contractions])
-        #expect(Symptom.allCases.count == 13)
+        #expect(Symptom.cases(for: .partner).isEmpty)
+        #expect(Symptom.allCases.count == 16)
     }
 
     @Test func flowIsOrderedFromNoneToHeavyAndStoresNone() {
@@ -52,5 +56,17 @@ struct SymptomKindsTests {
         #expect(log.symptoms(for: .pregnant) == [.contractions])
         log.setSymptoms([], for: .tryingToConceive)
         #expect(log.symptoms == [.contractions])
+    }
+
+    @Test func backPainInsomniaAndNauseaBelongToBothModes() {
+        for symptom in [Symptom.backPain, .insomnia, .nausea] {
+            #expect(symptom.modes == [.tryingToConceive, .pregnant])
+        }
+        #expect(Symptom.heartburn.modes == [.pregnant])
+        #expect(Symptom.diarrhea.modes == [.tryingToConceive])
+    }
+
+    @Test func newMoodsComeAfterTheOldOnes() {
+        #expect(Mood.allCases == [.happy, .calm, .sensitive, .anxious, .tired, .irritable, .sad, .energetic])
     }
 }

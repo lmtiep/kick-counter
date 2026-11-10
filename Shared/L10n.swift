@@ -396,6 +396,91 @@ enum L10n {
     static var cycleLogTitle: String { t("cycle.log.title") }
     static var cycleLogPrompt: String { t("cycle.log.prompt") }
     static func cycleLogLH(_ result: String) -> String { String(format: t("cycle.log.lh"), result) }
+    // 1.2: spotting, sex, sex drive, pregnancy test (cycle 1.2 spec §1)
+    static var dayLogSpotting: String { t("dayLog.spotting") }
+    // 1.2 insights (cycle 1.2 spec §2)
+    static var insightsChartTitle: String { t("insights.chart.title") }
+    static func insightsChartBar(_ start: String, _ length: String) -> String { String(format: t("insights.chart.a11y"), start, length) }
+    static var insightsChartNormal: String { t("insights.chart.normal") }
+    static func insightsRegularity(_ regularity: CycleInsights.Regularity) -> String {
+        switch regularity {
+        case .regular(let spread): String(format: t("insights.regular"), days(spread))
+        case .somewhatVariable(let spread): String(format: t("insights.somewhat"), days(spread))
+        case .variable(let spread): String(format: t("insights.variable"), days(spread))
+        }
+    }
+    static var insightsPatternsTitle: String { t("insights.patterns.title") }
+    static var insightsPatternsEmpty: String { t("insights.patterns.empty") }
+    static var insightsFootnote: String { t("insights.footnote") }
+    static func insightItem(_ item: CycleInsights.Item) -> String {
+        switch item {
+        case .mood(let mood): t("insightItem.\(mood.rawValue)")
+        case .symptom(let symptom): t("insightItem.\(symptom.rawValue)")
+        case .spotting: t("insightItem.spotting")
+        }
+    }
+    static func insightPattern(_ pattern: CycleInsights.Pattern, bleed: Bool) -> String {
+        let range = pattern.window
+        switch pattern.anchor {
+        case .startDay:
+            let when = range.count == 1
+                ? String(format: t("insights.day.one"), range.lowerBound)
+                : String(format: t("insights.day.range"), range.lowerBound, range.upperBound)
+            return String(
+                format: t(pattern.isPastThePeriod ? "insights.pattern.cycleDay" : bleed ? "insights.pattern.startDay.bleed" : "insights.pattern.startDay"),
+                insightItem(pattern.item), when, pattern.cyclesWithItem, pattern.cyclesLogged
+            )
+        case .daysBefore:
+            let when = range.count == 1
+                ? days(range.lowerBound)
+                : String(format: t("insights.before.range"), range.lowerBound, range.upperBound)
+            return String(
+                format: t(bleed ? "insights.pattern.daysBefore.bleed" : "insights.pattern.daysBefore"),
+                insightItem(pattern.item), when, pattern.cyclesWithItem, pattern.cyclesLogged
+            )
+        }
+    }
+    static func insightToday(_ item: CycleInsights.Item) -> String { String(format: t("insights.today"), insightItem(item)) }
+
+    static var appLockTitle: String { t("appLock.title") }
+    static var appLockUnlock: String { t("appLock.unlock") }
+    static var appLockReason: String { t("appLock.reason") }
+    static var appLockFooter: String { t("appLock.footer") }
+    static var appLockToggleFaceID: String { t("appLock.toggle.faceID") }
+    static var appLockToggleTouchID: String { t("appLock.toggle.touchID") }
+    static var appLockTogglePasscode: String { t("appLock.toggle.passcode") }
+
+    static var positiveTestTitle: String { t("positiveTest.title") }
+    static var positiveTestMessage: String { t("positiveTest.message") }
+    static var positiveTestSwitch: String { t("positiveTest.switch") }
+    static var positiveTestLater: String { t("positiveTest.later") }
+    static var dayLogSex: String { t("dayLog.sex") }
+    static func sex(_ value: SexLog) -> String {
+        switch value {
+        case .unprotected: t("dayLog.sex.unprotected")
+        case .protected: t("dayLog.sex.protected")
+        }
+    }
+    static var dayLogSexDrive: String { t("dayLog.sexDrive") }
+    static func sexDrive(_ value: SexDrive) -> String {
+        switch value {
+        case .low: t("dayLog.sexDrive.low")
+        case .normal: t("dayLog.sexDrive.normal")
+        case .high: t("dayLog.sexDrive.high")
+        }
+    }
+    static var dayLogPregnancyTest: String { t("dayLog.pregnancyTest") }
+    static func pregnancyTest(_ value: PregnancyTestResult) -> String {
+        switch value {
+        case .negative: t("dayLog.pregnancyTest.negative")
+        case .positive: t("dayLog.pregnancyTest.positive")
+        }
+    }
+    static func cycleLogSex(_ value: SexLog) -> String { String(format: t("cycleLog.summary.sex"), sex(value)) }
+    static func cycleLogSexDrive(_ value: SexDrive) -> String { String(format: t("cycleLog.summary.sexDrive"), sexDrive(value)) }
+    static func cycleLogPregnancyTest(_ value: PregnancyTestResult) -> String {
+        String(format: t("cycleLog.summary.pregnancyTest"), pregnancyTest(value))
+    }
     static func cycleRingDay(_ day: Int) -> String { String(format: t("cycle.ring.day"), day) }
     static func cycleRingLate(_ days: Int) -> String {
         days == 1 ? t("cycle.ring.lateOne") : String(format: t("cycle.ring.late"), days)
@@ -569,6 +654,9 @@ enum L10n {
         case .sensitive: t("symptom.mood.sensitive")
         case .anxious: t("symptom.mood.anxious")
         case .tired: t("symptom.mood.tired")
+        case .irritable: t("symptom.mood.irritable")
+        case .sad: t("symptom.mood.sad")
+        case .energetic: t("symptom.mood.energetic")
         }
     }
     static func symptom(_ value: Symptom) -> String {
@@ -586,6 +674,9 @@ enum L10n {
         case .legCramps: t("symptom.kind.legCramps")
         case .insomnia: t("symptom.kind.insomnia")
         case .contractions: t("symptom.kind.contractions")
+        case .diarrhea: t("symptom.kind.diarrhea")
+        case .constipation: t("symptom.kind.constipation")
+        case .dizziness: t("symptom.kind.dizziness")
         }
     }
 

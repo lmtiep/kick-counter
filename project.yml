@@ -8,7 +8,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MARKETING_VERSION: "1.1.0"
+    MARKETING_VERSION: "1.2.0"
     CURRENT_PROJECT_VERSION: "1"
     LOCALIZATION_PREFERS_STRING_CATALOGS: YES
     SWIFT_EMIT_LOC_STRINGS: YES
@@ -40,6 +40,8 @@ targets:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         ITSAppUsesNonExemptEncryption: false
         NSSupportsLiveActivities: true
+        # 1.2: the app lock (localized in Shared/InfoPlist.xcstrings).
+        NSFaceIDUsageDescription: Luna Mom uses Face ID to keep your diary private.
         LunaContentPreview: $(LUNA_CONTENT_PREVIEW)
         # Phase 15: the .lunamom backup file. iOS copies an opened file into the app.
         LSSupportsOpeningDocumentsInPlace: false

@@ -76,6 +76,8 @@ public enum BackupSettings {
         // was shown and the low streak. Her choices and the ended state travel.
         SettingsKey.careCheckInLastShown,
         SettingsKey.careCheckInLowStreak,
+        // The app lock belongs to this phone's Face ID / passcode (1.2).
+        SettingsKey.appLockEnabled,
     ]
 
     /// `AppDataReset.ownedKeys` minus `excludedKeys` (`BackupSettingsTests` checks it).

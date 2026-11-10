@@ -29,6 +29,24 @@ public enum CervicalMucus: String, Sendable, CaseIterable {
     case eggWhite
 }
 
+/// Sex logged for a day (1.2 spec §1). Tapping the chosen chip again clears it.
+public enum SexLog: String, Sendable, CaseIterable {
+    case unprotected
+    case protected
+}
+
+public enum SexDrive: String, Sendable, CaseIterable {
+    case low
+    case normal
+    case high
+}
+
+/// A positive result offers the switch to pregnancy tracking; it never switches by itself.
+public enum PregnancyTestResult: String, Sendable, CaseIterable {
+    case negative
+    case positive
+}
+
 /// What was logged for one day (value snapshot of the SwiftData `CycleLog`):
 /// ovulation signals, flow, moods and symptoms of both modes, and a note.
 public struct CycleLogRecord: Equatable, Sendable, Identifiable {
@@ -45,6 +63,11 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
     public var moods: [Mood]
     /// Both modes' symptoms, enum order, no repeats.
     public var symptoms: [Symptom]
+    /// Light bleeding outside a period. Never a period day, never moves a forecast.
+    public var spotting: Bool
+    public var sex: SexLog?
+    public var sexDrive: SexDrive?
+    public var pregnancyTest: PregnancyTestResult?
     /// Stored values this build does not know, written back unchanged.
     public var unknownMoodsRaw: [String]
     public var unknownSymptomsRaw: [String]
@@ -59,6 +82,10 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
         flow: MenstrualFlow? = nil,
         moods: [Mood] = [],
         symptoms: [Symptom] = [],
+        spotting: Bool = false,
+        sex: SexLog? = nil,
+        sexDrive: SexDrive? = nil,
+        pregnancyTest: PregnancyTestResult? = nil,
         unknownMoodsRaw: [String] = [],
         unknownSymptomsRaw: [String] = []
     ) {
@@ -71,6 +98,10 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
         self.flow = flow
         self.moods = moods
         self.symptoms = symptoms
+        self.spotting = spotting
+        self.sex = sex
+        self.sexDrive = sexDrive
+        self.pregnancyTest = pregnancyTest
         self.unknownMoodsRaw = unknownMoodsRaw
         self.unknownSymptomsRaw = unknownSymptomsRaw
     }
@@ -80,6 +111,7 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
         CycleLogRecord(
             id: id, day: day, lh: lh, bbtCelsius: bbtCelsius, mucus: mucus, note: note,
             flow: flow, moods: moods, symptoms: symptoms,
+            spotting: spotting, sex: sex, sexDrive: sexDrive, pregnancyTest: pregnancyTest,
             unknownMoodsRaw: unknownMoodsRaw, unknownSymptomsRaw: unknownSymptomsRaw
         )
     }
@@ -88,19 +120,20 @@ public struct CycleLogRecord: Equatable, Sendable, Identifiable {
     /// build cannot read count as something, so they are never dropped.
     public var isEmpty: Bool {
         lh == nil && bbtCelsius == nil && mucus == nil && flow == nil
+            && !spotting && sex == nil && sexDrive == nil && pregnancyTest == nil
             && moods.isEmpty && symptoms.isEmpty && unknownMoodsRaw.isEmpty && unknownSymptomsRaw.isEmpty
             && note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     /// The symptoms of one mode, as that mode's sheet shows them.
     public func symptoms(for mode: AppMode) -> [Symptom] {
-        symptoms.filter { $0.mode == mode }
+        symptoms.filter { $0.modes.contains(mode) }
     }
 
     /// Replaces one mode's symptoms; the other mode's stay as they are.
     public mutating func setSymptoms(_ selected: some Sequence<Symptom>, for mode: AppMode) {
-        let chosen = Array(selected).filter { $0.mode == mode }
-        symptoms = RawList.ordered(symptoms.filter { $0.mode != mode } + chosen)
+        let chosen = Array(selected).filter { $0.modes.contains(mode) }
+        symptoms = RawList.ordered(symptoms.filter { !$0.modes.contains(mode) } + chosen)
     }
 }
 
@@ -297,6 +330,8 @@ public enum CycleRules {
     /// that sorts first; a positive LH test wins over a negative one; the first
     /// temperature and mucus found win; distinct notes are joined by newlines;
     /// the heavier flow wins; moods, symptoms and unknown raw values are united.
+    /// Spotting on either counts; unprotected sex and a positive pregnancy test
+    /// win (the cautious reading); the first sex drive found wins.
     public static func mergingDuplicates(_ logs: [CycleLogRecord], calendar: Calendar) -> (logs: [CycleLogRecord], removedIDs: [UUID]) {
         let byDay = Dictionary(grouping: logs.map { normalized($0, calendar: calendar) }, by: \.day)
         var merged: [CycleLogRecord] = []
@@ -315,6 +350,12 @@ public enum CycleRules {
                 }
                 first.note = notes.joined(separator: "\n")
                 first.flow = group.compactMap(\.flow).max()
+                first.spotting = group.contains(where: \.spotting)
+                let sexes = group.compactMap(\.sex)
+                first.sex = sexes.contains(.unprotected) ? .unprotected : sexes.first
+                first.sexDrive = group.lazy.compactMap(\.sexDrive).first
+                let tests = group.compactMap(\.pregnancyTest)
+                first.pregnancyTest = tests.contains(.positive) ? .positive : tests.first
                 first.moods = RawList.ordered(group.flatMap(\.moods))
                 first.symptoms = RawList.ordered(group.flatMap(\.symptoms))
                 first.unknownMoodsRaw = united(group.map(\.unknownMoodsRaw))

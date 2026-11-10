@@ -49,6 +49,18 @@ struct CycleSeedTests {
         #expect(result.currentPeriodStart == date("2026-08-31T00:00:00Z"))
     }
 
+    @Test func patternsFallOnToday() throws {
+        let records = CycleSeedScenario.patterns.records(today: now, calendar: utcCalendar)
+        let result = try #require(forecast(.patterns))
+        #expect(result.cycleDay == 26)
+        #expect(result.daysUntilNextPeriod == 3)
+        let history = CycleHistory.make(periods: records.periods, logs: records.logs, now: now, calendar: utcCalendar)
+        let insights = CycleInsights.make(history: history, logs: records.logs, calendar: utcCalendar)
+        #expect(insights.patterns.map(\.item) == [.symptom(.cramps), .symptom(.headache)])
+        #expect(insights.patterns.map(\.anchor) == [.startDay, .daysBefore])
+        #expect(insights.todayPattern(forecast: result)?.item == .symptom(.headache))
+    }
+
     @Test func irregularHasLowConfidenceAndTheWarning() throws {
         let result = try #require(forecast(.irregular))
         #expect(result.cycleDay == 11)

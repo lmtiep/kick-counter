@@ -20,6 +20,7 @@ struct BackupSettingsTests {
             SettingsKey.backupReminderSnoozedAt,
             SettingsKey.careCheckInLastShown,
             SettingsKey.careCheckInLowStreak,
+            SettingsKey.appLockEnabled,
         ])
         #expect(Set(BackupSettings.table.keys) == expected)
         #expect(BackupSettings.excludedKeys.isDisjoint(with: BackupSettings.table.keys))

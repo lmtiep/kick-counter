@@ -4,8 +4,8 @@ import StoreKit
 import SwiftUI
 
 /// Log or edit one day (phase 5 spec §3.1): start/end a period there, then
-/// flow, mood and symptoms, the ovulation signs (LH test, BBT, mucus) and a
-/// note. Period buttons apply at once; the rest is saved with "Save", which
+/// flow and spotting, mood and symptoms, sex and sex drive, the ovulation signs
+/// (LH test, BBT, mucus), a pregnancy test and a note (1.2 spec §1). Period buttons apply at once; the rest is saved with "Save", which
 /// stays above the keyboard. Pregnancy symptoms and values this build cannot
 /// read are kept as they are.
 struct CycleDayLogSheet: View {
@@ -24,6 +24,13 @@ struct CycleDayLogSheet: View {
     @State private var flow: MenstrualFlow?
     @State private var moods: Set<Mood>
     @State private var symptoms: Set<Symptom>
+    @State private var spotting: Bool
+    @State private var sex: SexLog?
+    @State private var sexDrive: SexDrive?
+    @State private var pregnancyTest: PregnancyTestResult?
+    /// A positive test was just saved: offer pregnancy tracking before closing.
+    @State private var offeringPregnancy = false
+    @State private var showingImPregnant = false
     @State private var temperatureInvalid = false
     @State private var failure: CycleFailure?
     @State private var saving = false
@@ -41,6 +48,10 @@ struct CycleDayLogSheet: View {
         _flow = State(initialValue: existing?.flow)
         _moods = State(initialValue: Set(existing?.moods ?? []))
         _symptoms = State(initialValue: Set(existing?.symptoms(for: .tryingToConceive) ?? []))
+        _spotting = State(initialValue: existing?.spotting ?? false)
+        _sex = State(initialValue: existing?.sex)
+        _sexDrive = State(initialValue: existing?.sexDrive)
+        _pregnancyTest = State(initialValue: existing?.pregnancyTest)
     }
 
     /// The period covering this day, or an earlier one this day could end:
@@ -66,12 +77,24 @@ struct CycleDayLogSheet: View {
 
             LunaSheetSectionTitle(title: L10n.symptomFlowTitle)
             FlowChips(selection: $flow)
+            FlowLayout {
+                // Spotting is not a period day and never moves the forecast.
+                SelectableChip(title: L10n.dayLogSpotting, isSelected: spotting) { spotting.toggle() }
+                    .accessibilityIdentifier("dayLogSpotting")
+            }
+            .padding(.top, 8)
 
             LunaSheetSectionTitle(title: L10n.symptomMoodTitle)
             MoodChips(selection: $moods)
 
             LunaSheetSectionTitle(title: L10n.symptomTitle)
             SymptomChips(mode: .tryingToConceive, selection: $symptoms)
+
+            LunaSheetSectionTitle(title: L10n.dayLogSex)
+            SingleChoiceChips(selection: $sex, identifier: "dayLogSex", title: L10n.sex)
+
+            LunaSheetSectionTitle(title: L10n.dayLogSexDrive)
+            SingleChoiceChips(selection: $sexDrive, identifier: "dayLogSexDrive", title: L10n.sexDrive)
 
             Text(L10n.dayLogSignals)
                 .font(.luna(.cardTitleSmall))
@@ -94,6 +117,9 @@ struct CycleDayLogSheet: View {
             }
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("dayLogMucusPicker")
+
+            LunaSheetSectionTitle(title: L10n.dayLogPregnancyTest)
+            SingleChoiceChips(selection: $pregnancyTest, identifier: "dayLogPregnancyTest", title: L10n.pregnancyTest)
 
             LunaSheetSectionTitle(title: L10n.dayLogNote)
             TextField(L10n.dayLogNote, text: $note, axis: .vertical)
@@ -123,6 +149,18 @@ struct CycleDayLogSheet: View {
             set: { if !$0 { failure = nil } }
         )) {
             Button(L10n.commonOK) {}
+        }
+        .alert(L10n.positiveTestTitle, isPresented: $offeringPregnancy) {
+            Button(L10n.positiveTestSwitch) { showingImPregnant = true }
+                .accessibilityIdentifier("positiveTestSwitch")
+            Button(L10n.positiveTestLater, role: .cancel) { dismiss() }
+                .accessibilityIdentifier("positiveTestLater")
+        } message: {
+            Text(L10n.positiveTestMessage)
+        }
+        // Offered, never switched by itself: her log is already saved.
+        .sheet(isPresented: $showingImPregnant, onDismiss: { dismiss() }) {
+            ImPregnantSheet(lastPeriodStart: cycle.forecast?.currentPeriodStart)
         }
         .confirmationDialog(L10n.dayLogPeriodDeleteConfirm, isPresented: $confirmingDeletePeriod, titleVisibility: .visible) {
             Button(L10n.commonDelete, role: .destructive) {
@@ -267,11 +305,17 @@ struct CycleDayLogSheet: View {
         log.flow = flow
         log.moods = RawList.ordered(moods)
         log.setSymptoms(symptoms, for: .tryingToConceive)
+        log.spotting = spotting
+        log.sex = sex
+        log.sexDrive = sexDrive
+        log.pregnancyTest = pregnancyTest
         saving = true
         defer { saving = false }
         if let result = await cycle.saveLog(log) {
             cycle.clearFailure()
             failure = result
+        } else if pregnancyTest == .positive, existing?.pregnancyTest != .positive {
+            offeringPregnancy = true
         } else {
             dismiss()
         }

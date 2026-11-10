@@ -205,6 +205,11 @@ public struct CycleLogDTO: Equatable, Sendable, Codable {
     /// Values this build does not know, kept so nothing is lost.
     public var unknownMoods: [String]
     public var unknownSymptoms: [String]
+    /// 1.2, written only when set (a 1.1 file has none of them). Raw values, as stored.
+    public var spotting: Bool?
+    public var sex: String?
+    public var sexDrive: String?
+    public var pregnancyTest: String?
 
     public init(_ record: CycleLogRecord) {
         id = record.id
@@ -218,15 +223,25 @@ public struct CycleLogDTO: Equatable, Sendable, Codable {
         symptoms = record.symptoms.map(\.rawValue)
         unknownMoods = record.unknownMoodsRaw
         unknownSymptoms = record.unknownSymptomsRaw
+        spotting = record.spotting ? true : nil
+        sex = record.sex?.rawValue
+        sexDrive = record.sexDrive?.rawValue
+        pregnancyTest = record.pregnancyTest?.rawValue
     }
 
-    /// The record with the stored raw LH, mucus and flow values, which may be
-    /// values this build cannot read (the record drops them).
-    public init(_ record: CycleLogRecord, lhRaw: String?, mucusRaw: String?, flowRaw: String?) {
+    /// The record with the stored raw single values, which may be values this
+    /// build cannot read (the record drops them).
+    public init(
+        _ record: CycleLogRecord, lhRaw: String?, mucusRaw: String?, flowRaw: String?,
+        sexRaw: String? = nil, sexDriveRaw: String? = nil, pregnancyTestRaw: String? = nil
+    ) {
         self.init(record)
         lh = lhRaw
         mucus = mucusRaw
         flow = flowRaw
+        sex = sexRaw
+        sexDrive = sexDriveRaw
+        pregnancyTest = pregnancyTestRaw
     }
 
     /// A mood or symptom this build cannot read joins the unknown list.
@@ -241,6 +256,10 @@ public struct CycleLogDTO: Equatable, Sendable, Codable {
             flow: flow.flatMap(MenstrualFlow.init(rawValue:)),
             moods: moods.compactMap(Mood.init(rawValue:)),
             symptoms: symptoms.compactMap(Symptom.init(rawValue:)),
+            spotting: spotting ?? false,
+            sex: sex.flatMap(SexLog.init(rawValue:)),
+            sexDrive: sexDrive.flatMap(SexDrive.init(rawValue:)),
+            pregnancyTest: pregnancyTest.flatMap(PregnancyTestResult.init(rawValue:)),
             unknownMoodsRaw: unknownMoods + moods.filter { Mood(rawValue: $0) == nil },
             unknownSymptomsRaw: unknownSymptoms + symptoms.filter { Symptom(rawValue: $0) == nil }
         )

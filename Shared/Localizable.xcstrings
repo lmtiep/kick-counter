@@ -222,6 +222,125 @@
         }
       }
     },
+    "appLock.footer": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asked when you open Luna Mom and after a minute away. Widgets and notifications still show as your iPhone settings allow."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hỏi khi mở Luna Mom và khi quay lại sau một phút. Widget và thông báo vẫn hiện như cài đặt của iPhone."
+          }
+        }
+      }
+    },
+    "appLock.reason": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlock Luna Mom"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở khoá Luna Mom"
+          }
+        }
+      }
+    },
+    "appLock.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom is locked"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luna Mom đã khoá"
+          }
+        }
+      }
+    },
+    "appLock.toggle.faceID": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock with Face ID"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoá bằng Face ID"
+          }
+        }
+      }
+    },
+    "appLock.toggle.passcode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock with passcode"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoá bằng mật mã"
+          }
+        }
+      }
+    },
+    "appLock.toggle.touchID": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lock with Touch ID"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Khoá bằng Touch ID"
+          }
+        }
+      }
+    },
+    "appLock.unlock": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlock"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mở khoá"
+          }
+        }
+      }
+    },
     "appointments.add": {
       "extractionState": "manual",
       "localizations": {
@@ -7583,6 +7702,57 @@
         }
       }
     },
+    "cycleLog.summary.pregnancyTest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnancy test: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que thử thai: %@"
+          }
+        }
+      }
+    },
+    "cycleLog.summary.sex": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quan hệ: %@"
+          }
+        }
+      }
+    },
+    "cycleLog.summary.sexDrive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex drive: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ham muốn: %@"
+          }
+        }
+      }
+    },
     "cycleSettings.cycleLength": {
       "extractionState": "manual",
       "localizations": {
@@ -8025,6 +8195,176 @@
         }
       }
     },
+    "dayLog.pregnancyTest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pregnancy test"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que thử thai"
+          }
+        }
+      }
+    },
+    "dayLog.pregnancyTest.negative": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Negative"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Âm tính"
+          }
+        }
+      }
+    },
+    "dayLog.pregnancyTest.positive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Positive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dương tính"
+          }
+        }
+      }
+    },
+    "dayLog.sex": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quan hệ"
+          }
+        }
+      }
+    },
+    "dayLog.sex.protected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protected"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Có bảo vệ"
+          }
+        }
+      }
+    },
+    "dayLog.sex.unprotected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unprotected"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không bảo vệ"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sex drive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ham muốn"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive.high": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cao"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive.low": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thấp"
+          }
+        }
+      }
+    },
+    "dayLog.sexDrive.normal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normal"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bình thường"
+          }
+        }
+      }
+    },
     "dayLog.signals": {
       "extractionState": "manual",
       "localizations": {
@@ -8038,6 +8378,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dấu hiệu rụng trứng"
+          }
+        }
+      }
+    },
+    "dayLog.spotting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spotting"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ra máu lấm tấm"
           }
         }
       }
@@ -9007,6 +9364,652 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chúc mừng bạn!"
+          }
+        }
+      }
+    },
+    "insightItem.acne": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "get acne"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nổi mụn"
+          }
+        }
+      }
+    },
+    "insightItem.anxious": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel anxious"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thấy lo âu"
+          }
+        }
+      }
+    },
+    "insightItem.backPain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have back pain"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đau lưng"
+          }
+        }
+      }
+    },
+    "insightItem.bloating": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel bloated"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đầy hơi"
+          }
+        }
+      }
+    },
+    "insightItem.constipation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "get constipated"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bị táo bón"
+          }
+        }
+      }
+    },
+    "insightItem.cramps": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have cramps"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đau bụng"
+          }
+        }
+      }
+    },
+    "insightItem.cravings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have cravings"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thèm ăn"
+          }
+        }
+      }
+    },
+    "insightItem.diarrhea": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have diarrhea"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bị tiêu chảy"
+          }
+        }
+      }
+    },
+    "insightItem.dizziness": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel dizzy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "chóng mặt"
+          }
+        }
+      }
+    },
+    "insightItem.energetic": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel full of energy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thấy tràn đầy năng lượng"
+          }
+        }
+      }
+    },
+    "insightItem.happy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel happy"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thấy vui vẻ"
+          }
+        }
+      }
+    },
+    "insightItem.headache": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have headaches"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "đau đầu"
+          }
+        }
+      }
+    },
+    "insightItem.insomnia": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sleep badly"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "khó ngủ"
+          }
+        }
+      }
+    },
+    "insightItem.irritable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel irritable"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dễ cáu gắt"
+          }
+        }
+      }
+    },
+    "insightItem.nausea": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel nauseous"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "buồn nôn"
+          }
+        }
+      }
+    },
+    "insightItem.sad": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel sad"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thấy buồn"
+          }
+        }
+      }
+    },
+    "insightItem.sensitive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel sensitive"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dễ nhạy cảm"
+          }
+        }
+      }
+    },
+    "insightItem.spotting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have spotting"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ra máu lấm tấm"
+          }
+        }
+      }
+    },
+    "insightItem.tenderBreasts": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "have tender breasts"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "căng ngực"
+          }
+        }
+      }
+    },
+    "insightItem.tired": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "feel tired"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thấy mệt mỏi"
+          }
+        }
+      }
+    },
+    "insights.before.range": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d–%d days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d–%d ngày"
+          }
+        }
+      }
+    },
+    "insights.chart.a11y": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle started %@: %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ bắt đầu %@: %@"
+          }
+        }
+      }
+    },
+    "insights.chart.normal": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shaded: 24–38 days"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vùng tô: 24–38 ngày"
+          }
+        }
+      }
+    },
+    "insights.chart.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cycle length"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Độ dài chu kỳ"
+          }
+        }
+      }
+    },
+    "insights.day.one": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "day %d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ngày %d"
+          }
+        }
+      }
+    },
+    "insights.day.range": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "days %d–%d"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ngày %d–%d"
+          }
+        }
+      }
+    },
+    "insights.footnote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "These are observations from your logs, not a diagnosis."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đây là quan sát từ ghi chép của bạn, không phải chẩn đoán."
+          }
+        }
+      }
+    },
+    "insights.pattern.cycleDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You often %1$@ on %2$@ of your cycle (%3$d/%4$d recent cycles)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn hay %1$@ vào %2$@ của chu kỳ (%3$d/%4$d chu kỳ gần đây)."
+          }
+        }
+      }
+    },
+    "insights.pattern.daysBefore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You often %1$@ about %2$@ before your period (%3$d/%4$d recent cycles)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn hay %1$@ khoảng %2$@ trước kỳ kinh (%3$d/%4$d chu kỳ gần đây)."
+          }
+        }
+      }
+    },
+    "insights.pattern.daysBefore.bleed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You often %1$@ about %2$@ before your bleed (%3$d/%4$d recent cycles)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn hay %1$@ khoảng %2$@ trước lần ra máu (%3$d/%4$d chu kỳ gần đây)."
+          }
+        }
+      }
+    },
+    "insights.pattern.startDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You often %1$@ on %2$@ of your period (%3$d/%4$d recent cycles)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn hay %1$@ vào %2$@ của kỳ kinh (%3$d/%4$d chu kỳ gần đây)."
+          }
+        }
+      }
+    },
+    "insights.pattern.startDay.bleed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You often %1$@ on %2$@ of your bleed (%3$d/%4$d recent cycles)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn hay %1$@ vào %2$@ của lần ra máu (%3$d/%4$d chu kỳ gần đây)."
+          }
+        }
+      }
+    },
+    "insights.patterns.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Log how you feel for a few cycles and Luna will show what you often notice."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi lại cảm nhận vài chu kỳ, Luna sẽ chỉ ra điều bạn hay gặp."
+          }
+        }
+      }
+    },
+    "insights.patterns.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What you often notice"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Điều bạn hay gặp"
+          }
+        }
+      }
+    },
+    "insights.regular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your cycle is fairly regular (varies by %@)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ của bạn khá đều (chênh %@)"
+          }
+        }
+      }
+    },
+    "insights.somewhat": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your cycle varies a little (%@)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ của bạn hơi dao động (chênh %@)"
+          }
+        }
+      }
+    },
+    "insights.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In recent cycles you often %@ around this time."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mấy chu kỳ gần đây, bạn hay %@ vào khoảng thời gian này."
+          }
+        }
+      }
+    },
+    "insights.variable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your cycle varies quite a lot (%@)"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chu kỳ của bạn dao động khá nhiều (chênh %@)"
           }
         }
       }
@@ -12734,6 +13737,74 @@
         }
       }
     },
+    "positiveTest.later": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Later"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Để sau"
+          }
+        }
+      }
+    },
+    "positiveTest.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your log is saved either way."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi chép của bạn đã được lưu."
+          }
+        }
+      }
+    },
+    "positiveTest.switch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Switch"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuyển"
+          }
+        }
+      }
+    },
+    "positiveTest.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Congratulations! Switch to pregnancy tracking?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chúc mừng! Bạn muốn chuyển sang theo dõi thai kỳ?"
+          }
+        }
+      }
+    },
     "pregnancy.appointment.none": {
       "extractionState": "manual",
       "localizations": {
@@ -16134,6 +17205,23 @@
         }
       }
     },
+    "symptom.kind.constipation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Constipation"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Táo bón"
+          }
+        }
+      }
+    },
     "symptom.kind.contractions": {
       "extractionState": "manual",
       "localizations": {
@@ -16181,6 +17269,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Thèm ăn"
+          }
+        }
+      }
+    },
+    "symptom.kind.diarrhea": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diarrhea"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiêu chảy"
+          }
+        }
+      }
+    },
+    "symptom.kind.dizziness": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dizziness"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chóng mặt"
           }
         }
       }
@@ -16338,6 +17460,23 @@
         }
       }
     },
+    "symptom.mood.energetic": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energetic"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tràn đầy năng lượng"
+          }
+        }
+      }
+    },
     "symptom.mood.happy": {
       "extractionState": "manual",
       "localizations": {
@@ -16351,6 +17490,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vui vẻ"
+          }
+        }
+      }
+    },
+    "symptom.mood.irritable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Irritable"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cáu gắt"
+          }
+        }
+      }
+    },
+    "symptom.mood.sad": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sad"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buồn"
           }
         }
       }

@@ -9,6 +9,6 @@ let package = Package(
     dependencies: [.package(path: "../KickCore")],
     targets: [
         .target(name: "KickData", dependencies: ["KickCore"]),
-        .testTarget(name: "KickDataTests", dependencies: ["KickData"]),
+        .testTarget(name: "KickDataTests", dependencies: ["KickData"], resources: [.copy("Fixtures")]),
     ]
 )

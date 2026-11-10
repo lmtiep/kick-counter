@@ -129,6 +129,14 @@ public final class CycleLog {
     public var moodsRaw: String?
     /// Comma-separated `Symptom` raw values of both modes.
     public var symptomsRaw: String?
+    /// 1.2 (lightweight migration: defaulted / optional).
+    public var spotting: Bool = false
+    /// `SexLog.rawValue`: "unprotected" | "protected".
+    public var sexRaw: String?
+    /// `SexDrive.rawValue`: "low" | "normal" | "high".
+    public var sexDriveRaw: String?
+    /// `PregnancyTestResult.rawValue`: "negative" | "positive".
+    public var pregnancyTestRaw: String?
 
     public init(record: CycleLogRecord) {
         id = record.id
@@ -140,6 +148,10 @@ public final class CycleLog {
         flowRaw = record.flow?.rawValue
         moodsRaw = RawList.encode(record.moods, unknown: record.unknownMoodsRaw)
         symptomsRaw = RawList.encode(record.symptoms, unknown: record.unknownSymptomsRaw)
+        spotting = record.spotting
+        sexRaw = record.sex?.rawValue
+        sexDriveRaw = record.sexDrive?.rawValue
+        pregnancyTestRaw = record.pregnancyTest?.rawValue
     }
 
     public var record: CycleLogRecord {
@@ -155,6 +167,10 @@ public final class CycleLog {
             flow: flowRaw.flatMap(MenstrualFlow.init(rawValue:)),
             moods: moods.known,
             symptoms: symptoms.known,
+            spotting: spotting,
+            sex: sexRaw.flatMap(SexLog.init(rawValue:)),
+            sexDrive: sexDriveRaw.flatMap(SexDrive.init(rawValue:)),
+            pregnancyTest: pregnancyTestRaw.flatMap(PregnancyTestResult.init(rawValue:)),
             unknownMoodsRaw: moods.unknown,
             unknownSymptomsRaw: symptoms.unknown
         )
@@ -183,6 +199,18 @@ public final class CycleLog {
         let symptoms = RawList.encode(record.symptoms, unknown: record.unknownSymptomsRaw)
         if symptomsRaw != symptoms {
             symptomsRaw = symptoms
+        }
+        if spotting != record.spotting {
+            spotting = record.spotting
+        }
+        if sexRaw.flatMap(SexLog.init(rawValue:)) != record.sex {
+            sexRaw = record.sex?.rawValue
+        }
+        if sexDriveRaw.flatMap(SexDrive.init(rawValue:)) != record.sexDrive {
+            sexDriveRaw = record.sexDrive?.rawValue
+        }
+        if pregnancyTestRaw.flatMap(PregnancyTestResult.init(rawValue:)) != record.pregnancyTest {
+            pregnancyTestRaw = record.pregnancyTest?.rawValue
         }
     }
 }

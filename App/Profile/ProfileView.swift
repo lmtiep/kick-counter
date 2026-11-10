@@ -35,6 +35,7 @@ struct ProfileView: View {
     @Environment(PregnancyEnding.self) private var ending
     @Environment(\.modelContext) private var modelContext
     @Environment(BackupCenter.self) private var backup
+    @Environment(AppLock.self) private var appLock
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
@@ -136,6 +137,9 @@ struct ProfileView: View {
                     .accessibilityIdentifier("profileDoctorReport")
                     .lunaCard(padding: 0)
                     permissionsCard
+                    if AppLock.canAuthenticate {
+                        appLockCard
+                    }
                     aboutCard
                     dataCard
                     deleteAllCard
@@ -565,6 +569,33 @@ struct ProfileView: View {
             .font(.luna(.caption))
             .foregroundStyle(.luna(.textSecondary))
             .lunaCard()
+        }
+    }
+
+    /// "Khoá bằng Face ID" (1.2 spec §3): turning it on asks first; shown only when the
+    /// device can authenticate (Face ID, Touch ID or a passcode).
+    private var appLockCard: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Toggle(appLockTitle, isOn: Binding(
+                get: { appLock.isEnabled },
+                set: { on in Task { await appLock.setEnabled(on) } }
+            ))
+            .font(.luna(.body))
+            .tint(.luna(.cycleStrong))
+            .accessibilityIdentifier("profileAppLock")
+            Text(L10n.appLockFooter)
+                .font(.luna(.caption))
+                .foregroundStyle(.luna(.textSecondary))
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .lunaCard()
+    }
+
+    private var appLockTitle: String {
+        switch AppLock.kind {
+        case .faceID: L10n.appLockToggleFaceID
+        case .touchID: L10n.appLockToggleTouchID
+        case .passcode: L10n.appLockTogglePasscode
         }
     }
 
