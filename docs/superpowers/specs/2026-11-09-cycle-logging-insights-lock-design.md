@@ -152,7 +152,9 @@ bạn, không phải chẩn đoán."
   last day of the cycle is 1).
 - **Window per anchor:** the narrowest day range covering ⌈75 %⌉ of the occurrences.
   An anchor qualifies when that width ≤ 5 days. Both qualify → the narrower; tie →
-  `startDay`. Neither → not a pattern. The chosen anchor is stored with the pattern
+  the nearer end of the cycle (`daysBefore` when its window starts lower, else
+  `startDay`), so a late symptom never reads "day 26 of your period". A `startDay`
+  window starting past day 7 is worded as a day of the cycle (CI-found). Neither → not a pattern. The chosen anchor is stored with the pattern
   and is the one the Today line tests.
 - **Ranking:** ratio (cycles with item / denominator) desc, then window width asc,
   then the item's display order. Max 5.

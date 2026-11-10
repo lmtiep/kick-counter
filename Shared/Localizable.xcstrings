@@ -9827,6 +9827,23 @@
         }
       }
     },
+    "insights.pattern.cycleDay": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You often %1$@ on %2$@ of your cycle (%3$d/%4$d recent cycles)."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn hay %1$@ vào %2$@ của chu kỳ (%3$d/%4$d chu kỳ gần đây)."
+          }
+        }
+      }
+    },
     "insights.pattern.daysBefore": {
       "extractionState": "manual",
       "localizations": {

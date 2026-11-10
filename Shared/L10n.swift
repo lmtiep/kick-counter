@@ -427,7 +427,7 @@ enum L10n {
                 ? String(format: t("insights.day.one"), range.lowerBound)
                 : String(format: t("insights.day.range"), range.lowerBound, range.upperBound)
             return String(
-                format: t(bleed ? "insights.pattern.startDay.bleed" : "insights.pattern.startDay"),
+                format: t(pattern.isPastThePeriod ? "insights.pattern.cycleDay" : bleed ? "insights.pattern.startDay.bleed" : "insights.pattern.startDay"),
                 insightItem(pattern.item), when, pattern.cyclesWithItem, pattern.cyclesLogged
             )
         case .daysBefore:

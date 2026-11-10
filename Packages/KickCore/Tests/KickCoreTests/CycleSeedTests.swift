@@ -57,6 +57,7 @@ struct CycleSeedTests {
         let history = CycleHistory.make(periods: records.periods, logs: records.logs, now: now, calendar: utcCalendar)
         let insights = CycleInsights.make(history: history, logs: records.logs, calendar: utcCalendar)
         #expect(insights.patterns.map(\.item) == [.symptom(.cramps), .symptom(.headache)])
+        #expect(insights.patterns.map(\.anchor) == [.startDay, .daysBefore])
         #expect(insights.todayPattern(forecast: result)?.item == .symptom(.headache))
     }
 

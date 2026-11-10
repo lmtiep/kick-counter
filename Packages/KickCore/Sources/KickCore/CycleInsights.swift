@@ -44,6 +44,10 @@ public struct CycleInsights: Equatable, Sendable {
         public let window: ClosedRange<Int>
         public let cyclesWithItem: Int
         public let cyclesLogged: Int
+
+        /// A start-day window past day 7 is no longer in the period: worded as a
+        /// day of the cycle, not of the period.
+        public var isPastThePeriod: Bool { anchor == .startDay && window.lowerBound > 7 }
     }
 
     /// Completed cycles, oldest first, at most 12; empty with fewer than 2.
@@ -139,7 +143,11 @@ public struct CycleInsights: Equatable, Sendable {
             let beforeNext = window(daysBefore)
             let chosen: (Anchor, ClosedRange<Int>)?
             switch (fromStart, beforeNext) {
-            case let (start?, before?): chosen = width(before) < width(start) ? (.daysBefore, before) : (.startDay, start)
+            case let (start?, before?):
+                // Narrower wins; on a tie the nearer end of the cycle: "day 26" reads as
+                // a period day, "3 days before your period" does not (CI-found, 1.2).
+                let preferBefore = width(before) == width(start) ? before.lowerBound < start.lowerBound : width(before) < width(start)
+                chosen = preferBefore ? (.daysBefore, before) : (.startDay, start)
             case let (start?, nil): chosen = (.startDay, start)
             case let (nil, before?): chosen = (.daysBefore, before)
             case (nil, nil): chosen = nil

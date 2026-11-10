@@ -84,6 +84,26 @@ struct CycleInsightsTests {
         #expect(pattern.window == 2...2)
     }
 
+    /// Late in the cycle a tie goes to the next period: "3 days before", never "day 26".
+    @Test func aLateTieGoesToTheDaysBeforeThePeriod() throws {
+        let p = periods(from: "2026-06-01", lengths: [28, 28, 28])
+        let logs = (0..<3).map { CycleLogRecord(day: dayOf(p, cycle: $0, cycleDay: 26), symptoms: [.headache]) }
+        let pattern = try #require(insights(p, logs: logs, now: now(after: p)).patterns.first)
+        #expect(pattern.anchor == .daysBefore)
+        #expect(pattern.window == 3...3)
+    }
+
+    /// "Day 14 of your period" is wrong: past day 7 a start-day window is a cycle day.
+    @Test func aStartDayWindowPastDaySevenIsACycleDay() {
+        func pattern(_ anchor: CycleInsights.Anchor, _ window: ClosedRange<Int>) -> CycleInsights.Pattern {
+            CycleInsights.Pattern(item: .symptom(.cramps), anchor: anchor, window: window, cyclesWithItem: 3, cyclesLogged: 3)
+        }
+        #expect(!pattern(.startDay, 1...2).isPastThePeriod)
+        #expect(!pattern(.startDay, 7...9).isPastThePeriod)
+        #expect(pattern(.startDay, 8...9).isPastThePeriod)
+        #expect(!pattern(.daysBefore, 14...14).isPastThePeriod)
+    }
+
     @Test func threeQuartersOfTheOccurrencesSetTheWindow() throws {
         // Start days 1, 2, 2, 20: ⌈0.75 × 4⌉ = 3 → 1...2; the outlier is left out.
         let p = periods(from: "2026-06-01", lengths: [28, 28, 28, 28])

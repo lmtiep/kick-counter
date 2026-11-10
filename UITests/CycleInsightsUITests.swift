@@ -30,7 +30,8 @@ final class CycleInsightsUITests: XCTestCase {
         positive.tap()
         app.buttons["dayLogSave"].tap()
 
-        let later = app.buttons["positiveTestLater"]
+        // An alert's button shows up twice in the tree: take the first.
+        let later = app.buttons["positiveTestLater"].firstMatch
         XCTAssertTrue(later.waitForExistence(timeout: 5))
         later.tap()
         XCTAssertTrue(logToday.waitForExistence(timeout: 5))
@@ -44,7 +45,7 @@ final class CycleInsightsUITests: XCTestCase {
         XCTAssertTrue(app.buttons["dayLogSex-protected"].isSelected)
         // Saving again without a change to the test does not offer again.
         app.buttons["dayLogSave"].tap()
-        XCTAssertFalse(app.buttons["positiveTestLater"].waitForExistence(timeout: 2))
+        XCTAssertFalse(app.buttons["positiveTestLater"].firstMatch.waitForExistence(timeout: 2))
     }
 
     /// Four regular cycles with cramps on day 1 and a headache 3 days before each period.
